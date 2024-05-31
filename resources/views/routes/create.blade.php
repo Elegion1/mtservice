@@ -150,7 +150,7 @@
                             <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#editRouteModal" data-id="{{ $route->id }}"
                                 data-distance="{{ $route->distance }}" data-price="{{ $route->price }}"
-                                data-duration="{{ $route->duration }}">Modifica</button>
+                                data-duration="{{ $route->duration }}" data-price_increment="{{$route->price_increment}}">Modifica</button>
                             <form action="{{ route('routes.destroy', $route) }}" method="POST"
                                 style="display:inline-block;">
                                 @csrf
@@ -185,9 +185,14 @@
                             <input type="number" class="form-control" id="edit_price" name="price" required>
                         </div>
                         <div class="mb-3">
+                            <label for="edit_price_increment" class="form-label">Incremento di prezzo per passeggero</label>
+                            <input type="text" class="form-control" id="edit_price_increment" name="price_increment" required>
+                        </div>
+                        <div class="mb-3">
                             <label for="edit_duration" class="form-label">Tempo di Percorrenza (Minuti)</label>
                             <input type="text" class="form-control" id="edit_duration" name="duration" required>
                         </div>
+                        
                         <button type="submit" class="btn btn-primary">Salva Modifiche</button>
                     </form>
                 </div>
@@ -204,11 +209,13 @@
                 var id = button.getAttribute('data-id');
                 var distance = button.getAttribute('data-distance');
                 var price = button.getAttribute('data-price');
+                var price_increment = button.getAttribute('data-price_increment');
                 var duration = button.getAttribute('data-duration');
 
                 var modal = this;
                 modal.querySelector('#edit_distance').value = distance;
                 modal.querySelector('#edit_price').value = price;
+                modal.querySelector('#edit_price_increment').value = price_increment;
                 modal.querySelector('#edit_duration').value = duration;
 
                 var form = modal.querySelector('#editRouteForm');

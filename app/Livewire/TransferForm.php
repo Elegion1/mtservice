@@ -67,20 +67,31 @@ class TransferForm extends Component
             $incrementPrice = $route->price_increment;
             $passengers = $this->transferPassengers;
 
-            $totalPrice = $basePrice;
+            // $totalPrice = $basePrice;
 
-            if ($passengers > 4 && $passengers <= 8) {
+            // if ($passengers > 4 && $passengers <= 8) {
+            //     $totalPrice = $basePrice + $incrementPrice * ($passengers - 4);
+            // }
+
+            // if ($passengers >= 9 ) {
+            //     $totalPrice = $basePrice + $incrementPrice * ($passengers - 8);
+            //     $totalPrice = $totalPrice * 2;
+            // }
+
+            // if ($passengers >= 12) {
+            //     $totalPrice = $totalPrice + $incrementPrice * ($passengers - 8);
+            // }
+
+            if ($passengers <= 4) {
+                $totalPrice = $basePrice;
+            } elseif ($passengers <= 8) {
                 $totalPrice = $basePrice + $incrementPrice * ($passengers - 4);
+            } elseif ($passengers >= 9 && $passengers <= 12 ) {
+                $totalPrice = ($basePrice*2) + $incrementPrice * 4;
+            } elseif ($passengers > 12 || $passengers <=16) {
+                $totalPrice = ($basePrice*2) + $incrementPrice * 4 + $incrementPrice * ($passengers - 12);
             }
 
-            if ($passengers >= 9 && $passengers < 12) {
-                $totalPrice = $basePrice + $totalPrice;
-            }
-
-            if ($passengers >= 12) {
-                $totalPrice = $totalPrice + $incrementPrice * ($passengers - 8);
-            }
-            
             if ($this->andataRitorno) {
                 $totalPrice *= 2;
             }

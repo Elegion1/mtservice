@@ -11,6 +11,7 @@ class Excursion extends Model
 
     protected $fillable = [
         'name',
+        'price_increment',
         'price'
     ];
 }
