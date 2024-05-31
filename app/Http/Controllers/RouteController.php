@@ -23,7 +23,7 @@ class RouteController extends Controller
     {
         $destinations = Destination::all();
         $routes = Route::with(['departure', 'arrival'])->get();
-        return view('routes.create', compact('destinations', 'routes'));
+        return view('dashboard.route', compact('destinations', 'routes'));
     }
 
     /**
@@ -49,7 +49,7 @@ class RouteController extends Controller
         $route->price_increment = $validated['price_increment'];
         $route->save();
 
-        return redirect()->route('routes.create')->with('success', 'Rotta creata con successo!');
+        return redirect()->route('dashboard.route')->with('success', 'Rotta creata con successo!');
 
     }
 
@@ -84,7 +84,7 @@ class RouteController extends Controller
 
         $route->update($validated);
 
-        return redirect()->route('routes.create')->with('success', 'Rotta aggiornata con successo!');
+        return redirect()->route('dashboard.route')->with('success', 'Rotta aggiornata con successo!');
     }
 
     /**
@@ -94,6 +94,6 @@ class RouteController extends Controller
     {
         $route->delete();
 
-        return redirect()->route('routes.create')->with('success', 'Rotta eliminata con successo!');
+        return redirect()->route('dashboard.route')->with('success', 'Rotta eliminata con successo!');
     }
 }

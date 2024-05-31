@@ -8,19 +8,12 @@ use Illuminate\Http\Request;
 class ExcursionController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        $excursions = Excursion::all();
+        return view('dashboard.excursion', compact('excursions'));
     }
 
     /**
@@ -28,23 +21,19 @@ class ExcursionController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validated = $request->validate([
+            'name' => 'required',
+            'price' => 'required|numeric',
+            'price_increment' => 'required|numeric',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Excursion $excursion)
-    {
-        //
-    }
+        $excursion = new Excursion();
+        $excursion->name = $validated['name'];
+        $excursion->price = $validated['price'];
+        $excursion->price_increment = $validated['price_increment'];
+        $excursion->save();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Excursion $excursion)
-    {
-        //
+        return redirect()->route('dashboard.excursion')->with('success', 'Escursione creata con successo!');
     }
 
     /**
@@ -52,7 +41,15 @@ class ExcursionController extends Controller
      */
     public function update(Request $request, Excursion $excursion)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+            'price' => 'required|numeric',
+            'price_increment' => 'required|numeric',
+        ]);
+
+        $excursion->update($validated);
+
+        return redirect()->route('dashboard.excursion')->with('success', 'Escursione aggiornata con successo!');
     }
 
     /**
@@ -60,6 +57,8 @@ class ExcursionController extends Controller
      */
     public function destroy(Excursion $excursion)
     {
-        //
+        $excursion->delete();
+
+        return redirect()->route('dashboard.excursion')->with('success', 'Escursione eliminata con successo!');
     }
 }

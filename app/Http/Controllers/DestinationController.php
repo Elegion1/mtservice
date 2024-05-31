@@ -2,64 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\destination;
+use App\Models\Destination;
 use Illuminate\Http\Request;
 
 class DestinationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        $destinations = Destination::all();
+        return view('dashboard.destination', compact('destinations'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+        ]);
+
+        $destination = new Destination();
+        $destination->name = $validated['name'];
+        $destination->save();
+
+        return redirect()->route('dashboard.destination')->with('success', 'Destinazione creata con successo!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Destination $destination)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Destination $destination)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Destination $destination)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required',
+        ]);
+
+        $destination->update($validated);
+
+        return redirect()->route('dashboard.destination')->with('success', 'Destinazione aggiornata con successo!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Destination $destination)
     {
-        //
+        $destination->delete();
+
+        return redirect()->route('dashboard.destination')->with('success', 'Destinazione eliminata con successo!');
     }
 }
