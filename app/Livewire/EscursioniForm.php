@@ -10,10 +10,11 @@ class EscursioniForm extends Component
     public $excursionSelect;
     public $excursionPassengers = 1;
     public $excursionPrice = 0;
+    public $excursionDate;
 
     public function updated($field)
     {
-        if ($field === 'excursionSelect' || $field === 'excursionPassengers') {
+        if ($field === 'excursionSelect' || $field === 'excursionPassengers'||$field === 'excursionDate') {
             $this->calculatePriceExcursion();
         }
     }
@@ -44,6 +45,39 @@ class EscursioniForm extends Component
         } else {
             $this->excursionPrice = 0;
         }
+    }
+
+    public function getBookingDataExcursion()
+    {
+        return [
+            'type' => 'escursione', // Assuming 'transfer' for transfer bookings
+            'departure_id' => $this->excursionSelect, 
+            'passengers' => $this->excursionPassengers,
+
+            'date_dep' => $this->excursionDate, // Assuming you have a dateDeparture property
+
+            'price' => $this->excursionPrice,
+            // Add other relevant booking details here
+        ];
+    }
+
+    public function submitBookingExcursion()
+    {
+        $bookingData = $this->getBookingDataExcursion();
+        $departureName = Excursion::find($bookingData['departure_id'])->name;
+        
+        $bookingData['departure_name'] = $departureName;
+        
+
+        // Formattare la data di partenza
+        $departureDate = date('D d F Y', strtotime($bookingData['date_dep']));
+        $bookingData['date_departure'] = $departureDate;
+
+        $departureTime = date('H:i', strtotime($bookingData['date_dep']));
+        $bookingData['time_departure'] = $departureTime;
+
+
+        $this->dispatch('bookingSubmitted', $bookingData);
     }
 
     public function render()

@@ -14,6 +14,8 @@ class TransferForm extends Component
     public $transferPrice;
     public $solaAndata = true;
     public $andataRitorno = false;
+    public $dateDeparture;
+    public $dateReturn;
 
     public function mount()
     {
@@ -23,17 +25,10 @@ class TransferForm extends Component
 
     public function updated($field)
     {
-        if ($field === 'return' || $field === 'transferPassengers' || $field === 'solaAndata' || $field === 'andataRitorno') {
+        if ($field === 'departure' || $field === 'return' || $field === 'transferPassengers' || $field === 'solaAndata' || $field === 'andataRitorno') {
             $this->calculatePrice();
         }
     }
-
-    // public function updated($field)
-    // {
-    //     if (in_array($field, ['return', 'transferPassengers', 'solaAndata', 'andataRitorno'])) {
-    //         $this->calculatePrice();
-    //     }
-    // }
 
     public function setSolaAndata()
     {
@@ -67,29 +62,14 @@ class TransferForm extends Component
             $incrementPrice = $route->price_increment;
             $passengers = $this->transferPassengers;
 
-            // $totalPrice = $basePrice;
-
-            // if ($passengers > 4 && $passengers <= 8) {
-            //     $totalPrice = $basePrice + $incrementPrice * ($passengers - 4);
-            // }
-
-            // if ($passengers >= 9 ) {
-            //     $totalPrice = $basePrice + $incrementPrice * ($passengers - 8);
-            //     $totalPrice = $totalPrice * 2;
-            // }
-
-            // if ($passengers >= 12) {
-            //     $totalPrice = $totalPrice + $incrementPrice * ($passengers - 8);
-            // }
-
             if ($passengers <= 4) {
                 $totalPrice = $basePrice;
             } elseif ($passengers <= 8) {
                 $totalPrice = $basePrice + $incrementPrice * ($passengers - 4);
-            } elseif ($passengers >= 9 && $passengers <= 12 ) {
-                $totalPrice = ($basePrice*2) + $incrementPrice * 4;
-            } elseif ($passengers > 12 || $passengers <=16) {
-                $totalPrice = ($basePrice*2) + $incrementPrice * 4 + $incrementPrice * ($passengers - 12);
+            } elseif ($passengers >= 9 && $passengers <= 12) {
+                $totalPrice = ($basePrice * 2) + $incrementPrice * 4;
+            } elseif ($passengers > 12 || $passengers <= 16) {
+                $totalPrice = ($basePrice * 2) + $incrementPrice * 4 + $incrementPrice * ($passengers - 12);
             }
 
             if ($this->andataRitorno) {
@@ -102,6 +82,53 @@ class TransferForm extends Component
             $this->transferPrice = 0;
         }
     }
+
+    public function getBookingDataTransfer()
+    {
+        return [
+            'type' => 'transfer', // Assuming 'transfer' for transfer bookings
+            'departure_id' => $this->departure,
+            'arrival_id' => $this->return,
+            'passengers' => $this->transferPassengers,
+            'sola_andata' => $this->solaAndata,
+            'date_dep' => $this->dateDeparture, // Assuming you have a dateDeparture property
+            'date_ret' => $this->dateReturn,  // Assuming you have a dateReturn property (if applicable)
+            'price' => $this->transferPrice,
+            // Add other relevant booking details here
+        ];
+    }
+
+    public function submitBookingTransfer()
+    {
+        $bookingData = $this->getBookingDataTransfer();
+        $departureName = Destination::find($bookingData['departure_id'])->name;
+        $arrivalName = Destination::find($bookingData['arrival_id'])->name;
+        $bookingData['departure_name'] = $departureName;
+        $bookingData['arrival_name'] = $arrivalName;
+        $route = Route::where('departure_id', $this->departure)->where('arrival_id', $this->return)->first();
+       
+        $bookingData['duration'] = $route->duration;
+
+        // Formattare la data di partenza
+        $departureDate = date('D d F Y', strtotime($bookingData['date_dep']));
+        $bookingData['date_departure'] = $departureDate;
+        
+        $departureTime = date('H:i', strtotime($bookingData['date_dep']));
+        $bookingData['time_departure'] = $departureTime;
+        
+        // Se c'è una data di ritorno, formattarla
+        if (!empty($bookingData['date_ret'])) {
+
+            $returnDate = date('D d F Y', strtotime($bookingData['date_ret']));
+            $bookingData['date_return'] = $returnDate;
+
+            $returnTime = date('H:i', strtotime($bookingData['date_ret']));
+            $bookingData['time_return'] = $returnTime;
+        }
+
+        $this->dispatch('bookingSubmitted', $bookingData);
+    }
+
 
     public function render()
     {

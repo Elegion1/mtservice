@@ -6,7 +6,8 @@ use Livewire\Component;
 
 class Prenotazione extends Component
 {
-    public $currentForm = 'escursioni';
+    public $currentForm = 'transfer';
+    public $bookingData = []; // Inizializza come array vuoto
 
     public function showEscursioni()
     {
@@ -18,8 +19,21 @@ class Prenotazione extends Component
         $this->currentForm = 'transfer';
     }
 
+    
     public function render()
     {
-        return view('livewire.prenotazione');
+        return view('livewire.prenotazione', [
+            'bookingData' => $this->bookingData,
+        ]);
+    }
+
+    protected $listeners = [
+        'bookingSubmitted' => 'showBookingSummary',
+    ];
+
+    public function showBookingSummary($bookingData)
+    {
+        $this->bookingData = $bookingData;
+        $this->currentForm = 'bookingSummary'; // Passa al modulo di riepilogo prenotazione
     }
 }

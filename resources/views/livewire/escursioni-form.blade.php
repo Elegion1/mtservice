@@ -1,6 +1,6 @@
 <div>
     <div class="container w-50 mx-auto my-3 p-5 border rounded shadow">
-        <form>
+        <form wire:submit="submitBookingExcursion"  >
             <h1>Prenota Escursione</h1>
 
             <div class="mb-3 row">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="col-6">
                     <label class="form-label" for="dateExcursion">Andata</label>
-                    <input type="datetime-local" class="form-control" id="dateExcursion">
+                    <input wire:model.live="excursionDate" type="datetime-local" class="form-control" id="dateExcursion">
                 </div>
 
             </div>
@@ -34,9 +34,9 @@
                 <div class="col-6 d-grid">
                     <button type="submit" class="btn bg-a text-white">Prenota</button>
                 </div>
-                
             </div>
         </form>
     </div>
-</div>
 
+ 
+</div>

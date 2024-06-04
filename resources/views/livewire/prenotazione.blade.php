@@ -19,6 +19,7 @@
         @livewire('escursioni-form')
     @elseif ($currentForm == 'transfer')
         @livewire('transfer-form')
+    @elseif ($currentForm == 'bookingSummary')
+        @livewire('booking-summary', ['bookingData' => $bookingData])
     @endif
 </div>
-

@@ -11,18 +11,37 @@
 </head>
 
 <body>
-    <nav>
-        <div class="container px-5 py-1">
-            <ul class="d-flex align-items-center justify-content-evenly list-unstyled">
-                <li><a class="btn btn-danger" href="{{ route('dashboard.route') }}">Rotte</a></li>
-                <li><a class="btn btn-danger" href="{{ route('dashboard.destination') }}">Destinazioni</a></li>
-                <li><a class="btn btn-danger" href="{{ route('dashboard.excursion') }}">Escursioni</a></li>
-                <li><a class="btn btn-danger" href="">link</a></li>
-            </ul>
-        </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-1">
+                <nav>
+                    <div class=" my-5">
+                        <ul class="d-flex align-items-start list-unstyled flex-column">
+                            <li>
+                                <a class="btn btn-danger my-3" href="{{ route('dashboard.route') }}">Tratte</a>
+                            </li>
+                            <li>
+                                <a class="btn btn-danger my-3" href="{{ route('dashboard.destination') }}">Destinazioni</a>
 
-    </nav>
-    {{ $slot }}
+                            </li>
+                            <li>
+                                <a class="btn btn-danger my-3" href="{{ route('dashboard.excursion') }}">Escursioni</a>
+                            </li>
+                            <li>
+                                <a class="btn btn-danger my-3" href="">link</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </nav>
+            </div>
+            <div class="col-11">
+                {{ $slot }}
+            </div>
+        </div>
+    </div>
+
+
 </body>
 
 </html>

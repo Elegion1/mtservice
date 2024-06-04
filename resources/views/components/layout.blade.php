@@ -6,12 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>TRANCHIDA Transfer & Rent</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
 </head>
 <body>
     <x-nav/>
     <x-masthead/>
-    {{$slot}}
+    {{ $slot }}
     <x-footer/>
 </body>
 </html>

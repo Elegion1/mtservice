@@ -7,7 +7,9 @@ use App\Http\Controllers\ExcursionController;
 use App\Http\Controllers\DestinationController;
 
 Route::get('/', [PublicController::class, 'home'])->name('home');
+Route::get('/dashboard', [PublicController::class, 'dashboard'])->name('dashboard');
 
+// DASHBOARD
 // Gestione rotte
 Route::get('/dashboard/routes', [RouteController::class, 'create'])->name('dashboard.route');
 Route::post('dashboard/routes', [RouteController::class, 'store'])->name('routes.store');
@@ -25,3 +27,4 @@ Route::get('/dashboard/excursions', [ExcursionController::class, 'create'])->nam
 Route::post('dashboard/excursions', [ExcursionController::class, 'store'])->name('excursions.store');
 Route::put('dashboard/excursions/{excursion}', [ExcursionController::class, 'update'])->name('excursions.update');
 Route::delete('dashboard/excursions/{excursion}', [ExcursionController::class, 'destroy'])->name('excursions.destroy');
+
