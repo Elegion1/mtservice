@@ -78,9 +78,13 @@
                         <td>{{ $route->duration }} Min</td>
                         <td>
                             <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#editRouteModal" data-id="{{ $route->id }}"
-                                data-distance="{{ $route->distance }}" data-price="{{ $route->price }}"
-                                data-duration="{{ $route->duration }}" data-price_increment="{{$route->price_increment}}">Modifica</button>
+                                data-bs-target="#editRouteModal" 
+                                data-id="{{ $route->id }}"
+                                data-distance="{{ $route->distance }}" 
+                                data-price="{{ $route->price }}"
+                                data-duration="{{ $route->duration }}" 
+                                data-price_increment="{{$route->price_increment}}"
+                                data-name="{{ $route->departure->name }} - {{ $route->arrival->name }}">Modifica</button>
                             <form action="{{ route('routes.destroy', $route) }}" method="POST"
                                 style="display:inline-block;">
                                 @csrf
@@ -104,6 +108,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="editRouteForm" action="" method="POST">
+                        <p id="route_name"></p>
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
@@ -141,12 +146,15 @@
                 var price = button.getAttribute('data-price');
                 var price_increment = button.getAttribute('data-price_increment');
                 var duration = button.getAttribute('data-duration');
+                var name = button.getAttribute('data-name');
 
                 var modal = this;
                 modal.querySelector('#edit_distance').value = distance;
                 modal.querySelector('#edit_price').value = price;
                 modal.querySelector('#edit_price_increment').value = price_increment;
                 modal.querySelector('#edit_duration').value = duration;
+                modal.querySelector('#edit_duration').value = duration;
+                modal.querySelector('#route_name').innerHTML = name;
 
                 var form = modal.querySelector('#editRouteForm');
                 form.action = '/routes/' + id;

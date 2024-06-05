@@ -1,5 +1,5 @@
 <div>
-    <div class="container w-50 mx-auto my-3 p-5 border rounded shadow">
+    <div class="container ">
         <form wire:submit="submitBookingTransfer" >
             <h1>Prenota Transfer</h1>
 
@@ -46,11 +46,11 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <label class="form-label" for="dateDeparture">Andata</label>
                     <input wire:model.live="dateDeparture" type="datetime-local" class="form-control" id="dateDeparture">
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <label class="form-label" for="dateReturn">Ritorno</label>
                     <input wire:model.live="dateReturn" type="datetime-local" class="form-control" id="dateReturn" {{ $solaAndata ? 'disabled' : '' }}>
                 </div>
@@ -58,7 +58,7 @@
             <div class="row mb-3 align-items-end">
                 <div class="col-6">
                     <label for="transferPrice" class="form-label">Totale</label>
-                    <input wire:model.live="transferPrice" readonly type="text" class="form-control" id="transferPrice" value="">
+                    <input wire:model.live="transferPrice" readonly type="text" class="form-control" id="transferPrice" value="€">
                 </div>
                 <div class="col-6 d-grid">
                     <button type="submit" class="btn bg-a text-white">Prenota</button>

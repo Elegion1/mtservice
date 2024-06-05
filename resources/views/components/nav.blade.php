@@ -1,12 +1,12 @@
 <nav class="navbar navbar-expand-lg bg-b">
     <div class="container-fluid overflow-x-hidden">
         <div class="row">
-            <div class="col-6">
-                <a class="navbar-brand" href="#">
-                    <img width="200px" src="./media/logo.png" alt="">
+            <div class="col-12 col-md-6">
+                <a class="navbar-brand" href="{{route('home')}}">
+                    <img width="200px" src="/media/logo.png" alt="">
                 </a>
             </div>
-            <div class="col-6 d-flex align-content-center justify-content-evenly">
+            <div class="col-12 col-md-6 d-flex align-content-center justify-content-evenly">
                 <div>
                     <a class="btn shadow rounded-pill bg-c" href="tel:+383931181111">
                         +39 393 11 81 111
@@ -25,7 +25,7 @@
                             <a class="nav-link active" aria-current="page" href="#">TRANSFER</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">NOLEGGIO AUTO</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('noleggio')}}">NOLEGGIO AUTO</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">ESCURSIONI</a>

@@ -28,7 +28,10 @@
                                 <a class="btn btn-danger my-3" href="{{ route('dashboard.excursion') }}">Escursioni</a>
                             </li>
                             <li>
-                                <a class="btn btn-danger my-3" href="">link</a>
+                                <a class="btn btn-danger my-3" href="{{ route('dashboard.car') }}">Auto</a>
+                            </li>
+                            <li>
+                                <a class="btn btn-danger my-3" href="{{route('home')}}">Torna al sito</a>
                             </li>
                         </ul>
                     </div>

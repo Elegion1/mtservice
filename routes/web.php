@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\PublicController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\DestinationController;
 
 Route::get('/', [PublicController::class, 'home'])->name('home');
 Route::get('/dashboard', [PublicController::class, 'dashboard'])->name('dashboard');
+Route::get('/noleggio/auto', [PublicController::class, 'noleggio'])->name('noleggio');
 
 // DASHBOARD
 // Gestione rotte
@@ -27,4 +29,10 @@ Route::get('/dashboard/excursions', [ExcursionController::class, 'create'])->nam
 Route::post('dashboard/excursions', [ExcursionController::class, 'store'])->name('excursions.store');
 Route::put('dashboard/excursions/{excursion}', [ExcursionController::class, 'update'])->name('excursions.update');
 Route::delete('dashboard/excursions/{excursion}', [ExcursionController::class, 'destroy'])->name('excursions.destroy');
+
+// Gestione auto
+Route::get('/dashboard/cars', [CarController::class, 'create'])->name('dashboard.car');
+Route::post('/dashboard/cars', [CarController::class, 'store'])->name('cars.store');
+Route::put('/dashboard/cars/{car}', [CarController::class, 'update'])->name('cars.update');
+Route::delete('/dashboard/cars/{car}', [CarController::class, 'destroy'])->name('cars.destroy');
 

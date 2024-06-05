@@ -13,4 +13,8 @@ class PublicController extends Controller
     public function dashboard() {
         return view('dashboard.index');
     }
+
+    public function noleggio() {
+        return view('noleggio-auto');
+    }
 }

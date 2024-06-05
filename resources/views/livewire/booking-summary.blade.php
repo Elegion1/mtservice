@@ -1,5 +1,5 @@
 <div>
-    <div class="container w-50 mx-auto my-3 p-5 border rounded shadow">
+    <div class="container">
         <div class="container-fluid m-0 p-0">
             @if ($bookingData['type'] == 'transfer')
                 <h1>Riepilogo Prenotazione</h1>
@@ -66,6 +66,31 @@
                     <span class="text-primary"> {{ $bookingData['price'] ?? 'N/A' }} €</span>
                 </p>
             @endif
+            @if ($bookingData['type'] == 'noleggio')
+                <h1>Riepilogo Prenotazione</h1>
+
+                <p>Tipologia:
+                    <span class="text-primary"> {{ ucfirst($bookingData['type']) }} </span>
+
+                    <span class="text-primary"> {{ $bookingData['car_name'] ?? 'N/A' }}
+                        {{ $bookingData['car_description'] ?? 'N/A' }} </span>
+                </p>
+
+                <p>
+                    Data di ritiro:
+                    <span class="text-primary"> {{ $bookingData['date_start'] ?? 'N/A' }} </span>
+                    data di consegna:
+                    <span class="text-primary"> {{ $bookingData['date_end'] ?? 'N/A' }} </span>
+                </p>
+
+                <p>Quantità:
+                    <span class="text-primary"> {{ $bookingData['quantity'] ?? 'N/A' }} </span>
+                </p>
+                <p>
+                    Prezzo Totale:
+                    <span class="text-primary"> {{ $bookingData['price'] ?? 'N/A' }} €</span>
+                </p>
+            @endif
         </div>
         <form wire:submit.prevent="confirmBooking">
             <h6 class="text-primary">DATI PERSONALI</h6>
@@ -102,7 +127,7 @@
             <div class="mb-3">
                 <textarea class="form-control" id="body" wire:model="body">Inserisci delle note</textarea>
             </div>
-            <div class="container-fluid m-0 p-0 d-flex justify-content-end">
+            <div class="container-fluid m-0 p-0 d-flex justify-content-center align-items-center">
                 <button type="submit" class="btn bg-a text-white">Conferma Prenotazione</button>
 
             </div>

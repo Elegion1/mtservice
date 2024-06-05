@@ -1,5 +1,5 @@
 <div>
-    <div class="container w-50 mx-auto my-3 p-5 border rounded shadow">
+    <div class="container">
         <form wire:submit="submitBookingExcursion"  >
             <h1>Prenota Escursione</h1>
 
