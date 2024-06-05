@@ -14,6 +14,8 @@ class CarRent extends Component
     public $carID;
     public $rentPrice;
 
+    
+
     public function updated($field)
     {
         if ($field === 'dateStart' || $field === 'dateEnd' || $field === 'quantity' || $field === 'carID') {
@@ -67,18 +69,22 @@ class CarRent extends Component
 
     public function submitBookingRent()
     {
-        $bookingData = $this->getBookingDataRent();
-        $carName = Car::find($bookingData['car_ID'])->name;
-        $bookingData['car_name'] = $carName;
+        $this->calculatePriceRent();
 
-        // Formattare la data di ritiro
-        $startDate = date('D d F Y', strtotime($bookingData['date_start']));
-        $bookingData['start_date'] = $startDate;
+        $bookingData = [
+            'type' => 'noleggio',
+            'car_id' => $this->carID,
+            'date_start' => $this->dateStart,
+            'date_end' => $this->dateEnd,
+            'quantity' => $this->quantity,
+            'price' => $this->rentPrice,
+        ];
 
-        // Formattare la data di consegna
-        $endDate = date('D d F Y', strtotime($bookingData['date_end']));
-        $bookingData['end_date'] = $endDate;
-
+        $car = Car::find($this->carID);
+        if ($car) {
+            $bookingData['car_name'] = $car->name;
+            $bookingData['car_description'] = $car->description;
+        }
 
         $this->dispatch('bookingSubmitted', $bookingData);
     }

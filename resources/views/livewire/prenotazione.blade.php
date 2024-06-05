@@ -6,16 +6,21 @@
                     class="btn m-1
                     @if ($currentForm == 'escursioni') bg-b text-white
                     @elseif ($currentForm == 'transfer') bg-a text-white
-                    @else bg-b text-white 
-                    @endif"
+                    @else bg-b text-white @endif"
                     wire:click="showTransfer">Prenota Transfer</button>
                 <button type="button"
                     class="btn m-1
                     @if ($currentForm == 'transfer') bg-b text-white 
                     @elseif ($currentForm == 'escursioni') bg-a text-white
-                    @else bg-b text-white 
-                    @endif"
+                    @else bg-b text-white @endif"
                     wire:click="showEscursioni">Prenota Escursioni</button>
+                <button type="button"
+                    class="btn m-1
+                    @if ($currentForm == 'transfer') bg-b text-white 
+                    @elseif ($currentForm == 'escursioni') bg-b text-white
+                    @elseif ($currentForm == 'noleggio') bg-a text-white
+                    @else bg-b text-white @endif"
+                    wire:click="showRent">Noleggio Auto</button>
             </div>
 
 
@@ -24,6 +29,8 @@
                     @livewire('escursioni-form')
                 @elseif ($currentForm == 'transfer')
                     @livewire('transfer-form')
+                @elseif ($currentForm == 'noleggio')
+                    @livewire('car-rent')
                 @elseif ($currentForm == 'bookingSummary')
                     @livewire('booking-summary', ['bookingData' => $bookingData])
                 @endif

@@ -2,10 +2,8 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <form wire:submit="submitBookingRent" action="">
-                    @csrf
+                <form wire:submit.prevent="submitBookingRent">
                     <div class="mb-3 row bg-b p-2 rounded">
-
                         <div class="col-12 col-md-5">
                             <label class="form-label" for="dateStart">Data di ritiro</label>
                             <input wire:model.live="dateStart" type="date" class="form-control" id="dateStart">
@@ -20,20 +18,18 @@
                                 min="1" max="5">
                         </div>
                     </div>
-                    <div class="container">
+                    <div class="container p-md-3">
                         <p><strong>SELEZIONA UN MEZZO</strong></p>
                         @foreach ($cars as $car)
-                            <div
-                                class="form-check border rounded mb-3 row d-flex justify-content-between align-items-center">
+                            <div class="form-check border rounded mb-3 row d-flex justify-content-between align-items-center">
                                 <div class="col-1">
-                                    <input wire:model.live="carID" value="{{ $car->id }}"
-                                        class="form-check-input" type="radio" name="flexRadioDefault"
-                                        id="car{{ $car->id }}">
+                                    <input wire:model.live="carID" value="{{ $car->id }}" class="form-check-input"
+                                        type="radio" name="flexRadioDefault" id="car{{ $car->id }}">
                                 </div>
                                 <div class="col-3 p-1 my-auto">
-                                    <img width="100px" src="{{ Storage::url($car->img) }}" alt="">
+                                    <img width="80px" src="{{ Storage::url($car->img) }}" alt="">
                                 </div>
-                                <div class="col-4 d-flex align-items-center justify-content-center flex-column">
+                                <div class="col-4 text-center text-md-start d-flex   flex-column">
                                     <p class="m-1 h6">{{ $car->name }}</p>
                                     <p><small>{{ $car->description }}</small></p>
                                 </div>
@@ -44,15 +40,12 @@
                             </div>
                         @endforeach
                     </div>
-                    <div class="container">
-                        <div class="row">
-                            <p><strong>TOTALE</strong></p>
-                            <div class="col-6">
-                                <input wire:model.live="rentPrice" class="form-control" type="text" value="" aria-label="readonly input example" readonly>
-                            </div>
-                            <div class="col-6">
-                                <button class="btn bg-a text-white" type="submit">Prenota</button>
-                            </div>
+                    <div class="container-fluid">
+                        <p><strong>TOTALE</strong></p>
+                        <div class="d-flex justify-content-between mb-3">
+                            <input wire:model.live="rentPrice" class="form-control mx-1" type="text"
+                                aria-label="readonly input example" readonly>
+                            <button class="btn bg-a text-white mx-1" type="submit">Prenota</button>
                         </div>
                     </div>
                 </form>

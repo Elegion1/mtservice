@@ -1,7 +1,7 @@
 <x-dashboard-layout>
 
     <div class="container mt-5">
-        <h1>Crea Nuova Rotta</h1>
+        <h1>Crea Nuova Tratta</h1>
 
         @if (session('success'))
             <div class="alert alert-success">

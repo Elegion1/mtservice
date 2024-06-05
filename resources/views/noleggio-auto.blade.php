@@ -21,7 +21,10 @@
                     amet consectetur adipisicing elit. Corporis natus cum fugiat error neque hic, dignissimos eos,
                     dolores iusto consequatur aliquam. Repellat harum in fugit iusto ut saepe voluptas natus.
                 </p>
-                <livewire:car-rent />
+                @livewire('car-rent')
+                @if (session()->has('bookingData'))
+                    @livewire('booking-summary', ['bookingData' => session('bookingData')])
+                @endif
 
             </div>
         </div>

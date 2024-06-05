@@ -17,21 +17,21 @@
                 <nav>
                     <div class=" my-5">
                         <ul class="d-flex align-items-start list-unstyled flex-column">
-                            <li>
-                                <a class="btn btn-danger my-3" href="{{ route('dashboard.route') }}">Tratte</a>
+                            <li class="border rounded py-2 my-3 text-center w-100">
+                                <a class="my-3 text-decoration-none" href="{{ route('dashboard.route') }}">Tratte</a>
                             </li>
-                            <li>
-                                <a class="btn btn-danger my-3" href="{{ route('dashboard.destination') }}">Destinazioni</a>
+                            <li class="border rounded py-2 my-3 text-center w-100">
+                                <a class="my-3 text-decoration-none" href="{{ route('dashboard.destination') }}">Destinazioni</a>
 
                             </li>
-                            <li>
-                                <a class="btn btn-danger my-3" href="{{ route('dashboard.excursion') }}">Escursioni</a>
+                            <li class="border rounded py-2 my-3 text-center w-100">
+                                <a class="my-3 text-decoration-none" href="{{ route('dashboard.excursion') }}">Escursioni</a>
                             </li>
-                            <li>
-                                <a class="btn btn-danger my-3" href="{{ route('dashboard.car') }}">Auto</a>
+                            <li class="border rounded py-2 my-3 text-center w-100">
+                                <a class="my-3 text-decoration-none" href="{{ route('dashboard.car') }}">Auto</a>
                             </li>
-                            <li>
-                                <a class="btn btn-danger my-3" href="{{route('home')}}">Torna al sito</a>
+                            <li class="border rounded py-2 my-3 text-center w-100">
+                                <a class="my-3 text-decoration-none" href="{{route('home')}}">Torna al sito</a>
                             </li>
                         </ul>
                     </div>

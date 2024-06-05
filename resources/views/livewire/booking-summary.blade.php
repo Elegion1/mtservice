@@ -83,10 +83,9 @@
                     <span class="text-primary"> {{ $bookingData['date_end'] ?? 'N/A' }} </span>
                 </p>
 
-                <p>Quantità:
-                    <span class="text-primary"> {{ $bookingData['quantity'] ?? 'N/A' }} </span>
-                </p>
                 <p>
+                    Quantità:
+                    <span class="text-primary"> {{ $bookingData['quantity'] ?? 'N/A' }} </span>
                     Prezzo Totale:
                     <span class="text-primary"> {{ $bookingData['price'] ?? 'N/A' }} €</span>
                 </p>

@@ -19,7 +19,12 @@ class Prenotazione extends Component
         $this->currentForm = 'transfer';
     }
 
-    
+    public function showRent()
+    {
+        $this->currentForm = 'noleggio';
+    }
+
+
     public function render()
     {
         return view('livewire.prenotazione', [

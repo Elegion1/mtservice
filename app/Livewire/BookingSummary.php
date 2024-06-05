@@ -10,14 +10,11 @@ class BookingSummary extends Component
 
     public function mount($bookingData)
     {
-        
         $this->bookingData = $bookingData;
     }
 
     public function render()
     {
-        return view('livewire.booking-summary', [
-            'bookingData' => $this->bookingData,
-        ]);
+        return view('livewire.booking-summary');
     }
 }
