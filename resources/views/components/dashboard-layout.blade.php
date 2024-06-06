@@ -11,39 +11,65 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-1">
-                <nav>
-                    <div class=" my-5">
-                        <ul class="d-flex align-items-start list-unstyled flex-column">
-                            <li class="border rounded py-2 my-3 text-center w-100">
-                                <a class="my-3 text-decoration-none" href="{{ route('dashboard.route') }}">Tratte</a>
-                            </li>
-                            <li class="border rounded py-2 my-3 text-center w-100">
-                                <a class="my-3 text-decoration-none" href="{{ route('dashboard.destination') }}">Destinazioni</a>
+    @auth
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-md-1 position-fixed">
+                    <nav>
+                        <p>
+                            Benvenuto: {{Auth::user()->email}}</p>
+                        <div class=" my-5">
+                            <ul class="d-flex align-items-start list-unstyled flex-md-column justify-content-center justify-content-md-evenly">
+                                <li class="border rounded py-2 my-3 text-center w-100">
+                                    <a class="my-3 text-decoration-none" href="{{ route('dashboard.route') }}">Tratte</a>
+                                </li>
+                                <li class="border rounded py-2 my-3 text-center w-100">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.destination') }}">Destinazioni</a>
 
-                            </li>
-                            <li class="border rounded py-2 my-3 text-center w-100">
-                                <a class="my-3 text-decoration-none" href="{{ route('dashboard.excursion') }}">Escursioni</a>
-                            </li>
-                            <li class="border rounded py-2 my-3 text-center w-100">
-                                <a class="my-3 text-decoration-none" href="{{ route('dashboard.car') }}">Auto</a>
-                            </li>
-                            <li class="border rounded py-2 my-3 text-center w-100">
-                                <a class="my-3 text-decoration-none" href="{{route('home')}}">Torna al sito</a>
-                            </li>
-                        </ul>
-                    </div>
+                                </li>
+                                <li class="border rounded py-2 my-3 text-center w-100">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.excursion') }}">Escursioni</a>
+                                </li>
+                                <li class="border rounded py-2 my-3 text-center w-100">
+                                    <a class="my-3 text-decoration-none" href="{{ route('dashboard.car') }}">Auto</a>
+                                </li>
+                                <li class="border rounded py-2 my-3 text-center w-100">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.review') }}">Recensioni</a>
+                                </li>
+                                <li class="border rounded py-2 my-3 text-center w-100">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.booking') }}">Prenotazioni</a>
+                                </li>
+                                <li class="border rounded py-2 my-3 text-center w-100">
+                                    <a class="my-3 text-decoration-none" href="{{ route('home') }}">Torna al sito</a>
+                                </li>
+                                <li class="border rounded py-2 my-3 text-center w-100">
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button class="btn text-primary" type="submit"></i>Logout
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </div>
 
-                </nav>
-            </div>
-            <div class="col-11">
-                {{ $slot }}
+                    </nav>
+                </div>
+                <div class="col-1">
+
+                </div>
+                <div class="col-11">
+                    {{ $slot }}
+                </div>
             </div>
         </div>
-    </div>
-
+    @endauth
+    @guest
+        {{$slot}}
+    @endguest
 
 </body>
 

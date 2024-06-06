@@ -1,7 +1,7 @@
 <x-dashboard-layout>
 
     <div class="container mt-5">
-        <h1>Crea Nuova Tratta</h1>
+        <h1>Gestione Tratte</h1>
 
         @if (session('success'))
             <div class="alert alert-success">
@@ -47,7 +47,7 @@
                     <input type="number" class="form-control" id="price_increment" name="price_increment">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Crea Rotta</button>
+            <button type="submit" class="btn btn-primary">Aggiungi tratta</button>
         </form>
 
         <hr>

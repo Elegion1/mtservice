@@ -3,11 +3,25 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Illuminate\Support\Facades\Route;
 
 class Prenotazione extends Component
 {
     public $currentForm = 'transfer';
     public $bookingData = []; // Inizializza come array vuoto
+
+    public function mount()
+    {
+        if (Route::currentRouteName() == 'noleggio') {
+            $this->showRent();
+        }
+        if (Route::currentRouteName() == 'transfer') {
+            $this->showTransfer();
+        }
+        if (Route::currentRouteName() == 'escursioni') {
+            $this->showEscursioni();
+        }
+    }
 
     public function showEscursioni()
     {

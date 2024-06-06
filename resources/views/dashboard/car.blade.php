@@ -1,6 +1,6 @@
 <x-dashboard-layout>
     <div class="container mt-5">
-        <h1>Crea Nuova Auto</h1>
+        <h1>Gestione Auto</h1>
 
         @if (session('success'))
             <div class="alert alert-success">
@@ -28,7 +28,7 @@
                     <input type="number" class="form-control" id="price" name="price" required>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Crea Auto</button>
+            <button type="submit" class="btn btn-primary">Aggiungi Auto</button>
         </form>
         <hr>
         <h2>Tutte le Auto</h2>

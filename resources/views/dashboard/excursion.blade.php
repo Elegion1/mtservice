@@ -1,6 +1,6 @@
 <x-dashboard-layout>
     <div class="container mt-5">
-        <h1>Crea Nuova Escursione</h1>
+        <h1>Gestione Escursioni</h1>
 
         @if (session('success'))
             <div class="alert alert-success">
@@ -24,7 +24,7 @@
                     <input type="number" step="0.01" class="form-control" id="price_increment" name="price_increment" required>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Crea Escursione</button>
+            <button type="submit" class="btn btn-primary">Aggiungi Escursione</button>
         </form>
         <hr>
         <h2>Tutte le Escursioni</h2>

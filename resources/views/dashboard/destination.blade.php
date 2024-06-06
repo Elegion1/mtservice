@@ -1,6 +1,6 @@
 <x-dashboard-layout>
     <div class="container mt-5">
-        <h1>Crea Nuova Destinazione</h1>
+        <h1>Gestione Destinazioni</h1>
 
         @if (session('success'))
             <div class="alert alert-success">
@@ -16,7 +16,7 @@
                     <input type="text" class="form-control" id="name" name="name" required>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Crea Destinazione</button>
+            <button type="submit" class="btn btn-primary">Aggiungi Destinazione</button>
         </form>
         <hr>
         <h2>Tutte le Destinazioni</h2>

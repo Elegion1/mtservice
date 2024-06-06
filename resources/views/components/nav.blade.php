@@ -2,7 +2,7 @@
     <div class="container-fluid overflow-x-hidden">
         <div class="row">
             <div class="col-12 col-md-6">
-                <a class="navbar-brand" href="{{route('home')}}">
+                <a class="navbar-brand" href="{{ route('home') }}">
                     <img width="200px" src="/media/logo.png" alt="">
                 </a>
             </div>
@@ -22,19 +22,23 @@
                 <div class="d-flex align-items-center justify-content-center">
                     <ul class="navbar-nav mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">TRANSFER</a>
+                            <a class="nav-link active" aria-current="page" href="{{ route('transfer') }}">TRANSFER</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{route('noleggio')}}">NOLEGGIO AUTO</a>
+                            <a class="nav-link active" aria-current="page"
+                                href="{{ route('escursioni') }}">ESCURSIONI</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">ESCURSIONI</a>
+                            <a class="nav-link active" aria-current="page" href="{{ route('noleggio') }}">NOLEGGIO
+                                AUTO</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">PREZZI E DESTINAZIONI</a>
+                            <a class="nav-link active" aria-current="page"
+                                href="{{ route('prezziDestinazioni') }}">PREZZI E DESTINAZIONI</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">DICONO DI NOI</a>
+                            <a class="nav-link active" aria-current="page" href="{{ route('diconoDiNoi') }}">DICONO DI
+                                NOI</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">FAQ</a>
@@ -46,7 +50,7 @@
                             <a class="nav-link active" aria-current="page" href="#">CONTATTI</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{route('dashboard')}}">Dashboard</a>
+                            <a class="nav-link active" aria-current="page" href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
 
                     </ul>
