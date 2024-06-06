@@ -31,7 +31,7 @@ class BookingConfirmation extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Booking Confirmation',
+            subject: 'Riepilogo prenotazione',
         );
     }
 
@@ -52,8 +52,9 @@ class BookingConfirmation extends Mailable
      */
     public function attachments(): array
     {
+        $filename = 'booking_' . now()->format('YmdHis') . '.pdf';
         return [
-            Attachment::fromData(fn() => $this->pdf, 'booking_summary.pdf')->withMime('application/pdf')
+            Attachment::fromData(fn() => $this->pdf, $filename)->withMime('application/pdf')
         ];
     }
 }

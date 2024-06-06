@@ -10,7 +10,7 @@
             <small>91027 Paceco (TP)</small><br>
             <small>P.IVA: 02644360816</small><br>
             <small>C.F.: TRN NNN 73 R04 G208I</small><br>
-            <small>Cell.: <a href="tel:+393283650762">+39 328 36 50 762</a></small><br>
+            {{-- <small>Cell.: <a href="tel:+393283650762">+39 328 36 50 762</a></small><br> --}}
         </div>
 
         <div class="col-3 mb-3">
