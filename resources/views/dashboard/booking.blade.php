@@ -91,7 +91,7 @@
                 const bookingType = bookingData.type;
                 if (bookingType === 'transfer') {
                     modalContent.innerHTML = `
-                    <h1>Riepilogo Prenotazione</h1>
+                    
                     <p>Tipologia: <span class="text-primary">${bookingData.type}</span></p>
                     <p>Prezzo: <span class="text-primary">${bookingData.price} €</span></p>
                     <p>Data di partenza: <span class="text-primary">${bookingData.date_dep}</span></p>
@@ -103,7 +103,7 @@
                 `;
                 } else if (bookingType === 'escursione') {
                     modalContent.innerHTML = `
-                    <h1>Riepilogo Prenotazione</h1>
+                    
                     <p>Tipologia: <span class="text-primary">${bookingData.type}</span></p>
                     <p>Prezzo: <span class="text-primary">${bookingData.price} €</span></p>
                     <p>Data di partenza: <span class="text-primary">${bookingData.date_dep}</span></p>
@@ -112,7 +112,7 @@
                 `;
                 } else if (bookingType === 'noleggio') {
                     modalContent.innerHTML = `
-                    <h1>Riepilogo Prenotazione</h1>
+                    
                     <p>Tipologia: <span class="text-primary">${bookingData.type}</span></p>
                     <p>Prezzo: <span class="text-primary">${bookingData.price} €</span></p>
                     <p>Data di inizio noleggio: <span class="text-primary">${bookingData.date_start}</span></p>

@@ -52,7 +52,7 @@
 
         <hr>
 
-        <h2>Tutte le Rotte</h2>
+        <h2>Tutte le Tratte</h2>
         <table class="table">
             <thead>
                 <tr>
