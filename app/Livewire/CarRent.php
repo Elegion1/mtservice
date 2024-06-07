@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Booking;
 use DateTime;
 use App\Models\Car;
 use Livewire\Component;
@@ -93,7 +94,8 @@ class CarRent extends Component
     public function render()
     {
         $cars = Car::all();
+        $bookings = Booking::all();
 
-        return view('livewire.car-rent', compact('cars'));
+        return view('livewire.car-rent', compact('cars', 'bookings'));
     }
 }
