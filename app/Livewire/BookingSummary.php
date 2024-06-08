@@ -6,7 +6,6 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Models\Booking;
 use Livewire\Component;
-use Barryvdh\DomPDF\PDF;
 use App\Mail\BookingConfirmation;
 use Illuminate\Support\Facades\Mail;
 

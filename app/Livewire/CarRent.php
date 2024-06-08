@@ -15,43 +15,48 @@ class CarRent extends Component
     public $carID;
     public $rentPrice;
 
-    
+    protected $rules = [
+        'dateStart' => 'required|date',
+        'dateEnd' => 'required|date|after_or_equal:dateStart',
+        'quantity' => 'required|integer|min:1',
+        'carID' => 'required|exists:cars,id',
+    ];
+
+    protected $messages = [
+        'dateStart.required' => 'La data di ritiro è obbligatoria.',
+        'dateStart.date' => 'La data di ritiro deve essere una data valida.',
+        'dateEnd.required' => 'La data di consegna è obbligatoria.',
+        'dateEnd.date' => 'La data di consegna deve essere una data valida.',
+        'dateEnd.after_or_equal' => 'La data di consegna deve essere uguale o successiva alla data di ritiro.',
+        'quantity.required' => 'La quantità è obbligatoria.',
+        'quantity.integer' => 'La quantità deve essere un numero intero.',
+        'quantity.min' => 'La quantità deve essere almeno 1.',
+        'carID.required' => 'È necessario selezionare un\'auto.',
+        'carID.exists' => 'L\'auto selezionata non esiste.',
+    ];
 
     public function updated($field)
     {
-        if ($field === 'dateStart' || $field === 'dateEnd' || $field === 'quantity' || $field === 'carID') {
+        if (in_array($field, ['dateStart', 'dateEnd', 'quantity', 'carID'])) {
+            $this->validateOnly($field);
             $this->calculatePriceRent();
         }
     }
 
     public function calculatePriceRent()
     {
-        // Controlla se le date di inizio e fine del noleggio sono state fornite
-        if ($this->dateStart && $this->dateEnd && $this->carID && $this->quantity) {
-            // Converti le date in oggetti DateTime per facilitare il calcolo
-            $startDate = new DateTime($this->dateStart);
-            $endDate = new DateTime($this->dateEnd);
+        $this->validate();
 
-            // Calcola la differenza di giorni tra la data di inizio e la data di fine
-            $rentInterval = $startDate->diff($endDate);
-            $rentDays = $rentInterval->days;
+        $startDate = new DateTime($this->dateStart);
+        $endDate = new DateTime($this->dateEnd);
+        $rentInterval = $startDate->diff($endDate);
+        $rentDays = $rentInterval->days;
+        $car = Car::find($this->carID);
 
-            // Recupera l'auto selezionata
-            $car = Car::find($this->carID);
-
-            // Controlla se l'auto è stata trovata e ha un prezzo
-            if ($car && $car->price) {
-                // Calcola il prezzo totale del noleggio
-                $totalPrice = $car->price * $rentDays * $this->quantity;
-
-                // Imposta il prezzo totale nell'input
-                $this->rentPrice = $totalPrice;
-            } else {
-                // Se l'auto non è stata trovata o non ha un prezzo, reimposta il prezzo totale a zero
-                $this->rentPrice = 0;
-            }
+        if ($car && $car->price) {
+            $totalPrice = $car->price * $rentDays * $this->quantity;
+            $this->rentPrice = $totalPrice;
         } else {
-            // Se mancano informazioni necessarie, reimposta il prezzo totale a zero
             $this->rentPrice = 0;
         }
     }
@@ -71,6 +76,7 @@ class CarRent extends Component
     public function submitBookingRent()
     {
         $this->calculatePriceRent();
+        $this->validate();
 
         $bookingData = [
             'type' => 'noleggio',
@@ -90,12 +96,36 @@ class CarRent extends Component
         $this->dispatch('bookingSubmitted', $bookingData);
     }
 
-
     public function render()
     {
         $cars = Car::all();
         $bookings = Booking::all();
 
-        return view('livewire.car-rent', compact('cars', 'bookings'));
+        $availableCars = $cars->map(function($car) use ($bookings) {
+            $isCarAvailable = true;
+
+            foreach ($bookings as $booking) {
+                if ($booking->bookingData['type'] == 'noleggio' && $booking->bookingData['car_id'] == $car->id) {
+                    $bookingStartDate = strtotime($booking->bookingData['date_start']);
+                    $bookingEndDate = strtotime($booking->bookingData['date_end']);
+                    $selectedStartDate = strtotime($this->dateStart);
+                    $selectedEndDate = strtotime($this->dateEnd);
+
+                    if (
+                        ($selectedStartDate >= $bookingStartDate && $selectedStartDate <= $bookingEndDate) ||
+                        ($selectedEndDate >= $bookingStartDate && $selectedEndDate <= $bookingEndDate) ||
+                        ($selectedStartDate <= $bookingStartDate && $selectedEndDate >= $bookingEndDate)
+                    ) {
+                        $isCarAvailable = false;
+                        break;
+                    }
+                }
+            }
+
+            $car->isAvailable = $isCarAvailable;
+            return $car;
+        });
+
+        return view('livewire.car-rent', ['cars' => $availableCars, 'bookings' => $bookings]);
     }
 }

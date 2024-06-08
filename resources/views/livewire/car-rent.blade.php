@@ -7,52 +7,30 @@
                         <div class="col-12 col-md-5">
                             <label class="form-label" for="dateStart">Data di ritiro</label>
                             <input wire:model.live="dateStart" type="date" class="form-control" id="dateStart">
+                            @error('dateStart') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-12 col-md-5">
                             <label class="form-label" for="dateEnd">Data di consegna</label>
                             <input wire:model.live="dateEnd" type="date" class="form-control" id="dateEnd">
+                            @error('dateEnd') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-12 col-md-2">
                             <label class="form-label" for="quantity">Quantità</label>
                             <input wire:model.live="quantity" type="number" class="form-control" id="quantity"
                                 min="1" max="1">
+                            @error('quantity') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                     </div>
 
                     <div class="container p-md-3">
                         <p><strong>SELEZIONA UN MEZZO</strong></p>
                         @foreach ($cars as $car)
-                            @php
-                                $isCarAvailable = true;
-                            @endphp
-                            @foreach ($bookings as $booking)
-                                @if ($booking->bookingData['type'] == 'noleggio' && $booking->bookingData['car_id'] == $car->id)
-                                    @php
-                                        $bookingStartDate = strtotime($booking->bookingData['date_start']);
-                                        $bookingEndDate = strtotime($booking->bookingData['date_end']);
-                                        $selectedStartDate = strtotime($dateStart);
-                                        $selectedEndDate = strtotime($dateEnd);
-                                        if (
-                                            ($selectedStartDate >= $bookingStartDate &&
-                                                $selectedStartDate <= $bookingEndDate) ||
-                                            ($selectedEndDate >= $bookingStartDate &&
-                                                $selectedEndDate <= $bookingEndDate) ||
-                                            ($selectedStartDate <= $bookingStartDate &&
-                                                $selectedEndDate >= $bookingEndDate)
-                                        ) {
-                                            $isCarAvailable = false;
-                                            break;
-                                        }
-                                    @endphp
-                                @endif
-                            @endforeach
-
                             <div
-                                class="form-check border rounded mb-3 @if (!$isCarAvailable) bg-c @endif row d-flex justify-content-between align-items-center">
+                                class="form-check border rounded mb-3 @if (!$car->isAvailable) bg-c @endif row d-flex justify-content-between align-items-center">
                                 <div class="col-1">
                                     <input wire:model.live="carID" value="{{ $car->id }}" class="form-check-input"
                                         type="radio" name="flexRadioDefault" id="car{{ $car->id }}"
-                                        @if (!$isCarAvailable) disabled @endif>
+                                        @if (!$car->isAvailable) disabled @endif>
                                 </div>
                                 <div class="col-3 p-1 my-auto">
                                     <img width="80px" src="{{ Storage::url($car->img) }}" alt="">
@@ -62,7 +40,7 @@
                                     <p><small>{{ $car->description }}</small></p>
                                 </div>
                                 <div class="col-4 d-flex align-items-end justify-content-center flex-column">
-                                    @if ($isCarAvailable)
+                                    @if ($car->isAvailable)
                                         <p class="m-1">A partire da</p>
                                         <p class="h3">{{ $car->price }} €</p>
                                     @else
@@ -72,7 +50,6 @@
                             </div>
                         @endforeach
                     </div>
-
 
                     <div class="container-fluid">
                         <p><strong>TOTALE</strong></p>
