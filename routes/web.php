@@ -21,35 +21,36 @@ Route::get('/dicono-di-noi', [PublicController::class, 'diconoDiNoi'])->name('di
 
 // DASHBOARD
 // Gestione rotte
-Route::get('/dashboard/routes', [RouteController::class, 'create'])->name('dashboard.route');
-Route::post('dashboard/routes', [RouteController::class, 'store'])->name('routes.store');
-Route::put('dashboard/routes/{route}', [RouteController::class, 'update'])->name('routes.update');
-Route::delete('dashboard/routes/{route}', [RouteController::class, 'destroy'])->name('routes.destroy');
+Route::get('/dashboard/routes', [RouteController::class, 'create'])->name('dashboard.route')->middleware('auth');
+Route::post('dashboard/routes', [RouteController::class, 'store'])->name('routes.store')->middleware('auth');
+Route::put('dashboard/routes/{route}', [RouteController::class, 'update'])->name('routes.update')->middleware('auth');
+Route::delete('dashboard/routes/{route}', [RouteController::class, 'destroy'])->name('routes.destroy')->middleware('auth');
 
 // Gestione destinazioni
-Route::get('/dashboard/destinations', [DestinationController::class, 'create'])->name('dashboard.destination');
-Route::post('dashboard/destinations', [DestinationController::class, 'store'])->name('destinations.store');
-Route::put('dashboard/destinations/{destination}', [DestinationController::class, 'update'])->name('destinations.update');
-Route::delete('dashboard/destinations/{destination}', [DestinationController::class, 'destroy'])->name('destinations.destroy');
+Route::get('/dashboard/destinations', [DestinationController::class, 'create'])->name('dashboard.destination')->middleware('auth');
+Route::post('dashboard/destinations', [DestinationController::class, 'store'])->name('destinations.store')->middleware('auth');
+Route::put('dashboard/destinations/{destination}', [DestinationController::class, 'update'])->name('destinations.update')->middleware('auth');
+Route::delete('dashboard/destinations/{destination}', [DestinationController::class, 'destroy'])->name('destinations.destroy')->middleware('auth');
 
 // Gestione escursioni
-Route::get('/dashboard/excursions', [ExcursionController::class, 'create'])->name('dashboard.excursion');
-Route::post('dashboard/excursions', [ExcursionController::class, 'store'])->name('excursions.store');
-Route::put('dashboard/excursions/{excursion}', [ExcursionController::class, 'update'])->name('excursions.update');
-Route::delete('dashboard/excursions/{excursion}', [ExcursionController::class, 'destroy'])->name('excursions.destroy');
+Route::get('/dashboard/excursions', [ExcursionController::class, 'create'])->name('dashboard.excursion')->middleware('auth');
+Route::post('dashboard/excursions', [ExcursionController::class, 'store'])->name('excursions.store')->middleware('auth');
+Route::put('dashboard/excursions/{excursion}', [ExcursionController::class, 'update'])->name('excursions.update')->middleware('auth');
+Route::delete('dashboard/excursions/{excursion}', [ExcursionController::class, 'destroy'])->name('excursions.destroy')->middleware('auth');
 
 // Gestione auto
-Route::get('/dashboard/cars', [CarController::class, 'create'])->name('dashboard.car');
-Route::post('/dashboard/cars', [CarController::class, 'store'])->name('cars.store');
-Route::put('/dashboard/cars/{car}', [CarController::class, 'update'])->name('cars.update');
-Route::delete('/dashboard/cars/{car}', [CarController::class, 'destroy'])->name('cars.destroy');
+Route::get('/dashboard/cars', [CarController::class, 'create'])->name('dashboard.car')->middleware('auth');
+Route::post('/dashboard/cars', [CarController::class, 'store'])->name('cars.store')->middleware('auth');
+Route::put('/dashboard/cars/{car}', [CarController::class, 'update'])->name('cars.update')->middleware('auth');
+Route::delete('/dashboard/cars/{car}', [CarController::class, 'destroy'])->name('cars.destroy')->middleware('auth');
 
 // Gestione recensioni
-Route::get('/dashboard/reviews', [ReviewController::class, 'create'])->name('dashboard.review');
-Route::post('/dashboard/reviews', [ReviewController::class, 'store'])->name('reviews.store');
-Route::put('/dashboard/reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
-Route::delete('/dashboard/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
+Route::get('/dashboard/reviews', [ReviewController::class, 'create'])->name('dashboard.review')->middleware('auth');
+Route::post('/dashboard/reviews', [ReviewController::class, 'store'])->name('reviews.store')->middleware('auth');
+Route::put('/dashboard/reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update')->middleware('auth');
+Route::delete('/dashboard/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy')->middleware('auth');
 
 // Gestione prenotazioni
-Route::get('/dashboard/bookings', [BookingController::class, 'index'])->name('dashboard.booking');
-Route::delete('/dashboard/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
+Route::get('/dashboard/bookings', [BookingController::class, 'index'])->name('dashboard.booking')->middleware('auth');
+Route::delete('/dashboard/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy')->middleware('auth');
+Route::get('/dashboard/bookings/pdf/{id}', [BookingController::class, 'showPdf'])->name('booking.pdf')->middleware('auth');

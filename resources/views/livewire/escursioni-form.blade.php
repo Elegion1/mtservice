@@ -1,6 +1,6 @@
 <div>
     <div class="container">
-        <form wire:submit="submitBookingExcursion"  >
+        <form wire:submit.prevent="submitBookingExcursion">
             <h1>Prenota Escursione</h1>
 
             <div class="mb-3 row">
@@ -12,6 +12,7 @@
                                 {{ $excursion->name }}</option>
                         @endforeach
                     </select>
+                    @error('excursionSelect') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -19,13 +20,15 @@
                 <div class="col-6">
                     <label for="excursionPassengers" class="form-label">Passeggeri</label>
                     <input wire:model.live="excursionPassengers" type="number" class="form-control" id="excursionPassengers" min="1" max="16" value="1">
+                    @error('excursionPassengers') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
                 <div class="col-6">
                     <label class="form-label" for="dateExcursion">Andata</label>
                     <input wire:model.live="excursionDate" type="datetime-local" class="form-control" id="dateExcursion">
+                    @error('excursionDate') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
-
             </div>
+            
             <div class="row mb-3 align-items-end">
                 <div class="col-6">
                     <label for="excursionPrice" class="form-label">Totale</label>
@@ -37,6 +40,4 @@
             </div>
         </form>
     </div>
-
- 
 </div>

@@ -17,14 +17,33 @@ class TransferForm extends Component
     public $dateDeparture;
     public $dateReturn;
 
-    public function mount()
-    {
-        $this->calculatePrice();
-    }
+    protected $rules = [
+        'departure' => 'required|exists:destinations,id',
+        'return' => 'required|exists:destinations,id',
+        'transferPassengers' => 'required|integer|min:1|max:16',
+        'dateDeparture' => 'required|date|after_or_equal:today',
+        'dateReturn' => 'nullable|date|after:dateDeparture',
+    ];
 
+    protected $messages = [
+        'departure.required' => 'La partenza è obbligatoria.',
+        'departure.exists' => 'La partenza selezionata non è valida.',
+        'return.required' => 'La destinazione è obbligatoria.',
+        'return.exists' => 'La destinazione selezionata non è valida.',
+        'transferPassengers.required' => 'Il numero di passeggeri è obbligatorio.',
+        'transferPassengers.integer' => 'Il numero di passeggeri deve essere un numero intero.',
+        'transferPassengers.min' => 'Il numero minimo di passeggeri è 1.',
+        'transferPassengers.max' => 'Il numero massimo di passeggeri è 16.',
+        'dateDeparture.required' => 'La data di partenza è obbligatoria.',
+        'dateDeparture.date' => 'La data di partenza deve essere una data valida.',
+        'dateDeparture.after_or_equal' => 'La data di partenza non può essere nel passato.',
+        'dateReturn.date' => 'La data di ritorno deve essere una data valida.',
+        'dateReturn.after' => 'La data di ritorno deve essere dopo la data di partenza.',
+    ];
 
     public function updated($field)
     {
+        $this->validateOnly($field);
         if ($field === 'departure' || $field === 'return' || $field === 'transferPassengers' || $field === 'solaAndata' || $field === 'andataRitorno') {
             $this->calculatePrice();
         }
@@ -34,6 +53,7 @@ class TransferForm extends Component
     {
         $this->solaAndata = true;
         $this->andataRitorno = false;
+        $this->dateReturn = null;
         $this->calculatePrice();
     }
 
@@ -76,7 +96,6 @@ class TransferForm extends Component
                 $totalPrice *= 2;
             }
 
-
             $this->transferPrice = $totalPrice;
         } else {
             $this->transferPrice = 0;
@@ -91,15 +110,16 @@ class TransferForm extends Component
             'arrival_id' => $this->return,
             'passengers' => $this->transferPassengers,
             'sola_andata' => $this->solaAndata,
-            'date_dep' => $this->dateDeparture, // Assuming you have a dateDeparture property
-            'date_ret' => $this->dateReturn,  // Assuming you have a dateReturn property (if applicable)
+            'date_dep' => $this->dateDeparture,
+            'date_ret' => $this->dateReturn,
             'price' => $this->transferPrice,
-            // Add other relevant booking details here
         ];
     }
 
     public function submitBookingTransfer()
     {
+        $this->validate();
+
         $bookingData = $this->getBookingDataTransfer();
         $departureName = Destination::find($bookingData['departure_id'])->name;
         $arrivalName = Destination::find($bookingData['arrival_id'])->name;
@@ -128,7 +148,6 @@ class TransferForm extends Component
 
         $this->dispatch('bookingSubmitted', $bookingData);
     }
-
 
     public function render()
     {

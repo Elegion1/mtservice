@@ -1,6 +1,6 @@
 <div>
     <div class="container ">
-        <form wire:submit="submitBookingTransfer" >
+        <form wire:submit.prevent="submitBookingTransfer">
             <h1>Prenota Transfer</h1>
 
             <div class="mb-3 row">
@@ -12,6 +12,7 @@
                                 {{ $destination->name }}</option>
                         @endforeach
                     </select>
+                    @error('departure') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
                 <div class="col-12">
                     <select wire:model.live="return" wire:change="calculatePrice" id="returnSelect" class="form-select" aria-label="Default select example">
@@ -22,6 +23,7 @@
                             @endif
                         @endforeach
                     </select>
+                    @error('return') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
             </div>
 
@@ -29,6 +31,7 @@
                 <div class="col-6">
                     <label for="transferPassengers" class="form-label">Passeggeri</label>
                     <input wire:model.live="transferPassengers" type="number" class="form-control" id="transferPassengers" min="1" max="16" value="1">
+                    @error('transferPassengers') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
                 <div class="col-6 d-flex flex-column align-items-start justify-content-end ">
                     <div class="form-check">
@@ -49,10 +52,12 @@
                 <div class="col-12 col-md-6">
                     <label class="form-label" for="dateDeparture">Andata</label>
                     <input wire:model.live="dateDeparture" type="datetime-local" class="form-control" id="dateDeparture">
+                    @error('dateDeparture') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
                 <div class="col-12 col-md-6">
                     <label class="form-label" for="dateReturn">Ritorno</label>
                     <input wire:model.live="dateReturn" type="datetime-local" class="form-control" id="dateReturn" {{ $solaAndata ? 'disabled' : '' }}>
+                    @error('dateReturn') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
             </div>
             <div class="row mb-3 align-items-end">
@@ -66,5 +71,4 @@
             </div>
         </form>
     </div>
-
 </div>

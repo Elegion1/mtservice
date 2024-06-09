@@ -18,6 +18,23 @@ class BookingSummary extends Component
     public $phone;
     public $body;
 
+    protected $rules = [
+        'name' => 'required|string|max:255',
+        'surname' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'phone' => 'required|string|max:20',
+        'body' => 'required|string|max:1000',
+    ];
+
+    protected $messages = [
+        'name.required' => 'Il nome è obbligatorio.',
+        'surname.required' => 'Il cognome è obbligatorio.',
+        'email.required' => 'L\'email è obbligatoria.',
+        'email.email' => 'Inserisci un\'email valida.',
+        'phone.required' => 'Il numero di telefono è obbligatorio.',
+        'body.required' => 'Le note sono obbligatorie.',
+    ];
+
     public function mount($bookingData)
     {
         $this->bookingData = $bookingData;
@@ -30,6 +47,8 @@ class BookingSummary extends Component
 
     public function confirmBooking()
     {
+        $this->validate();
+
         // Salvataggio della prenotazione nel database
         $booking = Booking::create([
             'bookingData' => $this->bookingData,

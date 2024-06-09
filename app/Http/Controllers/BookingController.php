@@ -3,10 +3,45 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
 {
+    public function showPdf($id)
+    {
+        $booking = Booking::find($id);
+
+        // Dati necessari per generare la vista del PDF
+        $data = compact('booking');
+
+        // Opzioni per Dompdf
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+        $options->set('defaultFont', 'Arial');
+
+        // Crea una nuova istanza di Dompdf
+        $dompdf = new Dompdf($options);
+
+        // Carica la vista del PDF
+        $view = view('pdf.booking-summary-pdf', $data)->render();
+
+        // Carica il contenuto HTML nel Dompdf
+        $dompdf->loadHtml($view);
+
+        // Imposta il formato del documento
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Rendi il PDF
+        $dompdf->render();
+
+        // Restituisci il PDF al client
+        return $dompdf->stream('booking-summary.pdf');
+    }
+
+    
     /**
      * Display a listing of the resource.
      */
@@ -37,7 +72,6 @@ class BookingController extends Controller
      */
     public function show(Booking $booking)
     {
-        //
     }
 
     /**
