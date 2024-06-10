@@ -44,6 +44,10 @@
                                         href="{{ route('dashboard.booking') }}">Prenotazioni</a>
                                 </li>
                                 <li class="border rounded py-2 my-3 text-center w-100">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.contact') }}">Messaggi</a>
+                                </li>
+                                <li class="border rounded py-2 my-3 text-center w-100">
                                     <a class="my-3 text-decoration-none" href="{{ route('home') }}">Torna al sito</a>
                                 </li>
                                 <li class="border rounded py-2 my-3 text-center w-100">

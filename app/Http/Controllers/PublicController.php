@@ -38,4 +38,8 @@ class PublicController extends Controller
         $reviews = Review::all();
         return view('pages.dicono-di-noi', compact('reviews'));
     }
+
+    public function contattaci() {
+        return view('pages.contattaci');
+    }
 }

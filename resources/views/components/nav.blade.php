@@ -47,7 +47,7 @@
                             <a class="nav-link active" aria-current="page" href="#">SU DI NOI</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">CONTATTI</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('contattaci')}}">CONTATTI</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{ route('dashboard') }}">Dashboard</a>

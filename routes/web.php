@@ -6,6 +6,7 @@ use App\Http\Controllers\RouteController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ExcursionController;
 use App\Http\Controllers\DestinationController;
 
@@ -18,6 +19,10 @@ Route::get('/transfer', [PublicController::class, 'transfer'])->name('transfer')
 Route::get('/escursioni', [PublicController::class, 'escursioni'])->name('escursioni');
 Route::get('/prezzi-e-destinazioni', [PublicController::class, 'prezziDestinazioni'])->name('prezziDestinazioni');
 Route::get('/dicono-di-noi', [PublicController::class, 'diconoDiNoi'])->name('diconoDiNoi');
+Route::get('/contattaci', [PublicController::class, 'contattaci'])->name('contattaci');
+
+// Contattaci
+Route::post('/contattaci', [ContactController::class, 'invia'])->name('inviaForm');
 
 // DASHBOARD
 // Gestione rotte
@@ -54,3 +59,7 @@ Route::delete('/dashboard/reviews/{review}', [ReviewController::class, 'destroy'
 Route::get('/dashboard/bookings', [BookingController::class, 'index'])->name('dashboard.booking')->middleware('auth');
 Route::delete('/dashboard/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy')->middleware('auth');
 Route::get('/dashboard/bookings/pdf/{id}', [BookingController::class, 'showPdf'])->name('booking.pdf')->middleware('auth');
+
+// Gestione messaggi
+Route::get('/dashboard/contacts', [ContactController::class, 'index'])->name('dashboard.contact')->middleware('auth');
+Route::delete('/dashboard/contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy')->middleware('auth');

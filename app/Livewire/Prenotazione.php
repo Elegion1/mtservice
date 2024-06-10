@@ -7,19 +7,26 @@ use Illuminate\Support\Facades\Route;
 
 class Prenotazione extends Component
 {
-    public $currentForm = 'transfer';
+    public $currentForm;
     public $bookingData = []; // Inizializza come array vuoto
+    public $isHome = false; // Variabile per determinare se siamo nella home
 
     public function mount()
     {
-        if (Route::currentRouteName() == 'noleggio') {
+        $route = Route::currentRouteName();
+        
+        // Controlla se la rotta corrente è 'home'
+        $this->isHome = $route == 'home';
+
+        // Imposta il modulo corrente in base alla rotta
+        if ($route == 'noleggio') {
             $this->showRent();
-        }
-        if (Route::currentRouteName() == 'transfer') {
+        } elseif ($route == 'transfer') {
             $this->showTransfer();
-        }
-        if (Route::currentRouteName() == 'escursioni') {
+        } elseif ($route == 'escursioni') {
             $this->showEscursioni();
+        } else {
+            $this->showTransfer(); // Default
         }
     }
 
@@ -37,7 +44,6 @@ class Prenotazione extends Component
     {
         $this->currentForm = 'noleggio';
     }
-
 
     public function render()
     {

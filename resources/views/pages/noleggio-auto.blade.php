@@ -21,7 +21,6 @@
                     amet consectetur adipisicing elit. Corporis natus cum fugiat error neque hic, dignissimos eos,
                     dolores iusto consequatur aliquam. Repellat harum in fugit iusto ut saepe voluptas natus.
                 </p>
-                <p class="h5 my-3 text-danger"><strong>PRENOTA IL TUO NOLEGGIO</strong></p>
                 <livewire:prenotazione />
             </div>
         </div>

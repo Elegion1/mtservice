@@ -40,19 +40,23 @@
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="name" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="name" wire:model="name" required>
-                        @error('name')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                        <input type="text" class="form-control" id="name" wire:model="name" >
+                        <div class="error-message">
+                            @error('name')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="surname" class="form-label">Cognome</label>
-                        <input type="text" class="form-control" id="surname" wire:model="surname" required>
-                        @error('surname')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                        <input type="text" class="form-control" id="surname" wire:model="surname" >
+                        <div class="error-message">
+                            @error('surname')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
                 </div>
             </div>
@@ -60,29 +64,44 @@
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" wire:model="email" required>
-                        @error('email')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                        <input type="email" class="form-control" id="email" wire:model="email" >
+                        <div class="error-message">
+                            @error('email')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="phone" class="form-label">Telefono</label>
-                        <input type="text" class="form-control" id="phone" wire:model="phone" required minlength="8" maxlength="15">
-                        @error('phone') <span class="text-danger">{{ $message }}</span> @enderror
+                        <input type="text" class="form-control" id="phone" wire:model="phone" 
+                            minlength="8" maxlength="15">
+                        <div class="error-message">
+                            @error('phone')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="mb-3">
-                <textarea class="form-control" id="body" wire:model="body" placeholder="Inserisci delle note" required></textarea>
-                @error('body')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
+                <textarea class="form-control" id="body" wire:model="body" placeholder="Inserisci delle note" ></textarea>
+                <div class="error-message">
+                    @error('body')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
             </div>
             <div class="container-fluid m-0 p-0 d-flex justify-content-center align-items-center">
-                <button type="submit" class="btn bg-a text-white">Conferma Prenotazione</button>
+                <button type="submit" class=" btn bg-a text-white" wire:loading.attr="disabled">Conferma
+                    Prenotazione</button>
             </div>
         </form>
+
+        <!-- Messaggio di caricamento -->
+        <div wire:loading wire:target="confirmBooking text-center">
+            <p class="h3 text-success">Caricamento in corso... Si prega di attendere.</p>
+        </div>
     </div>
 </div>

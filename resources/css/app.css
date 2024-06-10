@@ -2,11 +2,39 @@
 @import './masthead.css';
 @import './palette.css';
 
-
 .rating {
     color: orange; /* Cambia il colore delle stelline */
 }
 
 .star {
     font-size: 20px; /* Dimensione delle stelline */
+}
+
+.my_alert-danger{
+
+    background-color: rgba(246, 7, 7, 0.886);
+}
+
+.my-alert-success{
+    color: white;
+    background-color: green;
+}
+
+.error-message {
+    min-height: 1.25rem; /* Riserva spazio per i messaggi di errore */
+    display: flex;
+    align-items: center;
+    transition: all 0.3s ease-in-out; /* Aggiunge una transizione fluida */
+}
+
+.text-danger {
+    font-size: 0.875rem;
+}
+
+
+
+.btn:hover:hover {
+    background-color: var(--color-b);
+    color: white;
+    transition: 0.5s;
 }

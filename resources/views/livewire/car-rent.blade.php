@@ -3,22 +3,52 @@
         <div class="row">
             <div class="col">
                 <form wire:submit.prevent="submitBookingRent">
-                    <div class="mb-3 row bg-b p-2 rounded">
+                    <h3 class="text-uppercase text-danger"><strong>Prenota la tua auto</strong></h3>
+                    <div class="row bg-b p-2 rounded">
                         <div class="col-12 col-md-5">
                             <label class="form-label" for="dateStart">Data di ritiro</label>
                             <input wire:model.live="dateStart" type="date" class="form-control" id="dateStart">
-                            @error('dateStart') <span class="text-danger">{{ $message }}</span> @enderror
+                            {{-- <div class="error-message">
+                                @error('dateStart')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div> --}}
                         </div>
                         <div class="col-12 col-md-5">
                             <label class="form-label" for="dateEnd">Data di consegna</label>
                             <input wire:model.live="dateEnd" type="date" class="form-control" id="dateEnd">
-                            @error('dateEnd') <span class="text-danger">{{ $message }}</span> @enderror
+                            {{-- <div class="error-message">
+                                @error('dateEnd')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div> --}}
                         </div>
                         <div class="col-12 col-md-2">
                             <label class="form-label" for="quantity">Quantità</label>
                             <input wire:model.live="quantity" type="number" class="form-control" id="quantity"
                                 min="1" max="1">
-                            @error('quantity') <span class="text-danger">{{ $message }}</span> @enderror
+                            {{-- <div class="error-message">
+                                @error('quantity')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div> --}}
+                        </div>
+                        <div class="col-12 d-flex justify-content-center align-items-center flex-wrap flex-column">
+                            <div class="error-message">
+                                @error('dateStart')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="error-message">
+                                @error('dateEnd')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="error-message">
+                                @error('quantity')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
                     </div>
 
@@ -56,7 +86,7 @@
                         <div class="d-flex justify-content-between mb-3">
                             <input wire:model.live="rentPrice" class="form-control mx-1" type="text"
                                 aria-label="readonly input example" readonly>
-                            <button class="btn bg-a text-white mx-1" type="submit">Prenota</button>
+                            <button class=" btn bg-a text-white mx-1" type="submit">Prenota</button>
                         </div>
                     </div>
                 </form>
