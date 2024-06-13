@@ -33,7 +33,7 @@
                                 @enderror
                             </div> --}}
                         </div>
-                        <div class="col-12 d-flex justify-content-center align-items-center flex-wrap flex-column">
+                        {{-- <div class="col-12 d-flex justify-content-center align-items-center flex-wrap flex-column">
                             <div class="error-message">
                                 @error('dateStart')
                                     <span class="text-danger">{{ $message }}</span>
@@ -49,8 +49,27 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
+                        </div> --}}
+                    </div>
+
+                    <div class="container-fluid message d-flex align-items-center justify-content-center mx-auto my-2">
+                        <div class="error-message">
+                            @error('dateStart')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="error-message">
+                            @error('dateEnd')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="error-message">
+                            @error('quantity')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
+
 
                     <div class="container p-md-3">
                         <p><strong>SELEZIONA UN MEZZO</strong></p>

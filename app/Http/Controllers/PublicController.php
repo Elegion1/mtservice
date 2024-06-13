@@ -28,10 +28,8 @@ class PublicController extends Controller
         return view('pages.escursioni');
     }
 
-    public function prezziDestinazioni() {
-        $tratte = Route::all();
-        
-        return view('pages.prezzi-destinazioni', compact('tratte'));
+    public function prezziDestinazioni() {        
+        return view('pages.prezzi-destinazioni');
     }
 
     public function diconoDiNoi() {

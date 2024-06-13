@@ -1,6 +1,6 @@
 <x-dashboard-layout>
     <div class="container mt-5">
-        <h2>Gestione Messaggi</h2>
+        <h1>Gestione Messaggi</h1>
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}

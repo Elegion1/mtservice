@@ -1,7 +1,7 @@
 <x-layout>
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-6 mt-5">
+    <div class="position-absolute masthead-position ">
+        <div class="row mx-5">
+            <div class="col-12 col-md-8 text-white text-shadow mt-5">
                 <h1>TITOLO</h1>
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi sed illum earum inventore commodi
@@ -19,17 +19,13 @@
 
                 </p>
             </div>
-            <div class="col-12 col-md-6 mt-5">
-                <div class="container border rounded text-center">
-                    @foreach ($tratte as $tratta)
-                        <div class="my-5">
-                            <h5>Da <span class="text-primary">{{ $tratta->departure->name }}</span> a <span
-                                    class="text-primary">{{ $tratta->arrival->name }}</span></h5>
-                            <p>A partire da <strong class="h4">{{ $tratta->price }} €</strong> a persona</p>
-                        </div>
-                    @endforeach
-                </div>
+            <div class="col-12 col-md-4">
+                <x-lista-tratte />
             </div>
         </div>
+    </div>
+
+    <div class="altezza">
+
     </div>
 </x-layout>

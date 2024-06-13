@@ -21,10 +21,12 @@
 }
 
 .error-message {
-    min-height: 1.25rem; /* Riserva spazio per i messaggi di errore */
+    min-height: 1rem; 
+    /* Riserva spazio per i messaggi di errore */
     display: flex;
     align-items: center;
     transition: all 0.3s ease-in-out; /* Aggiunge una transizione fluida */
+    text-align: center;
 }
 
 .text-danger {
@@ -37,4 +39,33 @@
     background-color: var(--color-b);
     color: white;
     transition: 0.5s;
+}
+
+.altezza {
+    height: 100vh;
+}
+
+.masthead-position {
+    top: 75vh;
+    /* background-color: red; */
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-shadow {
+    text-shadow: 1px 2px 5px black;
+}
+.message {
+    width: 30vw;
+    margin: 0px;
+    
+}
+
+@media screen and (max-width: 768px) {
+    .message {
+        width: 80vw;
+    }
+    
 }

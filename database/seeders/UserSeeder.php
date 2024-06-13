@@ -19,5 +19,6 @@ class UserSeeder extends Seeder
             'email' => 'admin@mtservice.it',
             'password' => Hash::make('mtservice'),
         ]);
+
     }
 }
