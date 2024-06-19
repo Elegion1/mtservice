@@ -1,5 +1,5 @@
 <x-dashboard-layout>
-    <div class="container mt-5">
+    <div class="container-fluid mt-5">
         <h1>Gestione Recensioni</h1>
 
         @if (session('success'))

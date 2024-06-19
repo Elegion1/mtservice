@@ -8,6 +8,9 @@
     <title>Dashboard</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
 
 <body>
@@ -46,6 +49,10 @@
                                 <li class="border rounded py-2 my-3 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.contact') }}">Messaggi</a>
+                                </li>
+                                <li class="border rounded py-2 my-3 text-center w-100">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.service') }}">Servizi</a>
                                 </li>
                                 <li class="border rounded py-2 my-3 text-center w-100">
                                     <a class="my-3 text-decoration-none" href="{{ route('home') }}">Torna al sito</a>

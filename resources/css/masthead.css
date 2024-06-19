@@ -7,3 +7,14 @@
     -o-background-size: cover;
     background-size: cover;
 }
+
+.service {
+    width: 20vw;
+    height: 30vh !important;
+    padding: 0px;
+    min-height: 0px !important; 
+}
+
+.service-img {
+    width: 40%;
+}

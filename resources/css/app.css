@@ -1,6 +1,6 @@
-@import 'bootstrap';
-@import './masthead.css';
-@import './palette.css';
+@import "bootstrap";
+@import "./masthead.css";
+@import "./palette.css";
 
 .rating {
     color: orange; /* Cambia il colore delle stelline */
@@ -10,18 +10,17 @@
     font-size: 20px; /* Dimensione delle stelline */
 }
 
-.my_alert-danger{
-
+.my_alert-danger {
     background-color: rgba(246, 7, 7, 0.886);
 }
 
-.my-alert-success{
+.my-alert-success {
     color: white;
     background-color: green;
 }
 
 .error-message {
-    min-height: 1rem; 
+    min-height: 1rem;
     /* Riserva spazio per i messaggi di errore */
     display: flex;
     align-items: center;
@@ -32,8 +31,6 @@
 .text-danger {
     font-size: 0.875rem;
 }
-
-
 
 .btn:hover:hover {
     background-color: var(--color-b);
@@ -60,12 +57,26 @@
 .message {
     width: 30vw;
     margin: 0px;
-    
 }
 
 @media screen and (max-width: 768px) {
     .message {
         width: 80vw;
     }
-    
+}
+
+.current-image {
+    display: inline-block;
+    position: relative;
+    margin-right: 10px;
+}
+.current-image img {
+    display: block;
+    max-width: 100px;
+    max-height: 100px;
+}
+.current-image button {
+    position: absolute;
+    top: 0;
+    right: 0;
 }

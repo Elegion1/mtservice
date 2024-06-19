@@ -50,7 +50,6 @@ class RouteController extends Controller
         $route->save();
 
         return redirect()->route('dashboard.route')->with('success', 'Rotta creata con successo!');
-
     }
 
     /**

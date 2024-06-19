@@ -1,6 +1,6 @@
 <x-dashboard-layout>
 
-    <div class="container mt-5">
+    <div class="container-fluid mt-5">
         <h1>Gestione Tratte</h1>
 
         @if (session('success'))
@@ -78,12 +78,10 @@
                         <td>{{ $route->duration }} Min</td>
                         <td>
                             <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#editRouteModal" 
-                                data-id="{{ $route->id }}"
-                                data-distance="{{ $route->distance }}" 
-                                data-price="{{ $route->price }}"
-                                data-duration="{{ $route->duration }}" 
-                                data-price_increment="{{$route->price_increment}}"
+                                data-bs-target="#editRouteModal" data-id="{{ $route->id }}"
+                                data-distance="{{ $route->distance }}" data-price="{{ $route->price }}"
+                                data-duration="{{ $route->duration }}"
+                                data-price_increment="{{ $route->price_increment }}"
                                 data-name="{{ $route->departure->name }} - {{ $route->arrival->name }}">Modifica</button>
                             <form action="{{ route('routes.destroy', $route) }}" method="POST"
                                 style="display:inline-block;">
@@ -120,14 +118,16 @@
                             <input type="number" class="form-control" id="edit_price" name="price" required>
                         </div>
                         <div class="mb-3">
-                            <label for="edit_price_increment" class="form-label">Incremento di prezzo per passeggero</label>
-                            <input type="text" class="form-control" id="edit_price_increment" name="price_increment" required>
+                            <label for="edit_price_increment" class="form-label">Incremento di prezzo per
+                                passeggero</label>
+                            <input type="text" class="form-control" id="edit_price_increment"
+                                name="price_increment" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_duration" class="form-label">Tempo di Percorrenza (Minuti)</label>
                             <input type="text" class="form-control" id="edit_duration" name="duration" required>
                         </div>
-                        
+
                         <button type="submit" class="btn btn-primary">Salva Modifiche</button>
                     </form>
                 </div>

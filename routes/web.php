@@ -7,6 +7,7 @@ use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ExcursionController;
 use App\Http\Controllers\DestinationController;
 
@@ -63,3 +64,12 @@ Route::get('/dashboard/bookings/pdf/{id}', [BookingController::class, 'showPdf']
 // Gestione messaggi
 Route::get('/dashboard/contacts', [ContactController::class, 'index'])->name('dashboard.contact')->middleware('auth');
 Route::delete('/dashboard/contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy')->middleware('auth');
+
+// Gestione servizi
+Route::get('/dashboard/services', [ServiceController::class, 'index'])->name('dashboard.service')->middleware('auth');
+Route::post('/dashboard/services', [ServiceController::class, 'store'])->name('services.store')->middleware('auth');
+Route::put('/dashboard/services/{service}', [ServiceController::class, 'update'])->name('services.update')->middleware('auth');
+Route::delete('/dashboard/services/{service}', [ServiceController::class, 'destroy'])->name('services.destroy')->middleware('auth');
+Route::delete('/dashboard/images/{id}', [ServiceController::class, 'deleteImage'])->name('images.delete')->middleware('auth');
+
+Route::get('/services/{id}', [ServiceController::class, 'show'])->name('service.show');
