@@ -11,11 +11,17 @@ class Image extends Model
 
     protected $fillable = [
         'path',
-        'service_id'
+        'service_id',
+        'excursion_id'
     ];
 
     public function service()
     {
         return $this->belongsTo(Service::class);
+    }
+    
+    public function excursion()
+    {
+        return $this->belongsTo(Excursion::class);
     }
 }

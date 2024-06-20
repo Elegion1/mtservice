@@ -1,0 +1,18 @@
+{
+    "sourceFile": "resources/css/app.css",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1718890641170,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1718890641170,
+            "name": "Commit-0",
+            "content": "@import \"bootstrap\";\n@import \"./masthead.css\";\n@import \"./palette.css\";\n\n.rating {\n    color: orange; /* Cambia il colore delle stelline */\n}\n\n.star {\n    font-size: 20px; /* Dimensione delle stelline */\n}\n\n.my_alert-danger {\n    background-color: rgba(246, 7, 7, 0.886);\n}\n\n.my-alert-success {\n    color: white;\n    background-color: green;\n}\n\n.error-message {\n    min-height: 1rem;\n    /* Riserva spazio per i messaggi di errore */\n    display: flex;\n    align-items: center;\n    transition: all 0.3s ease-in-out; /* Aggiunge una transizione fluida */\n    text-align: center;\n}\n\n.text-danger {\n    font-size: 0.875rem;\n}\n\n.btn:hover:hover {\n    background-color: var(--color-b);\n    color: white;\n    transition: 0.5s;\n}\n\n.altezza {\n    height: 1000px;\n}\n\n.masthead-position {\n    top: 75vh;\n    /* background-color: red; */\n    width: 100vw;\n    display: flex;\n    justify-content: center;\n    align-items: center;\n}\n\n.text-shadow {\n    text-shadow: 1px 2px 5px black;\n}\n.message {\n    width: 30vw;\n    margin: 0px;\n}\n\n@media screen and (max-width: 768px) {\n    .message {\n        width: 80vw;\n    }\n}\n\n.current-image {\n    display: inline-block;\n    position: relative;\n    margin-right: 10px;\n}\n.current-image img {\n    display: block;\n    max-width: 100px;\n    max-height: 100px;\n}\n.current-image button {\n    position: absolute;\n    top: 0;\n    right: 0;\n}\n"
+        }
+    ]
+}

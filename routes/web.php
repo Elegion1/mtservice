@@ -39,10 +39,11 @@ Route::put('dashboard/destinations/{destination}', [DestinationController::class
 Route::delete('dashboard/destinations/{destination}', [DestinationController::class, 'destroy'])->name('destinations.destroy')->middleware('auth');
 
 // Gestione escursioni
-Route::get('/dashboard/excursions', [ExcursionController::class, 'create'])->name('dashboard.excursion')->middleware('auth');
+Route::get('/dashboard/excursions', [ExcursionController::class, 'index'])->name('dashboard.excursion')->middleware('auth');
 Route::post('dashboard/excursions', [ExcursionController::class, 'store'])->name('excursions.store')->middleware('auth');
 Route::put('dashboard/excursions/{excursion}', [ExcursionController::class, 'update'])->name('excursions.update')->middleware('auth');
 Route::delete('dashboard/excursions/{excursion}', [ExcursionController::class, 'destroy'])->name('excursions.destroy')->middleware('auth');
+Route::delete('/dashboard/images/{id}', [ExcursionController::class, 'deleteImage'])->name('images.delete')->middleware('auth');
 
 // Gestione auto
 Route::get('/dashboard/cars', [CarController::class, 'create'])->name('dashboard.car')->middleware('auth');

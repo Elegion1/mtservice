@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Excursion;
 use App\Models\Route;
 use App\Models\Service;
 use Illuminate\Support\Facades\View;
@@ -22,11 +23,21 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $tratte = Route::all();
-        $services = Service::all();
+        // Controlla se ci sono rotte
+        if (Route::count() > 0) {
+            $tratte = Route::all();
+            View::share('tratte', $tratte);
+        }
 
-        // Condividi la variabile $tratte con tutte le viste
-        View::share('tratte', $tratte);
-        View::share('services', $services);
+        // Controlla se ci sono servizi
+        if (Service::count() > 0) {
+            $services = Service::all();
+            View::share('services', $services);
+        }
+
+        if (Excursion::count() > 0) {
+            $excursions = Excursion::all();
+            View::share('excursions', $excursions);
+        }
     }
 }

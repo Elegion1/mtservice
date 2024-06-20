@@ -1,0 +1,38 @@
+{
+    "sourceFile": "resources/css/masthead.css",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1718889589964,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1718889605745,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,9 @@\n }\n \n .service-img {\n     width: 40%;\n+    \n }\n \n .excursion {\n     width: 20vw;\n"
+                },
+                {
+                    "date": 1718889616448,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,10 +15,10 @@\n     min-height: 0px !important; \n }\n \n .service-img {\n-    width: 40%;\n-    \n+    height: ;\n+\n }\n \n .excursion {\n     width: 20vw;\n"
+                },
+                {
+                    "date": 1718889648344,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,15 +15,15 @@\n     min-height: 0px !important; \n }\n \n .service-img {\n-    height: ;\n+    height: 40%;\n \n }\n \n .excursion {\n-    width: 20vw;\n-    height: 30vh !important;\n+    width: 100%;\n+    height: 100% !important;\n     padding: 0px;\n     min-height: 0px !important; \n }\n \n"
+                },
+                {
+                    "date": 1718889828996,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,6 +27,6 @@\n     min-height: 0px !important; \n }\n \n .excursion-img {\n-    width: 40%;\n+    height: 40%;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1718890664231,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     min-height: 0px !important; \n }\n \n .service-img {\n-    height: 40%;\n+    height: %;\n \n }\n \n .excursion {\n"
+                }
+            ],
+            "date": 1718889589964,
+            "name": "Commit-0",
+            "content": ".carousel-item {\n    height: 70vh;\n    min-height: 350px;\n    background: no-repeat center center scroll;\n    -webkit-background-size: cover;\n    -moz-background-size: cover;\n    -o-background-size: cover;\n    background-size: cover;\n}\n\n.service {\n    width: 100%;\n    height: 100% !important;\n    padding: 0px;\n    min-height: 0px !important; \n}\n\n.service-img {\n    width: 40%;\n}\n\n.excursion {\n    width: 20vw;\n    height: 30vh !important;\n    padding: 0px;\n    min-height: 0px !important; \n}\n\n.excursion-img {\n    width: 40%;\n}"
+        }
+    ]
+}

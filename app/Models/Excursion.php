@@ -12,6 +12,13 @@ class Excursion extends Model
     protected $fillable = [
         'name',
         'price_increment',
-        'price'
+        'price',
+        'abstract',
+        'description'
     ];
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
 }

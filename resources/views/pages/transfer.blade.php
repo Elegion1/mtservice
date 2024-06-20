@@ -35,12 +35,13 @@
                 </div>
                 <div class="col-12 col-md-6 rounded pt-5 bg-white">
                     <livewire:prenotazione />
+                    <div class="container">
+                        <x-services />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="altezza"></div>
-    <div class="container">
-        <x-services/>
-    </div>
+
 </x-layout>

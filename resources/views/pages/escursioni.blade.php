@@ -29,6 +29,7 @@
             </div>
             <div class="col-12 col-md-6 mt-5">
                 <livewire:prenotazione />
+                <x-excursions/>
             </div>
         </div>
     </div>
