@@ -3,7 +3,7 @@
         <div class="carousel-indicators">
             @foreach ($excursions as $index => $excursion)
                 <button type="button" data-bs-target="#excursionCarousel" data-bs-slide-to="{{ $index }}"
-                    class="{{ $index === 0 ? 'active' : '' }}" aria-current="true"
+                    class="bg-secondary {{ $index === 0 ? 'active' : '' }}" aria-current="true"
                     aria-label="Slide {{ $index }}"></button>
             @endforeach
         </div>
@@ -25,7 +25,7 @@
                                 <a href="{{ route('excursions.show', $excursion->id) }}"
                                     class="btn btn-primary">Dettagli</a>
                             </div> --}}
-                            <div class="col-12">
+                            <div class="col-12 d-flex justify-content-center align-items-center">
                                 @if ($excursion->images->isNotEmpty())
                                     <div id="carouselImages{{ $excursion->id }}" class="carousel slide"
                                         data-bs-ride="carousel">
@@ -49,10 +49,8 @@
                                         </button>
                                     </div>
                                 @else
-                                    <div class="container-fluid my-2 justify-content-center align-items-center d-flex">
-                                        <img class="excursion-img rounded shadow" src="https://picsum.photos/400"
-                                            alt="">
-                                    </div>
+                                    <img class="excursion-img rounded shadow" src="https://picsum.photos/401"
+                                        alt="">
                                 @endif
                             </div>
                         </div>

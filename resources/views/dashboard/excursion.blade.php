@@ -131,7 +131,11 @@
                             <textarea class="form-control" id="edit_description" name="description" rows="5" required></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="edit_images" class="form-label">Immagini Caricate</label>
+                            <label for="edit_images" class="form-label">Aggiungi nuove immagini</label>
+                            <input type="file" class="form-control" id="edit_images" name="images[]" multiple>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_current_images" class="form-label">Immagini Caricate</label>
                             <div id="edit-current-images">
                                 <!-- Anteprime delle immagini esistenti verranno aggiunte qui -->
                             </div>
@@ -181,7 +185,7 @@
 
                     // Mostra il modale di modifica
                     const modal = new bootstrap.Modal(document.getElementById(
-                    'editExcursionModal'));
+                        'editExcursionModal'));
                     modal.show();
                 });
             });

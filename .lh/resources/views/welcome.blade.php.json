@@ -1,0 +1,90 @@
+{
+    "sourceFile": "resources/views/welcome.blade.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 18,
+            "patches": [
+                {
+                    "date": 1718895665598,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1718895671519,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n                 <livewire:prenotazione />\n             </div>\n             <div class=\"col-4 d-md-block d-none\">\n                 <x-lista-tratte/>\n-                \n+                x-services\n             </div>\n         </div>\n     </div>\n     <div class=\"altezza\"></div>\n"
+                },
+                {
+                    "date": 1718895677521,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n                 <livewire:prenotazione />\n             </div>\n             <div class=\"col-4 d-md-block d-none\">\n                 <x-lista-tratte/>\n-                x-services\n+                <x-services/>\n             </div>\n         </div>\n     </div>\n     <div class=\"altezza\"></div>\n"
+                },
+                {
+                    "date": 1718895684078,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,8 +6,9 @@\n             </div>\n             <div class=\"col-4 d-md-block d-none\">\n                 <x-lista-tratte/>\n                 <x-services/>\n+                x\n             </div>\n         </div>\n     </div>\n     <div class=\"altezza\"></div>\n"
+                },
+                {
+                    "date": 1718895691261,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n             </div>\n             <div class=\"col-4 d-md-block d-none\">\n                 <x-lista-tratte/>\n                 <x-services/>\n-                x\n+                x-excursions\n             </div>\n         </div>\n     </div>\n     <div class=\"altezza\"></div>\n"
+                },
+                {
+                    "date": 1718895697560,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n             </div>\n             <div class=\"col-4 d-md-block d-none\">\n                 <x-lista-tratte/>\n                 <x-services/>\n-                x-excursions\n+                <x-excursions/>\n             </div>\n         </div>\n     </div>\n     <div class=\"altezza\"></div>\n"
+                },
+                {
+                    "date": 1718895927872,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,11 +4,10 @@\n             <div class=\"col-12 col-md-8\">\n                 <livewire:prenotazione />\n             </div>\n             <div class=\"col-4 d-md-block d-none\">\n-                <x-lista-tratte/>\n-                <x-services/>\n-                <x-excursions/>\n+                <x-lista-tratte />\n+                <x-services />\n             </div>\n         </div>\n     </div>\n     <div class=\"altezza\"></div>\n"
+                },
+                {
+                    "date": 1718895940156,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,8 +7,11 @@\n             <div class=\"col-4 d-md-block d-none\">\n                 <x-lista-tratte />\n                 <x-services />\n             </div>\n+            <div class=\"col-12\">\n+                \n+            </div>\n         </div>\n     </div>\n     <div class=\"altezza\"></div>\n </x-layout>\n"
+                },
+                {
+                    "date": 1718896511015,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,14 +3,14 @@\n         <div class=\"row\">\n             <div class=\"col-12 col-md-8\">\n                 <livewire:prenotazione />\n             </div>\n-            <div class=\"col-4 d-md-block d-none\">\n+            <div class=\"col-md4 d-md-block d-none\">\n                 <x-lista-tratte />\n                 <x-services />\n             </div>\n             <div class=\"col-12\">\n-                \n+                <x-excursions />\n             </div>\n         </div>\n     </div>\n     <div class=\"altezza\"></div>\n"
+                },
+                {
+                    "date": 1718896565827,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n <x-layout>\n     <div class=\"position-absolute masthead-position \">\n         <div class=\"row\">\n-            <div class=\"col-12 col-md-8\">\n+            <div class=\"col-12 col-md-6\">\n                 <livewire:prenotazione />\n             </div>\n-            <div class=\"col-md4 d-md-block d-none\">\n+            <div class=\"col-md-4 d-md-block d-none\">\n                 <x-lista-tratte />\n                 <x-services />\n             </div>\n             <div class=\"col-12\">\n"
+                },
+                {
+                    "date": 1718896668741,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n <x-layout>\n-    <div class=\"position-absolute masthead-position \">\n+    <div class=\"position-absolute masthead-position p \">\n         <div class=\"row\">\n             <div class=\"col-12 col-md-6\">\n                 <livewire:prenotazione />\n             </div>\n-            <div class=\"col-md-4 d-md-block d-none\">\n+            <div class=\"col-md-6 d-md-block d-none\">\n                 <x-lista-tratte />\n                 <x-services />\n             </div>\n             <div class=\"col-12\">\n"
+                },
+                {
+                    "date": 1718896674710,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n <x-layout>\n-    <div class=\"position-absolute masthead-position p \">\n+    <div class=\"position-absolute masthead-position mx- \">\n         <div class=\"row\">\n             <div class=\"col-12 col-md-6\">\n                 <livewire:prenotazione />\n             </div>\n"
+                },
+                {
+                    "date": 1718896887658,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n <x-layout>\n-    <div class=\"position-absolute masthead-position mx- \">\n+    <div class=\"container position-absolute masthead-position mx-5 \">\n         <div class=\"row\">\n             <div class=\"col-12 col-md-6\">\n                 <livewire:prenotazione />\n             </div>\n"
+                },
+                {
+                    "date": 1718896905761,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n <x-layout>\n-    <div class=\"container position-absolute masthead-position mx-5 \">\n+    <div class=\"container-fluid position-absolute masthead-position mx-5 \">\n         <div class=\"row\">\n             <div class=\"col-12 col-md-6\">\n                 <livewire:prenotazione />\n             </div>\n"
+                },
+                {
+                    "date": 1718897789861,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,9 @@\n                 <livewire:prenotazione />\n             </div>\n             <div class=\"col-md-6 d-md-block d-none\">\n                 <x-lista-tratte />\n-                <x-services />\n+                {{-- <x-services /> --}}\n             </div>\n             <div class=\"col-12\">\n                 <x-excursions />\n             </div>\n"
+                },
+                {
+                    "date": 1718897796005,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n             <div class=\"col-12 col-md-6\">\n                 <livewire:prenotazione />\n             </div>\n             <div class=\"col-md-6 d-md-block d-none\">\n-                <x-lista-tratte />\n+                {{-- <x-lista-tratte /> --}}\n                 {{-- <x-services /> --}}\n             </div>\n             <div class=\"col-12\">\n                 <x-excursions />\n"
+                },
+                {
+                    "date": 1718897810656,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,17 @@\n+<x-layout>\n+    <div class=\"container-fluid position-absolute masthead-position mx-5 \">\n+        <div class=\"row\">\n+            <div class=\"col-12 col-md-6\">\n+                <livewire:prenotazione />\n+            </div>\n+            <div class=\"col-md-6 d-md-block d-none\">\n+                <x-lista-tratte />\n+                <x-services />\n+            </div>\n+            <div class=\"col-12\">\n+                <x-excursions />\n+            </div>\n+        </div>\n+    </div>\n+    <div class=\"altezza\"></div>\n+</x-layout>\n"
+                },
+                {
+                    "date": 1718897946761,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n <x-layout>\n-    <div class=\"container-fluid position-absolute masthead-position mx-5 \">\n+    <div class=\"container-fluid position-absolute masthead-position \">\n         <div class=\"row\">\n             <div class=\"col-12 col-md-6\">\n                 <livewire:prenotazione />\n             </div>\n@@ -14,21 +14,4 @@\n         </div>\n     </div>\n     <div class=\"altezza\"></div>\n </x-layout>\n-<x-layout>\n-    <div class=\"container-fluid position-absolute masthead-position mx-5 \">\n-        <div class=\"row\">\n-            <div class=\"col-12 col-md-6\">\n-                <livewire:prenotazione />\n-            </div>\n-            <div class=\"col-md-6 d-md-block d-none\">\n-                {{-- <x-lista-tratte /> --}}\n-                {{-- <x-services /> --}}\n-            </div>\n-            <div class=\"col-12\">\n-                <x-excursions />\n-            </div>\n-        </div>\n-    </div>\n-    <div class=\"altezza\"></div>\n-</x-layout>\n"
+                },
+                {
+                    "date": 1718904100190,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n             <div class=\"col-md-6 d-md-block d-none\">\n                 <x-lista-tratte />\n                 <x-services />\n             </div>\n-            <div class=\"col-12\">\n+            <div class=\"col-12 mt-5\">\n                 <x-excursions />\n             </div>\n         </div>\n     </div>\n"
+                }
+            ],
+            "date": 1718895665598,
+            "name": "Commit-0",
+            "content": "<x-layout>\n    <div class=\"position-absolute masthead-position \">\n        <div class=\"row\">\n            <div class=\"col-12 col-md-8\">\n                <livewire:prenotazione />\n            </div>\n            <div class=\"col-4 d-md-block d-none\">\n                <x-lista-tratte/>\n                \n            </div>\n        </div>\n    </div>\n    <div class=\"altezza\"></div>\n</x-layout>\n"
+        }
+    ]
+}

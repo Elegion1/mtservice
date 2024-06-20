@@ -36,7 +36,7 @@ class ViewServiceProvider extends ServiceProvider
         }
 
         if (Excursion::count() > 0) {
-            $excursions = Excursion::all();
+            $excursions = Excursion::paginate(5);
             View::share('excursions', $excursions);
         }
     }

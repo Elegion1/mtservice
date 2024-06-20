@@ -1,8 +1,10 @@
 <x-layout>
     <div class="container">
         <div class="row">
+
             <div class="col-12 col-md-6 mt-5">
-                <div class="d-flex justify-content-center align-items-center flex-column ">
+                <livewire:prenotazione />
+                <div class="d-flex justify-content-center align-items-center flex-column">
                     <img class="my-3" src="https://picsum.photos/500" alt="">
                     <p>
                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate culpa eos, quidem,
@@ -25,12 +27,50 @@
                         obcaecati, modi omnis quas rerum impedit.
                     </p>
                 </div>
+            </div>
 
-            </div>
             <div class="col-12 col-md-6 mt-5">
-                <livewire:prenotazione />
-                <x-excursions/>
+                <div class="container d-flex justify-content-center align-items-center flex-column">
+                    @foreach ($excursions as $excursion)
+                        <div class="card border-0 mb-3" style="max-width: 540px;">
+                            <div class="row g-0">
+                                <div class="col-md-4 d-flex justify-content-center align-items-center">
+                                    @if ($excursion->images->isNotEmpty())
+                                        <img src="{{ Storage::url($excursion->images->first()->path) }}"
+                                            class="img-fluid rounded-start" alt="...">
+                                    @else
+                                        <img src="https://picsum.photos/1000" class="img-fluid rounded-start"
+                                            alt="immagine non disponibile">
+                                    @endif
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $excursion->name }}</h5>
+                                        <p class="card-text">{{ $excursion->abstract }}</p>
+                                        <p class="card-text"><small
+                                                class="text-body-secondary">{{ $excursion->description }}</small>
+                                        </p>
+                                        <p class="card-text">
+                                            <small class="text-body-secondary">A partire da</small>
+                                            {{ $excursion->price }} €
+                                            <span>
+                                                <a class="btn rounded-4 bg-a text-white " href="">Dettagli</a>
+                                                <a class="btn rounded-4 bg-b text-white " href="">Prenota</a>
+                                            </span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                    <!-- Controlli di paginazione -->
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        {{ $excursions->links('vendor.pagination.bootstrap-5') }}
+                    </div>
+                    
+                </div>
             </div>
+
         </div>
     </div>
 </x-layout>

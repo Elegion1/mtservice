@@ -1,13 +1,13 @@
-<div>
+<div class="container">
     @if ($tratte)
-        <div class="container text-center my-3 border rounded bg-white p-3">
+        <div class="text-center my-3 border rounded bg-white">
             @foreach ($tratte as $tratta)
                 <div class="my-3">
-                    <h6>Da
+                    <p class="h6">Da
                         <span class="text-primary">{{ $tratta->departure->name }}</span>
                         a
                         <span class="text-primary">{{ $tratta->arrival->name }}</span>
-                    </h6>
+                    </p>
                     <p>A partire da <strong class="h4">{{ $tratta->price }} €</strong> a persona</p>
                 </div>
             @endforeach

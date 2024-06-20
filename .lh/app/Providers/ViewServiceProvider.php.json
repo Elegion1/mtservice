@@ -1,0 +1,18 @@
+{
+    "sourceFile": "app/Providers/ViewServiceProvider.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1718907575882,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1718907575882,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Providers;\n\nuse App\\Models\\Excursion;\nuse App\\Models\\Route;\nuse App\\Models\\Service;\nuse Illuminate\\Support\\Facades\\View;\nuse Illuminate\\Support\\ServiceProvider;\n\nclass ViewServiceProvider extends ServiceProvider\n{\n    /**\n     * Register services.\n     */\n    public function register(): void\n    {\n        //\n    }\n\n    /**\n     * Bootstrap services.\n     */\n    public function boot(): void\n    {\n        // Controlla se ci sono rotte\n        if (Route::count() > 0) {\n            $tratte = Route::all();\n            View::share('tratte', $tratte);\n        }\n\n        // Controlla se ci sono servizi\n        if (Service::count() > 0) {\n            $services = Service::all();\n            View::share('services', $services);\n        }\n\n        if (Excursion::count() > 0) {\n            $excursions = Excursion::paginate();\n            View::share('excursions', $excursions);\n        }\n    }\n}\n"
+        }
+    ]
+}

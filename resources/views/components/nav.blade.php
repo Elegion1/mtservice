@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg bg-b">
-    <div class="container-fluid">
+    <div class="container">
         <div class="row w-100">
             <div class="col-12 d-flex justify-content-between align-items-center">
                 <a class="navbar-brand" href="{{ route('home') }}">
