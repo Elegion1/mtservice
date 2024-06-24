@@ -5,6 +5,7 @@
             <div class="container bg-white rounded shadow p-3">
                 <livewire:prenotazione />
             </div>
+            <x-contact-link />
         </div>
         <div class="col-12 col-md-6">
             <div class="container bg-white rounded shadow p-3">

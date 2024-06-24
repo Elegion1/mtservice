@@ -1,0 +1,18 @@
+{
+    "sourceFile": "resources/views/components/contact-link.blade.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1719243820500,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1719243820500,
+            "name": "Commit-0",
+            "content": "<div class=\"container d-flex flex-column justify-content-center align-items-center p-3 mt-3\">\n    <p class=\"fs-3\">Per <strong>info</strong> o <strong>servizi</strong> personalizzati</p>\n    <a href=\"{{route('contattaci')}}\" class=\"btn bg-a text-white\">CONTATTACI</a>\n</div>"
+        }
+    ]
+}

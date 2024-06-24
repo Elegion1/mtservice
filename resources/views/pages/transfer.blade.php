@@ -34,7 +34,9 @@
         </div>
         <div class="col-12 col-md-6">
             <div class="container bg-white rounded shadow">
-                <livewire:prenotazione />
+                <div class="container pt-5">
+                    <livewire:prenotazione />
+                </div>
                 <div class="container">
                     <x-services />
                 </div>

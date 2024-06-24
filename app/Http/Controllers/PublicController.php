@@ -33,8 +33,7 @@ class PublicController extends Controller
     }
 
     public function diconoDiNoi() {
-        $reviews = Review::all();
-        return view('pages.dicono-di-noi', compact('reviews'));
+        return view('pages.dicono-di-noi');
     }
 
     public function contattaci() {
@@ -43,5 +42,9 @@ class PublicController extends Controller
 
     public function partners() {
         return view('pages.partners');
+    }
+
+    public function faq() {
+        return view('pages.faq');
     }
 }

@@ -1,5 +1,5 @@
 <x-layout>
-
+<div class="container bg-white rounded shadow p-3">
     <h2>Form di Contatto</h2>
     <form action="{{ route('inviaForm') }}" method="POST">
         @csrf <!-- Includi il token CSRF qui -->
@@ -33,7 +33,8 @@
                 <textarea class="form-control" id="messaggio" name="messaggio" rows="5" required></textarea>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Invia</button>
+        <button type="submit" class="btn bg-a text-white">Invia</button>
     </form>
+</div>
 
 </x-layout>

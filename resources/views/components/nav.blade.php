@@ -5,7 +5,7 @@
                 <a class="navbar-brand" href="{{ route('home') }}">
                     <img width="200px" src="/media/logo.png" alt="">
                 </a>
-                <div class="d-flex justify-content-center align-items-center">
+                <div class="d-none d-md-block d-flex justify-content-center align-items-center">
                     <a class="bg-c p-3 mx-2 nav-link rounded-pill shadow" href="tel:0123456789">+ 39 0123456789</a>
                 
                     <a class="bg-c p-3 mx-2 nav-link rounded-pill shadow" href="tel:0123456789">+ 39 0123456789</a>
@@ -15,6 +15,13 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+            </div>
+
+            <div class="col-12">
+                <small>Chiama per info</small>
+                <br>
+                <a class="text-decoration-none" href="tel:+390123456789"> 0123456789</a>
+                <a class="text-decoration-none" href="tel:+390123456789"> 0123456789</a>
             </div>
 
             <div class="col-12">
@@ -41,7 +48,7 @@
                                 NOI</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">FAQ</a>
+                            <a class="nav-link active" aria-current="page" href="{{route('faq')}}">FAQ</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">SU DI NOI</a>

@@ -1,7 +1,7 @@
 <div>
     <div class="container ">
         <form wire:submit.prevent="submitBookingTransfer">
-            <h3 class="text-uppercase text-danger"><strong>Prenota Transfer</strong></h3>
+            <h2 class="text-uppercase text-danger"><strong>Prenota Transfer</strong></h2>
 
             <div class="row">
                 <div class="col-12">

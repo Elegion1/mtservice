@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1719235938758,
@@ -16,6 +16,26 @@
                 {
                     "date": 1719235952807,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,7 +41,7 @@\n         return view('pages.contattaci');\n     }\n \n     public function partners() {\n-        return view\n+        return view('pages.partners')\n     }\n }\n"
+                },
+                {
+                    "date": 1719242637956,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,7 +41,9 @@\n         return view('pages.contattaci');\n     }\n \n     public function partners() {\n-        return view('pages.partners')\n+        return view('pages.partners');\n     }\n+\n+    public function faq()\n }\n"
+                },
+                {
+                    "date": 1719242643586,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,6 +44,8 @@\n     public function partners() {\n         return view('pages.partners');\n     }\n \n-    public function faq()\n+    public function faq() {\n+        return view\n+    }\n }\n"
+                },
+                {
+                    "date": 1719242649081,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,7 +45,7 @@\n         return view('pages.partners');\n     }\n \n     public function faq() {\n-        return view\n+        return view('pages.faq')\n     }\n }\n"
+                },
+                {
+                    "date": 1719242665981,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,8 @@\n         return view('pages.prezzi-destinazioni');\n     }\n \n     public function diconoDiNoi() {\n-        $reviews = Review::all();\n         return view('pages.dicono-di-noi', compact('reviews'));\n     }\n \n     public function contattaci() {\n@@ -45,7 +44,7 @@\n         return view('pages.partners');\n     }\n \n     public function faq() {\n-        return view('pages.faq')\n+        return view('pages.faq');\n     }\n }\n"
+                },
+                {
+                    "date": 1719242672830,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,9 @@\n         return view('pages.prezzi-destinazioni');\n     }\n \n     public function diconoDiNoi() {\n-        return view('pages.dicono-di-noi', compact('reviews'));\n+        return view('pages.dicono-di-noi');\n     }\n \n     public function contattaci() {\n         return view('pages.contattaci');\n"
                 }
             ],
             "date": 1719235938758,

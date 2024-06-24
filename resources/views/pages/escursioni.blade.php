@@ -1,10 +1,10 @@
 <x-layout>
-
     <div class="row">
-
         <div class="col-12 col-md-6 ">
             <div class="container shadow rounded bg-white">
-                <livewire:prenotazione />
+                <div class="container pt-5">
+                    <livewire:prenotazione />
+                </div>
                 <div class="d-flex justify-content-center align-items-center flex-column">
                     <img class="my-3" src="https://picsum.photos/500" alt="">
                     <p>
@@ -38,6 +38,7 @@
 
         <div class="col-12 col-md-6 ">
             <div class="container d-flex justify-content-center align-items-center flex-column shadow rounded bg-white">
+                <p class="h2 my-3">Escursioni Sicilia Occidentale </p>
                 @foreach ($excursions as $excursion)
                     <div class="card border-0 mb-3" style="max-width: 540px;">
                         <div class="row g-0">
@@ -46,8 +47,8 @@
                                     <img src="{{ Storage::url($excursion->images->first()->path) }}"
                                         class="img-fluid rounded-start" alt="...">
                                 @else
-                                    <img src="https://picsum.photos/1000" class="img-fluid rounded-start"
-                                        alt="immagine non disponibile">
+                                    <img src="https://picsum.photos/100{{ $excursion->id }}"
+                                        class="img-fluid rounded-start" alt="immagine non disponibile">
                                 @endif
                             </div>
                             <div class="col-md-8">

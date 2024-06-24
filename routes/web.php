@@ -23,6 +23,8 @@ Route::get('/prezzi-e-destinazioni', [PublicController::class, 'prezziDestinazio
 Route::get('/dicono-di-noi', [PublicController::class, 'diconoDiNoi'])->name('diconoDiNoi');
 Route::get('/contattaci', [PublicController::class, 'contattaci'])->name('contattaci');
 Route::get('/partners', [PublicController::class, 'partners'])->name('partners');
+Route::get('/FAQ', [PublicController::class, 'faq'])->name('faq');
+
 Route::get('/services/{id}', [ServiceController::class, 'show'])->name('service.show');
 
 // Contattaci
