@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 10,
+            "activePatchIndex": 11,
             "patches": [
                 {
                     "date": 1718905248231,
@@ -48,6 +48,10 @@
                 {
                     "date": 1718905723582,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -130,10 +130,13 @@\n                             <label for=\"edit_description\" class=\"form-label\">Descrizione</label>\n                             <textarea class=\"form-control\" id=\"edit_description\" name=\"description\" rows=\"5\" required></textarea>\n                         </div>\n                         <div class=\"mb-3\">\n-                            <label for=\"edit_images\" class=\"form-label\">Immagini Caricate</label>\n-                            <input type=\"file\" class=\"form-control\">\n+                            <label for=\"edit_images\" class=\"form-label\">Aggiungi nuove immagini</label>\n+                            <input type=\"file\" class=\"form-control\" id=\"edit_images\" name=\"images[]\" multiple>\n+                        </div>\n+                        <div class=\"mb-3\">\n+                            <label for=\"edit_current_images\" class=\"form-label\">Immagini Caricate</label>\n                             <div id=\"edit-current-images\">\n                                 <!-- Anteprime delle immagini esistenti verranno aggiunte qui -->\n                             </div>\n                         </div>\n"
+                },
+                {
+                    "date": 1719228743048,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -184,15 +184,15 @@\n                     showCurrentImages(excursion.images);\n \n                     // Mostra il modale di modifica\n                     const modal = new bootstrap.Modal(document.getElementById(\n-                    'editExcursionModal'));\n+                        'editExcursionModal'));\n                     modal.show();\n                 });\n             });\n \n+            \n             // Gestione del click sul pulsante \"Elimina\" immagine nel modale di modifica\n-            // Gestione del click sul pulsante \"Elimina\" immagine nel modale di modifica\n             document.getElementById('edit-current-images').addEventListener('click', (event) => {\n                 if (event.target.classList.contains('remove-image')) {\n                     const imageId = event.target.getAttribute('data-image-id');\n \n"
                 }
             ],
             "date": 1718905248231,

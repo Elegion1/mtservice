@@ -1,5 +1,5 @@
 <div class="container justify-content-center align-items-center d-flex">
-    <div id="excursionCarousel" class="carousel excursion slide shadow rounded p-3" data-bs-ride="carousel">
+    <div id="excursionCarousel" class="carousel excursion slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             @foreach ($excursions as $index => $excursion)
                 <button type="button" data-bs-target="#excursionCarousel" data-bs-slide-to="{{ $index }}"

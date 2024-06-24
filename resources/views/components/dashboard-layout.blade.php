@@ -21,43 +21,47 @@
                     <nav>
                         <p>
                             Benvenuto: {{Auth::user()->email}}</p>
-                        <div class=" my-5">
+                        <div class=" mt-3">
                             <ul class="d-flex align-items-start list-unstyled flex-md-column justify-content-center justify-content-md-evenly">
-                                <li class="border rounded py-2 my-3 text-center w-100">
+                                <li class="border rounded py-2 mb-3 text-center w-100">
                                     <a class="my-3 text-decoration-none" href="{{ route('dashboard.route') }}">Tratte</a>
                                 </li>
-                                <li class="border rounded py-2 my-3 text-center w-100">
+                                <li class="border rounded py-2 mb-3 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.destination') }}">Destinazioni</a>
 
                                 </li>
-                                <li class="border rounded py-2 my-3 text-center w-100">
+                                <li class="border rounded py-2 mb-3 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.excursion') }}">Escursioni</a>
                                 </li>
-                                <li class="border rounded py-2 my-3 text-center w-100">
+                                <li class="border rounded py-2 mb-3 text-center w-100">
                                     <a class="my-3 text-decoration-none" href="{{ route('dashboard.car') }}">Auto</a>
                                 </li>
-                                <li class="border rounded py-2 my-3 text-center w-100">
+                                <li class="border rounded py-2 mb-3 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.review') }}">Recensioni</a>
                                 </li>
-                                <li class="border rounded py-2 my-3 text-center w-100">
+                                <li class="border rounded py-2 mb-3 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.booking') }}">Prenotazioni</a>
                                 </li>
-                                <li class="border rounded py-2 my-3 text-center w-100">
+                                <li class="border rounded py-2 mb-3 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.contact') }}">Messaggi</a>
                                 </li>
-                                <li class="border rounded py-2 my-3 text-center w-100">
+                                <li class="border rounded py-2 mb-3 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.service') }}">Servizi</a>
                                 </li>
-                                <li class="border rounded py-2 my-3 text-center w-100">
+                                <li class="border rounded py-2 mb-3 text-center w-100">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.partner') }}">Partners</a>
+                                </li>
+                                <li class="border rounded py-2 mb-3 text-center w-100">
                                     <a class="my-3 text-decoration-none" href="{{ route('home') }}">Torna al sito</a>
                                 </li>
-                                <li class="border rounded py-2 my-3 text-center w-100">
+                                <li class="border rounded py-2 mb-3 text-center w-100">
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <button class="btn text-primary" type="submit"></i>Logout

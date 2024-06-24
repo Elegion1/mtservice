@@ -1,0 +1,26 @@
+{
+    "sourceFile": "app/Http/Controllers/PublicController.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1719235938758,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1719235946703,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -40,6 +40,8 @@\n     public function contattaci() {\n         return view('pages.contattaci');\n     }\n \n-    public function partners()\n+    public function partners() {\n+        return view\n+    }\n }\n"
+                },
+                {
+                    "date": 1719235952807,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -41,7 +41,7 @@\n         return view('pages.contattaci');\n     }\n \n     public function partners() {\n-        return view\n+        return view('pages.partners')\n     }\n }\n"
+                }
+            ],
+            "date": 1719235938758,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Http\\Controllers;\n\nuse App\\Models\\Route;\nuse App\\Models\\Review;\nuse Illuminate\\Http\\Request;\n\nclass PublicController extends Controller\n{\n    public function home() {\n        return view('welcome');\n    }\n\n    public function dashboard() {\n        return view('dashboard.index');\n    }\n\n    public function noleggio() {\n        return view('pages.noleggio-auto');\n    }\n\n    public function transfer() {\n        return view('pages.transfer');\n    }\n\n    public function escursioni() {\n        return view('pages.escursioni');\n    }\n\n    public function prezziDestinazioni() {        \n        return view('pages.prezzi-destinazioni');\n    }\n\n    public function diconoDiNoi() {\n        $reviews = Review::all();\n        return view('pages.dicono-di-noi', compact('reviews'));\n    }\n\n    public function contattaci() {\n        return view('pages.contattaci');\n    }\n\n    public function partners()\n}\n"
+        }
+    ]
+}

@@ -1,0 +1,34 @@
+{
+    "sourceFile": "app/Models/Partner.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 4,
+            "patches": [
+                {
+                    "date": 1719225318607,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1719225326334,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,7 +9,10 @@\n {\n     use HasFactory;\n \n     protected $fillable = [\n-        'name'\n-    ]\n+        'name',\n+        'link'\n+    ];\n+\n+    \n }\n"
+                },
+                {
+                    "date": 1719225332152,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,6 +13,6 @@\n         'name',\n         'link'\n     ];\n \n-    \n+    public function \n }\n"
+                },
+                {
+                    "date": 1719225338136,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,6 +13,7 @@\n         'name',\n         'link'\n     ];\n \n-    public function \n+    public function images()\n+    \n }\n"
+                },
+                {
+                    "date": 1719225353788,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,6 +14,8 @@\n         'link'\n     ];\n \n     public function images()\n-    \n+    {\n+        return $this->hasMany(Image::class);\n+    }\n }\n"
+                }
+            ],
+            "date": 1719225318607,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Models;\n\nuse Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\nuse Illuminate\\Database\\Eloquent\\Model;\n\nclass Partner extends Model\n{\n    use HasFactory;\n\n    protected $fillable = [\n        'name'\n    ]\n}\n"
+        }
+    ]
+}

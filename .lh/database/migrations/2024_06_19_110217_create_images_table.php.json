@@ -1,0 +1,30 @@
+{
+    "sourceFile": "database/migrations/2024_06_19_110217_create_images_table.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1719225431124,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1719225444574,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,10 +16,10 @@\n             $table->unsignedBigInteger('service_id')->nullable();\n             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');\n             $table->unsignedBigInteger('excursion_id')->nullable();\n             $table->foreign('excursion_id')->references('id')->on('excursions')->onDelete('cascade');\n-            $table->unsignedBigInteger('excursion_id')->nullable();\n-            $table->foreign('excursion_id')->references('id')->on('excursions')->onDelete('cascade');\n+            $table->unsignedBigInteger('partner_id')->nullable();\n+            $table->foreign('partner_id')->references('id')->on('partners')->onDelete('cascade');\n             $table->string('path')->nullable();\n             $table->timestamps();\n         });\n     }\n"
+                },
+                {
+                    "date": 1719225538443,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,9 @@\n     public function up(): void\n     {\n         Schema::create('images', function (Blueprint $table) {\n             $table->id();\n+            \n             $table->unsignedBigInteger('service_id')->nullable();\n             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');\n             $table->unsignedBigInteger('excursion_id')->nullable();\n             $table->foreign('excursion_id')->references('id')->on('excursions')->onDelete('cascade');\n"
+                },
+                {
+                    "date": 1719225544553,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,13 +12,15 @@\n     public function up(): void\n     {\n         Schema::create('images', function (Blueprint $table) {\n             $table->id();\n-            \n+\n             $table->unsignedBigInteger('service_id')->nullable();\n             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');\n+\n             $table->unsignedBigInteger('excursion_id')->nullable();\n             $table->foreign('excursion_id')->references('id')->on('excursions')->onDelete('cascade');\n+            \n             $table->unsignedBigInteger('partner_id')->nullable();\n             $table->foreign('partner_id')->references('id')->on('partners')->onDelete('cascade');\n             $table->string('path')->nullable();\n             $table->timestamps();\n"
+                }
+            ],
+            "date": 1719225431124,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nreturn new class extends Migration\n{\n    /**\n     * Run the migrations.\n     */\n    public function up(): void\n    {\n        Schema::create('images', function (Blueprint $table) {\n            $table->id();\n            $table->unsignedBigInteger('service_id')->nullable();\n            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');\n            $table->unsignedBigInteger('excursion_id')->nullable();\n            $table->foreign('excursion_id')->references('id')->on('excursions')->onDelete('cascade');\n            $table->unsignedBigInteger('excursion_id')->nullable();\n            $table->foreign('excursion_id')->references('id')->on('excursions')->onDelete('cascade');\n            $table->string('path')->nullable();\n            $table->timestamps();\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     */\n    public function down(): void\n    {\n        Schema::dropIfExists('images');\n    }\n};\n"
+        }
+    ]
+}

@@ -1,0 +1,34 @@
+{
+    "sourceFile": "database/migrations/2024_06_24_102857_create_partners_table.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 4,
+            "patches": [
+                {
+                    "date": 1719225233044,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1719225242973,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n     public function up(): void\n     {\n         Schema::create('partners', function (Blueprint $table) {\n             $table->id();\n-            \n+            $table->string(name)\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1719225249575,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n     public function up(): void\n     {\n         Schema::create('partners', function (Blueprint $table) {\n             $table->id();\n-            $table->string(name)\n+            $table->string('name')\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1719225255652,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,10 @@\n     public function up(): void\n     {\n         Schema::create('partners', function (Blueprint $table) {\n             $table->id();\n-            $table->string('name')\n+            $table->string('name');\n+            $table\n             $table->timestamps();\n         });\n     }\n \n"
+                },
+                {
+                    "date": 1719225263377,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n     {\n         Schema::create('partners', function (Blueprint $table) {\n             $table->id();\n             $table->string('name');\n-            $table->string\n+            $table->string('link')\n             $table->timestamps();\n         });\n     }\n \n"
+                }
+            ],
+            "date": 1719225233044,
+            "name": "Commit-0",
+            "content": "<?php\n\nuse Illuminate\\Database\\Migrations\\Migration;\nuse Illuminate\\Database\\Schema\\Blueprint;\nuse Illuminate\\Support\\Facades\\Schema;\n\nreturn new class extends Migration\n{\n    /**\n     * Run the migrations.\n     */\n    public function up(): void\n    {\n        Schema::create('partners', function (Blueprint $table) {\n            $table->id();\n            \n            $table->timestamps();\n        });\n    }\n\n    /**\n     * Reverse the migrations.\n     */\n    public function down(): void\n    {\n        Schema::dropIfExists('partners');\n    }\n};\n"
+        }
+    ]
+}

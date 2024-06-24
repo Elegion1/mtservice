@@ -1,0 +1,22 @@
+{
+    "sourceFile": "resources/views/livewire/prenotazione.blade.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1719224292895,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1719224299203,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <div>\n-    <div class=\"container \">\n-        <div class=\"row @if ($isHome) bg-white rounded border @endif p-2\">\n+    <div class=\"container\">\n+        <div class=\"row p-2\">\n             @if ($isHome)\n                 <div class=\"col-12 d-flex justify-content-center align-items-center p-2 mb-3\">\n                     <button type=\"button\" \n                         class=\" m-1 btn\n"
+                }
+            ],
+            "date": 1719224292895,
+            "name": "Commit-0",
+            "content": "<div>\n    <div class=\"container \">\n        <div class=\"row @if ($isHome) bg-white rounded border @endif p-2\">\n            @if ($isHome)\n                <div class=\"col-12 d-flex justify-content-center align-items-center p-2 mb-3\">\n                    <button type=\"button\" \n                        class=\" m-1 btn\n                        @if ($currentForm == 'escursioni') bg-b text-white \n                        @elseif ($currentForm == 'transfer') bg-a text-white \n                        @else bg-b text-white @endif\"\n                        wire:click=\"showTransfer\">Transfer</button>\n                    <button type=\"button\" \n                        class=\" m-1 btn\n                        @if ($currentForm == 'transfer') bg-b text-white \n                        @elseif ($currentForm == 'escursioni') bg-a text-white \n                        @else bg-b text-white @endif\"\n                        wire:click=\"showEscursioni\">Escursioni</button>\n                    <button type=\"button\" \n                        class=\" m-1 btn\n                        @if ($currentForm == 'transfer') bg-b text-white \n                        @elseif ($currentForm == 'escursioni') bg-b text-white \n                        @elseif ($currentForm == 'noleggio') bg-a text-white \n                        @else bg-b text-white @endif\"\n                        wire:click=\"showRent\">Noleggio Auto</button>\n                </div>\n            @endif\n\n            <div class=\"col-12\">\n                @if ($currentForm == 'escursioni')\n                    @livewire('escursioni-form')\n                @elseif ($currentForm == 'transfer')\n                    @livewire('transfer-form')\n                @elseif ($currentForm == 'noleggio')\n                    @livewire('car-rent')\n                @elseif ($currentForm == 'bookingSummary')\n                    @livewire('booking-summary', ['bookingData' => $bookingData])\n                @endif\n            </div>\n        </div>\n    </div>\n</div>\n"
+        }
+    ]
+}

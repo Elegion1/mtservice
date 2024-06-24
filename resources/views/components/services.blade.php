@@ -1,5 +1,5 @@
 <div class="container justify-content-center align-items-center d-flex">
-    <div id="serviceCarousel" class="carousel service slide shadow rounded p-3" data-bs-ride="carousel">
+    <div id="serviceCarousel" class="carousel service slide p-3" data-bs-ride="carousel">
         <div class="carousel-indicators">
             @foreach ($services as $index => $service)
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $service->id }}"

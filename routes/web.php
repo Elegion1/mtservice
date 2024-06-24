@@ -7,6 +7,7 @@ use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ExcursionController;
 use App\Http\Controllers\DestinationController;
@@ -21,6 +22,8 @@ Route::get('/escursioni', [PublicController::class, 'escursioni'])->name('escurs
 Route::get('/prezzi-e-destinazioni', [PublicController::class, 'prezziDestinazioni'])->name('prezziDestinazioni');
 Route::get('/dicono-di-noi', [PublicController::class, 'diconoDiNoi'])->name('diconoDiNoi');
 Route::get('/contattaci', [PublicController::class, 'contattaci'])->name('contattaci');
+Route::get('/partners', [PublicController::class, 'partners'])->name('partners');
+Route::get('/services/{id}', [ServiceController::class, 'show'])->name('service.show');
 
 // Contattaci
 Route::post('/contattaci', [ContactController::class, 'invia'])->name('inviaForm');
@@ -73,4 +76,9 @@ Route::put('/dashboard/services/{service}', [ServiceController::class, 'update']
 Route::delete('/dashboard/services/{service}', [ServiceController::class, 'destroy'])->name('services.destroy')->middleware('auth');
 Route::delete('/dashboard/images/{id}', [ServiceController::class, 'deleteImage'])->name('images.delete')->middleware('auth');
 
-Route::get('/services/{id}', [ServiceController::class, 'show'])->name('service.show');
+// Gestione Partner
+Route::get('/dashboard/partners', [PartnerController::class, 'index'])->name('dashboard.partner')->middleware('auth');
+Route::post('/dashboard/partners', [PartnerController::class, 'store'])->name('partners.store')->middleware('auth');
+Route::put('/dashboard/partners/{partner}', [PartnerController::class, 'update'])->name('partners.update')->middleware('auth');
+Route::delete('/dashboard/partners/{partner}', [PartnerController::class, 'destroy'])->name('partners.destroy')->middleware('auth');
+Route::delete('/dashboard/images/{id}', [PartnerController::class, 'deleteImage'])->name('images.delete')->middleware('auth');

@@ -9,8 +9,7 @@ class ReviewController extends Controller
 {
     public function create()
     {
-        $reviews = Review::all();
-        return view('dashboard.review', compact('reviews'));
+        return view('dashboard.review');
     }
 
     public function store(Request $request)

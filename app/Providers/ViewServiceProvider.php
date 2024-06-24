@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
-use App\Models\Excursion;
 use App\Models\Route;
+use App\Models\Review;
+use App\Models\Partner;
 use App\Models\Service;
+use App\Models\Excursion;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -36,8 +38,18 @@ class ViewServiceProvider extends ServiceProvider
         }
 
         if (Excursion::count() > 0) {
-            $excursions = Excursion::paginate(5);
+            $excursions = Excursion::paginate(4);
             View::share('excursions', $excursions);
+        }
+
+        if (Partner::count() > 0) {
+            $partners = Partner::paginate(10);
+            View::share('partners', $partners);
+        }
+
+        if (Review::count() > 0) {
+            $reviews = Review::all();
+            View::share('reviews', $reviews);
         }
     }
 }

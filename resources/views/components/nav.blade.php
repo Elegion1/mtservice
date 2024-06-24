@@ -50,6 +50,9 @@
                             <a class="nav-link active" aria-current="page" href="{{ route('contattaci') }}">CONTATTI</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ route('partners') }}">PARTNERS</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{ route('dashboard') }}">Dashboard</a>
                         </li>
 

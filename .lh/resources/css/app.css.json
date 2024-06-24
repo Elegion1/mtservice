@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 4,
+            "activePatchIndex": 9,
             "patches": [
                 {
                     "date": 1718890641170,
@@ -24,6 +24,26 @@
                 {
                     "date": 1718904143407,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,11 +45,8 @@\n .masthead-position {\n     top: 75vh;\n     /* background-color: red; */\n     width: 100%;\n-    /* display: flex;\n-    justify-content: center;\n-    align-items: center; */\n }\n \n .text-shadow {\n     text-shadow: 1px 2px 5px black;\n"
+                },
+                {
+                    "date": 1719217811457,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,8 +45,9 @@\n .masthead-position {\n     top: 75vh;\n     /* background-color: red; */\n     width: 100%;\n+    \n }\n \n .text-shadow {\n     text-shadow: 1px 2px 5px black;\n"
+                },
+                {
+                    "date": 1719217817485,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,9 +45,9 @@\n .masthead-position {\n     top: 75vh;\n     /* background-color: red; */\n     width: 100%;\n-    \n+    display: flex;\n }\n \n .text-shadow {\n     text-shadow: 1px 2px 5px black;\n"
+                },
+                {
+                    "date": 1719217822779,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -46,8 +46,9 @@\n     top: 75vh;\n     /* background-color: red; */\n     width: 100%;\n     display: flex;\n+    justify-content: center;\n }\n \n .text-shadow {\n     text-shadow: 1px 2px 5px black;\n"
+                },
+                {
+                    "date": 1719217828996,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -47,8 +47,9 @@\n     /* background-color: red; */\n     width: 100%;\n     display: flex;\n     justify-content: center;\n+    align-items: center;\n }\n \n .text-shadow {\n     text-shadow: 1px 2px 5px black;\n"
+                },
+                {
+                    "date": 1719217874645,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,11 +45,8 @@\n .masthead-position {\n     top: 75vh;\n     /* background-color: red; */\n     width: 100%;\n-    display: flex;\n-    justify-content: center;\n-    align-items: center;\n }\n \n .text-shadow {\n     text-shadow: 1px 2px 5px black;\n"
                 }
             ],
             "date": 1718890641170,

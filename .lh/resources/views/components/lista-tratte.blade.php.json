@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 7,
+            "activePatchIndex": 14,
             "patches": [
                 {
                     "date": 1718896705517,
@@ -36,6 +36,34 @@
                 {
                     "date": 1718897912698,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <div class=\"container\">\n     @if ($tratte)\n-        <div class=\"text-center my-3 border rounded bg-white p-0\">\n+        <div class=\"text-center my-3 border rounded bg-white\">\n             @foreach ($tratte as $tratta)\n                 <div class=\"my-3\">\n                     <p class=\"h6\">Da\n                         <span class=\"text-primary\">{{ $tratta->departure->name }}</span>\n"
+                },
+                {
+                    "date": 1719223781938,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <div class=\"container\">\n     @if ($tratte)\n-        <div class=\"text-center my-3 border rounded bg-white\">\n+        <div class=\"text-center\">\n             @foreach ($tratte as $tratta)\n                 <div class=\"my-3\">\n                     <p class=\"h6\">Da\n                         <span class=\"text-primary\">{{ $tratta->departure->name }}</span>\n"
+                },
+                {
+                    "date": 1719223797942,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n <div class=\"container\">\n     @if ($tratte)\n         <div class=\"text-center\">\n             @foreach ($tratte as $tratta)\n-                <div class=\"my-3\">\n+                <div class=\"my-3 \">\n                     <p class=\"h6\">Da\n                         <span class=\"text-primary\">{{ $tratta->departure->name }}</span>\n                         a\n                         <span class=\"text-primary\">{{ $tratta->arrival->name }}</span>\n"
+                },
+                {
+                    "date": 1719223807606,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,15 +1,16 @@\n <div class=\"container\">\n     @if ($tratte)\n         <div class=\"text-center\">\n             @foreach ($tratte as $tratta)\n-                <div class=\"my-3 \">\n+                <div class=\"my-3\">\n                     <p class=\"h6\">Da\n                         <span class=\"text-primary\">{{ $tratta->departure->name }}</span>\n                         a\n                         <span class=\"text-primary\">{{ $tratta->arrival->name }}</span>\n                     </p>\n                     <p>A partire da <strong class=\"h4\">{{ $tratta->price }} €</strong> a persona</p>\n+                    <br>\n                 </div>\n             @endforeach\n         </div>\n     @endif\n"
+                },
+                {
+                    "date": 1719223815700,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,8 @@\n                         a\n                         <span class=\"text-primary\">{{ $tratta->arrival->name }}</span>\n                     </p>\n                     <p>A partire da <strong class=\"h4\">{{ $tratta->price }} €</strong> a persona</p>\n-                    <br>\n                 </div>\n             @endforeach\n         </div>\n     @endif\n"
+                },
+                {
+                    "date": 1719224787438,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n                         <span class=\"text-primary\">{{ $tratta->departure->name }}</span>\n                         a\n                         <span class=\"text-primary\">{{ $tratta->arrival->name }}</span>\n                     </p>\n-                    <p>A partire da <strong class=\"h4\">{{ $tratta->price }} €</strong> a persona</p>\n+                    <p>A partire da <strong class=\"h4 \">{{ $tratta->price }} €</strong> a persona</p>\n                 </div>\n             @endforeach\n         </div>\n     @endif\n"
+                },
+                {
+                    "date": 1719224800431,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n                         <span class=\"text-primary\">{{ $tratta->departure->name }}</span>\n                         a\n                         <span class=\"text-primary\">{{ $tratta->arrival->name }}</span>\n                     </p>\n-                    <p>A partire da <strong class=\"h4 text-danger\">{{ $tratta->price }} €</strong> a persona</p>\n+                    <p>A partire da <strong class=\"h4\">{{ $tratta->price }} €</strong> a persona</p>\n                 </div>\n             @endforeach\n         </div>\n     @endif\n"
+                },
+                {
+                    "date": 1719224806218,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n                         <span class=\"text-primary\">{{ $tratta->departure->name }}</span>\n                         a\n                         <span class=\"text-primary\">{{ $tratta->arrival->name }}</span>\n                     </p>\n-                    <p>A partire da <strong class=\"h4 \">{{ $tratta->price }} €</strong> a persona</p>\n+                    <p>A partire da <strong class=\"h4 dange\">{{ $tratta->price }} €</strong> a persona</p>\n                 </div>\n             @endforeach\n         </div>\n     @endif\n"
                 }
             ],
             "date": 1718896705517,

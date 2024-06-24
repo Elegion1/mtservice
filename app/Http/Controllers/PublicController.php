@@ -40,4 +40,8 @@ class PublicController extends Controller
     public function contattaci() {
         return view('pages.contattaci');
     }
+
+    public function partners() {
+        return view('pages.partners');
+    }
 }

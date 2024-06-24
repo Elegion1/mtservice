@@ -1,6 +1,6 @@
 <div class="container">
     @if ($tratte)
-        <div class="text-center my-3 border rounded bg-white">
+        <div class="text-center">
             @foreach ($tratte as $tratta)
                 <div class="my-3">
                     <p class="h6">Da

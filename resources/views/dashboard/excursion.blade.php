@@ -190,7 +190,7 @@
                 });
             });
 
-            // Gestione del click sul pulsante "Elimina" immagine nel modale di modifica
+            
             // Gestione del click sul pulsante "Elimina" immagine nel modale di modifica
             document.getElementById('edit-current-images').addEventListener('click', (event) => {
                 if (event.target.classList.contains('remove-image')) {

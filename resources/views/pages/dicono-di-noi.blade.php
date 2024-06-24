@@ -1,7 +1,7 @@
 <x-layout>
-    <div class="container">
+    <div class="container bg-white rounded shadow p-3">
         <div class="row">
-            <div class="col-12 mt-5">
+            <div class="col-12">
                 <h1>TITOLO</h1>
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione vero repudiandae libero ipsa rem
@@ -47,4 +47,5 @@
             </div>
         </div>
     </div>
+
 </x-layout>

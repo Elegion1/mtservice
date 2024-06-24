@@ -1,0 +1,222 @@
+{
+    "sourceFile": "resources/views/pages/partners.blade.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 51,
+            "patches": [
+                {
+                    "date": 1719235794833,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1719235969915,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,3 @@\n <x-layout>\n-    \n+    div.\n </x-layout>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719235981230,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,3 +1,5 @@\n <x-layout>\n-    div.\n+    <div class=\"container\">\n+        @foreach\n+    </div>\n </x-layout>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719235986314,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,7 @@\n <x-layout>\n     <div class=\"container\">\n-        @foreach\n+        @foreach ($partners as )\n+            \n+        @endforeach\n     </div>\n </x-layout>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719235993603,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <x-layout>\n     <div class=\"container\">\n-        @foreach ($partners as )\n+        @foreach ($partners as $partner )\n             \n         @endforeach\n     </div>\n </x-layout>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719235998672,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <x-layout>\n     <div class=\"container\">\n-        @foreach ($partners as $partner )\n+        @foreach ($partners as $partner )   \n             \n         @endforeach\n     </div>\n </x-layout>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719236005565,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,9 @@\n <x-layout>\n     <div class=\"container\">\n         @foreach ($partners as $partner )   \n-            \n+            <div class=\"container\">\n+                \n+            </div>\n         @endforeach\n     </div>\n </x-layout>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719236069304,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n <x-layout>\n     <div class=\"container\">\n         @foreach ($partners as $partner )   \n             <div class=\"container\">\n-                \n+                div.\n             </div>\n         @endforeach\n     </div>\n </x-layout>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719236078683,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n <x-layout>\n     <div class=\"container\">\n         @foreach ($partners as $partner )   \n             <div class=\"container\">\n-                div.\n+                <p</p>\n             </div>\n         @endforeach\n     </div>\n </x-layout>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719236090431,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,9 @@\n+<x-layout>\n+    <div class=\"container\">\n+        @foreach ($partners as $partner )   \n+            <div class=\"container\">\n+                <p>{{$partner->name}}</p>\n+            </div>\n+        @endforeach\n+    </div>\n+</x-layout>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719236097223,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,17 +2,9 @@\n     <div class=\"container\">\n         @foreach ($partners as $partner )   \n             <div class=\"container\">\n                 <p>{{$partner->name}}</p>\n+                \n             </div>\n         @endforeach\n     </div>\n-</x-layout>\n-<x-layout>\n-    <div class=\"container\">\n-        @foreach ($partners as $partner )   \n-            <div class=\"container\">\n-                <p</p>\n-            </div>\n-        @endforeach\n-    </div>\n </x-layout>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719236102247,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n     <div class=\"container\">\n         @foreach ($partners as $partner )   \n             <div class=\"container\">\n                 <p>{{$partner->name}}</p>\n-                \n+                <p>{{}}</p>\n             </div>\n         @endforeach\n     </div>\n </x-layout>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719236108141,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n     <div class=\"container\">\n         @foreach ($partners as $partner )   \n             <div class=\"container\">\n                 <p>{{$partner->name}}</p>\n-                <p>{{}}</p>\n+                <p>{{$partner->link}}</p>\n             </div>\n         @endforeach\n     </div>\n </x-layout>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719236116865,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,8 +3,9 @@\n         @foreach ($partners as $partner )   \n             <div class=\"container\">\n                 <p>{{$partner->name}}</p>\n                 <p>{{$partner->link}}</p>\n+                \n             </div>\n         @endforeach\n     </div>\n </x-layout>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719236123478,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,14 @@\n <x-layout>\n     <div class=\"container\">\n         @foreach ($partners as $partner )   \n             <div class=\"container\">\n+                <div class=\"container\">\n+                    \n+                </div>\n                 <p>{{$partner->name}}</p>\n                 <p>{{$partner->link}}</p>\n-                \n+\n             </div>\n         @endforeach\n     </div>\n </x-layout>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719236132676,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n     <div class=\"container\">\n         @foreach ($partners as $partner )   \n             <div class=\"container\">\n                 <div class=\"container\">\n-                    \n+                    <img src=\"{{Storage}}\" alt=\"\">\n                 </div>\n                 <p>{{$partner->name}}</p>\n                 <p>{{$partner->link}}</p>\n \n"
+                },
+                {
+                    "date": 1719236143343,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n     <div class=\"container\">\n         @foreach ($partners as $partner )   \n             <div class=\"container\">\n                 <div class=\"container\">\n-                    <img src=\"{{Storage}}\" alt=\"\">\n+                    <img src=\"{{Storage::url($partner)}}\" alt=\"\">\n                 </div>\n                 <p>{{$partner->name}}</p>\n                 <p>{{$partner->link}}</p>\n \n"
+                },
+                {
+                    "date": 1719236150731,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n     <div class=\"container\">\n         @foreach ($partners as $partner )   \n             <div class=\"container\">\n                 <div class=\"container\">\n-                    <img src=\"{{Storage::url($partner)}}\" alt=\"\">\n+                    <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\">\n                 </div>\n                 <p>{{$partner->name}}</p>\n                 <p>{{$partner->link}}</p>\n \n"
+                },
+                {
+                    "date": 1719236267185,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n     <div class=\"container\">\n         @foreach ($partners as $partner )   \n             <div class=\"container\">\n                 <div class=\"container\">\n-                    <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\">\n+                    {{-- <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\"> --}}\n                 </div>\n                 <p>{{$partner->name}}</p>\n                 <p>{{$partner->link}}</p>\n \n"
+                },
+                {
+                    "date": 1719236310289,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,7 @@\n <x-layout>\n     <div class=\"container\">\n+        \n         @foreach ($partners as $partner )   \n             <div class=\"container\">\n                 <div class=\"container\">\n                     {{-- <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\"> --}}\n"
+                },
+                {
+                    "date": 1719236316284,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <x-layout>\n     <div class=\"container\">\n-        \n+        @dd($partners)\n         @foreach ($partners as $partner )   \n             <div class=\"container\">\n                 <div class=\"container\">\n                     {{-- <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\"> --}}\n"
+                },
+                {
+                    "date": 1719236341205,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <x-layout>\n     <div class=\"container\">\n+        @foreach ($partners as $partner )   \n         @dd($partners)\n-        @foreach ($partners as $partner )   \n             <div class=\"container\">\n                 <div class=\"container\">\n                     {{-- <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\"> --}}\n                 </div>\n"
+                },
+                {
+                    "date": 1719236352256,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <x-layout>\n     <div class=\"container\">\n         @foreach ($partners as $partner )   \n-        @dd($partners)\n+        @dd($partner->name)\n             <div class=\"container\">\n                 <div class=\"container\">\n                     {{-- <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\"> --}}\n                 </div>\n"
+                },
+                {
+                    "date": 1719236361436,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <x-layout>\n     <div class=\"container\">\n         @foreach ($partners as $partner )   \n-        @dd($partner->name)\n+        @dd($partner->{{ $collection->links() }})\n             <div class=\"container\">\n                 <div class=\"container\">\n                     {{-- <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\"> --}}\n                 </div>\n"
+                },
+                {
+                    "date": 1719236368848,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <x-layout>\n     <div class=\"container\">\n         @foreach ($partners as $partner )   \n-        @dd($partner->{{ $collection->links() }})\n+        @dd($partner->images)\n             <div class=\"container\">\n                 <div class=\"container\">\n                     {{-- <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\"> --}}\n                 </div>\n"
+                },
+                {
+                    "date": 1719236382097,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,7 @@\n <x-layout>\n     <div class=\"container\">\n         @foreach ($partners as $partner )   \n-        @dd($partner->images)\n             <div class=\"container\">\n                 <div class=\"container\">\n                     {{-- <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\"> --}}\n                 </div>\n"
+                },
+                {
+                    "date": 1719236419837,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <x-layout>\n     <div class=\"container\">\n-        @foreach ($partners as $partner )   \n-            <div class=\"container\">\n+        @foreach ($partners as $partner )  \n+            <div class=\"container bg-white\">\n                 <div class=\"container\">\n                     {{-- <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\"> --}}\n                 </div>\n                 <p>{{$partner->name}}</p>\n"
+                },
+                {
+                    "date": 1719236430540,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <x-layout>\n     <div class=\"container\">\n         @foreach ($partners as $partner )  \n-            <div class=\"container bg-white\">\n+            <div class=\"container bg-white \">\n                 <div class=\"container\">\n                     {{-- <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\"> --}}\n                 </div>\n                 <p>{{$partner->name}}</p>\n"
+                },
+                {
+                    "date": 1719236438626,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n <x-layout>\n     <div class=\"container\">\n+        \n         @foreach ($partners as $partner )  \n-            <div class=\"container bg-white \">\n+            <div class=\"container bg-white rounded shadow\">\n                 <div class=\"container\">\n                     {{-- <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\"> --}}\n                 </div>\n                 <p>{{$partner->name}}</p>\n"
+                },
+                {
+                    "date": 1719236444198,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <x-layout>\n     <div class=\"container\">\n-        \n+        <h1></h1>\n         @foreach ($partners as $partner )  \n             <div class=\"container bg-white rounded shadow\">\n                 <div class=\"container\">\n                     {{-- <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\"> --}}\n"
+                },
+                {
+                    "date": 1719236451265,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,8 @@\n <x-layout>\n     <div class=\"container\">\n-        <h1></h1>\n+        <h1>I nostri partner</h1>\n+        p\n         @foreach ($partners as $partner )  \n             <div class=\"container bg-white rounded shadow\">\n                 <div class=\"container\">\n                     {{-- <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\"> --}}\n"
+                },
+                {
+                    "date": 1719236459481,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n <x-layout>\n     <div class=\"container\">\n         <h1>I nostri partner</h1>\n-        p\n+        <p>\n+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam cumque nulla harum sit corporis unde esse delectus eum, repudiandae perferendis assumenda aliquid, minus eius, dolor sapiente? At consequuntur dicta qui!</p>\n         @foreach ($partners as $partner )  \n             <div class=\"container bg-white rounded shadow\">\n                 <div class=\"container\">\n                     {{-- <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\"> --}}\n"
+                },
+                {
+                    "date": 1719236466786,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,18 @@\n+<x-layout>\n+    <div class=\"container\">\n+        <h1>I nostri partner</h1>\n+        <p>\n+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam cumque nulla harum sit corporis unde esse delectus eum, repudiandae perferendis assumenda aliquid, minus eius, dolor sapiente? At consequuntur dicta qui!\n+        </p>\n+        @foreach ($partners as $partner )  \n+            <div class=\"container\">\n+                <div class=\"container\">\n+                    {{-- <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\"> --}}\n+                </div>\n+                <p>{{$partner->name}}</p>\n+                <p>{{$partner->link}}</p>\n+\n+            </div>\n+        @endforeach\n+    </div>\n+</x-layout>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719236481193,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,35 +1,18 @@\n <x-layout>\n-    <div class=\"container\">\n+    <div class=\"container bg-white rounded shadow\">\n         <h1>I nostri partner</h1>\n         <p>\n             Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam cumque nulla harum sit corporis unde esse delectus eum, repudiandae perferendis assumenda aliquid, minus eius, dolor sapiente? At consequuntur dicta qui!\n         </p>\n         @foreach ($partners as $partner )  \n             <div class=\"container\">\n                 <div class=\"container\">\n-                    {{-- <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\"> --}}\n+                    <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\">\n                 </div>\n                 <p>{{$partner->name}}</p>\n                 <p>{{$partner->link}}</p>\n \n             </div>\n         @endforeach\n     </div>\n-</x-layout>\n-<x-layout>\n-    <div class=\"container\">\n-        <h1>I nostri partner</h1>\n-        <p>\n-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam cumque nulla harum sit corporis unde esse delectus eum, repudiandae perferendis assumenda aliquid, minus eius, dolor sapiente? At consequuntur dicta qui!</p>\n-        @foreach ($partners as $partner )  \n-            <div class=\"container bg-white rounded shadow\">\n-                <div class=\"container\">\n-                    {{-- <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\"> --}}\n-                </div>\n-                <p>{{$partner->name}}</p>\n-                <p>{{$partner->link}}</p>\n-\n-            </div>\n-        @endforeach\n-    </div>\n </x-layout>\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719236507508,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,11 @@\n             Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam cumque nulla harum sit corporis unde esse delectus eum, repudiandae perferendis assumenda aliquid, minus eius, dolor sapiente? At consequuntur dicta qui!\n         </p>\n         @foreach ($partners as $partner )  \n             <div class=\"container\">\n+                @if ($partner->images)\n+                    \n+                @endif\n                 <div class=\"container\">\n                     <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\">\n                 </div>\n                 <p>{{$partner->name}}</p>\n"
+                },
+                {
+                    "date": 1719236513477,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,21 +1,22 @@\n <x-layout>\n     <div class=\"container bg-white rounded shadow\">\n         <h1>I nostri partner</h1>\n         <p>\n-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam cumque nulla harum sit corporis unde esse delectus eum, repudiandae perferendis assumenda aliquid, minus eius, dolor sapiente? At consequuntur dicta qui!\n+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam cumque nulla harum sit corporis unde esse\n+            delectus eum, repudiandae perferendis assumenda aliquid, minus eius, dolor sapiente? At consequuntur dicta\n+            qui!\n         </p>\n-        @foreach ($partners as $partner )  \n+        @foreach ($partners as $partner)\n             <div class=\"container\">\n                 @if ($partner->images)\n-                    \n+                    <div class=\"container\">\n+                        <img src=\"{{ Storage::url($partner->images->path) }}\" alt=\"\">\n+                    </div>\n                 @endif\n-                <div class=\"container\">\n-                    <img src=\"{{Storage::url($partner->images->path)}}\" alt=\"\">\n-                </div>\n\\ No newline at end of file\n-                <p>{{$partner->name}}</p>\n-                <p>{{$partner->link}}</p>\n+                <p>{{ $partner->name }}</p>\n+                <p>{{ $partner->link }}</p>\n \n             </div>\n         @endforeach\n     </div>\n-</x-layout>\n+</x-layout>\n"
+                },
+                {
+                    "date": 1719236543383,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,8 +7,9 @@\n             qui!\n         </p>\n         @foreach ($partners as $partner)\n             <div class=\"container\">\n+                @dd()\n                 @if ($partner->images)\n                     <div class=\"container\">\n                         <img src=\"{{ Storage::url($partner->images->path) }}\" alt=\"\">\n                     </div>\n"
+                },
+                {
+                    "date": 1719236549168,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n             qui!\n         </p>\n         @foreach ($partners as $partner)\n             <div class=\"container\">\n-                @dd()\n+                @dd($partner->images)\n                 @if ($partner->images)\n                     <div class=\"container\">\n                         <img src=\"{{ Storage::url($partner->images->path) }}\" alt=\"\">\n                     </div>\n"
+                },
+                {
+                    "date": 1719236559800,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n             qui!\n         </p>\n         @foreach ($partners as $partner)\n             <div class=\"container\">\n-                @dd($partner->images)\n+                @dd($partner->images->path)\n                 @if ($partner->images)\n                     <div class=\"container\">\n                         <img src=\"{{ Storage::url($partner->images->path) }}\" alt=\"\">\n                     </div>\n"
+                },
+                {
+                    "date": 1719236596270,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n             qui!\n         </p>\n         @foreach ($partners as $partner)\n             <div class=\"container\">\n-                @dd($partner->images->path)\n+                @dd($partner->images->)\n                 @if ($partner->images)\n                     <div class=\"container\">\n                         <img src=\"{{ Storage::url($partner->images->path) }}\" alt=\"\">\n                     </div>\n"
+                },
+                {
+                    "date": 1719236708361,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n             qui!\n         </p>\n         @foreach ($partners as $partner)\n             <div class=\"container\">\n-                @dd($partner->images->)\n+                @dd($partner->images->count)\n                 @if ($partner->images)\n                     <div class=\"container\">\n                         <img src=\"{{ Storage::url($partner->images->path) }}\" alt=\"\">\n                     </div>\n"
+                },
+                {
+                    "date": 1719236713681,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n             qui!\n         </p>\n         @foreach ($partners as $partner)\n             <div class=\"container\">\n-                @dd($partner->images->count)\n+                @dd($partner->images->count()>0)\n                 @if ($partner->images)\n                     <div class=\"container\">\n                         <img src=\"{{ Storage::url($partner->images->path) }}\" alt=\"\">\n                     </div>\n"
+                },
+                {
+                    "date": 1719236727508,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n         </p>\n         @foreach ($partners as $partner)\n             <div class=\"container\">\n                 @dd($partner->images->count()>0)\n-                @if ($partner->images)\n+                @if ($partner->images->count()>0)\n                     <div class=\"container\">\n                         <img src=\"{{ Storage::url($partner->images->path) }}\" alt=\"\">\n                     </div>\n                 @endif\n"
+                },
+                {
+                    "date": 1719236766296,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,12 +7,12 @@\n             qui!\n         </p>\n         @foreach ($partners as $partner)\n             <div class=\"container\">\n-                @dd($partner->images->count()>0)\n+                {{-- @dd($partner->images->count()>0) --}}\n                 @if ($partner->images->count()>0)\n                     <div class=\"container\">\n-                        <img src=\"{{ Storage::url($partner->images->path) }}\" alt=\"\">\n+                        <img src=\"{{ Storage::url($image->path) }}\" alt=\"\">\n                     </div>\n                 @endif\n                 <p>{{ $partner->name }}</p>\n                 <p>{{ $partner->link }}</p>\n"
+                },
+                {
+                    "date": 1719236800237,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,8 +9,9 @@\n         @foreach ($partners as $partner)\n             <div class=\"container\">\n                 {{-- @dd($partner->images->count()>0) --}}\n                 @if ($partner->images->count()>0)\n+                \n                     <div class=\"container\">\n                         <img src=\"{{ Storage::url($image->path) }}\" alt=\"\">\n                     </div>\n                 @endif\n"
+                },
+                {
+                    "date": 1719236809452,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,11 @@\n         @foreach ($partners as $partner)\n             <div class=\"container\">\n                 {{-- @dd($partner->images->count()>0) --}}\n                 @if ($partner->images->count()>0)\n-                \n+                @foreach ( as )\n+                    \n+                @endforeach\n                     <div class=\"container\">\n                         <img src=\"{{ Storage::url($image->path) }}\" alt=\"\">\n                     </div>\n                 @endif\n"
+                },
+                {
+                    "date": 1719236816160,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n         @foreach ($partners as $partner)\n             <div class=\"container\">\n                 {{-- @dd($partner->images->count()>0) --}}\n                 @if ($partner->images->count()>0)\n-                @foreach ( as )\n+                @foreach ($partner->images as )\n                     \n                 @endforeach\n                     <div class=\"container\">\n                         <img src=\"{{ Storage::url($image->path) }}\" alt=\"\">\n"
+                },
+                {
+                    "date": 1719236824715,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,14 +9,14 @@\n         @foreach ($partners as $partner)\n             <div class=\"container\">\n                 {{-- @dd($partner->images->count()>0) --}}\n                 @if ($partner->images->count()>0)\n-                @foreach ($partner->images as )\n+                @foreach ($partner->images as $image )\n                     \n+                <div class=\"container\">\n+                    <img src=\"{{ Storage::url($image->path) }}\" alt=\"\">\n+                </div>\n                 @endforeach\n-                    <div class=\"container\">\n-                        <img src=\"{{ Storage::url($image->path) }}\" alt=\"\">\n-                    </div>\n                 @endif\n                 <p>{{ $partner->name }}</p>\n                 <p>{{ $partner->link }}</p>\n \n"
+                },
+                {
+                    "date": 1719236838434,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,15 +8,14 @@\n         </p>\n         @foreach ($partners as $partner)\n             <div class=\"container\">\n                 {{-- @dd($partner->images->count()>0) --}}\n-                @if ($partner->images->count()>0)\n-                @foreach ($partner->images as $image )\n-                    \n-                <div class=\"container\">\n-                    <img src=\"{{ Storage::url($image->path) }}\" alt=\"\">\n-                </div>\n-                @endforeach\n+                @if ($partner->images->count() > 0)\n+                    @foreach ($partner->images as $image)\n+                        <div class=\"container\">\n+                            <img width=\"\" src=\"{{ Storage::url($image->path) }}\" alt=\"\">\n+                        </div>\n+                    @endforeach\n                 @endif\n                 <p>{{ $partner->name }}</p>\n                 <p>{{ $partner->link }}</p>\n \n"
+                },
+                {
+                    "date": 1719236851561,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,14 +11,14 @@\n                 {{-- @dd($partner->images->count()>0) --}}\n                 @if ($partner->images->count() > 0)\n                     @foreach ($partner->images as $image)\n                         <div class=\"container\">\n-                            <img width=\"\" src=\"{{ Storage::url($image->path) }}\" alt=\"\">\n+                            <img width=\"400px\" src=\"{{ Storage::url($image->path) }}\" alt=\"\">\n                         </div>\n                     @endforeach\n                 @endif\n                 <p>{{ $partner->name }}</p>\n-                <p>{{ $partner->link }}</p>\n+                <p><a href=\"\"></a>{{ $partner->link }}</p>\n \n             </div>\n         @endforeach\n     </div>\n"
+                },
+                {
+                    "date": 1719236857750,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n                         </div>\n                     @endforeach\n                 @endif\n                 <p>{{ $partner->name }}</p>\n-                <p><a href=\"\"></a></p>\n+                <p><a href=\"\">{{ $partner->link }}</a></p>\n \n             </div>\n         @endforeach\n     </div>\n"
+                },
+                {
+                    "date": 1719236889930,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,27 @@\n+<x-layout>\n+    <div class=\"container bg-white rounded shadow\">\n+        <h1>I nostri partner</h1>\n+        <p>\n+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam cumque nulla harum sit corporis unde esse\n+            delectus eum, repudiandae perferendis assumenda aliquid, minus eius, dolor sapiente? At consequuntur dicta\n+            qui!\n+        </p>\n+        @foreach ($partners as $partner)\n+            <div class=\"container\">\n+                {{-- @dd($partner->images->count()>0) --}}\n+                @if ($partner->images->count() > 0)\n+                    @foreach ($partner->images as $image)\n+                        <div class=\"container\">\n+                            <img width=\"400px\" src=\"{{ Storage::url($image->path) }}\" alt=\"\">\n+                        </div>\n+                    @endforeach\n+                    @else\n+                    \n+                @endif\n+                <p>{{ $partner->name }}</p>\n+                <p><a href=\"{{ $partner->link }}\">{{ $partner->link }}</a></p>\n+\n+            </div>\n+        @endforeach\n+    </div>\n+</x-layout>\n"
+                }
+            ],
+            "date": 1719235794833,
+            "name": "Commit-0",
+            "content": "<x-layout>\n    \n</x-layout>"
+        }
+    ]
+}

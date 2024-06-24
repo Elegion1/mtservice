@@ -1,0 +1,22 @@
+{
+    "sourceFile": "app/Http/Controllers/ReviewController.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1719241321597,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1719241326785,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,8 @@\n class ReviewController extends Controller\n {\n     public function create()\n     {\n-        $reviews = Review::all();\n         return view('dashboard.review');\n     }\n \n     public function store(Request $request)\n"
+                }
+            ],
+            "date": 1719241321597,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Http\\Controllers;\n\nuse App\\Models\\Review;\nuse Illuminate\\Http\\Request;\n\nclass ReviewController extends Controller\n{\n    public function create()\n    {\n        $reviews = Review::all();\n        return view('dashboard.review');\n    }\n\n    public function store(Request $request)\n    {\n        $validated = $request->validate([\n            'name' => 'required',\n            'title' => 'required',\n            'body' => 'required',\n            'rating' => 'required|integer|min:1|max:5',\n        ]);\n\n        $review = new Review();\n        $review->name = $validated['name'];\n        $review->title = $validated['title'];\n        $review->body = $validated['body'];\n        $review->rating = $validated['rating'];\n        $review->save();\n\n        return redirect()->route('dashboard.review')->with('success', 'Recensione creata con successo!');\n    }\n\n    public function update(Request $request, Review $review)\n    {\n        $validated = $request->validate([\n            'name' => 'required',\n            'title' => 'required',\n            'body' => 'required',\n            'rating' => 'required|integer|min:1|max:5',\n        ]);\n\n        $review->update($validated);\n\n        return redirect()->route('dashboard.review')->with('success', 'Recensione aggiornata con successo!');\n    }\n\n    public function destroy(Review $review)\n    {\n        $review->delete();\n\n        return redirect()->route('dashboard.review')->with('success', 'Recensione eliminata con successo!');\n    }\n}\n"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
 <div>
-    <div class="container @if ($isHome) my-3 d-flex justify-content-center align-items-center @endif">
-        <div class="row @if ($isHome) bg-white rounded border @endif p-2">
+    <div class="container">
+        <div class="row p-2">
             @if ($isHome)
                 <div class="col-12 d-flex justify-content-center align-items-center p-2 mb-3">
                     <button type="button" 

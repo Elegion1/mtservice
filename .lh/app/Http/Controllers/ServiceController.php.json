@@ -1,0 +1,18 @@
+{
+    "sourceFile": "app/Http/Controllers/ServiceController.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1719226146465,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1719226146465,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Http\\Controllers;\n\nuse App\\Models\\Service;\nuse App\\Models\\Image;\nuse Illuminate\\Http\\Request;\nuse Illuminate\\Support\\Facades\\Storage;\n\nclass ServiceController extends Controller\n{\n    public function show($id)\n    {\n        $service = Service::findOrFail($id);\n\n        return view('pages.services.show', compact('service'));\n    }\n    \n    public function index()\n    {\n        $services = Service::with('images')->get(); // Carica anche le immagini associate\n        return view('dashboard.service', compact('services'));\n    }\n\n    public function store(Request $request)\n    {\n        $service = Service::create($request->all());\n\n        if ($request->hasFile('images')) {\n            foreach ($request->file('images') as $file) {\n                $path = $file->store('images', 'public');\n                Image::create([\n                    'path' => $path,\n                    'service_id' => $service->id,\n                ]);\n            }\n        }\n\n        return redirect()->route('dashboard.service')->with('success', 'Servizio creato con successo.');\n    }\n\n    public function update(Request $request, Service $service)\n    {\n        $service->update($request->all());\n\n        if ($request->hasFile('images')) {\n            foreach ($request->file('images') as $file) {\n                $path = $file->store('images', 'public');\n                Image::create([\n                    'path' => $path,\n                    'service_id' => $service->id,\n                ]);\n            }\n        }\n\n        return redirect()->route('dashboard.service')->with('success', 'Servizio aggiornato con successo.');\n    }\n\n    public function destroy(Service $service)\n    {\n        foreach ($service->images as $image) {\n            Storage::disk('public')->delete($image->path);\n            $image->delete();\n        }\n        $service->delete();\n        return redirect()->route('dashboard.service')->with('success', 'Servizio eliminato con successo.');\n    }\n\n    public function deleteImage($id)\n    {\n        $image = Image::find($id);\n\n        if ($image) {\n            Storage::disk('public')->delete($image->path);\n            $image->delete();\n            return response()->json(['success' => true]);\n        }\n\n        return response()->json(['success' => false, 'error' => 'Immagine non trovata'], 404);\n    }\n}\n"
+        }
+    ]
+}
