@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 5,
+            "activePatchIndex": 21,
             "patches": [
                 {
                     "date": 1719225367946,
@@ -28,6 +28,70 @@
                 {
                     "date": 1719225406722,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,10 @@\n \n     protected $fillable = [\n         'path',\n         'service_id',\n-        'excursion_id'\n+        'excursion_id',\n+        'partner:'\n     ];\n \n     public function service()\n     {\n"
+                },
+                {
+                    "date": 1719321710021,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,10 @@\n     protected $fillable = [\n         'path',\n         'service_id',\n         'excursion_id',\n-        'partner:'\n+        'partner_id'\n+        ''\n     ];\n \n     public function service()\n     {\n"
+                },
+                {
+                    "date": 1719321718652,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n         'path',\n         'service_id',\n         'excursion_id',\n         'partner_id'\n-        ''\n+        'O'\n     ];\n \n     public function service()\n     {\n"
+                },
+                {
+                    "date": 1719321726629,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n         'path',\n         'service_id',\n         'excursion_id',\n         'partner_id'\n-        'O'\n+        'ownerdat'\n     ];\n \n     public function service()\n     {\n"
+                },
+                {
+                    "date": 1719321741660,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n         'path',\n         'service_id',\n         'excursion_id',\n         'partner_id'\n-        'ownerdat'\n+        'owner'\n     ];\n \n     public function service()\n     {\n"
+                },
+                {
+                    "date": 1719321748338,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,35 @@\n+<?php\n+\n+namespace App\\Models;\n+\n+use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\n+use Illuminate\\Database\\Eloquent\\Model;\n+use Symfony\\Component\\CssSelector\\XPath\\Extension\\FunctionExtension;\n+\n+class Image extends Model\n+{\n+    use HasFactory;\n+\n+    protected $fillable = [\n+        'path',\n+        'service_id',\n+        'excursion_id',\n+        'partner_id'\n+        'owner'\n+    ];\n+\n+    public function service()\n+    {\n+        return $this->belongsTo(Service::class);\n+    }\n+\n+    public function excursion()\n+    {\n+        return $this->belongsTo(Excursion::class);\n+    }\n+\n+    public function partner()\n+    {\n+        return $this->belongsTo(Partner::class);\n+    }\n+}\n"
+                },
+                {
+                    "date": 1719321754539,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,10 +13,10 @@\n     protected $fillable = [\n         'path',\n         'service_id',\n         'excursion_id',\n-        'partner_id'\n-        'owner'\n+        'partner_id',\n+        'owner_data_id'\n     ];\n \n     public function service()\n     {\n@@ -32,39 +32,4 @@\n     {\n         return $this->belongsTo(Partner::class);\n     }\n }\n-<?php\n-\n-namespace App\\Models;\n-\n-use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\n-use Illuminate\\Database\\Eloquent\\Model;\n-use Symfony\\Component\\CssSelector\\XPath\\Extension\\FunctionExtension;\n-\n-class Image extends Model\n-{\n-    use HasFactory;\n-\n-    protected $fillable = [\n-        'path',\n-        'service_id',\n-        'excursion_id',\n-        'partner_id'\n-        'owner'\n-    ];\n-\n-    public function service()\n-    {\n-        return $this->belongsTo(Service::class);\n-    }\n-\n-    public function excursion()\n-    {\n-        return $this->belongsTo(Excursion::class);\n-    }\n-\n-    public function partner()\n-    {\n-        return $this->belongsTo(Partner::class);\n-    }\n-}\n"
+                },
+                {
+                    "date": 1719321760939,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,5 +31,7 @@\n     public function partner()\n     {\n         return $this->belongsTo(Partner::class);\n     }\n+\n+    public\n }\n"
+                },
+                {
+                    "date": 1719321769381,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,6 +32,6 @@\n     {\n         return $this->belongsTo(Partner::class);\n     }\n \n-    public\n+    public function ownerData\n }\n"
+                },
+                {
+                    "date": 1719321775195,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,6 +32,6 @@\n     {\n         return $this->belongsTo(Partner::class);\n     }\n \n-    public function ownerData\n+    public function owner\n }\n"
+                },
+                {
+                    "date": 1719321785543,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,6 +32,8 @@\n     {\n         return $this->belongsTo(Partner::class);\n     }\n \n-    public function owner\n+    public function owner_data(){\n+        \n+    }\n }\n"
+                },
+                {
+                    "date": 1719321794645,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -33,7 +33,7 @@\n         return $this->belongsTo(Partner::class);\n     }\n \n     public function owner_data(){\n-        \n+        return $this->belongsTo(Partner::class);\n     }\n }\n"
+                },
+                {
+                    "date": 1719321804351,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,8 +32,8 @@\n     {\n         return $this->belongsTo(Partner::class);\n     }\n \n-    public function owner_data(){\n+    public function OwnerData(){\n         return $this->belongsTo(Partner::class);\n     }\n }\n"
+                },
+                {
+                    "date": 1719321812149,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,8 +32,8 @@\n     {\n         return $this->belongsTo(Partner::class);\n     }\n \n-    public function OwnerData(){\n+    public function ownerData(){\n         return $this->belongsTo(Partner::class);\n     }\n }\n"
+                },
+                {
+                    "date": 1719325334730,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,8 +32,8 @@\n     {\n         return $this->belongsTo(Partner::class);\n     }\n \n-    public function ownerData(){\n-        return $this->belongsTo(Partner::class);\n+    public function owner_data(){\n+        return $this->belongsTo(OwnerData::class);\n     }\n }\n"
+                },
+                {
+                    "date": 1719325355609,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,8 +32,9 @@\n     {\n         return $this->belongsTo(Partner::class);\n     }\n \n-    public function owner_data(){\n+    public function owner_data()\n+    {\n         return $this->belongsTo(OwnerData::class);\n     }\n }\n"
+                },
+                {
+                    "date": 1719326930530,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,9 @@\n     {\n         return $this->belongsTo(Partner::class);\n     }\n \n-    public function owner_data()\n+    public function ownerData()\n     {\n         return $this->belongsTo(OwnerData::class);\n     }\n }\n"
                 }
             ],
             "date": 1719225367946,

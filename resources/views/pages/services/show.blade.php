@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container my-5">
+    <div class="container bg-white rounded shadow p-3">
         <div class="row">
             <div class="col-12 col-md-6">
                 <div class="col-12">
@@ -27,12 +27,20 @@
             </div>
             <div class="col-12 col-md-6">
                 <div class="container d-flex align-items-center justify-content-center">
-                    @foreach ($service->images as $image)
-                        <img width="400px" src="{{ Storage::url($image->path) }}" alt="">
-                    @endforeach
+                    @if ($service->images->isNotEmpty())
+                        @foreach ($service->images->first() as $image)
+                                <img src="{{ Storage::url($image->path) }}" class="d-block w-100" alt="...">
+                        @endforeach
+                    @else
+                        <div class="container-fluid my-2 justify-content-center align-items-center d-flex">
+                            <img class="rounded shadow" src="https://picsum.photos/400" alt="">
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
-
+    </div>
+    <div class="container">
+        <x-contact-link/>
     </div>
 </x-layout>

@@ -3,12 +3,14 @@
         <div class="row w-100">
             <div class="col-12 d-flex justify-content-between align-items-center">
                 <a class="navbar-brand" href="{{ route('home') }}">
-                    <img width="200px" src="/media/logo.png" alt="">
+                    <img class="logo-img" src="{{Storage::url($ownerdata->images->first()->path)}}" alt="">
                 </a>
-                <div class="d-none d-md-block d-flex justify-content-center align-items-center">
-                    <a class="bg-c p-3 mx-2 nav-link rounded-pill shadow" href="tel:0123456789">+ 39 0123456789</a>
-                
-                    <a class="bg-c p-3 mx-2 nav-link rounded-pill shadow" href="tel:0123456789">+ 39 0123456789</a>
+                <div class="d-none d-md-block">
+                    <div class="d-flex justify-content-center aling-items-center">
+                        <a class="bg-c p-1 m-1  nav-link rounded-pill shadow" href="tel:{{$ownerdata->phone2}}">{{$ownerdata->phone2}}</a>
+                    
+                        <a class="bg-c p-1 m-1 nav-link rounded-pill shadow" href="tel:{{$ownerdata->phone3}}">{{$ownerdata->phone3}}</a>
+                    </div>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -17,11 +19,11 @@
                 </button>
             </div>
 
-            <div class="col-12">
+            <div class="col-12 d-md-none d-block">
                 <small>Chiama per info</small>
                 <br>
-                <a class="text-decoration-none" href="tel:+390123456789"> 0123456789</a>
-                <a class="text-decoration-none" href="tel:+390123456789"> 0123456789</a>
+                <a class="text-decoration-none" href="tel:{{$ownerdata->phone2}}">{{$ownerdata->phone2}}</a>
+                <a class="text-decoration-none" href="tel:{{$ownerdata->phone3}}">{{$ownerdata->phone3}}</a>
             </div>
 
             <div class="col-12">

@@ -508,7 +508,7 @@
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
                                                                         class="es-text-mobile-size-16">La prenotazione
                                                                         è stata effettuata correttamente, in allegato
-                                                                        trova il riepilogo.</p>
+                                                                        trovi il riepilogo.</p>
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
                                                                         class="es-text-mobile-size-16">Ti contatteremo
                                                                         al più presto per una conferma.</p>

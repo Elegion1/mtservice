@@ -11,6 +11,7 @@ use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ExcursionController;
 use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\OwnerDataController;
 
 //navigazione
 
@@ -24,8 +25,11 @@ Route::get('/dicono-di-noi', [PublicController::class, 'diconoDiNoi'])->name('di
 Route::get('/contattaci', [PublicController::class, 'contattaci'])->name('contattaci');
 Route::get('/partners', [PublicController::class, 'partners'])->name('partners');
 Route::get('/FAQ', [PublicController::class, 'faq'])->name('faq');
-
 Route::get('/services/{id}', [ServiceController::class, 'show'])->name('service.show');
+
+// Vista PDF 
+Route::get('/pdf', [PublicController::class, 'pdf'])->name('pdf')->middleware('auth');
+
 
 // Contattaci
 Route::post('/contattaci', [ContactController::class, 'invia'])->name('inviaForm');
@@ -84,3 +88,10 @@ Route::post('/dashboard/partners', [PartnerController::class, 'store'])->name('p
 Route::put('/dashboard/partners/{partner}', [PartnerController::class, 'update'])->name('partners.update')->middleware('auth');
 Route::delete('/dashboard/partners/{partner}', [PartnerController::class, 'destroy'])->name('partners.destroy')->middleware('auth');
 Route::delete('/dashboard/images/{id}', [PartnerController::class, 'deleteImage'])->name('images.delete')->middleware('auth');
+
+// Gestione Dati Azienda
+Route::get('/dashboard/owner', [OwnerDataController::class, 'index'])->name('dashboard.ownerData')->middleware('auth');
+Route::post('/dashboard/owner', [OwnerDataController::class, 'store'])->name('owner.store')->middleware('auth');
+Route::put('/dashboard/owner/{ownerData}', [OwnerDataController::class, 'update'])->name('owner.update')->middleware('auth');
+Route::delete('/dashboard/owner/{id}', [OwnerDataController::class, 'destroy'])->name('owner.destroy')->middleware('auth');
+Route::delete('/dashboard/images/{id}', [OwnerDataController::class, 'deleteImage'])->name('images.delete')->middleware('auth');

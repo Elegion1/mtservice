@@ -39,7 +39,7 @@
         <div class="col-12 col-md-6 ">
             <div class="container d-flex justify-content-center align-items-center flex-column shadow rounded bg-white">
                 <p class="h2 my-3">Escursioni Sicilia Occidentale </p>
-                @foreach ($excursions as $excursion)
+                @foreach ($excursionsP as $excursion)
                     <div class="card border-0 mb-3" style="max-width: 540px;">
                         <div class="row g-0">
                             <div class="col-md-4 d-flex justify-content-center align-items-center">
@@ -73,7 +73,7 @@
                 @endforeach
                 <!-- Controlli di paginazione -->
                 <div class="d-flex justify-content-between align-items-center mt-4">
-                    {{ $excursions->links('vendor.pagination.bootstrap-5') }}
+                    {{ $excursionsP->links('vendor.pagination.bootstrap-5') }}
                 </div>
 
             </div>

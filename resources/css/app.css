@@ -93,3 +93,8 @@
     font-size: 18px;
     color: var(--color-a);
 }
+
+.logo-img{
+    width: 20vw;
+    max-width: 200px;
+}

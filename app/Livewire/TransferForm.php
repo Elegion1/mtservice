@@ -41,6 +41,7 @@ class TransferForm extends Component
         'dateReturn.after' => 'La data di ritorno deve essere dopo la data di partenza.',
     ];
 
+
     public function updated($field)
     {
         $this->validateOnly($field);

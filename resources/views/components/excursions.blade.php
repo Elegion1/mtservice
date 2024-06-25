@@ -12,20 +12,7 @@
                 <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                     <div class="container">
                         <div class="row">
-                            <div class="col-12">
-                                <h3>{{ $excursion->name }}</h3>
-                            </div>
-                            <div class="col-12">
-                                <p class="text-secondary">{{ $excursion->abstract }}</p>
-                            </div>
-                            <div class="col-12">
-                                <p>{{ $excursion->description }}</p>
-                            </div>
-                            {{-- <div class="col-12">
-                                <a href="{{ route('excursions.show', $excursion->id) }}"
-                                    class="btn btn-primary">Dettagli</a>
-                            </div> --}}
-                            <div class="col-12 d-flex justify-content-center align-items-center">
+                            <div class="col-6 d-flex justify-content-center align-items-center">
                                 @if ($excursion->images->isNotEmpty())
                                     <div id="carouselImages{{ $excursion->id }}" class="carousel slide"
                                         data-bs-ride="carousel">
@@ -49,10 +36,26 @@
                                         </button>
                                     </div>
                                 @else
-                                    <img class="excursion-img rounded shadow" src="https://picsum.photos/401"
+                                    <img class="excursion-img rounded shadow" src="https://picsum.photos/40{{$excursion->id}}"
                                         alt="">
                                 @endif
                             </div>
+                            <div class="col-6">
+                                <div>
+                                    <h3>{{ $excursion->name }}</h3>
+                                </div>
+                                <div>
+                                    <p class="text-secondary">{{ $excursion->abstract }}</p>
+                                </div>
+                                <div>
+                                    <p>{{ $excursion->description }}</p>
+                                </div>
+                            </div>
+                            {{-- <div class="col-12">
+                                <a href="{{ route('excursions.show', $excursion->id) }}"
+                                    class="btn btn-primary">Dettagli</a>
+                            </div> --}}
+
                         </div>
                     </div>
                 </div>

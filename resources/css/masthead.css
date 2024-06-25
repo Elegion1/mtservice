@@ -20,12 +20,12 @@
 }
 
 .excursion {
-    width: 50%;
-    height: 30% !important;
+    /* width: 50%; */
+    height: 40vh !important;
     padding: 0px;
-    min-height: 0px !important; 
+    min-height: 300px !important; 
 }
 
 .excursion-img {
-    height: 90%;
+    width: 90%;
 }

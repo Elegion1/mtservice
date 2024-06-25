@@ -3,7 +3,9 @@
     <div class="row">
         <div class="col-12 col-md-6">
             <div class="container bg-white rounded shadow p-3">
-                <img src="https://picsum.photos/400" alt="">
+                <div class="d-flex justify-content-center align-items-center">
+                    <img class="my-3 rounded" src="https://picsum.photos/400" alt="">
+                </div>
                 <p>
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum consequatur ut nam similique
                     ducimus temporibus enim incidunt inventore dolores! Veniam autem corporis facere aut

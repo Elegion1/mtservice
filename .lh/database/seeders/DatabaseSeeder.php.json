@@ -1,0 +1,22 @@
+{
+    "sourceFile": "database/seeders/DatabaseSeeder.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1719314386984,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1719314394424,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n         $this->call(UserSeeder::class);\n         $this->call(CarSeeder::class);\n         $this->call(DestinationSeeder::class);\n         $this->call(ReviewSeeder::class);\n-        $this->call(ReviewSeeder::class);\n+        $this->call(OwnerSeeder::class);\n         // User::factory()->create([\n         //     'name' => 'Test User',\n         //     'email' => 'test@example.com',\n         // ]);\n"
+                }
+            ],
+            "date": 1719314386984,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace Database\\Seeders;\n\nuse App\\Models\\User;\n// use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\nuse Illuminate\\Database\\Seeder;\n\nclass DatabaseSeeder extends Seeder\n{\n    /**\n     * Seed the application's database.\n     */\n    public function run(): void\n    {\n        // User::factory(10)->create();\n        $this->call(UserSeeder::class);\n        $this->call(CarSeeder::class);\n        $this->call(DestinationSeeder::class);\n        $this->call(ReviewSeeder::class);\n        $this->call(ReviewSeeder::class);\n        // User::factory()->create([\n        //     'name' => 'Test User',\n        //     'email' => 'test@example.com',\n        // ]);\n    }\n}\n"
+        }
+    ]
+}

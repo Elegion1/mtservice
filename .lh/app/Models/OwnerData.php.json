@@ -1,0 +1,46 @@
+{
+    "sourceFile": "app/Models/OwnerData.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 7,
+            "patches": [
+                {
+                    "date": 1719314261898,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1719314272263,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,6 +8,16 @@\n class OwnerData extends Model\n {\n     use HasFactory;\n \n-    protected $fillable = \n+    protected $fillable = [\n+        'name');\n+            $table->string('surname');\n+            $table->string('companyName');\n+            $table->string('address');\n+            $table->string('pIva');\n+            $table->string('codFisc');\n+            $table->string('phone');\n+            $table->string('phone2');\n+            $table->string('phone3');\n+    ]\n }\n"
+                },
+                {
+                    "date": 1719314277921,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,23 @@\n+<?php\n+\n+namespace App\\Models;\n+\n+use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\n+use Illuminate\\Database\\Eloquent\\Model;\n+\n+class OwnerData extends Model\n+{\n+    use HasFactory;\n+\n+    protected $fillable = [\n+        'name');\n+            'surname');\n+            'companyName');\n+            'address');\n+            'pIva');\n+            'codFisc');\n+            'phone');\n+            'phone2');\n+            'phone3');\n+    ]\n+}\n"
+                },
+                {
+                    "date": 1719314284459,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,38 +9,15 @@\n {\n     use HasFactory;\n \n     protected $fillable = [\n-        'name');\n-            'surname');\n-            'companyName');\n-            'address');\n-            'pIva');\n-            'codFisc');\n-            'phone');\n-            'phone2');\n-            'phone3');\n+        'name',\n+            'surname',\n+            'companyName',\n+            'address',\n+            'pIva',\n+            'codFisc',\n+            'phone',\n+            'phone2',\n+            'phone3',\n     ]\n }\n-<?php\n-\n-namespace App\\Models;\n-\n-use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\n-use Illuminate\\Database\\Eloquent\\Model;\n-\n-class OwnerData extends Model\n-{\n-    use HasFactory;\n-\n-    protected $fillable = [\n-        'name');\n-            $table->string('surname');\n-            $table->string('companyName');\n-            $table->string('address');\n-            $table->string('pIva');\n-            $table->string('codFisc');\n-            $table->string('phone');\n-            $table->string('phone2');\n-            $table->string('phone3');\n-    ]\n-}\n"
+                },
+                {
+                    "date": 1719314289642,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,7 +17,7 @@\n             'pIva',\n             'codFisc',\n             'phone',\n             'phone2',\n-            'phone3',\n+            'phone3'\n     ]\n }\n"
+                },
+                {
+                    "date": 1719314296263,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,15 +9,15 @@\n {\n     use HasFactory;\n \n     protected $fillable = [\n-        'name',\n+            'name',\n             'surname',\n             'companyName',\n             'address',\n             'pIva',\n             'codFisc',\n             'phone',\n             'phone2',\n             'phone3'\n-    ]\n+    ];\n }\n"
+                },
+                {
+                    "date": 1719314687106,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,8 +13,9 @@\n         'name',\n         'surname',\n         'companyName',\n         'address',\n+        'city'\n         'pIva',\n         'codFisc',\n         'phone',\n         'phone2',\n"
+                },
+                {
+                    "date": 1719321828360,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,26 @@\n+<?php\n+\n+namespace App\\Models;\n+\n+use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\n+use Illuminate\\Database\\Eloquent\\Model;\n+\n+class OwnerData extends Model\n+{\n+    use HasFactory;\n+\n+    protected $fillable = [\n+        'name',\n+        'surname',\n+        'companyName',\n+        'address',\n+        'city',\n+        'pIva',\n+        'codFisc',\n+        'phone',\n+        'phone2',\n+        'phone3'\n+    ];\n+\n+    \n+}\n"
+                }
+            ],
+            "date": 1719314261898,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Models;\n\nuse Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\nuse Illuminate\\Database\\Eloquent\\Model;\n\nclass OwnerData extends Model\n{\n    use HasFactory;\n\n    protected $fillable = \n}\n"
+        }
+    ]
+}

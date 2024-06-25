@@ -7,6 +7,7 @@ use App\Models\Review;
 use App\Models\Partner;
 use App\Models\Service;
 use App\Models\Excursion;
+use App\Models\OwnerData;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -38,7 +39,12 @@ class ViewServiceProvider extends ServiceProvider
         }
 
         if (Excursion::count() > 0) {
-            $excursions = Excursion::paginate(4);
+            $excursionsP = Excursion::paginate(4);
+            View::share('excursionsP', $excursionsP);
+        }
+
+        if (Excursion::count() > 0) {
+            $excursions = Excursion::all();
             View::share('excursions', $excursions);
         }
 
@@ -50,6 +56,11 @@ class ViewServiceProvider extends ServiceProvider
         if (Review::count() > 0) {
             $reviews = Review::all();
             View::share('reviews', $reviews);
+        }
+
+        if(OwnerData::count()>0) {
+            $ownerdata = OwnerData::first();
+            View::share('ownerdata', $ownerdata);
         }
     }
 }

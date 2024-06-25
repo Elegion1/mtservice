@@ -1,0 +1,78 @@
+{
+    "sourceFile": "database/seeders/OwnerDataSeeder.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 15,
+            "patches": [
+                {
+                    "date": 1719314375601,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1719314444977,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,7 +11,7 @@\n      * Run the database seeds.\n      */\n     public function run(): void\n     {\n-    \n+        $da\n     }\n }\n"
+                },
+                {
+                    "date": 1719314452284,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,7 +11,9 @@\n      * Run the database seeds.\n      */\n     public function run(): void\n     {\n-        $da\n+        $ownerData = [\n+            \n+        ]\n     }\n }\n"
+                },
+                {
+                    "date": 1719314482760,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,7 @@\n      * Run the database seeds.\n      */\n     public function run(): void\n     {\n-        $ownerData = [\n-            \n-        ]\n+        \n     }\n }\n"
+                },
+                {
+                    "date": 1719314579831,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,7 +11,17 @@\n      * Run the database seeds.\n      */\n     public function run(): void\n     {\n-        \n+        Contact::create([\n+            'name' => 'Antonino',\n+            'surname' => 'Tranchida',\n+            'companyName' => 'M.T. Service',\n+            'address' => 'Via F.lli di Falco, 40',\n+            'pIva' => '02644360816',\n+            'codFisc' => 'TRN NNN 73 R04 G208I',\n+            'phone' => '', // Inserisci il numero di telefono se disponibile\n+            'phone2' => '', // Inserisci il secondo numero di telefono se necessario\n+            'phone3' => '', // Inserisci il terzo numero di telefono se necessario\n+        ]);\n     }\n }\n"
+                },
+                {
+                    "date": 1719314615654,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n <?php\n \n namespace Database\\Seeders;\n \n+use App\\Models\\OwnerData;\n use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\n use Illuminate\\Database\\Seeder;\n \n class OwnerDataSeeder extends Seeder\n@@ -11,16 +12,16 @@\n      * Run the database seeds.\n      */\n     public function run(): void\n     {\n-        Contact::create([\n+        OwnerData::create([\n             'name' => 'Antonino',\n             'surname' => 'Tranchida',\n             'companyName' => 'M.T. Service',\n             'address' => 'Via F.lli di Falco, 40',\n             'pIva' => '02644360816',\n             'codFisc' => 'TRN NNN 73 R04 G208I',\n-            'phone' => '', // Inserisci il numero di telefono se disponibile\n+            'phone' => '+39 328', // Inserisci il numero di telefono se disponibile\n             'phone2' => '', // Inserisci il secondo numero di telefono se necessario\n             'phone3' => '', // Inserisci il terzo numero di telefono se necessario\n         ]);\n     }\n"
+                },
+                {
+                    "date": 1719314623455,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n             'companyName' => 'M.T. Service',\n             'address' => 'Via F.lli di Falco, 40',\n             'pIva' => '02644360816',\n             'codFisc' => 'TRN NNN 73 R04 G208I',\n-            'phone' => '+39 328', // Inserisci il numero di telefono se disponibile\n+            'phone' => '+39 3283650762', // Inserisci il numero di telefono se disponibile\n             'phone2' => '', // Inserisci il secondo numero di telefono se necessario\n             'phone3' => '', // Inserisci il terzo numero di telefono se necessario\n         ]);\n     }\n"
+                },
+                {
+                    "date": 1719314630123,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n             'address' => 'Via F.lli di Falco, 40',\n             'pIva' => '02644360816',\n             'codFisc' => 'TRN NNN 73 R04 G208I',\n             'phone' => '+39 3283650762', // Inserisci il numero di telefono se disponibile\n-            'phone2' => '', // Inserisci il secondo numero di telefono se necessario\n+            'phone2' => '+39 393', // Inserisci il secondo numero di telefono se necessario\n             'phone3' => '', // Inserisci il terzo numero di telefono se necessario\n         ]);\n     }\n }\n"
+                },
+                {
+                    "date": 1719314638323,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n             'address' => 'Via F.lli di Falco, 40',\n             'pIva' => '02644360816',\n             'codFisc' => 'TRN NNN 73 R04 G208I',\n             'phone' => '+39 3283650762', // Inserisci il numero di telefono se disponibile\n-            'phone2' => '+39 393', // Inserisci il secondo numero di telefono se necessario\n-            'phone3' => '', // Inserisci il terzo numero di telefono se necessario\n+            'phone2' => '+39 3931181111', // Inserisci il secondo numero di telefono se necessario\n+            'phone3' => '+39 ', // Inserisci il terzo numero di telefono se necessario\n         ]);\n     }\n }\n"
+                },
+                {
+                    "date": 1719314645527,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,8 +21,8 @@\n             'pIva' => '02644360816',\n             'codFisc' => 'TRN NNN 73 R04 G208I',\n             'phone' => '+39 3283650762', // Inserisci il numero di telefono se disponibile\n             'phone2' => '+39 3931181111', // Inserisci il secondo numero di telefono se necessario\n-            'phone3' => '+39 ', // Inserisci il terzo numero di telefono se necessario\n+            'phone3' => '+39 3773911', // Inserisci il terzo numero di telefono se necessario\n         ]);\n     }\n }\n"
+                },
+                {
+                    "date": 1719314650912,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,8 +21,8 @@\n             'pIva' => '02644360816',\n             'codFisc' => 'TRN NNN 73 R04 G208I',\n             'phone' => '+39 3283650762', // Inserisci il numero di telefono se disponibile\n             'phone2' => '+39 3931181111', // Inserisci il secondo numero di telefono se necessario\n-            'phone3' => '+39 3773911', // Inserisci il terzo numero di telefono se necessario\n+            'phone3' => '+39 3773911945', // Inserisci il terzo numero di telefono se necessario\n         ]);\n     }\n }\n"
+                },
+                {
+                    "date": 1719314692963,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,9 @@\n             'name' => 'Antonino',\n             'surname' => 'Tranchida',\n             'companyName' => 'M.T. Service',\n             'address' => 'Via F.lli di Falco, 40',\n+            \n             'pIva' => '02644360816',\n             'codFisc' => 'TRN NNN 73 R04 G208I',\n             'phone' => '+39 3283650762', // Inserisci il numero di telefono se disponibile\n             'phone2' => '+39 3931181111', // Inserisci il secondo numero di telefono se necessario\n"
+                },
+                {
+                    "date": 1719314700353,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,29 @@\n+<?php\n+\n+namespace Database\\Seeders;\n+\n+use App\\Models\\OwnerData;\n+use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\n+use Illuminate\\Database\\Seeder;\n+\n+class OwnerDataSeeder extends Seeder\n+{\n+    /**\n+     * Run the database seeds.\n+     */\n+    public function run(): void\n+    {\n+        OwnerData::create([\n+            'name' => 'Antonino',\n+            'surname' => 'Tranchida',\n+            'companyName' => 'M.T. Service',\n+            'address' => 'Via F.lli di Falco, 40',\n+            'city' => ''\n+            'pIva' => '02644360816',\n+            'codFisc' => 'TRN NNN 73 R04 G208I',\n+            'phone' => '+39 3283650762', // Inserisci il numero di telefono se disponibile\n+            'phone2' => '+39 3931181111', // Inserisci il secondo numero di telefono se necessario\n+            'phone3' => '+39 3773911945', // Inserisci il terzo numero di telefono se necessario\n+        ]);\n+    }\n+}\n"
+                },
+                {
+                    "date": 1719314708224,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,42 +17,13 @@\n             'name' => 'Antonino',\n             'surname' => 'Tranchida',\n             'companyName' => 'M.T. Service',\n             'address' => 'Via F.lli di Falco, 40',\n-            'city' => ''\n+            'city' => '91027 Paceco (TP)'\n             'pIva' => '02644360816',\n             'codFisc' => 'TRN NNN 73 R04 G208I',\n             'phone' => '+39 3283650762', // Inserisci il numero di telefono se disponibile\n             'phone2' => '+39 3931181111', // Inserisci il secondo numero di telefono se necessario\n             'phone3' => '+39 3773911945', // Inserisci il terzo numero di telefono se necessario\n         ]);\n     }\n }\n-<?php\n-\n-namespace Database\\Seeders;\n-\n-use App\\Models\\OwnerData;\n-use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\n-use Illuminate\\Database\\Seeder;\n-\n-class OwnerDataSeeder extends Seeder\n-{\n-    /**\n-     * Run the database seeds.\n-     */\n-    public function run(): void\n-    {\n-        OwnerData::create([\n-            'name' => 'Antonino',\n-            'surname' => 'Tranchida',\n-            'companyName' => 'M.T. Service',\n-            'address' => 'Via F.lli di Falco, 40',\n-            \n-            'pIva' => '02644360816',\n-            'codFisc' => 'TRN NNN 73 R04 G208I',\n-            'phone' => '+39 3283650762', // Inserisci il numero di telefono se disponibile\n-            'phone2' => '+39 3931181111', // Inserisci il secondo numero di telefono se necessario\n-            'phone3' => '+39 3773911945', // Inserisci il terzo numero di telefono se necessario\n-        ]);\n-    }\n-}\n"
+                },
+                {
+                    "date": 1719333126245,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,13 +17,14 @@\n             'name' => 'Antonino',\n             'surname' => 'Tranchida',\n             'companyName' => 'M.T. Service',\n             'address' => 'Via F.lli di Falco, 40',\n-            'city' => '91027 Paceco (TP)'\n+            'city' => '91027 Paceco (TP)',\n             'pIva' => '02644360816',\n             'codFisc' => 'TRN NNN 73 R04 G208I',\n             'phone' => '+39 3283650762', // Inserisci il numero di telefono se disponibile\n             'phone2' => '+39 3931181111', // Inserisci il secondo numero di telefono se necessario\n             'phone3' => '+39 3773911945', // Inserisci il terzo numero di telefono se necessario\n+            ''\n         ]);\n     }\n }\n"
+                },
+                {
+                    "date": 1719333137639,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,30 @@\n+<?php\n+\n+namespace Database\\Seeders;\n+\n+use App\\Models\\OwnerData;\n+use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\n+use Illuminate\\Database\\Seeder;\n+\n+class OwnerDataSeeder extends Seeder\n+{\n+    /**\n+     * Run the database seeds.\n+     */\n+    public function run(): void\n+    {\n+        OwnerData::create([\n+            'name' => 'Antonino',\n+            'surname' => 'Tranchida',\n+            'companyName' => 'M.T. Service',\n+            'address' => 'Via F.lli di Falco, 40',\n+            'city' => '91027 Paceco (TP)',\n+            'pIva' => '02644360816',\n+            'codFisc' => 'TRN NNN 73 R04 G208I',\n+            'phone' => '+39 3283650762', // Inserisci il numero di telefono se disponibile\n+            'phone2' => '+39 3931181111', // Inserisci il secondo numero di telefono se necessario\n+            'phone3' => '+39 3773911945', // Inserisci il terzo numero di telefono se necessario\n+            'email' => 'mtservice'\n+        ]);\n+    }\n+}\n"
+                }
+            ],
+            "date": 1719314375601,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace Database\\Seeders;\n\nuse Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\nuse Illuminate\\Database\\Seeder;\n\nclass OwnerDataSeeder extends Seeder\n{\n    /**\n     * Run the database seeds.\n     */\n    public function run(): void\n    {\n    \n    }\n}\n"
+        }
+    ]
+}

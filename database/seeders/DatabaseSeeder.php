@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\OwnerData;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CarSeeder::class);
         $this->call(DestinationSeeder::class);
         $this->call(ReviewSeeder::class);
+        $this->call(OwnerDataSeeder::class);
         // User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',

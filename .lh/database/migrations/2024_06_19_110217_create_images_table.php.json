@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 3,
+            "activePatchIndex": 6,
             "patches": [
                 {
                     "date": 1719225431124,
@@ -20,6 +20,18 @@
                 {
                     "date": 1719225544553,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,13 +12,15 @@\n     public function up(): void\n     {\n         Schema::create('images', function (Blueprint $table) {\n             $table->id();\n-            \n+\n             $table->unsignedBigInteger('service_id')->nullable();\n             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');\n+\n             $table->unsignedBigInteger('excursion_id')->nullable();\n             $table->foreign('excursion_id')->references('id')->on('excursions')->onDelete('cascade');\n+            \n             $table->unsignedBigInteger('partner_id')->nullable();\n             $table->foreign('partner_id')->references('id')->on('partners')->onDelete('cascade');\n             $table->string('path')->nullable();\n             $table->timestamps();\n"
+                },
+                {
+                    "date": 1719321858859,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,11 +18,15 @@\n             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');\n \n             $table->unsignedBigInteger('excursion_id')->nullable();\n             $table->foreign('excursion_id')->references('id')->on('excursions')->onDelete('cascade');\n-            \n+\n             $table->unsignedBigInteger('partner_id')->nullable();\n             $table->foreign('partner_id')->references('id')->on('partners')->onDelete('cascade');\n+\n+            $table->unsignedBigInteger('partner_id')->nullable();\n+            $table->foreign('partner_id')->references('id')->on('partners')->onDelete('cascade');\n+            \n             $table->string('path')->nullable();\n             $table->timestamps();\n         });\n     }\n"
+                },
+                {
+                    "date": 1719321875850,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,10 +22,10 @@\n \n             $table->unsignedBigInteger('partner_id')->nullable();\n             $table->foreign('partner_id')->references('id')->on('partners')->onDelete('cascade');\n \n-            $table->unsignedBigInteger('partner_id')->nullable();\n-            $table->foreign('partner_id')->references('id')->on('partners')->onDelete('cascade');\n+            $table->unsignedBigInteger('owner_data_id')->nullable();\n+            $table->foreign('owner_data_id')->references('id')->on('owner_datas')->onDelete('cascade');\n             \n             $table->string('path')->nullable();\n             $table->timestamps();\n         });\n"
+                },
+                {
+                    "date": 1719322021417,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n             $table->unsignedBigInteger('partner_id')->nullable();\n             $table->foreign('partner_id')->references('id')->on('partners')->onDelete('cascade');\n \n             $table->unsignedBigInteger('owner_data_id')->nullable();\n-            $table->foreign('owner_data_id')->references('id')->on('owner_datas')->onDelete('cascade');\n+            $table->foreign('owner_data_id')->references('id')->on('owner_data')->onDelete('cascade');\n             \n             $table->string('path')->nullable();\n             $table->timestamps();\n         });\n"
                 }
             ],
             "date": 1719225431124,
