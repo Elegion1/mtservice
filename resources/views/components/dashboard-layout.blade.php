@@ -59,6 +59,14 @@
                                         href="{{ route('dashboard.partner') }}">Partners</a>
                                 </li>
                                 <li class="border rounded py-2 mb-1 text-center w-100">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.content') }}">Contenuto</a>
+                                </li>
+                                <li class="border rounded py-2 mb-1 text-center w-100">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.page') }}">Pagine</a>
+                                </li>
+                                <li class="border rounded py-2 mb-1 text-center w-100">
                                     <a class="my-3 text-decoration-none" href="{{ route('dashboard.ownerData') }}">Dati
                                         azienda</a>
                                 </li>

@@ -2,16 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ContentController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ExcursionController;
-use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\OwnerDataController;
+use App\Http\Controllers\DestinationController;
 
 //navigazione
 
@@ -95,3 +97,16 @@ Route::post('/dashboard/owner', [OwnerDataController::class, 'store'])->name('ow
 Route::put('/dashboard/owner/{ownerData}', [OwnerDataController::class, 'update'])->name('owner.update')->middleware('auth');
 Route::delete('/dashboard/owner/{id}', [OwnerDataController::class, 'destroy'])->name('owner.destroy')->middleware('auth');
 Route::delete('/dashboard/images/{id}', [OwnerDataController::class, 'deleteImage'])->name('images.delete')->middleware('auth');
+
+// Gestione dati sito
+Route::get('/dashboard/contents', [ContentController::class, 'index'])->name('dashboard.content')->middleware('auth');
+Route::post('/dashboard/contents', [ContentController::class, 'store'])->name('contents.store')->middleware('auth');
+Route::put('/dashboard/contents/{content}', [ContentController::class, 'update'])->name('contents.update')->middleware('auth');
+Route::delete('/dashboard/contents/{content}', [ContentController::class, 'destroy'])->name('contents.destroy')->middleware('auth');
+Route::delete('/dashboard/images/{id}', [ContentController::class, 'deleteImage'])->name('images.delete')->middleware('auth');
+
+// Gestione pagine
+Route::get('/dashboard/pages', [PageController::class, 'index'])->name('dashboard.page')->middleware('auth');
+Route::post('/dashboard/pages', [PageController::class, 'store'])->name('pages.store')->middleware('auth');
+Route::put('/dashboard/pages/{page}', [PageController::class, 'update'])->name('pages.update')->middleware('auth');
+Route::delete('/dashboard/pages/{page}', [PageController::class, 'destroy'])->name('pages.destroy')->middleware('auth');

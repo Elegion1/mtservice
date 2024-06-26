@@ -1,4 +1,4 @@
-<li class="nav-item">
+{{-- <li class="nav-item">
     <a class="nav-link {{ $slot }} " href="{{ route('transfer') }}">transfer</a>
 </li>
 <li class="nav-item">
@@ -28,4 +28,12 @@
 </li>
 <li class="nav-item">
     <a class="nav-link {{ $slot }} " href="{{ route('dashboard') }}">Dashboard</a>
-</li>
+</li> --}}
+
+
+
+@foreach ($pages as $page)
+    <li class="nav-item">
+        <a class="nav-link {{ $slot }}" href="{{ route($page->link) }}">{{ $page->name }}</a>
+    </li>
+@endforeach

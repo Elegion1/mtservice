@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 9,
+            "activePatchIndex": 14,
             "patches": [
                 {
                     "date": 1719314386984,
@@ -44,6 +44,26 @@
                 {
                     "date": 1719397292006,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n         $this->call(ReviewSeeder::class);\n         $this->call(OwnerDataSeeder::class);\n         $this->call(ExcursionSeeder::class);\n         $this->call(PartnerSeeder::class);\n-        $this->call\n+        $this->call(ServiceSeeder)\n         // User::factory()->create([\n         //     'name' => 'Test User',\n         //     'email' => 'test@example.com',\n         // ]);\n"
+                },
+                {
+                    "date": 1719406406675,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,32 @@\n+<?php\n+\n+namespace Database\\Seeders;\n+\n+use App\\Models\\OwnerData;\n+use App\\Models\\User;\n+// use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\n+use Illuminate\\Database\\Seeder;\n+\n+class DatabaseSeeder extends Seeder\n+{\n+    /**\n+     * Seed the application's database.\n+     */\n+    public function run(): void\n+    {\n+        // User::factory(10)->create();\n+        $this->call(UserSeeder::class);\n+        $this->call(CarSeeder::class);\n+        $this->call(DestinationSeeder::class);\n+        $this->call(ReviewSeeder::class);\n+        $this->call(OwnerDataSeeder::class);\n+        $this->call(ExcursionSeeder::class);\n+        $this->call(PartnerSeeder::class);\n+        $this->call(ServiceSeeder::class);\n+        $this->call(ServiceSeeder::class);\n+        // User::factory()->create([\n+        //     'name' => 'Test User',\n+        //     'email' => 'test@example.com',\n+        // ]);\n+    }\n+}\n"
+                },
+                {
+                    "date": 1719410429821,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,42 +22,11 @@\n         $this->call(OwnerDataSeeder::class);\n         $this->call(ExcursionSeeder::class);\n         $this->call(PartnerSeeder::class);\n         $this->call(ServiceSeeder::class);\n-        $this->call(ServiceSeeder::class);\n+        $this->call(PageSeeder::class);\n         // User::factory()->create([\n         //     'name' => 'Test User',\n         //     'email' => 'test@example.com',\n         // ]);\n     }\n }\n-<?php\n-\n-namespace Database\\Seeders;\n-\n-use App\\Models\\OwnerData;\n-use App\\Models\\User;\n-// use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\n-use Illuminate\\Database\\Seeder;\n-\n-class DatabaseSeeder extends Seeder\n-{\n-    /**\n-     * Seed the application's database.\n-     */\n-    public function run(): void\n-    {\n-        // User::factory(10)->create();\n-        $this->call(UserSeeder::class);\n-        $this->call(CarSeeder::class);\n-        $this->call(DestinationSeeder::class);\n-        $this->call(ReviewSeeder::class);\n-        $this->call(OwnerDataSeeder::class);\n-        $this->call(ExcursionSeeder::class);\n-        $this->call(PartnerSeeder::class);\n-        $this->call(ServiceSeeder)\n-        // User::factory()->create([\n-        //     'name' => 'Test User',\n-        //     'email' => 'test@example.com',\n-        // ]);\n-    }\n-}\n"
+                },
+                {
+                    "date": 1719410440238,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,12 +1,13 @@\n <?php\n \n namespace Database\\Seeders;\n \n+use App\\Models\\User;\n use App\\Models\\OwnerData;\n-use App\\Models\\User;\n // use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\n use Illuminate\\Database\\Seeder;\n+use Database\\Seeders\\PageSeeder;\n \n class DatabaseSeeder extends Seeder\n {\n     /**\n"
+                },
+                {
+                    "date": 1719410460389,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,13 +1,12 @@\n <?php\n \n namespace Database\\Seeders;\n \n+use App\\Models\\OwnerData;\n use App\\Models\\User;\n-use App\\Models\\OwnerData;\n // use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\n use Illuminate\\Database\\Seeder;\n-use Database\\Seeders\\PageSeeder;\n \n class DatabaseSeeder extends Seeder\n {\n     /**\n"
+                },
+                {
+                    "date": 1719410640333,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,10 @@\n         $this->call(OwnerDataSeeder::class);\n         $this->call(ExcursionSeeder::class);\n         $this->call(PartnerSeeder::class);\n         $this->call(ServiceSeeder::class);\n-        $this->call(PageSeeder::class);\n+        $this->call(ContentSeeder::class);\n+        $this->call(ContentSeeder::class);\n         // User::factory()->create([\n         //     'name' => 'Test User',\n         //     'email' => 'test@example.com',\n         // ]);\n"
                 }
             ],
             "date": 1719314386984,

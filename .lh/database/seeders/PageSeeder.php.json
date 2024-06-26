@@ -1,0 +1,50 @@
+{
+    "sourceFile": "database/seeders/PageSeeder.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 8,
+            "patches": [
+                {
+                    "date": 1719410514315,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1719410520702,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,7 +11,7 @@\n      * Run the database seeds.\n      */\n     public function run(): void\n     {\n-        'page' => ['Transfer', 'Escursioni', 'Noleggio Auto', 'Prezzi e destinazioni', 'Dicono di noi', 'FAQ', 'Su di noi', 'Contatti','Partners']\n+        $page => ['Transfer', 'Escursioni', 'Noleggio Auto', 'Prezzi e destinazioni', 'Dicono di noi', 'FAQ', 'Su di noi', 'Contatti','Partners']\n     }\n }\n"
+                },
+                {
+                    "date": 1719410530777,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,7 +11,7 @@\n      * Run the database seeds.\n      */\n     public function run(): void\n     {\n-        $page => ['Transfer', 'Escursioni', 'Noleggio Auto', 'Prezzi e destinazioni', 'Dicono di noi', 'FAQ', 'Su di noi', 'Contatti','Partners']\n+        $page = ['Transfer', 'Escursioni', 'Noleggio Auto', 'Prezzi e destinazioni', 'Dicono di noi', 'FAQ', 'Su di noi', 'Contatti','Partners'];\n     }\n }\n"
+                },
+                {
+                    "date": 1719410539079,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,7 +11,9 @@\n      * Run the database seeds.\n      */\n     public function run(): void\n     {\n-        $page = ['Transfer', 'Escursioni', 'Noleggio Auto', 'Prezzi e destinazioni', 'Dicono di noi', 'FAQ', 'Su di noi', 'Contatti','Partners'];\n+        $page = ['Transfer', 'Escursioni', 'Noleggio Auto', 'Prezzi e destinazioni', 'Dicono di noi', 'FAQ', 'Su di noi', 'Contatti', 'Partners'];\n+\n+        \n     }\n }\n"
+                },
+                {
+                    "date": 1719410545465,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n      * Run the database seeds.\n      */\n     public function run(): void\n     {\n-        $page = ['Transfer', 'Escursioni', 'Noleggio Auto', 'Prezzi e destinazioni', 'Dicono di noi', 'FAQ', 'Su di noi', 'Contatti', 'Partners'];\n+        $pages = ['Transfer', 'Escursioni', 'Noleggio Auto', 'Prezzi e destinazioni', 'Dicono di noi', 'FAQ', 'Su di noi', 'Contatti', 'Partners'];\n \n-        \n+        foreach\n     }\n }\n"
+                },
+                {
+                    "date": 1719410555178,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,19 @@\n+<?php\n+\n+namespace Database\\Seeders;\n+\n+use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\n+use Illuminate\\Database\\Seeder;\n+\n+class PageSeeder extends Seeder\n+{\n+    /**\n+     * Run the database seeds.\n+     */\n+    public function run(): void\n+    {\n+        $pages = ['Transfer', 'Escursioni', 'Noleggio Auto', 'Prezzi e destinazioni', 'Dicono di noi', 'FAQ', 'Su di noi', 'Contatti', 'Partners'];\n+\n+        foreach ($pages as $page)\n+    }\n+}\n"
+                },
+                {
+                    "date": 1719410562971,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,21 @@\n+<?php\n+\n+namespace Database\\Seeders;\n+\n+use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\n+use Illuminate\\Database\\Seeder;\n+\n+class PageSeeder extends Seeder\n+{\n+    /**\n+     * Run the database seeds.\n+     */\n+    public function run(): void\n+    {\n+        $pages = ['Transfer', 'Escursioni', 'Noleggio Auto', 'Prezzi e destinazioni', 'Dicono di noi', 'FAQ', 'Su di noi', 'Contatti', 'Partners'];\n+\n+        foreach ($pages as $page) {\n+            Page::create\n+        }\n+    }\n+}\n"
+                },
+                {
+                    "date": 1719410568781,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,8 @@\n     {\n         $pages = ['Transfer', 'Escursioni', 'Noleggio Auto', 'Prezzi e destinazioni', 'Dicono di noi', 'FAQ', 'Su di noi', 'Contatti', 'Partners'];\n \n         foreach ($pages as $page) {\n-            Page::create()\n+            Page::create($page)\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1719410580401,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,21 @@\n+<?php\n+\n+namespace Database\\Seeders;\n+\n+use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\n+use Illuminate\\Database\\Seeder;\n+\n+class PageSeeder extends Seeder\n+{\n+    /**\n+     * Run the database seeds.\n+     */\n+    public function run(): void\n+    {\n+        $pages = ['Transfer', 'Escursioni', 'Noleggio Auto', 'Prezzi e destinazioni', 'Dicono di noi', 'FAQ', 'Su di noi', 'Contatti', 'Partners'];\n+\n+        foreach ($pages as $page) {\n+            Page::create($page)\n+        }\n+    };\n+}\n"
+                }
+            ],
+            "date": 1719410514315,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace Database\\Seeders;\n\nuse Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\nuse Illuminate\\Database\\Seeder;\n\nclass PageSeeder extends Seeder\n{\n    /**\n     * Run the database seeds.\n     */\n    public function run(): void\n    {\n        'page' => ['Transfer', 'Escursioni', 'Noleggio Auto', 'Prezzi e destinazioni', 'Dicono di noi', 'FAQ', 'Su di noi', 'Contatti','Partners']\n    }\n}\n"
+        }
+    ]
+}

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Page;
 use App\Models\Route;
 use App\Models\Review;
 use App\Models\Partner;
@@ -61,6 +62,11 @@ class ViewServiceProvider extends ServiceProvider
         if(OwnerData::count()>0) {
             $ownerdata = OwnerData::first();
             View::share('ownerdata', $ownerdata);
+        }
+
+        if(Page::count()>0) {
+            $pages = Page::all();
+            View::share('pages', $pages);
         }
     }
 }

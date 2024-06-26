@@ -1,0 +1,134 @@
+{
+    "sourceFile": "database/seeders/ContentSeeder.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 29,
+            "patches": [
+                {
+                    "date": 1719406018104,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1719406030991,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,8 @@\n      */\n     public function run(): void\n     {\n         $contents = [\n-            \n+            'page' => []\n         ]\n     }\n }\n"
+                },
+                {
+                    "date": 1719406040873,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,8 @@\n      */\n     public function run(): void\n     {\n         $contents = [\n-            'page' => []\n+            'page' => ['transfer']\n         ]\n     }\n }\n"
+                },
+                {
+                    "date": 1719406048018,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,8 @@\n      */\n     public function run(): void\n     {\n         $contents = [\n-            'page' => ['transfer']\n+            'page' => ['transfer', 'escur']\n         ]\n     }\n }\n"
+                },
+                {
+                    "date": 1719406055235,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,8 @@\n      */\n     public function run(): void\n     {\n         $contents = [\n-            'page' => ['transfer', 'escur']\n+            'page' => ['transfer', 'escursioni', 'noleggio']\n         ]\n     }\n }\n"
+                },
+                {
+                    "date": 1719406067118,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,8 @@\n      */\n     public function run(): void\n     {\n         $contents = [\n-            'page' => ['transfer', 'escursioni', 'noleggio']\n+            'page' => ['transfer', 'escursioni', 'noleggio', 'prezzi']\n         ]\n     }\n }\n"
+                },
+                {
+                    "date": 1719406074188,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,8 @@\n      */\n     public function run(): void\n     {\n         $contents = [\n-            'page' => ['transfer', 'escursioni', 'noleggio', 'prezzi']\n+            'page' => ['transfer', 'escursioni', 'noleggio', 'prezzi_e_destinazioni']\n         ]\n     }\n }\n"
+                },
+                {
+                    "date": 1719406082421,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,8 @@\n      */\n     public function run(): void\n     {\n         $contents = [\n-            'page' => ['transfer', 'escursioni', 'noleggio', 'prezzi_e_destinazioni']\n+            'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', ]\n         ]\n     }\n }\n"
+                },
+                {
+                    "date": 1719406089259,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,8 @@\n      */\n     public function run(): void\n     {\n         $contents = [\n-            'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', ]\n+            'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', ]\n         ]\n     }\n }\n"
+                },
+                {
+                    "date": 1719406094317,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,8 @@\n      */\n     public function run(): void\n     {\n         $contents = [\n-            'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', ]\n+            'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', ]\n         ]\n     }\n }\n"
+                },
+                {
+                    "date": 1719406100216,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,8 @@\n      */\n     public function run(): void\n     {\n         $contents = [\n-            'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', ]\n+            'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi']\n         ]\n     }\n }\n"
+                },
+                {
+                    "date": 1719406105450,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,8 @@\n      */\n     public function run(): void\n     {\n         $contents = [\n-            'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi']\n+            'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti']\n         ]\n     }\n }\n"
+                },
+                {
+                    "date": 1719406115448,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,8 +12,8 @@\n      */\n     public function run(): void\n     {\n         $contents = [\n-            'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti']\n+            'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n         ]\n     }\n }\n"
+                },
+                {
+                    "date": 1719406122827,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,7 +13,9 @@\n     public function run(): void\n     {\n         $contents = [\n             'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n-        ]\n+        ];\n+\n+        foreach\n     }\n }\n"
+                },
+                {
+                    "date": 1719406131261,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,21 @@\n+<?php\n+\n+namespace Database\\Seeders;\n+\n+use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\n+use Illuminate\\Database\\Seeder;\n+\n+class ContentSeeder extends Seeder\n+{\n+    /**\n+     * Run the database seeds.\n+     */\n+    public function run(): void\n+    {\n+        $contents = [\n+            'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n+        ];\n+\n+        foreach ($contents as $content)\n+    }\n+}\n"
+                },
+                {
+                    "date": 1719406139644,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,28 +15,9 @@\n         $contents = [\n             'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n         ];\n \n-        foreach ($contents as $content)\n+        foreach ($contents as $content) {\n+            Content\n+        }\n     }\n }\n-<?php\n-\n-namespace Database\\Seeders;\n-\n-use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\n-use Illuminate\\Database\\Seeder;\n-\n-class ContentSeeder extends Seeder\n-{\n-    /**\n-     * Run the database seeds.\n-     */\n-    public function run(): void\n-    {\n-        $contents = [\n-            'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n-        ];\n-\n-        foreach\n-    }\n-}\n"
+                },
+                {
+                    "date": 1719406148935,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,8 @@\n             'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n         ];\n \n         foreach ($contents as $content) {\n-            Content\n+            Content::create()\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1719406163058,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,10 @@\n             'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n         ];\n \n         foreach ($contents as $content) {\n-            Content::create()\n+            Content::create([\n+                \n+            ])\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1719406168642,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n         ];\n \n         foreach ($contents as $content) {\n             Content::create([\n-                \n+                'page' =>\n             ])\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1719406189143,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,21 @@\n+<?php\n+\n+namespace Database\\Seeders;\n+\n+use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\n+use Illuminate\\Database\\Seeder;\n+\n+class ContentSeeder extends Seeder\n+{\n+    /**\n+     * Run the database seeds.\n+     */\n+    public function run(): void\n+    {\n+        $contents = [\n+            'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n+        ];\n+\n+        \n+    }\n+}\n"
+                },
+                {
+                    "date": 1719406361783,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,32 +15,9 @@\n         $contents = [\n             'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n         ];\n \n-        \n+        foreach($services as $service) {\n+            Service::create($service);\n+        };\n     }\n }\n-<?php\n-\n-namespace Database\\Seeders;\n-\n-use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\n-use Illuminate\\Database\\Seeder;\n-\n-class ContentSeeder extends Seeder\n-{\n-    /**\n-     * Run the database seeds.\n-     */\n-    public function run(): void\n-    {\n-        $contents = [\n-            'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n-        ];\n-\n-        foreach ($contents as $content) {\n-            Content::create([\n-                'page' =>\n-            ])\n-        }\n-    }\n-}\n"
+                },
+                {
+                    "date": 1719406370226,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n         $contents = [\n             'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n         ];\n \n-        foreach($services as $service) {\n+        foreach($contents as $service) {\n             Service::create($service);\n         };\n     }\n }\n"
+                },
+                {
+                    "date": 1719406376797,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n         $contents = [\n             'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n         ];\n \n-        foreach($contents as $service) {\n-            Service::create($service);\n+        foreach($contents as $content) {\n+            ontent::create($content);\n         };\n     }\n }\n"
+                },
+                {
+                    "date": 1719406385311,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n         $contents = [\n             'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n         ];\n \n-        foreach($contents as $content) {\n-            ontent::create($content);\n+        foreach($contents['page'] as $content) {\n+            Content::create($content);\n         };\n     }\n }\n"
+                },
+                {
+                    "date": 1719406392578,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,11 @@\n <?php\n \n namespace Database\\Seeders;\n \n+use App\\Models\\Content;\n+use Illuminate\\Database\\Seeder;\n use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\n-use Illuminate\\Database\\Seeder;\n \n class ContentSeeder extends Seeder\n {\n     /**\n"
+                },
+                {
+                    "date": 1719406568897,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,8 +17,14 @@\n             'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n         ];\n \n         foreach($contents['page'] as $content) {\n-            Content::create($content);\n-        };\n+            Content::create([\n+                'page' => $content,\n+                'title' => '',      // Puoi impostare un valore predefinito o lasciarlo vuoto\n+                'subtitle' => '',   // Puoi impostare un valore predefinito o lasciarlo vuoto\n+                'body' => '',       // Puoi impostare un valore predefinito o lasciarlo vuoto\n+                'links' => '',      // Puoi impostare un valore predefinito o lasciarlo vuoto\n+            ]);\n+        }\n     }\n }\n"
+                },
+                {
+                    "date": 1719407561084,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n      */\n     public function run(): void\n     {\n         $contents = [\n-            'page' => ['transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n+            'page' => ['Transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n         ];\n \n         foreach($contents['page'] as $content) {\n             Content::create([\n"
+                },
+                {
+                    "date": 1719407567293,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n      */\n     public function run(): void\n     {\n         $contents = [\n-            'page' => ['Transfer', 'escursioni', 'noleggio_auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n+            'page' => ['Transfer', 'Escursioni', 'Noleggio Auto', 'prezzi_e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n         ];\n \n         foreach($contents['page'] as $content) {\n             Content::create([\n"
+                },
+                {
+                    "date": 1719407573295,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n      */\n     public function run(): void\n     {\n         $contents = [\n-            'page' => ['Transfer', 'Escursioni', 'Noleggio Auto', 'Prezzi e_destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n+            'page' => ['Transfer', 'Escursioni', 'Noleggio Auto', 'Prezzi e destinazioni', 'dicono_di_noi', 'faq', 'su_di_noi', 'contatti','partners']\n         ];\n \n         foreach($contents['page'] as $content) {\n             Content::create([\n"
+                },
+                {
+                    "date": 1719407588267,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,30 @@\n+<?php\n+\n+namespace Database\\Seeders;\n+\n+use App\\Models\\Content;\n+use Illuminate\\Database\\Seeder;\n+use Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\n+\n+class ContentSeeder extends Seeder\n+{\n+    /**\n+     * Run the database seeds.\n+     */\n+    public function run(): void\n+    {\n+        $contents = [\n+            'page' => ['Transfer', 'Escursioni', 'Noleggio Auto', 'Prezzi e destinazioni', 'Dicono di noi', 'FAQ', 'Su_di_noi', 'contatti','partners']\n+        ];\n+\n+        foreach($contents['page'] as $content) {\n+            Content::create([\n+                'page' => $content,\n+                'title' => '',      // Puoi impostare un valore predefinito o lasciarlo vuoto\n+                'subtitle' => '',   // Puoi impostare un valore predefinito o lasciarlo vuoto\n+                'body' => '',       // Puoi impostare un valore predefinito o lasciarlo vuoto\n+                'links' => '',      // Puoi impostare un valore predefinito o lasciarlo vuoto\n+            ]);\n+        }\n+    }\n+}\n"
+                }
+            ],
+            "date": 1719406018104,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace Database\\Seeders;\n\nuse Illuminate\\Database\\Console\\Seeds\\WithoutModelEvents;\nuse Illuminate\\Database\\Seeder;\n\nclass ContentSeeder extends Seeder\n{\n    /**\n     * Run the database seeds.\n     */\n    public function run(): void\n    {\n        $contents = [\n            \n        ]\n    }\n}\n"
+        }
+    ]
+}

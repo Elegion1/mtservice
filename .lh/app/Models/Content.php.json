@@ -1,0 +1,74 @@
+{
+    "sourceFile": "app/Models/Content.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 14,
+            "patches": [
+                {
+                    "date": 1719404848177,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1719404856828,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,6 +8,8 @@\n class Content extends Model\n {\n     use HasFactory;\n \n-    \n+    protected $fillable = [\n+        \n+    ]\n }\n"
+                },
+                {
+                    "date": 1719404880152,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,7 +9,11 @@\n {\n     use HasFactory;\n \n     protected $fillable = [\n-        \n+        $table->page');\n+            $table->title');\n+            $tablesubtitle');\n+            $tablebody');\n+            $table->links');\n     ]\n }\n"
+                },
+                {
+                    "date": 1719404885708,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,11 +9,11 @@\n {\n     use HasFactory;\n \n     protected $fillable = [\n-        $table->page');\n-            $table->title');\n-            $tablesubtitle');\n-            $tablebody');\n-            $table->links');\n+        page');\n+            title');\n+    subtitle');\n+    body');\n+            links');\n     ]\n }\n"
+                },
+                {
+                    "date": 1719404896087,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,19 @@\n+<?php\n+\n+namespace App\\Models;\n+\n+use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\n+use Illuminate\\Database\\Eloquent\\Model;\n+\n+class Content extends Model\n+{\n+    use HasFactory;\n+\n+    protected $fillable = [\n+        'page',\n+            'title',\n+    'subtitle',\n+    'body',\n+            'links',\n+    ]\n+}\n"
+                },
+                {
+                    "date": 1719404902399,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,29 +10,10 @@\n     use HasFactory;\n \n     protected $fillable = [\n         'page',\n-            'title',\n-    'subtitle',\n-    'body',\n-            'links',\n-    ]\n+        'title',\n+        'subtitle',\n+        'body',\n+        'links',\n+    ];\n }\n-<?php\n-\n-namespace App\\Models;\n-\n-use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\n-use Illuminate\\Database\\Eloquent\\Model;\n-\n-class Content extends Model\n-{\n-    use HasFactory;\n-\n-    protected $fillable = [\n-        page');\n-            title');\n-    subtitle');\n-    body');\n-            links');\n-    ]\n-}\n"
+                },
+                {
+                    "date": 1719404911094,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,5 +15,7 @@\n         'subtitle',\n         'body',\n         'links',\n     ];\n+\n+    public function \n }\n"
+                },
+                {
+                    "date": 1719404917004,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,6 +16,8 @@\n         'body',\n         'links',\n     ];\n \n-    public function \n+    public function images() {\n+        \n+    }\n }\n"
+                },
+                {
+                    "date": 1719404931865,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,9 @@\n         'body',\n         'links',\n     ];\n \n-    public function images() {\n-        \n+    public function images()\n+    {\n+        return $this->hasMany(Image::class);\n     }\n }\n"
+                },
+                {
+                    "date": 1719413756409,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,26 @@\n+<?php\n+\n+namespace App\\Models;\n+\n+use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\n+use Illuminate\\Database\\Eloquent\\Model;\n+\n+class Content extends Model\n+{\n+    use HasFactory;\n+\n+    protected $fillable = [\n+        'page',\n+        'title',\n+        'subtitle',\n+        'body',\n+        'links',\n+    ];\n+\n+    public function images()\n+    {\n+        return $this->hasMany(Image::class);\n+    }\n+\n+    \n+}\n"
+                },
+                {
+                    "date": 1719413767124,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,30 +21,11 @@\n     {\n         return $this->hasMany(Image::class);\n     }\n \n-    \n-}\n-<?php\n-\n-namespace App\\Models;\n-\n-use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\n-use Illuminate\\Database\\Eloquent\\Model;\n-\n-class Content extends Model\n-{\n-    use HasFactory;\n-\n-    protected $fillable = [\n-        'page',\n-        'title',\n-        'subtitle',\n-        'body',\n-        'links',\n-    ];\n-\n     public function images()\n     {\n         return $this->hasMany(Image::class);\n     }\n+\n+\n }\n"
+                },
+                {
+                    "date": 1719413776305,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,31 @@\n+<?php\n+\n+namespace App\\Models;\n+\n+use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\n+use Illuminate\\Database\\Eloquent\\Model;\n+\n+class Content extends Model\n+{\n+    use HasFactory;\n+\n+    protected $fillable = [\n+        'page',\n+        'title',\n+        'subtitle',\n+        'body',\n+        'links',\n+    ];\n+\n+    public function images()\n+    {\n+        return $this->hasMany(Image::class);\n+    }\n+\n+    public function page()\n+    {\n+        return $this->belongsTo(Image::class);\n+    }\n+\n+\n+}\n"
+                },
+                {
+                    "date": 1719413782697,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n     }\n \n     public function page()\n     {\n-        return $this->belongsTo(Image::class);\n+        return $this->belongsTo(Page::class);\n     }\n \n \n }\n"
+                },
+                {
+                    "date": 1719413800851,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,8 +14,9 @@\n         'title',\n         'subtitle',\n         'body',\n         'links',\n+        \n     ];\n \n     public function images()\n     {\n@@ -28,35 +29,4 @@\n     }\n \n \n }\n-<?php\n-\n-namespace App\\Models;\n-\n-use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\n-use Illuminate\\Database\\Eloquent\\Model;\n-\n-class Content extends Model\n-{\n-    use HasFactory;\n-\n-    protected $fillable = [\n-        'page',\n-        'title',\n-        'subtitle',\n-        'body',\n-        'links',\n-    ];\n-\n-    public function images()\n-    {\n-        return $this->hasMany(Image::class);\n-    }\n-\n-    public function images()\n-    {\n-        return $this->hasMany(Image::class);\n-    }\n-\n-\n-}\n"
+                },
+                {
+                    "date": 1719414804745,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,14 +9,13 @@\n {\n     use HasFactory;\n \n     protected $fillable = [\n-        'page',\n         'title',\n         'subtitle',\n         'body',\n         'links',\n-        \n+        'page_id'\n     ];\n \n     public function images()\n     {\n"
+                }
+            ],
+            "date": 1719404848177,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Models;\n\nuse Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\nuse Illuminate\\Database\\Eloquent\\Model;\n\nclass Content extends Model\n{\n    use HasFactory;\n\n    \n}\n"
+        }
+    ]
+}

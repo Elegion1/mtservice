@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ExcursionSeeder::class);
         $this->call(PartnerSeeder::class);
         $this->call(ServiceSeeder::class);
+        $this->call(ContentSeeder::class);
+        $this->call(PageSeeder::class);
         // User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
