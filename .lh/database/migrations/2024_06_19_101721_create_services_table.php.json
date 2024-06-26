@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 15,
+            "activePatchIndex": 16,
             "patches": [
                 {
                     "date": 1719240450082,
@@ -68,6 +68,10 @@
                 {
                     "date": 1719241112756,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,10 @@\n <?php\n \n+use App\\Models\\Service;\n+use Illuminate\\Support\\Facades\\Schema;\n+use Illuminate\\Database\\Schema\\Blueprint;\n use Illuminate\\Database\\Migrations\\Migration;\n-use Illuminate\\Database\\Schema\\Blueprint;\n-use Illuminate\\Support\\Facades\\Schema;\n \n return new class extends Migration\n {\n     /**\n@@ -107,10 +108,10 @@\n             ]\n         ];\n         \n         foreach($services as $service) {\n-            Service::create($service)\n-        }\n+            Service::create($service);\n+        };\n \n     }\n \n     /**\n"
+                },
+                {
+                    "date": 1719397267112,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,37 @@\n+<?php\n+\n+use App\\Models\\Service;\n+use Illuminate\\Support\\Facades\\Schema;\n+use Illuminate\\Database\\Schema\\Blueprint;\n+use Illuminate\\Database\\Migrations\\Migration;\n+\n+return new class extends Migration\n+{\n+    /**\n+     * Run the migrations.\n+     */\n+    public function up(): void\n+    {\n+        Schema::create('services', function (Blueprint $table) {\n+            $table->id();\n+            $table->string('title');\n+            $table->string('subtitle');\n+            $table->string('subtitleSec');\n+            $table->string('abstract');\n+            $table->text('body');\n+            $table->string('links');\n+            $table->text('condition');\n+            $table->timestamps();\n+        });\n+\n+\n+    }\n+\n+    /**\n+     * Reverse the migrations.\n+     */\n+    public function down(): void\n+    {\n+        Schema::dropIfExists('services');\n+    }\n+};\n"
                 }
             ],
             "date": 1719240450082,

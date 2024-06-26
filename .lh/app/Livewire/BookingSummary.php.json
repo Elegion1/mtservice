@@ -1,0 +1,18 @@
+{
+    "sourceFile": "app/Livewire/BookingSummary.php",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1719394050113,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1719394050113,
+            "name": "Commit-0",
+            "content": "<?php\n\nnamespace App\\Livewire;\n\nuse Dompdf\\Dompdf;\nuse Dompdf\\Options;\nuse App\\Models\\Booking;\nuse Livewire\\Component;\nuse App\\Mail\\BookingConfirmation;\nuse Illuminate\\Support\\Facades\\Mail;\n\nclass BookingSummary extends Component\n{\n    public $bookingData;\n    public $name;\n    public $surname;\n    public $email;\n    public $phone;\n    public $body;\n\n    protected $rules = [\n        'name' => 'required|string|max:255',\n        'surname' => 'required|string|max:255',\n        'email' => 'required|email|max:255',\n        'phone' => 'required|string|max:20',\n        'body' => 'required|string|max:1000',\n    ];\n\n    protected $messages = [\n        'name.required' => 'Il nome è obbligatorio.',\n        'surname.required' => 'Il cognome è obbligatorio.',\n        'email.required' => 'L\\'email è obbligatoria.',\n        'email.email' => 'Inserisci un\\'email valida.',\n        'phone.required' => 'Il numero di telefono è obbligatorio.',\n        'body.required' => 'Le note sono obbligatorie.',\n    ];\n\n    public function mount($bookingData)\n    {\n        $this->bookingData = $bookingData;\n    }\n\n    public function render()\n    {\n        return view('livewire.booking-summary');\n    }\n\n    public function confirmBooking()\n    {\n        $this->validate();\n\n        // Salvataggio della prenotazione nel database\n        $booking = Booking::create([\n            'bookingData' => $this->bookingData,\n            'name' => $this->name,\n            'surname' => $this->surname,\n            'email' => $this->email,\n            'phone' => $this->phone,\n            'body' => $this->body,\n\n            // Altri campi della prenotazione\n        ]);\n\n        // Generazione del PDF del riepilogo\n        $pdf = $this->generatePDF( $booking );\n\n        // Invio dell'email con il PDF allegato\n        Mail::to($this->email)->send(new BookingConfirmation($pdf));\n\n        // Messaggio di conferma\n        session()->flash('message', 'Prenotazione creata. Ti è stata inviata una email di riepilogo.');\n\n        // Eventuale reindirizzamento\n        return redirect()->to('/');\n    }\n\n    private function generatePDF($booking)\n    {\n        $data = compact('booking');\n\n        $options = new Options();\n        $options->set('isHtml5ParserEnabled', true);\n        $options->set('isPhpEnabled', true);\n        $options->set('defaultFont', 'Roboto');\n\n        $dompdf = new Dompdf($options);\n        $dompdf->loadHtml(view('pdf.booking-summary-pdf', $data)->render());\n        $dompdf->setPaper('A4', 'portrait');\n        $dompdf->render();\n\n        return $dompdf->output();\n    }\n\n}\n"
+        }
+    ]
+}

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 117,
+            "activePatchIndex": 125,
             "patches": [
                 {
                     "date": 1718895665598,
@@ -476,6 +476,38 @@
                 {
                     "date": 1719311070510,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n                 <h1 class=\"text-center mb-3\">I nostri servizi</h1>\n                 <x-services />\n             </div>\n         </div>\n-        <div class=\"col-12 col-md-6 \">\n+        <div class=\"col-12 col-md-6 mt-3\">\n             <div class=\"container bg-white rounded shadow p-3\">\n                 <h1 class=\"text-center mb-3\">Le nostre escursioni</h1>\n                 <x-excursions />\n             </div>\n"
+                },
+                {
+                    "date": 1719394694265,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,12 +19,9 @@\n                 <x-services />\n             </div>\n         </div>\n         <div class=\"col-12 col-md-6 mt-3\">\n-            <div class=\"container bg-white rounded shadow p-3\">\n-                <h1 class=\"text-center mb-3\">Le nostre escursioni</h1>\n-                <x-excursions />\n-            </div>\n+            \n         </div>\n     </div>\n \n </x-layout>\n"
+                },
+                {
+                    "date": 1719394704226,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,17 +11,18 @@\n             <div class=\"container bg-white rounded shadow p-3\">\n                 <p class=\"h2 text-center\">Le tratte più frequenti</p>\n                 <x-lista-tratte />\n             </div>\n+            <div class=\"container bg-white rounded shadow p-3\">\n+                <h1 class=\"text-center mb-3\">Le nostre escursioni</h1>\n+                <x-excursions />\n+            </div>\n         </div>\n         <div class=\"col-12 col-md-6\">\n             <div class=\"container bg-white rounded shadow p-3\">\n                 <h1 class=\"text-center mb-3\">I nostri servizi</h1>\n                 <x-services />\n             </div>\n         </div>\n-        <div class=\"col-12 col-md-6 mt-3\">\n-            \n-        </div>\n     </div>\n \n </x-layout>\n"
+                },
+                {
+                    "date": 1719394713056,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n             <div class=\"container bg-white rounded shadow p-3\">\n                 <p class=\"h2 text-center\">Le tratte più frequenti</p>\n                 <x-lista-tratte />\n             </div>\n-            <div class=\"container bg-white rounded shadow p-3\">\n+            <div class=\"container bg-white rounded shadow p-3 mt-3\">\n                 <h1 class=\"text-center mb-3\">Le nostre escursioni</h1>\n                 <x-excursions />\n             </div>\n         </div>\n"
+                },
+                {
+                    "date": 1719394735081,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,12 +17,9 @@\n                 <x-excursions />\n             </div>\n         </div>\n         <div class=\"col-12 col-md-6\">\n-            <div class=\"container bg-white rounded shadow p-3\">\n-                <h1 class=\"text-center mb-3\">I nostri servizi</h1>\n-                <x-services />\n-            </div>\n+            \n         </div>\n     </div>\n \n </x-layout>\n"
+                },
+                {
+                    "date": 1719394745542,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,8 +5,12 @@\n             <div class=\"container bg-white rounded shadow p-3\">\n                 <livewire:prenotazione />\n             </div>\n             <x-contact-link />\n+            <div class=\"container bg-white rounded shadow p-3\">\n+                <h1 class=\"text-center mb-3\">I nostri servizi</h1>\n+                <x-services />\n+            </div>\n         </div>\n         <div class=\"col-12 col-md-6\">\n             <div class=\"container bg-white rounded shadow p-3\">\n                 <p class=\"h2 text-center\">Le tratte più frequenti</p>\n@@ -16,10 +20,7 @@\n                 <h1 class=\"text-center mb-3\">Le nostre escursioni</h1>\n                 <x-excursions />\n             </div>\n         </div>\n-        <div class=\"col-12 col-md-6\">\n-            \n-        </div>\n     </div>\n \n </x-layout>\n"
+                },
+                {
+                    "date": 1719395284710,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,8 +4,11 @@\n         <div class=\"col-12 col-md-6\">\n             <div class=\"container bg-white rounded shadow p-3\">\n                 <livewire:prenotazione />\n             </div>\n+            <div class=\"container\">\n+                \n+            </div>\n             <x-contact-link />\n             <div class=\"container bg-white rounded shadow p-3\">\n                 <h1 class=\"text-center mb-3\">I nostri servizi</h1>\n                 <x-services />\n"
+                },
+                {
+                    "date": 1719395291088,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,11 +5,10 @@\n             <div class=\"container bg-white rounded shadow p-3\">\n                 <livewire:prenotazione />\n             </div>\n             <div class=\"container\">\n-                \n+                <x-contact-link />\n             </div>\n-            <x-contact-link />\n             <div class=\"container bg-white rounded shadow p-3\">\n                 <h1 class=\"text-center mb-3\">I nostri servizi</h1>\n                 <x-services />\n             </div>\n"
+                },
+                {
+                    "date": 1719395296906,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n         <div class=\"col-12 col-md-6\">\n             <div class=\"container bg-white rounded shadow p-3\">\n                 <livewire:prenotazione />\n             </div>\n-            <div class=\"container\">\n+            <div class=\"container my-3\">\n                 <x-contact-link />\n             </div>\n             <div class=\"container bg-white rounded shadow p-3\">\n                 <h1 class=\"text-center mb-3\">I nostri servizi</h1>\n"
                 }
             ],
             "date": 1718895665598,

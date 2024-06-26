@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 68,
+            "activePatchIndex": 69,
             "patches": [
                 {
                     "date": 1718904064941,
@@ -280,6 +280,10 @@
                 {
                     "date": 1719328984038,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n                 <div class=\"d-none d-md-block\">\n                     <div class=\"d-flex justify-content-center aling-items-center\">\n                         <a class=\"bg-c p-1 m-1  nav-link rounded-pill shadow\" href=\"tel:{{$ownerdata->phone2}}\">{{$ownerdata->phone2}}</a>\n                     \n-                        <a class=\"bg-c p-1 m-1 nav-link rounded-pill shadow\" href=\"tel:0123456789\">+ 39 0123456789</a>\n+                        <a class=\"bg-c p-1 m-1 nav-link rounded-pill shadow\" href=\"tel:{{$ownerdata->phone2}}\">{{$ownerdata->phone2}}</a>\n                     </div>\n                 </div>\n                 <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\"\n                     data-bs-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\"\n"
+                },
+                {
+                    "date": 1719397652063,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,45 @@\n+<nav class=\"navbar navbar-expand-lg bg-b\">\n+    <div class=\"container\">\n+        <div class=\"row w-100\">\n+            <div class=\"col-12 d-flex justify-content-between align-items-center\">\n+                <a class=\"navbar-brand\" href=\"{{ route('home') }}\">\n+                    <img class=\"logo-img\" src=\"{{Storage::url($ownerdata->images->first()->path)}}\" alt=\"\">\n+                </a>\n+                <div class=\"d-none d-md-block\">\n+                    <div class=\"d-flex justify-content-center aling-items-center\">\n+                        <a class=\"bg-c p-1 m-1  nav-link rounded-pill shadow\" href=\"tel:{{$ownerdata->phone2}}\">{{$ownerdata->phone2}}</a>\n+                    \n+                        <a class=\"bg-c p-1 m-1 nav-link rounded-pill shadow\" href=\"tel:{{$ownerdata->phone3}}\">{{$ownerdata->phone3}}</a>\n+                    </div>\n+                </div>\n+                <button class=\"navbar-toggler\" type=\"button\" data-bs-toggle=\"collapse\"\n+                    data-bs-target=\"#navbarSupportedContent\" aria-controls=\"navbarSupportedContent\"\n+                    aria-expanded=\"false\" aria-label=\"Toggle navigation\">\n+                    <span class=\"navbar-toggler-icon\"></span>\n+                </button>\n+            </div>\n+\n+            <div class=\"col-12 d-md-none d-block\">\n+                <small>Chiama per info</small>\n+                <br>\n+                <a class=\"text-decoration-none\" href=\"tel:{{$ownerdata->phone2}}\">{{$ownerdata->phone2}}</a>\n+                <a class=\"text-decoration-none\" href=\"tel:{{$ownerdata->phone3}}\">{{$ownerdata->phone3}}</a>\n+            </div>\n+\n+            <div class=\"col-12\">\n+                <div class=\"collapse navbar-collapse\" id=\"navbarSupportedContent\">\n+                    <ul class=\"navbar-nav d-flex align-items-center justify-content-center mx-auto mb-2 mb-lg-0\">\n+                        x-links\n+                    </ul>\n+                    {{-- <form class=\"d-flex\" role=\"search\">\n+                <input class=\"form-control me-2\" type=\"search\" placeholder=\"Search\" aria-label=\"Search\">\n+                <button class=\"btn btn-outline-success\" type=\"submit\">Search</button>\n+            </form> --}}\n+                </div>\n+            </div>\n+        </div>\n+\n+\n+\n+    </div>\n+</nav>\n"
                 }
             ],
             "date": 1718904064941,

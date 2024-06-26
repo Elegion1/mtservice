@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
         $this->call(DestinationSeeder::class);
         $this->call(ReviewSeeder::class);
         $this->call(OwnerDataSeeder::class);
+        $this->call(ExcursionSeeder::class);
+        $this->call(PartnerSeeder::class);
+        $this->call(ServiceSeeder::class);
         // User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',

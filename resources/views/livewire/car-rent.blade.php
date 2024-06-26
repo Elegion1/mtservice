@@ -1,14 +1,14 @@
 <div>
     <div class="container">
         <form wire:submit.prevent="submitBookingRent">
-            <h2 class="text-uppercase text-danger"><strong>Prenota la tua auto</strong></h2>
+            <h4 class="text-uppercase text-danger"><strong>Prenota la tua auto</strong></h4>
             <div class="row bg-b p-2 rounded">
                 <div class="col-12 col-md-5">
                     <label class="form-label" for="dateStart">Data di ritiro</label>
                     <input wire:model.live="dateStart" type="date" class="form-control" id="dateStart">
                     {{-- <div class="error-message">
                                 @error('dateStart')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger error">{{ $message }}</span>
                                 @enderror
                             </div> --}}
                 </div>
@@ -17,7 +17,7 @@
                     <input wire:model.live="dateEnd" type="date" class="form-control" id="dateEnd">
                     {{-- <div class="error-message">
                                 @error('dateEnd')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger error">{{ $message }}</span>
                                 @enderror
                             </div> --}}
                 </div>
@@ -27,24 +27,24 @@
                         max="1">
                     {{-- <div class="error-message">
                                 @error('quantity')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger error">{{ $message }}</span>
                                 @enderror
                             </div> --}}
                 </div>
                 {{-- <div class="col-12 d-flex justify-content-center align-items-center flex-wrap flex-column">
                             <div class="error-message">
                                 @error('dateStart')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger error">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="error-message">
                                 @error('dateEnd')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger error">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="error-message">
                                 @error('quantity')
-                                    <span class="text-danger">{{ $message }}</span>
+                                    <span class="text-danger error">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div> --}}
@@ -53,17 +53,17 @@
             <div class="container-fluid message d-flex align-items-center justify-content-center mx-auto my-2">
                 <div class="error-message">
                     @error('dateStart')
-                        <span class="text-danger">{{ $message }}</span>
+                        <span class="text-danger error">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="error-message">
                     @error('dateEnd')
-                        <span class="text-danger">{{ $message }}</span>
+                        <span class="text-danger error">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="error-message">
                     @error('quantity')
-                        <span class="text-danger">{{ $message }}</span>
+                        <span class="text-danger error">{{ $message }}</span>
                     @enderror
                 </div>
             </div>

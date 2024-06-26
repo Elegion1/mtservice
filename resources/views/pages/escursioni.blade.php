@@ -54,7 +54,15 @@
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $excursion->name }}</h5>
-                                    <p class="card-text">{{ $excursion->abstract }}</p>
+                                    <small>Durata {{ $excursion->duration }}
+                                        @if ($excursion->duration == 1)
+                                            ora 
+                                        @else
+                                            ore
+                                        @endif
+                                        circa</small>
+                                    <p class="card-text">{{ $excursion->abstract }}
+                                    </p>
                                     <p class="card-text"><small
                                             class="text-body-secondary">{{ $excursion->description }}</small>
                                     </p>

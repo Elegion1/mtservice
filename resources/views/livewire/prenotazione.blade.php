@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row p-2">
             @if ($isHome)
-                <div class="col-12 d-flex justify-content-center align-items-center p-2 mb-3">
+                <div class="col-12 d-flex justify-content-center align-items-center p-2">
                     <button type="button" 
                         class=" m-1 btn
                         @if ($currentForm == 'escursioni') bg-b text-white 

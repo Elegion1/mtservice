@@ -68,7 +68,7 @@ class BookingSummary extends Component
         Mail::to($this->email)->send(new BookingConfirmation($pdf));
 
         // Messaggio di conferma
-        session()->flash('message', 'Prenotazione inviata. Ti è stata inviata una email di riepilogo.');
+        session()->flash('message', 'Prenotazione creata. Ti è stata inviata una email di riepilogo.');
 
         // Eventuale reindirizzamento
         return redirect()->to('/');

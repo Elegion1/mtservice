@@ -40,12 +40,12 @@
                                         alt="">
                                 @endif
                             </div>
-                            <div class="col-6">
+                            <div class="col-6 d-flex justify-content-center flex-column">
                                 <div>
                                     <h3>{{ $excursion->name }}</h3>
                                 </div>
                                 <div>
-                                    <p class="text-secondary">{{ $excursion->abstract }}</p>
+                                    <small>Durata {{ $excursion->duration }} ore circa</small>
                                 </div>
                                 <div>
                                     <p>{{ $excursion->description }}</p>

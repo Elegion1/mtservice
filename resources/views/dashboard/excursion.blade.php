@@ -16,7 +16,7 @@
                     <label for="name" class="form-label">Nome Escursione</label>
                     <input type="text" class="form-control" id="name" name="name" required>
                 </div>
-                <div class="mb-3 col-2">
+                <div class="mb-3 col-1">
                     <label for="price" class="form-label">Prezzo</label>
                     <input type="number" step="0.01" class="form-control" id="price" name="price" required>
                 </div>
@@ -24,6 +24,10 @@
                     <label for="price_increment" class="form-label">Incremento Prezzo</label>
                     <input type="number" step="0.01" class="form-control" id="price_increment"
                         name="price_increment" required>
+                </div>
+                <div class="mb-3 col-1">
+                    <label for="duration" class="form-label">Durata</label>
+                    <input type="text" step="0.01" class="form-control" id="duration" name="duration" required>
                 </div>
                 <div class="mb-3 col-12">
                     <label for="abstract" class="form-label">Abstract</label>
@@ -54,6 +58,7 @@
                     <th>Incremento Prezzo</th>
                     <th>Abstract</th>
                     <th>Descrizione</th>
+                    <th>Durata</th>
                     <th>Data di aggiunta</th>
                     <th>Data di modifica</th>
                     <th>Immagini</th>
@@ -69,6 +74,7 @@
                         <td>{{ $excursion->price_increment }} €</td>
                         <td>{{ $excursion->abstract }}</td>
                         <td>{{ $excursion->description }}</td>
+                        <td>{{ $excursion->duration }} h</td>
                         <td>{{ $excursion->created_at }}</td>
                         <td>{{ $excursion->updated_at }}</td>
                         <td>
@@ -121,6 +127,10 @@
                             <label for="edit_price_increment" class="form-label">Incremento Prezzo</label>
                             <input type="number" step="0.01" class="form-control" id="edit_price_increment"
                                 name="price_increment" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_duration" class="form-label">Durata</label>
+                            <input type="text" class="form-control" id="edit_duration" name="duration" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_abstract" class="form-label">Abstract</label>
@@ -179,6 +189,7 @@
                     form.querySelector('#edit_price_increment').value = excursion.price_increment;
                     form.querySelector('#edit_abstract').value = excursion.abstract;
                     form.querySelector('#edit_description').value = excursion.description;
+                    form.querySelector('#edit_duration').value = excursion.duration;
 
                     // Mostra le immagini esistenti nel modale di modifica
                     showCurrentImages(excursion.images);

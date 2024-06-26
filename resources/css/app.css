@@ -1,4 +1,5 @@
 @import "bootstrap";
+@import "bootstrap-icons";
 @import "./masthead.css";
 @import "./palette.css";
 
@@ -28,7 +29,7 @@
     text-align: center;
 }
 
-.text-danger {
+.error {
     font-size: 0.875rem;
 }
 

@@ -14,7 +14,8 @@ class Excursion extends Model
         'price_increment',
         'price',
         'abstract',
-        'description'
+        'description',
+        'duration'
     ];
 
     public function images()

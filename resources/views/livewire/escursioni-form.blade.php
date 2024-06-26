@@ -1,7 +1,7 @@
 <div>
     <div class="container">
         <form wire:submit.prevent="submitBookingExcursion">
-            <h2 class="text-uppercase text-danger"><strong>Prenota Escursione</strong></h2>
+            <h4 class="text-uppercase text-danger"><strong>Prenota Escursione</strong></h4>
             <div class="row">
                 <div class="col-12">
                     <select wire:model.live="excursionSelect" wire:change="calculatePriceExcursion" id="excursionSelect"
@@ -14,7 +14,7 @@
                     </select>
                     <div class="error-message">
                         @error('excursionSelect')
-                            <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger error">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                         id="excursionPassengers" min="1" max="16" value="1">
                     <div class="error-message">
                         @error('excursionPassengers')
-                            <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger error">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
@@ -37,7 +37,7 @@
                         id="dateExcursion">
                     <div class="error-message">
                         @error('excursionDate')
-                            <span class="text-danger">{{ $message }}</span>
+                            <span class="text-danger error">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 29,
+            "activePatchIndex": 37,
             "patches": [
                 {
                     "date": 1718889589964,
@@ -124,6 +124,38 @@
                 {
                     "date": 1719307692368,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n .excursion {\n     /* width: 50%; */\n     height: 40vh !important;\n     padding: 0px;\n-    min-height: 0px !important; \n+    min-height: 300px !important; \n }\n \n .excursion-img {\n     width: 90%;\n"
+                },
+                {
+                    "date": 1719395069659,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     min-height: 0px !important; \n }\n \n .service-img {\n-    height: 30%;\n+    height: 20%;\n }\n \n .excursion {\n     /* width: 50%; */\n"
+                },
+                {
+                    "date": 1719395100251,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,9 @@\n     min-height: 0px !important; \n }\n \n .service-img {\n-    height: 20%;\n+    height: 20;\n }\n \n .excursion {\n     /* width: 50%; */\n"
+                },
+                {
+                    "date": 1719395120243,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,13 +11,13 @@\n .service {\n     width: 100%;\n     height: 100% !important;\n     padding: 0px;\n-    min-height: 0px !important; \n+    min-height: 300px !important; \n }\n \n .service-img {\n-    height: 20;\n+    height: 20vh;\n }\n \n .excursion {\n     /* width: 50%; */\n"
+                },
+                {
+                    "date": 1719395128980,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n .service {\n     width: 100%;\n     height: 100% !important;\n     padding: 0px;\n-    min-height: 300px !important; \n+    min-height: 500px !important; \n }\n \n .service-img {\n     height: 20vh;\n"
+                },
+                {
+                    "date": 1719395379898,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,13 +11,13 @@\n .service {\n     width: 100%;\n     height: 100% !important;\n     padding: 0px;\n-    min-height: 500px !important; \n+    min-height: 400px !important; \n }\n \n .service-img {\n-    height: 20vh;\n+    height: 30vh;\n }\n \n .excursion {\n     /* width: 50%; */\n"
+                },
+                {
+                    "date": 1719395391377,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n .service {\n     width: 100%;\n     height: 100% !important;\n     padding: 0px;\n-    min-height: 400px !important; \n+    min-height: 30vh !important; \n }\n \n .service-img {\n     height: 30vh;\n"
+                },
+                {
+                    "date": 1719395399633,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n .service {\n     width: 100%;\n     height: 100% !important;\n     padding: 0px;\n-    min-height: 30vh !important; \n+    min-height: 500px !important; \n }\n \n .service-img {\n     height: 30vh;\n"
+                },
+                {
+                    "date": 1719395405096,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n .service {\n     width: 100%;\n     height: 100% !important;\n     padding: 0px;\n-    min-height: 500px !important; \n+    min-height: 450px !important; \n }\n \n .service-img {\n     height: 30vh;\n"
                 }
             ],
             "date": 1718889589964,
