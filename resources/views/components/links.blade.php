@@ -34,6 +34,6 @@
 
 @foreach ($pages as $page)
     <li class="nav-item">
-        <a class="nav-link {{ $slot }}" href="{{ route($page->link) }}">{{ $page->name }}</a>
+        <a class="nav-link {{ $slot }} @if (Route::currentRouteName() == '{{$page->link}}') active_nav @endif" href="{{ route($page->link) }}">{{ $page->name }}</a>
     </li>
 @endforeach

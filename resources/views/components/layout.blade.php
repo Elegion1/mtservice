@@ -20,9 +20,9 @@
             <x-display-message />
             {{ $slot }}
         </div>
+        <x-footer />
     </div>
-    <div class="altezza"></div>
-    <x-footer />
+    
 
 </body>
 

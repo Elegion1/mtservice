@@ -107,3 +107,36 @@
 .img-content {
     width: 100%;
 }
+
+
+.navbar_toggler_focused:focus {
+    box-shadow: 0px 0px 15px 5px var(--color-a) !important;
+    -webkit-box-shadow: 0px 0px 15px 5px var(--color-a) !important;
+    -moz-box-shadow: 0px 0px 15px 5px var(--color-a) !important;
+    color: var(--color-a) !important;
+}
+
+.nav-link {
+    color: var(--color-c);
+}
+
+.nav-link:hover {
+    color: var(--color-a);
+}
+
+.active_nav {
+    color: var(--color-a) !important;
+    font-weight: bolder;
+}
+
+.text_col {
+    color: var(--color-a);
+}
+
+h1, h2 {
+    color: var(--color-a);
+}
+
+.border_custom{
+    border-bottom: 5px solid var(--color-a);
+}

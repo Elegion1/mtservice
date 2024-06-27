@@ -6,12 +6,12 @@
                     <img class="logo-img" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt="">
                 </a>
                 <div class=" d-flex justify-content-center align-items-center flex-column">
-                    <span class="text-white fs-5">Prenota online o chiama</span>
+                    <span class="text-c fs-5">Prenota online o chiama</span>
                     <div class="d-flex justify-content-center aling-items-center">
-                        <a class="p-md-2 m-md-1 nav-link text-white border rounded-pill"
+                        <a class="p-md-2 m-md-1 mx-auto nav-link rounded-pill"
                             href="tel:{{ $ownerdata->phone2 }}"><span><i class="bi bi-telephone-fill"></i></span> {{ $ownerdata->phone2 }}</a>
 
-                        <a class="p-md-2 m-md-1 nav-link text-white border rounded-pill"
+                        <a class="p-md-2 m-md-1 mx-auto nav-link rounded-pill"
                             href="tel:{{ $ownerdata->phone3 }}"><i class="bi bi-telephone-fill"></i> {{ $ownerdata->phone3 }}</a>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav d-flex align-items-center justify-content-center flex-wrap mx-auto mb-2 mb-lg-0">
                         <x-links>
-                            active text-uppercase
+                             text-uppercase
                         </x-links>
                     </ul>
                     {{-- <form class="d-flex" role="search">

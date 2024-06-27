@@ -47,8 +47,8 @@
                                 <div class="col-12 d-flex justify-content-center align-items-center flex-column text-center">
                                     <p class="h3">{{ $service->title }}</p>
                                     <p class="h6">{{ $service->subtitle }}</p>
-                                    <p class="text-secondary text-wrap ">{{ $service->abstract }}</p>
-                                    <a class="small" href="{{ $service->links }}">{{ $service->links }}</a>
+                                    <p class="text-b text-wrap ">{{ $service->abstract }}</p>
+                                    <a class="small" href="{{ $service->links }}">Vai al sito</a>
                                 </div>
                             </div>
                         </div>

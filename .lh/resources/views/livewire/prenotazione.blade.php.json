@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 9,
+            "activePatchIndex": 10,
             "patches": [
                 {
                     "date": 1719224292895,
@@ -44,6 +44,10 @@
                 {
                     "date": 1719494570921,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n <div>\n-    <div class=\"container-fluid\">\n+    <div class=\"container\">\n         <div class=\"row p-2\">\n             @if ($isHome)\n                 <div class=\"col-12 d-flex justify-content-center align-items-center p-md-2\">\n                     <button type=\"button\" \n"
+                },
+                {
+                    "date": 1719512631058,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,41 @@\n+<div>\n+    <div class=\"container \">\n+        <div class=\"row p-2\">\n+            @if ($isHome)\n+                <div class=\"col-12 d-flex justify-content-center align-items-center p-md-2\">\n+                    <button type=\"button\" \n+                        class=\" m-1 btn\n+                        @if ($currentForm == 'escursioni') bg-b text-white \n+                        @elseif ($currentForm == 'transfer') bg-a text-white \n+                        @else bg-b text-white @endif\"\n+                        wire:click=\"showTransfer\">TRANSFER</button>\n+                    <button type=\"button\" \n+                        class=\" m-1 btn\n+                        @if ($currentForm == 'transfer') bg-b text-white \n+                        @elseif ($currentForm == 'escursioni') bg-a text-white \n+                        @else bg-b text-white @endif\"\n+                        wire:click=\"showEscursioni\">ESCURSIONI</button>\n+                    <button type=\"button\" \n+                        class=\" m-1 btn\n+                        @if ($currentForm == 'transfer') bg-b text-white \n+                        @elseif ($currentForm == 'escursioni') bg-b text-white \n+                        @elseif ($currentForm == 'noleggio') bg-a text-white \n+                        @else bg-b text-white @endif\"\n+                        wire:click=\"showRent\">NOLEGGIO AUTO</button>\n+                </div>\n+            @endif\n+\n+            <div class=\"col-12\">\n+                @if ($currentForm == 'escursioni')\n+                    @livewire('escursioni-form')\n+                @elseif ($currentForm == 'transfer')\n+                    @livewire('transfer-form')\n+                @elseif ($currentForm == 'noleggio')\n+                    @livewire('car-rent')\n+                @elseif ($currentForm == 'bookingSummary')\n+                    @livewire('booking-summary', ['bookingData' => $bookingData])\n+                @endif\n+            </div>\n+        </div>\n+    </div>\n+</div>\n"
                 }
             ],
             "date": 1719224292895,

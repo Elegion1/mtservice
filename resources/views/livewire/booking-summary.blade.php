@@ -2,41 +2,41 @@
     <div class="container">
         <div class="container-fluid m-0 p-0">
             <h1>Riepilogo Prenotazione</h1>
-            <p>Tipologia: <span class="text-primary">{{ ucfirst($bookingData['type']) }}</span></p>
+            <p>Tipologia: <span class="text_col">{{ ucfirst($bookingData['type']) }}</span></p>
 
             @if ($bookingData['type'] == 'transfer')
-                <p>Da: <span class="text-primary">{{ $bookingData['departure_name'] ?? 'N/A' }}</span></p>
-                <p>A: <span class="text-primary">{{ $bookingData['arrival_name'] ?? 'N/A' }}</span></p>
-                <p>Data: <span class="text-primary">{{ $bookingData['date_departure'] ?? 'N/A' }}</span></p>
-                <p>Ore: <span class="text-primary">{{ $bookingData['time_departure'] ?? 'N/A' }}</span></p>
-                <p>Durata: <span class="text-primary">{{ $bookingData['duration'] ?? 'N/A' }}</span> Minuti circa</p>
+                <p>Da: <span class="text_col">{{ $bookingData['departure_name'] ?? 'N/A' }}</span></p>
+                <p>A: <span class="text_col">{{ $bookingData['arrival_name'] ?? 'N/A' }}</span></p>
+                <p>Data: <span class="text_col">{{ $bookingData['date_departure'] ?? 'N/A' }}</span></p>
+                <p>Ore: <span class="text_col">{{ $bookingData['time_departure'] ?? 'N/A' }}</span></p>
+                <p>Durata: <span class="text_col">{{ $bookingData['duration'] ?? 'N/A' }}</span> Minuti circa</p>
                 @if (!empty($bookingData['date_ret']))
-                    <p>Ritorno: <span class="text-primary">{{ $bookingData['date_return'] }}</span> ore <span
-                            class="text-primary">{{ $bookingData['time_return'] }}</span></p>
+                    <p>Ritorno: <span class="text_col">{{ $bookingData['date_return'] }}</span> ore <span
+                            class="text_col">{{ $bookingData['time_return'] }}</span></p>
                 @endif
-                <p>Passeggeri: <span class="text-primary">{{ $bookingData['passengers'] ?? 'N/A' }}</span></p>
-                <p>Prezzo Totale: <span class="text-primary">{{ $bookingData['price'] ?? 'N/A' }}</span> €</p>
+                <p>Passeggeri: <span class="text_col">{{ $bookingData['passengers'] ?? 'N/A' }}</span></p>
+                <p>Prezzo Totale: <span class="text_col">{{ $bookingData['price'] ?? 'N/A' }}</span> €</p>
             @elseif ($bookingData['type'] == 'escursione')
-                <p>Tipologia: <span class="text-primary">{{ ucfirst($bookingData['type']) }}</span> a <span
-                        class="text-primary">{{ $bookingData['departure_name'] ?? 'N/A' }}</span></p>
-                <p>Data: <span class="text-primary">{{ $bookingData['date_departure'] ?? 'N/A' }}</span></p>
-                <p>Ore: <span class="text-primary">{{ $bookingData['time_departure'] ?? 'N/A' }}</span></p>
-                <p>Durata: <span class="text-primary">{{ $bookingData['duration'] ?? 'N/A' }}</span></p>
-                <p>Passeggeri: <span class="text-primary">{{ $bookingData['passengers'] ?? 'N/A' }}</span></p>
-                <p>Prezzo Totale: <span class="text-primary">{{ $bookingData['price'] ?? 'N/A' }} €</span></p>
+                <p>Tipologia: <span class="text_col">{{ ucfirst($bookingData['type']) }}</span> a <span
+                        class="text_col">{{ $bookingData['departure_name'] ?? 'N/A' }}</span></p>
+                <p>Data: <span class="text_col">{{ $bookingData['date_departure'] ?? 'N/A' }}</span></p>
+                <p>Ore: <span class="text_col">{{ $bookingData['time_departure'] ?? 'N/A' }}</span></p>
+                <p>Durata: <span class="text_col">{{ $bookingData['duration'] ?? 'N/A' }}</span></p>
+                <p>Passeggeri: <span class="text_col">{{ $bookingData['passengers'] ?? 'N/A' }}</span></p>
+                <p>Prezzo Totale: <span class="text_col">{{ $bookingData['price'] ?? 'N/A' }} €</span></p>
             @elseif ($bookingData['type'] == 'noleggio')
-                <p>Tipologia: <span class="text-primary">{{ ucfirst($bookingData['type']) }}</span> <span
-                        class="text-primary">{{ $bookingData['car_name'] ?? 'N/A' }}
+                <p>Tipologia: <span class="text_col">{{ ucfirst($bookingData['type']) }}</span> <span
+                        class="text_col">{{ $bookingData['car_name'] ?? 'N/A' }}
                         {{ $bookingData['car_description'] ?? 'N/A' }}</span></p>
-                <p>Data di ritiro: <span class="text-primary">{{ $bookingData['date_start'] ?? 'N/A' }}</span> data di
-                    consegna: <span class="text-primary">{{ $bookingData['date_end'] ?? 'N/A' }}</span></p>
-                <p>Quantità: <span class="text-primary">{{ $bookingData['quantity'] ?? 'N/A' }}</span> Prezzo Totale:
-                    <span class="text-primary">{{ $bookingData['price'] ?? 'N/A' }} €</span>
+                <p>Data di ritiro: <span class="text_col">{{ $bookingData['date_start'] ?? 'N/A' }}</span> data di
+                    consegna: <span class="text_col">{{ $bookingData['date_end'] ?? 'N/A' }}</span></p>
+                <p>Quantità: <span class="text_col">{{ $bookingData['quantity'] ?? 'N/A' }}</span> Prezzo Totale:
+                    <span class="text_col">{{ $bookingData['price'] ?? 'N/A' }} €</span>
                 </p>
             @endif
         </div>
         <form wire:submit.prevent="confirmBooking">
-            <h6 class="text-primary">DATI PERSONALI</h6>
+            <h6 class="text_col">DATI PERSONALI</h6>
             <div class="row">
                 <div class="col-12">
                     <p class="text-a">Siamo dotati di seggiolini e alzatine per trasporto bimbi da 1 mese a 10

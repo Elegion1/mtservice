@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 57,
+            "activePatchIndex": 93,
             "patches": [
                 {
                     "date": 1718890641170,
@@ -236,6 +236,150 @@
                 {
                     "date": 1719501737137,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,5 +103,7 @@\n     width: 20vw;\n     max-width: 200px;\n }\n \n-img-content\n\\ No newline at end of file\n+.img-content {\n+    \n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719511470716,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,6 +104,27 @@\n     max-width: 200px;\n }\n \n .img-content {\n-    \n+    width: 100%;\n+}\n+\n+\n+.navbar_toggler_focused:focus {\n+    box-shadow: 0px 0px 15px 5px var(--color-A) !important;\n+    -webkit-box-shadow: 0px 0px 15px 5px var(--color-A) !important;\n+    -moz-box-shadow: 0px 0px 15px 5px var(--color-A) !important;\n+    color: var(--color-A) !important;\n+}\n+\n+.nav-link {\n+    color: var(--color-P);\n+}\n+\n+.nav-link:hover {\n+    color: var(--color-A);\n+}\n+\n+.active {\n+    color: var(--color-A) !important;\n+    font-weight: bolder;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719511482199,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -109,22 +109,22 @@\n }\n \n \n .navbar_toggler_focused:focus {\n-    box-shadow: 0px 0px 15px 5px var(--color-A) !important;\n-    -webkit-box-shadow: 0px 0px 15px 5px var(--color-A) !important;\n-    -moz-box-shadow: 0px 0px 15px 5px var(--color-A) !important;\n-    color: var(--color-A) !important;\n+    box-shadow: 0px 0px 15px 5px var(--color-a) !important;\n+    -webkit-box-shadow: 0px 0px 15px 5px var(--color-a) !important;\n+    -moz-box-shadow: 0px 0px 15px 5px var(--color-a) !important;\n+    color: var(--color-a) !important;\n }\n \n .nav-link {\n     color: var(--color-P);\n }\n \n .nav-link:hover {\n-    color: var(--color-A);\n+    color: var(--color-a);\n }\n \n .active {\n-    color: var(--color-A) !important;\n+    color: var(--color-a) !important;\n     font-weight: bolder;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719511489280,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -116,9 +116,9 @@\n     color: var(--color-a) !important;\n }\n \n .nav-link {\n-    color: var(--color-P);\n+    color: var(--color-);\n }\n \n .nav-link:hover {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719511546972,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -116,15 +116,15 @@\n     color: var(--color-a) !important;\n }\n \n .nav-link {\n-    color: var(--color-);\n+    color: var(--color-c);\n }\n \n .nav-link:hover {\n     color: var(--color-a);\n }\n \n-.active {\n+a .active {\n     color: var(--color-a) !important;\n     font-weight: bolder;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719511554433,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,130 @@\n+@import \"bootstrap\";\n+@import \"bootstrap-icons\";\n+@import \"./masthead.css\";\n+@import \"./palette.css\";\n+\n+.rating {\n+    color: orange; /* Cambia il colore delle stelline */\n+}\n+\n+.star {\n+    font-size: 20px; /* Dimensione delle stelline */\n+}\n+\n+.my_alert-danger {\n+    background-color: rgba(246, 7, 7, 0.886);\n+}\n+\n+.my-alert-success {\n+    color: white;\n+    background-color: green;\n+}\n+\n+.error-message {\n+    min-height: 1rem;\n+    /* Riserva spazio per i messaggi di errore */\n+    display: flex;\n+    align-items: center;\n+    transition: all 0.3s ease-in-out; /* Aggiunge una transizione fluida */\n+    text-align: center;\n+}\n+\n+.error {\n+    font-size: 0.875rem;\n+}\n+\n+.btn:hover:hover {\n+    background-color: var(--color-b);\n+    color: white;\n+    transition: 0.5s;\n+}\n+\n+.altezza {\n+    height: 2000px;\n+}\n+\n+.masthead-position {\n+    top: 70%;\n+    /* background-color: red; */\n+    width: 100%;\n+}\n+\n+.text-shadow {\n+    text-shadow: 1px 2px 5px black;\n+}\n+.message {\n+    width: 30vw;\n+    margin: 0px;\n+}\n+\n+@media screen and (max-width: 768px) {\n+    .message {\n+        width: 80vw;\n+    }\n+\n+    .masthead-position {\n+        top: 50%;\n+    }\n+}\n+\n+.current-image {\n+    display: inline-block;\n+    position: relative;\n+    margin-right: 10px;\n+}\n+.current-image img {\n+    display: block;\n+    max-width: 100px;\n+    max-height: 100px;\n+}\n+.current-image button {\n+    position: absolute;\n+    top: 0;\n+    right: 0;\n+}\n+\n+.faq-section {\n+    padding: 20px;\n+    border-radius: 5px;\n+    margin-bottom: 20px;\n+}\n+\n+.faq-item {\n+    margin-bottom: 15px;\n+}\n+\n+.faq-item h3 {\n+    margin-bottom: 5px;\n+    font-size: 18px;\n+    color: var(--color-a);\n+}\n+\n+.logo-img{\n+    width: 20vw;\n+    max-width: 200px;\n+}\n+\n+.img-content {\n+    width: 100%;\n+}\n+\n+\n+.navbar_toggler_focused:focus {\n+    box-shadow: 0px 0px 15px 5px var(--color-a) !important;\n+    -webkit-box-shadow: 0px 0px 15px 5px var(--color-a) !important;\n+    -moz-box-shadow: 0px 0px 15px 5px var(--color-a) !important;\n+    color: var(--color-a) !important;\n+}\n+\n+.nav-link {\n+    color: var(--color-c);\n+}\n+\n+.nav-link:hover {\n+    color: var(--color-a);\n+}\n+\n+.active {\n+    color: var(--color-a) !important;\n+    font-weight: bolder;\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719511597191,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -123,138 +123,8 @@\n .nav-link:hover {\n     color: var(--color-a);\n }\n \n-.active {\n+.active_nav {\n     color: var(--color-a) !important;\n     font-weight: bolder;\n-}\n-@import \"bootstrap\";\n-@import \"bootstrap-icons\";\n-@import \"./masthead.css\";\n-@import \"./palette.css\";\n-\n-.rating {\n-    color: orange; /* Cambia il colore delle stelline */\n-}\n-\n-.star {\n-    font-size: 20px; /* Dimensione delle stelline */\n-}\n-\n-.my_alert-danger {\n-    background-color: rgba(246, 7, 7, 0.886);\n-}\n-\n-.my-alert-success {\n-    color: white;\n-    background-color: green;\n-}\n-\n-.error-message {\n-    min-height: 1rem;\n-    /* Riserva spazio per i messaggi di errore */\n-    display: flex;\n-    align-items: center;\n-    transition: all 0.3s ease-in-out; /* Aggiunge una transizione fluida */\n-    text-align: center;\n-}\n-\n-.error {\n-    font-size: 0.875rem;\n-}\n-\n-.btn:hover:hover {\n-    background-color: var(--color-b);\n-    color: white;\n-    transition: 0.5s;\n-}\n-\n-.altezza {\n-    height: 2000px;\n-}\n-\n-.masthead-position {\n-    top: 70%;\n-    /* background-color: red; */\n-    width: 100%;\n-}\n-\n-.text-shadow {\n-    text-shadow: 1px 2px 5px black;\n-}\n-.message {\n-    width: 30vw;\n-    margin: 0px;\n-}\n-\n-@media screen and (max-width: 768px) {\n-    .message {\n-        width: 80vw;\n-    }\n-\n-    .masthead-position {\n-        top: 50%;\n-    }\n-}\n-\n-.current-image {\n-    display: inline-block;\n-    position: relative;\n-    margin-right: 10px;\n-}\n-.current-image img {\n-    display: block;\n-    max-width: 100px;\n-    max-height: 100px;\n-}\n-.current-image button {\n-    position: absolute;\n-    top: 0;\n-    right: 0;\n-}\n-\n-.faq-section {\n-    padding: 20px;\n-    border-radius: 5px;\n-    margin-bottom: 20px;\n-}\n-\n-.faq-item {\n-    margin-bottom: 15px;\n-}\n-\n-.faq-item h3 {\n-    margin-bottom: 5px;\n-    font-size: 18px;\n-    color: var(--color-a);\n-}\n-\n-.logo-img{\n-    width: 20vw;\n-    max-width: 200px;\n-}\n-\n-.img-content {\n-    width: 100%;\n-}\n-\n-\n-.navbar_toggler_focused:focus {\n-    box-shadow: 0px 0px 15px 5px var(--color-a) !important;\n-    -webkit-box-shadow: 0px 0px 15px 5px var(--color-a) !important;\n-    -moz-box-shadow: 0px 0px 15px 5px var(--color-a) !important;\n-    color: var(--color-a) !important;\n-}\n-\n-.nav-link {\n-    color: var(--color-c);\n-}\n-\n-.nav-link:hover {\n-    color: var(--color-a);\n-}\n-\n-a .active {\n-    color: var(--color-a) !important;\n-    font-weight: bolder;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719511866321,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -121,8 +121,9 @@\n }\n \n .nav-link:hover {\n     color: var(--color-a);\n+    \n }\n \n .active_nav {\n     color: var(--color-a) !important;\n"
+                },
+                {
+                    "date": 1719511878264,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -121,9 +121,9 @@\n }\n \n .nav-link:hover {\n     color: var(--color-a);\n-    \n+    text-shadow: 1px 2px 5px ;\n }\n \n .active_nav {\n     color: var(--color-a) !important;\n"
+                },
+                {
+                    "date": 1719511886473,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -121,9 +121,9 @@\n }\n \n .nav-link:hover {\n     color: var(--color-a);\n-    text-shadow: 1px 2px 5px ;\n+    text-shadow: 1px 2px 10px black;\n }\n \n .active_nav {\n     color: var(--color-a) !important;\n"
+                },
+                {
+                    "date": 1719511892834,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -121,9 +121,9 @@\n }\n \n .nav-link:hover {\n     color: var(--color-a);\n-    text-shadow: 1px 2px 10px black;\n+    text-shadow: 1px 2px 3px black;\n }\n \n .active_nav {\n     color: var(--color-a) !important;\n"
+                },
+                {
+                    "date": 1719511901597,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -121,9 +121,9 @@\n }\n \n .nav-link:hover {\n     color: var(--color-a);\n-    text-shadow: 1px 2px 3px black;\n+    \n }\n \n .active_nav {\n     color: var(--color-a) !important;\n"
+                },
+                {
+                    "date": 1719511914094,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -121,9 +121,9 @@\n }\n \n .nav-link:hover {\n     color: var(--color-a);\n-    \n+    border-bottom: 2px s;\n }\n \n .active_nav {\n     color: var(--color-a) !important;\n"
+                },
+                {
+                    "date": 1719511919703,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -121,9 +121,9 @@\n }\n \n .nav-link:hover {\n     color: var(--color-a);\n-    border-bottom: 2px s;\n+    border-bottom: 2px solid ;\n }\n \n .active_nav {\n     color: var(--color-a) !important;\n"
+                },
+                {
+                    "date": 1719511937173,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -121,9 +121,8 @@\n }\n \n .nav-link:hover {\n     color: var(--color-a);\n-    border-bottom: 2px solid ;\n }\n \n .active_nav {\n     color: var(--color-a) !important;\n"
+                },
+                {
+                    "date": 1719512206450,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,134 @@\n+@import \"bootstrap\";\n+@import \"bootstrap-icons\";\n+@import \"./masthead.css\";\n+@import \"./palette.css\";\n+\n+.rating {\n+    color: orange; /* Cambia il colore delle stelline */\n+}\n+\n+.star {\n+    font-size: 20px; /* Dimensione delle stelline */\n+}\n+\n+.my_alert-danger {\n+    background-color: rgba(246, 7, 7, 0.886);\n+}\n+\n+.my-alert-success {\n+    color: white;\n+    background-color: green;\n+}\n+\n+.error-message {\n+    min-height: 1rem;\n+    /* Riserva spazio per i messaggi di errore */\n+    display: flex;\n+    align-items: center;\n+    transition: all 0.3s ease-in-out; /* Aggiunge una transizione fluida */\n+    text-align: center;\n+}\n+\n+.error {\n+    font-size: 0.875rem;\n+}\n+\n+.btn:hover:hover {\n+    background-color: var(--color-b);\n+    color: white;\n+    transition: 0.5s;\n+}\n+\n+.altezza {\n+    height: 2000px;\n+}\n+\n+.masthead-position {\n+    top: 70%;\n+    /* background-color: red; */\n+    width: 100%;\n+}\n+\n+.text-shadow {\n+    text-shadow: 1px 2px 5px black;\n+}\n+.message {\n+    width: 30vw;\n+    margin: 0px;\n+}\n+\n+@media screen and (max-width: 768px) {\n+    .message {\n+        width: 80vw;\n+    }\n+\n+    .masthead-position {\n+        top: 50%;\n+    }\n+}\n+\n+.current-image {\n+    display: inline-block;\n+    position: relative;\n+    margin-right: 10px;\n+}\n+.current-image img {\n+    display: block;\n+    max-width: 100px;\n+    max-height: 100px;\n+}\n+.current-image button {\n+    position: absolute;\n+    top: 0;\n+    right: 0;\n+}\n+\n+.faq-section {\n+    padding: 20px;\n+    border-radius: 5px;\n+    margin-bottom: 20px;\n+}\n+\n+.faq-item {\n+    margin-bottom: 15px;\n+}\n+\n+.faq-item h3 {\n+    margin-bottom: 5px;\n+    font-size: 18px;\n+    color: var(--color-a);\n+}\n+\n+.logo-img{\n+    width: 20vw;\n+    max-width: 200px;\n+}\n+\n+.img-content {\n+    width: 100%;\n+}\n+\n+\n+.navbar_toggler_focused:focus {\n+    box-shadow: 0px 0px 15px 5px var(--color-a) !important;\n+    -webkit-box-shadow: 0px 0px 15px 5px var(--color-a) !important;\n+    -moz-box-shadow: 0px 0px 15px 5px var(--color-a) !important;\n+    color: var(--color-a) !important;\n+}\n+\n+.nav-link {\n+    color: var(--color-c);\n+}\n+\n+.nav-link:hover {\n+    color: var(--color-a);\n+}\n+\n+.active_nav {\n+    color: var(--color-a) !important;\n+    font-weight: bolder;\n+}\n+\n+.text_col {\n+    \n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512214851,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,136 +129,6 @@\n     font-weight: bolder;\n }\n \n .text_col {\n-    \n-}\n-@import \"bootstrap\";\n-@import \"bootstrap-icons\";\n-@import \"./masthead.css\";\n-@import \"./palette.css\";\n-\n-.rating {\n-    color: orange; /* Cambia il colore delle stelline */\n-}\n-\n-.star {\n-    font-size: 20px; /* Dimensione delle stelline */\n-}\n-\n-.my_alert-danger {\n-    background-color: rgba(246, 7, 7, 0.886);\n-}\n-\n-.my-alert-success {\n-    color: white;\n-    background-color: green;\n-}\n-\n-.error-message {\n-    min-height: 1rem;\n-    /* Riserva spazio per i messaggi di errore */\n-    display: flex;\n-    align-items: center;\n-    transition: all 0.3s ease-in-out; /* Aggiunge una transizione fluida */\n-    text-align: center;\n-}\n-\n-.error {\n-    font-size: 0.875rem;\n-}\n-\n-.btn:hover:hover {\n-    background-color: var(--color-b);\n-    color: white;\n-    transition: 0.5s;\n-}\n-\n-.altezza {\n-    height: 2000px;\n-}\n-\n-.masthead-position {\n-    top: 70%;\n-    /* background-color: red; */\n-    width: 100%;\n-}\n-\n-.text-shadow {\n-    text-shadow: 1px 2px 5px black;\n-}\n-.message {\n-    width: 30vw;\n-    margin: 0px;\n-}\n-\n-@media screen and (max-width: 768px) {\n-    .message {\n-        width: 80vw;\n-    }\n-\n-    .masthead-position {\n-        top: 50%;\n-    }\n-}\n-\n-.current-image {\n-    display: inline-block;\n-    position: relative;\n-    margin-right: 10px;\n-}\n-.current-image img {\n-    display: block;\n-    max-width: 100px;\n-    max-height: 100px;\n-}\n-.current-image button {\n-    position: absolute;\n-    top: 0;\n-    right: 0;\n-}\n-\n-.faq-section {\n-    padding: 20px;\n-    border-radius: 5px;\n-    margin-bottom: 20px;\n-}\n-\n-.faq-item {\n-    margin-bottom: 15px;\n-}\n-\n-.faq-item h3 {\n-    margin-bottom: 5px;\n-    font-size: 18px;\n-    color: var(--color-a);\n-}\n-\n-.logo-img{\n-    width: 20vw;\n-    max-width: 200px;\n-}\n-\n-.img-content {\n-    width: 100%;\n-}\n-\n-\n-.navbar_toggler_focused:focus {\n-    box-shadow: 0px 0px 15px 5px var(--color-a) !important;\n-    -webkit-box-shadow: 0px 0px 15px 5px var(--color-a) !important;\n-    -moz-box-shadow: 0px 0px 15px 5px var(--color-a) !important;\n-    color: var(--color-a) !important;\n-}\n-\n-.nav-link {\n-    color: var(--color-c);\n-}\n-\n-.nav-link:hover {\n-    color: var(--color-a);\n-}\n-\n-.active_nav {\n-    color: var(--color-a) !important;\n-    font-weight: bolder;\n+    color: var();\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512224771,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,6 +129,6 @@\n     font-weight: bolder;\n }\n \n .text_col {\n-    color: var();\n+    color: var(--color-b);\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512231458,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,6 +129,6 @@\n     font-weight: bolder;\n }\n \n .text_col {\n-    color: var(--color-b);\n+    color: var(--color-a);\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512241083,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -130,5 +130,6 @@\n }\n \n .text_col {\n     color: var(--color-a);\n-}\n\\ No newline at end of file\n+}\n+\n"
+                },
+                {
+                    "date": 1719512247447,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -132,4 +132,7 @@\n .text_col {\n     color: var(--color-a);\n }\n \n+h1 {\n+    \n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512253119,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -133,6 +133,6 @@\n     color: var(--color-a);\n }\n \n h1 {\n-    \n+    color: var(--color-a);\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512300664,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -132,7 +132,7 @@\n .text_col {\n     color: var(--color-a);\n }\n \n-h1 {\n+h1 h2 {\n     color: var(--color-a);\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512311987,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -132,7 +132,7 @@\n .text_col {\n     color: var(--color-a);\n }\n \n-h1 h2 {\n+h1, h2 {\n     color: var(--color-a);\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512590654,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -132,7 +132,7 @@\n .text_col {\n     color: var(--color-a);\n }\n \n-h1, h2 {\n+h1, h2  {\n     color: var(--color-a);\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512601242,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -132,7 +132,7 @@\n .text_col {\n     color: var(--color-a);\n }\n \n-h1, h2  {\n+h1, h2, p.h2 {\n     color: var(--color-a);\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512619194,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -132,7 +132,7 @@\n .text_col {\n     color: var(--color-a);\n }\n \n-h1, h2, p.h2 {\n+h1, h2, {\n     color: var(--color-a);\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512640539,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -132,7 +132,8 @@\n .text_col {\n     color: var(--color-a);\n }\n \n-h1, h2, {\n+h1, h2 {\n     color: var(--color-a);\n\\ No newline at end of file\n-}\n+}\n+\n"
+                },
+                {
+                    "date": 1719512645998,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -135,4 +135,6 @@\n \n h1, h2 {\n     color: var(--color-a);\n }\n+\n+.border_custon\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512652142,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -136,5 +136,7 @@\n h1, h2 {\n     color: var(--color-a);\n }\n \n-.border_custon\n\\ No newline at end of file\n+.border_custom{\n+    border\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512667142,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -137,6 +137,6 @@\n     color: var(--color-a);\n }\n \n .border_custom{\n-    border\n+    border-bottom: 1px solid ;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512676573,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -137,6 +137,6 @@\n     color: var(--color-a);\n }\n \n .border_custom{\n-    border-bottom: 1px solid ;\n+    border-bottom: 2px solid black;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512682504,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -137,6 +137,6 @@\n     color: var(--color-a);\n }\n \n .border_custom{\n-    border-bottom: 2px solid black;\n+    border-bottom: 5cap solid black;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512692139,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -137,6 +137,6 @@\n     color: var(--color-a);\n }\n \n .border_custom{\n-    border-bottom: 5cap solid black;\n+    border-bottom: 5px solid var(--color-a);\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512698934,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -137,6 +137,6 @@\n     color: var(--color-a);\n }\n \n .border_custom{\n-    border-bottom: 5px solid var(--color-a);\n+    border-bottom: 5px line var(--color-a);\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512705953,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -137,6 +137,6 @@\n     color: var(--color-a);\n }\n \n .border_custom{\n-    border-bottom: 5px line var(--color-a);\n+    border-bottom: 5px  var(--color-a);\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719512717287,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -137,6 +137,6 @@\n     color: var(--color-a);\n }\n \n .border_custom{\n-    border-bottom: 5px  var(--color-a);\n+    border-bottom: 5px solid var(--color-a);\n }\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1718890641170,

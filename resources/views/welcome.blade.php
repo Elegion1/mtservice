@@ -8,7 +8,7 @@
             <div class="container my-3">
                 <x-contact-link />
             </div>
-            <div class="container-fluid bg-white bg-secondary-subtle rounded p-3">
+            <div class="container-fluid bg-c rounded p-3">
                 <p class="h2 text-center">Le tratte più frequenti</p>
                 <x-lista-tratte />
             </div>
@@ -16,7 +16,7 @@
                 <h1 class="text-center ">I nostri servizi</h1>
                 <x-services />
             </div>
-            <div class="container-fluid bg-secondary-subtle p-3 mt-3">
+            <div class="container-fluid bg-c p-3 mt-3">
                 <h1 class="text-center ">Le nostre escursioni</h1>
                 <x-excursions />
             </div>

@@ -8,9 +8,9 @@
                 </div> --}}
                
                     <p class="h6">Da
-                        <span class="text-primary">{{ $tratta->departure->name }}</span>
+                        <span class="text_col">{{ $tratta->departure->name }}</span>
                         a
-                        <span class="text-primary">{{ $tratta->arrival->name }}</span>
+                        <span class="text_col">{{ $tratta->arrival->name }}</span>
                     </p>
                     <p>A partire da <strong class="h4">{{ $tratta->price }} €</strong> a persona</p>
                 </div>
