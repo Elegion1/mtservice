@@ -8,10 +8,10 @@
                 <div class=" d-flex justify-content-center align-items-center flex-column">
                     <span class="text-white fs-5">Prenota online o chiama</span>
                     <div class="d-flex justify-content-center aling-items-center">
-                        <a class="p-md-1 m-md-1 nav-link text-white"
+                        <a class="p-md-2 m-md-1 nav-link text-white border rounded-pill"
                             href="tel:{{ $ownerdata->phone2 }}"><span><i class="bi bi-telephone-fill"></i></span> {{ $ownerdata->phone2 }}</a>
 
-                        <a class="p-md-1 m-md-1 nav-link text-white"
+                        <a class="p-md-2 m-md-1 nav-link text-white border rounded-pill"
                             href="tel:{{ $ownerdata->phone3 }}"><i class="bi bi-telephone-fill"></i> {{ $ownerdata->phone3 }}</a>
                     </div>
                 </div>

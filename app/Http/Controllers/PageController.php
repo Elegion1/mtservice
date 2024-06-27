@@ -29,7 +29,14 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        $page = Page::create($request->all());
+        $order = $request->input('order');
+        if ($order) {
+            Page::where('order', '>=', $order)->increment('order');
+        } else {
+            $order = Page::max('order') + 1;
+        }
+
+        $page = Page::create($request->all() + ['order' => $order]);
 
         return redirect()->route('dashboard.page')->with('success', 'Pagina creata con successo!');
     }
@@ -55,6 +62,11 @@ class PageController extends Controller
      */
     public function update(Request $request, Page $page)
     {
+        $newOrder = $request->input('order');
+        if ($newOrder && $newOrder != $page->order) {
+            Page::where('order', '>=', $newOrder)->increment('order');
+        }
+
         $page->update($request->all());
 
         return redirect()->route('dashboard.page')->with('success', 'Pagina aggiornata con successo!');

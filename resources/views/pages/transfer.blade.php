@@ -1,9 +1,19 @@
 <x-layout>
 
     <div class="row">
-        <div class="col-12 col-md-6">
-            <div class="d-flex justify-content-center align-items-center flex-column bg-white rounded px-5 shadow">
-                <img class="my-5" src="https://picsum.photos/500" alt="">
+        <div class="col-12 col-md-8">
+            <div class="container bg-white rounded ">
+                <div class="container p-3">
+                    <livewire:prenotazione />
+                </div>
+                <div class="container">
+                    <x-services />
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="d-flex justify-content-center align-items-center flex-column bg-white rounded ">
+                <img class="img-content mb-3 rounded shadow" src="https://picsum.photos/500" alt="">
                 <p>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate culpa eos, quidem,
                     asperiores debitis ea illo corporis autem eligendi molestias consectetur? Explicabo esse
@@ -32,16 +42,7 @@
             </div>
 
         </div>
-        <div class="col-12 col-md-6">
-            <div class="container bg-white rounded shadow">
-                <div class="container pt-5">
-                    <livewire:prenotazione />
-                </div>
-                <div class="container">
-                    <x-services />
-                </div>
-            </div>
-        </div>
+
     </div>
 
 

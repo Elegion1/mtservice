@@ -2,26 +2,26 @@
     <div class="container">
         <div class="row p-2">
             @if ($isHome)
-                <div class="col-12 d-flex justify-content-center align-items-center p-2">
+                <div class="col-12 d-flex justify-content-center align-items-center p-md-2">
                     <button type="button" 
                         class=" m-1 btn
                         @if ($currentForm == 'escursioni') bg-b text-white 
                         @elseif ($currentForm == 'transfer') bg-a text-white 
                         @else bg-b text-white @endif"
-                        wire:click="showTransfer">Transfer</button>
+                        wire:click="showTransfer">TRANSFER</button>
                     <button type="button" 
                         class=" m-1 btn
                         @if ($currentForm == 'transfer') bg-b text-white 
                         @elseif ($currentForm == 'escursioni') bg-a text-white 
                         @else bg-b text-white @endif"
-                        wire:click="showEscursioni">Escursioni</button>
+                        wire:click="showEscursioni">ESCURSIONI</button>
                     <button type="button" 
                         class=" m-1 btn
                         @if ($currentForm == 'transfer') bg-b text-white 
                         @elseif ($currentForm == 'escursioni') bg-b text-white 
                         @elseif ($currentForm == 'noleggio') bg-a text-white 
                         @else bg-b text-white @endif"
-                        wire:click="showRent">Noleggio Auto</button>
+                        wire:click="showRent">NOLEGGIO AUTO</button>
                 </div>
             @endif
 

@@ -15,7 +15,7 @@
     <x-masthead />
 
     <div class="position-absolute masthead-position">
-        <div class="container">
+        <div class="container-fluid">
             <x-display-error />
             <x-display-message />
             {{ $slot }}

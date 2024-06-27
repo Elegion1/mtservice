@@ -11,7 +11,8 @@ class Page extends Model
 
     protected $fillable = [
         'name',
-        'link'
+        'link',
+        'order'
     ];
 
     public function contents()

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 5,
+            "activePatchIndex": 6,
             "patches": [
                 {
                     "date": 1719242324662,
@@ -28,6 +28,10 @@
                 {
                     "date": 1719399806324,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <div>\n     <div class=\"container\">\n         <form wire:submit.prevent=\"submitBookingRent\">\n-            <h2 class=\"text-uppercase text-danger\"><strong>Prenota la tua auto</strong></h2>\n+            <h4 class=\"text-uppercase text-danger\"><strong>Prenota la tua auto</strong></h4>\n             <div class=\"row bg-b p-2 rounded\">\n                 <div class=\"col-12 col-md-5\">\n                     <label class=\"form-label\" for=\"dateStart\">Data di ritiro</label>\n                     <input wire:model.live=\"dateStart\" type=\"date\" class=\"form-control\" id=\"dateStart\">\n"
+                },
+                {
+                    "date": 1719495950199,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <div>\n     <div class=\"container\">\n         <form wire:submit.prevent=\"submitBookingRent\">\n-            <h4 class=\"text-uppercase text-danger\"><strong>Prenota la tua auto</strong></h4>\n+            <h4 class=\"text-uppercase text-a\"><strong>Prenota la tua auto</strong></h4>\n             <div class=\"row bg-b p-2 rounded\">\n                 <div class=\"col-12 col-md-5\">\n                     <label class=\"form-label\" for=\"dateStart\">Data di ritiro</label>\n                     <input wire:model.live=\"dateStart\" type=\"date\" class=\"form-control\" id=\"dateStart\">\n"
                 }
             ],
             "date": 1719242324662,

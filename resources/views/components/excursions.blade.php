@@ -12,7 +12,7 @@
                 <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                     <div class="container">
                         <div class="row">
-                            <div class="col-6 d-flex justify-content-center align-items-center">
+                            <div class="col-12 col-md-6 my-3 d-flex justify-content-center align-items-center">
                                 @if ($excursion->images->isNotEmpty())
                                     <div id="carouselImages{{ $excursion->id }}" class="carousel slide"
                                         data-bs-ride="carousel">
@@ -24,7 +24,7 @@
                                                 </div>
                                             @endforeach
                                         </div>
-                                        <button class="carousel-control-prev" type="button"
+                                        {{-- <button class="carousel-control-prev" type="button"
                                             data-bs-target="#carouselImages{{ $excursion->id }}" data-bs-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Previous</span>
@@ -33,14 +33,14 @@
                                             data-bs-target="#carouselImages{{ $excursion->id }}" data-bs-slide="next">
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Next</span>
-                                        </button>
+                                        </button> --}}
                                     </div>
                                 @else
                                     <img class="excursion-img rounded shadow" src="https://picsum.photos/40{{$excursion->id}}"
                                         alt="">
                                 @endif
                             </div>
-                            <div class="col-6 d-flex justify-content-center flex-column">
+                            <div class="col-12 col-md-6 d-flex justify-content-center flex-column">
                                 <div>
                                     <h3>{{ $excursion->name }}</h3>
                                 </div>
@@ -61,13 +61,13 @@
                 </div>
             @endforeach
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#excursionCarousel" data-bs-slide="prev">
+        {{-- <button class="carousel-control-prev" type="button" data-bs-target="#excursionCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#excursionCarousel" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
-        </button>
+        </button> --}}
     </div>
 </div>

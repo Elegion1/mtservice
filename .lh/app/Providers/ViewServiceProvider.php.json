@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 54,
+            "activePatchIndex": 55,
             "patches": [
                 {
                     "date": 1718907575882,
@@ -224,6 +224,10 @@
                 {
                     "date": 1719414326719,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,46 +27,46 @@\n      */\n     public function boot(): void\n     {\n         // Controlla se ci sono rotte\n-        // if (Route::count() > 0) {\n-        //     $tratte = Route::all();\n-        //     View::share('tratte', $tratte);\n-        // }\n+        if (Route::count() > 0) {\n+            $tratte = Route::all();\n+            View::share('tratte', $tratte);\n+        }\n \n-        // // Controlla se ci sono servizi\n-        // if (Service::count() > 0) {\n-        //     $services = Service::all();\n-        //     View::share('services', $services);\n-        // }\n+        // Controlla se ci sono servizi\n+        if (Service::count() > 0) {\n+            $services = Service::all();\n+            View::share('services', $services);\n+        }\n \n-        // if (Excursion::count() > 0) {\n-        //     $excursionsP = Excursion::paginate(4);\n-        //     View::share('excursionsP', $excursionsP);\n-        // }\n+        if (Excursion::count() > 0) {\n+            $excursionsP = Excursion::paginate(4);\n+            View::share('excursionsP', $excursionsP);\n+        }\n \n-        // if (Excursion::count() > 0) {\n-        //     $excursions = Excursion::all();\n-        //     View::share('excursions', $excursions);\n-        // }\n+        if (Excursion::count() > 0) {\n+            $excursions = Excursion::all();\n+            View::share('excursions', $excursions);\n+        }\n \n-        // if (Partner::count() > 0) {\n-        //     $partners = Partner::paginate(10);\n-        //     View::share('partners', $partners);\n-        // }\n+        if (Partner::count() > 0) {\n+            $partners = Partner::paginate(10);\n+            View::share('partners', $partners);\n+        }\n \n-        // if (Review::count() > 0) {\n-        //     $reviews = Review::all();\n-        //     View::share('reviews', $reviews);\n-        // }\n+        if (Review::count() > 0) {\n+            $reviews = Review::all();\n+            View::share('reviews', $reviews);\n+        }\n \n-        // if(OwnerData::count()>0) {\n-        //     $ownerdata = OwnerData::first();\n-        //     View::share('ownerdata', $ownerdata);\n-        // }\n+        if(OwnerData::count()>0) {\n+            $ownerdata = OwnerData::first();\n+            View::share('ownerdata', $ownerdata);\n+        }\n \n-        // if(Page::count()>0) {\n-        //     $pages = Page::all();\n-        //     View::share('pages', $pages);\n-        // }\n+        if(Page::count()>0) {\n+            $pages = Page::all();\n+            View::share('pages', $pages);\n+        }\n     }\n }\n"
+                },
+                {
+                    "date": 1719481227010,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,9 +64,9 @@\n             View::share('ownerdata', $ownerdata);\n         }\n \n         if(Page::count()>0) {\n-            $pages = Page::all();\n+            $pages = Page::orderBy('order')->get();\n             View::share('pages', $pages);\n         }\n     }\n }\n"
                 }
             ],
             "date": 1718907575882,

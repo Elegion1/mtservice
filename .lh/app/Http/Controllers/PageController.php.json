@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 21,
+            "activePatchIndex": 24,
             "patches": [
                 {
                     "date": 1719411439252,
@@ -92,6 +92,18 @@
                 {
                     "date": 1719412108218,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,8 +64,8 @@\n      * Remove the specified resource from storage.\n      */\n     public function destroy(Page $page)\n     {\n-        $excursion->delete();\n-        return redirect()->route('dashboard.excursion')->with('success', 'Escursione eliminata con successo.');\n+        $page->delete();\n+        return redirect()->route('dashboard.page')->with('success', 'Escursione eliminata con successo.');\n     }\n }\n"
+                },
+                {
+                    "date": 1719480744312,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,9 +28,10 @@\n      * Store a newly created resource in storage.\n      */\n     public function store(Request $request)\n     {\n-        $page = Page::create($request->all());\n+        $maxOrder = Page::max('order');\n+    $page = Page::create(array_merge($request->all(), ['order' => $maxOrder + 1]));\n \n         return redirect()->route('dashboard.page')->with('success', 'Pagina creata con successo!');\n     }\n \n@@ -65,7 +66,7 @@\n      */\n     public function destroy(Page $page)\n     {\n         $page->delete();\n-        return redirect()->route('dashboard.page')->with('success', 'Escursione eliminata con successo.');\n+        return redirect()->route('dashboard.page')->with('success', 'Pagina eliminata con successo.');\n     }\n }\n"
+                },
+                {
+                    "date": 1719481073321,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,15 +27,21 @@\n     /**\n      * Store a newly created resource in storage.\n      */\n     public function store(Request $request)\n-    {\n-        $maxOrder = Page::max('order');\n-    $page = Page::create(array_merge($request->all(), ['order' => $maxOrder + 1]));\n-\n-        return redirect()->route('dashboard.page')->with('success', 'Pagina creata con successo!');\n+{\n+    $order = $request->input('order');\n+    if ($order) {\n+        Page::where('order', '>=', $order)->increment('order');\n+    } else {\n+        $order = Page::max('order') + 1;\n     }\n \n+    $page = Page::create($request->all() + ['order' => $order]);\n+\n+    return redirect()->route('dashboard.page')->with('success', 'Pagina creata con successo!');\n+}\n+\n     /**\n      * Display the specified resource.\n      */\n     public function show(Page $page)\n"
+                },
+                {
+                    "date": 1719481085103,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,20 +27,20 @@\n     /**\n      * Store a newly created resource in storage.\n      */\n     public function store(Request $request)\n-{\n-    $order = $request->input('order');\n-    if ($order) {\n-        Page::where('order', '>=', $order)->increment('order');\n-    } else {\n-        $order = Page::max('order') + 1;\n-    }\n+    {\n+        $order = $request->input('order');\n+        if ($order) {\n+            Page::where('order', '>=', $order)->increment('order');\n+        } else {\n+            $order = Page::max('order') + 1;\n+        }\n \n-    $page = Page::create($request->all() + ['order' => $order]);\n+        $page = Page::create($request->all() + ['order' => $order]);\n \n-    return redirect()->route('dashboard.page')->with('success', 'Pagina creata con successo!');\n-}\n+        return redirect()->route('dashboard.page')->with('success', 'Pagina creata con successo!');\n+    }\n \n     /**\n      * Display the specified resource.\n      */\n@@ -61,8 +61,13 @@\n      * Update the specified resource in storage.\n      */\n     public function update(Request $request, Page $page)\n     {\n+        $newOrder = $request->input('order');\n+        if ($newOrder && $newOrder != $page->order) {\n+            Page::where('order', '>=', $newOrder)->increment('order');\n+        }\n+\n         $page->update($request->all());\n \n         return redirect()->route('dashboard.page')->with('success', 'Pagina aggiornata con successo!');\n     }\n"
                 }
             ],
             "date": 1719411439252,

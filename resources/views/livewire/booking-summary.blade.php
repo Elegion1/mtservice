@@ -39,7 +39,7 @@
             <h6 class="text-primary">DATI PERSONALI</h6>
             <div class="row">
                 <div class="col-12">
-                    <p class="text-danger">Siamo dotati di seggiolini e alzatine per trasporto bimbi da 1 mese a 10
+                    <p class="text-a">Siamo dotati di seggiolini e alzatine per trasporto bimbi da 1 mese a 10
                         anni. Aggiungi la tua richiesta durante la prenotazione.</p>
                 </div>
                 <div class="col-6">

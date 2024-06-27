@@ -20,6 +20,10 @@
                     <label for="link" class="form-label">Link</label>
                     <input type="text" class="form-control" id="link" name="link" required>
                 </div>
+                <div class="col-3">
+                    <label for="order" class="form-label">Ordine</label>
+                    <input type="number" class="form-control" id="order" name="order" required>
+                </div>
             </div>
             <button type="submit" class="btn btn-primary">Aggiungi Pagina</button>
         </form>
@@ -33,6 +37,7 @@
                     <th>#</th>
                     <th>Nome</th>
                     <th>Link</th>
+                    <th>Ordine</th>
                     <th>Azioni</th>
                 </tr>
             </thead>
@@ -42,6 +47,7 @@
                         <td>{{ $page->id }}</td>
                         <td>{{ $page->name }}</td>
                         <td>{{ $page->link }}</td>
+                        <td>{{ $page->order }}</td>
                         <td>
                             <!-- Pulsante per aprire il modale di modifica -->
                             <button class="btn btn-warning btn-sm open-edit-modal" data-bs-toggle="modal"
@@ -81,6 +87,10 @@
                             <label for="editLink" class="form-label">Link</label>
                             <input type="text" class="form-control" id="editLink" name="link" required>
                         </div>
+                        <div class="mb-3">
+                            <label for="editOrder" class="form-label">Order</label>
+                            <input type="number" class="form-control" id="editOrder" name="order" required>
+                        </div>
                         <button type="submit" class="btn btn-primary">Aggiorna Pagina</button>
                     </form>
                 </div>
@@ -98,6 +108,7 @@
                     form.action = `/dashboard/pages/${page.id}`;
                     form.querySelector('#editName').value = page.name;
                     form.querySelector('#editLink').value = page.link;
+                    form.querySelector('#editOrder').value = page.order;
                 });
             });
         });

@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('contents', function (Blueprint $table) {
             $table->id();
 
-            $table->string('title');
-            $table->text('subtitle');
-            $table->text('body');
-            $table->string('links');
+            $table->string('title')->nullable();
+            $table->text('subtitle')->nullable();
+            $table->text('body')->nullable();
+            $table->string('links')->nullable();
 
             $table->unsignedBigInteger('page_id')->nullable();
             $table->foreign('page_id')->references('id')->on('pages')->onDelete('cascade');

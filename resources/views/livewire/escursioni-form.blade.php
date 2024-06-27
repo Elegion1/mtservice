@@ -1,7 +1,7 @@
 <div>
     <div class="container">
         <form wire:submit.prevent="submitBookingExcursion">
-            <h4 class="text-uppercase text-danger"><strong>Prenota Escursione</strong></h4>
+            <h4 class="text-uppercase text-a"><strong>Prenota Escursione</strong></h4>
             <div class="row">
                 <div class="col-12">
                     <select wire:model.live="excursionSelect" wire:change="calculatePriceExcursion" id="excursionSelect"

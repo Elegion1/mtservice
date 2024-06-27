@@ -14,7 +14,7 @@
                         href="{{ route('service.show', ['id' => $service->id]) }}">
                         <div class="container">
                             <div class="row">
-                                <div class="col-12 d-flex justify-content-center align-items-center">
+                                <div class="col-12 my-3 d-flex justify-content-center align-items-center">
                                     @if ($service->images->isNotEmpty())
                                         <div id="carouselImages{{ $service->id }}" class="carousel slide"
                                             data-bs-ride="carousel">
@@ -40,35 +40,16 @@
                                             </button>
                                         </div>
                                     @else
-                                        <div
-                                            class="container-fluid my-2 justify-content-center align-items-center d-flex">
                                             <img class="service-img rounded shadow"
                                                 src="https://picsum.photos/40{{ $service->id }}" alt="">
-                                        </div>
                                     @endif
                                 </div>
-                                <div class="col-12">
+                                <div class="col-12 d-flex justify-content-center align-items-center flex-column text-center">
                                     <p class="h3">{{ $service->title }}</p>
-                                </div>
-                                <div class="col-12">
                                     <p class="h6">{{ $service->subtitle }}</p>
-                                </div>
-                                {{-- <div class="col-12">
-                                <p class="h6">{{ $service->subtitleSec }}</p>
-                            </div> --}}
-                                <div class="col-12">
-                                    <p class="text-secondary">{{ $service->abstract }}</p>
-                                </div>
-                                {{-- <div class="col-12">
-                                <p>{{ $service->body }}</p>
-                            </div> --}}
-                                <div class="col-12">
+                                    <p class="text-secondary text-wrap ">{{ $service->abstract }}</p>
                                     <a class="small" href="{{ $service->links }}">{{ $service->links }}</a>
                                 </div>
-                                {{-- <div class="col-12">
-                                <p class="small">{{ $service->condition }}</p>
-                            </div> --}}
-
                             </div>
                         </div>
                     </a>

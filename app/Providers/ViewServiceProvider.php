@@ -65,7 +65,7 @@ class ViewServiceProvider extends ServiceProvider
         }
 
         if(Page::count()>0) {
-            $pages = Page::all();
+            $pages = Page::orderBy('order')->get();
             View::share('pages', $pages);
         }
     }

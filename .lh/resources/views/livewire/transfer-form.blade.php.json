@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 6,
+            "activePatchIndex": 7,
             "patches": [
                 {
                     "date": 1719242275329,
@@ -32,6 +32,10 @@
                 {
                     "date": 1719399779148,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <div>\n     <div class=\"container \">\n         <form wire:submit.prevent=\"submitBookingTransfer\" id=\"transferForm\">\n-            <h2 class=\"text-uppercase text-danger\"><strong>Prenota Transfer</strong></h2>\n+            <h3 class=\"text-uppercase text-danger\"><strong>Prenota Transfer</strong></h3>\n \n             <div class=\"row\">\n                 <div class=\"col-12\">\n                     <select wire:model.live=\"departure\" id=\"departureSelect\" class=\"form-select\"\n"
+                },
+                {
+                    "date": 1719495950204,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n <div>\n     <div class=\"container \">\n         <form wire:submit.prevent=\"submitBookingTransfer\" id=\"transferForm\">\n-            <h3 class=\"text-uppercase text-danger\"><strong>Prenota Transfer</strong></h3>\n+            <h4 class=\"text-uppercase text-a\"><strong>Prenota Transfer</strong></h4>\n \n             <div class=\"row\">\n                 <div class=\"col-12\">\n                     <select wire:model.live=\"departure\" id=\"departureSelect\" class=\"form-select\"\n"
                 }
             ],
             "date": 1719242275329,

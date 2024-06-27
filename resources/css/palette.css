@@ -15,3 +15,16 @@
 .bg-c{
     background-color: var(--color-c);
 }
+
+.text-a{
+    color: var(--color-a);
+}
+
+.text-b{
+    color: var(--color-b);
+}
+
+.text-c{
+    color: var(--color-c);
+}
+

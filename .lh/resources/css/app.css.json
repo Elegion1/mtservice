@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 44,
+            "activePatchIndex": 57,
             "patches": [
                 {
                     "date": 1718890641170,
@@ -184,6 +184,58 @@
                 {
                     "date": 1719401475334,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n @import \"bootstrap\";\n-\n+@import \"bootstrap-icons\";\n @import \"./masthead.css\";\n @import \"./palette.css\";\n \n .rating {\n@@ -98,204 +98,4 @@\n .logo-img{\n     width: 20vw;\n     max-width: 200px;\n }\n-@import \"bootstrap\";\n-@import \"./masthead.css\";\n-@import \"./palette.css\";\n-\n-.rating {\n-    color: orange; /* Cambia il colore delle stelline */\n-}\n-\n-.star {\n-    font-size: 20px; /* Dimensione delle stelline */\n-}\n-\n-.my_alert-danger {\n-    background-color: rgba(246, 7, 7, 0.886);\n-}\n-\n-.my-alert-success {\n-    color: white;\n-    background-color: green;\n-}\n-\n-.error-message {\n-    min-height: 1rem;\n-    /* Riserva spazio per i messaggi di errore */\n-    display: flex;\n-    align-items: center;\n-    transition: all 0.3s ease-in-out; /* Aggiunge una transizione fluida */\n-    text-align: center;\n-}\n-\n-.error {\n-    font-size: 0.875rem;\n-}\n-\n-.btn:hover:hover {\n-    background-color: var(--color-b);\n-    color: white;\n-    transition: 0.5s;\n-}\n-\n-.altezza {\n-    height: 2000px;\n-}\n-\n-.masthead-position {\n-    top: 75vh;\n-    /* background-color: red; */\n-    width: 100%;\n-}\n-\n-.text-shadow {\n-    text-shadow: 1px 2px 5px black;\n-}\n-.message {\n-    width: 30vw;\n-    margin: 0px;\n-}\n-\n-@media screen and (max-width: 768px) {\n-    .message {\n-        width: 80vw;\n-    }\n-}\n-\n-.current-image {\n-    display: inline-block;\n-    position: relative;\n-    margin-right: 10px;\n-}\n-.current-image img {\n-    display: block;\n-    max-width: 100px;\n-    max-height: 100px;\n-}\n-.current-image button {\n-    position: absolute;\n-    top: 0;\n-    right: 0;\n-}\n-\n-.faq-section {\n-    padding: 20px;\n-    border-radius: 5px;\n-    margin-bottom: 20px;\n-}\n-\n-.faq-item {\n-    margin-bottom: 15px;\n-}\n-\n-.faq-item h3 {\n-    margin-bottom: 5px;\n-    font-size: 18px;\n-    color: var(--color-a);\n-}\n-\n-.logo-img{\n-    width: 20vw;\n-    max-width: 200px;\n-}\n-@import \"bootstrap\";\n-@import \"./masthead.css\";\n-@import \"./palette.css\";\n-\n-.rating {\n-    color: orange; /* Cambia il colore delle stelline */\n-}\n-\n-.star {\n-    font-size: 20px; /* Dimensione delle stelline */\n-}\n-\n-.my_alert-danger {\n-    background-color: rgba(246, 7, 7, 0.886);\n-}\n-\n-.my-alert-success {\n-    color: white;\n-    background-color: green;\n-}\n-\n-.error-message {\n-    min-height: 1rem;\n-    /* Riserva spazio per i messaggi di errore */\n-    display: flex;\n-    align-items: center;\n-    transition: all 0.3s ease-in-out; /* Aggiunge una transizione fluida */\n-    text-align: center;\n-}\n-\n-.text-danger {\n-    font-size: 0.875rem;\n-}\n-\n-.btn:hover:hover {\n-    background-color: var(--color-b);\n-    color: white;\n-    transition: 0.5s;\n-}\n-\n-.altezza {\n-    height: 2000px;\n-}\n-\n-.masthead-position {\n-    top: 75vh;\n-    /* background-color: red; */\n-    width: 100%;\n-}\n-\n-.text-shadow {\n-    text-shadow: 1px 2px 5px black;\n-}\n-.message {\n-    width: 30vw;\n-    margin: 0px;\n-}\n-\n-@media screen and (max-width: 768px) {\n-    .message {\n-        width: 80vw;\n-    }\n-}\n-\n-.current-image {\n-    display: inline-block;\n-    position: relative;\n-    margin-right: 10px;\n-}\n-.current-image img {\n-    display: block;\n-    max-width: 100px;\n-    max-height: 100px;\n-}\n-.current-image button {\n-    position: absolute;\n-    top: 0;\n-    right: 0;\n-}\n-\n-.faq-section {\n-    padding: 20px;\n-    border-radius: 5px;\n-    margin-bottom: 20px;\n-}\n-\n-.faq-item {\n-    margin-bottom: 15px;\n-}\n-\n-.faq-item h3 {\n-    margin-bottom: 5px;\n-    font-size: 18px;\n-    color: var(--color-a);\n-}\n-\n-.logo-img{\n-    width: 20vw;\n-    max-width: 200px;\n-}\n"
+                },
+                {
+                    "date": 1719493475293,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -98,4 +98,8 @@\n .logo-img{\n     width: 20vw;\n     max-width: 200px;\n }\n+\n+.sez-help {\n+    background-color: #1f2121;\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719493895443,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -98,8 +98,4 @@\n .logo-img{\n     width: 20vw;\n     max-width: 200px;\n }\n-\n-.sez-help {\n-    background-color: #1f2121;\n-}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719493993281,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,9 +43,9 @@\n     height: 2000px;\n }\n \n .masthead-position {\n-    top: 75vh;\n+    top: 75;\n     /* background-color: red; */\n     width: 100%;\n }\n \n"
+                },
+                {
+                    "date": 1719493998773,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,9 +43,9 @@\n     height: 2000px;\n }\n \n .masthead-position {\n-    top: 75;\n+    top: 50%;\n     /* background-color: red; */\n     width: 100%;\n }\n \n"
+                },
+                {
+                    "date": 1719495411095,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,9 +43,9 @@\n     height: 2000px;\n }\n \n .masthead-position {\n-    top: 50%;\n+    bottom: 50%;\n     /* background-color: red; */\n     width: 100%;\n }\n \n"
+                },
+                {
+                    "date": 1719495418750,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,9 +43,9 @@\n     height: 2000px;\n }\n \n .masthead-position {\n-    bottom: 50%;\n+    top: 50%;\n     /* background-color: red; */\n     width: 100%;\n }\n \n"
+                },
+                {
+                    "date": 1719495438219,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,8 +60,9 @@\n @media screen and (max-width: 768px) {\n     .message {\n         width: 80vw;\n     }\n+    \n }\n \n .current-image {\n     display: inline-block;\n"
+                },
+                {
+                    "date": 1719495446034,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -60,9 +60,10 @@\n @media screen and (max-width: 768px) {\n     .message {\n         width: 80vw;\n     }\n-    \n+\n+    .masthead-position\n }\n \n .current-image {\n     display: inline-block;\n"
+                },
+                {
+                    "date": 1719495466589,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -61,9 +61,11 @@\n     .message {\n         width: 80vw;\n     }\n \n-    .masthead-position\n+    .masthead-position {\n+        top: 50%;\n+    }\n }\n \n .current-image {\n     display: inline-block;\n"
+                },
+                {
+                    "date": 1719495473169,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,9 +43,9 @@\n     height: 2000px;\n }\n \n .masthead-position {\n-    top: 50%;\n+    top: %;\n     /* background-color: red; */\n     width: 100%;\n }\n \n"
+                },
+                {
+                    "date": 1719495485288,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -43,9 +43,9 @@\n     height: 2000px;\n }\n \n .masthead-position {\n-    top: %;\n+    top: 70%;\n     /* background-color: red; */\n     width: 100%;\n }\n \n"
+                },
+                {
+                    "date": 1719501729780,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -102,4 +102,6 @@\n .logo-img{\n     width: 20vw;\n     max-width: 200px;\n }\n+\n+img-content\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719501737137,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,5 +103,7 @@\n     width: 20vw;\n     max-width: 200px;\n }\n \n-img-content\n\\ No newline at end of file\n+.img-content {\n+    \n+}\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1718890641170,

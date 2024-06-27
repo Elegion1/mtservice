@@ -1,7 +1,7 @@
 <div>
     <div class="container">
         <form wire:submit.prevent="submitBookingRent">
-            <h4 class="text-uppercase text-danger"><strong>Prenota la tua auto</strong></h4>
+            <h4 class="text-uppercase text-a"><strong>Prenota la tua auto</strong></h4>
             <div class="row bg-b p-2 rounded">
                 <div class="col-12 col-md-5">
                     <label class="form-label" for="dateStart">Data di ritiro</label>

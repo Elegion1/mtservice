@@ -14,19 +14,19 @@
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="title" class="form-label">Titolo</label>
-                        <input type="text" class="form-control" id="title" name="title" required>
+                        <input type="text" class="form-control" id="title" name="title" >
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="subtitle" class="form-label">Sottotitolo</label>
-                        <input type="text" class="form-control" id="subtitle" name="subtitle" required>
+                        <input type="text" class="form-control" id="subtitle" name="subtitle" >
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="mb-3">
                         <label for="body" class="form-label">Corpo</label>
-                        <textarea class="form-control" id="body" name="body" required></textarea>
+                        <textarea class="form-control" id="body" name="body" ></textarea>
                     </div>
                 </div>
             </div>
@@ -53,7 +53,7 @@
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="links" class="form-label">Links</label>
-                        <input type="text" class="form-control" id="links" name="links" required>
+                        <input type="text" class="form-control" id="links" name="links">
                     </div>
                 </div>
             </div>
