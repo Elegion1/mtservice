@@ -13,15 +13,15 @@
             <div class="row">
                 <div class="mb-3 col-4">
                     <label for="name" class="form-label">Nome Partner</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <input type="text" class="form-control form_input_focused" id="name" name="name" required>
                 </div>
                 <div class="mb-3 col-4">
                     <label for="link" class="form-label">Link</label>
-                    <input type="text" class="form-control" id="link" name="link" required>
+                    <input type="text" class="form-control form_input_focused" id="link" name="link" required>
                 </div>
                 <div class="mb-3 col-4">
                     <label for="images" class="form-label">Immagini</label>
-                    <input type="file" class="form-control" id="images" name="images[]" multiple>
+                    <input type="file" class="form-control form_input_focused" id="images" name="images[]" multiple>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Aggiungi Partner</button>
@@ -87,15 +87,15 @@
                         @method('PUT')
                         <div class="mb-3">
                             <label for="edit_name" class="form-label">Nome Partner</label>
-                            <input type="text" class="form-control" id="edit_name" name="name" required>
+                            <input type="text" class="form-control form_input_focused" id="edit_name" name="name" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_link" class="form-label">Link</label>
-                            <input type="text" class="form-control" id="edit_link" name="link" required>
+                            <input type="text" class="form-control form_input_focused" id="edit_link" name="link" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_images" class="form-label">Aggiungi nuove immagini</label>
-                            <input type="file" class="form-control" id="edit_images" name="images[]" multiple>
+                            <input type="file" class="form-control form_input_focused" id="edit_images" name="images[]" multiple>
                         </div>
                         <div class="mb-3">
                             <label for="edit_current_images" class="form-label">Immagini Caricate</label>

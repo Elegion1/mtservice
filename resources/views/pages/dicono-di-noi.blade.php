@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container bg-white rounded shadow p-3">
+    <div class="container bg-white rounded p-3">
         <div class="row">
             <div class="col-12">
                 <h1>TITOLO</h1>
@@ -18,14 +18,14 @@
                     praesentium quibusdam ullam totam animi?
                 </p>
             </div>
-            <div class="col-12 mt-5 text-center">
+            <div id="diconoDiNoi" class="col-12 mt-5 text-center">
                 <p class="h4">
                     <strong class="text-uppercase">Alcune recensioni</strong>
                 </p>
                 <div class="container">
                     <div class="row d-flex justify-content-center">
                         @foreach ($reviews as $review)
-                            <div class="col-3 my-3 mx-3 p-3 border rounded">
+                            <div class="col-12 col-md-3 my-3 mx-3 p-3 border rounded">
                                 <p class="h5">{{ $review->title }}</p>
                                 <p>{{ $review->body }}</p>
                                 <p>
@@ -40,7 +40,9 @@
                                 </div>
                             </div>
                         @endforeach
-
+                        <div class="d-flex justify-content-center align-items-center mt-4">
+                            {{ $reviews->links('vendor.pagination.bootstrap-5') }}
+                        </div>
                     </div>
                 </div>
 

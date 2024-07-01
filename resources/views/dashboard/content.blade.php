@@ -14,19 +14,19 @@
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="title" class="form-label">Titolo</label>
-                        <input type="text" class="form-control" id="title" name="title" >
+                        <input type="text" class="form-control form_input_focused" id="title" name="title" >
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="subtitle" class="form-label">Sottotitolo</label>
-                        <input type="text" class="form-control" id="subtitle" name="subtitle" >
+                        <input type="text" class="form-control form_input_focused" id="subtitle" name="subtitle" >
                     </div>
                 </div>
                 <div class="col-12">
                     <div class="mb-3">
                         <label for="body" class="form-label">Corpo</label>
-                        <textarea class="form-control" id="body" name="body" ></textarea>
+                        <textarea class="form-control form_input_focused" id="body" name="body" ></textarea>
                     </div>
                 </div>
             </div>
@@ -35,13 +35,13 @@
                 <div class="col-3">
                     <div class="mb-3">
                         <label for="images" class="form-label">Immagini</label>
-                        <input type="file" class="form-control" id="images" name="images[]" multiple>
+                        <input type="file" class="form-control form_input_focused" id="images" name="images[]" multiple>
                     </div>
                 </div>
                 <div class="col-3">
                     <div class="mb-3">
                         <label for="page" class="form-label">Pagina</label>
-                        <select id="page" name="page_id" class="form-select" aria-label="Default select example"
+                        <select id="page" name="page_id" class="form-select form_input_focused" aria-label="Default select example"
                             required>
                             <option selected>Seleziona una pagina</option>
                             @foreach ($pages as $page)
@@ -53,7 +53,7 @@
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="links" class="form-label">Links</label>
-                        <input type="text" class="form-control" id="links" name="links">
+                        <input type="text" class="form-control form_input_focused" id="links" name="links">
                     </div>
                 </div>
             </div>
@@ -130,23 +130,23 @@
                         @method('PUT')
                         <div class="mb-3">
                             <label for="title" class="form-label">Titolo</label>
-                            <input type="text" class="form-control" id="title" name="title">
+                            <input type="text" class="form-control form_input_focused" id="title" name="title">
                         </div>
                         <div class="mb-3">
                             <label for="subtitle" class="form-label">Sottotitolo</label>
-                            <input type="text" class="form-control" id="subtitle" name="subtitle">
+                            <input type="text" class="form-control form_input_focused" id="subtitle" name="subtitle">
                         </div>
                         <div class="mb-3">
                             <label for="body" class="form-label">Body</label>
-                            <textarea class="form-control" id="body" name="body"></textarea>
+                            <textarea class="form-control form_input_focused" id="body" name="body"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="links" class="form-label">Links</label>
-                            <input type="text" class="form-control" id="links" name="links">
+                            <input type="text" class="form-control form_input_focused" id="links" name="links">
                         </div>
                         <div class="mb-3">
                             <label for="images" class="form-label">Immagini</label>
-                            <input type="file" class="form-control" id="images" name="images[]" multiple>
+                            <input type="file" class="form-control form_input_focused" id="images" name="images[]" multiple>
                             <div id="current-images" class="mt-3">
                                 <!-- Anteprime delle immagini esistenti verranno aggiunte qui -->
                             </div>

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 55,
+            "activePatchIndex": 57,
             "patches": [
                 {
                     "date": 1718907575882,
@@ -228,6 +228,14 @@
                 {
                     "date": 1719481227010,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -64,9 +64,9 @@\n             View::share('ownerdata', $ownerdata);\n         }\n \n         if(Page::count()>0) {\n-            $pages = Page::all();\n+            $pages = Page::orderBy('order')->get();\n             View::share('pages', $pages);\n         }\n     }\n }\n"
+                },
+                {
+                    "date": 1719842115197,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n             View::share('partners', $partners);\n         }\n \n         if (Review::count() > 0) {\n-            $reviews = Review::all();\n+            $reviews = Review::paginat();\n             View::share('reviews', $reviews);\n         }\n \n         if(OwnerData::count()>0) {\n"
+                },
+                {
+                    "date": 1719842130705,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -54,9 +54,9 @@\n             View::share('partners', $partners);\n         }\n \n         if (Review::count() > 0) {\n-            $reviews = Review::paginat();\n+            $reviews = Review::paginate(6);\n             View::share('reviews', $reviews);\n         }\n \n         if(OwnerData::count()>0) {\n"
                 }
             ],
             "date": 1718907575882,

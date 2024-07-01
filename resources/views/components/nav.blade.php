@@ -15,7 +15,7 @@
                             href="tel:{{ $ownerdata->phone3 }}"><i class="bi bi-telephone-fill"></i> {{ $ownerdata->phone3 }}</a>
                     </div>
                 </div>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                <button class="navbar-toggler navbar_toggler_focused" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -37,7 +37,7 @@
                         </x-links>
                     </ul>
                     {{-- <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control form_input_focused me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form> --}}
                 </div>

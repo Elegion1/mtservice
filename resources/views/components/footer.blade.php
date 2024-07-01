@@ -1,6 +1,6 @@
 <div class="container ">
-    <footer class="row py-5 my-5 border-top">
-        <div class="col-6 mb-3">
+    <footer class="row pt-3 mt-5 border-top">
+        <div class="col-5 mb-3">
             <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
                 <img width="100px" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt="">
             </a>
@@ -13,7 +13,7 @@
             {{-- <small>Cell.: <a href="tel:+393283650762">+39 328 36 50 762</a></small><br> --}}
         </div>
 
-        <div class="col-3 mb-3">
+        <div class="col-4 mb-3">
             <h5>Navigazione</h5>
             <ul class="nav flex-column">
                 <x-links>

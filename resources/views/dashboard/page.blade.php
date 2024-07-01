@@ -14,15 +14,15 @@
             <div class="row mb-3">
                 <div class="col-3">
                     <label for="name" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <input type="text" class="form-control form_input_focused" id="name" name="name" required>
                 </div>
                 <div class="col-3">
                     <label for="link" class="form-label">Link</label>
-                    <input type="text" class="form-control" id="link" name="link" required>
+                    <input type="text" class="form-control form_input_focused" id="link" name="link" required>
                 </div>
                 <div class="col-3">
                     <label for="order" class="form-label">Ordine</label>
-                    <input type="number" class="form-control" id="order" name="order" required>
+                    <input type="number" class="form-control form_input_focused" id="order" name="order" required>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Aggiungi Pagina</button>
@@ -81,15 +81,15 @@
                         @method('PUT')
                         <div class="mb-3">
                             <label for="editName" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="editName" name="name" required>
+                            <input type="text" class="form-control form_input_focused" id="editName" name="name" required>
                         </div>
                         <div class="mb-3">
                             <label for="editLink" class="form-label">Link</label>
-                            <input type="text" class="form-control" id="editLink" name="link" required>
+                            <input type="text" class="form-control form_input_focused" id="editLink" name="link" required>
                         </div>
                         <div class="mb-3">
                             <label for="editOrder" class="form-label">Order</label>
-                            <input type="number" class="form-control" id="editOrder" name="order" required>
+                            <input type="number" class="form-control form_input_focused" id="editOrder" name="order" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Aggiorna Pagina</button>
                     </form>

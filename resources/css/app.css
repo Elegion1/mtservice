@@ -129,6 +129,24 @@
     font-weight: bolder;
 }
 
+.active_page {
+    background-color: var(--color-a) !important;
+}
+
+.active_page:hover {
+    background-color: var(--color-b) !important;
+    color: white !important;
+}
+
+.page-link {
+    color: black;
+    border: none;
+}
+
+.page-link:hover {
+    color: var(--color-a);
+}
+
 .text_col {
     color: var(--color-a);
 }
@@ -139,4 +157,21 @@ h1, h2 {
 
 .border_custom{
     border-bottom: 5px solid var(--color-a);
+}
+
+.btn:hover{
+    transform: scale(0.95);
+}
+
+.form_input_focused:focus {
+    border-color: var(--color-a);
+    box-shadow:0px 0px 5px 1px var(--color-a) !important;
+    -webkit-box-shadow:0px 0px 5px 1px var(--color-a) !important;
+    -moz-box-shadow:0px 0px 5px 1px var(--color-a) !important;
+    color: var(--color-a) !important;
+}
+
+.form-check-input:checked {
+    background-color: var(--color-a);
+    border-color: var(--color-a);
 }

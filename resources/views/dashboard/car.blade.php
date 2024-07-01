@@ -13,19 +13,19 @@
             <div class="row">
                 <div class="mb-3 col-3">
                     <label for="name" class="form-label">Nome Auto</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <input type="text" class="form-control form_input_focused" id="name" name="name" required>
                 </div>
                 <div class="mb-3 col-3">
                     <label for="description" class="form-label">Descrizione</label>
-                    <input type="text" class="form-control" id="description" name="description" required>
+                    <input type="text" class="form-control form_input_focused" id="description" name="description" required>
                 </div>
                 <div class="mb-3 col-3">
                     <label for="img" class="form-label">Immagine</label>
-                    <input type="file" class="form-control" id="img" name="img" required>
+                    <input type="file" class="form-control form_input_focused" id="img" name="img" required>
                 </div>
                 <div class="mb-3 col-3">
                     <label for="price" class="form-label">Prezzo</label>
-                    <input type="number" class="form-control" id="price" name="price" required>
+                    <input type="number" class="form-control form_input_focused" id="price" name="price" required>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Aggiungi Auto</button>
@@ -89,21 +89,21 @@
                         @method('PUT')
                         <div class="mb-3">
                             <label for="edit_name" class="form-label">Nome Auto</label>
-                            <input type="text" class="form-control" id="edit_name" name="name" required>
+                            <input type="text" class="form-control form_input_focused" id="edit_name" name="name" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_description" class="form-label">Descrizione</label>
-                            <input type="text" class="form-control" id="edit_description" name="description"
+                            <input type="text" class="form-control form_input_focused" id="edit_description" name="description"
                                 required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_img" class="form-label">Immagine</label>
-                            <input type="file" class="form-control" id="edit_img" name="img">
+                            <input type="file" class="form-control form_input_focused" id="edit_img" name="img">
                             <img id="current_img" src="" alt="" width="100" class="mt-2">
                         </div>
                         <div class="mb-3">
                             <label for="edit_price" class="form-label">Prezzo</label>
-                            <input type="number" class="form-control" id="edit_price" name="price" required>
+                            <input type="number" class="form-control form_input_focused" id="edit_price" name="price" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Salva Modifiche</button>
                     </form>

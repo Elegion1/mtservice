@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 60,
+            "activePatchIndex": 65,
             "patches": [
                 {
                     "date": 1719328770051,
@@ -248,6 +248,26 @@
                 {
                     "date": 1719513297748,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,10 +26,10 @@\n             <h5>Contatti</h5>\n             <ul class=\"nav flex-column\">\n                     <li class=\"nav-item mb-2\"><a href=\"tel:{{$ownerdata->phone2}}\" class=\"nav-link p-0 text-body-secondary\">Giuseppe</a></li>\n                     <li class=\"nav-item mb-2\"><a href=\"tel:{{$ownerdata->phone3}}\" class=\"nav-link p-0 text-body-secondary\">Maurizio</a></li>\n-                    <li class=\"nav-item mb-2\"><a href=\"tel:{{$ownerdata->phone3}}\" class=\"nav-link p-0 text-body-secondary\"><i class=\"bi bi-facebook\"></i></a></li>\n-                    <li class=\"nav-item mb-2\"><a href=\"tel:{{$ownerdata->phone3}}\" class=\"nav-link p-0 text-body-secondary\"><i class=\"bi bi-whatsapp\"></i></a></li>\n+                    <li class=\"nav-item mb-2\"><a href=\"\" class=\"nav-link p-0 text-body-secondary\"><i class=\"bi bi-facebook\"></i></a></li>\n+                    <li class=\"nav-item mb-2\"><a href=\"\" class=\"nav-link p-0 text-body-secondary\"><i class=\"bi bi-whatsapp\"></i></a></li>\n \n             </ul>\n         </div>\n     </footer>\n"
+                },
+                {
+                    "date": 1719840972052,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n <div class=\"container \">\n-    <footer class=\"row py-5 my-5 border-top\">\n+    <footer class=\"row my-5 border-top\">\n         <div class=\"col-6 mb-3\">\n             <a href=\"/\" class=\"d-flex align-items-center mb-3 link-body-emphasis text-decoration-none\">\n                 <img width=\"100px\" src=\"{{ Storage::url($ownerdata->images->first()->path) }}\" alt=\"\">\n             </a>\n@@ -26,10 +26,10 @@\n             <h5>Contatti</h5>\n             <ul class=\"nav flex-column\">\n                     <li class=\"nav-item mb-2\"><a href=\"tel:{{$ownerdata->phone2}}\" class=\"nav-link p-0 text-body-secondary\">Giuseppe</a></li>\n                     <li class=\"nav-item mb-2\"><a href=\"tel:{{$ownerdata->phone3}}\" class=\"nav-link p-0 text-body-secondary\">Maurizio</a></li>\n-                    <li class=\"nav-item mb-2\"><a href=\"\" class=\"nav-link p-0 text-body-secondary\"><i class=\"bi bi-facebook\"></i></a></li>\n-                    <li class=\"nav-item mb-2\"><a href=\"\" class=\"nav-link p-0 text-body-secondary\"><i class=\"bi bi-whatsapp\"></i></a></li>\n+                    <li class=\"nav-item mb-2\"><a href=\"#\" class=\"nav-link p-0 text-body-secondary\"><i class=\"bi bi-facebook\"></i></a></li>\n+                    <li class=\"nav-item mb-2\"><a href=\"#\" class=\"nav-link p-0 text-body-secondary\"><i class=\"bi bi-whatsapp\"></i></a></li>\n \n             </ul>\n         </div>\n     </footer>\n"
+                },
+                {
+                    "date": 1719840980479,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n <div class=\"container \">\n-    <footer class=\"row my-5 border-top\">\n+    <footer class=\"row pt my-5 border-top\">\n         <div class=\"col-6 mb-3\">\n             <a href=\"/\" class=\"d-flex align-items-center mb-3 link-body-emphasis text-decoration-none\">\n                 <img width=\"100px\" src=\"{{ Storage::url($ownerdata->images->first()->path) }}\" alt=\"\">\n             </a>\n"
+                },
+                {
+                    "date": 1719840987821,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n <div class=\"container \">\n-    <footer class=\"row pt my-5 border-top\">\n+    <footer class=\"row pt-3 m-5 border-top\">\n         <div class=\"col-6 mb-3\">\n             <a href=\"/\" class=\"d-flex align-items-center mb-3 link-body-emphasis text-decoration-none\">\n                 <img width=\"100px\" src=\"{{ Storage::url($ownerdata->images->first()->path) }}\" alt=\"\">\n             </a>\n"
+                },
+                {
+                    "date": 1719841006302,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <div class=\"container \">\n-    <footer class=\"row pt-3 m-5 border-top\">\n-        <div class=\"col-6 mb-3\">\n+    <footer class=\"row pt-3 mt-5 border-top\">\n+        <div class=\"col- mb-3\">\n             <a href=\"/\" class=\"d-flex align-items-center mb-3 link-body-emphasis text-decoration-none\">\n                 <img width=\"100px\" src=\"{{ Storage::url($ownerdata->images->first()->path) }}\" alt=\"\">\n             </a>\n             <small>© 2024 {{ $ownerdata->companyName }}</small><br>\n"
+                },
+                {
+                    "date": 1719841020758,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,7 @@\n <div class=\"container \">\n     <footer class=\"row pt-3 mt-5 border-top\">\n-        <div class=\"col- mb-3\">\n+        <div class=\"col-5 mb-3\">\n             <a href=\"/\" class=\"d-flex align-items-center mb-3 link-body-emphasis text-decoration-none\">\n                 <img width=\"100px\" src=\"{{ Storage::url($ownerdata->images->first()->path) }}\" alt=\"\">\n             </a>\n             <small>© 2024 {{ $ownerdata->companyName }}</small><br>\n@@ -12,9 +12,9 @@\n             <small>C.F.: {{ $ownerdata->codFisc }}</small><br>\n             {{-- <small>Cell.: <a href=\"tel:+393283650762\">+39 328 36 50 762</a></small><br> --}}\n         </div>\n \n-        <div class=\"col-3 mb-3\">\n+        <div class=\"col-4 mb-3\">\n             <h5>Navigazione</h5>\n             <ul class=\"nav flex-column\">\n                 <x-links>\n                     text-body-secondary text-capitalize p-0\n"
                 }
             ],
             "date": 1719328770051,

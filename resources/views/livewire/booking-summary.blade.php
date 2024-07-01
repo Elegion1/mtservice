@@ -45,7 +45,7 @@
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="name" class="form-label">Nome</label>
-                        <input type="text" class="form-control" id="name" wire:model="name">
+                        <input type="text" class="form-control form_input_focused" id="name" wire:model="name">
                         <div class="error-message">
                             @error('name')
                                 <span class="text-danger error">{{ $message }}</span>
@@ -56,7 +56,7 @@
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="surname" class="form-label">Cognome</label>
-                        <input type="text" class="form-control" id="surname" wire:model="surname">
+                        <input type="text" class="form-control form_input_focused" id="surname" wire:model="surname">
                         <div class="error-message">
                             @error('surname')
                                 <span class="text-danger error">{{ $message }}</span>
@@ -69,7 +69,7 @@
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" wire:model="email">
+                        <input type="email" class="form-control form_input_focused" id="email" wire:model="email">
                         <div class="error-message">
                             @error('email')
                                 <span class="text-danger error">{{ $message }}</span>
@@ -80,7 +80,7 @@
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="phone" class="form-label">Telefono</label>
-                        <input type="text" class="form-control" id="phone" wire:model="phone" minlength="8"
+                        <input type="text" class="form-control form_input_focused" id="phone" wire:model="phone" minlength="8"
                             maxlength="15">
                         <div class="error-message">
                             @error('phone')
@@ -91,7 +91,7 @@
                 </div>
             </div>
             <div class="mb-3">
-                <textarea class="form-control" id="body" wire:model="body" placeholder="Inserisci delle note"></textarea>
+                <textarea class="form-control form_input_focused" id="body" wire:model="body" placeholder="Inserisci delle note"></textarea>
                 <div class="error-message">
                     @error('body')
                         <span class="text-danger error">{{ $message }}</span>

@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="mb-3 col-4">
                     <label for="departure_id" class="form-label">Partenza</label>
-                    <select class="form-select" id="departure_id" name="departure_id" required>
+                    <select class="form-select form_input_focused" id="departure_id" name="departure_id" required>
                         <option value="" disabled selected>Seleziona partenza</option>
                         @foreach ($destinations as $destination)
                             <option value="{{ $destination->id }}">{{ $destination->name }}</option>
@@ -23,7 +23,7 @@
                 </div>
                 <div class="mb-3 col-4">
                     <label for="arrival_id" class="form-label">Arrivo</label>
-                    <select class="form-select" id="arrival_id" name="arrival_id" required>
+                    <select class="form-select form_input_focused" id="arrival_id" name="arrival_id" required>
                         <option value="" disabled selected>Seleziona arrivo</option>
                         @foreach ($destinations as $destination)
                             <option value="{{ $destination->id }}">{{ $destination->name }}</option>
@@ -32,19 +32,19 @@
                 </div>
                 <div class="mb-3 col-4">
                     <label for="distance" class="form-label">Distanza (km)</label>
-                    <input type="number" class="form-control" id="distance" name="distance" required>
+                    <input type="number" class="form-control form_input_focused" id="distance" name="distance" required>
                 </div>
                 <div class="mb-3 col-4">
                     <label for="price" class="form-label">Prezzo (€)</label>
-                    <input type="number" class="form-control" id="price" name="price" required>
+                    <input type="number" class="form-control form_input_focused" id="price" name="price" required>
                 </div>
                 <div class="mb-3 col-4">
                     <label for="duration" class="form-label">Tempo di Percorrenza (Minuti)</label>
-                    <input type="number" class="form-control" id="duration" name="duration" required>
+                    <input type="number" class="form-control form_input_focused" id="duration" name="duration" required>
                 </div>
                 <div class="mb-3 col-4">
                     <label for="price_increment" class="form-label">Incremento di prezzo per passeggero</label>
-                    <input type="number" class="form-control" id="price_increment" name="price_increment">
+                    <input type="number" class="form-control form_input_focused" id="price_increment" name="price_increment">
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Aggiungi tratta</button>
@@ -111,21 +111,21 @@
                         @method('PUT')
                         <div class="mb-3">
                             <label for="edit_distance" class="form-label">Distanza (km)</label>
-                            <input type="number" class="form-control" id="edit_distance" name="distance" required>
+                            <input type="number" class="form-control form_input_focused" id="edit_distance" name="distance" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_price" class="form-label">Prezzo (€)</label>
-                            <input type="number" class="form-control" id="edit_price" name="price" required>
+                            <input type="number" class="form-control form_input_focused" id="edit_price" name="price" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_price_increment" class="form-label">Incremento di prezzo per
                                 passeggero</label>
-                            <input type="text" class="form-control" id="edit_price_increment"
+                            <input type="text" class="form-control form_input_focused" id="edit_price_increment"
                                 name="price_increment" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_duration" class="form-label">Tempo di Percorrenza (Minuti)</label>
-                            <input type="text" class="form-control" id="edit_duration" name="duration" required>
+                            <input type="text" class="form-control form_input_focused" id="edit_duration" name="duration" required>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Salva Modifiche</button>

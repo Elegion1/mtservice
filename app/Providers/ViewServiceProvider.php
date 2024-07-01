@@ -55,7 +55,7 @@ class ViewServiceProvider extends ServiceProvider
         }
 
         if (Review::count() > 0) {
-            $reviews = Review::all();
+            $reviews = Review::paginate(6);
             View::share('reviews', $reviews);
         }
 

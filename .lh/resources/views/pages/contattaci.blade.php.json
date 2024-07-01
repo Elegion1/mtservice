@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 17,
+            "activePatchIndex": 19,
             "patches": [
                 {
                     "date": 1719224050331,
@@ -76,6 +76,14 @@
                 {
                     "date": 1719243221296,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,9 @@\n                 <label for=\"messaggio\">Messaggio:</label>\n                 <textarea class=\"form-control\" id=\"messaggio\" name=\"messaggio\" rows=\"5\" required></textarea>\n             </div>\n         </div>\n-        <button type=\"submit\" class=\"btn bg-a\">Invia</button>\n+        <button type=\"submit\" class=\"btn bg-a text-white\">Invia</button>\n     </form>\n </div>\n \n </x-layout>\n"
+                },
+                {
+                    "date": 1719840229720,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,33 +5,33 @@\n         @csrf <!-- Includi il token CSRF qui -->\n         <div class=\"row\">\n             <div class=\"col-12 col-md-6 mb-3\">\n                 <label for=\"nome\">Nome:</label>\n-                <input type=\"text\" class=\"form-control\" id=\"nome\" name=\"nome\" required>\n+                <input type=\"text\" class=\"form-control form_input_focused\" id=\"nome\" name=\"nome\" required>\n             </div>\n             <div class=\"col-12 col-md-6 mb-3\">\n                 <label for=\"cognome\">Cognome:</label>\n-                <input type=\"text\" class=\"form-control\" id=\"cognome\" name=\"cognome\" required>\n+                <input type=\"text\" class=\"form-control form_input_focused\" id=\"cognome\" name=\"cognome\" required>\n             </div>\n             <div class=\"col-12 col-md-6 mb-3\">\n                 <label for=\"email\">Email:</label>\n-                <input type=\"email\" class=\"form-control\" id=\"email\" name=\"email\" required>\n+                <input type=\"email\" class=\"form-control form_input_focused\" id=\"email\" name=\"email\" required>\n             </div>\n             <div class=\"col-12 col-md-6 mb-3\">\n                 <label for=\"telefono\">Telefono:</label>\n-                <input type=\"tel\" class=\"form-control\" id=\"telefono\" name=\"telefono\" required>\n+                <input type=\"tel\" class=\"form-control form_input_focused\" id=\"telefono\" name=\"telefono\" required>\n             </div>\n             <div class=\"col-12 col-md-6 mb-3\">\n                 <label for=\"servizio\">Tipo di Servizio:</label>\n-                <select class=\"form-control\" id=\"servizio\" name=\"servizio\" required>\n+                <select class=\"form-control form_input_focused\" id=\"servizio\" name=\"servizio\" required>\n                     <option value=\"transfer\">Transfer</option>\n                     <option value=\"escursione\">Escursione</option>\n                     <option value=\"noleggio auto\">Noleggio Auto</option>\n                 </select>\n             </div>\n             <div class=\"col-12 mb-3\">\n                 <label for=\"messaggio\">Messaggio:</label>\n-                <textarea class=\"form-control\" id=\"messaggio\" name=\"messaggio\" rows=\"5\" required></textarea>\n+                <textarea class=\"form-control form_input_focused\" id=\"messaggio\" name=\"messaggio\" rows=\"5\" required></textarea>\n             </div>\n         </div>\n         <button type=\"submit\" class=\"btn bg-a text-white\">Invia</button>\n     </form>\n"
+                },
+                {
+                    "date": 1719842912015,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n <x-layout>\n-<div class=\"container bg-white rounded shadow p-3\">\n+<div class=\"container bg-white rounded p-3\">\n     <h2>Form di Contatto</h2>\n     <form action=\"{{ route('inviaForm') }}\" method=\"POST\">\n         @csrf <!-- Includi il token CSRF qui -->\n         <div class=\"row\">\n"
                 }
             ],
             "date": 1719224050331,

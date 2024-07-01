@@ -5,7 +5,7 @@
 
             <div class="row">
                 <div class="col-12">
-                    <select wire:model.live="departure" id="departureSelect" class="form-select"
+                    <select wire:model.live="departure" id="departureSelect" class="form-select form_input_focused"
                         aria-label="Default select example">
                         <option selected>Seleziona partenza</option>
                         @foreach ($destinations as $destination)
@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <select wire:model.live="return" wire:change="calculatePrice" id="returnSelect" class="form-select"
+                    <select wire:model.live="return" wire:change="calculatePrice" id="returnSelect" class="form-select form_input_focused"
                         aria-label="Default select example">
                         <option selected>Seleziona destinazione</option>
                         @foreach ($routes as $route)
@@ -40,7 +40,7 @@
             <div class="row">
                 <div class="col-6">
                     <label for="transferPassengers" class="form-label">Passeggeri</label>
-                    <input wire:model.live="transferPassengers" type="number" class="form-control"
+                    <input wire:model.live="transferPassengers" type="number" class="form-control form_input_focused"
                         id="transferPassengers" min="1" max="16" value="1">
                     <div class="error-message">
                         @error('transferPassengers')
@@ -68,7 +68,7 @@
             <div class="row">
                 <div class="col-12 col-md-6">
                     <label class="form-label" for="dateDeparture">Andata</label>
-                    <input wire:model.live="dateDeparture" type="datetime-local" class="form-control"
+                    <input wire:model.live="dateDeparture" type="datetime-local" class="form-control form_input_focused"
                         id="dateDeparture">
                     <div class="error-message"> @error('dateDeparture')
                             <span class="text-danger error">{{ $message }}</span>
@@ -77,7 +77,7 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <label class="form-label" for="dateReturn">Ritorno</label>
-                    <input wire:model.live="dateReturn" type="datetime-local" class="form-control" id="dateReturn"
+                    <input wire:model.live="dateReturn" type="datetime-local" class="form-control form_input_focused" id="dateReturn"
                         {{ $solaAndata ? 'disabled' : '' }}>
                     <div class="error-message"> @error('dateReturn')
                             <span class="text-danger error">{{ $message }}</span>
@@ -88,7 +88,7 @@
             <div class="row mb-3 align-items-end">
                 <div class="col-6">
                     <label for="transferPrice" class="form-label">Totale</label>
-                    <input wire:model.live="transferPrice" readonly type="text" class="form-control"
+                    <input wire:model.live="transferPrice" readonly type="text" class="form-control form_input_focused"
                         id="transferPrice" value="€">
                 </div>
                 <div class="col-6 d-grid">

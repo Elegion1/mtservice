@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="mb-3 col-4">
                     <label for="name" class="form-label">Destinazione</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <input type="text" class="form-control form_input_focused" id="name" name="name" required>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Aggiungi Destinazione</button>
@@ -69,7 +69,7 @@
                         @method('PUT')
                         <div class="mb-3">
                             <label for="edit_name" class="form-label">Nome Destinazione</label>
-                            <input type="text" class="form-control" id="edit_name" name="name" required>
+                            <input type="text" class="form-control form_input_focused" id="edit_name" name="name" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Salva Modifiche</button>
                     </form>

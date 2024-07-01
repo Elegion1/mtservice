@@ -18,75 +18,75 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nome:</label>
                                 <input type="text" id="name" name="name"
-                                    value="{{ old('name', $ownerData->name) }}" class="form-control">
+                                    value="{{ old('name', $ownerData->name) }}" class="form-control form_input_focused">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="surname" class="form-label">Cognome:</label>
                                 <input type="text" id="surname" name="surname"
-                                    value="{{ old('surname', $ownerData->surname) }}" class="form-control">
+                                    value="{{ old('surname', $ownerData->surname) }}" class="form-control form_input_focused">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="companyName" class="form-label">Azienda:</label>
                                 <input type="text" id="companyName" name="companyName"
-                                    value="{{ old('companyName', $ownerData->companyName) }}" class="form-control">
+                                    value="{{ old('companyName', $ownerData->companyName) }}" class="form-control form_input_focused">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="address" class="form-label">Indirizzo:</label>
                                 <input type="text" id="address" name="address"
-                                    value="{{ old('address', $ownerData->address) }}" class="form-control">
+                                    value="{{ old('address', $ownerData->address) }}" class="form-control form_input_focused">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="city" class="form-label">Città:</label>
                                 <input type="text" id="city" name="city"
-                                    value="{{ old('city', $ownerData->city) }}" class="form-control">
+                                    value="{{ old('city', $ownerData->city) }}" class="form-control form_input_focused">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="pIva" class="form-label">P.IVA:</label>
                                 <input type="text" id="pIva" name="pIva"
-                                    value="{{ old('pIva', $ownerData->pIva) }}" class="form-control">
+                                    value="{{ old('pIva', $ownerData->pIva) }}" class="form-control form_input_focused">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="codFisc" class="form-label">Codice Fiscale:</label>
                                 <input type="text" id="codFisc" name="codFisc"
-                                    value="{{ old('codFisc', $ownerData->codFisc) }}" class="form-control">
+                                    value="{{ old('codFisc', $ownerData->codFisc) }}" class="form-control form_input_focused">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Telefono 1:</label>
                                 <input type="text" id="phone" name="phone"
-                                    value="{{ old('phone', $ownerData->phone) }}" class="form-control">
+                                    value="{{ old('phone', $ownerData->phone) }}" class="form-control form_input_focused">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="phone2" class="form-label">Telefono 2:</label>
                                 <input type="text" id="phone2" name="phone2"
-                                    value="{{ old('phone2', $ownerData->phone2) }}" class="form-control">
+                                    value="{{ old('phone2', $ownerData->phone2) }}" class="form-control form_input_focused">
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="mb-3">
                                 <label for="phone3" class="form-label">Telefono 3:</label>
                                 <input type="text" id="phone3" name="phone3"
-                                    value="{{ old('phone3', $ownerData->phone3) }}" class="form-control">
+                                    value="{{ old('phone3', $ownerData->phone3) }}" class="form-control form_input_focused">
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email:</label>
                                 <input type="text" id="email" name="email"
-                                    value="{{ old('email', $ownerData->email) }}" class="form-control">
+                                    value="{{ old('email', $ownerData->email) }}" class="form-control form_input_focused">
                             </div>
                         </div>
 
@@ -105,7 +105,7 @@
                             @else
                                 <p>Nessuna immagine disponibile</p>
                             @endif
-                            <input type="file" class="form-control" id="images" name="images[]" multiple>
+                            <input type="file" class="form-control form_input_focused" id="images" name="images[]" multiple>
                         </div>
 
                     </div>

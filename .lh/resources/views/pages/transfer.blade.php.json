@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 55,
+            "activePatchIndex": 57,
             "patches": [
                 {
                     "date": 1719217147134,
@@ -228,6 +228,14 @@
                 {
                     "date": 1719501930581,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,10 +11,10 @@\n                 </div>\n             </div>\n         </div>\n         <div class=\"col-12 col-md-4\">\n-            <div class=\"d-flex justify-content-center align-items-center flex-column bg-white rounded p-3 \">\n-                <img class=\"img-content my-3 rounded shadow\" src=\"https://picsum.photos/500\" alt=\"\">\n+            <div class=\"d-flex justify-content-center align-items-center flex-column bg-white rounded \">\n+                <img class=\"img-content mb-3 rounded shadow\" src=\"https://picsum.photos/500\" alt=\"\">\n                 <p>\n                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cupiditate culpa eos, quidem,\n                     asperiores debitis ea illo corporis autem eligendi molestias consectetur? Explicabo esse\n                     itaque\n"
+                },
+                {
+                    "date": 1719837964672,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \n     <div class=\"row\">\n         <div class=\"col-12 col-md-8\">\n             <div class=\"container bg-white rounded \">\n-                <div class=\"container p-3\">\n+                <div class=\"container p-3 border\">\n                     <livewire:prenotazione />\n                 </div>\n                 <div class=\"container\">\n                     <x-services />\n"
+                },
+                {
+                    "date": 1719837994743,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,9 +2,9 @@\n \n     <div class=\"row\">\n         <div class=\"col-12 col-md-8\">\n             <div class=\"container bg-white rounded \">\n-                <div class=\"container p-3 border\">\n+                <div class=\"container p-3\">\n                     <livewire:prenotazione />\n                 </div>\n                 <div class=\"container\">\n                     <x-services />\n"
                 }
             ],
             "date": 1719217147134,

@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container bg-white rounded shadow">
+    <div id="partners" class="container bg-white rounded">
         <div class="container p-3">
             <h1>I nostri partner</h1>
             <p>

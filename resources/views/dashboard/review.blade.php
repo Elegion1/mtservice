@@ -13,19 +13,19 @@
             <div class="row">
                 <div class="mb-3 col-3">
                     <label for="name" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <input type="text" class="form-control form_input_focused" id="name" name="name" required>
                 </div>
                 <div class="mb-3 col-7">
                     <label for="title" class="form-label">Titolo</label>
-                    <input type="text" class="form-control" id="title" name="title" required>
+                    <input type="text" class="form-control form_input_focused" id="title" name="title" required>
                 </div>
                 <div class="mb-3 col-2">
                     <label for="rating" class="form-label">Valutazione</label>
-                    <input type="number" class="form-control" id="rating" name="rating" required min="1" max="5">
+                    <input type="number" class="form-control form_input_focused" id="rating" name="rating" required min="1" max="5">
                 </div>
                 <div class="mb-3 col-12">
                     <label for="body" class="form-label">Recensione</label>
-                    <textarea class="form-control" id="body" name="body" required></textarea>
+                    <textarea class="form-control form_input_focused" id="body" name="body" required></textarea>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Aggiungi Recensione</button>
@@ -88,19 +88,19 @@
                         @method('PUT')
                         <div class="mb-3">
                             <label for="edit_name" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="edit_name" name="name" required>
+                            <input type="text" class="form-control form_input_focused" id="edit_name" name="name" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_title" class="form-label">Titolo</label>
-                            <input type="text" class="form-control" id="edit_title" name="title" required>
+                            <input type="text" class="form-control form_input_focused" id="edit_title" name="title" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_body" class="form-label">Recensione</label>
-                            <textarea class="form-control" id="edit_body" name="body" required></textarea>
+                            <textarea class="form-control form_input_focused" id="edit_body" name="body" required></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="edit_rating" class="form-label">Valutazione</label>
-                            <input type="number" class="form-control" id="edit_rating" name="rating" required min="1" max="5">
+                            <input type="number" class="form-control form_input_focused" id="edit_rating" name="rating" required min="1" max="5">
                         </div>
                         <button type="submit" class="btn btn-primary">Salva Modifiche</button>
                     </form>

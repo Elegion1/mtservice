@@ -1,13 +1,13 @@
 <x-layout>
     <div class="row">
-        <div class="col-12 col-md-6 ">
-            <div class="container shadow rounded bg-white">
+        <div class="col-12 col-md-8 ">
+            <div class="container  rounded bg-white">
                 <div class="container p-3">
                     <livewire:prenotazione />
                 </div>
             </div>
 
-            <div class="container shadow rounded p-3 mt-3">
+            <div class="container  rounded p-3 mt-3">
                 <div class="d-flex justify-content-center align-items-center flex-column">
                     <img width="100%" class="my-3 rounded " src="https://picsum.photos/500" alt="">
                     <p>
@@ -39,8 +39,8 @@
             </div>
         </div>
 
-        <div class="col-12 col-md-6 ">
-            <div class="container d-flex justify-content-center align-items-center flex-column shadow rounded bg-white">
+        <div class="col-12 col-md-4 ">
+            <div id="escursioni" class="container d-flex justify-content-center align-items-center flex-column rounded bg-white">
                 <p class="h2 my-3">Escursioni Sicilia Occidentale </p>
                 @foreach ($excursionsP as $excursion)
                     <div class="card border-0 mb-3" style="max-width: 540px;">

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 93,
+            "activePatchIndex": 127,
             "patches": [
                 {
                     "date": 1718890641170,
@@ -380,6 +380,142 @@
                 {
                     "date": 1719512717287,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -137,6 +137,6 @@\n     color: var(--color-a);\n }\n \n .border_custom{\n-    border-bottom: 5px  var(--color-a);\n+    border-bottom: 5px solid var(--color-a);\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719838740772,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -128,8 +128,12 @@\n     color: var(--color-a) !important;\n     font-weight: bolder;\n }\n \n+.active [\n+    \n+]\n+\n .text_col {\n     color: var(--color-a);\n }\n \n"
+                },
+                {
+                    "date": 1719838747890,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -128,11 +128,11 @@\n     color: var(--color-a) !important;\n     font-weight: bolder;\n }\n \n-.active [\n-    \n-]\n+.active {\n+    color: ;\n+}\n \n .text_col {\n     color: var(--color-a);\n }\n"
+                },
+                {
+                    "date": 1719838753659,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,9 +129,9 @@\n     font-weight: bolder;\n }\n \n .active {\n-    color: ;\n+    color: var(--color-a) ;\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719838785725,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,9 +129,9 @@\n     font-weight: bolder;\n }\n \n .active {\n-    color: var(--color-a) ;\n+    bgccolor: var(--color-a) !important;\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719838792315,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,9 +129,9 @@\n     font-weight: bolder;\n }\n \n .active {\n-    bgccolor: var(--color-a) !important;\n+    background-color: var(--color-a) !important;\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719838813177,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,9 +129,9 @@\n     font-weight: bolder;\n }\n \n .active {\n-    background-color: var(--color-a) !important;\n+    : var(--color-a) !important;\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719838819636,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,9 +129,9 @@\n     font-weight: bolder;\n }\n \n .active {\n-    : var(--color-a) !important;\n+ : var(--color-a) !important;\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719838824696,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,9 +129,9 @@\n     font-weight: bolder;\n }\n \n .active {\n- : var(--color-a) !important;\n+    color: var(--color-a) !important;\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719838833271,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -128,9 +128,9 @@\n     color: var(--color-a) !important;\n     font-weight: bolder;\n }\n \n-.active {\n+.active_p {\n     color: var(--color-a) !important;\n }\n \n .text_col {\n"
+                },
+                {
+                    "date": 1719838893330,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -128,10 +128,10 @@\n     color: var(--color-a) !important;\n     font-weight: bolder;\n }\n \n-.active_p {\n-    color: var(--color-a) !important;\n+.active_page {\n+    background-color: var(--color-a) !important;\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719838911213,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -130,8 +130,9 @@\n }\n \n .active_page {\n     background-color: var(--color-a) !important;\n+    border: ;\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719838923416,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -130,9 +130,8 @@\n }\n \n .active_page {\n     background-color: var(--color-a) !important;\n-    border: ;\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719839039744,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -132,8 +132,10 @@\n .active_page {\n     background-color: var(--color-a) !important;\n }\n \n+.page\n+\n .text_col {\n     color: var(--color-a);\n }\n \n"
+                },
+                {
+                    "date": 1719839048278,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -132,9 +132,11 @@\n .active_page {\n     background-color: var(--color-a) !important;\n }\n \n-.page\n+.page-link {\n+    border\n+}\n \n .text_col {\n     color: var(--color-a);\n }\n"
+                },
+                {
+                    "date": 1719839054384,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -133,9 +133,9 @@\n     background-color: var(--color-a) !important;\n }\n \n .page-link {\n-    border\n+    border-color: var(--color-a);\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719839062014,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -132,9 +132,9 @@\n .active_page {\n     background-color: var(--color-a) !important;\n }\n \n-.page-link {\n+.page-link. {\n     border-color: var(--color-a);\n }\n \n .text_col {\n"
+                },
+                {
+                    "date": 1719839070977,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -132,9 +132,9 @@\n .active_page {\n     background-color: var(--color-a) !important;\n }\n \n-.page-link. {\n+.page-link .active {\n     border-color: var(--color-a);\n }\n \n .text_col {\n"
+                },
+                {
+                    "date": 1719839077687,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -133,9 +133,9 @@\n     background-color: var(--color-a) !important;\n }\n \n .page-link .active {\n-    border-color: var(--color-a);\n+    border-color: var(--color-a) !important;\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719839098755,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -133,9 +133,9 @@\n     background-color: var(--color-a) !important;\n }\n \n .page-link .active {\n-    border-color: var(--color-a) !important;\n+    color: var(--color-a) !important;\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719839105688,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -133,9 +133,9 @@\n     background-color: var(--color-a) !important;\n }\n \n .page-link .active {\n-    color: var(--color-a) !important;\n+    color: black !important;\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719839113177,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -132,9 +132,9 @@\n .active_page {\n     background-color: var(--color-a) !important;\n }\n \n-.page-link .active {\n+.page-link {\n     color: black !important;\n }\n \n .text_col {\n"
+                },
+                {
+                    "date": 1719839123814,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -133,9 +133,9 @@\n     background-color: var(--color-a) !important;\n }\n \n .page-link {\n-    color: black !important;\n+    color: black;\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719839177129,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -134,8 +134,9 @@\n }\n \n .page-link {\n     color: black;\n+    border: none;\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719839285299,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -137,8 +137,9 @@\n     color: black;\n     border: none;\n }\n \n+\n .text_col {\n     color: var(--color-a);\n }\n \n"
+                },
+                {
+                    "date": 1719839292947,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -137,8 +137,12 @@\n     color: black;\n     border: none;\n }\n \n+.page-link:hover {\n+    color: black;\n+    border: none;\n+}\n \n .text_col {\n     color: var(--color-a);\n }\n"
+                },
+                {
+                    "date": 1719839297969,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -139,9 +139,8 @@\n }\n \n .page-link:hover {\n     color: black;\n-    border: none;\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719839305928,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -138,9 +138,9 @@\n     border: none;\n }\n \n .page-link:hover {\n-    color: black;\n+    color: var(colo);\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719839319233,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -138,9 +138,9 @@\n     border: none;\n }\n \n .page-link:hover {\n-    color: var(colo);\n+    color: var(--color-);\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719839342540,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -138,9 +138,9 @@\n     border: none;\n }\n \n .page-link:hover {\n-    color: var(--color-);\n+    color: black;\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719839350111,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -138,9 +138,9 @@\n     border: none;\n }\n \n .page-link:hover {\n-    color: black;\n+    color: ;\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719839356926,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -138,9 +138,10 @@\n     border: none;\n }\n \n .page-link:hover {\n-    color: ;\n+    color: white;\n+    \n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719839365867,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -139,9 +139,9 @@\n }\n \n .page-link:hover {\n     color: white;\n-    \n+    text-shadow: 1px 2px ;\n }\n \n .text_col {\n     color: var(--color-a);\n"
+                },
+                {
+                    "date": 1719839389365,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -138,9 +138,8 @@\n     border: none;\n }\n \n .page-link:hover {\n-    color: white;\n     text-shadow: 1px 2px 3px black;\n }\n \n .text_col {\n"
+                },
+                {
+                    "date": 1719839664152,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -139,8 +139,9 @@\n }\n \n .page-link:hover {\n     color: var(--color-a);\n+    background: #000;\n }\n \n .text_col {\n     color: var(--color-a);\n"
                 }
             ],
             "date": 1718890641170,

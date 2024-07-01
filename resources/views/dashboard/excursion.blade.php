@@ -14,33 +14,33 @@
             <div class="row">
                 <div class="mb-3 col-8">
                     <label for="name" class="form-label">Nome Escursione</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
+                    <input type="text" class="form-control form_input_focused" id="name" name="name" required>
                 </div>
                 <div class="mb-3 col-1">
                     <label for="price" class="form-label">Prezzo</label>
-                    <input type="number" step="0.01" class="form-control" id="price" name="price" required>
+                    <input type="number" step="0.01" class="form-control form_input_focused" id="price" name="price" required>
                 </div>
                 <div class="mb-3 col-2">
                     <label for="price_increment" class="form-label">Incremento Prezzo</label>
-                    <input type="number" step="0.01" class="form-control" id="price_increment"
+                    <input type="number" step="0.01" class="form-control form_input_focused" id="price_increment"
                         name="price_increment" required>
                 </div>
                 <div class="mb-3 col-1">
                     <label for="duration" class="form-label">Durata</label>
-                    <input type="text" step="0.01" class="form-control" id="duration" name="duration" required>
+                    <input type="text" step="0.01" class="form-control form_input_focused" id="duration" name="duration" required>
                 </div>
                 <div class="mb-3 col-12">
                     <label for="abstract" class="form-label">Abstract</label>
-                    <input type="text" step="0.01" class="form-control" id="abstract" name="abstract" required>
+                    <input type="text" step="0.01" class="form-control form_input_focused" id="abstract" name="abstract" required>
                 </div>
                 <div class="mb-3 col-12">
                     <label for="description" class="form-label">Descrizione</label>
-                    <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+                    <textarea class="form-control form_input_focused" id="description" name="description" rows="5" required></textarea>
                 </div>
             </div>
             <div class="mb-3">
                 <label for="images" class="form-label">Immagini</label>
-                <input type="file" class="form-control" id="images" name="images[]" multiple>
+                <input type="file" class="form-control form_input_focused" id="images" name="images[]" multiple>
             </div>
             <button type="submit" class="btn btn-primary">Aggiungi Escursione</button>
         </form>
@@ -116,33 +116,33 @@
                         @method('PUT')
                         <div class="mb-3">
                             <label for="edit_name" class="form-label">Nome Escursione</label>
-                            <input type="text" class="form-control" id="edit_name" name="name" required>
+                            <input type="text" class="form-control form_input_focused" id="edit_name" name="name" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_price" class="form-label">Prezzo</label>
-                            <input type="number" step="0.01" class="form-control" id="edit_price" name="price"
+                            <input type="number" step="0.01" class="form-control form_input_focused" id="edit_price" name="price"
                                 required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_price_increment" class="form-label">Incremento Prezzo</label>
-                            <input type="number" step="0.01" class="form-control" id="edit_price_increment"
+                            <input type="number" step="0.01" class="form-control form_input_focused" id="edit_price_increment"
                                 name="price_increment" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_duration" class="form-label">Durata</label>
-                            <input type="text" class="form-control" id="edit_duration" name="duration" required>
+                            <input type="text" class="form-control form_input_focused" id="edit_duration" name="duration" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_abstract" class="form-label">Abstract</label>
-                            <input type="text" class="form-control" id="edit_abstract" name="abstract" required>
+                            <input type="text" class="form-control form_input_focused" id="edit_abstract" name="abstract" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_description" class="form-label">Descrizione</label>
-                            <textarea class="form-control" id="edit_description" name="description" rows="5" required></textarea>
+                            <textarea class="form-control form_input_focused" id="edit_description" name="description" rows="5" required></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="edit_images" class="form-label">Aggiungi nuove immagini</label>
-                            <input type="file" class="form-control" id="edit_images" name="images[]" multiple>
+                            <input type="file" class="form-control form_input_focused" id="edit_images" name="images[]" multiple>
                         </div>
                         <div class="mb-3">
                             <label for="edit_current_images" class="form-label">Immagini Caricate</label>

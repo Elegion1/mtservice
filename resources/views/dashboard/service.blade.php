@@ -14,25 +14,25 @@
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="title" class="form-label">Titolo</label>
-                        <input type="text" class="form-control" id="title" name="title" required>
+                        <input type="text" class="form-control form_input_focused" id="title" name="title" required>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="subtitle" class="form-label">Sottotitolo</label>
-                        <input type="text" class="form-control" id="subtitle" name="subtitle" required>
+                        <input type="text" class="form-control form_input_focused" id="subtitle" name="subtitle" required>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="subtitleSec" class="form-label">Sottotitolo Secondario</label>
-                        <input type="text" class="form-control" id="subtitleSec" name="subtitleSec" required>
+                        <input type="text" class="form-control form_input_focused" id="subtitleSec" name="subtitleSec" required>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="abstract" class="form-label">Abstract</label>
-                        <textarea class="form-control" id="abstract" name="abstract" required></textarea>
+                        <textarea class="form-control form_input_focused" id="abstract" name="abstract" required></textarea>
                     </div>
                 </div>
             </div>
@@ -40,23 +40,23 @@
 
             <div class="mb-3">
                 <label for="body" class="form-label">Body</label>
-                <textarea class="form-control" id="body" name="body" required></textarea>
+                <textarea class="form-control form_input_focused" id="body" name="body" required></textarea>
             </div>
             <div class="mb-3">
                 <label for="condition" class="form-label">Condizioni</label>
-                <textarea class="form-control" id="condition" name="condition" required></textarea>
+                <textarea class="form-control form_input_focused" id="condition" name="condition" required></textarea>
             </div>
             <div class="row">
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="images" class="form-label">Immagini</label>
-                        <input type="file" class="form-control" id="images" name="images[]" multiple>
+                        <input type="file" class="form-control form_input_focused" id="images" name="images[]" multiple>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="links" class="form-label">Links</label>
-                        <input type="text" class="form-control" id="links" name="links" required>
+                        <input type="text" class="form-control form_input_focused" id="links" name="links" required>
                     </div>
                 </div>
             </div>
@@ -140,35 +140,35 @@
                         @method('PUT')
                         <div class="mb-3">
                             <label for="title" class="form-label">Titolo</label>
-                            <input type="text" class="form-control" id="title" name="title">
+                            <input type="text" class="form-control form_input_focused" id="title" name="title">
                         </div>
                         <div class="mb-3">
                             <label for="subtitle" class="form-label">Sottotitolo</label>
-                            <input type="text" class="form-control" id="subtitle" name="subtitle">
+                            <input type="text" class="form-control form_input_focused" id="subtitle" name="subtitle">
                         </div>
                         <div class="mb-3">
                             <label for="subtitleSec" class="form-label">Sottotitolo Secondario</label>
-                            <input type="text" class="form-control" id="subtitleSec" name="subtitleSec">
+                            <input type="text" class="form-control form_input_focused" id="subtitleSec" name="subtitleSec">
                         </div>
                         <div class="mb-3">
                             <label for="abstract" class="form-label">Abstract</label>
-                            <textarea class="form-control" id="abstract" name="abstract"></textarea>
+                            <textarea class="form-control form_input_focused" id="abstract" name="abstract"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="body" class="form-label">Body</label>
-                            <textarea class="form-control" id="body" name="body"></textarea>
+                            <textarea class="form-control form_input_focused" id="body" name="body"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="links" class="form-label">Links</label>
-                            <input type="text" class="form-control" id="links" name="links">
+                            <input type="text" class="form-control form_input_focused" id="links" name="links">
                         </div>
                         <div class="mb-3">
                             <label for="condition" class="form-label">Condizioni</label>
-                            <textarea class="form-control" id="condition" name="condition"></textarea>
+                            <textarea class="form-control form_input_focused" id="condition" name="condition"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="images" class="form-label">Immagini</label>
-                            <input type="file" class="form-control" id="images" name="images[]" multiple>
+                            <input type="file" class="form-control form_input_focused" id="images" name="images[]" multiple>
                             <div id="current-images" class="mt-3">
                                 <!-- Anteprime delle immagini esistenti verranno aggiunte qui -->
                             </div>
