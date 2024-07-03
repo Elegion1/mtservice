@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 14,
+            "activePatchIndex": 15,
             "patches": [
                 {
                     "date": 1719404848177,
@@ -64,6 +64,10 @@
                 {
                     "date": 1719414804745,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,14 +9,13 @@\n {\n     use HasFactory;\n \n     protected $fillable = [\n-        'page',\n         'title',\n         'subtitle',\n         'body',\n         'links',\n-        \n+        'page_id'\n     ];\n \n     public function images()\n     {\n"
+                },
+                {
+                    "date": 1719996410223,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,8 +13,9 @@\n         'title',\n         'subtitle',\n         'body',\n         'links',\n+        \n         'page_id'\n     ];\n \n     public function images()\n"
                 }
             ],
             "date": 1719404848177,

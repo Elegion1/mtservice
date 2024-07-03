@@ -48,6 +48,8 @@ class PublicController extends Controller
         return view('pages.faq');
     }
 
+    // funzione per testare i pdf
+
     public function pdf() {
         $booking = [
             'name' => 'Mario',

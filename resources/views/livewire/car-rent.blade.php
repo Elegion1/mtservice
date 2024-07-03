@@ -79,7 +79,7 @@
                                 @if (!$car->isAvailable) disabled @endif>
                         </div>
                         <div class="col-3 p-1 my-auto">
-                            <img width="80px" src="{{ Storage::url($car->img) }}" alt="">
+                            <img width="80px" src="{{ Storage::url($car->images[0]->path) }}" alt="">
                         </div>
                         <div class="col-4 text-center text-md-start d-flex flex-column">
                             <p class="m-1 h6">{{ $car->name }}</p>

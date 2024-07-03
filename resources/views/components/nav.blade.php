@@ -9,10 +9,10 @@
                     <span class="text-c fs-5">Prenota online o chiama</span>
                     <div class="d-flex justify-content-center aling-items-center">
                         <a class="p-md-2 m-md-1 mx-auto nav-link rounded-pill"
-                            href="tel:{{ $ownerdata->phone2 }}"><span><i class="bi bi-telephone-fill"></i></span> {{ $ownerdata->phone2 }}</a>
+                            href="tel:{{ $ownerdata->phone2 }}"><span><i class="bi bi-telephone-fill"></i></span> Giuseppe</a>
 
                         <a class="p-md-2 m-md-1 mx-auto nav-link rounded-pill"
-                            href="tel:{{ $ownerdata->phone3 }}"><i class="bi bi-telephone-fill"></i> {{ $ownerdata->phone3 }}</a>
+                            href="tel:{{ $ownerdata->phone3 }}"><i class="bi bi-telephone-fill"></i> Maurizio</a>
                     </div>
                 </div>
                 <button class="navbar-toggler navbar_toggler_focused" type="button" data-bs-toggle="collapse"

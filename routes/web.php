@@ -61,6 +61,7 @@ Route::get('/dashboard/cars', [CarController::class, 'create'])->name('dashboard
 Route::post('/dashboard/cars', [CarController::class, 'store'])->name('cars.store')->middleware('auth');
 Route::put('/dashboard/cars/{car}', [CarController::class, 'update'])->name('cars.update')->middleware('auth');
 Route::delete('/dashboard/cars/{car}', [CarController::class, 'destroy'])->name('cars.destroy')->middleware('auth');
+Route::delete('/dashboard/images/{id}', [CarController::class, 'deleteImage'])->name('images.delete')->middleware('auth');
 
 // Gestione recensioni
 Route::get('/dashboard/reviews', [ReviewController::class, 'create'])->name('dashboard.review')->middleware('auth');

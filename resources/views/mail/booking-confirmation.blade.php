@@ -557,13 +557,12 @@
                                                             role="presentation"
                                                             style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                             <tr>
-                                                                <td align="left" style="padding:0;Margin:0"><small>©
-                                                                        2024 M.T. Service</small><small> di Antonino
-                                                                        Tranchida</small><small> Via F.lli di Falco,
-                                                                        40</small><small> 91027 Paceco
-                                                                        (TP)</small><small> P.IVA:
-                                                                        02644360816</small><small> C.F.: TRN NNN 73 R04
-                                                                        G208I</small></td>
+                                                                <td align="left" style="padding:0;Margin:0"><span>{{ $ownerdata->companyName }}</span>
+                                                                    <span>di {{ $ownerdata->name }} {{ $ownerdata->surname }}</span>
+                                                                    <span>{{ $ownerdata->address }}</span>
+                                                                    <span>{{ $ownerdata->city }}</span>
+                                                                    <span>P.IVA: {{ $ownerdata->pIva }}</span>
+                                                                    <span>C.F.: {{ $ownerdata->codFisc }}</span></td>
                                                             </tr>
                                                         </table>
                                                     </td>

@@ -2,9 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Image;
 use App\Models\OwnerData;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class OwnerDataSeeder extends Seeder
 {
@@ -13,7 +17,7 @@ class OwnerDataSeeder extends Seeder
      */
     public function run(): void
     {
-        OwnerData::create([
+        $ownerData = OwnerData::create([
             'name' => 'Antonino',
             'surname' => 'Tranchida',
             'companyName' => 'M.T. Service',
@@ -26,5 +30,34 @@ class OwnerDataSeeder extends Seeder
             'phone3' => '+39 3773911945', // Inserisci il terzo numero di telefono se necessario
             'email' => 'mtservice@mail.com'
         ]);
+
+        $imagePaths = [
+            'public/media/logo.png',
+        ];
+
+        foreach ($imagePaths as $imagePath) {
+            // Verifica se il file esiste nel percorso specificato
+            if (File::exists($imagePath)) {
+                // Ottieni il nome del file originale
+                $filename = pathinfo($imagePath, PATHINFO_FILENAME);
+
+                // Ottieni l'estensione del file originale
+                $extension = File::extension($imagePath);
+
+                // Prepara il percorso di destinazione nella directory storage/public/images
+                $destinationPath = 'images/' . $filename . '.' . $extension;
+
+                // Copia il file nella directory di storage pubblica
+                Storage::disk('public')->put($destinationPath, File::get($imagePath));
+
+                // Crea il record Image associato a OwnerData
+                Image::create([
+                    'path' => $destinationPath,
+                    'owner_data_id' => $ownerData->id,
+                ]);
+            }
+        }
+
+        
     }
 }

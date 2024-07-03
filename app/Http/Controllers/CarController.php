@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -39,12 +40,16 @@ class CarController extends Controller
         // $car->price = $validated['price'];
         // $car->save();
 
-        Car::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'img' => $request->file('img')->store('public/cars'),
-            'price' => $request->price,
-        ]);
+        $car = Car::create($request->all());
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $file) {
+                $path = $file->store('images', 'public');
+                Image::Create([
+                    'path' => $path,
+                    'car_id' => $car->id,
+                ]);
+            }
+        }
 
         return redirect()->route('dashboard.car')->with('success', 'Auto creata con successo!');
     }
@@ -79,19 +84,18 @@ class CarController extends Controller
 
         // $car->update($validated);
 
-        if ($request->file('img')) {
-            Storage::delete($car->img);
-            $img = $request->file('img')->store('public/cars');
-        } else {
-            $img = $car->img;
-        }
 
-        $car->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'img' => $img,
-            'price' => $request->price,
-        ]);
+        $car->update($request->all());
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $file) {
+                $path = $file->store('images', 'public');
+                Image::Create([
+                    'path' => $path,
+                    'car_id' => $car->id,
+                ]);
+            }
+        }
 
 
         return redirect()->route('dashboard.car')->with('success', 'Auto aggiornata con successo!');
@@ -100,16 +104,27 @@ class CarController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Car $car)
+    public function destroy($id)
     {
         // Verifica se l'auto ha un'immagine associata e elimina l'immagine
-        if ($car->img) {
-           Storage::delete($car->img);
-        }
+        $car = Car::findOrFail($id);
 
         // Elimina l'auto dal database
         $car->delete();
 
         return redirect()->route('dashboard.car')->with('success', 'Auto eliminata con successo!');
+    }
+
+    public function deleteImage($id)
+    {
+        $image = Image::find($id);
+
+        if ($image) {
+            Storage::disk('public')->delete($image->path);
+            $image->delete();
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false, 'error' => 'Immagine non trovata'], 404);
     }
 }

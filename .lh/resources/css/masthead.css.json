@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 46,
+            "activePatchIndex": 86,
             "patches": [
                 {
                     "date": 1718889589964,
@@ -192,6 +192,166 @@
                 {
                     "date": 1719497568000,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,37 +26,6 @@\n     min-height: 30px !important; \n }\n \n .excursion-img {\n-    width: 90%;\n-}\n-.carousel-item {\n-    height: 70vh;\n-    min-height: 400px;\n-    background: no-repeat center center scroll;\n-    -webkit-background-size: cover;\n-    -moz-background-size: cover;\n-    -o-background-size: cover;\n-    background-size: cover;\n-}\n-\n-.service {\n-    width: 100%;\n-    height: 100% !important;\n-    padding: 0px;\n-    min-height: 450px !important; \n-}\n-\n-.service-img {\n-    height: 30vh;\n-}\n-\n-.excursion {\n-    /* width: 50%; */\n-    height: 80vh !important;\n-    padding: 0px;\n-    min-height: 30px !important; \n-}\n-\n-.excursion-img {\n-    width: 90%;\n+    width: 80%;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719905913934,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n .service {\n     width: 100%;\n     height: 100% !important;\n     padding: 0px;\n-    min-height: 450px !important; \n+    min-height: 500px !important; \n }\n \n .service-img {\n     height: 30vh;\n@@ -26,6 +26,6 @@\n     min-height: 30px !important; \n }\n \n .excursion-img {\n-    width: 80%;\n+    width: 85%;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719905942039,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,8 +16,9 @@\n }\n \n .service-img {\n     height: 30vh;\n+    max\n }\n \n .excursion {\n     /* width: 50%; */\n"
+                },
+                {
+                    "date": 1719905948405,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n }\n \n .service-img {\n     height: 30vh;\n-    max\n+    max-height: 400px;\n }\n \n .excursion {\n     /* width: 50%; */\n"
+                },
+                {
+                    "date": 1719905964155,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -16,9 +16,9 @@\n }\n \n .service-img {\n     height: 30vh;\n-    max-height: 400px;\n+    max-height: 300px;\n }\n \n .excursion {\n     /* width: 50%; */\n"
+                },
+                {
+                    "date": 1719905986743,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n }\n \n .excursion {\n     /* width: 50%; */\n-    height: 80vh !important;\n+    height: 50vh !important;\n     padding: 0px;\n     min-height: 30px !important; \n }\n \n"
+                },
+                {
+                    "date": 1719906013970,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -27,6 +27,6 @@\n     min-height: 30px !important; \n }\n \n .excursion-img {\n-    width: 85%;\n+    \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719906044807,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,12 +21,12 @@\n }\n \n .excursion {\n     /* width: 50%; */\n-    height: 50vh !important;\n+    height: 100% !important;\n     padding: 0px;\n     min-height: 30px !important; \n }\n \n .excursion-img {\n-    \n+    height: 30vh;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719906053069,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n }\n \n .excursion {\n     /* width: 50%; */\n-    height: 100% !important;\n+    height: 50% !important;\n     padding: 0px;\n     min-height: 30px !important; \n }\n \n"
+                },
+                {
+                    "date": 1719906060992,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n }\n \n .excursion {\n     /* width: 50%; */\n-    height: 50% !important;\n+    height: 40 !important;\n     padding: 0px;\n     min-height: 30px !important; \n }\n \n"
+                },
+                {
+                    "date": 1719906066378,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n }\n \n .excursion {\n     /* width: 50%; */\n-    height: 40 !important;\n+    height: 30% !important;\n     padding: 0px;\n     min-height: 30px !important; \n }\n \n"
+                },
+                {
+                    "date": 1719906073792,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n }\n \n .excursion {\n     /* width: 50%; */\n-    height: 30% !important;\n+    height: 20% !important;\n     padding: 0px;\n     min-height: 30px !important; \n }\n \n"
+                },
+                {
+                    "date": 1719906079577,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n }\n \n .excursion {\n     /* width: 50%; */\n-    height: 20% !important;\n+    height:  !important;\n     padding: 0px;\n     min-height: 30px !important; \n }\n \n"
+                },
+                {
+                    "date": 1719906089836,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n }\n \n .excursion {\n     /* width: 50%; */\n-    height:  !important;\n+    /* height: 100% !important; */\n     padding: 0px;\n     min-height: 30px !important; \n }\n \n"
+                },
+                {
+                    "date": 1719906143461,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n }\n \n .excursion {\n     /* width: 50%; */\n-    /* height: 100% !important; */\n+    height: 100% !important;\n     padding: 0px;\n     min-height: 30px !important; \n }\n \n"
+                },
+                {
+                    "date": 1719906151804,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n     max-height: 300px;\n }\n \n .excursion {\n-    /* width: 50%; */\n+    width: 50%;\n     height: 100% !important;\n     padding: 0px;\n     min-height: 30px !important; \n }\n"
+                },
+                {
+                    "date": 1719906157071,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n     max-height: 300px;\n }\n \n .excursion {\n-    width: 50%;\n+    width: 10%;\n     height: 100% !important;\n     padding: 0px;\n     min-height: 30px !important; \n }\n"
+                },
+                {
+                    "date": 1719906181598,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,12 +20,12 @@\n     max-height: 300px;\n }\n \n .excursion {\n-    width: 10%;\n+    width: 100%;\n     height: 100% !important;\n     padding: 0px;\n-    min-height: 30px !important; \n+    min-height: px !important; \n }\n \n .excursion-img {\n     height: 30vh;\n"
+                },
+                {
+                    "date": 1719906204555,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,11 +21,11 @@\n }\n \n .excursion {\n     width: 100%;\n-    height: 100% !important;\n+    height: 00% !important;\n     padding: 0px;\n-    min-height: px !important; \n+    min-height: 500px !important; \n }\n \n .excursion-img {\n     height: 30vh;\n"
+                },
+                {
+                    "date": 1719906214739,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n }\n \n .excursion {\n     width: 100%;\n-    height: 00% !important;\n+    height: 0% !important;\n     padding: 0px;\n     min-height: 500px !important; \n }\n \n"
+                },
+                {
+                    "date": 1719906221065,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n }\n \n .excursion {\n     width: 100%;\n-    height: 0% !important;\n+    height: 30vh !important;\n     padding: 0px;\n     min-height: 500px !important; \n }\n \n"
+                },
+                {
+                    "date": 1719906261787,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,5 +28,6 @@\n }\n \n .excursion-img {\n     height: 30vh;\n+    \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719906268284,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -28,6 +28,5 @@\n }\n \n .excursion-img {\n     height: 30vh;\n-    \n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719906302554,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n }\n \n .excursion {\n     width: 100%;\n-    height: 30vh !important;\n+    height: 40vh !important;\n     padding: 0px;\n     min-height: 500px !important; \n }\n \n"
+                },
+                {
+                    "date": 1719906322087,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n .excursion {\n     width: 100%;\n     height: 40vh !important;\n     padding: 0px;\n-    min-height: 500px !important; \n+    min-height: 600px !important; \n }\n \n .excursion-img {\n     height: 30vh;\n"
+                },
+                {
+                    "date": 1719906329269,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n .excursion {\n     width: 100%;\n     height: 40vh !important;\n     padding: 0px;\n-    min-height: 600px !important; \n+    min-height: 550px !important; \n }\n \n .excursion-img {\n     height: 30vh;\n"
+                },
+                {
+                    "date": 1719906345178,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n .service {\n     width: 100%;\n     height: 100% !important;\n     padding: 0px;\n-    min-height: 500px !important; \n+    min-height: 550px !important; \n }\n \n .service-img {\n     height: 30vh;\n"
+                },
+                {
+                    "date": 1719907392143,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n .carousel-item {\n     height: 70vh;\n     min-height: 100px;\n-    background: no-repeat center center scroll;\n+    /* background: no-repeat center center scroll; */\n     -webkit-background-size: cover;\n     -moz-background-size: cover;\n     -o-background-size: cover;\n     background-size: cover;\n"
+                },
+                {
+                    "date": 1719916447086,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n .carousel-item {\n-    height: 70vh;\n+    height: 30vh;\n     min-height: 100px;\n-    /* background: no-repeat center center scroll; */\n+    background: no-repeat center center scroll;\n     -webkit-background-size: cover;\n     -moz-background-size: cover;\n     -o-background-size: cover;\n     background-size: cover;\n"
+                },
+                {
+                    "date": 1719916457064,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n .carousel-item {\n-    height: 30vh;\n+    height: 70vh;\n     min-height: 100px;\n     background: no-repeat center center scroll;\n     -webkit-background-size: cover;\n     -moz-background-size: cover;\n"
+                },
+                {
+                    "date": 1719916484298,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,33 @@\n+.carousel-item {\n+    height: 70vh;\n+    min-height: 100px;\n+    background: no-repeat center center scroll;\n+    background: no;\n+    -webkit-background-size: cover;\n+    -moz-background-size: cover;\n+    -o-background-size: cover;\n+    background-size: cover;\n+}\n+\n+.service {\n+    width: 100%;\n+    height: 100% !important;\n+    padding: 0px;\n+    min-height: 550px !important; \n+}\n+\n+.service-img {\n+    height: 30vh;\n+    max-height: 300px;\n+}\n+\n+.excursion {\n+    width: 100%;\n+    height: 40vh !important;\n+    padding: 0px;\n+    min-height: 550px !important; \n+}\n+\n+.excursion-img {\n+    height: 30vh;\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719916490477,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n .carousel-item {\n     height: 70vh;\n     min-height: 100px;\n     background: no-repeat center center scroll;\n-    background: no;\n+    background: no-repeat ce;\n     -webkit-background-size: cover;\n     -moz-background-size: cover;\n     -o-background-size: cover;\n     background-size: cover;\n@@ -29,37 +29,5 @@\n }\n \n .excursion-img {\n     height: 30vh;\n-}\n-.carousel-item {\n-    height: 70vh;\n-    min-height: 100px;\n-    background: no-repeat center center scroll;\n-    -webkit-background-size: cover;\n-    -moz-background-size: cover;\n-    -o-background-size: cover;\n-    background-size: cover;\n-}\n-\n-.service {\n-    width: 100%;\n-    height: 100% !important;\n-    padding: 0px;\n-    min-height: 550px !important; \n-}\n-\n-.service-img {\n-    height: 30vh;\n-    max-height: 300px;\n-}\n-\n-.excursion {\n-    width: 100%;\n-    height: 40vh !important;\n-    padding: 0px;\n-    min-height: 550px !important; \n-}\n-\n-.excursion-img {\n-    height: 30vh;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719916499158,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,8 @@\n .carousel-item {\n     height: 70vh;\n     min-height: 100px;\n     background: no-repeat center center scroll;\n-    background: no-repeat ce;\n     -webkit-background-size: cover;\n     -moz-background-size: cover;\n     -o-background-size: cover;\n     background-size: cover;\n"
+                },
+                {
+                    "date": 1719916980210,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,33 @@\n+.carousel-item {\n+    height: 70vh;\n+    min-height: 100px;\n+    background: no-repeat center center scroll;\n+    background-position: 0 0;\n+    -webkit-background-size: cover;\n+    -moz-background-size: cover;\n+    -o-background-size: cover;\n+    background-size: cover;\n+}\n+\n+.service {\n+    width: 100%;\n+    height: 100% !important;\n+    padding: 0px;\n+    min-height: 550px !important; \n+}\n+\n+.service-img {\n+    height: 30vh;\n+    max-height: 300px;\n+}\n+\n+.excursion {\n+    width: 100%;\n+    height: 40vh !important;\n+    padding: 0px;\n+    min-height: 550px !important; \n+}\n+\n+.excursion-img {\n+    height: 30vh;\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719917036354,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n .carousel-item {\n     height: 70vh;\n     min-height: 100px;\n-    background: no-repeat center center scroll;\n-    background-position: 0 0;\n+    /* background: no-repeat center center scroll; */\n+    background-position: center;\n     -webkit-background-size: cover;\n     -moz-background-size: cover;\n     -o-background-size: cover;\n     background-size: cover;\n@@ -29,37 +29,5 @@\n }\n \n .excursion-img {\n     height: 30vh;\n-}\n-.carousel-item {\n-    height: 70vh;\n-    min-height: 100px;\n-    background: no-repeat center center scroll;\n-    -webkit-background-size: cover;\n-    -moz-background-size: cover;\n-    -o-background-size: cover;\n-    background-size: cover;\n-}\n-\n-.service {\n-    width: 100%;\n-    height: 100% !important;\n-    padding: 0px;\n-    min-height: 550px !important; \n-}\n-\n-.service-img {\n-    height: 30vh;\n-    max-height: 300px;\n-}\n-\n-.excursion {\n-    width: 100%;\n-    height: 40vh !important;\n-    padding: 0px;\n-    min-height: 550px !important; \n-}\n-\n-.excursion-img {\n-    height: 30vh;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719917053316,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n .carousel-item {\n     height: 70vh;\n     min-height: 100px;\n-    /* background: no-repeat center center scroll; */\n+    background: no-repeat center center scroll;\n     background-position: center;\n     -webkit-background-size: cover;\n     -moz-background-size: cover;\n     -o-background-size: cover;\n"
+                },
+                {
+                    "date": 1719917097700,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,34 @@\n+.carousel-item {\n+    height: 70vh;\n+    min-height: 100px;\n+    background: no-repeat center center scroll;\n+    -webkit-background-size: cover;\n+    -moz-background-size: cover;\n+    -o-background-size: cover;\n+    background-size: cover;\n+}\n+\n+img\n+\n+.service {\n+    width: 100%;\n+    height: 100% !important;\n+    padding: 0px;\n+    min-height: 550px !important; \n+}\n+\n+.service-img {\n+    height: 30vh;\n+    max-height: 300px;\n+}\n+\n+.excursion {\n+    width: 100%;\n+    height: 40vh !important;\n+    padding: 0px;\n+    min-height: 550px !important; \n+}\n+\n+.excursion-img {\n+    height: 30vh;\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719917104015,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n     -o-background-size: cover;\n     background-size: cover;\n }\n \n-img\n+.img_car\n \n .service {\n     width: 100%;\n     height: 100% !important;\n@@ -30,38 +30,5 @@\n }\n \n .excursion-img {\n     height: 30vh;\n-}\n-.carousel-item {\n-    height: 70vh;\n-    min-height: 100px;\n-    background: no-repeat center center scroll;\n-    background-position: center;\n-    -webkit-background-size: cover;\n-    -moz-background-size: cover;\n-    -o-background-size: cover;\n-    background-size: cover;\n-}\n-\n-.service {\n-    width: 100%;\n-    height: 100% !important;\n-    padding: 0px;\n-    min-height: 550px !important; \n-}\n-\n-.service-img {\n-    height: 30vh;\n-    max-height: 300px;\n-}\n-\n-.excursion {\n-    width: 100%;\n-    height: 40vh !important;\n-    padding: 0px;\n-    min-height: 550px !important; \n-}\n-\n-.excursion-img {\n-    height: 30vh;\n }\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1719917112087,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,11 @@\n     -o-background-size: cover;\n     background-size: cover;\n }\n \n-.img_car\n+.img_car {\n+    bg\n+}\n \n .service {\n     width: 100%;\n     height: 100% !important;\n"
+                },
+                {
+                    "date": 1719917117183,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n     background-size: cover;\n }\n \n .img_car {\n-    bgp\n+    background-position: center 0;\n }\n \n .service {\n     width: 100%;\n"
+                },
+                {
+                    "date": 1719919346651,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,11 @@\n     -moz-background-size: cover;\n     -o-background-size: cover;\n     background-size: cover;\n }\n-.img\n+.img_car {\n+    \n+}\n .service {\n     width: 100%;\n     height: 100% !important;\n     padding: 0px;\n"
                 }
             ],
             "date": 1718889589964,

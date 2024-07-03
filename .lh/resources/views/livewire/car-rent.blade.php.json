@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 11,
+            "activePatchIndex": 14,
             "patches": [
                 {
                     "date": 1719242324662,
@@ -52,6 +52,18 @@
                 {
                     "date": 1719840750791,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -73,9 +73,9 @@\n                 @foreach ($cars as $car)\n                     <div\n                         class=\"form-check border rounded mb-3 @if (!$car->isAvailable) bg-c @endif row d-flex justify-content-between align-items-center\">\n                         <div class=\"col-1\">\n-                            <input wire:model.live=\"carID\" value=\"{{ $car->id }}\" class=\"form-check-input \"\n+                            <input wire:model.live=\"carID\" value=\"{{ $car->id }}\" class=\"form-check-input\"\n                                 type=\"radio\" name=\"flexRadioDefault\" id=\"car{{ $car->id }}\"\n                                 @if (!$car->isAvailable) disabled @endif>\n                         </div>\n                         <div class=\"col-3 p-1 my-auto\">\n"
+                },
+                {
+                    "date": 1720001276595,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,9 +78,9 @@\n                                 type=\"radio\" name=\"flexRadioDefault\" id=\"car{{ $car->id }}\"\n                                 @if (!$car->isAvailable) disabled @endif>\n                         </div>\n                         <div class=\"col-3 p-1 my-auto\">\n-                            <img width=\"80px\" src=\"{{ Storage::url($car->img) }}\" alt=\"\">\n+                            <img width=\"80px\" src=\"{{ Storage::url($car->imgages) }}\" alt=\"\">\n                         </div>\n                         <div class=\"col-4 text-center text-md-start d-flex flex-column\">\n                             <p class=\"m-1 h6\">{{ $car->name }}</p>\n                             <p><small>{{ $car->description }}</small></p>\n"
+                },
+                {
+                    "date": 1720001284191,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,9 +78,9 @@\n                                 type=\"radio\" name=\"flexRadioDefault\" id=\"car{{ $car->id }}\"\n                                 @if (!$car->isAvailable) disabled @endif>\n                         </div>\n                         <div class=\"col-3 p-1 my-auto\">\n-                            <img width=\"80px\" src=\"{{ Storage::url($car->imgages) }}\" alt=\"\">\n+                            <img width=\"80px\" src=\"{{ Storage::url($car->images[]) }}\" alt=\"\">\n                         </div>\n                         <div class=\"col-4 text-center text-md-start d-flex flex-column\">\n                             <p class=\"m-1 h6\">{{ $car->name }}</p>\n                             <p><small>{{ $car->description }}</small></p>\n"
+                },
+                {
+                    "date": 1720001289948,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,9 +78,9 @@\n                                 type=\"radio\" name=\"flexRadioDefault\" id=\"car{{ $car->id }}\"\n                                 @if (!$car->isAvailable) disabled @endif>\n                         </div>\n                         <div class=\"col-3 p-1 my-auto\">\n-                            <img width=\"80px\" src=\"{{ Storage::url($car->images[]) }}\" alt=\"\">\n+                            <img width=\"80px\" src=\"{{ Storage::url($car->images[0]->path) }}\" alt=\"\">\n                         </div>\n                         <div class=\"col-4 text-center text-md-start d-flex flex-column\">\n                             <p class=\"m-1 h6\">{{ $car->name }}</p>\n                             <p><small>{{ $car->description }}</small></p>\n"
                 }
             ],
             "date": 1719242324662,

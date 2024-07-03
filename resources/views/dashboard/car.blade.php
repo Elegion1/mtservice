@@ -17,15 +17,18 @@
                 </div>
                 <div class="mb-3 col-3">
                     <label for="description" class="form-label">Descrizione</label>
-                    <input type="text" class="form-control form_input_focused" id="description" name="description" required>
-                </div>
-                <div class="mb-3 col-3">
-                    <label for="img" class="form-label">Immagine</label>
-                    <input type="file" class="form-control form_input_focused" id="img" name="img" required>
+                    <input type="text" class="form-control form_input_focused" id="description" name="description"
+                        required>
                 </div>
                 <div class="mb-3 col-3">
                     <label for="price" class="form-label">Prezzo</label>
-                    <input type="number" class="form-control form_input_focused" id="price" name="price" required>
+                    <input type="number" class="form-control form_input_focused" id="price" name="price"
+                        required>
+                </div>
+                <div class="mb-3 col-3">
+                    <label for="images" class="form-label">Immagini</label>
+                    <input type="file" class="form-control form_input_focused" id="images" name="images[]"
+                        multiple>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Aggiungi Auto</button>
@@ -52,16 +55,17 @@
                         <td>{{ $car->name }}</td>
                         <td>{{ $car->description }}</td>
                         <td>
-                            <img src="{{ Storage::url($car->img) }}" alt="{{ $car->name }}" width="50">
+                            @foreach ($car->images as $image)
+                                <img src="{{ Storage::url($image->path) }}" alt="{{ $car->name }}"
+                                    width="50px">
+                            @endforeach
                         </td>
                         <td>{{ $car->price }} €</td>
                         <td>{{ $car->created_at }}</td>
                         <td>{{ $car->updated_at }}</td>
                         <td>
-                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editCarModal"
-                                data-id="{{ $car->id }}" data-name="{{ $car->name }}"
-                                data-description="{{ $car->description }}"
-                                data-price="{{ $car->price }}">Modifica</button>
+                            <button class="btn btn-warning btn-sm edit-open-details-modal" data-bs-toggle="modal"
+                                data-bs-target="#editCarModal" data-car="{{ json_encode($car) }}">Modifica</button>
                             <form action="{{ route('cars.destroy', $car) }}" method="POST"
                                 style="display:inline-block;">
                                 @csrf
@@ -89,21 +93,29 @@
                         @method('PUT')
                         <div class="mb-3">
                             <label for="edit_name" class="form-label">Nome Auto</label>
-                            <input type="text" class="form-control form_input_focused" id="edit_name" name="name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit_description" class="form-label">Descrizione</label>
-                            <input type="text" class="form-control form_input_focused" id="edit_description" name="description"
+                            <input type="text" class="form-control form_input_focused" id="edit_name" name="name"
                                 required>
                         </div>
                         <div class="mb-3">
-                            <label for="edit_img" class="form-label">Immagine</label>
-                            <input type="file" class="form-control form_input_focused" id="edit_img" name="img">
-                            <img id="current_img" src="" alt="" width="100" class="mt-2">
+                            <label for="edit_description" class="form-label">Descrizione</label>
+                            <input type="text" class="form-control form_input_focused" id="edit_description"
+                                name="description" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_price" class="form-label">Prezzo</label>
-                            <input type="number" class="form-control form_input_focused" id="edit_price" name="price" required>
+                            <input type="number" class="form-control form_input_focused" id="edit_price" name="price"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_images" class="form-label">Aggiungi nuove immagini</label>
+                            <input type="file" class="form-control form_input_focused" id="edit_images"
+                                name="images[]" multiple>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit_current_images" class="form-label">Immagini Caricate</label>
+                            <div id="edit-current-images">
+                                <!-- Anteprime delle immagini esistenti verranno aggiunte qui -->
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Salva Modifiche</button>
                     </form>
@@ -112,25 +124,74 @@
         </div>
     </div>
 
+    <!-- JavaScript per gestire il modale di modifica -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var editCarModal = document.getElementById('editCarModal');
-            editCarModal.addEventListener('show.bs.modal', function(event) {
-                var button = event.relatedTarget;
-                var id = button.getAttribute('data-id');
-                var name = button.getAttribute('data-name');
-                var description = button.getAttribute('data-description');
-                var price = button.getAttribute('data-price');
+        document.addEventListener("DOMContentLoaded", function() {
+            // Funzione per mostrare le anteprime delle immagini esistenti nel modale di modifica
+            function showCurrentImages(images) {
+                const currentImagesDiv = document.getElementById('edit-current-images');
+                currentImagesDiv.innerHTML = '';
 
-                var modal = this;
-                modal.querySelector('#edit_name').value = name;
-                modal.querySelector('#edit_description').value = description;
-                modal.querySelector('#edit_price').value = price;
-                modal.querySelector('#current_img').src = button.getAttribute('data-img');
+                images.forEach(image => {
+                    const imgDiv = document.createElement('div');
+                    imgDiv.classList.add('current-image');
+                    imgDiv.innerHTML = `
+                        <img src="{{ asset('storage') }}/${image.path}" alt="Immagine" width="100" class="img-thumbnail m-1">
+                        <button type="button" class="btn btn-danger btn-sm remove-image" data-image-id="${image.id}">Elimina</button>
+                    `;
+                    currentImagesDiv.appendChild(imgDiv);
+                });
+            }
 
-                var form = modal.querySelector('#editCarForm');
-                form.action = '{{ url('dashboard/cars') }}/' + id;
+            // Aggiungi evento al click dei pulsanti "Modifica" per popolare il modale
+            document.querySelectorAll('.edit-open-details-modal').forEach(button => {
+                button.addEventListener('click', () => {
+                    const car = JSON.parse(button.getAttribute('data-car'));
+
+                    // Popola il form nel modale di modifica con i dati del car selezionato
+                    const form = document.getElementById('editCarForm');
+                    form.action = `/dashboard/cars/${car.id}`;
+                    form.querySelector('#edit_name').value = car.name;
+                    form.querySelector('#edit_description').value = car.description;
+                    form.querySelector('#edit_price').value = car.price;
+
+                    // Mostra le immagini esistenti nel modale di modifica
+                    showCurrentImages(car.images);
+
+                    // Mostra il modale di modifica
+                    const modal = new bootstrap.Modal(document.getElementById('editCarModal'));
+                    modal.show();
+                });
+            });
+
+            // Gestione del click sul pulsante "Elimina" immagine nel modale di modifica
+            document.getElementById('edit-current-images').addEventListener('click', (event) => {
+                if (event.target.classList.contains('remove-image')) {
+                    const imageId = event.target.getAttribute('data-image-id');
+
+                    // Invia una richiesta DELETE al server per eliminare l'immagine
+                    fetch(`/dashboard/images/${imageId}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Rimuovi visivamente l'anteprima dell'immagine eliminata
+                                event.target.closest('.current-image').remove();
+                            } else {
+                                // Gestisci errori o situazioni in cui l'eliminazione non è riuscita
+                                console.error(data.error);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Errore durante l\'eliminazione dell\'immagine:', error);
+                        });
+                }
             });
         });
     </script>
+
 </x-dashboard-layout>

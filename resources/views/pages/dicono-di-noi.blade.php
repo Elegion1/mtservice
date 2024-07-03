@@ -24,7 +24,7 @@
                 </p>
                 <div class="container">
                     <div class="row d-flex justify-content-center">
-                        @foreach ($reviews as $review)
+                        @foreach ($reviewsP as $review)
                             <div class="col-12 col-md-3 my-3 mx-3 p-3 border rounded">
                                 <p class="h5">{{ $review->title }}</p>
                                 <p>{{ $review->body }}</p>
@@ -41,7 +41,7 @@
                             </div>
                         @endforeach
                         <div class="d-flex justify-content-center align-items-center mt-4">
-                            {{ $reviews->links('vendor.pagination.bootstrap-5') }}
+                            {{ $reviewsP->links('vendor.pagination.bootstrap-5') }}
                         </div>
                     </div>
                 </div>

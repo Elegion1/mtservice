@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Page;
 use App\Models\Route;
 use App\Models\Review;
+use App\Models\Content;
 use App\Models\Partner;
 use App\Models\Service;
 use App\Models\Excursion;
@@ -55,18 +56,28 @@ class ViewServiceProvider extends ServiceProvider
         }
 
         if (Review::count() > 0) {
-            $reviews = Review::paginate(6);
+            $reviewsP = Review::paginate(6);
+            View::share('reviewsP', $reviewsP);
+        }
+
+        if (Review::count() > 0) {
+            $reviews = Review::all();
             View::share('reviews', $reviews);
         }
 
-        if(OwnerData::count()>0) {
+        if (OwnerData::count() > 0) {
             $ownerdata = OwnerData::first();
             View::share('ownerdata', $ownerdata);
         }
 
-        if(Page::count()>0) {
+        if (Page::count() > 0) {
             $pages = Page::orderBy('order')->get();
             View::share('pages', $pages);
+        }
+
+        if (Content::count() > 0) {
+            $contents = Content::all();
+            View::share('contents', $contents);
         }
     }
 }

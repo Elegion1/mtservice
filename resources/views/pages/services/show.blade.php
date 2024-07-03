@@ -8,8 +8,8 @@
                     <p>{{ $service->subtitleSec }}</p>
                     <p class="text-secondary small">{{ $service->abstract }}</p>
                     <p>{{ $service->body }}</p>
-                    <a class="small" href="{{ $service->links }}">{{ $service->links }}</a>
                     <p class="small">{{ $service->condition }}</p>
+                    <a class="small" target="__blank" href="{{ $service->links }}">Vai al sito</a>
                 </div>
             </div>
             <div class="col-12 col-md-6">

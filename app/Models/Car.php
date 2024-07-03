@@ -11,7 +11,12 @@ class Car extends Model
     protected $fillable = [
         'name',
         'description',
-        'img',
         'price'
     ];
+
+
+    public function images()
+    {
+        return $this->hasMany(Image::class);
+    }
 }

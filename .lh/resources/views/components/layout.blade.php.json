@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 9,
+            "activePatchIndex": 11,
             "patches": [
                 {
                     "date": 1719229781559,
@@ -44,6 +44,14 @@
                 {
                     "date": 1719512973912,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,29 @@\n+<!DOCTYPE html>\n+<html lang=\"en\">\n+\n+<head>\n+    <meta charset=\"UTF-8\">\n+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n+    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n+    <title>TRANCHIDA Transfer & Rent</title>\n+    @vite(['resources/css/app.css', 'resources/js/app.js'])\n+\n+</head>\n+\n+<body>\n+    <x-nav />\n+    <x-masthead />\n+\n+    <div class=\"position-absolute masthead-position\">\n+        <div class=\"container-fluid\">\n+            <x-display-error />\n+            <x-display-message />\n+            {{ $slot }}\n+        </div>\n+        <x-footer />\n+    </div>\n+    \n+\n+</body>\n+\n+</html>\n"
+                },
+                {
+                    "date": 1719921088795,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     <x-nav />\n     <x-masthead />\n \n     <div class=\"position-absolute masthead-position\">\n-        <div class=\"container-fluid\">\n+        <div class=\"container-fluid \">\n             <x-display-error />\n             <x-display-message />\n             {{ $slot }}\n         </div>\n@@ -26,34 +26,4 @@\n \n </body>\n \n </html>\n-<!DOCTYPE html>\n-<html lang=\"en\">\n-\n-<head>\n-    <meta charset=\"UTF-8\">\n-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n-    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\n-    <title>TRANCHIDA Transfer & Rent</title>\n-    @vite(['resources/css/app.css', 'resources/js/app.js'])\n-\n-</head>\n-\n-<body>\n-    <x-nav />\n-    <x-masthead />\n-\n-    <div class=\"position-absolute masthead-position\">\n-        <div class=\"container-fluid\">\n-            <x-display-error />\n-            <x-display-message />\n-            {{ $slot }}\n-        </div>\n-        <x-footer />\n-    </div>\n-    <div class=\"altezza\"></div>\n-    \n-\n-</body>\n-\n-</html>\n"
+                },
+                {
+                    "date": 1719921096921,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     <x-nav />\n     <x-masthead />\n \n     <div class=\"position-absolute masthead-position\">\n-        <div class=\"container-fluid \">\n+        <div class=\"container-fluid\">\n             <x-display-error />\n             <x-display-message />\n             {{ $slot }}\n         </div>\n"
                 }
             ],
             "date": 1719229781559,

@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 41,
+            "activePatchIndex": 42,
             "patches": [
                 {
                     "date": 1719223834826,
@@ -172,6 +172,10 @@
                 {
                     "date": 1719842842483,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -24,9 +24,9 @@\n                 </p>\n                 <div class=\"container\">\n                     <div class=\"row d-flex justify-content-center\">\n                         @foreach ($reviews as $review)\n-                            <div class=\"col-md-3 my-3 mx-3 p-3 border rounded\">\n+                            <div class=\"col-12 col-md-3 my-3 mx-3 p-3 border rounded\">\n                                 <p class=\"h5\">{{ $review->title }}</p>\n                                 <p>{{ $review->body }}</p>\n                                 <p>\n                                     <small>\n"
+                },
+                {
+                    "date": 1719926039245,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -23,9 +23,9 @@\n                     <strong class=\"text-uppercase\">Alcune recensioni</strong>\n                 </p>\n                 <div class=\"container\">\n                     <div class=\"row d-flex justify-content-center\">\n-                        @foreach ($reviews as $review)\n+                        @foreach ($reviewsP as $review)\n                             <div class=\"col-12 col-md-3 my-3 mx-3 p-3 border rounded\">\n                                 <p class=\"h5\">{{ $review->title }}</p>\n                                 <p>{{ $review->body }}</p>\n                                 <p>\n"
                 }
             ],
             "date": 1719223834826,

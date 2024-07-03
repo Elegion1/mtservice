@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 25,
+            "activePatchIndex": 28,
             "patches": [
                 {
                     "date": 1719405044352,
@@ -108,6 +108,18 @@
                 {
                     "date": 1719410711675,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,9 @@\n <?php\n \n namespace App\\Http\\Controllers;\n \n+use App\\Models\\Page;\n use App\\Models\\Image;\n use App\\Models\\Content;\n use Illuminate\\Http\\Request;\n use Illuminate\\Support\\Facades\\Storage;\n"
+                },
+                {
+                    "date": 1719914474172,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -31,9 +31,10 @@\n     /**\n      * Store a newly created resource in storage.\n      */\n     public function store(Request $request)\n-    {\n+    {   \n+        \n         $content = Content::create($request->all());\n \n         if ($request->hasFile('images')) {\n             foreach ($request->file('images') as $file) {\n"
+                },
+                {
+                    "date": 1719914479904,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -32,9 +32,9 @@\n      * Store a newly created resource in storage.\n      */\n     public function store(Request $request)\n     {   \n-        dd()\n+        dd($)\n         $content = Content::create($request->all());\n \n         if ($request->hasFile('images')) {\n             foreach ($request->file('images') as $file) {\n"
+                },
+                {
+                    "date": 1719915022947,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,114 @@\n+<?php\n+\n+namespace App\\Http\\Controllers;\n+\n+use App\\Models\\Page;\n+use App\\Models\\Image;\n+use App\\Models\\Content;\n+use Illuminate\\Http\\Request;\n+use Illuminate\\Support\\Facades\\Storage;\n+\n+class ContentController extends Controller\n+{\n+    /**\n+     * Display a listing of the resource.\n+     */\n+    public function index()\n+    {   \n+        $pages = Page::all();\n+        $contents = Content::with('images')->get(); // Carica anche le immagini associate\n+        return view('dashboard.content', compact('contents'));\n+    }\n+\n+    /**\n+     * Show the form for creating a new resource.\n+     */\n+    public function create()\n+    {\n+        //\n+    }\n+\n+    /**\n+     * Store a newly created resource in storage.\n+     */\n+    public function store(Request $request)\n+    {   \n+        $content = Content::create($request->all());\n+\n+        \n+        if ($request->hasFile('images')) {\n+            \n+            foreach ($request->file('images') as $file) {\n+                $path = $file->store('images', 'public');\n+                Image::create([\n+                    'path' => $path,\n+                    'content_id' => $content->id,\n+                ]);\n+            }\n+        }\n+\n+        return redirect()->route('dashboard.content')->with('success', 'Contenuto creato con successo.');\n+    }\n+\n+    /**\n+     * Display the specified resource.\n+     */\n+    public function show(Content $content)\n+    {\n+        //\n+    }\n+\n+    /**\n+     * Show the form for editing the specified resource.\n+     */\n+    public function edit(Content $content)\n+    {\n+        //\n+    }\n+\n+    /**\n+     * Update the specified resource in storage.\n+     */\n+    public function update(Request $request, Content $content)\n+    {\n+        $content->update($request->all());\n+\n+        if ($request->hasFile('images')) {\n+            foreach ($request->file('images') as $file) {\n+                $path = $file->store('images', 'public');\n+                Image::create([\n+                    'path' => $path,\n+                    'content_id' => $content->id,\n+                ]);\n+            }\n+        }\n+\n+        return redirect()->route('dashboard.content')->with('success', 'Contenuto aggiornato con successo.');\n+    }\n+\n+    /**\n+     * Remove the specified resource from storage.\n+     */\n+    public function destroy(Content $content)\n+    {\n+        foreach ($content->images as $image) {\n+            Storage::disk('public')->delete($image->path);\n+            $image->delete();\n+        }\n+        $content->delete();\n+        return redirect()->route('dashboard.content')->with('success', 'Contenuto eliminato con successo.');\n+    }\n+\n+    public function deleteImage($id)\n+    {\n+        $image = Image::find($id);\n+\n+        if ($image) {\n+            Storage::disk('public')->delete($image->path);\n+            $image->delete();\n+            return response()->json(['success' => true]);\n+        }\n+\n+        return response()->json(['success' => false, 'error' => 'Immagine non trovata'], 404);\n+    }\n+}\n"
                 }
             ],
             "date": 1719405044352,

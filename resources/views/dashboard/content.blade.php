@@ -43,17 +43,23 @@
                         <label for="page" class="form-label">Pagina</label>
                         <select id="page" name="page_id" class="form-select form_input_focused" aria-label="Default select example"
                             required>
-                            <option selected>Seleziona una pagina</option>
+                            <option selected >Seleziona una pagina</option>
                             @foreach ($pages as $page)
                                 <option value="{{ $page->id }}">{{ $page->name }}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-4">
                     <div class="mb-3">
                         <label for="links" class="form-label">Links</label>
                         <input type="text" class="form-control form_input_focused" id="links" name="links">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="mb-3">
+                        <label for="order" class="form-label">Ordine</label>
+                        <input type="number" class="form-control form_input_focused" id="order" name="order">
                     </div>
                 </div>
             </div>
@@ -72,6 +78,7 @@
                     <th>Sottotitolo</th>
                     <th>Corpo</th>
                     <th>Links</th>
+                    <th>Ordine</th>
                     <th>Immagini</th>
                     <th>Azioni</th>
                 </tr>
@@ -85,6 +92,7 @@
                         <td>{{ $content->subtitle }}</td>
                         <td>{{ $content->body }}</td>
                         <td>{{ $content->links }}</td>
+                        <td>{{ $content->order }}</td>
                         <td>
                             {{-- @foreach ($content->images as $image)
                                 <img src="{{ asset('storage/' . $image->path) }}" alt="Immagine" width="100">
@@ -143,6 +151,10 @@
                         <div class="mb-3">
                             <label for="links" class="form-label">Links</label>
                             <input type="text" class="form-control form_input_focused" id="links" name="links">
+                        </div>
+                        <div class="mb-3">
+                            <label for="order" class="form-label">Ordine</label>
+                            <input type="number" class="form-control form_input_focused" id="order" name="order">
                         </div>
                         <div class="mb-3">
                             <label for="images" class="form-label">Immagini</label>
@@ -255,6 +267,7 @@
                     form.querySelector('#subtitle').value = content.subtitle;
                     form.querySelector('#body').value = content.body;
                     form.querySelector('#links').value = content.links;
+                    form.querySelector('#order').value = content.order;
 
                     // Mostra le immagini esistenti nel modale
                     const currentImagesDiv = document.getElementById('current-images');

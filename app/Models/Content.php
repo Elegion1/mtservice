@@ -14,6 +14,7 @@ class Content extends Model
         'subtitle',
         'body',
         'links',
+        'order',
         'page_id'
     ];
 

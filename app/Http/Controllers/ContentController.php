@@ -14,7 +14,7 @@ class ContentController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {   
+    {
         $pages = Page::all();
         $contents = Content::with('images')->get(); // Carica anche le immagini associate
         return view('dashboard.content', compact('contents'));
@@ -35,7 +35,9 @@ class ContentController extends Controller
     {
         $content = Content::create($request->all());
 
+
         if ($request->hasFile('images')) {
+
             foreach ($request->file('images') as $file) {
                 $path = $file->store('images', 'public');
                 Image::create([
@@ -73,11 +75,15 @@ class ContentController extends Controller
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
-                $path = $file->store('images', 'public');
-                Image::create([
-                    'path' => $path,
-                    'content_id' => $content->id,
-                ]);
+                if ($file->isValid()) {
+                    $path = $file->store('images', 'public');
+                    Image::create([
+                        'path' => $path,
+                        'content_id' => $content->id,
+                    ]);
+                } else {
+                    return back()->withErrors(['msg' => 'Errore nel caricamento del file: ' . $file->getErrorMessage()]);
+                }
             }
         }
 

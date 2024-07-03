@@ -28,6 +28,9 @@ return new class extends Migration
 
             $table->unsignedBigInteger('content_id')->nullable();
             $table->foreign('content_id')->references('id')->on('contents')->onDelete('cascade');
+
+            $table->unsignedBigInteger('car_id')->nullable();
+            $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
             
             $table->string('path')->nullable();
             $table->timestamps();

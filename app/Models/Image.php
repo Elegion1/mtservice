@@ -16,7 +16,8 @@ class Image extends Model
         'excursion_id',
         'partner_id',
         'owner_data_id',
-        'content_id'
+        'content_id',
+        'car_id'
     ];
 
     public function service()
@@ -43,4 +44,12 @@ class Image extends Model
     {
         return $this->belongsTo(OwnerData::class);
     }
+
+    public function car()
+    {
+        return $this->belongsTo(Car::class);
+    }
+    
+
+
 }

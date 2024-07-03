@@ -48,7 +48,7 @@
                                     <p class="h3">{{ $service->title }}</p>
                                     <p class="h6">{{ $service->subtitle }}</p>
                                     <p class="text-b text-wrap ">{{ $service->abstract }}</p>
-                                    <a class="small" href="{{ $service->links }}">Vai al sito</a>
+                                    <a class="small" target="__blank" href="{{ $service->links }}">Vai al sito</a>
                                 </div>
                             </div>
                         </div>

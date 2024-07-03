@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 154,
+            "activePatchIndex": 156,
             "patches": [
                 {
                     "date": 1718895665598,
@@ -624,6 +624,14 @@
                 {
                     "date": 1719510946107,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n             </div>\n             <div class=\"container my-3\">\n                 <x-contact-link />\n             </div>\n-            <div class=\"container-fluid bg-white bg-c rounded p-3\">\n+            <div class=\"container-fluid bg-c rounded p-3\">\n                 <p class=\"h2 text-center\">Le tratte più frequenti</p>\n                 <x-lista-tratte />\n             </div>\n             <div class=\"container-fluid p-3\">\n"
+                },
+                {
+                    "date": 1719906600986,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,26 @@\n+<x-layout>\n+\n+    <div class=\"row\">\n+        <div class=\"col-12 p-0\">\n+            <div class=\"container bg-white rounded p-md-3\">\n+                <livewire:prenotazione />\n+            </div>\n+            <div class=\"container my-3\">\n+                <x-contact-link />\n+            </div>\n+            <div class=\"container-fluid bg-c rounded p-3\">\n+                <p class=\"h2 text-center\">Le tratte più frequenti</p>\n+                <x-lista-tratte />\n+            </div>\n+            <div class=\"container-fluid p-3\">\n+                <h1 class=\"text-center \">I nostri servizi</h1>\n+                <x-services />\n+                <x-cta></x-cta>\n+            </div>\n+            <div class=\"container-fluid bg-c p-3 mt-3\">\n+                <h1 class=\"text-center \">Le nostre escursioni</h1>\n+                <x-excursions />\n+            </div>\n+        </div>\n+    </div>\n+</x-layout>\n"
+                },
+                {
+                    "date": 1719906611911,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,38 +14,12 @@\n             </div>\n             <div class=\"container-fluid p-3\">\n                 <h1 class=\"text-center \">I nostri servizi</h1>\n                 <x-services />\n-                <x-cta></x-cta>\n             </div>\n             <div class=\"container-fluid bg-c p-3 mt-3\">\n                 <h1 class=\"text-center \">Le nostre escursioni</h1>\n                 <x-excursions />\n             </div>\n         </div>\n     </div>\n </x-layout>\n-<x-layout>\n-\n-    <div class=\"row\">\n-        <div class=\"col-12 p-0\">\n-            <div class=\"container bg-white rounded p-md-3\">\n-                <livewire:prenotazione />\n-            </div>\n-            <div class=\"container my-3\">\n-                <x-contact-link />\n-            </div>\n-            <div class=\"container-fluid bg-c rounded p-3\">\n-                <p class=\"h2 text-center\">Le tratte più frequenti</p>\n-                <x-lista-tratte />\n-            </div>\n-            <div class=\"container-fluid p-3\">\n-                <h1 class=\"text-center \">I nostri servizi</h1>\n-                <x-services />\n-            </div>\n-            <div class=\"container-fluid bg-c p-3 mt-3\">\n-                <h1 class=\"text-center \">Le nostre escursioni</h1>\n-                <x-excursions />\n-            </div>\n-        </div>\n-    </div>\n-</x-layout>\n"
                 }
             ],
             "date": 1718895665598,

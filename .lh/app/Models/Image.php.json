@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 24,
+            "activePatchIndex": 27,
             "patches": [
                 {
                     "date": 1719225367946,
@@ -104,6 +104,18 @@
                 {
                     "date": 1719414210931,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,46 @@\n+<?php\n+\n+namespace App\\Models;\n+\n+use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\n+use Illuminate\\Database\\Eloquent\\Model;\n+use Symfony\\Component\\CssSelector\\XPath\\Extension\\FunctionExtension;\n+\n+class Image extends Model\n+{\n+    use HasFactory;\n+\n+    protected $fillable = [\n+        'path',\n+        'service_id',\n+        'excursion_id',\n+        'partner_id',\n+        'owner_data_id',\n+        'cont'\n+    ];\n+\n+    public function service()\n+    {\n+        return $this->belongsTo(Service::class);\n+    }\n+\n+    public function excursion()\n+    {\n+        return $this->belongsTo(Excursion::class);\n+    }\n+\n+    public function partner()\n+    {\n+        return $this->belongsTo(Partner::class);\n+    }\n+\n+    public function content()\n+    {\n+        return $this->belongsTo(Content::class);\n+    }\n+\n+    public function ownerData()\n+    {\n+        return $this->belongsTo(OwnerData::class);\n+    }\n+}\n"
+                },
+                {
+                    "date": 1720000379495,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,9 +15,10 @@\n         'service_id',\n         'excursion_id',\n         'partner_id',\n         'owner_data_id',\n-        'cont'\n+        'content_id',\n+        'car_id'\n     ];\n \n     public function service()\n     {\n@@ -43,49 +44,4 @@\n     {\n         return $this->belongsTo(OwnerData::class);\n     }\n }\n-<?php\n-\n-namespace App\\Models;\n-\n-use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\n-use Illuminate\\Database\\Eloquent\\Model;\n-use Symfony\\Component\\CssSelector\\XPath\\Extension\\FunctionExtension;\n-\n-class Image extends Model\n-{\n-    use HasFactory;\n-\n-    protected $fillable = [\n-        'path',\n-        'service_id',\n-        'excursion_id',\n-        'partner_id',\n-        'owner_data_id'\n-    ];\n-\n-    public function service()\n-    {\n-        return $this->belongsTo(Service::class);\n-    }\n-\n-    public function excursion()\n-    {\n-        return $this->belongsTo(Excursion::class);\n-    }\n-\n-    public function partner()\n-    {\n-        return $this->belongsTo(Partner::class);\n-    }\n-\n-    public function content()\n-    {\n-        return $this->belongsTo(content::class);\n-    }\n-\n-    public function ownerData()\n-    {\n-        return $this->belongsTo(OwnerData::class);\n-    }\n-}\n"
+                },
+                {
+                    "date": 1720000390365,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -44,6 +44,11 @@\n     {\n         return $this->belongsTo(OwnerData::class);\n     }\n \n-    \n+    public function ownerData()\n+    {\n+        return $this->belongsTo(OwnerData::class);\n+    }\n+\n+\n }\n"
+                },
+                {
+                    "date": 1720000414883,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,50 @@\n+<?php\n+\n+namespace App\\Models;\n+\n+use Illuminate\\Database\\Eloquent\\Factories\\HasFactory;\n+use Illuminate\\Database\\Eloquent\\Model;\n+use Symfony\\Component\\CssSelector\\XPath\\Extension\\FunctionExtension;\n+\n+class Image extends Model\n+{\n+    use HasFactory;\n+\n+    protected $fillable = [\n+        'path',\n+        'service_id',\n+        'excursion_id',\n+        'partner_id',\n+        'owner_data_id',\n+        'content_id',\n+        'car_id'\n+    ];\n+\n+    public function service()\n+    {\n+        return $this->belongsTo(Service::class);\n+    }\n+\n+    public function excursion()\n+    {\n+        return $this->belongsTo(Excursion::class);\n+    }\n+\n+    public function partner()\n+    {\n+        return $this->belongsTo(Partner::class);\n+    }\n+\n+    public function content()\n+    {\n+        return $this->belongsTo(Content::class);\n+    }\n+\n+    public function ownerData()\n+    {\n+        return $this->belongsTo(OwnerData::class);\n+    }\n+    \n+\n+\n+}\n"
                 }
             ],
             "date": 1719225367946,
