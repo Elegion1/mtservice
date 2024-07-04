@@ -15,6 +15,7 @@ class Content extends Model
         'body',
         'links',
         'order',
+        'show',
         'page_id'
     ];
 

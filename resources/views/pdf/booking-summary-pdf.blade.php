@@ -97,10 +97,13 @@
 <body>
     <div class="intestazione ">
         <img class="logo-img" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt="">
+        <div>
+            <p>Prenotazione numero: <span class="text-primary">{{$booking['id']}}</span></p>
+        </div>
         <div class="links">
             <p>Chiamaci per info</p>
-            <a href="tel:{{ $ownerdata->phone2 }}">{{ $ownerdata->phone2 }}</a>
-            <a href="tel:{{ $ownerdata->phone3 }}">{{ $ownerdata->phone3 }}</a>
+            <a href="tel:{{ $ownerdata->phone2 }}">Giuseppe</a>
+            <a href="tel:{{ $ownerdata->phone3 }}">Maurizio</a>
         </div>
     </div>
 

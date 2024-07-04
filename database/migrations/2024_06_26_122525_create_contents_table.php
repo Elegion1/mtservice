@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('body')->nullable();
             $table->string('links')->nullable();
             $table->string('order')->nullable();
+            $table->boolean('show')->default(0);
             
             $table->unsignedBigInteger('page_id')->nullable();
             $table->foreign('page_id')->references('id')->on('pages')->onDelete('cascade');

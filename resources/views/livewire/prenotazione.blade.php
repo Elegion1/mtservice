@@ -1,5 +1,5 @@
 <div>
-    <div class="container border_custom">
+    <div class="container">
         <div class="row p-2">
             @if ($isHome)
                 <div class="col-12 d-flex justify-content-center align-items-center p-md-2">

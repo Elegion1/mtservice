@@ -1,6 +1,6 @@
 <x-layout>
-<div class="container bg-white rounded p-3">
-    <h2>Form di Contatto</h2>
+<div class="container bg-white rounded p-3 border_custom">
+    <h2>Contattaci </h2>
     <form action="{{ route('inviaForm') }}" method="POST">
         @csrf <!-- Includi il token CSRF qui -->
         <div class="row">

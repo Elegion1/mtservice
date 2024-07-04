@@ -1,7 +1,7 @@
 <x-layout>
     <div class="row">
         <div class="col-12 col-md-8 ">
-            <div class="container  rounded bg-white">
+            <div class="container rounded bg-white border_custom">
                 <div class="container p-3">
                     <livewire:prenotazione />
                 </div>
@@ -40,7 +40,8 @@
         </div>
 
         <div class="col-12 col-md-4 ">
-            <div id="escursioni" class="container d-flex justify-content-center align-items-center flex-column rounded bg-white">
+            <div id="escursioni"
+                class="container d-flex justify-content-center align-items-center flex-column rounded bg-white">
                 <p class="h2 my-3">Escursioni Sicilia Occidentale </p>
                 @foreach ($excursionsP as $excursion)
                     <div class="card border-0 mb-3" style="max-width: 540px;">
@@ -59,24 +60,28 @@
                                     <h5 class="card-title">{{ $excursion->name }}</h5>
                                     <small>Durata {{ $excursion->duration }}
                                         @if ($excursion->duration == 1)
-                                            ora 
+                                            ora
                                         @else
                                             ore
                                         @endif
-                                        circa</small>
+                                        circa
+                                    </small>
                                     <p class="card-text">{{ $excursion->abstract }}
                                     </p>
                                     <p class="card-text"><small
                                             class="text-body-secondary">{{ $excursion->description }}</small>
                                     </p>
-                                    <p class="card-text">
-                                        <small class="text-body-secondary">A partire da</small>
-                                        {{ $excursion->price }} €
-                                        <span>
-                                            <a class="btn rounded-4 bg-a text-white " href="">Dettagli</a>
-                                            <a class="btn rounded-4 bg-b text-white " href="">Prenota</a>
-                                        </span>
-                                    </p>
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <p class="m-0">
+                                            <small class="text-black">A partire da</small>
+                                            <strong class="fs-4">{{ $excursion->price }} €</strong>
+                                        </p>
+
+                                        <a class="btn rounded-4 bg-a text-white " href="">Dettagli</a>
+                                        {{-- <a class="btn rounded-4 bg-b text-white " href="">Prenota</a> --}}
+
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -74,7 +74,7 @@
                     <div
                         class="form-check border rounded mb-3 @if (!$car->isAvailable) bg-c @endif row d-flex justify-content-between align-items-center">
                         <div class="col-1">
-                            <input wire:model.live="carID" value="{{ $car->id }}" class="form-check-input"
+                            <input wire:model.live="carID" value="{{ $car->id }}" class="form-check-input form_input_focused"
                                 type="radio" name="flexRadioDefault" id="car{{ $car->id }}"
                                 @if (!$car->isAvailable) disabled @endif>
                         </div>
@@ -102,7 +102,7 @@
                 <div class="d-flex justify-content-between mb-3">
                     <input wire:model.live="rentPrice" class="form-control form_input_focused mx-1" type="text"
                         aria-label="readonly input example" readonly>
-                    <button class=" btn bg-a text-white mx-1" type="submit">Prenota</button>
+                    <button class="btn mx-1" type="submit">Prenota</button>
                 </div>
             </div>
         </form>

@@ -2,8 +2,8 @@
 
     <div class="row">
         <div class="col-12 col-md-8">
-            <div class="container bg-white rounded ">
-                <div class="container p-3">
+            <div class="container bg-white rounded border_custom">
+                <div class="container p-3 ">
                     <livewire:prenotazione />
                 </div>
                 <div class="container">

@@ -33,7 +33,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav d-flex align-items-center justify-content-center flex-wrap mx-auto mb-2 mb-lg-0">
                         <x-links>
-                             text-uppercase
+                             text-uppercase 
                         </x-links>
                     </ul>
                     {{-- <form class="d-flex" role="search">

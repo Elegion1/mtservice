@@ -2,13 +2,13 @@
     <div class="container">
         <div class="container-fluid m-0 p-0">
             <h1>Riepilogo Prenotazione</h1>
-            <p>Tipologia: <span class="text_col">{{ ucfirst($bookingData['type']) }}</span></p>
 
             @if ($bookingData['type'] == 'transfer')
-                <p>Da: <span class="text_col">{{ $bookingData['departure_name'] ?? 'N/A' }}</span></p>
-                <p>A: <span class="text_col">{{ $bookingData['arrival_name'] ?? 'N/A' }}</span></p>
-                <p>Data: <span class="text_col">{{ $bookingData['date_departure'] ?? 'N/A' }}</span></p>
-                <p>Ore: <span class="text_col">{{ $bookingData['time_departure'] ?? 'N/A' }}</span></p>
+                <p>Tipologia: <span class="text_col">{{ ucfirst($bookingData['type']) }}</span></p>
+                <p>Da: <span class="text_col">{{ $bookingData['departure_name'] ?? 'N/A' }}</span> A: <span
+                        class="text_col">{{ $bookingData['arrival_name'] ?? 'N/A' }}</span></p>
+                <p>Data: <span class="text_col">{{ $bookingData['date_departure'] ?? 'N/A' }}</span> Ore: <span
+                        class="text_col">{{ $bookingData['time_departure'] ?? 'N/A' }}</span></p>
                 <p>Durata: <span class="text_col">{{ $bookingData['duration'] ?? 'N/A' }}</span> Minuti circa</p>
                 @if (!empty($bookingData['date_ret']))
                     <p>Ritorno: <span class="text_col">{{ $bookingData['date_return'] }}</span> ore <span
@@ -34,14 +34,12 @@
                     <span class="text_col">{{ $bookingData['price'] ?? 'N/A' }} €</span>
                 </p>
             @endif
+            <p class="text-a">Siamo dotati di seggiolini e alzatine per trasporto bimbi da 1 mese a 10
+                anni. Aggiungi la tua richiesta durante la prenotazione.</p>
         </div>
         <form wire:submit.prevent="confirmBooking">
-            <h6 class="text_col">DATI PERSONALI</h6>
+            <h6 class="text-black">DATI PERSONALI</h6>
             <div class="row">
-                <div class="col-12">
-                    <p class="text-a">Siamo dotati di seggiolini e alzatine per trasporto bimbi da 1 mese a 10
-                        anni. Aggiungi la tua richiesta durante la prenotazione.</p>
-                </div>
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="name" class="form-label">Nome</label>
@@ -56,7 +54,8 @@
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="surname" class="form-label">Cognome</label>
-                        <input type="text" class="form-control form_input_focused" id="surname" wire:model="surname">
+                        <input type="text" class="form-control form_input_focused" id="surname"
+                            wire:model="surname">
                         <div class="error-message">
                             @error('surname')
                                 <span class="text-danger error">{{ $message }}</span>
@@ -80,8 +79,8 @@
                 <div class="col-6">
                     <div class="mb-3">
                         <label for="phone" class="form-label">Telefono</label>
-                        <input type="text" class="form-control form_input_focused" id="phone" wire:model="phone" minlength="8"
-                            maxlength="15">
+                        <input type="text" class="form-control form_input_focused" id="phone" wire:model="phone"
+                            minlength="8" maxlength="15">
                         <div class="error-message">
                             @error('phone')
                                 <span class="text-danger error">{{ $message }}</span>

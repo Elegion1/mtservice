@@ -109,10 +109,9 @@
 }
 
 .navbar_toggler_focused:focus {
-    box-shadow: 0px 0px 15px 5px var(--color-a) !important;
-    -webkit-box-shadow: 0px 0px 15px 5px var(--color-a) !important;
-    -moz-box-shadow: 0px 0px 15px 5px var(--color-a) !important;
-    color: var(--color-a) !important;
+    box-shadow: 0px 0px 15px 2px gray !important;
+    -webkit-box-shadow: 0px 0px 15px 2px gray !important;
+    -moz-box-shadow: 0px 0px 15px 2px gray !important;    
 }
 
 .nav-link {
@@ -125,7 +124,6 @@
 
 .active_nav {
     color: var(--color-a) !important;
-    font-weight: bolder;
 }
 
 .active_page {
@@ -147,7 +145,7 @@
 }
 
 .text_col {
-    color: var(--color-a);
+    color: blue;
 }
 
 h1, h2 {
@@ -174,6 +172,7 @@ h1, h2 {
     background-color: var(--color-a);
     border-color: var(--color-a);
 }
+
 
 a:hover {
     transform: scale(0.98);

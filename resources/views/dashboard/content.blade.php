@@ -6,7 +6,7 @@
                 {{ session('success') }}
             </div>
         @endif
-
+            <p class="text-primary">Per inserire l'immagine nel masthead settare l'ordine a 0</p>
         <!-- Form per aggiungere un nuovo contenuto -->
         <form action="{{ route('contents.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -59,9 +59,10 @@
                 <div class="col-2">
                     <div class="mb-3">
                         <label for="order" class="form-label">Ordine</label>
-                        <input type="number" class="form-control form_input_focused" id="order" name="order">
+                        <input type="number" class="form-control form_input_focused" id="order" name="order" value="1">
                     </div>
                 </div>
+                
             </div>
 
             <button type="submit" class="btn btn-primary">Aggiungi Contenuto</button>
@@ -79,6 +80,7 @@
                     <th>Corpo</th>
                     <th>Links</th>
                     <th>Ordine</th>
+                    <th>Mostra</th>
                     <th>Immagini</th>
                     <th>Azioni</th>
                 </tr>
@@ -93,6 +95,13 @@
                         <td>{{ $content->body }}</td>
                         <td>{{ $content->links }}</td>
                         <td>{{ $content->order }}</td>
+                        <td>
+                            @if ($content->show)
+                                Si
+                            @else
+                                No
+                            @endif
+                        </td>
                         <td>
                             {{-- @foreach ($content->images as $image)
                                 <img src="{{ asset('storage/' . $image->path) }}" alt="Immagine" width="100">
@@ -155,6 +164,14 @@
                         <div class="mb-3">
                             <label for="order" class="form-label">Ordine</label>
                             <input type="number" class="form-control form_input_focused" id="order" name="order">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editShow" class="form-label">Mostra</label>
+                            <select name="show" id="editShow" class="form-select"
+                                aria-label="Default select example">
+                                <option value="1">Si</option>
+                                <option value="0">No</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="images" class="form-label">Immagini</label>
@@ -268,6 +285,7 @@
                     form.querySelector('#body').value = content.body;
                     form.querySelector('#links').value = content.links;
                     form.querySelector('#order').value = content.order;
+                    form.querySelector('#editShow').value = page.show ? '1' : '0';
 
                     // Mostra le immagini esistenti nel modale
                     const currentImagesDiv = document.getElementById('current-images');

@@ -2,56 +2,81 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Page;
 use App\Models\Route;
 use App\Models\Review;
 use Illuminate\Http\Request;
 
 class PublicController extends Controller
 {
-    public function home() {
-        return view('welcome');
+    public function home()
+    {
+        $page = Page::where('link', 'home')->with('contents')->firstOrFail();
+        return view('welcome', compact('page'));
     }
 
-    public function dashboard() {
+    public function dashboard()
+    {
         return view('dashboard.index');
     }
 
-    public function noleggio() {
-        return view('pages.noleggio-auto');
+    public function noleggio()
+    {
+        $page = Page::where('link', 'noleggio')->with('contents')->firstOrFail();
+        return view('pages.noleggio-auto', compact('page'));
     }
 
-    public function transfer() {
-        return view('pages.transfer');
+    public function transfer()
+    {
+        $page = Page::where('link', 'transfer')->with('contents')->firstOrFail();
+        return view('pages.transfer', compact('page'));
     }
 
-    public function escursioni() {
-        return view('pages.escursioni');
+    public function escursioni()
+    {
+        $page = Page::where('link', 'escursioni')->with('contents')->firstOrFail();
+        return view('pages.escursioni', compact('page'));
     }
 
-    public function prezziDestinazioni() {        
-        return view('pages.prezzi-destinazioni');
+    public function prezziDestinazioni()
+    {
+        $page = Page::where('link', 'prezziDestinazioni')->with('contents')->firstOrFail();
+        return view('pages.prezzi-destinazioni', compact('page'), compact('page'));
     }
 
-    public function diconoDiNoi() {
-        return view('pages.dicono-di-noi');
+    public function diconoDiNoi()
+    {
+        $page = Page::where('link', 'diconoDiNoi')->with('contents')->firstOrFail();
+        return view('pages.dicono-di-noi', compact('page'));
     }
 
-    public function contattaci() {
-        return view('pages.contattaci');
+    public function contattaci()
+    {
+        $page = Page::where('link', 'contattaci')->with('contents')->firstOrFail();
+        return view('pages.contattaci', compact('page'));
     }
 
-    public function partners() {
-        return view('pages.partners');
+    public function partners()
+    {
+        $page = Page::where('link', 'partners')->with('contents')->firstOrFail();
+        return view('pages.partners', compact('page'));
     }
 
-    public function faq() {
-        return view('pages.faq');
+    public function faq()
+    {
+        $page = Page::where('link', 'faq')->with('contents')->firstOrFail();
+        return view('pages.faq', compact('page'));
     }
+
+
+
 
     // funzione per testare i pdf
 
-    public function pdf() {
+    public function pdf()
+    {
         $booking = [
+            'id' => 1,
             'name' => 'Mario',
             'surname' => 'Rossi',
             'email' => 'mario.rossi@example.com',

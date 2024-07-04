@@ -7,7 +7,7 @@
 
         @foreach ($contents as $content)
             @if ($content->page->link == $currentRoute)
-                @if ($content->images->isNotEmpty())
+                @if ($content->images->isNotEmpty() && $content->order == 0)
                     <img class="img_car" src="{{ Storage::url($content->images->first()->path) }}" alt="">
                     @php
                         $imageDisplayed = true;

@@ -50,14 +50,14 @@
                 </div>
                 <div class="col-6 d-flex flex-column align-items-start justify-content-end ">
                     <div class="form-check">
-                        <input wire:click="setSolaAndata" class="form-check-input" type="radio" name="tripType"
+                        <input wire:click="setSolaAndata" class="form-check-input form_input_focused" type="radio" name="tripType"
                             id="solaAndata" {{ $solaAndata ? 'checked' : '' }}>
                         <label class="form-check-label" for="solaAndata">
                             Andata
                         </label>
                     </div>
                     <div class="form-check">
-                        <input wire:click="setAndataRitorno" class="form-check-input" type="radio" name="tripType"
+                        <input wire:click="setAndataRitorno" class="form-check-input form_input_focused" type="radio" name="tripType"
                             id="andataRitorno" {{ $andataRitorno ? 'checked' : '' }}>
                         <label class="form-check-label" for="andataRitorno">
                             Andata e Ritorno
