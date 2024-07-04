@@ -7,8 +7,8 @@
                     <p class="h5">{{ $service->subtitle }}</p>
                     <p>{{ $service->subtitleSec }}</p>
                     <p class="text-secondary small">{{ $service->abstract }}</p>
-                    <p>{{ $service->body }}</p>
-                    <p class="small">{{ $service->condition }}</p>
+                    <p>{!! $service->body !!}</p>
+                    <p class="small">{!! $service->condition !!}</p>
                     <a class="small" target="__blank" href="{{ $service->links }}">Vai al sito</a>
                 </div>
             </div>

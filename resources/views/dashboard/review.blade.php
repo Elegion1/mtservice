@@ -2,11 +2,7 @@
     <div class="container-fluid mt-5">
         <h1>Gestione Recensioni</h1>
 
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+         
 
         <form action="{{ route('reviews.store') }}" method="POST">
             @csrf

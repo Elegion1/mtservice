@@ -51,6 +51,7 @@ Route::delete('dashboard/destinations/{destination}', [DestinationController::cl
 
 // Gestione escursioni
 Route::get('/dashboard/excursions', [ExcursionController::class, 'index'])->name('dashboard.excursion')->middleware('auth');
+Route::get('/dashboard/excursions/edit/{excursion}', [ExcursionController::class, 'edit'])->name('excursion.edit')->middleware('auth');
 Route::post('dashboard/excursions', [ExcursionController::class, 'store'])->name('excursions.store')->middleware('auth');
 Route::put('dashboard/excursions/{excursion}', [ExcursionController::class, 'update'])->name('excursions.update')->middleware('auth');
 Route::delete('dashboard/excursions/{excursion}', [ExcursionController::class, 'destroy'])->name('excursions.destroy')->middleware('auth');
@@ -80,6 +81,7 @@ Route::delete('/dashboard/contacts/{contact}', [ContactController::class, 'destr
 
 // Gestione servizi
 Route::get('/dashboard/services', [ServiceController::class, 'index'])->name('dashboard.service')->middleware('auth');
+Route::get('/dashboard/services/edit/{service}', [ServiceController::class, 'edit'])->name('service.edit')->middleware('auth');
 Route::post('/dashboard/services', [ServiceController::class, 'store'])->name('services.store')->middleware('auth');
 Route::put('/dashboard/services/{service}', [ServiceController::class, 'update'])->name('services.update')->middleware('auth');
 Route::delete('/dashboard/services/{service}', [ServiceController::class, 'destroy'])->name('services.destroy')->middleware('auth');
@@ -101,6 +103,7 @@ Route::delete('/dashboard/images/{id}', [OwnerDataController::class, 'deleteImag
 
 // Gestione dati sito
 Route::get('/dashboard/contents', [ContentController::class, 'index'])->name('dashboard.content')->middleware('auth');
+Route::get('/dashboard/contents/edit/{content}', [ContentController::class, 'edit'])->name('content.edit')->middleware('auth');
 Route::post('/dashboard/contents', [ContentController::class, 'store'])->name('contents.store')->middleware('auth');
 Route::put('/dashboard/contents/{content}', [ContentController::class, 'update'])->name('contents.update')->middleware('auth');
 Route::delete('/dashboard/contents/{content}', [ContentController::class, 'destroy'])->name('contents.destroy')->middleware('auth');

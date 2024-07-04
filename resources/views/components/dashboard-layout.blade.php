@@ -10,7 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/11.0.1/classic/ckeditor.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <x-head.tinymce-config />
 </head>
 
 <body>
@@ -63,8 +63,7 @@
                                         href="{{ route('dashboard.content') }}">Contenuto</a>
                                 </li>
                                 <li class="border rounded py-2 mb-1 text-center w-100">
-                                    <a class="my-3 text-decoration-none"
-                                        href="{{ route('dashboard.page') }}">Pagine</a>
+                                    <a class="my-3 text-decoration-none" href="{{ route('dashboard.page') }}">Pagine</a>
                                 </li>
                                 <li class="border rounded py-2 mb-1 text-center w-100">
                                     <a class="my-3 text-decoration-none" href="{{ route('dashboard.ownerData') }}">Dati
@@ -94,6 +93,9 @@
 
                 </div>
                 <div class="col-11">
+                    <x-display-error />
+                    <x-display-message />
+                    <x-display-success />
                     {{ $slot }}
                 </div>
             </div>
@@ -102,7 +104,6 @@
     @guest
         {{ $slot }}
     @endguest
-
 </body>
 
 </html>

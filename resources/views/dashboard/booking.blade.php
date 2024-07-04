@@ -1,11 +1,7 @@
 <x-dashboard-layout>
     <div class="container-fluid mt-5">
         <h1>Gestione Prenotazioni</h1>
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+         
         <table class="table">
             <thead>
                 <tr>

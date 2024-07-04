@@ -2,11 +2,7 @@
     <div class="container-fluid mt-5">
         <h1>Gestione Pagine</h1>
         <h3 class="text-danger">NON MODIFICARE</h3>
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+         
 
         <!-- Form per aggiungere una nuova pagina -->
         <form action="{{ route('pages.store') }}" method="POST">

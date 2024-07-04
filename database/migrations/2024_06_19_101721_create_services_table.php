@@ -14,17 +14,22 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('subtitle');
-            $table->string('subtitleSec');
-            $table->string('abstract');
-            $table->text('body');
+
+            $table->string('title_it');
+            $table->string('title_en')->nullable();
+            $table->string('subtitle_it');
+            $table->string('subtitle_en')->nullable();
+            $table->string('subtitleSec_it');
+            $table->string('subtitleSec_en')->nullable();
+            $table->string('abstract_it');
+            $table->string('abstract_en')->nullable();
+            $table->text('body_it');
+            $table->text('body_en')->nullable();
             $table->string('links');
-            $table->text('condition');
+            $table->text('condition_it');
+            $table->text('condition_en')->nullable();
             $table->timestamps();
         });
-
-
     }
 
     /**

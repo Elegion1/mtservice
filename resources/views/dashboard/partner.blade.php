@@ -2,11 +2,7 @@
     <div class="container-fluid mt-5">
         <h1>Gestione Partner</h1>
 
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+         
 
         <form action="{{ route('partners.store') }}" method="POST" enctype="multipart/form-data">
             @csrf

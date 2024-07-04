@@ -14,11 +14,14 @@ return new class extends Migration
     {
         Schema::create('excursions', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name_it');
+            $table->string('name_en');
             $table->string('price_increment');
             $table->string('price');
-            $table->string('abstract');
-            $table->text('description');
+            $table->string('abstract_it');
+            $table->string('abstract_en');
+            $table->text('description_it');
+            $table->text('description_en');
             $table->string('duration');
             $table->timestamps();
         });

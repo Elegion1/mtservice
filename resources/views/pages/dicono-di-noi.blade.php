@@ -27,7 +27,7 @@
                         @foreach ($reviewsP as $review)
                             <div class="col-12 col-md-3 my-3 mx-3 p-3 border rounded">
                                 <p class="h5">{{ $review->title }}</p>
-                                <p>{{ $review->body }}</p>
+                                <p>{!! $review->body !!}</p>
                                 <p>
                                     <small>
                                         {{ strtoupper(substr($review->name, 0, 1)) . '. ' . strtoupper(substr(explode(' ', $review->name)[1], 0, 1)) }}.

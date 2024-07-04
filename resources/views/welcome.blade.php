@@ -17,19 +17,19 @@
                 <h1 class="text-center ">I nostri servizi</h1>
                 <x-services />
             </div>
+            <div class="container-fluid bg-c p-3 mt-3">
+                <h1 class="text-center ">Le nostre escursioni</h1>
+                <x-excursions />
+            </div>
             <div class="container-fluid p-3 d-flex justify-content-center align-items-center flex-column">
                 @foreach ($page->contents as $content)
                     @if ($content->order && $content->show)
                         <p>{{ $content->title }}</p>
                         <p>{{ $content->subtitle }}</p>
-                        <p>{{ $content->body }}</p>
-                        </p><a href="{{ $content->links }}">Link</a></p>
+                        {!! $content->body !!}
+                        <p><a href="{{ $content->links }}">Link</a></p>
                     @endif
                 @endforeach
-            </div>
-            <div class="container-fluid bg-c p-3 mt-3">
-                <h1 class="text-center ">Le nostre escursioni</h1>
-                <x-excursions />
             </div>
         </div>
     </div>

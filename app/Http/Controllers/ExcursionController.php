@@ -14,6 +14,10 @@ class ExcursionController extends Controller
         return view('dashboard.excursion', compact('excursions'));
     }
 
+    public function edit(Excursion $excursion) {
+        return view('dashboard.edit.excursion', compact('excursion'));
+    }
+
     public function store(Request $request)
     {
 

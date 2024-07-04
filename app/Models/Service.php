@@ -10,13 +10,19 @@ class Service extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'subtitle',
-        'subtitleSec',
-        'abstract',
-        'body',
+        'title_it',
+        'title_en',
+        'subtitle_it',
+        'subtitle_en',
+        'subtitleSec_it',
+        'subtitleSec_en',
+        'abstract_it',
+        'abstract_en',
+        'body_it',
+        'body_en',
         'links',
-        'condition',
+        'condition_it',
+        'condition_en',
     ];
 
     public function images()

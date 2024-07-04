@@ -63,7 +63,7 @@ class ContentController extends Controller
      */
     public function edit(Content $content)
     {
-        //
+        return view('dashboard.edit.service', compact('content'));
     }
 
     /**

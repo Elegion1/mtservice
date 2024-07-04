@@ -10,11 +10,14 @@ class Excursion extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'name_it',
+        'name_en',
         'price_increment',
         'price',
-        'abstract',
-        'description',
+        'abstract_it',
+        'abstract_en',
+        'description_it',
+        'description_en',
         'duration'
     ];
 

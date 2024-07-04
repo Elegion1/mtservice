@@ -22,6 +22,10 @@ class ServiceController extends Controller
         return view('dashboard.service', compact('services'));
     }
 
+    public function edit(Service $service) {
+        return view('dashboard.edit.service', compact('service'));
+    }
+
     public function store(Request $request)
     {
         $service = Service::create($request->all());

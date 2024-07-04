@@ -3,11 +3,7 @@
     <div class="container-fluid mt-5">
         <h1>Gestione Tratte</h1>
 
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
+         
 
         <form action="{{ route('routes.store') }}" method="POST">
             @csrf
