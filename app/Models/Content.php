@@ -10,9 +10,12 @@ class Content extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title',
-        'subtitle',
-        'body',
+        'title_it',
+        'title_en',
+        'subtitle_it',
+        'subtitle_en',
+        'body_it',
+        'body_en',
         'links',
         'order',
         'show',
