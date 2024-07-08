@@ -17,6 +17,8 @@ class BookingSummary extends Component
     public $email;
     public $phone;
     public $body;
+    public $privacy_policy;
+    public $terms_conditions;
 
     protected $rules = [
         'name' => 'required|string|max:255',
@@ -24,6 +26,8 @@ class BookingSummary extends Component
         'email' => 'required|email|max:255',
         'phone' => 'required|string|max:20',
         'body' => 'required|string|max:1000',
+        'privacy_policy' => 'required',
+        'terms_conditions' => 'required',
     ];
 
     protected $messages = [
@@ -33,6 +37,8 @@ class BookingSummary extends Component
         'email.email' => 'Inserisci un\'email valida.',
         'phone.required' => 'Il numero di telefono è obbligatorio.',
         'body.required' => 'Le note sono obbligatorie.',
+        'privacy_policy.required' => 'Accetta le privacy policy per proseguire',
+        'terms_conditions.required' => 'Accetta i termini e condizioni per proseguire',
     ];
 
     public function mount($bookingData)

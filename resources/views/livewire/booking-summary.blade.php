@@ -97,6 +97,29 @@
                     @enderror
                 </div>
             </div>
+
+             <!-- Privacy Policy Checkbox -->
+             <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" id="privacy_policy" wire:model="privacy_policy">
+                <label for="privacy_policy" class="form-check-label">Accetto la <a href="{{route('privacy')}}#privacy" target="_blank">Privacy Policy</a></label>
+                <div class="error-message">
+                    @error('privacy_policy')
+                        <span class="text-danger error">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+
+            <!-- Terms and Conditions Checkbox -->
+            <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" id="terms_conditions" wire:model="terms_conditions">
+                <label for="terms_conditions" class="form-check-label">Accetto i <a href="{{route('privacy')}}#terms" target="_blank">Termini e Condizioni</a></label>
+                <div class="error-message">
+                    @error('terms_conditions')
+                        <span class="text-danger error">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+            
             <div class="container-fluid m-0 p-0 d-flex justify-content-center align-items-center">
                 <button type="submit" class=" btn bg-a text-white" wire:loading.attr="disabled">Conferma
                     Prenotazione</button>

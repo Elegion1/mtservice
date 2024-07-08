@@ -22,6 +22,11 @@ class ServiceController extends Controller
         return view('dashboard.service', compact('services'));
     }
 
+    public function create()
+    {
+        return view('dashboard.create.service');
+    }
+
     public function edit(Service $service) {
         return view('dashboard.edit.service', compact('service'));
     }

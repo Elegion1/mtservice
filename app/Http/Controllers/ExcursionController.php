@@ -9,12 +9,19 @@ use Illuminate\Support\Facades\Storage;
 
 class ExcursionController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         $excursions = Excursion::all();
         return view('dashboard.excursion', compact('excursions'));
     }
 
-    public function edit(Excursion $excursion) {
+    public function create()
+    {
+        return view('dashboard.create.excursion');
+    }
+
+    public function edit(Excursion $excursion)
+    {
         return view('dashboard.edit.excursion', compact('excursion'));
     }
 

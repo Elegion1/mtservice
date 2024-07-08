@@ -1,5 +1,8 @@
 <x-dashboard-layout>
-    <h2>Contenuti</h2>
+    <div class="container-fluid mt-3">
+        <h2>Contenuti</h2>
+        <a href="{{route('content.create')}}" class="btn bg-a text-white">Crea</a>
+    </div>
     <table class="table">
         <thead>
             <tr>

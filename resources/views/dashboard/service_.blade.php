@@ -33,7 +33,6 @@
                 </div>
             </div>
 
-
             <div class="mb-3">
                 <label for="body" class="form-label">Body</label>
                 <textarea class="form-control form_input_focused" id="body" name="body" required></textarea>
@@ -56,9 +55,6 @@
                     </div>
                 </div>
             </div>
-
-
-
 
             <button type="submit" class="btn btn-primary">Aggiungi Servizio</button>
         </form>

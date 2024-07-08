@@ -1,12 +1,13 @@
 <div>
-    <!-- Simplicity is an acquired taste. - Katharine Gerould -->
     <script src="{{ asset('js/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
-    <script>
+    {{-- <script>
         tinymce.init({
-            selector: '', // Replace this CSS selector to match the placeholder element for TinyMCE
-            plugins: 'code table lists',
+            selector: 'textarea', // Replace this CSS selector to match the placeholder element for TinyMCE
+            menubar: false,
+            plugins: 'code lists',
             toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table',
-            license_key: 'gpl'
+            license_key: 'gpl',
+            height: 300
         });
-    </script>
+    </script> --}}
 </div>

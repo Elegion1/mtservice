@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OwnerData;
 use App\Models\Page;
 use App\Models\Route;
 use App\Models\Review;
@@ -68,10 +69,13 @@ class PublicController extends Controller
         return view('pages.faq', compact('page'));
     }
 
+    public function privacy()
+    {   
+        return view('pages.privacy-terms');
+    }
 
 
-
-    // funzione per testare i pdf
+   // funzione per testare i pdf
 
     public function pdf()
     {

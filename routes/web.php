@@ -27,6 +27,7 @@ Route::get('/dicono-di-noi', [PublicController::class, 'diconoDiNoi'])->name('di
 Route::get('/contattaci', [PublicController::class, 'contattaci'])->name('contattaci');
 Route::get('/partners', [PublicController::class, 'partners'])->name('partners');
 Route::get('/FAQ', [PublicController::class, 'faq'])->name('faq');
+Route::get('/privacy-terms-and-conditions', [PublicController::class, 'privacy'])->name('privacy');
 Route::get('/services/{id}', [ServiceController::class, 'show'])->name('service.show');
 
 // Vista PDF 
@@ -51,6 +52,7 @@ Route::delete('dashboard/destinations/{destination}', [DestinationController::cl
 
 // Gestione escursioni
 Route::get('/dashboard/excursions', [ExcursionController::class, 'index'])->name('dashboard.excursion')->middleware('auth');
+Route::get('/dashboard/excursion/create', [ExcursionController::class, 'create'])->name('excursion.create')->middleware('auth');
 Route::get('/dashboard/excursions/edit/{excursion}', [ExcursionController::class, 'edit'])->name('excursion.edit')->middleware('auth');
 Route::post('dashboard/excursions', [ExcursionController::class, 'store'])->name('excursions.store')->middleware('auth');
 Route::put('dashboard/excursions/{excursion}', [ExcursionController::class, 'update'])->name('excursions.update')->middleware('auth');
@@ -81,6 +83,7 @@ Route::delete('/dashboard/contacts/{contact}', [ContactController::class, 'destr
 
 // Gestione servizi
 Route::get('/dashboard/services', [ServiceController::class, 'index'])->name('dashboard.service')->middleware('auth');
+Route::get('/dashboard/service/create', [ServiceController::class, 'create'])->name('service.create')->middleware('auth');
 Route::get('/dashboard/services/edit/{service}', [ServiceController::class, 'edit'])->name('service.edit')->middleware('auth');
 Route::post('/dashboard/services', [ServiceController::class, 'store'])->name('services.store')->middleware('auth');
 Route::put('/dashboard/services/{service}', [ServiceController::class, 'update'])->name('services.update')->middleware('auth');
@@ -101,8 +104,9 @@ Route::put('/dashboard/owner/{ownerData}', [OwnerDataController::class, 'update'
 Route::delete('/dashboard/owner/{id}', [OwnerDataController::class, 'destroy'])->name('owner.destroy')->middleware('auth');
 Route::delete('/dashboard/images/{id}', [OwnerDataController::class, 'deleteImage'])->name('images.delete')->middleware('auth');
 
-// Gestione dati sito
+// Gestione contenuti
 Route::get('/dashboard/contents', [ContentController::class, 'index'])->name('dashboard.content')->middleware('auth');
+Route::get('/dashboard/content/create', [ContentController::class, 'create'])->name('content.create')->middleware('auth');
 Route::get('/dashboard/contents/edit/{content}', [ContentController::class, 'edit'])->name('content.edit')->middleware('auth');
 Route::post('/dashboard/contents', [ContentController::class, 'store'])->name('contents.store')->middleware('auth');
 Route::put('/dashboard/contents/{content}', [ContentController::class, 'update'])->name('contents.update')->middleware('auth');

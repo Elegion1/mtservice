@@ -1,5 +1,8 @@
 <x-dashboard-layout>
-    <h2>Tutte le Escursioni</h2>
+    <div class="container-fluid mt-3">
+        <h2>Escursioni</h2>
+        <a href="{{route('excursion.create')}}" class="btn bg-a text-white">Crea</a>
+    </div>
     <table class="table">
         <thead>
             <tr>

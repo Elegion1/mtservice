@@ -25,7 +25,7 @@ class ContentController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.create.content');
     }
 
     /**
@@ -63,7 +63,7 @@ class ContentController extends Controller
      */
     public function edit(Content $content)
     {
-        return view('dashboard.edit.service', compact('content'));
+        return view('dashboard.edit.content', compact('content'));
     }
 
     /**

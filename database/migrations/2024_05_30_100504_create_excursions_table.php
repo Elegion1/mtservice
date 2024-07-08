@@ -15,13 +15,13 @@ return new class extends Migration
         Schema::create('excursions', function (Blueprint $table) {
             $table->id();
             $table->string('name_it');
-            $table->string('name_en');
+            $table->string('name_en')->nullable();
             $table->string('price_increment');
             $table->string('price');
             $table->string('abstract_it');
-            $table->string('abstract_en');
+            $table->string('abstract_en')->nullable();
             $table->text('description_it');
-            $table->text('description_en');
+            $table->text('description_en')->nullable();
             $table->string('duration');
             $table->timestamps();
         });
