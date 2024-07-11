@@ -27,7 +27,6 @@ class ExcursionController extends Controller
 
     public function store(Request $request)
     {
-
         $excursion = Excursion::create($request->all());
 
         if ($request->hasFile('images')) {
@@ -72,16 +71,4 @@ class ExcursionController extends Controller
         return redirect()->route('dashboard.excursion')->with('success', 'Escursione eliminata con successo.');
     }
 
-    public function deleteImage($id)
-    {
-        $image = Image::find($id);
-
-        if ($image) {
-            Storage::disk('public')->delete($image->path);
-            $image->delete();
-            return response()->json(['success' => true]);
-        }
-
-        return response()->json(['success' => false, 'error' => 'Immagine non trovata'], 404);
-    }
 }

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OwnerData;
 use App\Models\Page;
+use App\Models\Image;
 use App\Models\Route;
 use App\Models\Review;
+use App\Models\OwnerData;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PublicController extends Controller
 {
@@ -105,5 +107,18 @@ class PublicController extends Controller
             ]
         ];
         return view('pdf.booking-summary-pdf', compact('booking'));
+    }
+
+    public function deleteImage($id)
+    {
+        $image = Image::find($id);
+
+        if ($image) {
+            Storage::disk('public')->delete($image->path);
+            $image->delete();
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false, 'error' => 'Immagine non trovata'], 404);
     }
 }

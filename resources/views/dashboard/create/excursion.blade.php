@@ -10,10 +10,8 @@
 
             <!-- Nome Escursione -->
             <div class="mb-3">
-                <label for="name_it" class="form-label">Nome Escursione (IT)</label>
-                <input type="text" class="form-control form_input_focused" id="name_it" name="name_it" required>
-                <label for="name_en" class="form-label mt-3">Nome Escursione (EN)</label>
-                <input type="text" class="form-control form_input_focused" id="name_en" name="name_en">
+                <label for="create-name" class="form-label">Nome Escursione</label>
+                <input type="text" class="form-control form_input_focused" id="create-name" name="name" required>
             </div>
 
             <!-- Prezzo -->
@@ -33,24 +31,20 @@
             <!-- Durata -->
             <div class="mb-3">
                 <label for="duration" class="form-label">Durata</label>
-                <input type="text" class="form-control form_input_focused" id="duration" name="duration" required>
+                <input type="number" class="form-control form_input_focused" id="duration" name="duration" required>
             </div>
 
             <!-- Abstract -->
             <div class="mb-3">
-                <label for="abstract_it" class="form-label">Abstract (IT)</label>
-                <input type="text" class="form-control form_input_focused" id="abstract_it" name="abstract_it"
+                <label for="create-abstract" class="form-label">Abstract</label>
+                <input type="text" class="form-control form_input_focused" id="create-abstract" name="abstract"
                     required>
-                <label for="abstract_en" class="form-label mt-3">Abstract (EN)</label>
-                <input type="text" class="form-control form_input_focused" id="abstract_en" name="abstract_en">
             </div>
 
             <!-- Descrizione -->
             <div class="mb-3">
-                <label for="description_it" class="form-label">Descrizione (IT)</label>
-                <textarea class="form-control form_input_focused" id="description_it" name="description_it" required></textarea>
-                <label for="description_en" class="form-label mt-3">Descrizione (EN)</label>
-                <textarea class="form-control form_input_focused" id="description_en" name="description_en"></textarea>
+                <label for="create-description" class="form-label">Descrizione</label>
+                <textarea class="form-control form_input_focused" id="create-description" name="description"></textarea>
             </div>
 
             <!-- Immagini -->
@@ -65,26 +59,48 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            tinymce.init({
+                selector: '#create-description',
+                plugins: 'autolink lists link image charmap preview anchor pagebreak',
+                menubar: false,
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                height: 300,
+                license_key: 'gpl',
+                setup: function(editor) {
+                    editor.on('init', function() {
+                        switchLanguage('it'); // Default to Italian on init
+                    });
+                }
+            });
+
             const btnIt = document.getElementById('btn-it');
             const btnEn = document.getElementById('btn-en');
 
-            const fieldsIt = document.querySelectorAll('[id$="_it"], [for$="_it"]');
-            const fieldsEn = document.querySelectorAll('[id$="_en"], [for$="_en"]');
+            function switchLanguage(lang) {
+                const nameField = document.getElementById('create-name');
+                const abstractField = document.getElementById('create-abstract');
+                const descriptionField = document.getElementById('create-description');
+
+                if (lang === 'it') {
+                    nameField.name = "name_it";
+                    abstractField.name = "abstract_it";
+                    descriptionField.name = "description_it";
+                } else if (lang === 'en') {
+                    nameField.name = "name_en";
+                    abstractField.name = "abstract_en";
+                    descriptionField.name = "description_en";
+                }
+            }
 
             btnIt.addEventListener('click', function() {
-                fieldsIt.forEach(field => field.style.display = 'block');
-                fieldsEn.forEach(field => field.style.display = 'none');
+                switchLanguage('it');
             });
 
             btnEn.addEventListener('click', function() {
-                fieldsIt.forEach(field => field.style.display = 'none');
-                fieldsEn.forEach(field => field.style.display = 'block');
+                switchLanguage('en');
             });
 
-            // Default to showing Italian fields
-            btnIt.click();
-
-            // Gestione del click sul pulsante "Elimina" immagine
             document.getElementById('create-current-images').addEventListener('click', (event) => {
                 if (event.target.classList.contains('remove-image')) {
                     const imageId = event.target.getAttribute('data-image-id');
@@ -114,6 +130,7 @@
                         });
                 }
             });
+
         });
     </script>
 </x-dashboard-layout>

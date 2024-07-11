@@ -103,16 +103,5 @@ class ContentController extends Controller
         return redirect()->route('dashboard.content')->with('success', 'Contenuto eliminato con successo.');
     }
 
-    public function deleteImage($id)
-    {
-        $image = Image::find($id);
 
-        if ($image) {
-            Storage::disk('public')->delete($image->path);
-            $image->delete();
-            return response()->json(['success' => true]);
-        }
-
-        return response()->json(['success' => false, 'error' => 'Immagine non trovata'], 404);
-    }
 }

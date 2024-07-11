@@ -7,41 +7,31 @@
         <form id="createContentForm" action="{{ route('contents.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <!-- Titolo -->
             <div class="mb-3">
-                <label for="title_it" class="form-label">Titolo (IT)</label>
-                <input type="text" class="form-control form_input_focused" id="title_it" name="title_it" required>
-                <label for="title_en" class="form-label mt-3">Titolo (EN)</label>
-                <input type="text" class="form-control form_input_focused" id="title_en" name="title_en">
+                <label for="create-title" class="form-label">Titolo</label>
+                <input type="text" class="form-control form_input_focused" id="create-title" name="title">
             </div>
 
-            <!-- Sottotitolo -->
             <div class="mb-3">
-                <label for="subtitle_it" class="form-label">Sottotitolo (IT)</label>
-                <input type="text" class="form-control form_input_focused" id="subtitle_it" name="subtitle_it"
-                    required>
-                <label for="subtitle_en" class="form-label mt-3">Sottotitolo (EN)</label>
-                <input type="text" class="form-control form_input_focused" id="subtitle_en" name="subtitle_en">
+                <label for="create-subtitle" class="form-label">Sottotitolo</label>
+                <input type="text" class="form-control form_input_focused" id="create-subtitle" name="subtitle">
             </div>
 
-            <!-- Corpo -->
             <div class="mb-3">
-                <label for="body_it" class="form-label">Corpo (IT)</label>
-                <textarea class="form-control form_input_focused" id="body_it" name="body_it" required></textarea>
-                <label for="body_en" class="form-label mt-3">Corpo (EN)</label>
-                <textarea class="form-control form_input_focused" id="body_en" name="body_en"></textarea>
+                <label for="create-body" class="form-label">Body</label>
+                <textarea class="form-control form_input_focused" id="create-body" name="body"></textarea>
             </div>
 
             {{-- Links --}}
             <div class="mb-3">
-                <label for="links" class="form-label">Links</label>
-                <input type="text" class="form-control form_input_focused" id="edit-links" name="links">
+                <label for="create-links" class="form-label">Links</label>
+                <input type="text" class="form-control form_input_focused" id="create-links" name="links">
             </div>
 
             {{-- Ordine --}}
             <div class="mb-3">
-                <label for="order" class="form-label">Ordine</label>
-                <input type="number" class="form-control form_input_focused" id="edit-order" name="order">
+                <label for="create-order" class="form-label">Ordine</label>
+                <input type="number" class="form-control form_input_focused" id="create-order" name="order">
             </div>
 
             {{-- Mostra --}}
@@ -77,24 +67,49 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            tinymce.init({
+                selector: '#create-body',
+                plugins: 'autolink lists link image charmap preview anchor pagebreak',
+                menubar: false,
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                height: 300,
+                license_key: 'gpl',
+                setup: function(editor) {
+                    editor.on('init', function() {
+                        switchLanguage('it'); // Default to Italian on init
+                    });
+                }
+            });
+
             const btnIt = document.getElementById('btn-it');
             const btnEn = document.getElementById('btn-en');
 
-            const fieldsIt = document.querySelectorAll('[id$="_it"], [for$="_it"]');
-            const fieldsEn = document.querySelectorAll('[id$="_en"], [for$="_en"]');
+            // Funzione per cambiare la lingua attiva
+            function switchLanguage(lang) {
+                const titleField = document.getElementById('create-title');
+                const subtitleField = document.getElementById('create-subtitle');
+                const bodyField = document.getElementById('create-body');
 
+                if (lang === 'it') {
+                    titleField.name = "title_it";
+                    subtitleField.name = "subtitle_it";
+                    bodyField.name = "body_it";
+                } else if (lang === 'en') {
+                    titleField.name = "title_en";
+                    subtitleField.name = "subtitle_en";
+                    bodyField.name = "body_en";
+                }
+            }
+
+            // Gestione del click sui pulsanti IT/EN
             btnIt.addEventListener('click', function() {
-                fieldsIt.forEach(field => field.style.display = 'block');
-                fieldsEn.forEach(field => field.style.display = 'none');
+                switchLanguage('it');
             });
 
             btnEn.addEventListener('click', function() {
-                fieldsIt.forEach(field => field.style.display = 'none');
-                fieldsEn.forEach(field => field.style.display = 'block');
+                switchLanguage('en');
             });
-
-            // Default to showing Italian fields
-            btnIt.click();
 
             // Gestione del click sul pulsante "Elimina" immagine
             document.getElementById('create-current-images').addEventListener('click', (event) => {

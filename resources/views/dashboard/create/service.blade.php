@@ -9,60 +9,48 @@
 
             <!-- Title -->
             <div class="mb-3">
-                <label for="title_it" class="form-label">Titolo (IT)</label>
-                <input type="text" class="form-control form_input_focused" id="title_it" name="title_it" required>
-                <label for="title_en" class="form-label mt-3">Titolo (EN)</label>
-                <input type="text" class="form-control form_input_focused" id="title_en" name="title_en">
+                <label for="create-title" class="form-label">Titolo</label>
+                <input type="text" class="form-control form_input_focused" id="create-title" name="title" required>
             </div>
 
             <!-- Subtitle -->
             <div class="mb-3">
-                <label for="subtitle_it" class="form-label">Sottotitolo (IT)</label>
-                <input type="text" class="form-control form_input_focused" id="subtitle_it" name="subtitle_it"
-                    required>
-                <label for="subtitle_en" class="form-label mt-3">Sottotitolo (EN)</label>
-                <input type="text" class="form-control form_input_focused" id="subtitle_en" name="subtitle_en">
+                <label for="create-subtitle" class="form-label">Sottotitolo</label>
+                <input type="text" class="form-control form_input_focused" id="create-subtitle" name="subtitle" required>
             </div>
 
             <!-- Second Subtitle -->
             <div class="mb-3">
-                <label for="subtitleSec_it" class="form-label">Sottotitolo Secondario (IT)</label>
-                <input type="text" class="form-control form_input_focused" id="subtitleSec_it" name="subtitleSec_it"
-                    required>
-                <label for="subtitleSec_en" class="form-label mt-3">Sottotitolo Secondario (EN)</label>
-                <input type="text" class="form-control form_input_focused" id="subtitleSec_en" name="subtitleSec_en">
+                <label for="create-subtitleSec" class="form-label">Sottotitolo Secondario</label>
+                <input type="text" class="form-control form_input_focused" id="create-subtitleSec" name="subtitleSec">
+
             </div>
 
             <!-- Abstract -->
             <div class="mb-3">
-                <label for="abstract_it" class="form-label">Abstract (IT)</label>
-                <input type="text" class="form-control form_input_focused" id="abstract_it" name="abstract_it"
-                    required>
-                <label for="abstract_en" class="form-label mt-3">Abstract (EN)</label>
-                <input type="text" class="form-control form_input_focused" id="abstract_en" name="abstract_en">
+                <label for="create-abstract" class="form-label">Abstract</label>
+                <input type="text" class="form-control form_input_focused" id="create-abstract" name="abstract">
+
             </div>
 
             <!-- Body -->
             <div class="mb-3">
-                <label for="body_it" class="form-label">Body (IT)</label>
-                <textarea class="form-control form_input_focused" id="body_it" name="body_it" required></textarea>
-                <label for="body_en" class="form-label mt-3">Body (EN)</label>
-                <textarea class="form-control form_input_focused" id="body_en" name="body_en"></textarea>
+                <label for="create-body" class="form-label">Body</label>
+                <textarea class="form-control form_input_focused" id="create-body" name="body"></textarea>
+
             </div>
 
             <!-- Links -->
             <div class="mb-3">
-                <label for="links" class="form-label">Links</label>
-                <input type="text" class="form-control form_input_focused" id="links" name="links" required>
+                <label for="create-links" class="form-label">Links</label>
+                <input type="text" class="form-control form_input_focused" id="create-links" name="links" required>
             </div>
 
             <!-- Conditions -->
             <div class="mb-3">
-                <label for="condition_it" class="form-label">Condizioni (IT)</label>
-                <input type="text" class="form-control form_input_focused" id="condition_it" name="condition_it"
-                    required>
-                <label for="condition_en" class="form-label mt-3">Condizioni (EN)</label>
-                <input type="text" class="form-control form_input_focused" id="condition_en" name="condition_en">
+                <label for="create-condition" class="form-label">Condizioni</label>
+                <textarea class="form-control form_input_focused" id="create-condition" name="condition"></textarea>
+
             </div>
 
             <!-- Images -->
@@ -77,24 +65,69 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            tinymce.init({
+                selector: '#create-body',
+                plugins: 'autolink lists link image charmap preview anchor pagebreak',
+                menubar: false,
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                height: 300,
+                license_key: 'gpl',
+                setup: function(editor) {
+                    editor.on('init', function() {
+                        switchLanguage('it'); // Default to Italian on init
+                    });
+                }
+            });
+
+            tinymce.init({
+                selector: '#create-condition',
+                plugins: 'autolink lists link image charmap preview anchor pagebreak',
+                menubar: 'false',
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                height: 300,
+                license_key: 'gpl',
+            });
+
+
             const btnIt = document.getElementById('btn-it');
             const btnEn = document.getElementById('btn-en');
 
-            const fieldsIt = document.querySelectorAll('[id$="_it"], [for$="_it"]');
-            const fieldsEn = document.querySelectorAll('[id$="_en"], [for$="_en"]');
+            // Funzione per cambiare la lingua attiva
+            function switchLanguage(lang) {
+                const titleField = document.getElementById('create-title');
+                const subtitleField = document.getElementById('create-subtitle');
+                const subtitleSecField = document.getElementById('create-subtitleSec');
+                const abstractField = document.getElementById('create-abstract');
+                const bodyField = document.getElementById('create-body');
+                const conditionField = document.getElementById('create-condition');
 
+                if (lang === 'it') {
+                    titleField.name = "title_it";
+                    subtitleField.name = "subtitle_it";
+                    subtitleSecField.name = "subtitleSec_it";
+                    abstractField.name = "abstract_it";
+                    bodyField.name = "body_it";
+                    conditionField.name = "condition_it";
+                } else if (lang === 'en') {
+                    titleField.name = "title_en";
+                    subtitleField.name = "subtitle_en";
+                    subtitleSecField.name = "subtitleSec_en";
+                    abstractField.name = "abstract_en";
+                    bodyField.name = "body_en";
+                    conditionField.name = "condition_en";
+                }
+            }
+
+            // Gestione del click sui pulsanti IT/EN
             btnIt.addEventListener('click', function() {
-                fieldsIt.forEach(field => field.style.display = 'block');
-                fieldsEn.forEach(field => field.style.display = 'none');
+                switchLanguage('it');
             });
 
             btnEn.addEventListener('click', function() {
-                fieldsIt.forEach(field => field.style.display = 'none');
-                fieldsEn.forEach(field => field.style.display = 'block');
+                switchLanguage('en');
             });
-
-            // Default to showing Italian fields
-            btnIt.click();
 
             // Gestione del click sul pulsante "Elimina" immagine
             document.getElementById('create-current-images').addEventListener('click', (event) => {

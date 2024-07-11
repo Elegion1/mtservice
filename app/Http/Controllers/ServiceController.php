@@ -75,16 +75,4 @@ class ServiceController extends Controller
         return redirect()->route('dashboard.service')->with('success', 'Servizio eliminato con successo.');
     }
 
-    public function deleteImage($id)
-    {
-        $image = Image::find($id);
-
-        if ($image) {
-            Storage::disk('public')->delete($image->path);
-            $image->delete();
-            return response()->json(['success' => true]);
-        }
-
-        return response()->json(['success' => false, 'error' => 'Immagine non trovata'], 404);
-    }
 }

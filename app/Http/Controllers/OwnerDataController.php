@@ -100,16 +100,5 @@ class OwnerDataController extends Controller
         return redirect()->route('dashboard.ownerData')->with('success', 'Owner eliminato con successo.');
     }
 
-    public function deleteImage($id)
-    {
-        $image = Image::find($id);
 
-        if ($image) {
-            Storage::disk('public')->delete($image->path);
-            $image->delete();
-            return response()->json(['success' => true]);
-        }
-
-        return response()->json(['success' => false, 'error' => 'Immagine non trovata'], 404);
-    }
 }

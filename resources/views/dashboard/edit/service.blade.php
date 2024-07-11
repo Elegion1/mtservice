@@ -12,77 +12,62 @@
 
             <!-- Title -->
             <div class="mb-3">
-                <label for="title_it" class="form-label">Titolo (IT)</label>
-                <input type="text" class="form-control form_input_focused" id="title_it" name="title_it"
-                    value="{{ $service->title_it }}" required>
-                <label for="title_en" class="form-label mt-3">Titolo (EN)</label>
-                <input type="text" class="form-control form_input_focused" id="title_en" name="title_en"
-                    value="{{ $service->title_en }}">
+                <label for="edit-title" class="form-label">Titolo</label>
+                <input type="text" class="form-control form_input_focused" id="edit-title" name="title" required>
+
             </div>
 
             <!-- Subtitle -->
             <div class="mb-3">
-                <label for="subtitle_it" class="form-label">Sottotitolo (IT)</label>
-                <input type="text" class="form-control form_input_focused" id="subtitle_it" name="subtitle_it"
-                    value="{{ $service->subtitle_it }}" required>
-                <label for="subtitle_en" class="form-label mt-3">Sottotitolo (EN)</label>
-                <input type="text" class="form-control form_input_focused" id="subtitle_en" name="subtitle_en"
-                    value="{{ $service->subtitle_en }}">
+                <label for="edit-subtitle" class="form-label">Sottotitolo</label>
+                <input type="text" class="form-control form_input_focused" id="edit-subtitle" name="subtitle"
+                    required>
+
             </div>
 
             <!-- Second Subtitle -->
             <div class="mb-3">
-                <label for="subtitleSec_it" class="form-label">Sottotitolo Secondario (IT)</label>
-                <input type="text" class="form-control form_input_focused" id="subtitleSec_it" name="subtitleSec_it"
-                    value="{{ $service->subtitleSec_it }}" required>
-                <label for="subtitleSec_en" class="form-label mt-3">Sottotitolo Secondario (EN)</label>
-                <input type="text" class="form-control form_input_focused" id="subtitleSec_en" name="subtitleSec_en"
-                    value="{{ $service->subtitleSec_en }}">
+                <label for="edit-subtitleSec" class="form-label">Sottotitolo Secondario</label>
+                <input type="text" class="form-control form_input_focused" id="edit-subtitleSec" name="subtitleSec"
+                    required>
+
             </div>
 
             <!-- Abstract -->
             <div class="mb-3">
-                <label for="abstract_it" class="form-label">Abstract (IT)</label>
-                <input type="text" class="form-control form_input_focused" id="abstract_it" name="abstract_it"
-                    value="{{ $service->abstract_it }}" required>
-                <label for="abstract_en" class="form-label mt-3">Abstract (EN)</label>
-                <input type="text" class="form-control form_input_focused" id="abstract_en" name="abstract_en"
-                    value="{{ $service->abstract_en }}">
+                <label for="edit-abstract" class="form-label">Abstract</label>
+                <input type="text" class="form-control form_input_focused" id="edit-abstract" name="abstract"
+                    required>
+
             </div>
 
             <!-- Body -->
             <div class="mb-3">
-                <label for="body_it" class="form-label">Body (IT)</label>
-                <textarea class="form-control form_input_focused" id="body_it" name="body_it" required>{{ $service->body_it }}</textarea>
-                <label for="body_en" class="form-label mt-3">Body (EN)</label>
-                <textarea class="form-control form_input_focused" id="body_en" name="body_en">{{ $service->body_en }}</textarea>
+                <label for="edit-body" class="form-label">Body</label>
+                <textarea class="form-control form_input_focused" id="edit-body" name="body">{{ $service->body }}</textarea>
+
             </div>
 
             <!-- Links -->
             <div class="mb-3">
-                <label for="links" class="form-label">Links</label>
-                <input type="text" class="form-control form_input_focused" id="links" name="links"
-                    value="{{ $service->links }}" required>
+                <label for="edit-links" class="form-label">Links</label>
+                <input type="text" class="form-control form_input_focused" id="edit-links" name="links" value="{{$service->links}}">
             </div>
 
             <!-- Conditions -->
             <div class="mb-3">
-                <label for="condition_it" class="form-label">Condizioni (IT)</label>
-                <input type="text" class="form-control form_input_focused" id="condition_it" name="condition_it"
-                    value="{{ $service->condition_it }}" required>
-                <label for="condition_en" class="form-label mt-3">Condizioni (EN)</label>
-                <input type="text" class="form-control form_input_focused" id="condition_en" name="condition_en"
-                    value="{{ $service->condition_en }}">
+                <label for="edit-condition" class="form-label">Condizioni</label>
+                <textarea type="text" class="form-control form_input_focused" id="edit-condition" name="condition">{{ $service->condition }}</textarea>
+
             </div>
 
             <!-- Images -->
             <div class="mb-3">
-                <label for="edit_images" class="form-label">Aggiungi immagini</label>
-                <input type="file" class="form-control form_input_focused" id="edit_images" name="images[]"
-                    multiple>
+                <label for="edit-images" class="form-label">Aggiungi immagini</label>
+                <input type="file" class="form-control form_input_focused" id="edit-images" name="images[]" multiple>
             </div>
             <div class="mb-3">
-                <label for="edit_current_images" class="form-label">Immagini caricate</label>
+                <label for="edit-current-images" class="form-label">Immagini caricate</label>
                 <div id="edit-current-images">
                     @foreach ($service->images as $image)
                         <div class="current-image">
@@ -100,24 +85,93 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            tinymce.init({
+                selector: '#edit-body',
+                plugins: 'autolink lists link charmap preview anchor pagebreak',
+                menubar: false,
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                height: 300,
+                license_key: 'gpl',
+                setup: function(editor) {
+                    editor.on('init', function() {
+                        switchLanguage('it'); // Default to Italian on init
+                    });
+                }
+            });
+
+            tinymce.init({
+                selector: '#edit-condition',
+                plugins: 'autolink lists link charmap preview anchor pagebreak',
+                menubar: false,
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                height: 300,
+                license_key: 'gpl',
+                setup: function(editor) {
+                    editor.on('init', function() {
+                        switchLanguage('it'); // Default to Italian on init
+                    });
+                }
+            });
+
             const btnIt = document.getElementById('btn-it');
             const btnEn = document.getElementById('btn-en');
 
-            const fieldsIt = document.querySelectorAll('[id$="_it"], [for$="_it"]');
-            const fieldsEn = document.querySelectorAll('[id$="_en"], [for$="_en"]');
+            // Funzione per cambiare la lingua attiva
+            function switchLanguage(lang) {
+                const titleField = document.getElementById('edit-title');
+                const subtitleField = document.getElementById('edit-subtitle');
+                const subtitleSecField = document.getElementById('edit-subtitleSec');
+                const abstractField = document.getElementById('edit-abstract');
+                const bodyField = document.getElementById('edit-body');
+                const conditionField = document.getElementById('edit-condition');
 
+                if (lang === 'it') {
+                    titleField.value = "{{ $service->title_it }}";
+                    subtitleField.value = "{{ $service->subtitle_it }}";
+                    subtitleSecField.value = "{{ $service->subtitleSec_it }}";
+                    abstractField.value = "{{ $service->abstract_it }}";
+                    titleField.name = "title_it";
+                    subtitleField.name = "subtitle_it";
+                    subtitleSecField.name = "subtitleSec_it";
+                    abstractField.name = "abstract_it";
+                    bodyField.name = "body_it";
+                    conditionField.name = "condition_it";
+                    if (tinymce.get('edit-body')) {
+                        tinymce.get('edit-body').setContent(`{!! addslashes($service->body_it) !!}`);
+                    }
+                    if (tinymce.get('edit-condition')) {
+                        tinymce.get('edit-condition').setContent(`{!! addslashes($service->condition_it) !!}`);
+                    }
+                } else if (lang === 'en') {
+                    titleField.value = "{{ $service->title_en }}";
+                    subtitleField.value = "{{ $service->subtitle_en }}";
+                    subtitleSecField.value = "{{ $service->subtitleSec_en }}";
+                    abstractField.value = "{{ $service->abstract_en }}";
+                    titleField.name = "title_en";
+                    subtitleField.name = "subtitle_en";
+                    subtitleSecField.name = "subtitleSec_en";
+                    abstractField.name = "abstract_en";
+                    bodyField.name = "body_en";
+                    conditionField.name = "condition_en";
+                    if (tinymce.get('edit-body')) {
+                        tinymce.get('edit-body').setContent(`{!! addslashes($service->body_en) !!}`);
+                    }
+                    if (tinymce.get('edit-condition')) {
+                        tinymce.get('edit-condition').setContent(`{!! addslashes($service->condition_en) !!}`);
+                    }
+                }
+            }
+
+            // Gestione del click sui pulsanti IT/EN
             btnIt.addEventListener('click', function() {
-                fieldsIt.forEach(field => field.style.display = 'block');
-                fieldsEn.forEach(field => field.style.display = 'none');
+                switchLanguage('it');
             });
 
             btnEn.addEventListener('click', function() {
-                fieldsIt.forEach(field => field.style.display = 'none');
-                fieldsEn.forEach(field => field.style.display = 'block');
+                switchLanguage('en');
             });
-
-            // Default to showing Italian fields
-            btnIt.click();
 
             // Gestione del click sul pulsante "Elimina" immagine
             document.getElementById('edit-current-images').addEventListener('click', (event) => {
@@ -149,16 +203,6 @@
                         });
                 }
             });
-            // Ensure form submission is working as expected
-        document.getElementById('editServiceForm').addEventListener('submit', (event) => {
-            // Add additional validation or checks if needed
-
-            // Optionally, prevent default form submission for testing
-            // event.preventDefault();
-
-            // Log form submission to console for debugging
-            console.log('Form submitted');
-        });
         });
     </script>
 </x-dashboard-layout>

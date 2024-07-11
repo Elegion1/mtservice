@@ -5,25 +5,25 @@
     <button class="btn text-white bg-danger" id="btn-en">EN</button>
 
     <div class="container">
-        <form id="contentContentForm" action="{{ route('contents.update', $content->id) }}" method="POST"
+        <form id="editContentForm" action="{{ route('contents.update', $content->id) }}" method="POST"
             enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
             <div class="mb-3">
-                <label for="title" class="form-label">Titolo</label>
+                <label for="edit-title" class="form-label">Titolo</label>
                 <input type="text" class="form-control form_input_focused" id="edit-title" name="title"
                     value="{{ $content->title }}">
             </div>
 
             <div class="mb-3">
-                <label for="subtitle" class="form-label">Sottotitolo</label>
+                <label for="edit-subtitle" class="form-label">Sottotitolo</label>
                 <input type="text" class="form-control form_input_focused" id="edit-subtitle" name="subtitle"
                     value="{{ $content->subtitle }}">
             </div>
 
             <div class="mb-3">
-                <label for="body" class="form-label">Body</label>
+                <label for="edit-body" class="form-label">Body</label>
                 <textarea class="form-control form_input_focused" id="edit-body" name="body">{{ $content->body }}</textarea>
             </div>
 
@@ -76,8 +76,8 @@
 
             tinymce.init({
                 selector: '#edit-body',
-                plugins: 'autolink lists link image charmap print preview hr anchor pagebreak',
-                menubar: 'false',
+                plugins: 'autolink lists link image charmap preview anchor pagebreak',
+                menubar: false,
                 tinycomments_mode: 'embedded',
                 tinycomments_author: 'Author name',
                 height: 300,

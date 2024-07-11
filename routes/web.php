@@ -38,6 +38,10 @@ Route::get('/pdf', [PublicController::class, 'pdf'])->name('pdf')->middleware('a
 Route::post('/contattaci', [ContactController::class, 'invia'])->name('inviaForm');
 
 // DASHBOARD
+
+// eliminazione immagini
+Route::delete('/dashboard/images/{id}', [PublicController::class, 'deleteImage'])->name('images.delete')->middleware('auth');
+
 // Gestione rotte
 Route::get('/dashboard/routes', [RouteController::class, 'create'])->name('dashboard.route')->middleware('auth');
 Route::post('dashboard/routes', [RouteController::class, 'store'])->name('routes.store')->middleware('auth');
@@ -57,14 +61,14 @@ Route::get('/dashboard/excursions/edit/{excursion}', [ExcursionController::class
 Route::post('dashboard/excursions', [ExcursionController::class, 'store'])->name('excursions.store')->middleware('auth');
 Route::put('dashboard/excursions/{excursion}', [ExcursionController::class, 'update'])->name('excursions.update')->middleware('auth');
 Route::delete('dashboard/excursions/{excursion}', [ExcursionController::class, 'destroy'])->name('excursions.destroy')->middleware('auth');
-Route::delete('/dashboard/images/{id}', [ExcursionController::class, 'deleteImage'])->name('images.delete')->middleware('auth');
+
 
 // Gestione auto
 Route::get('/dashboard/cars', [CarController::class, 'create'])->name('dashboard.car')->middleware('auth');
 Route::post('/dashboard/cars', [CarController::class, 'store'])->name('cars.store')->middleware('auth');
 Route::put('/dashboard/cars/{car}', [CarController::class, 'update'])->name('cars.update')->middleware('auth');
 Route::delete('/dashboard/cars/{car}', [CarController::class, 'destroy'])->name('cars.destroy')->middleware('auth');
-Route::delete('/dashboard/images/{id}', [CarController::class, 'deleteImage'])->name('images.delete')->middleware('auth');
+
 
 // Gestione recensioni
 Route::get('/dashboard/reviews', [ReviewController::class, 'create'])->name('dashboard.review')->middleware('auth');
@@ -88,21 +92,21 @@ Route::get('/dashboard/services/edit/{service}', [ServiceController::class, 'edi
 Route::post('/dashboard/services', [ServiceController::class, 'store'])->name('services.store')->middleware('auth');
 Route::put('/dashboard/services/{service}', [ServiceController::class, 'update'])->name('services.update')->middleware('auth');
 Route::delete('/dashboard/services/{service}', [ServiceController::class, 'destroy'])->name('services.destroy')->middleware('auth');
-Route::delete('/dashboard/images/{id}', [ServiceController::class, 'deleteImage'])->name('images.delete')->middleware('auth');
+
 
 // Gestione Partner
 Route::get('/dashboard/partners', [PartnerController::class, 'index'])->name('dashboard.partner')->middleware('auth');
 Route::post('/dashboard/partners', [PartnerController::class, 'store'])->name('partners.store')->middleware('auth');
 Route::put('/dashboard/partners/{partner}', [PartnerController::class, 'update'])->name('partners.update')->middleware('auth');
 Route::delete('/dashboard/partners/{partner}', [PartnerController::class, 'destroy'])->name('partners.destroy')->middleware('auth');
-Route::delete('/dashboard/images/{id}', [PartnerController::class, 'deleteImage'])->name('images.delete')->middleware('auth');
+
 
 // Gestione Dati Azienda
 Route::get('/dashboard/owner', [OwnerDataController::class, 'index'])->name('dashboard.ownerData')->middleware('auth');
 Route::post('/dashboard/owner', [OwnerDataController::class, 'store'])->name('owner.store')->middleware('auth');
 Route::put('/dashboard/owner/{ownerData}', [OwnerDataController::class, 'update'])->name('owner.update')->middleware('auth');
 Route::delete('/dashboard/owner/{id}', [OwnerDataController::class, 'destroy'])->name('owner.destroy')->middleware('auth');
-Route::delete('/dashboard/images/{id}', [OwnerDataController::class, 'deleteImage'])->name('images.delete')->middleware('auth');
+
 
 // Gestione contenuti
 Route::get('/dashboard/contents', [ContentController::class, 'index'])->name('dashboard.content')->middleware('auth');
@@ -111,7 +115,7 @@ Route::get('/dashboard/contents/edit/{content}', [ContentController::class, 'edi
 Route::post('/dashboard/contents', [ContentController::class, 'store'])->name('contents.store')->middleware('auth');
 Route::put('/dashboard/contents/{content}', [ContentController::class, 'update'])->name('contents.update')->middleware('auth');
 Route::delete('/dashboard/contents/{content}', [ContentController::class, 'destroy'])->name('contents.destroy')->middleware('auth');
-Route::delete('/dashboard/images/{id}', [ContentController::class, 'deleteImage'])->name('images.delete')->middleware('auth');
+
 
 // Gestione pagine
 Route::get('/dashboard/pages', [PageController::class, 'index'])->name('dashboard.page')->middleware('auth');

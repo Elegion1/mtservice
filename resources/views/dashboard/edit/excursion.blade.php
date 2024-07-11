@@ -12,19 +12,16 @@
 
             <!-- Nome Escursione -->
             <div class="mb-3">
-                <label for="name_it" class="form-label">Nome Escursione (IT)</label>
-                <input type="text" class="form-control form_input_focused" id="name_it" name="name_it"
-                    value="{{ $excursion->name_it }}" required>
-                <label for="name_en" class="form-label mt-3">Nome Escursione (EN)</label>
-                <input type="text" class="form-control form_input_focused" id="name_en" name="name_en"
-                    value="{{ $excursion->name_en }}" required>
+                <label for="edit-name" class="form-label">Nome Escursione</label>
+                <input type="text" class="form-control form_input_focused" id="edit-name" name="name"
+                    value="{{ $excursion->name }}" required>
             </div>
 
             <!-- Prezzo -->
             <div class="mb-3">
                 <label for="price" class="form-label">Prezzo</label>
-                <input type="number" step="0.01" class="form-control form_input_focused" id="price" name="price"
-                    value="{{ $excursion->price }}" required>
+                <input type="number" step="0.01" class="form-control form_input_focused" id="price"
+                    name="price" value="{{ $excursion->price }}" required>
             </div>
 
             <!-- Incremento Prezzo -->
@@ -37,28 +34,21 @@
             <!-- Durata -->
             <div class="mb-3">
                 <label for="duration" class="form-label">Durata</label>
-                <input type="text" class="form-control form_input_focused" id="duration" name="duration"
+                <input type="number" class="form-control form_input_focused" id="duration" name="duration"
                     value="{{ $excursion->duration }}" required>
             </div>
 
             <!-- Abstract -->
             <div class="mb-3">
-                <label for="abstract_it" class="form-label">Abstract (IT)</label>
-                <input type="text" class="form-control form_input_focused" id="abstract_it" name="abstract_it"
-                    value="{{ $excursion->abstract_it }}" required>
-                <label for="abstract_en" class="form-label mt-3">Abstract (EN)</label>
-                <input type="text" class="form-control form_input_focused" id="abstract_en" name="abstract_en"
-                    value="{{ $excursion->abstract_en }}" required>
+                <label for="edit-abstract" class="form-label">Abstract</label>
+                <input type="text" class="form-control form_input_focused" id="edit-abstract" name="abstract"
+                    value="{{ $excursion->abstract }}" required>
             </div>
 
             <!-- Descrizione -->
             <div class="mb-3">
-                <label for="description_it" class="form-label">Descrizione (IT)</label>
-                <textarea class="form-control form_input_focused" id="description_it" name="description_it"
-                    required>{{ $excursion->description_it }}</textarea>
-                <label for="description_en" class="form-label mt-3">Descrizione (EN)</label>
-                <textarea class="form-control form_input_focused" id="description_en" name="description_en"
-                    required>{{ $excursion->description_en }}</textarea>
+                <label for="edit-description" class="form-label">Descrizione (IT)</label>
+                <textarea class="form-control form_input_focused" id="edit-description" name="description" >{{ $excursion->description }}</textarea>
             </div>
 
             <!-- Immagini -->
@@ -85,24 +75,60 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            tinymce.init({
+                selector: '#edit-description',
+                plugins: 'autolink lists link image charmap preview anchor pagebreak',
+                menubar: false,
+                tinycomments_mode: 'embedded',
+                tinycomments_author: 'Author name',
+                height: 300,
+                license_key: 'gpl',
+                setup: function(editor) {
+                    editor.on('init', function() {
+                        switchLanguage('it'); // Default to Italian on init
+                    });
+                }
+            });
+
             const btnIt = document.getElementById('btn-it');
             const btnEn = document.getElementById('btn-en');
 
-            const fieldsIt = document.querySelectorAll('[id$="_it"], [for$="_it"]');
-            const fieldsEn = document.querySelectorAll('[id$="_en"], [for$="_en"]');
+            // Funzione per cambiare la lingua attiva
+            function switchLanguage(lang) {
+                const nameField = document.getElementById('edit-name');
+                const abstractField = document.getElementById('edit-abstract');
+                const descriptionField = document.getElementById('edit-description');
 
+                if (lang === 'it') {
+                    nameField.value = "{{ $excursion->name_it }}";
+                    abstractField.value = "{{ $excursion->abstract_it }}";
+                    nameField.name = "name_it";
+                    abstractField.name = "abstract_it";
+                    descriptionField.name = "description_it";
+                    if (tinymce.get('edit-description')) {
+                        tinymce.get('edit-description').setContent(`{!! addslashes($excursion->description_it) !!}`);
+                    }
+                } else if (lang === 'en') {
+                    nameField.value = "{{ $excursion->name_en }}";
+                    abstractField.value = "{{ $excursion->abstract_en }}";
+                    nameField.name = "name_en";
+                    abstractField.name = "abstract_en";
+                    descriptionField.name = "description_en";
+                    if (tinymce.get('edit-description')) {
+                        tinymce.get('edit-description').setContent(`{!! addslashes($excursion->description_en) !!}`);
+                    }
+                }
+            }
+
+            // Gestione del click sui pulsanti IT/EN
             btnIt.addEventListener('click', function() {
-                fieldsIt.forEach(field => field.style.display = 'block');
-                fieldsEn.forEach(field => field.style.display = 'none');
+                switchLanguage('it');
             });
 
             btnEn.addEventListener('click', function() {
-                fieldsIt.forEach(field => field.style.display = 'none');
-                fieldsEn.forEach(field => field.style.display = 'block');
+                switchLanguage('en');
             });
 
-            // Default to showing Italian fields
-            btnIt.click();
 
             // Gestione del click sul pulsante "Elimina" immagine
             document.getElementById('edit-current-images').addEventListener('click', (event) => {

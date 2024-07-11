@@ -14,7 +14,6 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-
             $table->string('title_it');
             $table->string('title_en')->nullable();
             $table->string('subtitle_it');
