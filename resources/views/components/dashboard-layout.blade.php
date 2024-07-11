@@ -23,67 +23,67 @@
                         <div>
                             <ul
                                 class="d-flex align-items-start list-unstyled flex-md-column justify-content-center justify-content-md-evenly">
-                                <li class="border rounded py-1 text-center w-100">
+                                <li class="border py-1 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.route') }}"><small>Tratte</small></a>
                                 </li>
-                                <li class="border rounded py-1 text-center w-100">
+                                <li class="border py-1 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.destination') }}"><small>Destinazioni</small></a>
 
                                 </li>
-                                <li class="border rounded py-1 text-center w-100">
+                                <li class="border py-1 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.excursion') }}"><small>Escursioni</small></a>
                                 </li>
-                                <li class="border rounded py-1 text-center w-100">
+                                <li class="border py-1 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.car') }}"><small>Auto</small></a>
                                 </li>
-                                <li class="border rounded py-1 text-center w-100">
+                                <li class="border py-1 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.review') }}"><small>Recensioni</small></a>
                                 </li>
-                                <li class="border rounded py-1 text-center w-100">
+                                <li class="border py-1 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.booking') }}"><small>Prenotazioni</small></a>
                                 </li>
-                                <li class="border rounded py-1 text-center w-100">
+                                <li class="border py-1 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.contact') }}"><small>Messaggi</small></a>
                                 </li>
-                                <li class="border rounded py-1 text-center w-100">
+                                <li class="border py-1 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.service') }}"><small>Servizi</small></a>
                                 </li>
-                                <li class="border rounded py-1 text-center w-100">
+                                <li class="border py-1 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.partner') }}"><small>Partners</small></a>
                                 </li>
-                                <li class="border rounded py-1 text-center w-100">
+                                <li class="border py-1 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.content') }}"><small>Contenuto</small></a>
                                 </li>
-                                <li class="border rounded py-1 text-center w-100">
+                                <li class="border py-1 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.page') }}"><small>Pagine</small></a>
                                 </li>
-                                <li class="border rounded py-1 text-center w-100">
+                                <li class="border py-1 text-center w-100">
                                     <a class="my-3 text-decoration-none"
                                         href="{{ route('dashboard.ownerData') }}"><small>Dati</small>
                                         azienda</a>
                                 </li>
-                                <li class="border rounded py-1 text-center w-100">
+                                <li class="border py-1 text-center w-100">
                                     <a class="my-3 text-decoration-none" target="_blank"
                                         href="{{ route('pdf') }}"><small>Vista</small>
                                         PDF</a>
                                 </li>
-                                <li class="border rounded py-1 text-center w-100">
+                                <li class="border py-1 text-center w-100">
                                     <a class="my-3 text-decoration-none" target="_blank"
                                         href="{{ route('home') }}"><small>Torna</small>
                                         al sito</a>
                                 </li>
-                                <li class="border rounded py-1 text-center w-100">
+                                <li class="border py-1 text-center w-100">
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
                                         <button class="btn text-primary" type="submit"></i><small>Logout</small>
