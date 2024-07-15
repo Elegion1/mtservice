@@ -10,24 +10,26 @@
                 <x-contact-link />
             </div>
             <div class="container-fluid bg-c rounded p-3">
-                <p class="h2 text-center">Le tratte più frequenti</p>
+                <p class="h2 text-center">{{ __('ui.title1') }}</p>
                 <x-lista-tratte />
             </div>
             <div class="container-fluid p-3">
-                <h1 class="text-center ">I nostri servizi</h1>
+                <h1 class="text-center ">{{ __('ui.title2') }}</h1>
                 <x-services />
             </div>
             <div class="container-fluid bg-c p-3 mt-3">
-                <h1 class="text-center ">Le nostre escursioni</h1>
+                <h1 class="text-center ">{{ __('ui.title3') }}</h1>
                 <x-excursions />
             </div>
             <div class="container-fluid p-3 d-flex justify-content-center align-items-center flex-column">
-                @foreach ($page->contents as $content)
+                @foreach ($pages->contents as $content)
                     @if ($content->order && $content->show)
                         <p>{{ $content->title }}</p>
                         <p>{{ $content->subtitle }}</p>
                         {!! $content->body !!}
-                        <p><a href="{{ $content->links }}">Link</a></p>
+                        @if ($content->links)
+                            <a href="{{ $content->links }}">Link</a>
+                        @endif
                     @endif
                 @endforeach
             </div>

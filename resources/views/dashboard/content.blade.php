@@ -1,7 +1,7 @@
 <x-dashboard-layout>
     <div class="container-fluid mt-3">
         <h2>Contenuti</h2>
-        <a href="{{route('content.create')}}" class="btn bg-a text-white">Crea</a>
+        <a href="{{ route('content.create') }}" class="btn bg-a text-white">Crea</a>
     </div>
     <table class="table">
         <thead>
@@ -23,9 +23,9 @@
                 <tr>
                     <td>{{ $content->id }}</td>
                     <td>{{ $content->page->name }}</td>
-                    <td>{{ $content->title }}</td>
-                    <td>{{ $content->subtitle }}</td>
-                    <td>{{ $content->body }}</td>
+                    <td>{{ $content->title_it }}</td>
+                    <td>{{ $content->subtitle_it }}</td>
+                    <td>{{ $content->body_it }}</td>
                     <td>{{ $content->links }}</td>
                     <td>{{ $content->order }}</td>
                     <td>

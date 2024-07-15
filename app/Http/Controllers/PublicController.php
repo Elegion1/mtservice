@@ -4,18 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Page;
 use App\Models\Image;
-use App\Models\Route;
-use App\Models\Review;
-use App\Models\OwnerData;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class PublicController extends Controller
 {
     public function home()
     {
-        $page = Page::where('link', 'home')->with('contents')->firstOrFail();
-        return view('welcome', compact('page'));
+        $pagine = Page::where('link', 'home')->with(['contents' => function ($query) {
+            $query->where('order', '!=', 0);
+        }])->get();
+        return view('welcome', compact('pagine'));
     }
 
     public function dashboard()
@@ -25,59 +23,80 @@ class PublicController extends Controller
 
     public function noleggio()
     {
-        $page = Page::where('link', 'noleggio')->with('contents')->firstOrFail();
-        return view('pages.noleggio-auto', compact('page'));
+        $pagine = Page::where('link', 'noleggio')->with(['contents' => function ($query) {
+            $query->where('order', '!=', 0);
+        }])->get();
+        return view('pages.noleggio-auto', compact('pagine'));
     }
 
     public function transfer()
     {
-        $page = Page::where('link', 'transfer')->with('contents')->firstOrFail();
-        return view('pages.transfer', compact('page'));
+        $pagine = Page::where('link', 'transfer')->with(['contents' => function ($query) {
+            $query->where('order', '!=', 0);
+        }])->get();
+        return view('pages.transfer', compact('pagine'));
     }
 
     public function escursioni()
     {
-        $page = Page::where('link', 'escursioni')->with('contents')->firstOrFail();
-        return view('pages.escursioni', compact('page'));
+        $pagine = Page::where('link', 'escursioni')->with(['contents' => function ($query) {
+            $query->where('order', '!=', 0);
+        }])->get();
+        return view('pages.escursioni', compact('pagine'));
     }
 
     public function prezziDestinazioni()
     {
-        $page = Page::where('link', 'prezziDestinazioni')->with('contents')->firstOrFail();
-        return view('pages.prezzi-destinazioni', compact('page'), compact('page'));
+        $pagine = Page::where('link', 'prezziDestinazioni')->with(['contents' => function ($query) {
+            $query->where('order', '!=', 0);
+        }])->get();
+        return view('pages.prezzi-destinazioni', compact('pagine'));
     }
 
     public function diconoDiNoi()
     {
-        $page = Page::where('link', 'diconoDiNoi')->with('contents')->firstOrFail();
-        return view('pages.dicono-di-noi', compact('page'));
+        $pagine = Page::where('link', 'diconoDiNoi')->with(['contents' => function ($query) {
+            $query->where('order', '!=', 0);
+        }])->get();
+        return view('pages.dicono-di-noi', compact('pagine'));
     }
 
     public function contattaci()
     {
-        $page = Page::where('link', 'contattaci')->with('contents')->firstOrFail();
-        return view('pages.contattaci', compact('page'));
+        $pagine = Page::where('link', 'contattaci')->with(['contents' => function ($query) {
+            $query->where('order', '!=', 0);
+        }])->get();
+        return view('pages.contattaci', compact('pagine'));
     }
 
     public function partners()
     {
-        $page = Page::where('link', 'partners')->with('contents')->firstOrFail();
-        return view('pages.partners', compact('page'));
+        $pagine = Page::where('link', 'partners')->with(['contents' => function ($query) {
+            $query->where('order', '!=', 0);
+        }])->get();
+        return view('pages.partners', compact('pagine'));
     }
 
     public function faq()
     {
-        $page = Page::where('link', 'faq')->with('contents')->firstOrFail();
-        return view('pages.faq', compact('page'));
+        $pagine = Page::where('link', 'faq')->with(['contents' => function ($query) {
+            $query->where('order', '!=', 0);
+        }])->get();
+        return view('pages.faq', compact('pagine'));
     }
 
     public function privacy()
-    {   
+    {
         return view('pages.privacy-terms');
     }
 
+    public function setLanguage($lang)
+    {
+        session()->put('locale', $lang);
+        return redirect()->back();
+    }
 
-   // funzione per testare i pdf
+    // funzione per testare i pdf
 
     public function pdf()
     {
@@ -109,6 +128,7 @@ class PublicController extends Controller
         return view('pdf.booking-summary-pdf', compact('booking'));
     }
 
+    //funzione per eliminare le immagini
     public function deleteImage($id)
     {
         $image = Image::find($id);

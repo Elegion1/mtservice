@@ -29,6 +29,7 @@ Route::get('/partners', [PublicController::class, 'partners'])->name('partners')
 Route::get('/FAQ', [PublicController::class, 'faq'])->name('faq');
 Route::get('/privacy-terms-and-conditions', [PublicController::class, 'privacy'])->name('privacy');
 Route::get('/services/{id}', [ServiceController::class, 'show'])->name('service.show');
+Route::get('/excursions/{id}', [ExcursionController::class, 'show'])->name('excursion.show');
 
 // Vista PDF 
 Route::get('/pdf', [PublicController::class, 'pdf'])->name('pdf')->middleware('auth');
@@ -37,6 +38,8 @@ Route::get('/pdf', [PublicController::class, 'pdf'])->name('pdf')->middleware('a
 // Contattaci
 Route::post('/contattaci', [ContactController::class, 'invia'])->name('inviaForm');
 
+// Lingua
+Route::post('/lingua/{lang}', [PublicController::class, 'setLanguage'])->name('setLocale');
 // DASHBOARD
 
 // eliminazione immagini

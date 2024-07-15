@@ -2,21 +2,7 @@
     <div class="container bg-white rounded p-3">
         <div class="row">
             <div class="col-12">
-                <h1>TITOLO</h1>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione vero repudiandae libero ipsa rem
-                    tenetur maiores nisi a molestias cupiditate fugit, sequi asperiores iusto aliquid eaque unde,
-                    accusantium, officia quo?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga soluta optio quaerat
-                    corrupti in natus debitis, laboriosam incidunt pariatur sint minus, tempore impedit omnis corporis
-                    consequuntur ipsam possimus ipsa!
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Non magnam, neque corrupti, odio, culpa
-                    corporis unde tempora qui doloremque consectetur aperiam dolorum? Libero a architecto molestias, in
-                    excepturi numquam eaque?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam asperiores suscipit perspiciatis,
-                    cupiditate quisquam libero ut. Aliquid voluptatum saepe, odio, at eos aliquam, nemo quasi
-                    praesentium quibusdam ullam totam animi?
-                </p>
+                <x-show-content :pagine="$pagine"/>
             </div>
             <div id="diconoDiNoi" class="col-12 mt-5 text-center">
                 <p class="h4">

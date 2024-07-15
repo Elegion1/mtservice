@@ -15,6 +15,13 @@ class ExcursionController extends Controller
         return view('dashboard.excursion', compact('excursions'));
     }
 
+    public function show($id)
+    {
+        $excursion = Excursion::findOrFail($id);
+
+        return view('pages.excursions.show', compact('excursion'));
+    }
+
     public function create()
     {
         return view('dashboard.create.excursion');

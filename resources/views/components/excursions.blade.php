@@ -24,13 +24,13 @@
                         </div>
                         <div class="col-12 col-md-6 d-flex justify-content-center flex-column">
                             <div>
-                                <h3>{{ $excursion->name }}</h3>
+                                <h3>{{ $excursion->{'name_' . app()->getLocale()} }}</h3>
                             </div>
                             <div>
-                                <small>Durata {{ $excursion->duration }} ore circa</small>
+                                <small>{{__('ui.duration')}} {{ $excursion->duration }} {{__('ui.hours')}} {{__('ui.approx')}}</small>
                             </div>
                             <div>
-                                <p>{{ $excursion->description }}</p>
+                                <p>{!! $excursion->{'description_' . app()->getLocale()} !!}</p>
                             </div>
                         </div>
                     </div>

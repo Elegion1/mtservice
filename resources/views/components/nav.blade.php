@@ -5,14 +5,19 @@
                 <a class="navbar-brand" href="{{ route('home') }}">
                     <img class="logo-img" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt="">
                 </a>
+                <div class="d-flex justify-content-end align-items-center">
+                    <x-_locale lang="it" />
+                    <x-_locale lang="en" />
+                </div>
                 <div class=" d-flex justify-content-center align-items-center flex-column">
-                    <span class="text-c fs-5">Prenota online o chiama</span>
+                    <span class="text-c fs-5">{{__('ui.navTitle')}}</span>
                     <div class="d-flex justify-content-center aling-items-center">
                         <a class="p-md-2 m-md-1 mx-auto nav-link rounded-pill"
-                            href="tel:{{ $ownerdata->phone2 }}"><span><i class="bi bi-telephone-fill"></i></span> Giuseppe</a>
+                            href="tel:{{ $ownerdata->phone2 }}"><span><i class="bi bi-telephone-fill"></i></span>
+                            Giuseppe</a>
 
-                        <a class="p-md-2 m-md-1 mx-auto nav-link rounded-pill"
-                            href="tel:{{ $ownerdata->phone3 }}"><i class="bi bi-telephone-fill"></i> Maurizio</a>
+                        <a class="p-md-2 m-md-1 mx-auto nav-link rounded-pill" href="tel:{{ $ownerdata->phone3 }}"><i
+                                class="bi bi-telephone-fill"></i> Maurizio</a>
                     </div>
                 </div>
                 <button class="navbar-toggler navbar_toggler_focused" type="button" data-bs-toggle="collapse"
@@ -31,9 +36,10 @@
 
             <div class="col-12">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav d-flex align-items-center justify-content-center flex-wrap mx-auto mb-2 mb-lg-0">
+                    <ul
+                        class="navbar-nav d-flex align-items-center justify-content-center flex-wrap mx-auto mb-2 mb-lg-0">
                         <x-links>
-                             text-uppercase 
+                            text-uppercase
                         </x-links>
                     </ul>
                     {{-- <form class="d-flex" role="search">

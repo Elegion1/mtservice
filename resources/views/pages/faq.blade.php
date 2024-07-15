@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container bg-white rounded shadow p-3">
+    <div class="container bg-white rounded p-3">
         <h1>Domande Frequenti (FAQ)</h1>
 
         <div class="faq-section">
@@ -89,5 +89,7 @@
                     immagini.</p>
             </div>
         </div>
+
+        <x-contact-link/>
     </div>
 </x-layout>

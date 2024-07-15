@@ -7,16 +7,16 @@
                     <button class="btn btn-sm bg-a text-white prenota-btn">Prenota</button>
                 </div> --}}
                
-                    <p class="h6">Da
+                    <p class="h6">{{__('ui.from')}}
                         <span class="text_col">{{ $tratta->departure->name }}</span>
-                        a
+                        {{__('ui.to')}}
                         <span class="text_col">{{ $tratta->arrival->name }}</span>
                     </p>
-                    <p>A partire da <strong class="h4">{{ $tratta->price }} €</strong> a persona</p>
+                    <p>{{__('ui.priceStartingFrom')}} <strong class="h4">{{ $tratta->price }} €</strong> {{__('ui.perPerson')}}</p>
                 </div>
             @endforeach
         </div>
     @else
-        <p class="h3 text-a text-center">Non ci sono tratte disponibili</p>
+        <p class="h3 text-a text-center">{{__('ui.noRoutesAvailable')}}</p>
     @endif
 </div>

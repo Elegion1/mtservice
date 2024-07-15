@@ -21,7 +21,7 @@ class PageSeeder extends Seeder
             ['name' => 'Prezzi e destinazioni', 'link' => 'prezziDestinazioni', 'show' => 1, 'order' => 4],
             ['name' => 'Dicono di noi', 'link' => 'diconoDiNoi', 'show' => 1, 'order' => 5],
             ['name' => 'FAQ', 'link' => 'faq', 'show' => 1, 'order' => 6],
-            ['name' => 'Su di noi', 'link' => 'home', 'show' => 1, 'order' => 7],
+            ['name' => 'Su di noi', 'link' => 'home', 'show' => 0, 'order' => 7],
             ['name' => 'Contatti', 'link' => 'contattaci', 'show' => 1, 'order' => 8],
             ['name' => 'Partners', 'link' => 'partners', 'show' => 1, 'order' => 9],
             ['name' => 'Dashboard', 'link' => 'dashboard', 'show' => 1, 'order' => 10]

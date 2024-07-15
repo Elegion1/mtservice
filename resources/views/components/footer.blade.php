@@ -14,7 +14,7 @@
         </div>
 
         <div class="col-4 mb-3">
-            <h5>Navigazione</h5>
+            <h5>{{__('ui.navigation')}}</h5>
             <ul class="nav flex-column">
                 <x-links>
                     text-body-secondary text-capitalize p-0
@@ -23,7 +23,7 @@
         </div>
 
         <div class="col-3 mb-3">
-            <h5>Contatti</h5>
+            <h5>{{__('ui.contacts')}}</h5>
             <ul class="nav flex-column">
                     <li class="nav-item mb-2"><a href="tel:{{$ownerdata->phone2}}" class="nav-link p-0 text-body-secondary">Giuseppe</a></li>
                     <li class="nav-item mb-2"><a href="tel:{{$ownerdata->phone3}}" class="nav-link p-0 text-body-secondary">Maurizio</a></li>

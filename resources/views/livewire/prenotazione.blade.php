@@ -8,20 +8,20 @@
                         @if ($currentForm == 'escursioni') bg-b text-white 
                         @elseif ($currentForm == 'transfer') bg-a text-white 
                         @else bg-b text-white @endif"
-                        wire:click="showTransfer">TRANSFER</button>
+                        wire:click="showTransfer">{{__('ui.transfer')}}</button>
                     <button type="button" 
                         class=" m-1 btn
                         @if ($currentForm == 'transfer') bg-b text-white 
                         @elseif ($currentForm == 'escursioni') bg-a text-white 
                         @else bg-b text-white @endif"
-                        wire:click="showEscursioni">ESCURSIONI</button>
+                        wire:click="showEscursioni">{{__('ui.excursions')}}</button>
                     <button type="button" 
                         class=" m-1 btn
                         @if ($currentForm == 'transfer') bg-b text-white 
                         @elseif ($currentForm == 'escursioni') bg-b text-white 
                         @elseif ($currentForm == 'noleggio') bg-a text-white 
                         @else bg-b text-white @endif"
-                        wire:click="showRent">NOLEGGIO AUTO</button>
+                        wire:click="showRent">{{__('ui.carRent')}}</button>
                 </div>
             @endif
 
