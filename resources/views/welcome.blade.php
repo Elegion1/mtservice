@@ -22,16 +22,7 @@
                 <x-excursions />
             </div>
             <div class="container-fluid p-3 d-flex justify-content-center align-items-center flex-column">
-                @foreach ($pages->contents as $content)
-                    @if ($content->order && $content->show)
-                        <p>{{ $content->title }}</p>
-                        <p>{{ $content->subtitle }}</p>
-                        {!! $content->body !!}
-                        @if ($content->links)
-                            <a href="{{ $content->links }}">Link</a>
-                        @endif
-                    @endif
-                @endforeach
+                <x-show-content :pagine="$pagine" />
             </div>
         </div>
     </div>

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-b">
+<nav class="navbar navbar-expand-lg bg-b z-3">
     <div class="container">
         <div class="row w-100">
             <div class="col-12 d-flex justify-content-between align-items-center">
@@ -9,7 +9,7 @@
                     <x-_locale lang="it" />
                     <x-_locale lang="en" />
                 </div>
-                <div class=" d-flex justify-content-center align-items-center flex-column">
+                <div class=" d-flex justify-content-between align-items-center flex-column">
                     <span class="text-c fs-5">{{__('ui.navTitle')}}</span>
                     <div class="d-flex justify-content-center aling-items-center">
                         <a class="p-md-2 m-md-1 mx-auto nav-link rounded-pill"
@@ -20,7 +20,7 @@
                                 class="bi bi-telephone-fill"></i> Maurizio</a>
                     </div>
                 </div>
-                <button class="navbar-toggler navbar_toggler_focused" type="button" data-bs-toggle="collapse"
+                <button class="navbar-toggler p-0 border-0 navbar_toggler_focused" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
