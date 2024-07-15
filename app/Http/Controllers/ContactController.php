@@ -30,7 +30,7 @@ class ContactController extends Controller
         // Invia l'email
         Mail::to('tua@email.com')->send(new ContactMail($contatto));
 
-        return 'Dati inseriti nel database e email inviata con successo!';
+        return redirect()->back()->with('message', 'Dati inseriti nel database e email inviata con successo!' );
     }
     /**
      * Display a listing of the resource.
