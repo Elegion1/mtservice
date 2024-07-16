@@ -3,7 +3,7 @@
     <div class="row">
 
         <div class="col-12 p-0">
-            <div class="container bg-white rounded p-md-3 border_custom">
+            <div class="container bg-white rounded p-md-3 shadow border_custom">
                 <livewire:prenotazione />
             </div>
             <div class="container my-3">

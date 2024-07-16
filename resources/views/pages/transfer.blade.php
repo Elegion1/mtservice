@@ -5,9 +5,9 @@
                 <div class="container p-3 ">
                     <livewire:prenotazione />
                 </div>
-                <div class="container">
-                    <x-services />
-                </div>
+            </div>
+            <div class="container">
+                <x-services />
             </div>
         </div>
         <div class="col-12 col-xl-6 mt-3">

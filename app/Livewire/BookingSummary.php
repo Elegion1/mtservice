@@ -17,8 +17,8 @@ class BookingSummary extends Component
     public $email;
     public $phone;
     public $body;
-    public $privacy_policy;
-    public $terms_conditions;
+    public $privacy_policy = false;
+    public $terms_conditions = false;
 
     protected $rules = [
         'name' => 'required|string|max:255',
@@ -26,8 +26,8 @@ class BookingSummary extends Component
         'email' => 'required|email|max:255',
         'phone' => 'required|string|max:20',
         'body' => 'required|string|max:1000',
-        'privacy_policy' => 'required',
-        'terms_conditions' => 'required',
+        'privacy_policy' => 'accepted',
+        'terms_conditions' => 'accepted',
     ];
 
     protected $messages = [
@@ -37,8 +37,8 @@ class BookingSummary extends Component
         'email.email' => 'Inserisci un\'email valida.',
         'phone.required' => 'Il numero di telefono è obbligatorio.',
         'body.required' => 'Le note sono obbligatorie.',
-        'privacy_policy.required' => 'Accetta le privacy policy per proseguire',
-        'terms_conditions.required' => 'Accetta i termini e condizioni per proseguire',
+        'privacy_policy.accepted' => 'Accetta le privacy policy per proseguire',
+        'terms_conditions.accepted' => 'Accetta i termini e condizioni per proseguire',
     ];
 
     public function mount($bookingData)
@@ -68,7 +68,7 @@ class BookingSummary extends Component
         ]);
 
         // Generazione del PDF del riepilogo
-        $pdf = $this->generatePDF( $booking );
+        $pdf = $this->generatePDF($booking);
 
         // Invio dell'email con il PDF allegato
         Mail::to($this->email)->send(new BookingConfirmation($pdf));
@@ -96,5 +96,4 @@ class BookingSummary extends Component
 
         return $dompdf->output();
     }
-
 }

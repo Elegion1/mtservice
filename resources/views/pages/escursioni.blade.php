@@ -1,6 +1,6 @@
 <x-layout>
     <div class="row">
-        <div class="col-12 col-md-8">
+        <div class="col-12 col-md-6">
 
             <div class="container rounded bg-white border_custom">
                 <div class="container p-3">
@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <div class="col-12 col-md-4 ">
+        <div class="col-12 col-md-6 ">
             <div id="escursioni"
                 class="container d-flex justify-content-center align-items-center flex-column rounded bg-white">
                 <p class="h2 my-3">{{__('ui.excursionPageTitle')}}</p>

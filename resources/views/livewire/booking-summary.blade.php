@@ -14,7 +14,7 @@
                     <p>{{__('ui.return')}}: <span class="text_col">{{ $bookingData['date_return'] }}</span> {{__('ui.time')}} <span
                             class="text_col">{{ $bookingData['time_return'] }}</span></p>
                 @endif
-                <p>{{_('ui.passengers')}}: <span class="text_col">{{ $bookingData['passengers'] ?? 'N/A' }}</span></p>
+                <p>{{__('ui.passengers')}}: <span class="text_col">{{ $bookingData['passengers'] ?? 'N/A' }}</span></p>
                 <p>{{ucfirst(__('ui.price'))}} {{ucfirst(__('ui.totalPrice'))}}: <span class="text_col">{{ $bookingData['price'] ?? 'N/A' }}</span> €</p>
             @elseif ($bookingData['type'] == 'escursione')
                 <p>{{__('ui.bookingType')}}: <span class="text_col">{{ ucfirst($bookingData['type']) }}</span> a <span

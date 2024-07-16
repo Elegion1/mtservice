@@ -506,7 +506,7 @@
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
                                                                         class="es-text-mobile-size-16">​</p>
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
-                                                                        class="es-text-mobile-size-16">La prenotazione
+                                                                        class="es-text-mobile-size-16">La richeista di prenotazione
                                                                         è stata effettuata correttamente, in allegato
                                                                         trovi il riepilogo.</p>
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"

@@ -1,7 +1,8 @@
 :root {
-    --color-a: #ff3e00;
-    --color-b: #9a9d98;
+    --color-a: #0088ff;
+    --color-b: #2d2e2c;
     --color-c: #e7e8ee;
+    --color-d: #00AC0E;
 }
 
 .bg-a{
@@ -16,6 +17,10 @@
     background-color: var(--color-c) !important;
 }
 
+.bg-d{
+    background-color: var(--color-d) !important;
+}
+
 .text-a{
     color: var(--color-a) !important;
 }
@@ -26,5 +31,9 @@
 
 .text-c{
     color: var(--color-c) !important;
+}
+
+.text-d{
+    color: var(--color-d) !important;
 }
 

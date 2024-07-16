@@ -19,7 +19,7 @@ return [
     'departure' => 'Andata',
     'return' => 'Ritorno',
     'totalPrice' => 'Totale',
-    'submit' => 'Prenota',
+    'submit' => 'PRENOTA',
 
     //escursione
     'excursionTitle' => 'Prenota Escursione',
