@@ -1,43 +1,43 @@
 <?php
 return [
     // HOME
-    'title1' => 'The most frequent routes',
-    'title2' => 'Our services',
-    'title3' => 'Our excursions',
+    'title1' => 'Most Frequent Routes',
+    'title2' => 'Our Services',
+    'title3' => 'Our Excursions',
 
     //navbar
-    'navTitle' => 'Book online or call',
+    'navTitle' => 'Book Online or Call',
 
     //Livewire
     //transfer
     'transferTitle' => 'Book Transfer',
-    'selectDeparture' => 'Select departure',
-    'selectDestination' => 'Select destination',
+    'selectDeparture' => 'Select Departure',
+    'selectDestination' => 'Select Destination',
     'passengers' => 'Passengers',
     'oneWay' => 'One Way',
     'returnTrip' => 'Round Trip',
     'departure' => 'Departure',
     'return' => 'Return',
     'totalPrice' => 'Total',
-    'submit' => 'Book',
+    'submit' => 'BOOK',
 
     //excursion
     'excursionTitle' => 'Book Excursion',
     'excursionSelect' => 'Select Excursion',
 
-    //booking
+    //booking 
     'transfer' => 'TRANSFER',
     'excursions' => 'EXCURSIONS',
     'carRent' => 'CAR RENTAL',
 
     //car rental
-    'rentTitle' => 'Book your car',
-    'rentStartDate' => 'Pick-up date',
-    'rentEndDate' => 'Drop-off date',
+    'rentTitle' => 'Book Your Car',
+    'rentStartDate' => 'Pick-Up Date',
+    'rentEndDate' => 'Drop-Off Date',
     'quantity' => 'Quantity',
-    'rentSelectCar' => 'Select a vehicle',
-    'priceStartingFrom' => 'Starting from',
-    'notAvailable' => 'not available',
+    'rentSelectCar' => 'Select a Vehicle',
+    'priceStartingFrom' => 'Starting From',
+    'notAvailable' => 'Not Available',
 
     //booking summary
     'bookingSummaryTitle' => 'Booking Summary',
@@ -48,40 +48,54 @@ return [
     'time' => 'Time',
     'duration' => 'Duration',
     'minutes' => 'Minutes',
-    'approx' => 'approx',
-    'price' => 'price',
-    'collectionDate' => 'Pick-up date',
-    'returnDate' => 'Drop-off date',
+    'approx' => 'Approx',
+    'price' => 'Price',
+    'collectionDate' => 'Pick-Up Date',
+    'returnDate' => 'Drop-Off Date',
     'personalData' => 'PERSONAL DATA',
-    'name' => 'First Name',
-    'surname' => 'Last Name',
+    'name' => 'Name',
+    'surname' => 'Surname',
     'phone' => 'Phone',
+    'email' => 'Email',
+    'bookingConfBodyMsg' => 'Enter notes or any requests',
     'acceptPrivacy' => 'I accept the',
-    'privacyPolicy' => 'Privacy Policy',
     'acceptTerms' => 'I accept the',
+    'privacyPolicy' => 'Privacy Policy',
     'termsConditions' => 'Terms and Conditions',
     'confirmBooking' => 'Confirm Booking',
     'loading' => 'Loading... Please wait',
-    //end LIVEWIRE
 
     //contact-link
-    'contactLinkTitle' => 'For <strong>info</strong> or <strong>custom services</strong>',
-    'contactLinkBtn' => 'contact us',
+    'contactLinkTitle' => 'For <strong class="text-d">info</strong> or <strong class="text-d">custom services</strong>',
+    'contactLinkBtn' => 'Contact Us',
 
-    //route-list
+    //route list
     'perPerson' => 'per person',
-    'noRoutesAvailable' => 'No routes available',
+    'noRoutesAvailable' => 'No Routes Available',
 
     // services
-    'clickLink' => 'Go to site',
+    'clickLink' => 'Go to the Website',
 
     //excursions
     'hour' => 'hour',
     'hours' => 'hours',
-    'excursionPageTitle' => 'Western Sicily Excursions', 
+    'excursionPageTitle' => 'Western Sicily Excursions',
     'details' => 'Details',
 
     //footer
     'navigation' => 'Navigation',
     'contacts' => 'Contacts',
+
+    //links
+    'Home' => 'home',
+    'Transfer' => 'transfer',
+    'Escursioni' => 'excursions',
+    'Noleggio Auto' => 'car rental',
+    'Prezzi e destinazioni' => 'prices and destinations',
+    'Dicono di noi' => 'reviews',
+    'FAQ' => 'FAQ',
+    'Su di noi' => 'about us',
+    'Contatti' => 'contacts',
+    'Partners' => 'partners',
+    'Dashboard' => 'dashboard',
 ];

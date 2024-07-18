@@ -11,7 +11,8 @@
             <div class="carousel-item excursion {{ $index === 0 ? 'active' : '' }}">
                 <div class="container">
                     <div class="row">
-                        <div class="col-12 col-md-6 d-flex justify-content-center align-items-center">
+                        <div
+                            class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end align-items-center">
                             @if ($excursion->images->isNotEmpty())
                                 @foreach ($excursion->images->first() as $image)
                                     <img src="{{ Storage::url($image->path) }}" class="excursion-img rounded shadow"
@@ -22,16 +23,11 @@
                                     src="https://picsum.photos/40{{ $excursion->id }}" alt="">
                             @endif
                         </div>
-                        <div class="col-12 col-md-6 d-flex justify-content-center flex-column">
-                            <div>
-                                <h3>{{ $excursion->{'name_' . app()->getLocale()} }}</h3>
-                            </div>
-                            <div>
-                                <small>{{__('ui.duration')}} {{ $excursion->duration }} {{__('ui.hours')}} {{__('ui.approx')}}</small>
-                            </div>
-                            <div>
-                                <p>{!! $excursion->{'description_' . app()->getLocale()} !!}</p>
-                            </div>
+                        <div class="col-12 col-md-6 d-flex justify-content-center flex-column mt-3">
+                            <h3>{{ $excursion->{'name_' . app()->getLocale()} }}</h3>
+                            <small>{{ __('ui.duration') }} {{ $excursion->duration }} {{ __('ui.hours') }}
+                                {{ __('ui.approx') }}</small>
+                            <p>{!! $excursion->{'description_' . app()->getLocale()} !!}</p>
                         </div>
                     </div>
                 </div>

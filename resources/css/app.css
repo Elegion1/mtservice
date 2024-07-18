@@ -34,10 +34,11 @@
     font-size: 0.875rem;
 }
 
-.btn:hover:hover {
-    background-color: var(--color-b);
+.btn:hover {
+    /* background-color: var(--color-c); */
     color: white;
     transition: 0.5s;
+    transform: scale(0.95);
 }
 
 .altezza {
@@ -146,7 +147,7 @@
 }
 
 .text_col {
-    color: blue;
+    color: var(--color-a);
 }
 
 h1, h2 {
@@ -155,10 +156,6 @@ h1, h2 {
 
 .border_custom{
     border-bottom: 5px solid var(--color-a);
-}
-
-.btn:hover{
-    transform: scale(0.95);
 }
 
 .form_input_focused:focus {
@@ -178,9 +175,33 @@ h1, h2 {
 a:hover {
     color: var(--color-a) !important;
     transform: scale(0.98);
+    transition: 0.3s;
 }
 
-.bg_white_transparent {
+.bg_nav {
     background-color: rgb(255, 255, 255);
 }
 
+.btn_font_size {
+    font-size: 0.9rem;
+}
+
+.text-small {
+    font-size: small;
+}
+
+.fixed_height {
+    height: 100px;
+}
+
+.img_carRent {
+    min-width: 60px;
+    width: 100%;
+    max-height: 95px;
+    max-width: 150px;
+}
+
+.form_check_round {
+    width: 26px;
+    height: 26px;
+}

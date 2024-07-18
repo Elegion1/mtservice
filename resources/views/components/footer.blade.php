@@ -1,6 +1,6 @@
-<div class="container ">
-    <footer class="row pt-3 mt-5 border-top">
-        <div class="col-5 mb-3">
+<div class="container-lg">
+    <footer class="d-flex justify-content-between p-3 mt-5 border-top">
+        <div class="mb-3">
             <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
                 <img width="100px" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt="">
             </a>
@@ -13,16 +13,16 @@
             {{-- <small>Cell.: <a href="tel:+393283650762">+39 328 36 50 762</a></small><br> --}}
         </div>
 
-        <div class="col-4 mb-3">
+        <div class="mb-3 text-center">
             <h5>{{ __('ui.navigation') }}</h5>
             <ul class="nav flex-column">
                 <x-links>
-                    text-body-secondary text-capitalize p-0
+                    text-body-secondary text-capitalize p-0 text-small
                 </x-links>
             </ul>
         </div>
 
-        <div class="col-3 mb-3">
+        <div class="mb-3 text-end">
             <h5>{{ __('ui.contacts') }}</h5>
             <ul class="nav flex-column">
                 <li class="nav-item mb-2"><a href="tel:{{ $ownerdata->phone2 }}"

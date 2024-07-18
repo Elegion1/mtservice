@@ -12,11 +12,7 @@
                                 {{ $excursion->{'name_' . app()->getLocale()} }}</option>
                         @endforeach
                     </select>
-                    <div class="error-message">
-                        @error('excursionSelect')
-                            <span class="text-danger error">{{ $message }}</span>
-                        @enderror
-                    </div>
+                    <x-error-message :field='$excursionSelect' />
                 </div>
             </div>
 
@@ -25,21 +21,13 @@
                     <label for="excursionPassengers" class="form-label">{{ __('ui.passengers') }}</label>
                     <input wire:model.live="excursionPassengers" type="number" class="form-control form_input_focused"
                         id="excursionPassengers" min="1" max="16" value="1">
-                    <div class="error-message">
-                        @error('excursionPassengers')
-                            <span class="text-danger error">{{ $message }}</span>
-                        @enderror
-                    </div>
+                        <x-error-message :field='$excursionPassengers' />
                 </div>
                 <div class="col-6">
                     <label class="form-label" for="dateExcursion">{{ __('ui.departure') }}</label>
                     <input wire:model.live="excursionDate" type="datetime-local" class="form-control form_input_focused"
                         id="dateExcursion">
-                    <div class="error-message">
-                        @error('excursionDate')
-                            <span class="text-danger error">{{ $message }}</span>
-                        @enderror
-                    </div>
+                        <x-error-message :field='$excursionDate' />
                 </div>
             </div>
 

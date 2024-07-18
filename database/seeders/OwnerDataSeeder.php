@@ -25,6 +25,9 @@ class OwnerDataSeeder extends Seeder
             'city' => '91027 Paceco (TP)',
             'pIva' => '02644360816',
             'codFisc' => 'TRN NNN 73 R04 G208I',
+            'phoneName' => 'Maurizio', 
+            'phone2Name' => 'Giuseppe',
+            'phone3Name' => 'Maurizio',
             'phone' => '+39 3283650762', // Inserisci il numero di telefono se disponibile
             'phone2' => '+39 3931181111', // Inserisci il secondo numero di telefono se necessario
             'phone3' => '+39 3773911945', // Inserisci il terzo numero di telefono se necessario

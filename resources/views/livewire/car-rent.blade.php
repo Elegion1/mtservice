@@ -1,91 +1,44 @@
 <div>
-    <div class="container">
+    <div class="container-md">
         <form wire:submit.prevent="submitBookingRent">
             <h4 class="text-uppercase text-a"><strong>{{__('ui.rentTitle')}}</strong></h4>
-            <div class="row bg-white p-2 rounded">
-                <div class="col-12 col-md-5">
+            <div class="row bg-secondary-subtle p-2 rounded">
+                <div class="col-12 col-md-5 mb-2">
                     <label class="form-label" for="dateStart">{{__('ui.rentStartDate')}}</label>
                     <input wire:model.live="dateStart" type="date" class="form-control form_input_focused" id="dateStart">
-                    {{-- <div class="error-message">
-                                @error('dateStart')
-                                    <span class="text-danger error">{{ $message }}</span>
-                                @enderror
-                            </div> --}}
                 </div>
-                <div class="col-12 col-md-5">
+                <div class="col-12 col-md-5 mb-2">
                     <label class="form-label" for="dateEnd">{{__('ui.rentEndDate')}}</label>
                     <input wire:model.live="dateEnd" type="date" class="form-control form_input_focused" id="dateEnd">
-                    {{-- <div class="error-message">
-                                @error('dateEnd')
-                                    <span class="text-danger error">{{ $message }}</span>
-                                @enderror
-                            </div> --}}
                 </div>
-                <div class="col-12 col-md-2">
+                <div class="col-12 col-md-2 mb-2">
                     <label class="form-label" for="quantity">{{__('ui.quantity')}}</label>
                     <input wire:model.live="quantity" type="number" class="form-control form_input_focused" id="quantity" min="1"
                         max="1">
-                    {{-- <div class="error-message">
-                                @error('quantity')
-                                    <span class="text-danger error">{{ $message }}</span>
-                                @enderror
-                            </div> --}}
-                </div>
-                {{-- <div class="col-12 d-flex justify-content-center align-items-center flex-wrap flex-column">
-                            <div class="error-message">
-                                @error('dateStart')
-                                    <span class="text-danger error">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="error-message">
-                                @error('dateEnd')
-                                    <span class="text-danger error">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="error-message">
-                                @error('quantity')
-                                    <span class="text-danger error">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div> --}}
-            </div>
-
-            <div class="container-fluid message d-flex flex-column align-items-center justify-content-center mx-auto my-2">
-                <div class="error-message">
-                    @error('dateStart')
-                        <span class="text-danger error">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="error-message">
-                    @error('dateEnd')
-                        <span class="text-danger error">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="error-message">
-                    @error('quantity')
-                        <span class="text-danger error">{{ $message }}</span>
-                    @enderror
                 </div>
             </div>
 
-            <div class="container p-md-3">
+            <div class="container-md message d-flex flex-column align-items-center justify-content-center mx-auto">
+                <x-error-message :field='$dateStart' />
+                <x-error-message :field='$dateEnd' />
+                <x-error-message :field='$quantity' />
+            </div>
+
+            <div class="container-md px-md-5">
                 <p><strong class="text-uppercase">{{__('ui.rentSelectCar')}}</strong></p>
                 @foreach ($cars as $car)
-                    <div
-                        class="form-check border rounded mb-3 @if (!$car->isAvailable) bg-c @endif row d-flex justify-content-between align-items-center">
-                        <div class="col-1">
-                            <input wire:model.live="carID" value="{{ $car->id }}" class="form-check-input form_input_focused"
-                                type="radio" name="flexRadioDefault" id="car{{ $car->id }}"
-                                @if (!$car->isAvailable) disabled @endif>
+                    <label for="car{{ $car->id }}" class="form-check border rounded bg-white mb-3 fixed_height @if (!$car->isAvailable) bg-secondary-subtle @endif row d-flex justify-content-center align-items-center flex-nowrap">
+                        <input wire:model.live="carID" value="{{ $car->id }}" class="form-check-input form_input_focused form_check_round"
+                            type="radio" name="flexRadioDefault" id="car{{ $car->id }}"
+                            @if (!$car->isAvailable) disabled @endif>
+                        <div class="p-1 col-3 my-auto">
+                            <img class="img_carRent" src="{{ Storage::url($car->images[0]->path) }}" alt="">
                         </div>
-                        <div class="col-3 p-1 my-auto">
-                            <img width="80px" src="{{ Storage::url($car->images[0]->path) }}" alt="">
+                        <div class="p-0 col-4 text-start text-md-center d-flex flex-column justify-content-center">
+                            <p class="h6 m-0 text-nowrap">{{ $car->name }}</p>
+                            <p class="m-0"><small>{{ $car->description }}</small></p>
                         </div>
-                        <div class="col-4 text-center text-md-start d-flex flex-column">
-                            <p class="m-1 h6">{{ $car->name }}</p>
-                            <p><small>{{ $car->description }}</small></p>
-                        </div>
-                        <div class="col-4 d-flex align-items-end justify-content-center flex-column">
+                        <div class="p-0 col-4 text-center my-auto text-small">
                             @if ($car->isAvailable)
                                 <p class="m-1">{{__('ui.priceStartingFrom')}}</p>
                                 <p class="h3">{{ $car->price }} €</p>
@@ -93,7 +46,7 @@
                                 <p class="h6 text-danger"><strong class="text-uppercase">{{__('ui.notAvailable')}}</strong></p>
                             @endif
                         </div>
-                    </div>
+                    </label>
                 @endforeach
             </div>
 

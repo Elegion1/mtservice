@@ -56,16 +56,18 @@ return [
     'name' => 'Nome',
     'surname' => 'Cognome',
     'phone' => 'Telefono',
+    'email' => 'Email',
+    'bookingConfBodyMsg' => 'Inserisci delle note o eventuali richieste',
     'acceptPrivacy' => 'Accetto la',
-    'privacyPolicy' => 'Privacy Policy',
     'acceptTerms' => 'Accetto i',
+    'privacyPolicy' => 'Privacy Policy',
     'termsConditions' => 'Termini e Condizioni',
     'confirmBooking' => 'Conferma Prenotazione',
     'loading' => 'Caricamento in corso... Si prega di attendere',
     //fine LIVEWIRE
 
     //contact-link
-    'contactLinkTitle' => 'Per <strong>info</strong> o <strong>servizi</strong> personalizzati',
+    'contactLinkTitle' => 'Per <strong class="text-d">info</strong> o <strong class="text-d">servizi</strong> personalizzati',
     'contactLinkBtn' => 'contattaci',
 
     //lista-tratte
@@ -84,6 +86,22 @@ return [
     //footer
     'navigation' => 'Navigazione',
     'contacts' => 'Contatti',
+
+    //links
+    'Home' => 'home',
+    'Transfer' => 'transfer',
+    'Escursioni' => 'escursioni',
+    'Noleggio Auto' => 'noleggio auto',
+    'Prezzi e destinazioni' => 'dicono di noi',
+    'FAQ' => 'FAQ',
+    'Su di noi' => 'su di noi',
+    'Contatti' => 'contatti',
+    'Partners' => 'partners',
+    'Dashboard' => 'dashboard',
+
+
+
+
 
 ];
 

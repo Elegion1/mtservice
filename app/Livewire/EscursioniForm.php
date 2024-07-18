@@ -83,8 +83,9 @@ class EscursioniForm extends Component
         $this->validate();
 
         $bookingData = $this->getBookingDataExcursion();
-        $departureName = Excursion::find($bookingData['departure_id'])->name;
-        
+        $departureName = Excursion::find($bookingData['departure_id'])->name_it;
+        $duration = Excursion::find($bookingData['departure_id'])->duration;
+        $bookingData['duration'] = $duration;
         $bookingData['departure_name'] = $departureName;
 
         // Formattare la data di partenza

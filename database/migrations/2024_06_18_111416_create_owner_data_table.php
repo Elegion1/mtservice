@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('city');
             $table->string('pIva');
             $table->string('codFisc');
+            $table->string('phoneName');
+            $table->string('phone2Name');
+            $table->string('phone3Name');
             $table->string('phone');
             $table->string('phone2');
             $table->string('phone3');

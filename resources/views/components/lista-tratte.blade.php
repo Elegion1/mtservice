@@ -12,7 +12,7 @@
                         {{__('ui.to')}}
                         <span class="text_col">{{ $tratta->arrival->name }}</span>
                     </p>
-                    <p>{{__('ui.priceStartingFrom')}} <strong class="h4">{{ $tratta->price }} €</strong> {{__('ui.perPerson')}}</p>
+                    <p>{{__('ui.priceStartingFrom')}} <strong class="h4 text-d">{{ $tratta->price }} €</strong> {{__('ui.perPerson')}}</p>
                 </div>
             @endforeach
         </div>
