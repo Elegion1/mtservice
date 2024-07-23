@@ -1,21 +1,21 @@
 <x-layout>
-    <div class="container bg-white rounded p-3">
+    <div class="container bg-white rounded">
         <div class="row">
             <div class="col-12">
                 <x-show-content :pagine="$pagine"/>
             </div>
-            <div id="diconoDiNoi" class="col-12 mt-5 text-center">
-                <p class="h4">
-                    <strong class="text-uppercase">Alcune recensioni</strong>
-                </p>
-                <div class="container">
+            <div id="diconoDiNoi" class="col-12 mt-3 text-center">
+                <h4>
+                    <strong class="text-uppercase text-a">{{__('ui.someReviews')}}</strong>
+                </h4>
+                <div class="container-fluid p-0">
                     <div class="row d-flex justify-content-center">
                         @foreach ($reviewsP as $review)
-                            <div class="col-12 col-md-3 my-3 mx-3 p-3 border rounded">
-                                <p class="h5">{{ $review->title }}</p>
+                            <div class="col-12 col-md-3 m-3 p-2 border rounded">
+                                <p class="h5 text-d">{{ $review->title }}</p>
                                 <p>{!! $review->body !!}</p>
                                 <p>
-                                    <small>
+                                    <small class="text-a">
                                         {{ strtoupper(substr($review->name, 0, 1)) . '. ' . strtoupper(substr(explode(' ', $review->name)[1], 0, 1)) }}.
                                     </small>
                                 </p>

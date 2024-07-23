@@ -100,6 +100,8 @@
                 const descriptionField = document.getElementById('edit-description');
 
                 if (lang === 'it') {
+                    btnIt.classList.add('border-5');
+                    btnEn.classList.remove('border-5');
                     nameField.value = "{{ $excursion->name_it }}";
                     abstractField.value = "{{ $excursion->abstract_it }}";
                     nameField.name = "name_it";
@@ -109,6 +111,8 @@
                         tinymce.get('edit-description').setContent(`{!! addslashes($excursion->description_it) !!}`);
                     }
                 } else if (lang === 'en') {
+                    btnIt.classList.remove('border-5');
+                    btnEn.classList.add('border-5');
                     nameField.value = "{{ $excursion->name_en }}";
                     abstractField.value = "{{ $excursion->abstract_en }}";
                     nameField.name = "name_en";

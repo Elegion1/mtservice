@@ -64,6 +64,7 @@ return [
     'termsConditions' => 'Termini e Condizioni',
     'confirmBooking' => 'Conferma Prenotazione',
     'loading' => 'Caricamento in corso... Si prega di attendere',
+    'paymentMessage' => 'È richiesto un acconto del 30% dopo la conferma della prenotazione da parte del nostro staff',
     //fine LIVEWIRE
 
     //contact-link
@@ -92,12 +93,16 @@ return [
     'Transfer' => 'transfer',
     'Escursioni' => 'escursioni',
     'Noleggio Auto' => 'noleggio auto',
-    'Prezzi e destinazioni' => 'dicono di noi',
+    'Prezzi e destinazioni' => 'prezzi e destinazioni',
+    'Dicono di noi' => 'dicono di noi',
     'FAQ' => 'FAQ',
     'Su di noi' => 'su di noi',
     'Contatti' => 'contatti',
     'Partners' => 'partners',
     'Dashboard' => 'dashboard',
+
+    // dicono di noi
+    'someReviews' => 'Alcune recensioni',
 
 
 

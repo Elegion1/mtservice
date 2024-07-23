@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Models\Page;
 use App\Models\Image;
 use Illuminate\Support\Facades\Storage;
@@ -125,7 +127,24 @@ class PublicController extends Controller
                 'quantity' => 1
             ]
         ];
-        return view('pdf.booking-summary-pdf', compact('booking'));
+
+        $data = compact('booking');
+
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isPhpEnabled', true);
+        $options->set('defaultFont', 'Roboto');
+
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml(view('pdf.booking-summary-pdf', $data)->render());
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        $output = $dompdf->output();
+
+        return response()->streamDownload(
+            fn () => print($output),
+            "booking-summary.pdf");
     }
 
     //funzione per eliminare le immagini

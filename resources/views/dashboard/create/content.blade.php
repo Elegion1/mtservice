@@ -92,10 +92,14 @@
                 const bodyField = document.getElementById('create-body');
 
                 if (lang === 'it') {
+                    btnIt.classList.add('border-5');
+                    btnEn.classList.remove('border-5');
                     titleField.name = "title_it";
                     subtitleField.name = "subtitle_it";
                     bodyField.name = "body_it";
                 } else if (lang === 'en') {
+                    btnIt.classList.remove('border-5');
+                    btnEn.classList.add('border-5');
                     titleField.name = "title_en";
                     subtitleField.name = "subtitle_en";
                     bodyField.name = "body_en";

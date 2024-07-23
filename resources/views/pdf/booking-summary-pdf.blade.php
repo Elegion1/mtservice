@@ -9,317 +9,330 @@
 </head>
 <style>
     :root {
-        --color-a: #ff3e00;
-        --color-b: #9a9d98;
-        --color-c: #e7e8ee;
+        --color-a: #0088ff;
+        --color-b: #fcfafa;
+        --color-c: #c8d3d5;
+        --color-d: #00ac0e;
+    }
+
+    @page {
+        margin: 0;
+        /* Rimuove i margini della pagina */
     }
 
     .color-a {
-        color: #ff3e00;
+        color: #0088ff;
     }
 
     .color-b {
-        color: #9a9d98;
+        color: #fcfafa;
     }
 
-    .text-primary {
-        color: blue
+    .text_col {
+        color: blue;
     }
 
     body {
-        font-family: Arial, Helvetica, sans-serif
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 5mm 5mm;
     }
 
-    .cliente {
-        margin-bottom: 50px;
+    .cliente,
+    .riepilogo {
+        width: 48%;
+        /* Imposta la larghezza al 48% per includere margini o padding */
+        float: left;
+        /* Usa float per posizionare i div uno accanto all'altro */
+        box-sizing: border-box;
+        /* Include padding e bordi nella larghezza totale */
+        margin-right: 1%;
+        margin-left: 1%
+            /* Aggiungi margine tra i div */
     }
 
     .riepilogo {
-        border-left: 2px solid black;
-        padding-left: 30px;
-    }
-
-    .logo-img {
-        width: 20vw;
-        max-width: 200px;
+        margin-right: 0;
+        /* Rimuovi il margine destro dall'ultimo div */
     }
 
     .intestazione {
         padding: 10px;
         background-color: rgb(193, 191, 191);
-        display: flex;
-        justify-content: space-around;
+        height: 150px;
+        /* overflow: hidden; */
     }
+
+    .logo-img {
+        width: 20%;
+        float: left;
+    }
+
+
+    .booking-number {
+        text-align: center;
+        float: left;
+        width: 20%;
+        padding-top: 30px;
+
+    }
+
+    .contact-info {
+        float: right;
+        text-align: center;
+        width: 50%;
+    }
+
+    .contact-info span {
+        display: block;
+    }
+
+    /* .contact-info a {
+        display: block;
+    } */
 
     a {
         padding: 20px 10px;
     }
 
-    .links {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
+    .links {}
 
     .container {
-        display: flex;
-        justify-content: space-around;
-
+        width: 100%;
     }
 
     .azienda {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        margin-top: 100px;
+        /* margin-top: 100px; */
         padding-top: 10px;
-        border-top: 2px solid black;
+        /* border-top: 2px solid black; */
     }
 
-    .faq-section {
-        padding: 20px;
-        border-radius: 5px;
-        margin-bottom: 20px;
+    .page-break {
+        page-break-before: always;
+        /* margin-top: 20px; */
     }
 
-    .faq-item {
-        margin-bottom: 15px;
+    .faq {
+        margin: 0px;
+        padding: 0px;
     }
 
-    .faq-item h3 {
-        margin-bottom: 5px;
-        font-size: 18px;
-        color: var(--color-a);
+    .condizioni-transfer {
+        font-size: 10px;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .clearfix::after {
+        content: "";
+        display: table;
+        clear: both;
     }
 </style>
 
 <body>
     <div class="intestazione ">
         <img class="logo-img" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt="">
-        <div>
-            <p>Prenotazione numero: <span class="text-primary">{{$booking['id']}}</span></p>
+        <div class="booking_number">
+            <span>Prenotazione numero: <span class="text_col">{{ $booking['id'] }}</span></span>
         </div>
-        <div class="links">
-            <p>Chiamaci per info</p>
-            <a href="tel:{{ $ownerdata->phone2 }}">Giuseppe</a>
-            <a href="tel:{{ $ownerdata->phone3 }}">Maurizio</a>
+        <div class="contact-info">
+            <span>Chiamaci per info</span>
+            <a href="tel:{{ $ownerdata->phone2 }}">{{ $ownerdata->phone2Name }}</a>
+            <a href="tel:{{ $ownerdata->phone3 }}">{{ $ownerdata->phone3Name }}</a>
         </div>
-    </div>
 
+    </div>
+    <div class="clearfix"></div>
     <div class="container">
         <div class="cliente">
-            <h1>Dati cliente</h1>
+            <h3>Dati cliente</h3>
             <p><strong>Nome:</strong> <span class="text-primary">{{ $booking['name'] }}</span></p>
             <p><strong>Cognome:</strong> <span class="text-primary">{{ $booking['surname'] }}</span></p>
             <p><strong>Email:</strong> <span class="text-primary">{{ $booking['email'] }}</span></p>
             <p><strong>Telefono:</strong> <span class="text-primary"><a
                         href="tel:{{ $booking['phone'] }}">{{ $booking['phone'] }}</a></span></p>
         </div>
+
         <div class="riepilogo">
 
-            <h1>Riepilogo Prenotazione</h1>
+            <h3>Riepilogo Prenotazione</h3>
 
             <p><strong>Note:</strong> <span class="text-primary">{{ $booking['body'] }}</span></p>
 
             @if ($booking['bookingData']['type'] == 'transfer')
-
-                <p>Tipologia:
-                    <span class="text-primary"> {{ ucfirst($booking['bookingData']['type']) }} </span>
-                </p>
-
-                <p>
-                    Da:
-                    <span class="text-primary"> {{ $booking['bookingData']['departure_name'] ?? 'N/A' }} </span>
-                    A: <span class="text-primary"> {{ $booking['bookingData']['arrival_name'] ?? 'N/A' }} </span>
-                </p>
-
-                <p>
-                    Andata:
-                    <span class="text-primary"> {{ $booking['bookingData']['date_departure'] ?? 'N/A' }} </span>
-                    ore: <span class="text-primary"> {{ $booking['bookingData']['time_departure'] ?? 'N/A' }} </span>
-                </p>
-
+                <p>{{ __('ui.bookingType') }}: <span
+                        class="text_col">{{ ucfirst($booking['bookingData']['type']) }}</span></p>
+                <p>{{ __('ui.from') }}: <span
+                        class="text_col">{{ $booking['bookingData']['departure_name'] ?? 'N/A' }}</span>
+                    {{ __('ui.to') }}: <span
+                        class="text_col">{{ $booking['bookingData']['arrival_name'] ?? 'N/A' }}</span></p>
+                <p>{{ __('ui.date') }}: <span
+                        class="text_col">{{ $booking['bookingData']['date_departure'] ?? 'N/A' }}</span>
+                    {{ __('ui.time') }}: <span
+                        class="text_col">{{ $booking['bookingData']['time_departure'] ?? 'N/A' }}</span></p>
+                <p>{{ __('ui.duration') }}: <span
+                        class="text_col">{{ $booking['bookingData']['duration'] ?? 'N/A' }}</span>
+                    {{ __('ui.minutes') }} {{ __('ui.approx') }}</p>
                 @if (!empty($booking['bookingData']['date_ret']))
-                    <p>
-                        Ritorno:
-                        <span class="text-primary"> {{ $booking['bookingData']['date_return'] }} </span>
-                        ore <span class="text-primary"> {{ $booking['bookingData']['time_return'] }} </span>
+                    <p>{{ __('ui.return') }}: <span
+                            class="text_col">{{ $booking['bookingData']['date_return'] }}</span>
+                        {{ __('ui.time') }} <span class="text_col">{{ $booking['bookingData']['time_return'] }}</span>
                     </p>
                 @endif
-
-                <p>
-                    Durata:
-                    <span class="text-primary"> {{ $booking['bookingData']['duration'] ?? 'N/A' }} </span>
-                    Minuti circa
+                <p>{{ __('ui.passengers') }}: <span
+                        class="text_col">{{ $booking['bookingData']['passengers'] ?? 'N/A' }}</span>
                 </p>
-
-                <p>
-                    Passeggeri:
-                    <span class="text-primary"> {{ $booking['bookingData']['passengers'] ?? 'N/A' }} </span>
+                <p>{{ ucfirst(__('ui.price')) }} {{ ucfirst(__('ui.totalPrice')) }}: <span
+                        class="text_col">{{ $booking['bookingData']['price'] ?? 'N/A' }}</span> €</p>
+            @elseif ($booking['bookingData']['type'] == 'escursione')
+                <p>{{ __('ui.bookingType') }}: <span
+                        class="text_col">{{ ucfirst($booking['bookingData']['type']) }}</span> a
+                    <span class="text_col">{{ $booking['bookingData']['departure_name'] ?? 'N/A' }}</span>
                 </p>
-                <p>
-                    Prezzo Totale:
-                    <span class="text-primary"> {{ $booking['bookingData']['price'] ?? 'N/A' }} </span> €
+                <p>{{ __('ui.date') }}: <span
+                        class="text_col">{{ $booking['bookingData']['date_departure'] ?? 'N/A' }}</span>
                 </p>
-
-
-            @endif
-
-            @if ($booking['bookingData']['type'] == 'escursione')
-                <p>
-                    Tipologia:
-                    <span class="text-primary"> {{ ucfirst($booking['bookingData']['type']) }} </span>
-                    a
-                    <span class="text-primary"> {{ $booking['bookingData']['departure_name'] ?? 'N/A' }} </span>
+                <p>{{ __('ui.time') }}: <span
+                        class="text_col">{{ $booking['bookingData']['time_departure'] ?? 'N/A' }}</span>
                 </p>
-
-                <p>
-                    Data:
-                    <span class="text-primary"> {{ $booking['bookingData']['date_departure'] ?? 'N/A' }} </span>
-                    ore:
-                    <span class="text-primary"> {{ $booking['bookingData']['time_departure'] ?? 'N/A' }} </span>
+                <p>{{ __('ui.duration') }}: <span
+                        class="text_col">{{ $booking['bookingData']['duration'] ?? 'N/A' }}</span>
+                    {{ __('ui.hours') }} {{ __('ui.approx') }}</p>
+                <p>{{ __('ui.passengers') }}: <span
+                        class="text_col">{{ $booking['bookingData']['passengers'] ?? 'N/A' }}</span>
                 </p>
-
-                <p>
-                    Passeggeri:
-                    <span class="text-primary"> {{ $booking['bookingData']['passengers'] ?? 'N/A' }} </span>
+                <p>{{ ucfirst(__('ui.price')) }} {{ ucfirst(__('ui.totalPrice')) }}: <span
+                        class="text_col">{{ $booking['bookingData']['price'] ?? 'N/A' }} €</span></p>
+            @elseif ($booking['bookingData']['type'] == 'noleggio')
+                <p>{{ __('ui.bookingType') }}: <span
+                        class="text_col">{{ ucfirst($booking['bookingData']['type']) }}</span> <span
+                        class="text_col">{{ $booking['bookingData']['car_name'] ?? 'N/A' }}
+                        {{ $booking['bookingData']['car_description'] ?? 'N/A' }}</span></p>
+                <p>{{ __('ui.collectionDate') }}: <span
+                        class="text_col">{{ $booking['bookingData']['date_start'] ?? 'N/A' }}</span>
+                    {{ __('ui.returnDate') }}:
+                    <span class="text_col">{{ $booking['bookingData']['date_end'] ?? 'N/A' }}</span>
                 </p>
-
-                <p>
-                    Prezzo Totale:
-                    <span class="text-primary"> {{ $booking['bookingData']['price'] ?? 'N/A' }} €</span>
-                </p>
-            @endif
-
-            @if ($booking['bookingData']['type'] == 'noleggio')
-                <p>
-                    Tipologia:
-                    <span class="text-primary"> {{ ucfirst($booking['bookingData']['type']) }} </span>
-
-                    <span class="text-primary"> {{ $booking['bookingData']['car_name'] ?? 'N/A' }}
-                        {{ $booking['bookingData']['car_description'] ?? 'N/A' }} </span>
-                </p>
-
-                <p>
-                    Data di ritiro:
-                    <span class="text-primary"> {{ $booking['bookingData']['date_start'] ?? 'N/A' }} </span>
-                    data di consegna:
-                    <span class="text-primary"> {{ $booking['bookingData']['date_end'] ?? 'N/A' }} </span>
-                </p>
-
-                <p>
-                    Quantità:
-                    <span class="text-primary"> {{ $booking['bookingData']['quantity'] ?? 'N/A' }} </span>
-                    Prezzo Totale:
-                    <span class="text-primary"> {{ $booking['bookingData']['price'] ?? 'N/A' }} €</span>
+                <p>{{ __('ui.quantity') }}: <span
+                        class="text_col">{{ $booking['bookingData']['quantity'] ?? 'N/A' }}</span>
+                    {{ ucfirst(__('ui.price')) }} {{ ucfirst(__('ui.totalPrice')) }}:
+                    <strong class="text_col">{{ $booking['bookingData']['price'] ?? 'N/A' }} €</strong>
                 </p>
             @endif
         </div>
     </div>
 
-    <div>
-        <h1>Domande Frequenti (FAQ)</h1>
-
-        <div class="faq-section">
-            <h2>Generale</h2>
-            <div class="faq-item">
-                <h3>Cos'è [Nome dell'Azienda]?</h3>
-                <p>[Nome dell'Azienda] è una società specializzata in esperienze di viaggio uniche e personalizzate.
-                    Offriamo una vasta gamma di tour ed escursioni in tutto il mondo, progettate per soddisfare le
-                    esigenze di ogni viaggiatore.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Come posso prenotare un tour?</h3>
-                <p>Puoi prenotare un tour direttamente dal nostro sito web. Basta selezionare il tour di tuo interesse,
-                    scegliere le date disponibili e seguire le istruzioni per completare la prenotazione. In
-                    alternativa, puoi contattarci telefonicamente o via email per assistenza.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Quali metodi di pagamento accettate?</h3>
-                <p>Accettiamo tutti i principali metodi di pagamento, tra cui carte di credito (Visa, MasterCard,
-                    American Express), PayPal e bonifici bancari.</p>
-            </div>
-            <div class="faq-item">
-                <h3>È sicuro prenotare online?</h3>
-                <p>Sì, la sicurezza dei tuoi dati è la nostra priorità. Utilizziamo tecnologie di crittografia avanzate
-                    per proteggere le informazioni personali e di pagamento.</p>
-            </div>
-        </div>
-
-        <div class="faq-section">
-            <h2>Tour e Escursioni</h2>
-            <div class="faq-item">
-                <h3>I tour includono il trasporto?</h3>
-                <p>Sì, la maggior parte dei nostri tour include il trasporto da e verso le destinazioni principali. I
-                    dettagli specifici sono indicati nella descrizione di ogni tour.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Le escursioni sono adatte ai bambini?</h3>
-                <p>Abbiamo una vasta gamma di tour adatti a famiglie con bambini. Ogni tour ha una sezione dedicata alle
-                    informazioni sull'età minima consigliata e su eventuali restrizioni.</p>
-            </div>
-            <div class="faq-item">
-                <h3>È possibile personalizzare un tour?</h3>
-                <p>Assolutamente sì! Offriamo opzioni di tour personalizzati per soddisfare le tue esigenze specifiche.
-                    Contattaci per discutere delle tue preferenze e organizzeremo un'esperienza su misura per te.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Cosa succede in caso di maltempo?</h3>
-                <p>La sicurezza dei nostri clienti è la nostra priorità. In caso di condizioni meteorologiche avverse,
-                    ci riserviamo il diritto di modificare o cancellare un tour. In tal caso, ti offriremo una data
-                    alternativa o un rimborso completo.</p>
-            </div>
-        </div>
-
-        <div class="faq-section">
-            <h2>Prenotazioni e Cancellazioni</h2>
-            <div class="faq-item">
-                <h3>Posso modificare o cancellare la mia prenotazione?</h3>
-                <p>Sì, puoi modificare o cancellare la tua prenotazione seguendo le nostre politiche di cancellazione.
-                    Le condizioni specifiche sono indicate nella conferma della prenotazione. Generalmente, è possibile
-                    cancellare senza penali fino a un certo numero di giorni prima della data del tour.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Cosa devo fare se devo cancellare all'ultimo minuto?</h3>
-                <p>Contattaci immediatamente se devi cancellare la tua prenotazione all'ultimo minuto. Faremo del nostro
-                    meglio per assisterti e offrirti soluzioni alternative.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Come posso ottenere un rimborso?</h3>
-                <p>I rimborsi vengono elaborati secondo le nostre politiche di cancellazione. Dopo aver cancellato il
-                    tour entro i termini previsti, il rimborso verrà effettuato sul metodo di pagamento originale entro
-                    pochi giorni lavorativi.</p>
-            </div>
-        </div>
-
-        <div class="faq-section">
-            <h2>Contatti</h2>
-            <div class="faq-item">
-                <h3>Come posso contattare l'assistenza clienti?</h3>
-                <p>Puoi contattare il nostro team di assistenza clienti tramite email all'indirizzo [email@example.com]
-                    o telefonicamente al numero [numero di telefono]. Siamo disponibili dal lunedì al venerdì, dalle
-                    9:00 alle 18:00.</p>
-            </div>
-            <div class="faq-item">
-                <h3>Dove posso trovare ulteriori informazioni sui vostri tour?</h3>
-                <p>Tutte le informazioni sui nostri tour sono disponibili sul nostro sito web. Visita la sezione "Tour"
-                    per esplorare tutte le opzioni disponibili, leggere le descrizioni dettagliate e visualizzare le
-                    immagini.</p>
-            </div>
-        </div>
-    </div>
+    <div class="clearfix"></div>
 
     <div class="azienda">
-        <span>{{ $ownerdata->companyName }}</span>
-        <span>di {{ $ownerdata->name }} {{ $ownerdata->surname }}</span>
-        <span>{{ $ownerdata->address }}</span>
-        <span>{{ $ownerdata->city }}</span>
-        <span>P.IVA: {{ $ownerdata->pIva }}</span>
-        <span>C.F.: {{ $ownerdata->codFisc }}</span>
+        <span>{{ $ownerdata->companyName }}</span><br>
+        <span>di {{ $ownerdata->name }} {{ $ownerdata->surname }}</span><br>
+        <span>{{ $ownerdata->address }}</span><br>
+        <span>{{ $ownerdata->city }}</span><br>
+        <span>P.IVA: {{ $ownerdata->pIva }}</span><br>
+        <span>C.F.: {{ $ownerdata->codFisc }}</span><br>
     </div>
+    <div class="page-break"></div> <!-- Forza l'interruzione di pagina -->
 
+    <div class="faq">
+        <div class="condizioni-transfer">
+            <p>Condizioni transfer</p>
+            <p>Per offrirvi un servizio sempre migliore, vi invitiamo ad osservare scrupolosamente i seguenti consigli e
+                condizioni di utilizzo dei nostri servizi:</p>
+            <p>All’arrivo in aeroporto troverete un nostro autista ad aspettarvi all’uscita dal ritiro bagagli con un
+                cartello con stampato il nostro logo "Travel Tour" o il Vostro nominativo per farsi riconoscere; nel
+                caso in cui non riuscite a localizzare chiamate al numero <span class="segnaposto">[Numero di
+                    Telefono]</span>.</p>
+            <p>È sempre importante, non appena arrivati in aeroporto e non appena possibile, accendere il cellulare per
+                facilitare i contatti, nel caso ce ne fosse bisogno, al numero di cellulare che avete fornito al momento
+                della prenotazione.</p>
+            <p>Comunicare l’orario di arrivo riportato sul biglietto, provenienza, numero di volo e aeroporto di arrivo.
+                Comunicare tempestivamente qualora ci fossero ritardi.</p>
+            <p>Oltre la prima ora da quella di inizio servizio prevista all’atto della prenotazione e confermata da
+                telefonata o e-mail, per esempio per ritardo aereo o smarrimento bagagli, è previsto un supplemento alla
+                tariffa pari a € 10,00 per ogni ora extra. La medesima tariffa pari a € 10,00 è prevista nei casi di
+                soste in musei, ristoranti, centri commerciali e comunque in tutti i casi in cui sia prevista una
+                continuità del servizio dopo una sosta richiesta dal cliente. Qualora tale sosta risultasse inferiore ad
+                un’ora, ma superiore a 20 minuti, vige la tariffa oraria minima di € 10,00.</p>
+            <p>Per i servizi di trasferimento FULL DAY oltre le 24 ore fuori sede, saranno a carico del cliente, vitto,
+                alloggio dell’autista ed eventuali parcheggi.</p>
+            <p>Notturno: si applica per tutti i servizi compresi tra le 22,00 e le 06,00 un supplemento del 20% oltre la
+                normale tariffa.</p>
+            <p>Festivi: quali, Natale, Capodanno, Pasqua e Ferragosto, verrà applicato sempre un supplemento del 20%
+                oltre la normale tariffa.</p>
+            <p>Trasporto bagagli: è previsto il trasporto al seguito di ogni passeggero di un bagaglio di peso non
+                superiore a Kg. 25. Per ogni bagaglio extra è previsto un supplemento di € 5,00 oltre la normale tariffa
+                del servizio; prevista anche la richiesta di un seggiolino per trasporto bambini con un supplemento di €
+                10,00 a tratta. I bambini sotto 3 anni non pagano, ma il posto occupato si intende anche quello occupato
+                dal seggiolino. Animali: sono ammessi al trasporto sui mezzi animali di piccola taglia non superiori a
+                Kg. 10, purché sistemati in appositi trasportini (€ 10,00 a tratta). Per il trasporto di animali di peso
+                superiore richiedere tariffe e disponibilità, solo per il servizio transfer esclusivo.</p>
+            <p>È assolutamente vietato sui mezzi consumare alimenti, bevande e fumare, invitando i signori clienti a
+                fare attenzione alle biricchinate dei propri bambini; eventuali danni causati potranno essere oggetto di
+                richiesta di risarcimento.</p>
+            <p>Non sono da considerarsi disdette le comunicazioni via sms in quanto non sufficientemente sicure ad
+                arrivare con puntualità al destinatario. Non verranno prese in considerazione chiamate con numero
+                privato.</p>
+            <p>A prenotazione avvenuta la Travel Tour, un giorno prima di norma invia al cliente sia in partenza che in
+                arrivo, un sms o un messaggio con whatsapp dando istruzioni per l’accoglienza in aeroporto in caso di
+                arrivo o nel caso di partenza come promemoria.</p>
+            <p>Vi ricordiamo che la disdetta della prenotazione va fatta almeno 72 ore prima; in caso contrario
+                comporterà l’addebito totale del servizio richiesto. Il pagamento del servizio prenotato avverrà
+                direttamente al nostro autista in loco.</p>
+            <p>Vogliate controllare attentamente, prima dell’invio della prenotazione, che i dati inviati siano
+                corretti, così come quando riceverete una risposta di conferma. Per qualsiasi chiarimento chiamare i
+                numeri <span class="segnaposto">[Numero di Telefono]</span> o - E-mail: <span
+                    class="segnaposto">[Email]</span>. Vi consigliamo di portare sempre dietro la nostra e-mail di
+                conferma del servizio. Per le richieste di prenotazione fatte 24/48 ore prima, si prega di telefonare
+                per accertarvi che la richiesta sia stata presa in carico dopo aver mandato e-mail, onde evitare che
+                arriviate in aeroporto e non trovate nessuno.</p>
+            <p>Per i servizi richiesti è previsto un acconto del 30% come conferma prenotazione da pagare
+                anticipatamente con pay pal o bonifico bancario, successivamente saldare ai nostri autisti in contanti.
+                La Travel Tour non è tenuta a contattare il passeggero, se non a discrezione. Per i servizi richiesti di
+                andata e ritorno, si richiede all’atto un anticipo del 30% del servizio di ritorno.</p>
+            <p>La Travel Tour può avvalersi della collaborazione in partnership di società strettamente di fiducia con
+                tutti i requisiti come per legge, standard di sicurezza e professionali con tutte le autorizzazioni
+                necessarie regolamentate nel trasporto di persone:</p>
+            <p>Tale situazione si potrebbe verificare in un periodo di intenso traffico di lavoro o dovuto a cause non
+                previste come avarie, incidenti dei mezzi o qualunque volta lo ritenessimo necessario per offrire un
+                servizio migliore, qualitativo e soprattutto senza ritardi ed interruzioni.</p>
+            <p>Importanti e riepilogo:</p>
+            <ol>
+                <li>Comunicare sempre la presenza di animali domestici</li>
+                <li>Comunicare sempre il numero esatto di persone</li>
+                <li>Comunicare l’eventuale possesso di attrezzature subacquee o materiale pericoloso</li>
+                <li>Comunicare tempestivamente ritardi alla partenza</li>
+                <li>Accendere i telefonini all’arrivo in aeroporto per essere rintracciati più velocemente</li>
+                <li>All’uscita dall’aeroporto troverete l’autista con un cartello con scritto il nostro logo "Travel
+                    Tour" o il Vostro nome.</li>
+                <li>Sui mezzi è severamente vietato fumare, sporcare e consumare cibi e bevande</li>
+            </ol>
+            <p>Il presente contratto sarà disciplinato dalla legge italiana; le parti sono ben consapevoli delle norme
+                regolatrici; in caso di controversie sarà competente il Foro di Trapani.</p>
+            <p><strong>INFORMATIVA SULLA PRIVACY:</strong></p>
+            <p>Desideriamo informarLa che la legge n.675/1996 in materia di protezione dei dati personali, prevede la
+                tutela delle persone e di altri soggetti rispetto al trattamento dei dati personali, secondo la legge
+                indicata, tale trattamento sarà improntato ai principi di correttezza, lealtà, trasparenza e della
+                tutela della Sua riservatezza e dei Suoi diritti.</p>
+            <p>PER INFORMARLA CHE AI SENSI DELL’ARTICOLO 10 DELLA PREDETTA LEGGE QUANTO SEGUE:</p>
+            <ol>
+                <li>I dati da Lei forniti verranno trattati solamente per poter InviarLe tutte le documentazioni e tutti
+                    i chiarimenti da Lei richiesti</li>
+                <li>Adempimenti di legge fiscali, contabili e amministrativi</li>
+                <li>Gestioni archivi e corrispondenza</li>
+                <li>I dati non saranno comunicati ad altri soggetti, ma al solo scopo solamente per finalità del nostro
+                    rapporto</li>
+                <li>Il conferimento dei dati è facoltativo, ma se dovesse esserci negato dallo stesso soggetto, non ci
+                    consentirà di fornirle i servizi da Lei richiesti.</li>
+                <li>Il titolare del trattamento dati è la scrivente ditta: <span class="segnaposto">[Nome
+                        Azienda]</span> <span class="segnaposto">[Indirizzo] [CF] [P. IVA]</span></li>
+                <li>Elaborazioni e statistiche interne</li>
+                <li>Invio offerte clienti attivi e potenziali</li>
 
+                <li>Per regolamentare tutte le norme previste per legge in materia civilistica, fiscale e
+                    amministrative.</li>
+        </div>
+    </div>
 
 </body>
 

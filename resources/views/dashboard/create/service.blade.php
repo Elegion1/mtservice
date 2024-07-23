@@ -104,6 +104,8 @@
                 const conditionField = document.getElementById('create-condition');
 
                 if (lang === 'it') {
+                    btnIt.classList.add('border-5');
+                    btnEn.classList.remove('border-5');
                     titleField.name = "title_it";
                     subtitleField.name = "subtitle_it";
                     subtitleSecField.name = "subtitleSec_it";
@@ -111,6 +113,8 @@
                     bodyField.name = "body_it";
                     conditionField.name = "condition_it";
                 } else if (lang === 'en') {
+                    btnIt.classList.remove('border-5');
+                    btnEn.classList.add('border-5');
                     titleField.name = "title_en";
                     subtitleField.name = "subtitle_en";
                     subtitleSecField.name = "subtitleSec_en";

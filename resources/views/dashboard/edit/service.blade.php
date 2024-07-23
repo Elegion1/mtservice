@@ -128,6 +128,8 @@
                 const conditionField = document.getElementById('edit-condition');
 
                 if (lang === 'it') {
+                    btnIt.classList.add('border-5');
+                    btnEn.classList.remove('border-5');
                     titleField.value = "{{ $service->title_it }}";
                     subtitleField.value = "{{ $service->subtitle_it }}";
                     subtitleSecField.value = "{{ $service->subtitleSec_it }}";
@@ -145,6 +147,8 @@
                         tinymce.get('edit-condition').setContent(`{!! addslashes($service->condition_it) !!}`);
                     }
                 } else if (lang === 'en') {
+                    btnIt.classList.remove('border-5');
+                    btnEn.classList.add('border-5');
                     titleField.value = "{{ $service->title_en }}";
                     subtitleField.value = "{{ $service->subtitle_en }}";
                     subtitleSecField.value = "{{ $service->subtitleSec_en }}";

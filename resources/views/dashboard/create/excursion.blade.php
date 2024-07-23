@@ -83,10 +83,14 @@
                 const descriptionField = document.getElementById('create-description');
 
                 if (lang === 'it') {
+                    btnIt.classList.add('border-5');
+                    btnEn.classList.remove('border-5');
                     nameField.name = "name_it";
                     abstractField.name = "abstract_it";
                     descriptionField.name = "description_it";
                 } else if (lang === 'en') {
+                    btnIt.classList.remove('border-5');
+                    btnEn.classList.add('border-5');
                     nameField.name = "name_en";
                     abstractField.name = "abstract_en";
                     descriptionField.name = "description_en";

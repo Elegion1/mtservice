@@ -82,7 +82,7 @@
                 </div>
                 <div class="col-12">
                     <textarea class="form-control form_input_focused" id="body" wire:model="body"
-                        placeholder="{{ __('ui.bookingConfBodyMsg') }}"></textarea>
+                        placeholder="{{ __('ui.bookingConfBodyMsg') }}" rows="5"></textarea>
                     <x-error-message :field='$body' />
                 </div>
             </div>
@@ -103,7 +103,9 @@
                 <x-error-message :field='$terms_conditions' />
             </div>
 
-
+            <div class="container text-center">
+                <p class="fs-6 text-d">{{__('ui.paymentMessage')}}</p>
+            </div>
 
             <div class="container-fluid mb-3 p-0 d-flex justify-content-center align-items-center">
                 <button type="submit" class=" btn bg-a text-white"

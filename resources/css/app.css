@@ -101,7 +101,7 @@
     color: var(--color-a);
 }
 
-.logo-img{
+.logo-img {
     width: 20vw;
     max-width: 200px;
 }
@@ -113,7 +113,7 @@
 .navbar_toggler_focused:focus {
     box-shadow: 0px 0px 15px 2px gray !important;
     -webkit-box-shadow: 0px 0px 15px 2px gray !important;
-    -moz-box-shadow: 0px 0px 15px 2px gray !important;    
+    -moz-box-shadow: 0px 0px 15px 2px gray !important;
 }
 
 .nav-link {
@@ -150,19 +150,20 @@
     color: var(--color-a);
 }
 
-h1, h2 {
+h1,
+h2 {
     color: var(--color-a);
 }
 
-.border_custom{
+.border_custom {
     border-bottom: 5px solid var(--color-a);
 }
 
 .form_input_focused:focus {
     border-color: var(--color-a);
-    box-shadow:0px 0px 5px 1px var(--color-a) !important;
-    -webkit-box-shadow:0px 0px 5px 1px var(--color-a) !important;
-    -moz-box-shadow:0px 0px 5px 1px var(--color-a) !important;
+    box-shadow: 0px 0px 5px 1px var(--color-a) !important;
+    -webkit-box-shadow: 0px 0px 5px 1px var(--color-a) !important;
+    -moz-box-shadow: 0px 0px 5px 1px var(--color-a) !important;
     color: var(--color-a) !important;
 }
 
@@ -170,7 +171,6 @@ h1, h2 {
     background-color: var(--color-a);
     border-color: var(--color-a);
 }
-
 
 a:hover {
     color: var(--color-a) !important;
@@ -191,17 +191,52 @@ a:hover {
 }
 
 .fixed_height {
-    height: 100px;
+    height: 250px;
 }
 
 .img_carRent {
-    min-width: 60px;
-    width: 100%;
-    max-height: 95px;
-    max-width: 150px;
+    /* min-width: 60px; */
+    height: 100%;
+    max-height: 100px;
+    /* max-width: 150px; */
 }
 
 .form_check_round {
     width: 26px;
     height: 26px;
+}
+
+#labelRent {
+    margin: 0px;
+    padding: 0px;
+}
+
+.form-check-input_custom {
+    --bs-form-check-bg: var(--bs-body-bg);
+    flex-shrink: 0;
+    width: 1em;
+    height: 1em;
+    margin-top: 0.25em;
+    vertical-align: top;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: none;
+    background-image: var(--bs-form-check-bg-image);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: none;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+.form-check-input_custom:checked {
+    background-color: none !important;
+    border-color: none !important;
+    border-color: none;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    color: none !important;
 }

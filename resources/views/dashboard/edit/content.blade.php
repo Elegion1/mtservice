@@ -99,6 +99,8 @@
                 const bodyField = document.getElementById('edit-body');
 
                 if (lang === 'it') {
+                    btnIt.classList.add('border-5');
+                    btnEn.classList.remove('border-5');
                     titleField.value = "{{ $content->title_it }}";
                     subtitleField.value = "{{ $content->subtitle_it }}";
                     titleField.name = "title_it";
@@ -108,6 +110,8 @@
                         tinymce.get('edit-body').setContent(`{!! addslashes($content->body_it) !!}`);
                     }
                 } else if (lang === 'en') {
+                    btnIt.classList.remove('border-5');
+                    btnEn.classList.add('border-5');
                     titleField.value = "{{ $content->title_en }}";
                     subtitleField.value = "{{ $content->subtitle_en }}";
                     titleField.name = "title_en";
