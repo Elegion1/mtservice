@@ -11,6 +11,9 @@
             <small>P.IVA: {{ $ownerdata->pIva }}</small><br>
             <small>C.F.: {{ $ownerdata->codFisc }}</small><br>
             {{-- <small>Cell.: <a href="tel:+393283650762">+39 328 36 50 762</a></small><br> --}}
+            <br>
+            <a class="nav-link" href="{{ route('privacy') }}" target="_blank">{{ __('ui.privacyPolicy') }}</a>
+
         </div>
 
         <div class="mb-3 text-center">
@@ -19,6 +22,7 @@
                 <x-links>
                     text-body-secondary text-capitalize p-0 text-small
                 </x-links>
+
             </ul>
         </div>
 
@@ -39,6 +43,7 @@
     </footer>
     <div class="text-end">
         <hr class="m-0">
-        <small class="text-b visually-hidden" >Optimized by Giovanni Sugamiele <i class="bi bi-c-circle"></i> 2024 All rights reserved </small>
+        <small class="text-b visually-hidden">Optimized by Giovanni Sugamiele <i class="bi bi-c-circle"></i> 2024 All
+            rights reserved </small>
     </div>
 </div>
