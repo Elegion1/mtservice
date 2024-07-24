@@ -28,54 +28,46 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Controlla se ci sono rotte
-        if (Route::count() > 0) {
+        if (Route::query()->exists()) {
             $tratte = Route::all();
             View::share('tratte', $tratte);
         }
 
-        // Controlla se ci sono servizi
-        if (Service::count() > 0) {
+        if (Service::query()->exists()) {
             $services = Service::all();
             View::share('services', $services);
         }
 
-        if (Excursion::count() > 0) {
+        if (Excursion::query()->exists()) {
             $excursionsP = Excursion::paginate(4);
-            View::share('excursionsP', $excursionsP);
-        }
-
-        if (Excursion::count() > 0) {
             $excursions = Excursion::all();
+            View::share('excursionsP', $excursionsP);
             View::share('excursions', $excursions);
         }
 
-        if (Partner::count() > 0) {
+        if (Partner::query()->exists()) {
             $partners = Partner::paginate(10);
             View::share('partners', $partners);
         }
 
-        if (Review::count() > 0) {
+        if (Review::query()->exists()) {
             $reviewsP = Review::paginate(6);
-            View::share('reviewsP', $reviewsP);
-        }
-
-        if (Review::count() > 0) {
             $reviews = Review::all();
+            View::share('reviewsP', $reviewsP);
             View::share('reviews', $reviews);
         }
 
-        if (OwnerData::count() > 0) {
+        if (OwnerData::query()->exists()) {
             $ownerdata = OwnerData::first();
             View::share('ownerdata', $ownerdata);
         }
 
-        if (Page::count() > 0) {
+        if (Page::query()->exists()) {
             $pages = Page::orderBy('order')->get();
             View::share('pages', $pages);
         }
 
-        if (Content::count() > 0) {
+        if (Content::query()->exists()) {
             $contents = Content::all();
             View::share('contents', $contents);
         }
