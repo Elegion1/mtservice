@@ -9,7 +9,12 @@ class Route extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
+    protected $fillable = [
+        'price',
+        'price_increment',
+        'duration',
+        'distance'
+    ];
 
     public function departure()
     {

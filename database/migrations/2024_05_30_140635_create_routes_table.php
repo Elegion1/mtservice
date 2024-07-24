@@ -15,13 +15,13 @@ return new class extends Migration
     {
         Schema::create('routes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('departure_id');
-            $table->unsignedBigInteger('arrival_id');
             $table->string('price');
             $table->string('price_increment');
             $table->string('duration');
             $table->string('distance');
-
+            $table->unsignedBigInteger('departure_id');
+            $table->unsignedBigInteger('arrival_id');
+            
             $table->timestamps();
 
             $table->foreign('departure_id')->references('id')->on('destinations')->onDelete('cascade');
