@@ -103,6 +103,8 @@ return [
      'someReviews' => 'Reviews',
 
      'typeOfService' => 'Type of service',
+     'message' => 'Insert a message',
+     'send' => 'Send',
 
      'contactUs' => 'contact us',
      
@@ -110,5 +112,7 @@ return [
      'toP' => 'to',
      'ofP' => 'of',
      'results' => 'results',
+
+     'faqTitle' => 'Frequently Asked Questions (FAQ)',
 
 ];

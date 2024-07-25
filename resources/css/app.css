@@ -104,6 +104,7 @@
 .logo-img {
     width: 20vw;
     max-width: 200px;
+    padding: 0px;
 }
 
 .img-content {

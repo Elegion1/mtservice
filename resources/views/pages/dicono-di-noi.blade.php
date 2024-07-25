@@ -1,6 +1,6 @@
 <x-layout>
     <div class="container bg-white rounded">
-        <div class="row">
+        <div class="row mx-3">
             <div class="col-12">
                 <x-show-content :pagine="$pagine"/>
             </div>

@@ -1,6 +1,6 @@
 <div class="container-lg">
     <footer class="d-flex justify-content-between p-3 mt-5 border-top">
-        <div class="mb-3">
+        <div class="mb-3 text-small">
             <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
                 <img width="100px" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt="">
             </a>
@@ -16,7 +16,7 @@
 
         </div>
 
-        <div class="mb-3 text-center">
+        <div class="mb-3 text-center me-1">
             <h5>{{ __('ui.navigation') }}</h5>
             <ul class="nav flex-column">
                 <x-links>
@@ -41,9 +41,12 @@
             </ul>
         </div>
     </footer>
-    <div class="text-end">
+    <div class="text-end text-c text-small">
         <hr class="m-0">
-        <small class="text-b visually-hidden">Optimized by Giovanni Sugamiele <i class="bi bi-c-circle"></i> 2024 All
-            rights reserved </small>
+        <small>Created and Optimized by Giovanni Sugamiele </small>
+        <br>
+        <small>
+            <i class="bi bi-c-circle"></i> 2024 All
+            rights reserved</small>
     </div>
 </div>

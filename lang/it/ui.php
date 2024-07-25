@@ -106,12 +106,15 @@ return [
 
     'typeOfService' => 'Tipo di servizio',
     'contactUs' => 'contattaci',
+    'message' => 'Inserisci un messaggio',
+    'send' => 'Invia',
 
     'fromP' => 'Da',
     'toP' => 'a',
     'ofP' => 'di',
     'results' => 'risultati',
 
+    'faqTitle' => 'Domande frequenti (FAQ)',
 
 
 ];

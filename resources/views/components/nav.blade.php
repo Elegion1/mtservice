@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg_nav border_custom shadow z-3 d-flex flex-column">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('home') }}">
+        <a href="{{ route('home') }}">
             <img class="logo-img" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt="">
         </a>
 
@@ -9,14 +9,14 @@
             <x-_locale lang="en" />
         </div>
 
-        <div class=" d-flex justify-content-between align-items-center flex-column">
+        <div class="d-flex justify-content-between align-items-center flex-column">
             <span class="text-d">{{ __('ui.navTitle') }}</span>
-            <div class="d-flex justify-content-center aling-items-center">
-                <a class="p-md-2 m-md-1 mx-1 nav-link rounded-pill" href="tel:{{ $ownerdata->phone2 }}"><span><i
+            <div class="d-flex justify-content-around aling-items-center">
+                <a class="me-1 nav-link rounded-pill" href="tel:{{ $ownerdata->phone2 }}"><span><i
                             class="bi bi-telephone-fill"></i></span>
                     {{ $ownerdata->phone2Name }}</a>
 
-                <a class="p-md-2 m-md-1 mx-1 nav-link rounded-pill" href="tel:{{ $ownerdata->phone3 }}"><i
+                <a class="nav-link rounded-pill" href="tel:{{ $ownerdata->phone3 }}"><i
                         class="bi bi-telephone-fill"></i>
                     {{ $ownerdata->phone3Name }}</a>
             </div>

@@ -28,16 +28,16 @@
                     <label for="servizio">{{__('ui.typeOfService')}}:</label>
                     <select class="form-control form_input_focused" id="servizio" name="servizio" required>
                         <option value="transfer">{{ucfirst(__('ui.transfer'))}}</option>
-                        <option value="escursione">{{ucfirst(__('ui.excursion'))}}</option>
+                        <option value="escursione">{{ucfirst(__('ui.excursions'))}}</option>
                         <option value="noleggio auto">{{ucfirst(__('ui.carRent'))}}</option>
                     </select>
                 </div>
                 <div class="col-12 mb-3">
-                    <label for="messaggio">Messaggio:</label>
+                    <label for="messaggio">{{__('ui.message')}}:</label>
                     <textarea class="form-control form_input_focused" id="messaggio" name="messaggio" rows="5" required></textarea>
                 </div>
             </div>
-            <button type="submit" class="btn bg-a text-white">Invia</button>
+            <button type="submit" class="btn bg-a text-white">{{__('ui.send')}}</button>
         </form>
     </div>
 

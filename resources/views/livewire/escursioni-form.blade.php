@@ -17,13 +17,13 @@
             </div>
 
             <div class="row">
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <label for="excursionPassengers" class="form-label">{{ __('ui.passengers') }}</label>
                     <input wire:model.live="excursionPassengers" type="number" class="form-control form_input_focused"
                         id="excursionPassengers" min="1" max="16" value="1">
                         <x-error-message :field='$excursionPassengers' />
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <label class="form-label" for="dateExcursion">{{ __('ui.departure') }}</label>
                     <input wire:model.live="excursionDate" type="datetime-local" class="form-control form_input_focused"
                         id="dateExcursion">
@@ -32,12 +32,12 @@
             </div>
 
             <div class="row mb-3 align-items-end">
-                <div class="col-6">
+                <div class="col-12 col-md-6">
                     <label for="excursionPrice" class="form-label">{{ __('ui.totalPrice') }}</label>
                     <input wire:model.live="excursionPrice" readonly type="text"
                         class="form-control form_input_focused" id="excursionPrice" value="">
                 </div>
-                <div class="col-6 d-grid">
+                <div class="col-12 col-md-6 d-grid mt-3">
                     <button type="submit" class="btn bg-a text-white">{{ __('ui.submit') }}</button>
                 </div>
             </div>

@@ -1,8 +1,8 @@
 <x-layout>
     <div class="container bg-white rounded p-3">
-        <h1>Domande Frequenti (FAQ)</h1>
+        <h1>{{__('ui.faqTitle')}}</h1>
 
-        <div class="faq-section">
+        {{-- <div class="faq-section">
             <h2>Generale</h2>
             <div class="faq-item">
                 <h3>Cos'è [Nome dell'Azienda]?</h3>
@@ -88,8 +88,13 @@
                     per esplorare tutte le opzioni disponibili, leggere le descrizioni dettagliate e visualizzare le
                     immagini.</p>
             </div>
+        </div> --}}
+
+
+        <div class="container-fluid p-3 d-flex justify-content-center align-items-center flex-column">
+            <x-show-content :pagine="$pagine" />
         </div>
 
-        <x-contact-link/>
+        <x-contact-link />
     </div>
 </x-layout>

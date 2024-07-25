@@ -2,7 +2,7 @@
     <div class="container-md">
         <form wire:submit.prevent="submitBookingRent">
             <h4 class="text-uppercase text-a"><strong>{{ __('ui.rentTitle') }}</strong></h4>
-            <div class="row bg-secondary-subtle p-2 rounded">
+            <div class="row rounded">
                 <div class="col-12 col-md-5 mb-2">
                     <label class="form-label" for="dateStart">{{ __('ui.rentStartDate') }}</label>
                     <input wire:model.live="dateStart" type="date" class="form-control form_input_focused"

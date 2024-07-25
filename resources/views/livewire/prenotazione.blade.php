@@ -2,7 +2,7 @@
     <div class="container-md">
         <div class="row p-lg-2">
             @if ($isHome)
-                <div class="col-12 d-flex justify-content-center align-items-center py-2">
+                <div class="col-12 d-flex justify-content-center  py-2">
                     <button type="button" 
                         class="btn mx-1 btn_font_size
                         @if ($currentForm == 'escursioni') bg-d text-white 

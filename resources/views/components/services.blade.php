@@ -24,7 +24,7 @@
                                                 </div>
                                             @endforeach
                                         </div>
-                                        <button class="carousel-control-prev" type="button"
+                                        {{-- <button class="carousel-control-prev" type="button"
                                             data-bs-target="#carouselImages{{ $service->id }}" data-bs-slide="prev">
                                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Previous</span>
@@ -33,7 +33,7 @@
                                             data-bs-target="#carouselImages{{ $service->id }}" data-bs-slide="next">
                                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                             <span class="visually-hidden">Next</span>
-                                        </button>
+                                        </button> --}}
                                     </div>
                                 @else
                                     <img class="service-img "
@@ -42,7 +42,7 @@
                             </div>
                             <div
                                 class="col-12 d-flex justify-content-center align-items-center flex-column text-center">
-                                <p class="h3">{{ $service->{'title_' . app()->getLocale()} }}</p>
+                                <p class="h3 text-d">{{ $service->{'title_' . app()->getLocale()} }}</p>
                                 <p class="h6">{{ $service->{'subtitle_' . app()->getLocale()} }}</p>
                                 <p class=" text-wrap ">{{ $service->{'abstract_' . app()->getLocale()} }}</p>
                                 @if ($service->links)
@@ -55,13 +55,13 @@
             </div>
         @endforeach
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#serviceCarousel" data-bs-slide="prev">
+    {{-- <button class="carousel-control-prev" type="button" data-bs-target="#serviceCarousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
     </button>
     <button class="carousel-control-next" type="button" data-bs-target="#serviceCarousel" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
-    </button>
+    </button> --}}
     <div class="indicators_space"></div>
 </div>
