@@ -126,6 +126,3 @@ Route::get('/dashboard/pages', [PageController::class, 'index'])->name('dashboar
 Route::post('/dashboard/pages', [PageController::class, 'store'])->name('pages.store')->middleware('auth');
 Route::put('/dashboard/pages/{page}', [PageController::class, 'update'])->name('pages.update')->middleware('auth');
 Route::delete('/dashboard/pages/{page}', [PageController::class, 'destroy'])->name('pages.destroy')->middleware('auth');
-
-
-URL::forceScheme('https');
