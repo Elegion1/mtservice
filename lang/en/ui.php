@@ -101,4 +101,7 @@ return [
 
      // dicono di noi
      'someReviews' => 'Reviews',
+
+     'typeOfService' => 'Type of service',
+
 ];

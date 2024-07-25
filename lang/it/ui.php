@@ -104,6 +104,8 @@ return [
     // dicono di noi
     'someReviews' => 'Alcune recensioni',
 
+    'typeOfService' => 'Tipo di servizio',
+
 
 
 
