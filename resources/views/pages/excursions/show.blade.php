@@ -25,12 +25,11 @@
             <div class="col-12 col-md-6">
                 <div class="container-fluid my-2 my-md-0 justify-content-center align-items-center d-flex">
                     @if ($excursion->images->isNotEmpty())
-                        @foreach ($excursion->images->first() as $image)
-                            <img src="{{ Storage::url($image->path) }}" class="rounded shadow" alt="...">
+                        @foreach ($excursion->images as $image)
+                            <img src="{{ Storage::url($image->path) }}" class="rounded shadow m-1" alt="...">
                         @endforeach
                     @else
                         <img class="rounded shadow" src="https://picsum.photos/600/400" alt="">
-
                     @endif
                 </div>
             </div>

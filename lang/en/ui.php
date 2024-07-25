@@ -98,4 +98,7 @@ return [
     'Contatti' => 'contacts',
     'Partners' => 'partners',
     'Dashboard' => 'dashboard',
+
+     // dicono di noi
+     'someReviews' => 'Reviews',
 ];

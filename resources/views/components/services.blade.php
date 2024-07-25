@@ -36,8 +36,8 @@
                                         </button>
                                     </div>
                                 @else
-                                    <img class="service-img rounded shadow"
-                                        src="https://picsum.photos/40{{ $service->id }}" alt="">
+                                    <img class="service-img "
+                                        src="https://picsum.photos/1920/1081" alt="">
                                 @endif
                             </div>
                             <div

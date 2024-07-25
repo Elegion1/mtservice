@@ -15,12 +15,12 @@
                             class="col-12 col-md-6 d-flex justify-content-center justify-content-md-end align-items-center">
                             @if ($excursion->images->isNotEmpty())
                                 @foreach ($excursion->images->first() as $image)
-                                    <img src="{{ Storage::url($image->path) }}" class="excursion-img rounded shadow"
+                                    <img src="{{ Storage::url($image->path) }}" class="excursion-img"
                                         alt="...">
                                 @endforeach
                             @else
-                                <img class="excursion-img rounded shadow"
-                                    src="https://picsum.photos/40{{ $excursion->id }}" alt="">
+                                <img class="excursion-img"
+                                    src="https://picsum.photos/1920/1080" alt="">
                             @endif
                         </div>
                         <div class="col-12 col-md-6 d-flex justify-content-center flex-column mt-3">
