@@ -28,15 +28,15 @@
         </div>
 
         <div class="d-none flex-sm-fill d-sm-flex align-items-sm-center justify-content-sm-between">
-            <div>
+            <div class="me-1">
                 <p class="small text-muted">
-                    {!! __('Da') !!}
+                    {!! __('ui.fromP') !!}
                     <span class="fw-semibold">{{ $paginator->firstItem() }}</span>
-                    {!! __('a') !!}
+                    {!! __('ui.toP') !!}
                     <span class="fw-semibold">{{ $paginator->lastItem() }}</span>
-                    {!! __('di') !!}
+                    {!! __('ui.ofP') !!}
                     <span class="fw-semibold">{{ $paginator->total() }}</span>
-                    {!! __('risultati') !!}
+                    {!! __('ui.results') !!}
                 </p>
             </div>
 

@@ -1,7 +1,7 @@
 <x-layout>
     <div class="container bg-white shadow rounded p-3 border_custom">
         <x-show-content :pagine="$pagine" />
-        <h2>Contattaci </h2>
+        <h2>{{ucfirst(__('ui.contactUs'))}} </h2>
         <form action="{{ route('inviaForm') }}" method="POST">
             @csrf <!-- Includi il token CSRF qui -->
             <div class="row">

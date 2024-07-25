@@ -81,7 +81,7 @@ return [
     //excursions
     'hour' => 'ora',
     'hours' => 'ore',
-    'excursionPageTitle' => 'Escursioni Sicilia Occidentale', 
+    'excursionPageTitle' => 'Escursioni Sicilia Occidentale',
     'details' => 'Dettagli',
 
     //footer
@@ -105,8 +105,12 @@ return [
     'someReviews' => 'Alcune recensioni',
 
     'typeOfService' => 'Tipo di servizio',
+    'contactUs' => 'contattaci',
 
-
+    'fromP' => 'Da',
+    'toP' => 'a',
+    'ofP' => 'di',
+    'results' => 'risultati',
 
 
 

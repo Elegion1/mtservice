@@ -104,4 +104,11 @@ return [
 
      'typeOfService' => 'Type of service',
 
+     'contactUs' => 'contact us',
+     
+     'fromP' => 'From',
+     'toP' => 'to',
+     'ofP' => 'of',
+     'results' => 'results',
+
 ];
