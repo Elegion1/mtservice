@@ -30,7 +30,8 @@
                 <p><strong class="text-uppercase">{{ __('ui.rentSelectCar') }}</strong></p>
                 <div class="row d-flex justify-content-center">
                     @foreach ($cars as $car)
-                        <div class="col-12 col-lg-3 m-2 fixed_height border rounded bg-white @if (!$car->isAvailable) bg-secondary-subtle @endif @if ($carID == $car->id) bg-primary-subtle @endif">
+                        <div
+                            class="col-12 col-lg-3 m-2 fixed_height border rounded bg-white @if (!$car->isAvailable) bg-secondary-subtle @endif @if ($carID == $car->id) bg-primary-subtle @endif">
                             <label id="labelRent" for="car{{ $car->id }}"
                                 class="form-check m-0 row d-flex justify-content-around align-items-center flex-column flex-nowrap">
                                 <input wire:model.live="carID" value="{{ $car->id }}"
@@ -41,8 +42,7 @@
                                     <img class="img_carRent" src="{{ Storage::url($car->images[0]->path) }}"
                                         alt="">
                                 </div>
-                                <div
-                                    class="p-0 col-12 d-flex flex-column justify-content-center align-items-center">
+                                <div class="p-0 col-12 d-flex flex-column justify-content-center align-items-center">
                                     <p class="h6 m-0 text-nowrap text-a">{{ $car->name }}</p>
                                     <p class="m-0"><small>{{ $car->description }}</small></p>
                                 </div>
@@ -61,14 +61,21 @@
                 </div>
             </div>
 
-            <div class="container-fluid">
-                <p><strong class="text-uppercase">{{ __('ui.totalPrice') }}</strong></p>
-                <div class="d-flex justify-content-between mb-3">
-                    <input wire:model.live="rentPrice" class="form-control form_input_focused mx-1" type="text"
-                        aria-label="readonly input example" readonly>
-                    <button class="btn bg-a text-white mx-1" type="submit">{{ __('ui.submit') }}</button>
+            
+            <div class="row mb-3 justify-content-center align-items-end">
+                <div class="col-4">
+                        <label for="rentPrice" class="form-label">{{ __('ui.totalPrice') }}</label>
+                        <input wire:model.live="rentPrice" class="form-control form_input_focused" id="rentPrice"
+                            type="text" aria-label="readonly input example" readonly>
+                    </div>
+                    <div class="col-2">
+                        <span class="fs-4">€</span>
+                    </div>
+                    <div class="col-6 d-grid">
+                        <button class="btn bg-a text-white mx-1" type="submit">{{ __('ui.submit') }}</button>
+                    </div>
                 </div>
-            </div>
+        
         </form>
     </div>
 

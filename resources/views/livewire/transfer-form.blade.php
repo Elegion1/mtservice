@@ -68,10 +68,13 @@
                 </div>
             </div>
             <div class="row mb-3 align-items-end">
-                <div class="col-6">
+                <div class="col-4">
                     <label for="transferPrice" class="form-label">{{ __('ui.totalPrice') }}</label>
                     <input wire:model.live="transferPrice" readonly type="text"
                         class="form-control form_input_focused" id="transferPrice" value="€">
+                </div>
+                <div class="col-2 ms-0 ps-0 d-flex justify-content-start align-items-center">
+                    <span class="fs-4">€</span>
                 </div>
                 <div class="col-6 d-grid">
                     <button type="submit" class=" btn bg-a text-white">{{ __('ui.submit') }}</button>

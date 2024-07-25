@@ -32,10 +32,13 @@
             </div>
 
             <div class="row mb-3 align-items-end">
-                <div class="col-12 col-md-6">
+                <div class="col-6 col-md-3">
                     <label for="excursionPrice" class="form-label">{{ __('ui.totalPrice') }}</label>
                     <input wire:model.live="excursionPrice" readonly type="text"
                         class="form-control form_input_focused" id="excursionPrice" value="">
+                </div>
+                <div class="col-6 col-md-3 ms-0 ps-0 d-flex justify-content-start align-items-center">
+                    <span class="fs-4">€</span>
                 </div>
                 <div class="col-12 col-md-6 d-grid mt-3">
                     <button type="submit" class="btn bg-a text-white">{{ __('ui.submit') }}</button>
