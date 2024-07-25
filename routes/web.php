@@ -17,7 +17,7 @@ use App\Http\Controllers\DestinationController;
 
 //navigazione
 
-Route::get('/', [PublicController::class, 'home'])->name('home');
+Route::get('/home', [PublicController::class, 'home'])->name('home');
 Route::get('/dashboard', [PublicController::class, 'dashboard'])->name('dashboard')->middleware('auth');
 Route::get('/noleggio/auto', [PublicController::class, 'noleggio'])->name('noleggio');
 Route::get('/transfer', [PublicController::class, 'transfer'])->name('transfer');
