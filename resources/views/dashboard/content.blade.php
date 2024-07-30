@@ -11,7 +11,6 @@
                 <th>Titolo</th>
                 <th>Sottotitolo</th>
                 <th>Corpo</th>
-                <th>Links</th>
                 <th>Ordine</th>
                 <th>Mostra</th>
                 <th>Immagini</th>
@@ -26,7 +25,6 @@
                     <td>{{ $content->title_it }}</td>
                     <td>{{ $content->subtitle_it }}</td>
                     <td>{{ $content->body_it }}</td>
-                    <td>{{ $content->links }}</td>
                     <td>{{ $content->order }}</td>
                     <td>
                         @if ($content->show)

@@ -14,7 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        if(User::count()==0){
+        if (User::count() == 0) {
             User::Create([
                 'name' => 'Admin',
                 'email' => 'admin@mtservice.it',
@@ -22,5 +22,10 @@ class UserSeeder extends Seeder
             ]);
         }
 
+        User::Create([
+            'name' => 'User',
+            'email' => 'user@mtservice.it',
+            'password' => Hash::make('mtservice'),
+        ]);
     }
 }

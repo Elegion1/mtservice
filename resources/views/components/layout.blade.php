@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <x-whatsapp/>
     <x-nav />
     <x-masthead />
 

@@ -10,7 +10,7 @@
         </div>
 
         <div class="d-flex justify-content-between align-items-center flex-column">
-            <span class="text-d">{{ __('ui.navTitle') }}</span>
+            <span class="text-a text-small">{{ __('ui.navTitle') }}</span>
             <div class="d-flex justify-content-around aling-items-center">
                 <a class="me-1 nav-link rounded-pill" href="tel:{{ $ownerdata->phone2 }}"><span><i
                             class="bi bi-telephone-fill"></i></span>
