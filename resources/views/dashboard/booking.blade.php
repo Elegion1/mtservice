@@ -1,7 +1,6 @@
 <x-dashboard-layout>
     <div class="container-fluid mt-5">
         <h1>Gestione Prenotazioni</h1>
-         
         <table class="table">
             <thead>
                 <tr>
@@ -28,7 +27,8 @@
                         <td><a href="tel:{{ $booking->phone }}">{{ $booking->phone }}</a></td>
                         <td>{{ $booking->body }}</td>
                         <td>
-                            <button class="btn btn-primary btn-sm open-details-modal" data-bs-toggle="modal" data-bs-target="#bookingDetailsModal"
+                            <button class="btn btn-primary btn-sm open-details-modal" data-bs-toggle="modal"
+                                data-bs-target="#bookingDetailsModal"
                                 data-booking-data="{{ json_encode($booking->bookingData) }}">
                                 Apri info
                             </button>
@@ -48,6 +48,7 @@
                 @endforeach
             </tbody>
         </table>
+
     </div>
 
     <!-- Modale per visualizzare le informazioni sulla prenotazione -->

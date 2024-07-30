@@ -31,4 +31,20 @@ class Booking extends Model
     protected $casts = [
         'bookingData' => 'array', // Casta il campo bookingData come array
     ];
+
+    public function getStartDateAttribute()
+    {
+        $details = $this->bookingData;
+
+        switch ($details['type']) {
+            case 'transfer':
+                return $details['date_dep'];
+            case 'noleggio':
+                return $details['date_start'];
+            case 'escursione':
+                return $details['date_dep'];
+            default:
+                return null;
+        }
+    }
 }

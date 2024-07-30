@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Booking;
+use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 
 class BookingController extends Controller
@@ -41,7 +42,7 @@ class BookingController extends Controller
         return $dompdf->stream('booking-summary.pdf');
     }
 
-    
+
     /**
      * Display a listing of the resource.
      */
@@ -49,6 +50,21 @@ class BookingController extends Controller
     {
         $bookings = Booking::all();
         return view('dashboard.booking', compact('bookings'));
+    }
+
+    public function list()
+    {
+        $now = Carbon::now();
+        $oneWeekAgo = $now->subWeek();
+
+        // Filtra le prenotazioni non scadute e prenotazioni fino a una settimana prima
+        $bookings = Booking::all()->filter(function ($booking) use ($oneWeekAgo) {
+            return Carbon::parse($booking->start_date)->greaterThanOrEqualTo($oneWeekAgo);
+        })->sortBy(function ($booking) {
+            return $booking->start_date;
+        });
+
+        return view('dashboard.bookingList', compact('bookings'));
     }
 
     /**

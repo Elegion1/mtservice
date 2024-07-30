@@ -82,6 +82,7 @@ Route::delete('/dashboard/reviews/{review}', [ReviewController::class, 'destroy'
 
 // Gestione prenotazioni
 Route::get('/dashboard/bookings', [BookingController::class, 'index'])->name('dashboard.booking')->middleware('auth');
+Route::get('/dashboard/bookings/list', [BookingController::class, 'list'])->name('dashboard.bookingList')->middleware('auth');
 Route::delete('/dashboard/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy')->middleware('auth');
 Route::get('/dashboard/bookings/pdf/{id}', [BookingController::class, 'showPdf'])->name('booking.pdf')->middleware('auth');
 
