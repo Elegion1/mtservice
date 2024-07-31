@@ -52,14 +52,33 @@ class BookingController extends Controller
         return view('dashboard.booking', compact('bookings'));
     }
 
+    // public function list()
+    // {
+    //     $now = Carbon::now();
+    //     $oneWeekAgo = $now->subWeek();
+
+    //     // Filtra le prenotazioni non scadute e prenotazioni fino a una settimana prima
+    //     $bookings = Booking::all()->filter(function ($booking) use ($oneWeekAgo) {
+    //         return Carbon::parse($booking->start_date)->greaterThanOrEqualTo($oneWeekAgo);
+    //     })->sortBy(function ($booking) {
+    //         return $booking->start_date;
+    //     });
+
+    //     return view('dashboard.bookingList', compact('bookings'));
+    // }
+
     public function list()
     {
         $now = Carbon::now();
-        $oneWeekAgo = $now->subWeek();
+        $oneWeekAgo = $now->copy()->subWeek();
 
         // Filtra le prenotazioni non scadute e prenotazioni fino a una settimana prima
-        $bookings = Booking::all()->filter(function ($booking) use ($oneWeekAgo) {
-            return Carbon::parse($booking->start_date)->greaterThanOrEqualTo($oneWeekAgo);
+        $bookings = Booking::all()->filter(function ($booking) use ($oneWeekAgo, $now) {
+            $startDate = Carbon::parse($booking->start_date);
+            $endDate = isset($booking->bookingData['date_end']) ? Carbon::parse($booking->bookingData['date_end']) : null;
+
+            // Considera le prenotazioni che iniziano dopo una settimana fa o che non sono ancora scadute
+            return ($startDate->greaterThanOrEqualTo($oneWeekAgo) || ($endDate && $endDate->greaterThanOrEqualTo($now)));
         })->sortBy(function ($booking) {
             return $booking->start_date;
         });
@@ -113,6 +132,6 @@ class BookingController extends Controller
     {
         $booking->delete();
 
-        return redirect()->route('dashboard.booking')->with('success', 'Prenotazione eliminata con successo!');
+        return redirect()->back()->with('success', 'Prenotazione eliminata con successo!');
     }
 }

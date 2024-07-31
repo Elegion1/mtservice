@@ -7,21 +7,21 @@
         <form action="{{ route('cars.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
-                <div class="mb-3 col-3">
+                <div class="mb-3 col-lg-3 col-12">
                     <label for="name" class="form-label">Nome Auto</label>
                     <input type="text" class="form-control form_input_focused" id="name" name="name" required>
                 </div>
-                <div class="mb-3 col-3">
+                <div class="mb-3 col-lg-3 col-12">
                     <label for="description" class="form-label">Descrizione</label>
                     <input type="text" class="form-control form_input_focused" id="description" name="description"
                         required>
                 </div>
-                <div class="mb-3 col-3">
+                <div class="mb-3 col-lg-3 col-12">
                     <label for="price" class="form-label">Prezzo</label>
                     <input type="number" class="form-control form_input_focused" id="price" name="price"
                         required>
                 </div>
-                <div class="mb-3 col-3">
+                <div class="mb-3 col-lg-3 col-12">
                     <label for="images" class="form-label">Immagini</label>
                     <input type="file" class="form-control form_input_focused" id="images" name="images[]"
                         multiple>
@@ -39,8 +39,6 @@
                     <th>Descrizione</th>
                     <th>Immagine</th>
                     <th>Prezzo</th>
-                    <th>Data di aggiunta</th>
-                    <th>Data di modifica</th>
                     <th>Azione</th>
                 </tr>
             </thead>
@@ -57,8 +55,6 @@
                             @endforeach
                         </td>
                         <td>{{ $car->price }} €</td>
-                        <td>{{ $car->created_at }}</td>
-                        <td>{{ $car->updated_at }}</td>
                         <td>
                             <button class="btn btn-warning btn-sm edit-open-details-modal" data-bs-toggle="modal"
                                 data-bs-target="#editCarModal" data-car="{{ json_encode($car) }}">Modifica</button>

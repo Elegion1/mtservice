@@ -24,7 +24,7 @@
                                 Benvenuto: {{ Auth::user()->email }}</p>
                             <div>
                                 <ul
-                                    class="d-flex align-items-start list-unstyled flex-column justify-content-center justify-content-evenly">
+                                    class="d-flex align-items-start list-unstyled flex-column justify-content-center">
                                     <li class="border py-1 text-center w-100">
                                         <a class="my-3 text-decoration-none"
                                             href="{{ route('dashboard.route') }}"><small>Tratte</small></a>
@@ -99,49 +99,49 @@
                     <div class="col-1">
                     @else
                         <ul
-                            class="d-flex align-items-start list-unstyled justify-content-center justify-content-evenly text-small">
-                            <li class="border py-1 text-center me-1">
+                            class="d-flex align-items-start list-unstyled justify-content-between text-small flex-wrap">
+                            <li class="border p-1 text-center">
                                 <a class="my-3 text-decoration-none"
                                     href="{{ route('dashboard.route') }}"><small>Tratte</small></a>
                             </li>
-                            <li class="border py-1 text-center me-1">
+                            <li class="border p-1 text-center">
                                 <a class="my-3 text-decoration-none"
                                     href="{{ route('dashboard.destination') }}"><small>Destinazioni</small></a>
 
                             </li>
-                            <li class="border py-1 text-center me-1">
+                            <li class="border p-1 text-center">
                                 <a class="my-3 text-decoration-none"
                                     href="{{ route('dashboard.car') }}"><small>Auto</small></a>
                             </li>
-                            <li class="border py-1 text-center me-1">
+                            <li class="border p-1 text-center">
                                 <a class="my-3 text-decoration-none"
                                     href="{{ route('dashboard.bookingList') }}"><small>Prenotazioni</small></a>
                             </li>
-                            <li class="border py-1 text-center me-1">
+                            <li class="border p-1 text-center">
                                 <a class="my-3 text-decoration-none"
                                     href="{{ route('dashboard.contact') }}"><small>Messaggi</small></a>
                             </li>
-                            <li class="border py-1 text-center me-1">
+                            <li class="border p-1 text-center">
                                 <a class="my-3 text-decoration-none"
                                     href="{{ route('dashboard.ownerData') }}"><small>Dati</small>
                                     azienda</a>
                             </li>
-                            <li class="border py-1 text-center me-1">
+                            <li class="border p-1 text-center">
                                 <a class="my-3 text-decoration-none" target="_blank"
                                     href="{{ route('home') }}"><small>Torna</small>
                                     al sito</a>
                             </li>
-                            <li class="border py-1 text-center me-1">
+                            <li class="border p-1 text-center">
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button class="btn text-primary" type="submit"></i><small>Logout</small>
+                                    <button class="btn text-primary p-0 text-small" type="submit"></i><small>Logout</small>
                                     </button>
                                 </form>
                             </li>
                         </ul>
                 @endif
             </div>
-            <div class="col-11">
+            <div class="col-lg-11 col-12">
                 <x-display-error />
                 <x-display-message />
                 <x-display-success />

@@ -2,12 +2,10 @@
     <div class="container-fluid mt-5">
         <h1>Gestione Destinazioni</h1>
 
-         
-
         <form action="{{ route('destinations.store') }}" method="POST">
             @csrf
             <div class="row">
-                <div class="mb-3 col-4">
+                <div class="mb-3 col-lg-4 col-12">
                     <label for="name" class="form-label">Destinazione</label>
                     <input type="text" class="form-control form_input_focused" id="name" name="name" required>
                 </div>
@@ -21,8 +19,6 @@
                 <tr>
                     <th>#</th>
                     <th>Nome</th>
-                    <th>Data di aggiunta</th>
-                    <th>Data di modifica</th>
                     <th>Azione</th>
                 </tr>
             </thead>
@@ -31,8 +27,6 @@
                     <tr>
                         <td>{{ $destination->id }}</td>
                         <td>{{ $destination->name }}</td>
-                        <td>{{ $destination->created_at }}</td>
-                        <td>{{ $destination->updated_at }}</td>
                         <td>
                             <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#editDestinationModal" data-id="{{ $destination->id }}"
