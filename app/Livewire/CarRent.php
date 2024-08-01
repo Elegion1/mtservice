@@ -15,25 +15,32 @@ class CarRent extends Component
     public $carID;
     public $rentPrice;
 
-    protected $rules = [
-        'dateStart' => 'required|date',
-        'dateEnd' => 'required|date|after_or_equal:dateStart',
-        'quantity' => 'required|integer|min:1',
-        'carID' => 'required|exists:cars,id',
-    ];
+    public function rules()
+    {
+        return [
+            'dateStart' => 'required|date|after_or_equal:today',
+            'dateEnd' => 'required|date|after_or_equal:dateStart',
+            'quantity' => 'required|integer|min:1',
+            'carID' => 'required|exists:cars,id',
+        ];
+    }
 
-    protected $messages = [
-        'dateStart.required' => 'La data di ritiro è obbligatoria.',
-        'dateStart.date' => 'La data di ritiro deve essere una data valida.',
-        'dateEnd.required' => 'La data di consegna è obbligatoria.',
-        'dateEnd.date' => 'La data di consegna deve essere una data valida.',
-        'dateEnd.after_or_equal' => 'La data di consegna deve essere uguale o successiva alla data di ritiro.',
-        'quantity.required' => 'La quantità è obbligatoria.',
-        'quantity.integer' => 'La quantità deve essere un numero intero.',
-        'quantity.min' => 'La quantità deve essere almeno 1.',
-        'carID.required' => 'È necessario selezionare un\'auto.',
-        'carID.exists' => 'L\'auto selezionata non esiste.',
-    ];
+    public function messages()
+    {
+        return [
+            'dateStart.required' => __('ui.dateStart_required'), 
+            'dateStart.date' => __('ui.dateStart_date'), 
+            'dateStart.after_or_equal' => __('ui.dateStart_after_or_equal'),
+            'dateEnd.required' => __('ui.dateEnd_required'), 
+            'dateEnd.date' => __('ui.dateEnd_date'), 
+            'dateEnd.after_or_equal' => __('ui.dateEnd_after_or_equal'), 
+            'quantity.required' => __('ui.quantity_required'), 
+            'quantity.integer' => __('ui.quantity_integer'), 
+            'quantity.min' => __('ui.quantity_min'), 
+            'carID.required' => __('ui.carID_required'), 
+            'carID.exists' => __('ui.carID_exists'), 
+        ];
+    }
 
     public function updated($field)
     {
@@ -101,7 +108,7 @@ class CarRent extends Component
         $cars = Car::all();
         $bookings = Booking::all();
 
-        $availableCars = $cars->map(function($car) use ($bookings) {
+        $availableCars = $cars->map(function ($car) use ($bookings) {
             $isCarAvailable = true;
 
             foreach ($bookings as $booking) {

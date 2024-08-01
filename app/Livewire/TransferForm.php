@@ -17,29 +17,42 @@ class TransferForm extends Component
     public $dateDeparture;
     public $dateReturn;
 
-    protected $rules = [
-        'departure' => 'required|exists:destinations,id',
-        'return' => 'required|exists:destinations,id',
-        'transferPassengers' => 'required|integer|min:1|max:16',
-        'dateDeparture' => 'required|date|after_or_equal:today',
-        'dateReturn' => 'nullable|date|after:dateDeparture',
-    ];
-
-    protected $messages = [
-        'departure.required' => 'La partenza è obbligatoria.',
-        'departure.exists' => 'La partenza selezionata non è valida.',
-        'return.required' => 'La destinazione è obbligatoria.',
-        'return.exists' => 'La destinazione selezionata non è valida.',
-        'transferPassengers.required' => 'Il numero di passeggeri è obbligatorio.',
-        'transferPassengers.integer' => 'Il numero di passeggeri deve essere un numero intero.',
-        'transferPassengers.min' => 'Il numero minimo di passeggeri è 1.',
-        'transferPassengers.max' => 'Il numero massimo di passeggeri è 16.',
-        'dateDeparture.required' => 'La data di partenza è obbligatoria.',
-        'dateDeparture.date' => 'La data di partenza deve essere una data valida.',
-        'dateDeparture.after_or_equal' => 'La data di partenza non può essere nel passato.',
-        'dateReturn.date' => 'La data di ritorno deve essere una data valida.',
-        'dateReturn.after' => 'La data di ritorno deve essere dopo la data di partenza.',
-    ];
+    public function rules()
+    {
+        $rules = [
+            'departure' => 'required|exists:destinations,id',
+            'return' => 'required|exists:destinations,id',
+            'transferPassengers' => 'required|integer|min:1|max:16',
+            'dateDeparture' => 'required|date|after_or_equal:today',
+            'dateReturn' => 'nullable|date|after:dateDeparture',
+        ];
+    
+        // Se andataRitorno è true, rendi dateReturn obbligatoria
+        if ($this->andataRitorno) {
+            $rules['dateReturn'] = 'required|date|after:dateDeparture';
+        }
+    
+        return $rules;
+    }
+    public function messages()
+    {
+        return [
+            'departure.required' => __('ui.departure_required'),
+            'departure.exists' => __('ui.departure_exists'),
+            'return.required' => __('ui.return_required'),
+            'return.exists' => __('ui.return_exists'),
+            'transferPassengers.required' => __('ui.transferPassengers_required'),
+            'transferPassengers.integer' => __('ui.transferPassengers_integer'),
+            'transferPassengers.min' => __('ui.transferPassengers_min'),
+            'transferPassengers.max' => __('ui.transferPassengers_max'),
+            'dateDeparture.required' => __('ui.dateDeparture_required'),
+            'dateDeparture.date' => __('ui.dateDeparture_date'),
+            'dateDeparture.after_or_equal' => __('ui.dateDeparture_after_or_equal'),
+            'dateReturn.date' => __('ui.dateReturn_date'),
+            'dateReturn.after' => __('ui.dateReturn_after'),
+            'dateReturn.required' => __('ui.dateReturn_required'),
+        ];
+    }
 
 
     public function updated($field)
@@ -127,16 +140,16 @@ class TransferForm extends Component
         $bookingData['departure_name'] = $departureName;
         $bookingData['arrival_name'] = $arrivalName;
         $route = Route::where('departure_id', $this->departure)->where('arrival_id', $this->return)->first();
-       
+
         $bookingData['duration'] = $route->duration;
 
         // Formattare la data di partenza
         $departureDate = date('D d F Y', strtotime($bookingData['date_dep']));
         $bookingData['date_departure'] = $departureDate;
-        
+
         $departureTime = date('H:i', strtotime($bookingData['date_dep']));
         $bookingData['time_departure'] = $departureTime;
-        
+
         // Se c'è una data di ritorno, formattarla
         if (!empty($bookingData['date_ret'])) {
 

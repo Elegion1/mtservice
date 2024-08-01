@@ -21,9 +21,9 @@
             </div>
 
             <div class="container-md message d-flex flex-column align-items-center justify-content-center mx-auto">
-                <x-error-message :field='$dateStart' />
-                <x-error-message :field='$dateEnd' />
-                <x-error-message :field='$quantity' />
+                <x-error-message field='dateStart' />
+                <x-error-message field='dateEnd' />
+                <x-error-message field='quantity' />
             </div>
 
             <div class="container-md">

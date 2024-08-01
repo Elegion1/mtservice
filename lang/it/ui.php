@@ -65,6 +65,8 @@ return [
     'confirmBooking' => 'Conferma Prenotazione',
     'loading' => 'Caricamento in corso... Si prega di attendere',
     'paymentMessage' => 'È richiesto un acconto del 30% dopo la conferma della prenotazione da parte del nostro staff',
+    'confirmation_message' => 'Richiesta di prenotazione creata. È stata inviata una mail di riepilogo',
+
     //fine LIVEWIRE
 
     //contact-link
@@ -116,6 +118,51 @@ return [
 
     'faqTitle' => 'Domande frequenti (FAQ)',
 
+    'name_required' => 'Il nome è obbligatorio',
+    'surname_required' => 'Il cognome è obbligatorio',
+    'email_required' => 'L\'email è obbligatoria',
+    'email_email' => 'Inserisci un\'email valida',
+    'phone_required' => 'Il numero di telefono è obbligatorio',
+    'body_required' => 'Le note sono obbligatorie',
+    'privacy_policy_accepted' => 'Accetta le privacy policy per proseguire',
+    'terms_conditions_accepted' => 'Accetta i termini e condizioni per proseguire',
+
+    'dateStart_required' => 'La data di ritiro è obbligatoria',
+    'dateStart_date' => 'La data di ritiro deve essere una data valida',
+    'dateStart_after_or_equal' => 'La data di ritiro non può essere nel passato',
+    'dateEnd_required' => 'La data di consegna è obbligatoria',
+    'dateEnd_date' => 'La data di consegna deve essere una data valida',
+    'dateEnd_after_or_equal' => 'La data di consegna deve essere uguale o successiva alla data di ritiro',
+    'quantity_required' => 'La quantità è obbligatoria',
+    'quantity_integer' => 'La quantità deve essere un numero intero',
+    'quantity_min' => 'La quantità deve essere almeno 1',
+    'carID_required' => 'È necessario selezionare un\'auto',
+    'carID_exists' => 'L\'auto selezionata non esiste',
+
+    'excursionSelect_required' => 'Selezionare un\'escursione è obbligatorio',
+    'excursionSelect_exists' => 'L\'escursione selezionata non è valida',
+    'excursionPassengers_required' => 'Il numero di passeggeri è obbligatorio',
+    'excursionPassengers_integer' => 'Il numero di passeggeri deve essere un numero intero',
+    'excursionPassengers_min' => 'Il numero minimo di passeggeri è 1',
+    'excursionPassengers_max' => 'Il numero massimo di passeggeri è 16',
+    'excursionDate_required' => 'La data di partenza è obbligatoria',
+    'excursionDate_date' => 'La data di partenza deve essere una data valida',
+    'excursionDate_after_or_equal' => 'La data di partenza non può essere nel passato',
+
+    'departure_required' => 'La partenza è obbligatoria.',
+    'departure_exists' => 'La partenza selezionata non è valida.',
+    'return_required' => 'La destinazione è obbligatoria.',
+    'return_exists' => 'La destinazione selezionata non è valida.',
+    'transferPassengers_required' => 'Il numero di passeggeri è obbligatorio.',
+    'transferPassengers_integer' => 'Il numero di passeggeri deve essere un numero intero.',
+    'transferPassengers_min' => 'Il numero minimo di passeggeri è 1.',
+    'transferPassengers_max' => 'Il numero massimo di passeggeri è 16.',
+    'dateDeparture_required' => 'La data di partenza è obbligatoria.',
+    'dateDeparture_date' => 'La data di partenza deve essere una data valida.',
+    'dateDeparture_after_or_equal' => 'La data di partenza non può essere nel passato.',
+    'dateReturn_date' => 'La data di ritorno deve essere una data valida.',
+    'dateReturn_after' => 'La data di ritorno deve essere dopo la data di partenza.',
+    'dateReturn_required' => 'La data di ritorno è obbligatoria, oppure seleziona sola andata',
 
 ];
 

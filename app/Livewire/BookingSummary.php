@@ -6,6 +6,8 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Models\Booking;
 use Livewire\Component;
+use App\Models\OwnerData;
+use App\Mail\BookingAdmin;
 use App\Mail\BookingConfirmation;
 use Illuminate\Support\Facades\Mail;
 
@@ -19,31 +21,41 @@ class BookingSummary extends Component
     public $body;
     public $privacy_policy = false;
     public $terms_conditions = false;
+    public $adminMail;
 
-    protected $rules = [
-        'name' => 'required|string|max:255',
-        'surname' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
-        'phone' => 'required|string|max:20',
-        'body' => 'required|string|max:1000',
-        'privacy_policy' => 'accepted',
-        'terms_conditions' => 'accepted',
-    ];
+    public function rules()
+    {
+        return [
+            'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:20',
+            'body' => 'required|string|max:1000',
+            'privacy_policy' => 'accepted',
+            'terms_conditions' => 'accepted',
+        ];
+    }
 
-    protected $messages = [
-        'name.required' => 'Il nome è obbligatorio.',
-        'surname.required' => 'Il cognome è obbligatorio.',
-        'email.required' => 'L\'email è obbligatoria.',
-        'email.email' => 'Inserisci un\'email valida.',
-        'phone.required' => 'Il numero di telefono è obbligatorio.',
-        'body.required' => 'Le note sono obbligatorie.',
-        'privacy_policy.accepted' => 'Accetta le privacy policy per proseguire',
-        'terms_conditions.accepted' => 'Accetta i termini e condizioni per proseguire',
-    ];
+    public function messages()
+    {
+        return [
+            'name.required' => __('ui.name_required'),
+            'surname.required' => __('ui.surname_required'),
+            'email.required' => __('ui.email_required'),
+            'email.email' => __('ui.email_email'),
+            'phone.required' => __('ui.phone_required'),
+            'body.required' => __('ui.body_required'),
+            'privacy_policy.accepted' => __('ui.privacy_policy_accepted'),
+            'terms_conditions.accepted' => __('ui.terms_conditions_accepted'),
+        ];
+    }
 
     public function mount($bookingData)
     {
         $this->bookingData = $bookingData;
+
+        $ownerData = OwnerData::first();
+        $this->adminMail = $ownerData->email;
     }
 
     public function render()
@@ -63,8 +75,6 @@ class BookingSummary extends Component
             'email' => $this->email,
             'phone' => $this->phone,
             'body' => $this->body,
-
-            // Altri campi della prenotazione
         ]);
 
         // Generazione del PDF del riepilogo
@@ -72,9 +82,10 @@ class BookingSummary extends Component
 
         // Invio dell'email con il PDF allegato
         Mail::to($this->email)->send(new BookingConfirmation($pdf));
+        Mail::to('gionnymiele@gmail.com')->send(new BookingAdmin($pdf)); // $this->adminMail
 
         // Messaggio di conferma
-        session()->flash('message', 'Prenotazione creata. Ti è stata inviata una email di riepilogo.');
+        session()->flash('message', __('ui.confirmation_message'));
 
         // Eventuale reindirizzamento
         return redirect()->to('/');
@@ -87,6 +98,7 @@ class BookingSummary extends Component
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', true);
+        $options->set('isRemoteEnabled', true);
         $options->set('defaultFont', 'Roboto');
 
         $dompdf = new Dompdf($options);

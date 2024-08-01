@@ -64,6 +64,7 @@ return [
     'termsConditions' => 'Terms and Conditions',
     'confirmBooking' => 'Confirm Booking',
     'loading' => 'Loading... Please wait',
+    'paymentMessage' => 'A 30% deposit is required after confirmation of the booking by our staff',
 
     //contact-link
     'contactLinkTitle' => 'For <strong class="text-d">info</strong> or <strong class="text-d">custom services</strong>',
@@ -99,20 +100,67 @@ return [
     'Partners' => 'partners',
     'Dashboard' => 'dashboard',
 
-     // dicono di noi
-     'someReviews' => 'Reviews',
+    // dicono di noi
+    'someReviews' => 'Reviews',
 
-     'typeOfService' => 'Type of service',
-     'message' => 'Insert a message',
-     'send' => 'Send',
+    'typeOfService' => 'Type of service',
+    'message' => 'Insert a message',
+    'send' => 'Send',
 
-     'contactUs' => 'contact us',
-     
-     'fromP' => 'From',
-     'toP' => 'to',
-     'ofP' => 'of',
-     'results' => 'results',
+    'contactUs' => 'contact us',
 
-     'faqTitle' => 'Frequently Asked Questions (FAQ)',
+    'fromP' => 'From',
+    'toP' => 'to',
+    'ofP' => 'of',
+    'results' => 'results',
+
+    'faqTitle' => 'Frequently Asked Questions (FAQ)',
+
+    'name_required' => 'The name is required.',
+    'surname_required' => 'The surname is required.',
+    'email_required' => 'The email is required.',
+    'email_email' => 'Please enter a valid email address.',
+    'phone_required' => 'The phone number is required.',
+    'body_required' => 'The notes are required.',
+    'privacy_policy_accepted' => 'You must accept the privacy policy to proceed.',
+    'terms_conditions_accepted' => 'You must accept the terms and conditions to proceed.',
+
+    'dateStart_required' => 'The pickup date is required',
+    'dateStart_date' => 'The pickup date must be a valid date',
+    'dateStart_after_or_equal' => 'The pickup date can\'t be in the past',
+    'dateEnd_required' => 'The delivery date is required',
+    'dateEnd_date' => 'The delivery date must be a valid date',
+    'dateEnd_after_or_equal' => 'The delivery date must be the same as or after the pickup date',
+    'quantity_required' => 'The quantity is required',
+    'quantity_integer' => 'The quantity must be an integer',
+    'quantity_min' => 'The quantity must be at least 1',
+    'carID_required' => 'A car must be selected',
+    'carID_exists' => 'The selected car does not exist',
+
+    'excursionSelect_required' => 'Selecting an excursion is required',
+    'excursionSelect_exists' => 'The selected excursion is not valid',
+    'excursionPassengers_required' => 'The number of passengers is required',
+    'excursionPassengers_integer' => 'The number of passengers must be an integer',
+    'excursionPassengers_min' => 'The minimum number of passengers is 1',
+    'excursionPassengers_max' => 'The maximum number of passengers is 16',
+    'excursionDate_required' => 'The departure date is required',
+    'excursionDate_date' => 'The departure date must be a valid date',
+    'excursionDate_after_or_equal' => 'The departure date cannot be in the past',
+
+    'departure_required' => 'Departure is required.',
+    'departure_exists' => 'The selected departure is not valid.',
+    'return_required' => 'Destination is required.',
+    'return_exists' => 'The selected destination is not valid.',
+    'transferPassengers_required' => 'The number of passengers is required.',
+    'transferPassengers_integer' => 'The number of passengers must be an integer.',
+    'transferPassengers_min' => 'The minimum number of passengers is 1.',
+    'transferPassengers_max' => 'The maximum number of passengers is 16.',
+    'dateDeparture_required' => 'The departure date is required.',
+    'dateDeparture_date' => 'The departure date must be a valid date.',
+    'dateDeparture_after_or_equal' => 'The departure date cannot be in the past.',
+    'dateReturn_date' => 'The return date must be a valid date.',
+    'dateReturn_after' => 'The return date must be after the departure date.',
+    'dateReturn_required' => 'The return date is required, or select one way',
+
 
 ];

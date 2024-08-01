@@ -60,30 +60,30 @@
                 <div class="col-12 col-md-6">
                     <label for="name" class="form-label">{{ __('ui.name') }}</label>
                     <input type="text" class="form-control form_input_focused" id="name" wire:model="name">
-                    <x-error-message :field='$name' />
+                    <x-error-message field='name' />
                 </div>
                 <div class="col-12 col-md-6">
                     <label for="surname" class="form-label">{{ __('ui.surname') }}</label>
                     <input type="text" class="form-control form_input_focused" id="surname" wire:model="surname">
-                    <x-error-message :field='$surname' />
+                    <x-error-message field='surname' />
                 </div>
 
                 <div class="col-12 col-md-6">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" class="form-control form_input_focused" id="email" wire:model="email">
-                    <x-error-message :field='$email' />
+                    <x-error-message field='email' />
                 </div>
 
                 <div class="col-12 col-md-6">
                     <label for="phone" class="form-label">{{ __('ui.phone') }}</label>
                     <input type="text" class="form-control form_input_focused" id="phone" wire:model="phone"
                         minlength="8" maxlength="15">
-                    <x-error-message :field='$phone' />
+                    <x-error-message field='phone' />
                 </div>
                 <div class="col-12">
                     <textarea class="form-control form_input_focused" id="body" wire:model="body"
                         placeholder="{{ __('ui.bookingConfBodyMsg') }}" rows="5"></textarea>
-                    <x-error-message :field='$body' />
+                    <x-error-message field='body' />
                 </div>
             </div>
 
@@ -92,7 +92,7 @@
                 <input type="checkbox" class="form-check-input" id="privacy_policy" wire:model="privacy_policy">
                 <label for="privacy_policy" class="form-check-label">{{ __('ui.acceptPrivacy') }} <a
                         href="{{ route('privacy') }}#privacy" target="_blank">{{ __('ui.privacyPolicy') }}</a></label>
-                <x-error-message :field='$privacy_policy' />
+                <x-error-message field='privacy_policy' />
             </div>
 
             <!-- Terms and Conditions Checkbox -->
@@ -100,11 +100,11 @@
                 <input type="checkbox" class="form-check-input" id="terms_conditions" wire:model="terms_conditions">
                 <label for="terms_conditions" class="form-check-label">{{ __('ui.acceptTerms') }} <a
                         href="{{ route('privacy') }}#terms" target="_blank">{{ __('ui.termsConditions') }}</a></label>
-                <x-error-message :field='$terms_conditions' />
+                <x-error-message field='terms_conditions' />
             </div>
 
             <div class="container text-center">
-                <p class="fs-6 text-d">{{__('ui.paymentMessage')}}</p>
+                <p class="fs-6 text-d">{{ __('ui.paymentMessage') }}</p>
             </div>
 
             <div class="container-fluid mb-3 p-0 d-flex justify-content-center align-items-center">
@@ -118,6 +118,6 @@
         <div class="mb-3" wire:loading wire:target="confirmBooking text-center">
             <p class="h3 text-success">{{ __('ui.loading') }}</p>
         </div>
-        
+
     </div>
 </div>
