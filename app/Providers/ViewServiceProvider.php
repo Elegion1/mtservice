@@ -29,7 +29,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if (Route::query()->exists()) {
-            $tratte = Route::all();
+            $tratte = Route::take(8)->get();
             View::share('tratte', $tratte);
         }
 
