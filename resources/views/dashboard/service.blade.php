@@ -19,7 +19,7 @@
                 <tr>
                     <td>{{ $service->id }}</td>
                     <td>{{ $service->title_it }}</td>
-                    <td>{{ $service->subtitle_it }} €</td>
+                    <td>{{ $service->subtitle_it }}</td>
                     <td><a href="{{ $service->links }}">{{ $service->links }}</a></td>
                     <td>{{ $service->created_at }}</td>
                     <td>{{ $service->updated_at }}</td>

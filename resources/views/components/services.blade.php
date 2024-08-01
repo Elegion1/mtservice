@@ -19,7 +19,7 @@
                                         <div class="carousel-inner">
                                             @foreach ($service->images as $imgIndex => $image)
                                                 <div class="carousel-item {{ $imgIndex === 0 ? 'active' : '' }}">
-                                                    <img src="{{ Storage::url($image->path) }}" class="d-block w-100"
+                                                    <img src="{{ Storage::url($image->path) }}" class="service-img"
                                                         alt="...">
                                                 </div>
                                             @endforeach
