@@ -23,8 +23,7 @@
                             <p>
                                 Benvenuto: {{ Auth::user()->email }}</p>
                             <div>
-                                <ul
-                                    class="d-flex align-items-start list-unstyled flex-column justify-content-center">
+                                <ul class="d-flex align-items-start list-unstyled flex-column justify-content-center">
                                     <li class="border py-1 text-center w-100">
                                         <a class="my-3 text-decoration-none"
                                             href="{{ route('dashboard.route') }}"><small>Tratte</small></a>
@@ -49,6 +48,11 @@
                                     <li class="border py-1 text-center w-100">
                                         <a class="my-3 text-decoration-none"
                                             href="{{ route('dashboard.booking') }}"><small>Prenotazioni</small></a>
+                                    </li>
+                                    <li class="border py-1 text-center w-100">
+                                        <a class="my-3 text-decoration-none"
+                                            href="{{ route('dashboard.bookingList') }}"><small>Lista
+                                                prenotazioni</small></a>
                                     </li>
                                     <li class="border py-1 text-center w-100">
                                         <a class="my-3 text-decoration-none"
@@ -98,8 +102,7 @@
                     </div>
                     <div class="col-1">
                     @else
-                        <ul
-                            class="d-flex align-items-start list-unstyled justify-content-between text-small flex-wrap">
+                        <ul class="d-flex align-items-start list-unstyled justify-content-between text-small flex-wrap">
                             <li class="border p-1 text-center">
                                 <a class="my-3 text-decoration-none"
                                     href="{{ route('dashboard.route') }}"><small>Tratte</small></a>
