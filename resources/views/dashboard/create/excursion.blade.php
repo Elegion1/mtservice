@@ -10,35 +10,34 @@
 
             <!-- Nome Escursione -->
             <div class="mb-3">
-                <label for="create-name" class="form-label">Nome Escursione</label>
-                <input type="text" class="form-control form_input_focused" id="create-name" name="name" required>
+                <label for="create-name" class="form-label">Nome Escursione *</label>
+                <input type="text" class="form-control form_input_focused" id="create-name" name="name"  >
             </div>
 
             <!-- Prezzo -->
             <div class="mb-3">
-                <label for="price" class="form-label">Prezzo</label>
+                <label for="price" class="form-label">Prezzo *</label>
                 <input type="number" step="0.01" class="form-control form_input_focused" id="price"
-                    name="price" required>
+                    name="price"  >
             </div>
 
             <!-- Incremento Prezzo -->
             <div class="mb-3">
-                <label for="price_increment" class="form-label">Incremento Prezzo</label>
+                <label for="price_increment" class="form-label">Incremento Prezzo *</label>
                 <input type="number" step="0.01" class="form-control form_input_focused" id="price_increment"
-                    name="price_increment" required>
+                    name="price_increment"  >
             </div>
 
             <!-- Durata -->
             <div class="mb-3">
-                <label for="duration" class="form-label">Durata</label>
-                <input type="number" class="form-control form_input_focused" id="duration" name="duration" required>
+                <label for="duration" class="form-label">Durata *</label>
+                <input type="number" class="form-control form_input_focused" id="duration" name="duration"  >
             </div>
 
             <!-- Abstract -->
             <div class="mb-3">
                 <label for="create-abstract" class="form-label">Abstract</label>
-                <input type="text" class="form-control form_input_focused" id="create-abstract" name="abstract"
-                    required>
+                <input type="text" class="form-control form_input_focused" id="create-abstract" name="abstract">
             </div>
 
             <!-- Descrizione -->

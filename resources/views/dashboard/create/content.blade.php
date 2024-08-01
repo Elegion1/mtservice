@@ -47,7 +47,7 @@
             <div class="mb-3">
                 <label for="page" class="form-label">Pagina</label>
                 <select id="page" name="page_id" class="form-select form_input_focused"
-                    aria-label="Default select example" required>
+                    aria-label="Default select example"  >
                     <option selected>Seleziona una pagina</option>
                     @foreach ($pages as $page)
                         <option value="{{ $page->id }}">{{ $page->name }}</option>

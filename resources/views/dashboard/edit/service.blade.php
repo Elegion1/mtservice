@@ -12,16 +12,16 @@
 
             <!-- Title -->
             <div class="mb-3">
-                <label for="edit-title" class="form-label">Titolo</label>
-                <input type="text" class="form-control form_input_focused" id="edit-title" name="title" required>
+                <label for="edit-title" class="form-label">Titolo *</label>
+                <input type="text" class="form-control form_input_focused" id="edit-title" name="title"  >
 
             </div>
 
             <!-- Subtitle -->
             <div class="mb-3">
-                <label for="edit-subtitle" class="form-label">Sottotitolo</label>
+                <label for="edit-subtitle" class="form-label">Sottotitolo *</label>
                 <input type="text" class="form-control form_input_focused" id="edit-subtitle" name="subtitle"
-                    required>
+                     >
 
             </div>
 
@@ -29,7 +29,7 @@
             <div class="mb-3">
                 <label for="edit-subtitleSec" class="form-label">Sottotitolo Secondario</label>
                 <input type="text" class="form-control form_input_focused" id="edit-subtitleSec" name="subtitleSec"
-                    required>
+                    >
 
             </div>
 
@@ -37,14 +37,14 @@
             <div class="mb-3">
                 <label for="edit-abstract" class="form-label">Abstract</label>
                 <input type="text" class="form-control form_input_focused" id="edit-abstract" name="abstract"
-                    required>
+                    >
 
             </div>
 
             <!-- Body -->
             <div class="mb-3">
-                <label for="edit-body" class="form-label">Body</label>
-                <textarea class="form-control form_input_focused" id="edit-body" name="body">{{ $service->body }}</textarea>
+                <label for="edit-body" class="form-label">Body *</label>
+                <textarea class="form-control form_input_focused" id="edit-body" name="body"  >{{ $service->body }}</textarea>
 
             </div>
 

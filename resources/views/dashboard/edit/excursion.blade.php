@@ -12,43 +12,43 @@
 
             <!-- Nome Escursione -->
             <div class="mb-3">
-                <label for="edit-name" class="form-label">Nome Escursione</label>
+                <label for="edit-name" class="form-label">Nome Escursione *</label>
                 <input type="text" class="form-control form_input_focused" id="edit-name" name="name"
-                    value="{{ $excursion->name }}" required>
+                    value="{{ $excursion->name }}"  >
             </div>
 
             <!-- Prezzo -->
             <div class="mb-3">
-                <label for="price" class="form-label">Prezzo</label>
+                <label for="price" class="form-label">Prezzo *</label>
                 <input type="number" step="0.01" class="form-control form_input_focused" id="price"
-                    name="price" value="{{ $excursion->price }}" required>
+                    name="price" value="{{ $excursion->price }}"  >
             </div>
 
             <!-- Incremento Prezzo -->
             <div class="mb-3">
-                <label for="price_increment" class="form-label">Incremento Prezzo</label>
+                <label for="price_increment" class="form-label">Incremento Prezzo *</label>
                 <input type="number" step="0.01" class="form-control form_input_focused" id="price_increment"
-                    name="price_increment" value="{{ $excursion->price_increment }}" required>
+                    name="price_increment" value="{{ $excursion->price_increment }}"  >
             </div>
 
             <!-- Durata -->
             <div class="mb-3">
-                <label for="duration" class="form-label">Durata</label>
+                <label for="duration" class="form-label">Durata *</label>
                 <input type="number" class="form-control form_input_focused" id="duration" name="duration"
-                    value="{{ $excursion->duration }}" required>
+                    value="{{ $excursion->duration }}"  >
             </div>
 
             <!-- Abstract -->
             <div class="mb-3">
                 <label for="edit-abstract" class="form-label">Abstract</label>
                 <input type="text" class="form-control form_input_focused" id="edit-abstract" name="abstract"
-                    value="{{ $excursion->abstract }}" required>
+                    value="{{ $excursion->abstract }}">
             </div>
 
             <!-- Descrizione -->
             <div class="mb-3">
-                <label for="edit-description" class="form-label">Descrizione (IT)</label>
-                <textarea class="form-control form_input_focused" id="edit-description" name="description" >{{ $excursion->description }}</textarea>
+                <label for="edit-description" class="form-label">Descrizione *</label>
+                <textarea class="form-control form_input_focused" id="edit-description" name="description"  >{{ $excursion->description }}</textarea>
             </div>
 
             <!-- Immagini -->

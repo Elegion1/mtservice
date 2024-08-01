@@ -9,14 +9,14 @@
 
             <!-- Title -->
             <div class="mb-3">
-                <label for="create-title" class="form-label">Titolo</label>
-                <input type="text" class="form-control form_input_focused" id="create-title" name="title" required>
+                <label for="create-title" class="form-label">Titolo *</label>
+                <input type="text" class="form-control form_input_focused" id="create-title" name="title"  >
             </div>
 
             <!-- Subtitle -->
             <div class="mb-3">
-                <label for="create-subtitle" class="form-label">Sottotitolo</label>
-                <input type="text" class="form-control form_input_focused" id="create-subtitle" name="subtitle" required>
+                <label for="create-subtitle" class="form-label">Sottotitolo *</label>
+                <input type="text" class="form-control form_input_focused" id="create-subtitle" name="subtitle"  >
             </div>
 
             <!-- Second Subtitle -->
@@ -35,7 +35,7 @@
 
             <!-- Body -->
             <div class="mb-3">
-                <label for="create-body" class="form-label">Body</label>
+                <label for="create-body" class="form-label">Body *</label>
                 <textarea class="form-control form_input_focused" id="create-body" name="body"></textarea>
 
             </div>
