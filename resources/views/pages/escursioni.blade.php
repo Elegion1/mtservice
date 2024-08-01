@@ -1,7 +1,6 @@
 <x-layout>
     <div class="row">
         <div class="col-12 col-md-6">
-
             <div class="container rounded bg-white border_custom shadow">
                 <div class="container p-3">
                     <livewire:prenotazione />

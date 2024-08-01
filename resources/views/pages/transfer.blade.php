@@ -5,6 +5,10 @@
                 <div class="container p-3 ">
                     <livewire:prenotazione />
                 </div>
+                
+            </div>
+            <div class="container my-3">
+                <x-contact-link />
             </div>
         </div>
         <div class="col-12 col-xl-6">

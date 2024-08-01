@@ -17,8 +17,8 @@
             <div class="col-12 col-md-6">
                 <div class="container-fluid my-2 my-md-0 justify-content-center align-items-center d-flex">
                     @if ($service->images->isNotEmpty())
-                        @foreach ($service->images->first() as $image)
-                            <img width="400px" src="{{ Storage::url($image->path) }}" class="rounded shadow" alt="...">
+                        @foreach ($service->images as $image)
+                            <img width="500px" src="{{ Storage::url($image->path) }}" class="rounded shadow" alt="...">
                         @endforeach
                     @else
                         <img class="rounded shadow" src="https://picsum.photos/500/400" alt="">
