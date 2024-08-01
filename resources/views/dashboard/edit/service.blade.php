@@ -13,45 +13,43 @@
             <!-- Title -->
             <div class="mb-3">
                 <label for="edit-title" class="form-label">Titolo *</label>
-                <input type="text" class="form-control form_input_focused" id="edit-title" name="title"  >
+                <input type="text" class="form-control form_input_focused" id="edit-title" name="title">
 
             </div>
 
             <!-- Subtitle -->
             <div class="mb-3">
                 <label for="edit-subtitle" class="form-label">Sottotitolo *</label>
-                <input type="text" class="form-control form_input_focused" id="edit-subtitle" name="subtitle"
-                     >
+                <input type="text" class="form-control form_input_focused" id="edit-subtitle" name="subtitle">
 
             </div>
 
             <!-- Second Subtitle -->
             <div class="mb-3">
                 <label for="edit-subtitleSec" class="form-label">Sottotitolo Secondario</label>
-                <input type="text" class="form-control form_input_focused" id="edit-subtitleSec" name="subtitleSec"
-                    >
+                <input type="text" class="form-control form_input_focused" id="edit-subtitleSec" name="subtitleSec">
 
             </div>
 
             <!-- Abstract -->
             <div class="mb-3">
                 <label for="edit-abstract" class="form-label">Abstract</label>
-                <input type="text" class="form-control form_input_focused" id="edit-abstract" name="abstract"
-                    >
+                <input type="text" class="form-control form_input_focused" id="edit-abstract" name="abstract">
 
             </div>
 
             <!-- Body -->
             <div class="mb-3">
                 <label for="edit-body" class="form-label">Body *</label>
-                <textarea class="form-control form_input_focused" id="edit-body" name="body"  >{{ $service->body }}</textarea>
+                <textarea class="form-control form_input_focused" id="edit-body" name="body">{{ $service->body }}</textarea>
 
             </div>
 
             <!-- Links -->
             <div class="mb-3">
                 <label for="edit-links" class="form-label">Links</label>
-                <input type="text" class="form-control form_input_focused" id="edit-links" name="links" value="{{$service->links}}">
+                <input type="text" class="form-control form_input_focused" id="edit-links" name="links"
+                    value="{{ $service->links }}">
             </div>
 
             <!-- Conditions -->
