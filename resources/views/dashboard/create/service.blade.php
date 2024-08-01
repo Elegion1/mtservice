@@ -43,7 +43,7 @@
             <!-- Links -->
             <div class="mb-3">
                 <label for="create-links" class="form-label">Links</label>
-                <input type="text" class="form-control form_input_focused" id="create-links" name="links" required>
+                <input type="text" class="form-control form_input_focused" id="create-links" name="links">
             </div>
 
             <!-- Conditions -->

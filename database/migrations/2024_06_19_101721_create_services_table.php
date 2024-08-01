@@ -18,14 +18,14 @@ return new class extends Migration
             $table->string('title_en')->nullable();
             $table->string('subtitle_it');
             $table->string('subtitle_en')->nullable();
-            $table->string('subtitleSec_it');
+            $table->string('subtitleSec_it')->nullable();
             $table->string('subtitleSec_en')->nullable();
-            $table->string('abstract_it');
+            $table->string('abstract_it')->nullable();
             $table->string('abstract_en')->nullable();
             $table->text('body_it');
             $table->text('body_en')->nullable();
-            $table->string('links');
-            $table->text('condition_it');
+            $table->string('links')->nullable();
+            $table->text('condition_it')->nullable();
             $table->text('condition_en')->nullable();
             $table->timestamps();
         });

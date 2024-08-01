@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name_en')->nullable();
             $table->string('price_increment');
             $table->string('price');
-            $table->string('abstract_it');
+            $table->string('abstract_it')->nullable();
             $table->string('abstract_en')->nullable();
             $table->text('description_it');
             $table->text('description_en')->nullable();
