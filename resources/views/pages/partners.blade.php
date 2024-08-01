@@ -26,6 +26,11 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-12">
+            <div class="container my-5">
+                <x-contact-link />
+            </div>
+        </div>
         <div class="col-12 mt-5">
             <h2 class="text-center">{{ __('ui.title2') }}</h2>
             <x-services />

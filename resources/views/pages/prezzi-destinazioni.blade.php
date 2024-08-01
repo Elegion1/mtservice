@@ -9,6 +9,9 @@
             <div class="container bg-white rounded  p-3">
                 <x-lista-tratte />
             </div>
+            <div class="container my-5">
+                <x-contact-link />
+            </div>
         </div>
         <div class="col-12 mt-5">
             <h2 class="text-center">{{ __('ui.title2') }}</h2>

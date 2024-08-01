@@ -37,17 +37,24 @@
                     <textarea class="form-control form_input_focused" id="messaggio" name="messaggio" rows="5" required></textarea>
                 </div>
             </div>
-            <button type="submit" class="btn bg-a text-white">{{__('ui.send')}}</button>
+            <div class="form-check mb-3">
+                <input type="checkbox" class="form-check-input" id="privacy_policy" required>
+                <label for="privacy_policy" class="form-check-label">{{ __('ui.acceptPrivacy') }} <a
+                        href="{{ route('privacy') }}#privacy" target="_blank">{{ __('ui.privacyPolicy') }}</a></label>
+            </div>
+            <div class="container d-flex justify-content-center align-items-center">
+                <button type="submit" class="btn bg-a text-white">{{__('ui.send')}}</button>
+            </div>
         </form>
-        <div class="row">
-            <div class="col-12 mt-5">
-                <h2 class="text-center">{{ __('ui.title2') }}</h2>
-                <x-services />
-            </div>
-            <div class="col-12 mt-5">
-                <h2 class="text-center mb-3">{{ __('ui.title3') }}</h2>
-                <x-excursions />
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mt-5">
+            <h2 class="text-center">{{ __('ui.title2') }}</h2>
+            <x-services />
+        </div>
+        <div class="col-12 mt-5">
+            <h2 class="text-center mb-3">{{ __('ui.title3') }}</h2>
+            <x-excursions />
         </div>
     </div>
 

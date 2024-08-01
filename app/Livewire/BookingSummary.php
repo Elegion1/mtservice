@@ -82,7 +82,7 @@ class BookingSummary extends Component
 
         // Invio dell'email con il PDF allegato
         Mail::to($this->email)->send(new BookingConfirmation($pdf));
-        Mail::to('gionnymiele@gmail.com')->send(new BookingAdmin($pdf)); // $this->adminMail
+        Mail::to($this->adminMail)->send(new BookingAdmin($pdf)); // $this->adminMail
 
         // Messaggio di conferma
         session()->flash('message', __('ui.confirmation_message'));
