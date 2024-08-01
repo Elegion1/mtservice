@@ -1,6 +1,6 @@
 <x-layout>
     <div class="container bg-white rounded p-3">
-        <h1>{{__('ui.faqTitle')}}</h1>
+        <h1>{{ __('ui.faqTitle') }}</h1>
 
         {{-- <div class="faq-section">
             <h2>Generale</h2>
@@ -96,5 +96,15 @@
         </div>
 
         <x-contact-link />
+        <div class="row">
+            <div class="col-12 mt-5">
+                <h2 class="text-center">{{ __('ui.title2') }}</h2>
+                <x-services />
+            </div>
+            <div class="col-12 mt-5">
+                <h2 class="text-center mb-3">{{ __('ui.title3') }}</h2>
+                <x-excursions />
+            </div>
+        </div>
     </div>
 </x-layout>

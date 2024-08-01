@@ -16,7 +16,7 @@
         <div class="col-12 col-md-6 ">
             <div id="escursioni"
                 class="container d-flex justify-content-center align-items-center flex-column rounded bg-white">
-                <p class="h2 my-3">{{__('ui.excursionPageTitle')}}</p>
+                <h2 class="my-3">{{__('ui.excursionPageTitle')}}</h2>
 
                 @foreach ($excursionsP as $excursion)
                     <div class="card border-0 mb-3" style="max-width: 540px;">
@@ -33,7 +33,7 @@
 
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">{{ $excursion->{'name_' . app()->getLocale()} }}</h5>
+                                    <h5 class="card-title text-d">{{ $excursion->{'name_' . app()->getLocale()} }}</h5>
                                     <small>{{__('ui.duration')}} {{ $excursion->duration }}
                                         @if ($excursion->duration == 1)
                                             {{__('ui.hour')}}
@@ -51,7 +51,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <p class="m-0">
                                             <small class="text-black">{{__('ui.priceStartingFrom')}}</small>
-                                            <strong class="fs-4">{{ $excursion->price }} €</strong>
+                                            <strong class="fs-4 text-a">{{ $excursion->price }} €</strong>
                                         </p>
 
                                         <a class="btn rounded-4 bg-a text-white " href="{{ route('excursion.show', ['id' => $excursion->id]) }}">{{__('ui.details')}}</a>
@@ -70,6 +70,14 @@
                 </div>
 
             </div>
+        </div>
+        <div class="col-12 mt-5">
+            <h2 class="text-center">{{ __('ui.title2') }}</h2>
+            <x-services />
+        </div>
+        <div class="col-12 mt-5">
+            <h2 class="text-center mb-3">{{ __('ui.title3') }}</h2>
+            <x-excursions />
         </div>
     </div>
 </x-layout>

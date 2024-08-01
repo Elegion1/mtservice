@@ -11,7 +11,8 @@
                                     <img width="200px" src="{{ Storage::url($partner->images->first()->path) }}"
                                         alt="">
                                 @else
-                                    <img width="200px" src="https://picsum.photos/100{{ $partner->id }}" alt="">
+                                    <img width="200px" src="https://picsum.photos/100{{ $partner->id }}"
+                                        alt="">
                                 @endif
                             </div>
                             <p class="text-center">{{ $partner->name }}</p>
@@ -22,6 +23,16 @@
             <div class="d-flex justify-content-between align-items-center mt-4">
                 {{ $partners->links('vendor.pagination.bootstrap-5') }}
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mt-5">
+            <h2 class="text-center">{{ __('ui.title2') }}</h2>
+            <x-services />
+        </div>
+        <div class="col-12 mt-5">
+            <h2 class="text-center mb-3">{{ __('ui.title3') }}</h2>
+            <x-excursions />
         </div>
     </div>
 

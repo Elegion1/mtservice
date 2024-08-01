@@ -3,11 +3,7 @@
         <div class="row">
             <div class="col-12 col-md-6">
                 <div class="container-fluid justify-content-center d-flex flex-column">
-                    <p class="h2">{{ $excursion->{'name_' . app()->getLocale()} }}</p>
-                    <p>
-                        <small class="text-black">{{ __('ui.priceStartingFrom') }}</small>
-                        <strong>{{ $excursion->price }} €</strong> <small>{{__('ui.perPerson')}}</small>
-                    </p>
+                    <h2 class="text-d">{{ $excursion->{'name_' . app()->getLocale()} }}</h2>
 
                     <small>{{ __('ui.duration') }} {{ $excursion->duration }}
                         @if ($excursion->duration == 1)
@@ -17,8 +13,15 @@
                         @endif
                         {{ __('ui.approx') }}
                     </small>
+                    <br>
                     {!! $excursion->{'abstract_' . app()->getLocale()} !!}
                     {!! $excursion->{'description_' . app()->getLocale()} !!}
+                    <br>
+                    <br>
+                    <p>
+                        {{ __('ui.priceStartingFrom') }}
+                        <strong class="text-d">{{ $excursion->price }} €</strong> <small>{{ __('ui.perPerson') }}</small>
+                    </p>
 
                 </div>
             </div>
@@ -37,5 +40,15 @@
     </div>
     <div class="container-fluid">
         <x-contact-link />
+    </div>
+    <div class="row">
+        <div class="col-12 mt-5">
+            <h2 class="text-center">{{ __('ui.title2') }}</h2>
+            <x-services />
+        </div>
+        <div class="col-12 mt-5">
+            <h2 class="text-center mb-3">{{ __('ui.title3') }}</h2>
+            <x-excursions />
+        </div>
     </div>
 </x-layout>
