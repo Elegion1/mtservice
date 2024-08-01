@@ -52,21 +52,6 @@ class BookingController extends Controller
         return view('dashboard.booking', compact('bookings'));
     }
 
-    // public function list()
-    // {
-    //     $now = Carbon::now();
-    //     $oneWeekAgo = $now->subWeek();
-
-    //     // Filtra le prenotazioni non scadute e prenotazioni fino a una settimana prima
-    //     $bookings = Booking::all()->filter(function ($booking) use ($oneWeekAgo) {
-    //         return Carbon::parse($booking->start_date)->greaterThanOrEqualTo($oneWeekAgo);
-    //     })->sortBy(function ($booking) {
-    //         return $booking->start_date;
-    //     });
-
-    //     return view('dashboard.bookingList', compact('bookings'));
-    // }
-
     public function list()
     {
         $now = Carbon::now();

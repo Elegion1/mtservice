@@ -413,7 +413,7 @@
                                                             <tr>
                                                                 <td align="center"
                                                                     style="padding:0;Margin:0;font-size:0"><img
-                                                                        src="https://fhravzb.stripocdn.email/content/guids/CABINET_26fd7173faf8ddcda1198318f93b942db98cb3a334baa02ade5312941aeeea2f/images/logoalbertirent.png"
+                                                                        src="https://tranchidatransfer.it/storage/images/5DuKqNP0syZxChubAB5Rmm1T4AsvDTrSAd6bcK36.png"
                                                                         alt="" width="174" class="adapt-img"
                                                                         style="display:block;font-size:14px;border:0;outline:none;text-decoration:none">
                                                                 </td>
@@ -458,15 +458,13 @@
                                                                     <p align="right"
                                                                         style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">
                                                                         <a target="_blank"
-                                                                            href="tel:+39 393 11 81 111"
-                                                                            style="mso-line-height-rule:exactly;text-decoration:underline;color:#6fa8dc;font-size:14px">+39
-                                                                            393 11 81 111</a>&nbsp;</p>
+                                                                            href="tel:{{$ownerdata->phone2}}"
+                                                                            style="mso-line-height-rule:exactly;text-decoration:underline;color:#6fa8dc;font-size:14px">{{$ownerdata->phone2Name}}</a>&nbsp;</p>
                                                                     <p align="right"
                                                                         style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">
                                                                         ​<a style="mso-line-height-rule:exactly;text-decoration:underline;color:#6fa8dc;font-size:14px"
                                                                             target="_blank"
-                                                                            href="tel:+39 377 39 11 945">+39 377 39 11
-                                                                            945</a></p>
+                                                                            href="tel:{{$ownerdata->phone3}}">{{$ownerdata->phone3Name}}</a></p>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -506,7 +504,7 @@
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
                                                                         class="es-text-mobile-size-16">​</p>
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
-                                                                        class="es-text-mobile-size-16">La richeista di prenotazione
+                                                                        class="es-text-mobile-size-16">La richiesta di prenotazione
                                                                         è stata effettuata correttamente, in allegato
                                                                         trovi il riepilogo.</p>
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
@@ -516,7 +514,7 @@
                                                                         class="es-text-mobile-size-16">​</p>
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
                                                                         class="es-text-mobile-size-16">Grazie per aver
-                                                                        scelto TRANCHIDA TRANSFER &amp; RENT!</p>
+                                                                        scelto ${APP_NAME}!</p>
                                                                     <p
                                                                         style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">
                                                                         ​</p>
@@ -557,11 +555,11 @@
                                                             role="presentation"
                                                             style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                             <tr>
-                                                                <td align="left" style="padding:0;Margin:0"><span>{{ $ownerdata->companyName }}</span>
-                                                                    <span>di {{ $ownerdata->name }} {{ $ownerdata->surname }}</span>
-                                                                    <span>{{ $ownerdata->address }}</span>
-                                                                    <span>{{ $ownerdata->city }}</span>
-                                                                    <span>P.IVA: {{ $ownerdata->pIva }}</span>
+                                                                <td align="left" style="padding:0;Margin:0"><span>{{ $ownerdata->companyName }}</span> <br>
+                                                                    <span>di {{ $ownerdata->name }} {{ $ownerdata->surname }}</span> <br>
+                                                                    <span>{{ $ownerdata->address }}</span> <br>
+                                                                    <span>{{ $ownerdata->city }}</span> <br>
+                                                                    <span>P.IVA: {{ $ownerdata->pIva }}</span> <br>
                                                                     <span>C.F.: {{ $ownerdata->codFisc }}</span></td>
                                                             </tr>
                                                         </table>
