@@ -12,13 +12,16 @@
         <div class="d-flex justify-content-between align-items-center flex-column">
             <span class="text-a text-small">{{ __('ui.navTitle') }}</span>
             <div class="d-flex justify-content-around aling-items-center">
-                <a class="me-1 nav-link rounded-pill" href="tel:{{ $ownerdata->phone2 }}"><span><i
-                            class="bi bi-telephone-fill"></i></span>
-                    {{ $ownerdata->phone2Name }}</a>
-
-                <a class="nav-link rounded-pill" href="tel:{{ $ownerdata->phone3 }}"><i
-                        class="bi bi-telephone-fill"></i>
-                    {{ $ownerdata->phone3Name }}</a>
+                @if ($ownerdata->phone2 && $ownerdata->phone2Name)
+                    <a class="me-1 nav-link rounded-pill" href="tel:{{ $ownerdata->phone2 }}"><span><i
+                                class="bi bi-telephone-fill"></i></span>
+                        {{ $ownerdata->phone2Name }}</a>
+                @endif
+                @if ($ownerdata->phone3 && $ownerdata->phone3Name)
+                    <a class="me-1 nav-link rounded-pill" href="tel:{{ $ownerdata->phone3 }}"><span><i
+                                class="bi bi-telephone-fill"></i></span>
+                        {{ $ownerdata->phone3Name }}</a>
+                @endif
             </div>
         </div>
 

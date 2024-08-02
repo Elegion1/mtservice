@@ -29,10 +29,20 @@
         <div class="mb-3 text-end">
             <h5>{{ __('ui.contacts') }}</h5>
             <ul class="nav flex-column">
-                <li class="nav-item mb-2"><a href="tel:{{ $ownerdata->phone2 }}"
-                        class="nav-link p-0 text-body-secondary">Giuseppe</a></li>
-                <li class="nav-item mb-2"><a href="tel:{{ $ownerdata->phone3 }}"
-                        class="nav-link p-0 text-body-secondary">Maurizio</a></li>
+                @if ($ownerdata->phone2 && $ownerdata->phone2Name)
+                    <li class="nav-item mb-2">
+                        <a class="nav-link p-0 text-body-secondary" href="tel:{{ $ownerdata->phone2 }}"><span><i
+                                    class="bi bi-telephone-fill"></i></span>
+                            {{ $ownerdata->phone2Name }}</a>
+                    </li>
+                @endif
+                @if ($ownerdata->phone3 && $ownerdata->phone3Name)
+                    <li class="nav-item mb-2">
+                        <a class="nav-link p-0 text-body-secondary" href="tel:{{ $ownerdata->phone3 }}"><span><i
+                                    class="bi bi-telephone-fill"></i></span>
+                            {{ $ownerdata->phone3Name }}</a>
+                    </li>
+                @endif
                 <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary"><i
                             class="bi bi-facebook"></i></a></li>
                 <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary"><i
