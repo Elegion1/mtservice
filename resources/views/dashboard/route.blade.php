@@ -33,12 +33,12 @@
                     <input type="number" class="form-control form_input_focused" id="price" name="price" required>
                 </div>
                 <div class="mb-3 col-lg-4 col-12">
-                    <label for="duration" class="form-label">Tempo di Percorrenza (Minuti)</label>
-                    <input type="number" class="form-control form_input_focused" id="duration" name="duration" required>
-                </div>
-                <div class="mb-3 col-lg-4 col-12">
                     <label for="price_increment" class="form-label">Incremento di prezzo per passeggero</label>
                     <input type="number" class="form-control form_input_focused" id="price_increment" name="price_increment">
+                </div>
+                <div class="mb-3 col-lg-4 col-12">
+                    <label for="duration" class="form-label">Tempo di Percorrenza (Minuti)</label>
+                    <input type="number" class="form-control form_input_focused" id="duration" name="duration" required>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Aggiungi tratta</button>

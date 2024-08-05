@@ -1,9 +1,9 @@
 <div id="serviceCarousel" class="carousel service slide p-3" data-bs-ride="carousel">
     <div class="carousel-indicators">
         @foreach ($services as $index => $service)
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ $service->id }}"
-                class=" bg-secondary {{ $index === 0 ? 'active' : '' }}" aria-current="true"
-                aria-label="Slide {{ $service->id }}"></button>
+            <button type="button" data-bs-target="#serviceCarousel" data-bs-slide-to="{{ $index }}"
+                class="{{ $index === 0 ? 'active' : '' }}" aria-current="{{ $index === 0 ? 'true' : 'false' }}"
+                aria-label="Slide {{ $index + 1 }}"></button>
         @endforeach
     </div>
     <div class="carousel-inner">
@@ -14,30 +14,11 @@
                         <div class="row">
                             <div class="col-12 my-3 d-flex justify-content-center align-items-center">
                                 @if ($service->images->isNotEmpty())
-                                    <div id="carouselImages{{ $service->id }}" class="carousel slide"
-                                        data-bs-ride="carousel">
-                                        <div class="carousel-inner">
-                                            @foreach ($service->images as $imgIndex => $image)
-                                                <div class="carousel-item {{ $imgIndex === 0 ? 'active' : '' }}">
-                                                    <img src="{{ Storage::url($image->path) }}" class="service-img"
-                                                        alt="...">
-                                                </div>
-                                            @endforeach
-                                        </div>
-                                        {{-- <button class="carousel-control-prev" type="button"
-                                            data-bs-target="#carouselImages{{ $service->id }}" data-bs-slide="prev">
-                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Previous</span>
-                                        </button>
-                                        <button class="carousel-control-next" type="button"
-                                            data-bs-target="#carouselImages{{ $service->id }}" data-bs-slide="next">
-                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                            <span class="visually-hidden">Next</span>
-                                        </button> --}}
-                                    </div>
+                                    @foreach ($service->images as $image)
+                                        <img src="{{ Storage::url($image->path) }}" class="service-img" alt="...">
+                                    @endforeach
                                 @else
-                                    <img class="service-img "
-                                        src="https://picsum.photos/1920/1081" alt="">
+                                    <img class="service-img " src="https://picsum.photos/1920/1081" alt="">
                                 @endif
                             </div>
                             <div
@@ -46,7 +27,8 @@
                                 <p class="h6">{{ $service->{'subtitle_' . app()->getLocale()} }}</p>
                                 <p class=" text-wrap ">{{ $service->{'abstract_' . app()->getLocale()} }}</p>
                                 @if ($service->links)
-                                    <a class="small" target="__blank" href="{{ $service->links }}">{{__('ui.clickLink')}}</a>
+                                    <a class="small" target="__blank"
+                                        href="{{ $service->links }}">{{ __('ui.clickLink') }}</a>
                                 @endif
                             </div>
                         </div>
@@ -55,13 +37,13 @@
             </div>
         @endforeach
     </div>
-    {{-- <button class="carousel-control-prev" type="button" data-bs-target="#serviceCarousel" data-bs-slide="prev">
+    <button class="carousel-control-prev" type="button" data-bs-target="#serviceCarousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Previous</span>
     </button>
     <button class="carousel-control-next" type="button" data-bs-target="#serviceCarousel" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
-    </button> --}}
+    </button>
     <div class="indicators_space"></div>
 </div>
