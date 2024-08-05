@@ -162,5 +162,9 @@ return [
     'dateReturn_after' => 'The return date must be after the departure date.',
     'dateReturn_required' => 'The return date is required, or select one way',
 
+    'contactMailMessage' => 'The message was sent succesfully',
+
+    'other' => 'other',
+
 
 ];

@@ -163,6 +163,10 @@ return [
     'dateReturn_date' => 'La data di ritorno deve essere una data valida.',
     'dateReturn_after' => 'La data di ritorno deve essere dopo la data di partenza.',
     'dateReturn_required' => 'La data di ritorno è obbligatoria, oppure seleziona sola andata',
+    
+    'contactMailMessage' => 'Email inviata con successo',
+
+    'other' => 'altro',
 
 ];
 

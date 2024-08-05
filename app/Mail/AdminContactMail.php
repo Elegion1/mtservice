@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -8,17 +7,22 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Address;
 
-class ContactMail extends Mailable
+class AdminContactMail extends Mailable
 {
     use Queueable, SerializesModels;
+
+    public $contatto;
+    public $senderEmail;
 
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($contatto, $senderEmail)
     {
-        //
+        $this->contatto = $contatto;
+        $this->senderEmail = $senderEmail;
     }
 
     /**
@@ -27,7 +31,8 @@ class ContactMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Richiesta informazioni o servizio',
+            from: new Address($this->senderEmail, $this->contatto->nome . ' ' . $this->contatto->cognome),
+            subject: 'Nuovo messaggio ricevuto',
         );
     }
 
@@ -37,7 +42,7 @@ class ContactMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'mail.contattaci',
+            view: 'mail.contattaci-admin',
         );
     }
 
