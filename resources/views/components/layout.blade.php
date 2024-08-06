@@ -32,7 +32,10 @@
                 }
             @endphp
         @endif
-        {{ $title }} | {{ ucfirst($type) }} | TRANCHIDA Transfer & Rent
+        {{ $title }} | @if ($type)
+            {{ ucfirst($type) }} |
+        @endif 
+        TRANCHIDA Transfer & Rent
     </title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
