@@ -1,5 +1,5 @@
 <div class="container-lg">
-    <footer class="d-flex justify-content-between p-3 mt-5 border-top">
+    <footer class="d-flex justify-content-between p-3">
         <div class="mb-3 text-small">
             <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
                 <img width="100px" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt="">

@@ -21,6 +21,10 @@
     background-color: var(--color-d) !important;
 }
 
+.bg-linear-gradient {
+    background: linear-gradient(0deg, var(--color-c), white );
+}
+
 .text-a {
     color: var(--color-a) !important;
 }

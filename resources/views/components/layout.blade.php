@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <x-whatsapp/>
+    <x-whatsapp />
     <x-nav />
     <x-masthead />
 
@@ -21,9 +21,11 @@
             <x-display-message />
             {{ $slot }}
         </div>
-        <x-footer />
+        <div class="border_footer p-0 m-0 bg-linear-gradient">
+            <x-footer />
+        </div>
     </div>
-    
+
 
 </body>
 

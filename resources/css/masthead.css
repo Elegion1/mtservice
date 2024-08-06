@@ -41,6 +41,13 @@
 }
 
 .excursion-img {
-    height: 30vh;
+    /* width: 30vw; */
     max-height: 250px;
+}
+
+@media screen and (min-width: 768px){
+    .excursion-img {
+        width: 30vw;
+        max-height: 250px;
+    }
 }

@@ -160,6 +160,10 @@ h2 {
     border-bottom: 5px solid var(--color-a);
 }
 
+.border_footer {
+    border-top: 5px solid var(--color-a);
+}
+
 .form_input_focused:focus {
     border-color: var(--color-a);
     box-shadow: 0px 0px 5px 1px var(--color-a) !important;
