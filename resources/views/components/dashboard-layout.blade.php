@@ -15,141 +15,259 @@
 
 <body>
     @auth
-        <div class="container-fluid">
-            <div class="row">
-                @if (Auth::user()->name == 'Admin')
-                    <div class=" col-1 position-fixed">
-                        <nav>
-                            <p>
-                                Benvenuto: {{ Auth::user()->email }}</p>
-                            <div>
-                                <ul class="d-flex align-items-start list-unstyled flex-column justify-content-center">
-                                    <li class="border py-1 text-center w-100">
-                                        <a class="my-3 text-decoration-none"
-                                            href="{{ route('dashboard.route') }}"><small>Tratte</small></a>
-                                    </li>
-                                    <li class="border py-1 text-center w-100">
-                                        <a class="my-3 text-decoration-none"
-                                            href="{{ route('dashboard.destination') }}"><small>Destinazioni</small></a>
 
-                                    </li>
-                                    <li class="border py-1 text-center w-100">
-                                        <a class="my-3 text-decoration-none"
-                                            href="{{ route('dashboard.excursion') }}"><small>Escursioni</small></a>
-                                    </li>
-                                    <li class="border py-1 text-center w-100">
-                                        <a class="my-3 text-decoration-none"
-                                            href="{{ route('dashboard.car') }}"><small>Auto</small></a>
-                                    </li>
-                                    <li class="border py-1 text-center w-100">
-                                        <a class="my-3 text-decoration-none"
-                                            href="{{ route('dashboard.review') }}"><small>Recensioni</small></a>
-                                    </li>
-                                    <li class="border py-1 text-center w-100">
-                                        <a class="my-3 text-decoration-none"
-                                            href="{{ route('dashboard.booking') }}"><small>Prenotazioni</small></a>
-                                    </li>
-                                    <li class="border py-1 text-center w-100">
-                                        <a class="my-3 text-decoration-none"
-                                            href="{{ route('dashboard.bookingList') }}"><small>Lista
-                                                prenotazioni</small></a>
-                                    </li>
-                                    <li class="border py-1 text-center w-100">
-                                        <a class="my-3 text-decoration-none"
-                                            href="{{ route('dashboard.contact') }}"><small>Messaggi</small></a>
-                                    </li>
-                                    <li class="border py-1 text-center w-100">
-                                        <a class="my-3 text-decoration-none"
-                                            href="{{ route('dashboard.service') }}"><small>Servizi</small></a>
-                                    </li>
-                                    <li class="border py-1 text-center w-100">
-                                        <a class="my-3 text-decoration-none"
-                                            href="{{ route('dashboard.partner') }}"><small>Partners</small></a>
-                                    </li>
-                                    <li class="border py-1 text-center w-100">
-                                        <a class="my-3 text-decoration-none"
-                                            href="{{ route('dashboard.content') }}"><small>Contenuto</small></a>
-                                    </li>
-                                    <li class="border py-1 text-center w-100">
-                                        <a class="my-3 text-decoration-none"
-                                            href="{{ route('dashboard.page') }}"><small>Pagine</small></a>
-                                    </li>
-                                    <li class="border py-1 text-center w-100">
-                                        <a class="my-3 text-decoration-none"
-                                            href="{{ route('dashboard.ownerData') }}"><small>Dati</small>
-                                            azienda</a>
-                                    </li>
-                                    <li class="border py-1 text-center w-100">
-                                        <a class="my-3 text-decoration-none" target="_blank"
-                                            href="{{ route('pdf') }}"><small>Vista PDF</small></a>
-                                    </li>
-                                    <li class="border py-1 text-center w-100">
-                                        <a class="my-3 text-decoration-none" target="_blank"
-                                            href="{{ route('home') }}"><small>Torna</small>
-                                            al sito</a>
-                                    </li>
-                                    <li class="border py-1 text-center w-100">
-                                        <form method="POST" action="{{ route('logout') }}">
-                                            @csrf
-                                            <button class="btn text-primary" type="submit"></i><small>Logout</small>
-                                            </button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                    <div class="col-1">
-                    @else
-                        <ul class="d-flex align-items-start list-unstyled justify-content-between text-small flex-wrap">
-                            <li class="border p-1 text-center">
-                                <a class="my-3 text-decoration-none"
-                                    href="{{ route('dashboard.route') }}"><small>Tratte</small></a>
-                            </li>
-                            <li class="border p-1 text-center">
-                                <a class="my-3 text-decoration-none"
-                                    href="{{ route('dashboard.destination') }}"><small>Destinazioni</small></a>
+        <nav class="navbar navbar-expand-lg bg_nav border_custom shadow z-3 d-flex flex-column mb-5">
+            <div class="container">
+                <p>Dashboard</p>
+                <p>Benvenuto: {{ Auth::user()->email }}</p>
+                <button class="navbar-toggler p-0 border-0 " type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-                            </li>
-                            <li class="border p-1 text-center">
-                                <a class="my-3 text-decoration-none"
-                                    href="{{ route('dashboard.car') }}"><small>Auto</small></a>
-                            </li>
-                            <li class="border p-1 text-center">
-                                <a class="my-3 text-decoration-none"
-                                    href="{{ route('dashboard.bookingList') }}"><small>Prenotazioni</small></a>
-                            </li>
-                            <li class="border p-1 text-center">
-                                <a class="my-3 text-decoration-none"
-                                    href="{{ route('dashboard.contact') }}"><small>Messaggi</small></a>
-                            </li>
-                            <li class="border p-1 text-center">
-                                <a class="my-3 text-decoration-none"
-                                    href="{{ route('dashboard.ownerData') }}"><small>Dati</small>
-                                    azienda</a>
-                            </li>
-                            <li class="border p-1 text-center">
-                                <a class="my-3 text-decoration-none" target="_blank"
-                                    href="{{ route('home') }}"><small>Torna</small>
-                                    al sito</a>
-                            </li>
-                            <li class="border p-1 text-center">
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button class="btn text-primary p-0 text-small" type="submit"></i><small>Logout</small>
-                                    </button>
-                                </form>
-                            </li>
+                <div class="container d-block d-lg-none">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul
+                            class="navbar-nav d-flex align-items-center justify-content-center flex-wrap mx-auto mb-2 mb-lg-0">
+                            @if (Auth::user()->name == 'Admin')
+                                <li class="py-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.route') }}">Tratte</a>
+                                </li>
+                                <li class="py-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.destination') }}">Destinazioni</a>
+
+                                </li>
+                                <li class="py-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.excursion') }}">Escursioni</a>
+                                </li>
+                                <li class="py-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.car') }}">Auto</a>
+                                </li>
+                                <li class="py-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.review') }}">Recensioni</a>
+                                </li>
+                                <li class="py-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.booking') }}">Prenotazioni</a>
+                                </li>
+                                <li class="py-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.bookingList') }}">Lista
+                                            prenotazioni</a>
+                                </li>
+                                <li class="py-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.contact') }}">Messaggi</a>
+                                </li>
+                                <li class="py-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.service') }}">Servizi</a>
+                                </li>
+                                <li class="py-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.partner') }}">Partners</a>
+                                </li>
+                                <li class="py-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.content') }}">Contenuto</a>
+                                </li>
+                                <li class="py-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.page') }}">Pagine</a>
+                                </li>
+                                <li class="py-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.ownerData') }}">Dati
+                                        azienda</a>
+                                </li>
+                                <li class="py-1 text-center">
+                                    <a class="my-3 text-decoration-none" target="_blank"
+                                        href="{{ route('pdf') }}">Vista PDF</a>
+                                </li>
+                                <li class="py-1 text-center">
+                                    <a class="my-3 text-decoration-none" target="_blank"
+                                        href="{{ route('home') }}">Torna
+                                        al sito</a>
+                                </li>
+                                <li class="py-1 text-center">
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button class="btn text-primary" type="submit"></i>Logout
+                                        </button>
+                                    </form>
+                                </li>
+                            @else
+                                <li class="p-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.route') }}">Tratte</a>
+                                </li>
+                                <li class="p-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.destination') }}">Destinazioni</a>
+
+                                </li>
+                                <li class="p-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.car') }}">Auto</a>
+                                </li>
+                                <li class="p-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.bookingList') }}">Prenotazioni</a>
+                                </li>
+                                <li class="p-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.contact') }}">Messaggi</a>
+                                </li>
+                                <li class="p-1 text-center">
+                                    <a class="my-3 text-decoration-none"
+                                        href="{{ route('dashboard.ownerData') }}">Dati
+                                        azienda</a>
+                                </li>
+                                <li class="p-1 text-center">
+                                    <a class="my-3 text-decoration-none" target="_blank"
+                                        href="{{ route('home') }}">Torna
+                                        al sito</a>
+                                </li>
+                                <li class="p-1 text-center">
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button class="btn text-primary p-0" type="submit"></i>Logout
+                                        </button>
+                                    </form>
+                                </li>
+                            @endif
                         </ul>
-                @endif
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-11 col-12">
-                <x-display-error />
-                <x-display-message />
-                <x-display-success />
-                {{ $slot }}
+            <div class="container-fluid d-none d-lg-block">
+                <ul
+                    class="navbar-nav d-block d-flex align-items-center justify-content-center flex-wrap mx-auto mb-2 mb-lg-0">
+                    @if (Auth::user()->name == 'Admin')
+                        <li class="border py-1 text-center">
+                            <a class="my-3 text-decoration-none"
+                                href="{{ route('dashboard.route') }}">Tratte</a>
+                        </li>
+                        <li class="border py-1 text-center">
+                            <a class="my-3 text-decoration-none"
+                                href="{{ route('dashboard.destination') }}">Destinazioni</a>
+
+                        </li>
+                        <li class="border py-1 text-center">
+                            <a class="my-3 text-decoration-none"
+                                href="{{ route('dashboard.excursion') }}">Escursioni</a>
+                        </li>
+                        <li class="border py-1 text-center">
+                            <a class="my-3 text-decoration-none"
+                                href="{{ route('dashboard.car') }}">Auto</a>
+                        </li>
+                        <li class="border py-1 text-center">
+                            <a class="my-3 text-decoration-none"
+                                href="{{ route('dashboard.review') }}">Recensioni</a>
+                        </li>
+                        <li class="border py-1 text-center">
+                            <a class="my-3 text-decoration-none"
+                                href="{{ route('dashboard.booking') }}">Prenotazioni</a>
+                        </li>
+                        <li class="border py-1 text-center">
+                            <a class="my-3 text-decoration-none" href="{{ route('dashboard.bookingList') }}">Lista
+                                    prenotazioni</a>
+                        </li>
+                        <li class="border py-1 text-center">
+                            <a class="my-3 text-decoration-none"
+                                href="{{ route('dashboard.contact') }}">Messaggi</a>
+                        </li>
+                        <li class="border py-1 text-center">
+                            <a class="my-3 text-decoration-none"
+                                href="{{ route('dashboard.service') }}">Servizi</a>
+                        </li>
+                        <li class="border py-1 text-center">
+                            <a class="my-3 text-decoration-none"
+                                href="{{ route('dashboard.partner') }}">Partners</a>
+                        </li>
+                        <li class="border py-1 text-center">
+                            <a class="my-3 text-decoration-none"
+                                href="{{ route('dashboard.content') }}">Contenuto</a>
+                        </li>
+                        <li class="border py-1 text-center">
+                            <a class="my-3 text-decoration-none"
+                                href="{{ route('dashboard.page') }}">Pagine</a>
+                        </li>
+                        <li class="border py-1 text-center">
+                            <a class="my-3 text-decoration-none"
+                                href="{{ route('dashboard.ownerData') }}">Dati
+                                azienda</a>
+                        </li>
+                        <li class="border py-1 text-center">
+                            <a class="my-3 text-decoration-none" target="_blank" href="{{ route('pdf') }}">Vista
+                                    PDF</a>
+                        </li>
+                        <li class="border py-1 text-center">
+                            <a class="my-3 text-decoration-none" target="_blank"
+                                href="{{ route('home') }}">Torna
+                                al sito</a>
+                        </li>
+                        <li class="border py-1 text-center">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button class="btn text-primary" type="submit">Logout
+                                </button>
+                            </form>
+                        </li>
+                    @else
+                        <li class="p-1 text-center">
+                            <a class="my-3 text-decoration-none"
+                                href="{{ route('dashboard.route') }}">Tratte</a>
+                        </li>
+                        <li class="p-1 text-center">
+                            <a class="my-3 text-decoration-none"
+                                href="{{ route('dashboard.destination') }}">Destinazioni</a>
+
+                        </li>
+                        <li class="p-1 text-center">
+                            <a class="my-3 text-decoration-none"
+                                href="{{ route('dashboard.car') }}">Auto</a>
+                        </li>
+                        <li class="p-1 text-center">
+                            <a class="my-3 text-decoration-none"
+                                href="{{ route('dashboard.bookingList') }}">Prenotazioni</a>
+                        </li>
+                        <li class="p-1 text-center">
+                            <a class="my-3 text-decoration-none"
+                                href="{{ route('dashboard.contact') }}">Messaggi</a>
+                        </li>
+                        <li class="p-1 text-center">
+                            <a class="my-3 text-decoration-none"
+                                href="{{ route('dashboard.ownerData') }}">Dati
+                                azienda</a>
+                        </li>
+                        <li class="p-1 text-center">
+                            <a class="my-3 text-decoration-none" target="_blank"
+                                href="{{ route('home') }}">Torna
+                                al sito</a>
+                        </li>
+                        <li class="p-1 text-center">
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button class="btn text-primary p-0" type="submit"></i>Logout
+                                </button>
+                            </form>
+                        </li>
+                    @endif
+                </ul>
             </div>
-        </div>
+        </nav>
+        <div class="container-fluid">
+            <x-display-error />
+            <x-display-message />
+            <x-display-success />
+            {{ $slot }}
         </div>
     @endauth
     @guest
