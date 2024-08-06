@@ -9,7 +9,7 @@
     <div class="carousel-inner">
         @foreach ($services as $index => $service)
             <div class="carousel-item service {{ $index === 0 ? 'active' : '' }}">
-                <a class="text-reset text-decoration-none" href="{{ route('service.show', ['id' => $service->id]) }}">
+                <a class="text-reset text-decoration-none" href="{{ route('service.show', ['title_it' => $service->title_it, 'id' => $service->id]) }}">
                     <div class="container">
                         <div class="row">
                             <div class="col-12 my-3 d-flex justify-content-center align-items-center">

@@ -29,8 +29,8 @@ Route::get('/contattaci', [PublicController::class, 'contattaci'])->name('contat
 Route::get('/partners', [PublicController::class, 'partners'])->name('partners');
 Route::get('/FAQ', [PublicController::class, 'faq'])->name('faq');
 Route::get('/privacy-terms-and-conditions', [PublicController::class, 'privacy'])->name('privacy');
-Route::get('/services/{id}', [ServiceController::class, 'show'])->name('service.show');
-Route::get('/excursions/{id}', [ExcursionController::class, 'show'])->name('excursion.show');
+Route::get('/servizi/{title_it}/{id}', [ServiceController::class, 'show'])->name('service.show');
+Route::get('/escursioni/{name_it}/{id}', [ExcursionController::class, 'show'])->name('excursion.show');
 
 // Vista PDF 
 Route::get('/pdf', [PublicController::class, 'pdf'])->name('pdf')->middleware('auth');

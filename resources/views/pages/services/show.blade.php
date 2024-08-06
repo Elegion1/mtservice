@@ -18,10 +18,10 @@
                 <div class="container-fluid my-2 my-md-0 justify-content-center align-items-center d-flex">
                     @if ($service->images->isNotEmpty())
                         @foreach ($service->images as $image)
-                            <img width="500px" src="{{ Storage::url($image->path) }}" class="rounded shadow" alt="...">
+                            <img width="500px" src="{{ Storage::url($image->path) }}" class="img-show m-1" alt="...">
                         @endforeach
                     @else
-                        <img class="rounded shadow" src="https://picsum.photos/500/400" alt="">
+                        <img class="img-show" src="https://picsum.photos/500/400" alt="">
 
                     @endif
                 </div>

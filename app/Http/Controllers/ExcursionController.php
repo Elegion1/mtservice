@@ -15,7 +15,7 @@ class ExcursionController extends Controller
         return view('dashboard.excursion', compact('excursions'));
     }
 
-    public function show($id)
+    public function show($name_it, $id)
     {
         $excursion = Excursion::findOrFail($id);
 
