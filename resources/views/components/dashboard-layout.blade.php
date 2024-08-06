@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
@@ -32,67 +32,54 @@
                             class="navbar-nav d-flex align-items-center justify-content-center flex-wrap mx-auto mb-2 mb-lg-0">
                             @if (Auth::user()->name == 'Admin')
                                 <li class="py-1 text-center">
-                                    <a class="my-3 text-decoration-none"
-                                        href="{{ route('dashboard.route') }}">Tratte</a>
+                                    <a class="text-decoration-none" href="{{ route('dashboard.route') }}">Tratte</a>
                                 </li>
                                 <li class="py-1 text-center">
-                                    <a class="my-3 text-decoration-none"
+                                    <a class="text-decoration-none"
                                         href="{{ route('dashboard.destination') }}">Destinazioni</a>
 
                                 </li>
                                 <li class="py-1 text-center">
-                                    <a class="my-3 text-decoration-none"
-                                        href="{{ route('dashboard.excursion') }}">Escursioni</a>
+                                    <a class="text-decoration-none" href="{{ route('dashboard.excursion') }}">Escursioni</a>
                                 </li>
                                 <li class="py-1 text-center">
-                                    <a class="my-3 text-decoration-none"
-                                        href="{{ route('dashboard.car') }}">Auto</a>
+                                    <a class="text-decoration-none" href="{{ route('dashboard.car') }}">Auto</a>
                                 </li>
                                 <li class="py-1 text-center">
-                                    <a class="my-3 text-decoration-none"
-                                        href="{{ route('dashboard.review') }}">Recensioni</a>
+                                    <a class="text-decoration-none" href="{{ route('dashboard.review') }}">Recensioni</a>
                                 </li>
                                 <li class="py-1 text-center">
-                                    <a class="my-3 text-decoration-none"
-                                        href="{{ route('dashboard.booking') }}">Prenotazioni</a>
+                                    <a class="text-decoration-none" href="{{ route('dashboard.booking') }}">Prenotazioni</a>
                                 </li>
                                 <li class="py-1 text-center">
-                                    <a class="my-3 text-decoration-none"
-                                        href="{{ route('dashboard.bookingList') }}">Lista
-                                            prenotazioni</a>
+                                    <a class="text-decoration-none" href="{{ route('dashboard.bookingList') }}">Lista
+                                        prenotazioni</a>
                                 </li>
                                 <li class="py-1 text-center">
-                                    <a class="my-3 text-decoration-none"
-                                        href="{{ route('dashboard.contact') }}">Messaggi</a>
+                                    <a class="text-decoration-none" href="{{ route('dashboard.contact') }}">Messaggi</a>
                                 </li>
                                 <li class="py-1 text-center">
-                                    <a class="my-3 text-decoration-none"
-                                        href="{{ route('dashboard.service') }}">Servizi</a>
+                                    <a class="text-decoration-none" href="{{ route('dashboard.service') }}">Servizi</a>
                                 </li>
                                 <li class="py-1 text-center">
-                                    <a class="my-3 text-decoration-none"
-                                        href="{{ route('dashboard.partner') }}">Partners</a>
+                                    <a class="text-decoration-none" href="{{ route('dashboard.partner') }}">Partners</a>
                                 </li>
                                 <li class="py-1 text-center">
-                                    <a class="my-3 text-decoration-none"
-                                        href="{{ route('dashboard.content') }}">Contenuto</a>
+                                    <a class="text-decoration-none" href="{{ route('dashboard.content') }}">Contenuto</a>
                                 </li>
                                 <li class="py-1 text-center">
-                                    <a class="my-3 text-decoration-none"
-                                        href="{{ route('dashboard.page') }}">Pagine</a>
+                                    <a class="text-decoration-none" href="{{ route('dashboard.page') }}">Pagine</a>
                                 </li>
                                 <li class="py-1 text-center">
-                                    <a class="my-3 text-decoration-none"
-                                        href="{{ route('dashboard.ownerData') }}">Dati
+                                    <a class="text-decoration-none" href="{{ route('dashboard.ownerData') }}">Dati
                                         azienda</a>
                                 </li>
                                 <li class="py-1 text-center">
-                                    <a class="my-3 text-decoration-none" target="_blank"
-                                        href="{{ route('pdf') }}">Vista PDF</a>
+                                    <a class="text-decoration-none" target="_blank" href="{{ route('pdf') }}">Vista
+                                        PDF</a>
                                 </li>
                                 <li class="py-1 text-center">
-                                    <a class="my-3 text-decoration-none" target="_blank"
-                                        href="{{ route('home') }}">Torna
+                                    <a class="text-decoration-none" target="_blank" href="{{ route('home') }}">Torna
                                         al sito</a>
                                 </li>
                                 <li class="py-1 text-center">
@@ -104,34 +91,29 @@
                                 </li>
                             @else
                                 <li class="p-1 text-center">
-                                    <a class="my-3 text-decoration-none"
-                                        href="{{ route('dashboard.route') }}">Tratte</a>
+                                    <a class="text-decoration-none" href="{{ route('dashboard.route') }}">Tratte</a>
                                 </li>
                                 <li class="p-1 text-center">
-                                    <a class="my-3 text-decoration-none"
+                                    <a class="text-decoration-none"
                                         href="{{ route('dashboard.destination') }}">Destinazioni</a>
 
                                 </li>
                                 <li class="p-1 text-center">
-                                    <a class="my-3 text-decoration-none"
-                                        href="{{ route('dashboard.car') }}">Auto</a>
+                                    <a class="text-decoration-none" href="{{ route('dashboard.car') }}">Auto</a>
                                 </li>
                                 <li class="p-1 text-center">
-                                    <a class="my-3 text-decoration-none"
+                                    <a class="text-decoration-none"
                                         href="{{ route('dashboard.bookingList') }}">Prenotazioni</a>
                                 </li>
                                 <li class="p-1 text-center">
-                                    <a class="my-3 text-decoration-none"
-                                        href="{{ route('dashboard.contact') }}">Messaggi</a>
+                                    <a class="text-decoration-none" href="{{ route('dashboard.contact') }}">Messaggi</a>
                                 </li>
                                 <li class="p-1 text-center">
-                                    <a class="my-3 text-decoration-none"
-                                        href="{{ route('dashboard.ownerData') }}">Dati
+                                    <a class="text-decoration-none" href="{{ route('dashboard.ownerData') }}">Dati
                                         azienda</a>
                                 </li>
                                 <li class="p-1 text-center">
-                                    <a class="my-3 text-decoration-none" target="_blank"
-                                        href="{{ route('home') }}">Torna
+                                    <a class="text-decoration-none" target="_blank" href="{{ route('home') }}">Torna
                                         al sito</a>
                                 </li>
                                 <li class="p-1 text-center">
@@ -150,70 +132,57 @@
                 <ul
                     class="navbar-nav d-block d-flex align-items-center justify-content-center flex-wrap mx-auto mb-2 mb-lg-0">
                     @if (Auth::user()->name == 'Admin')
-                        <li class="border py-1 text-center">
-                            <a class="my-3 text-decoration-none"
-                                href="{{ route('dashboard.route') }}">Tratte</a>
+                        <li class="p-1 text-center">
+                            <a class="text-decoration-none" href="{{ route('dashboard.route') }}">Tratte</a>
                         </li>
-                        <li class="border py-1 text-center">
-                            <a class="my-3 text-decoration-none"
-                                href="{{ route('dashboard.destination') }}">Destinazioni</a>
+                        <li class="p-1 text-center">
+                            <a class="text-decoration-none" href="{{ route('dashboard.destination') }}">Destinazioni</a>
 
                         </li>
-                        <li class="border py-1 text-center">
-                            <a class="my-3 text-decoration-none"
-                                href="{{ route('dashboard.excursion') }}">Escursioni</a>
+                        <li class="p-1 text-center">
+                            <a class="text-decoration-none" href="{{ route('dashboard.excursion') }}">Escursioni</a>
                         </li>
-                        <li class="border py-1 text-center">
-                            <a class="my-3 text-decoration-none"
-                                href="{{ route('dashboard.car') }}">Auto</a>
+                        <li class="p-1 text-center">
+                            <a class="text-decoration-none" href="{{ route('dashboard.car') }}">Auto</a>
                         </li>
-                        <li class="border py-1 text-center">
-                            <a class="my-3 text-decoration-none"
-                                href="{{ route('dashboard.review') }}">Recensioni</a>
+                        <li class="p-1 text-center">
+                            <a class="text-decoration-none" href="{{ route('dashboard.review') }}">Recensioni</a>
                         </li>
-                        <li class="border py-1 text-center">
-                            <a class="my-3 text-decoration-none"
-                                href="{{ route('dashboard.booking') }}">Prenotazioni</a>
+                        <li class="p-1 text-center">
+                            <a class="text-decoration-none" href="{{ route('dashboard.booking') }}">Prenotazioni</a>
                         </li>
-                        <li class="border py-1 text-center">
-                            <a class="my-3 text-decoration-none" href="{{ route('dashboard.bookingList') }}">Lista
-                                    prenotazioni</a>
+                        <li class="p-1 text-center">
+                            <a class="text-decoration-none" href="{{ route('dashboard.bookingList') }}">Lista
+                                prenotazioni</a>
                         </li>
-                        <li class="border py-1 text-center">
-                            <a class="my-3 text-decoration-none"
-                                href="{{ route('dashboard.contact') }}">Messaggi</a>
+                        <li class="p-1 text-center">
+                            <a class="text-decoration-none" href="{{ route('dashboard.contact') }}">Messaggi</a>
                         </li>
-                        <li class="border py-1 text-center">
-                            <a class="my-3 text-decoration-none"
-                                href="{{ route('dashboard.service') }}">Servizi</a>
+                        <li class="p-1 text-center">
+                            <a class="text-decoration-none" href="{{ route('dashboard.service') }}">Servizi</a>
                         </li>
-                        <li class="border py-1 text-center">
-                            <a class="my-3 text-decoration-none"
-                                href="{{ route('dashboard.partner') }}">Partners</a>
+                        <li class="p-1 text-center">
+                            <a class="text-decoration-none" href="{{ route('dashboard.partner') }}">Partners</a>
                         </li>
-                        <li class="border py-1 text-center">
-                            <a class="my-3 text-decoration-none"
-                                href="{{ route('dashboard.content') }}">Contenuto</a>
+                        <li class="p-1 text-center">
+                            <a class="text-decoration-none" href="{{ route('dashboard.content') }}">Contenuto</a>
                         </li>
-                        <li class="border py-1 text-center">
-                            <a class="my-3 text-decoration-none"
-                                href="{{ route('dashboard.page') }}">Pagine</a>
+                        <li class="p-1 text-center">
+                            <a class="text-decoration-none" href="{{ route('dashboard.page') }}">Pagine</a>
                         </li>
-                        <li class="border py-1 text-center">
-                            <a class="my-3 text-decoration-none"
-                                href="{{ route('dashboard.ownerData') }}">Dati
+                        <li class="p-1 text-center">
+                            <a class="text-decoration-none" href="{{ route('dashboard.ownerData') }}">Dati
                                 azienda</a>
                         </li>
-                        <li class="border py-1 text-center">
-                            <a class="my-3 text-decoration-none" target="_blank" href="{{ route('pdf') }}">Vista
-                                    PDF</a>
+                        <li class="p-1 text-center">
+                            <a class="text-decoration-none" target="_blank" href="{{ route('pdf') }}">Vista
+                                PDF</a>
                         </li>
-                        <li class="border py-1 text-center">
-                            <a class="my-3 text-decoration-none" target="_blank"
-                                href="{{ route('home') }}">Torna
+                        <li class="p-1 text-center">
+                            <a class="text-decoration-none" target="_blank" href="{{ route('home') }}">Torna
                                 al sito</a>
                         </li>
-                        <li class="border py-1 text-center">
+                        <li class="p-1 text-center">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button class="btn text-primary" type="submit">Logout
@@ -222,34 +191,27 @@
                         </li>
                     @else
                         <li class="p-1 text-center">
-                            <a class="my-3 text-decoration-none"
-                                href="{{ route('dashboard.route') }}">Tratte</a>
+                            <a class="text-decoration-none" href="{{ route('dashboard.route') }}">Tratte</a>
                         </li>
                         <li class="p-1 text-center">
-                            <a class="my-3 text-decoration-none"
-                                href="{{ route('dashboard.destination') }}">Destinazioni</a>
+                            <a class="text-decoration-none" href="{{ route('dashboard.destination') }}">Destinazioni</a>
 
                         </li>
                         <li class="p-1 text-center">
-                            <a class="my-3 text-decoration-none"
-                                href="{{ route('dashboard.car') }}">Auto</a>
+                            <a class="text-decoration-none" href="{{ route('dashboard.car') }}">Auto</a>
                         </li>
                         <li class="p-1 text-center">
-                            <a class="my-3 text-decoration-none"
-                                href="{{ route('dashboard.bookingList') }}">Prenotazioni</a>
+                            <a class="text-decoration-none" href="{{ route('dashboard.bookingList') }}">Prenotazioni</a>
                         </li>
                         <li class="p-1 text-center">
-                            <a class="my-3 text-decoration-none"
-                                href="{{ route('dashboard.contact') }}">Messaggi</a>
+                            <a class="text-decoration-none" href="{{ route('dashboard.contact') }}">Messaggi</a>
                         </li>
                         <li class="p-1 text-center">
-                            <a class="my-3 text-decoration-none"
-                                href="{{ route('dashboard.ownerData') }}">Dati
+                            <a class="text-decoration-none" href="{{ route('dashboard.ownerData') }}">Dati
                                 azienda</a>
                         </li>
                         <li class="p-1 text-center">
-                            <a class="my-3 text-decoration-none" target="_blank"
-                                href="{{ route('home') }}">Torna
+                            <a class="text-decoration-none" target="_blank" href="{{ route('home') }}">Torna
                                 al sito</a>
                         </li>
                         <li class="p-1 text-center">

@@ -2,8 +2,6 @@
     <div class="container-fluid mt-5">
         <h1>Gestione Auto</h1>
 
-         
-
         <form action="{{ route('cars.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
