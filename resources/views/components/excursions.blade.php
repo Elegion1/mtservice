@@ -137,7 +137,7 @@
                                                 <p class="text-wrap text-secondary-subtle">
                                                     {{ $excursion->{'abstract_' . app()->getLocale()} }}</p>
                                                 <p class="text-wrap">
-                                                    {{ $excursion->{'description_' . app()->getLocale()} }}</p>
+                                                    {!! $excursion->{'description_' . app()->getLocale()} !!}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -169,7 +169,7 @@
                                     <p class="h3 text-d">{{ $excursion->{'name_' . app()->getLocale()} }}</p>
                                     <p class="text-wrap text-secondary-subtle">
                                         {{ $excursion->{'abstract_' . app()->getLocale()} }}</p>
-                                    <p class="text-wrap">{{ $excursion->{'description_' . app()->getLocale()} }}</p>
+                                    <p class="text-wrap">{!! $excursion->{'description_' . app()->getLocale()} !!}</p>
                                 </div>
                             </div>
                         </div>
