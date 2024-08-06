@@ -13,7 +13,7 @@
                     <input wire:model.live="dateEnd" type="date" class="form-control form_input_focused"
                         id="dateEnd">
                 </div>
-                <div class="col-12 col-md-2 mb-2">
+                <div class="col-12 col-md-2 mb-2 d-none">
                     <label class="form-label" for="quantity">{{ __('ui.quantity') }}</label>
                     <input wire:model.live="quantity" type="number" class="form-control form_input_focused"
                         id="quantity" min="1" max="1">
