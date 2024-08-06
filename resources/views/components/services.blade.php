@@ -18,7 +18,7 @@
                                         <img src="{{ Storage::url($image->path) }}" class="service-img" alt="...">
                                     @endforeach
                                 @else
-                                    <img class="service-img " src="https://picsum.photos/1920/1081" alt="">
+                                    <img class="service-img " src="https://picsum.photos/1920/108{{$service->id}}" alt="">
                                 @endif
                             </div>
                             <div

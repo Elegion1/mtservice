@@ -126,7 +126,7 @@
                                                             class="excursion-img" alt="...">
                                                     @endforeach
                                                 @else
-                                                    <img class="excursion-img" src="https://picsum.photos/1920/1081"
+                                                    <img class="excursion-img" src="https://picsum.photos/1920/108{{$excursion->id}}"
                                                         alt="">
                                                 @endif
                                             </div>
@@ -161,7 +161,7 @@
                                                 alt="...">
                                         @endforeach
                                     @else
-                                        <img class="excursion-img" src="https://picsum.photos/1920/1081" alt="">
+                                        <img class="excursion-img" src="https://picsum.photos/1920/108{{$excursion->id}}" alt="">
                                     @endif
                                 </div>
                                 <div
