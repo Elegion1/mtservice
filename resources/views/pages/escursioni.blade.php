@@ -53,7 +53,7 @@
                                             <strong class="fs-4 text-a">{{ $excursion->price }} €</strong>
                                         </p>
 
-                                        <a class="btn rounded-4 bg-a text-white " href="{{ route('excursion.show', ['id' => $excursion->id]) }}">{{__('ui.details')}}</a>
+                                        <a class="btn rounded-4 bg-a text-white " href="{{ route('excursion.show', ['name_it' => $excursion->name_it, 'id' => $excursion->id]) }}">{{__('ui.details')}}</a>
                                         {{-- <a class="btn rounded-4 bg-b text-white " href="">Prenota</a> --}}
 
                                     </div>
