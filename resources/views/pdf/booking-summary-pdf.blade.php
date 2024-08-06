@@ -65,14 +65,15 @@
     .logo-img {
         width: 20%;
         float: left;
+        margin: 20px
     }
 
 
-    .booking-number {
+    .booking_number {
         text-align: center;
         float: left;
         width: 20%;
-        padding-top: 30px;
+        padding-top: 20px;
 
     }
 
@@ -80,6 +81,7 @@
         float: right;
         text-align: center;
         width: 50%;
+        padding-top: 20px;
     }
 
     .contact-info span {
@@ -93,8 +95,6 @@
     a {
         padding: 20px 10px;
     }
-
-    .links {}
 
     .container {
         width: 100%;
@@ -131,7 +131,9 @@
 
 <body>
     <div class="intestazione ">
-        <img class="logo-img" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt="">
+        {{-- <img class="logo-img" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt=""> --}}
+        <img class="logo-img"
+            src="https://tranchidatransfer.it/storage/images/cXXYvbUyhobu6FZQ8X6MX7NEfNkOoZNfMxPk27R4.png" alt="">
         <div class="booking_number">
             <span>Prenotazione numero: <span class="text_col">{{ $booking['id'] }}</span></span>
         </div>
@@ -223,7 +225,18 @@
     </div>
 
     <div class="clearfix"></div>
-
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <div class="azienda">
         <span>{{ $ownerdata->companyName }}</span><br>
         <span>di {{ $ownerdata->name }} {{ $ownerdata->surname }}</span><br>
@@ -240,9 +253,10 @@
             <p>Per offrirvi un servizio sempre migliore, vi invitiamo ad osservare scrupolosamente i seguenti consigli e
                 condizioni di utilizzo dei nostri servizi:</p>
             <p>All’arrivo in aeroporto troverete un nostro autista ad aspettarvi all’uscita dal ritiro bagagli con un
-                cartello con stampato il nostro logo "Travel Tour" o il Vostro nominativo per farsi riconoscere; nel
-                caso in cui non riuscite a localizzare chiamate al numero <span class="segnaposto">[Numero di
-                    Telefono]</span>.</p>
+                cartello con stampato il nostro logo "{{ $ownerdata->companyName }}" o il Vostro nominativo per farsi
+                riconoscere; nel
+                caso in cui non riuscite a localizzare chiamate al numero <span
+                    class="segnaposto">{{ $ownerdata->phone2 }} {{ $ownerdata->phone3 }}</span>.</p>
             <p>È sempre importante, non appena arrivati in aeroporto e non appena possibile, accendere il cellulare per
                 facilitare i contatti, nel caso ce ne fosse bisogno, al numero di cellulare che avete fornito al momento
                 della prenotazione.</p>
@@ -273,7 +287,8 @@
             <p>Non sono da considerarsi disdette le comunicazioni via sms in quanto non sufficientemente sicure ad
                 arrivare con puntualità al destinatario. Non verranno prese in considerazione chiamate con numero
                 privato.</p>
-            <p>A prenotazione avvenuta la Travel Tour, un giorno prima di norma invia al cliente sia in partenza che in
+            <p>A prenotazione avvenuta la {{ $ownerdata->companyName }}, un giorno prima di norma invia al cliente sia
+                in partenza che in
                 arrivo, un sms o un messaggio con whatsapp dando istruzioni per l’accoglienza in aeroporto in caso di
                 arrivo o nel caso di partenza come promemoria.</p>
             <p>Vi ricordiamo che la disdetta della prenotazione va fatta almeno 72 ore prima; in caso contrario
@@ -281,16 +296,20 @@
                 direttamente al nostro autista in loco.</p>
             <p>Vogliate controllare attentamente, prima dell’invio della prenotazione, che i dati inviati siano
                 corretti, così come quando riceverete una risposta di conferma. Per qualsiasi chiarimento chiamare i
-                numeri <span class="segnaposto">[Numero di Telefono]</span> o - E-mail: <span
-                    class="segnaposto">[Email]</span>. Vi consigliamo di portare sempre dietro la nostra e-mail di
+                numeri <span class="segnaposto">{{ $ownerdata->phone1 }} {{ $ownerdata->phone2 }}</span> o - E-mail:
+                <span class="segnaposto">{{ $ownerdata->email }}</span>. Vi consigliamo di portare sempre dietro la
+                nostra e-mail di
                 conferma del servizio. Per le richieste di prenotazione fatte 24/48 ore prima, si prega di telefonare
                 per accertarvi che la richiesta sia stata presa in carico dopo aver mandato e-mail, onde evitare che
-                arriviate in aeroporto e non trovate nessuno.</p>
+                arriviate in aeroporto e non trovate nessuno.
+            </p>
             <p>Per i servizi richiesti è previsto un acconto del 30% come conferma prenotazione da pagare
                 anticipatamente con pay pal o bonifico bancario, successivamente saldare ai nostri autisti in contanti.
-                La Travel Tour non è tenuta a contattare il passeggero, se non a discrezione. Per i servizi richiesti di
+                La {{ $ownerdata->companyName }} non è tenuta a contattare il passeggero, se non a discrezione. Per i
+                servizi richiesti di
                 andata e ritorno, si richiede all’atto un anticipo del 30% del servizio di ritorno.</p>
-            <p>La Travel Tour può avvalersi della collaborazione in partnership di società strettamente di fiducia con
+            <p>La {{ $ownerdata->companyName }} può avvalersi della collaborazione in partnership di società
+                strettamente di fiducia con
                 tutti i requisiti come per legge, standard di sicurezza e professionali con tutte le autorizzazioni
                 necessarie regolamentate nel trasporto di persone:</p>
             <p>Tale situazione si potrebbe verificare in un periodo di intenso traffico di lavoro o dovuto a cause non
@@ -303,8 +322,8 @@
                 <li>Comunicare l’eventuale possesso di attrezzature subacquee o materiale pericoloso</li>
                 <li>Comunicare tempestivamente ritardi alla partenza</li>
                 <li>Accendere i telefonini all’arrivo in aeroporto per essere rintracciati più velocemente</li>
-                <li>All’uscita dall’aeroporto troverete l’autista con un cartello con scritto il nostro logo "Travel
-                    Tour" o il Vostro nome.</li>
+                <li>All’uscita dall’aeroporto troverete l’autista con un cartello con scritto il nostro logo
+                    "{{ $ownerdata->companyName }}" o il Vostro nome.</li>
                 <li>Sui mezzi è severamente vietato fumare, sporcare e consumare cibi e bevande</li>
             </ol>
             <p>Il presente contratto sarà disciplinato dalla legge italiana; le parti sono ben consapevoli delle norme
@@ -324,8 +343,10 @@
                     rapporto</li>
                 <li>Il conferimento dei dati è facoltativo, ma se dovesse esserci negato dallo stesso soggetto, non ci
                     consentirà di fornirle i servizi da Lei richiesti.</li>
-                <li>Il titolare del trattamento dati è la scrivente ditta: <span class="segnaposto">[Nome
-                        Azienda]</span> <span class="segnaposto">[Indirizzo] [CF] [P. IVA]</span></li>
+                <li>Il titolare del trattamento dati è la scrivente ditta: <span
+                        class="segnaposto">{{ $ownerdata->companyName }}</span> <span
+                        class="segnaposto">{{ $ownerdata->address }} {{ $ownerdata->city }} {{ $ownerdata->codFisc }}
+                        {{ $ownerdata->pIva }}</span></li>
                 <li>Elaborazioni e statistiche interne</li>
                 <li>Invio offerte clienti attivi e potenziali</li>
 

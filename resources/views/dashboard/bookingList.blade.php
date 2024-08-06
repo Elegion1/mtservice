@@ -66,7 +66,9 @@
                 @if ($booking->bookingData['type'] == 'escursione')
                     a {{ $booking->bookingData['departure_name'] }}
                 @endif
+                       <strong>Prezzo: {{ $booking->bookingData['price'] }} €</strong>
             </p>
+            <p></p>
             <p>
                 @if ($booking->bookingData['type'] == 'transfer')
                     Da {{ $booking->bookingData['departure_name'] }} <br>

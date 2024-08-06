@@ -81,8 +81,7 @@
                                     </li>
                                     <li class="border py-1 text-center w-100">
                                         <a class="my-3 text-decoration-none" target="_blank"
-                                            href="{{ route('pdf') }}"><small>Vista</small>
-                                            PDF</a>
+                                            href="{{ route('pdf') }}"><small>Vista PDF</small></a>
                                     </li>
                                     <li class="border py-1 text-center w-100">
                                         <a class="my-3 text-decoration-none" target="_blank"

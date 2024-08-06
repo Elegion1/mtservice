@@ -133,6 +133,7 @@ class PublicController extends Controller
         $options = new Options();
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isPhpEnabled', true);
+        $options->set('isRemoteEnabled', true);
         $options->set('defaultFont', 'Roboto');
 
         $dompdf = new Dompdf($options);
