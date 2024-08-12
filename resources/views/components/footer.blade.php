@@ -1,4 +1,4 @@
-<div class="container-lg">
+<div class="container-lg pb-1">
     <footer class="d-flex justify-content-between p-3">
         <div class="mb-3 text-small">
             <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
@@ -55,8 +55,8 @@
         <hr class="m-0">
         <small>Created and Optimized by Giovanni Sugamiele </small>
         <br>
-        <small>
-            <i class="bi bi-c-circle"></i> 2024 All
+        <small class="text-white">
+            M.T. Service <i class="bi bi-c-circle"></i> 2024 All
             rights reserved</small>
     </div>
 </div>

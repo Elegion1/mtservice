@@ -15,7 +15,7 @@
         <div class="col-12 col-md-6 ">
             <div id="escursioni"
                 class="container d-flex justify-content-center align-items-center flex-column rounded bg-white">
-                <h2 class="my-3">{{__('ui.excursionPageTitle')}}</h2>
+                <h2 class="my-3">{{ __('ui.excursionPageTitle') }}</h2>
 
                 @foreach ($excursionsP as $excursion)
                     <div class="card border-0 mb-3" style="max-width: 540px;">
@@ -33,27 +33,32 @@
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <h5 class="card-title text-d">{{ $excursion->{'name_' . app()->getLocale()} }}</h5>
-                                    <small>{{__('ui.duration')}} {{ $excursion->duration }}
+                                    <small>{{ __('ui.duration') }} {{ $excursion->duration }}
                                         @if ($excursion->duration == 1)
-                                            {{__('ui.hour')}}
+                                            {{ __('ui.hour') }}
                                         @else
-                                        {{__('ui.hours')}}
+                                            {{ __('ui.hours') }}
                                         @endif
-                                        {{__('ui.approx')}}
+                                        {{ __('ui.approx') }}
                                     </small>
                                     <p class="card-text">{!! $excursion->{'abstract_' . app()->getLocale()} !!}
                                     </p>
-                                    <p class="card-text"><small
-                                            class="text-body-secondary">{!! $excursion->{'description_' . app()->getLocale()} !!}</small>
-                                    </p>
+                                    {{-- <p class="card-text text-truncate" style="max-height: 80px">{!! $excursion->{'description_' . app()->getLocale()} !!}
+                                    </p> --}}
+                                    <div class="row mb-1">
+                                        <div class="col-10 text-truncate">
+                                            {!! $excursion->{'description_' . app()->getLocale()} !!}
+                                        </div>
+                                    </div>
 
                                     <div class="d-flex justify-content-between align-items-center">
                                         <p class="m-0">
-                                            <small class="text-black">{{__('ui.priceStartingFrom')}}</small>
+                                            <small class="text-black">{{ __('ui.priceStartingFrom') }}</small>
                                             <strong class="fs-4 text-a">{{ $excursion->price }} €</strong>
                                         </p>
 
-                                        <a class="btn rounded-4 bg-a text-white " href="{{ route('excursion.show', ['name_it' => $excursion->name_it, 'id' => $excursion->id]) }}">{{__('ui.details')}}</a>
+                                        <a class="btn rounded-4 bg-a text-white "
+                                            href="{{ route('excursion.show', ['name_it' => $excursion->name_it, 'id' => $excursion->id]) }}">{{ __('ui.details') }}</a>
                                         {{-- <a class="btn rounded-4 bg-b text-white " href="">Prenota</a> --}}
 
                                     </div>
