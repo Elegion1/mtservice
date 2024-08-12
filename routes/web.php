@@ -19,7 +19,6 @@ use App\Http\Controllers\DestinationController;
 //navigazione
 
 Route::get('/', [PublicController::class, 'home'])->name('home');
-Route::get('/dashboard', [PublicController::class, 'dashboard'])->name('dashboard')->middleware('auth');
 Route::get('/noleggio/auto', [PublicController::class, 'noleggio'])->name('noleggio');
 Route::get('/transfer', [PublicController::class, 'transfer'])->name('transfer');
 Route::get('/escursioni', [PublicController::class, 'escursioni'])->name('escursioni');
@@ -32,8 +31,11 @@ Route::get('/privacy-terms-and-conditions', [PublicController::class, 'privacy']
 Route::get('/servizi/{title_it}/{id}', [ServiceController::class, 'show'])->name('service.show');
 Route::get('/escursioni/{name_it}/{id}', [ExcursionController::class, 'show'])->name('excursion.show');
 
+// vista dashboard
+Route::get('/dashboard', [PublicController::class, 'dashboard'])->name('dashboard')->middleware('auth');
+
 // Vista PDF 
-Route::get('/pdf', [PublicController::class, 'pdf'])->name('pdf')->middleware('auth');
+Route::get('/view/pdf', [PublicController::class, 'pdf'])->name('pdf')->middleware('auth');
 
 
 // Contattaci

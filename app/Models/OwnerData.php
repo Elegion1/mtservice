@@ -23,7 +23,8 @@ class OwnerData extends Model
         'phone',
         'phone2',
         'phone3',
-        'email'
+        'email',
+        'whatsappLink'
     ];
 
     public function images()

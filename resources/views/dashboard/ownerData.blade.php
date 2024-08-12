@@ -102,6 +102,11 @@
                                 <input type="text" id="email" name="email"
                                     value="{{ old('email', $ownerData->email) }}" class="form-control form_input_focused">
                             </div>
+                            <div class="mb-3">
+                                <label for="whatsappLink" class="form-label">Link whatsapp:</label>
+                                <input type="text" id="whatsappLink" name="whatsappLink"
+                                    value="{{ old('whatsappLink', $ownerData->whatsappLink) }}" class="form-control form_input_focused">
+                            </div>
                         </div>
 
                         <div class="col-lg-8 col-12 border rounded mb-3">

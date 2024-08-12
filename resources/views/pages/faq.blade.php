@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container bg-white rounded p-3">
+    <div class="container-fluid bg-white rounded p-3">
         <h1>{{ __('ui.faqTitle') }}</h1>
 
         {{-- <div class="faq-section">
