@@ -8,6 +8,7 @@
             </div>
 
             <div class="container rounded p-3 mt-3">
+                <x-contact-link />
                 <x-show-content :pagine="$pagine" />
             </div>
         </div>

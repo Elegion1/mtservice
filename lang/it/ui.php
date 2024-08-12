@@ -163,10 +163,18 @@ return [
     'dateReturn_date' => 'La data di ritorno deve essere una data valida.',
     'dateReturn_after' => 'La data di ritorno deve essere dopo la data di partenza.',
     'dateReturn_required' => 'La data di ritorno è obbligatoria, oppure seleziona sola andata',
-    
+
     'contactMailMessage' => 'Email inviata con successo',
 
     'other' => 'altro',
+
+    'excursionNotes' => '<p><strong>Dettagli dell\'Escursione:</strong></p>
+        <ul>
+            <li><strong>Durata:</strong> Circa :duration ore.</li>
+            <li><strong>Prezzo:</strong> Il prezzo indicato copre da 1 a 3 partecipanti. Per ogni persona aggiuntiva oltre la quarta, si prega di verificare i prezzi sul modulo di prenotazione.</li>
+            <li><strong>Note:</strong> I pasti, i biglietti di ingresso ove richiesti e eventuali guide turistiche non sono inclusi.</li>
+            <li><strong>Prenotazione:</strong> Prenotabile direttamente tramite il modulo di prenotazione. È possibile scegliere data, orario e numero di partecipanti.</li>
+        </ul>'
 
 ];
 

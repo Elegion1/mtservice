@@ -166,5 +166,13 @@ return [
 
     'other' => 'other',
 
+    'excursionNotes' => '<p><strong>Excursion Details:</strong></p>
+        <ul>
+            <li><strong>Duration:</strong> Approximately :duration hours.</li>
+            <li><strong>Price:</strong> The indicated price covers 1 to 3 participants. For each additional person beyond the fourth, please check the prices on the booking form.</li>
+            <li><strong>Notes:</strong> Meals, entrance tickets where required, and any tour guides are not included.</li>
+            <li><strong>Booking:</strong> Directly bookable through the booking form. You can choose the date, time, and number of participants.</li>
+        </ul>'
+
 
 ];
