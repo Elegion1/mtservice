@@ -43,6 +43,7 @@
 .excursion-img {
     /* width: 30vw; */
     max-height: 250px;
+    max-width: 400px;
 }
 
 @media screen and (min-width: 768px){
