@@ -45,11 +45,11 @@
                                     </p>
                                     {{-- <p class="card-text text-truncate" style="max-height: 80px">{!! $excursion->{'description_' . app()->getLocale()} !!}
                                     </p> --}}
-                                    <div class="row mb-1">
+                                    {{-- <div class="row mb-1" style="">
                                         <div class="col-10 text-truncate">
                                             {!! $excursion->{'description_' . app()->getLocale()} !!}
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     <div class="d-flex justify-content-between align-items-center">
                                         <p class="m-0">
