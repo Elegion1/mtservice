@@ -3,6 +3,7 @@
 /public/hot
 /public/storage
 /public/media
+/public/sitemap.xml
 /storage/*.key
 /vendor
 .env
