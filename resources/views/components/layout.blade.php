@@ -51,7 +51,7 @@
         {{ $title }} | @if ($type)
             {{ ucfirst($type) }} |
         @endif
-        TRANCHIDA Transfer & Rent
+        TRANCHIDA Transfer & Rent | Trapani
     </title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
