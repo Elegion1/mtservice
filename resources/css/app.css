@@ -52,7 +52,7 @@
 }
 
 .text-shadow {
-    text-shadow: 1px 2px 5px black;
+    text-shadow: 1px 2px 3px black;
 }
 .message {
     width: 30vw;
@@ -260,4 +260,8 @@ a:hover {
 .img-show{
     width: 100%;
     max-width: 700px;
+}
+
+.text-responsive {
+    font-size: 1.4rem;
 }

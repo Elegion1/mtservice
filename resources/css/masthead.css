@@ -12,6 +12,11 @@
     min-height: 100px;
 }
 
+.text_masthead {
+    top: 10%;
+    left: 50%;
+}
+
 .indicators_space {
     height: 60px;
 }
