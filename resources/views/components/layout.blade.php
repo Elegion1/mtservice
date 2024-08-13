@@ -2,10 +2,23 @@
 <html lang="it">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M5SQ98ZHWM"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-M5SQ98ZHWM');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" sizes="32x32" href="https://tranchidatransfer.it/favicon.ico">
-    <meta name="description" content="Noleggio auto, Escursioni e Transfer per la provincia di Trapani. Transfer da e per tutti gli aeroporti della Sicilia.">
+    <meta name="description"
+        content="Noleggio auto, Escursioni e Transfer per la provincia di Trapani. Transfer da e per tutti gli aeroporti della Sicilia.">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @include('cookie-consent::index')
     <title>
@@ -37,7 +50,7 @@
         @endif
         {{ $title }} | @if ($type)
             {{ ucfirst($type) }} |
-        @endif 
+        @endif
         TRANCHIDA Transfer & Rent
     </title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
