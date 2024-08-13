@@ -304,7 +304,7 @@
                 arriviate in aeroporto e non trovate nessuno.
             </p>
             <p>Per i servizi richiesti è previsto un acconto del 30% come conferma prenotazione da pagare
-                anticipatamente con pay pal o bonifico bancario, successivamente saldare ai nostri autisti in contanti.
+                anticipatamente con payPal o bonifico bancario, successivamente saldare ai nostri autisti in contanti.
                 La {{ $ownerdata->companyName }} non è tenuta a contattare il passeggero, se non a discrezione. Per i
                 servizi richiesti di
                 andata e ritorno, si richiede all’atto un anticipo del 30% del servizio di ritorno.</p>
@@ -349,9 +349,9 @@
                         {{ $ownerdata->pIva }}</span></li>
                 <li>Elaborazioni e statistiche interne</li>
                 <li>Invio offerte clienti attivi e potenziali</li>
-
                 <li>Per regolamentare tutte le norme previste per legge in materia civilistica, fiscale e
                     amministrative.</li>
+            </ol>
         </div>
     </div>
 
