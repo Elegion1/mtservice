@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\Post;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\Tags\Url;
 use Illuminate\Foundation\Inspiring;
+use Spatie\Sitemap\SitemapGenerator;
 use Illuminate\Support\Facades\Artisan;
 
 Artisan::command('inspire', function () {
@@ -10,12 +12,8 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 Artisan::command('sitemap:generate', function () {
-    $sitemap = Sitemap::create();
-
-    // Aggiungi le tue URL qui
-    $sitemap->add(Url::create('/home'));
-    $sitemap->add(Url::create('/about'));
-    // Aggiungi altre URL dinamiche come i post del blog o prodotti
+    
+    $sitemap = SitemapGenerator::create('https://tranchidatransfer.it');
 
     $sitemap->writeToFile(public_path('sitemap.xml'));
 
