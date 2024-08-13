@@ -5,10 +5,10 @@
                 <div class="container-fluid my-2 my-md-0 justify-content-center align-items-center d-flex d-block d-md-none">
                     @if ($excursion->images->isNotEmpty())
                         @foreach ($excursion->images as $image)
-                            <img src="{{ Storage::url($image->path) }}" class="img-show m-1" alt="...">
+                            <img src="{{ Storage::url($image->path) }}" class="img-show m-1" alt="img_{{$excursion->name_en}}">
                         @endforeach
                     @else
-                        <img class="img-show" src="https://picsum.photos/600/400" alt="">
+                        <img class="img-show" src="https://picsum.photos/600/400" alt="placeholder">
                     @endif
                 </div>
                 <div class="container-fluid justify-content-center d-flex flex-column">
@@ -41,10 +41,10 @@
                 <div class="container-fluid my-2 my-md-0 justify-content-center align-items-center d-flex d-none d-md-block">
                     @if ($excursion->images->isNotEmpty())
                         @foreach ($excursion->images as $image)
-                            <img src="{{ Storage::url($image->path) }}" class="img-show m-1" alt="...">
+                            <img src="{{ Storage::url($image->path) }}" class="img-show m-1" alt="img_{{$excursion->name_en}}">
                         @endforeach
                     @else
-                        <img class="img-show" src="https://picsum.photos/600/400" alt="">
+                        <img class="img-show" src="https://picsum.photos/600/400" alt="placeholder">
                     @endif
                 </div>
                 <div class="container-fluid">

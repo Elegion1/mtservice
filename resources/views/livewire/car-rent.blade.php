@@ -40,7 +40,7 @@
                                     @if (!$car->isAvailable) disabled @endif>
                                 <div class="p-1 col-12 d-flex justify-content-center align-items-center">
                                     <img class="img_carRent" src="{{ Storage::url($car->images[0]->path) }}"
-                                        alt="">
+                                        alt="{{$car->name}}-{{$car->description}}">
                                 </div>
                                 <div class="p-0 col-12 d-flex flex-column justify-content-center align-items-center">
                                     <p class="h6 m-0 text-nowrap text-a">{{ $car->name }}</p>

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg_nav border_custom shadow z-3 d-flex flex-column">
     <div class="container">
         <a href="{{ route('home') }}">
-            <img class="logo-img" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt="">
+            <img class="logo-img" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt="LOGO">
         </a>
 
         <div class="d-flex justify-content-center align-items-center">

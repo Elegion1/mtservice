@@ -123,11 +123,11 @@
                                                 @if ($excursion->images->isNotEmpty())
                                                     @foreach ($excursion->images as $image)
                                                         <img src="{{ Storage::url($image->path) }}"
-                                                            class="excursion-img" alt="...">
+                                                            class="excursion-img" alt="img_{{$excursion->name_en}}">
                                                     @endforeach
                                                 @else
                                                     <img class="excursion-img" src="https://picsum.photos/1920/108{{ $excursion->id }}"
-                                                        alt="">
+                                                        alt="placeholder">
                                                 @endif
                                             </div>
                                             <div
@@ -157,10 +157,10 @@
                                     @if ($excursion->images->isNotEmpty())
                                         @foreach ($excursion->images as $image)
                                             <img src="{{ Storage::url($image->path) }}" class="excursion-img"
-                                                alt="...">
+                                                alt="img_{{$excursion->name_en}}">
                                         @endforeach
                                     @else
-                                        <img class="excursion-img" src="https://picsum.photos/1920/108{{ $excursion->id }}" alt="">
+                                        <img class="excursion-img" src="https://picsum.photos/1920/108{{ $excursion->id }}" alt="placeholder">
                                     @endif
                                 </div>
                                 <div

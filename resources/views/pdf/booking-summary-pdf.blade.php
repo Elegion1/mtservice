@@ -133,7 +133,7 @@
     <div class="intestazione ">
         {{-- <img class="logo-img" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt=""> --}}
         <img class="logo-img"
-            src="https://tranchidatransfer.it/storage/images/cXXYvbUyhobu6FZQ8X6MX7NEfNkOoZNfMxPk27R4.png" alt="">
+            src="https://tranchidatransfer.it/storage/images/cXXYvbUyhobu6FZQ8X6MX7NEfNkOoZNfMxPk27R4.png" alt="LOGO">
         <div class="booking_number">
             <span>Prenotazione numero: <span class="text_col">{{ $booking['id'] }}</span></span>
         </div>

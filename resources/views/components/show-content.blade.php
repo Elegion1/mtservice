@@ -7,7 +7,7 @@
                     @if ($content->images->count())
                         <div class="col-12">
                             <img class="rounded" width="100%" src="{{ Storage::url($content->images[0]->path) }}"
-                                alt="">
+                                alt="img_{{$content->title_en}}">
                         </div>
                     @endif
                     <div class="col-12 mt-3">
