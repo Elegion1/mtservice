@@ -225,7 +225,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="container-fluid">
+        <div class="container-fluid mb-5">
             <x-display-error />
             <x-display-message />
             <x-display-success />
