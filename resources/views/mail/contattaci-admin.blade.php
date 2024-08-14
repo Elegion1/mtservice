@@ -457,17 +457,15 @@
                                                                 <td align="left" style="padding:0;Margin:0">
                                                                     <p align="right"
                                                                         style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">
-                                                                        <a target="_blank"
-                                                                            href="tel:+39 393 11 81 111"
-                                                                            style="mso-line-height-rule:exactly;text-decoration:underline;color:#6fa8dc;font-size:14px">+39
-                                                                            393 11 81 111</a>&nbsp;
+                                                                        <a style="mso-line-height-rule:exactly;text-decoration:underline;color:#6fa8dc;font-size:14px" target="_blank"
+                                                                        href="tel:{{$ownerdata->phone2}}"
+                                                                        >{{$ownerdata->phone2Name}}</a>&nbsp;
                                                                     </p>
                                                                     <p align="right"
                                                                         style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">
                                                                         ​<a style="mso-line-height-rule:exactly;text-decoration:underline;color:#6fa8dc;font-size:14px"
                                                                             target="_blank"
-                                                                            href="tel:+39 377 39 11 945">+39 377 39 11
-                                                                            945</a></p>
+                                                                            href="tel:{{$ownerdata->phone3}}">{{$ownerdata->phone3Name}}</a></p>
                                                                 </td>
                                                             </tr>
                                                         </table>

@@ -458,15 +458,16 @@
                                                                     <p align="right"
                                                                         style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">
                                                                         <a target="_blank"
-                                                                            href="tel:+39 393 11 81 111"
-                                                                            style="mso-line-height-rule:exactly;text-decoration:underline;color:#6fa8dc;font-size:14px">+39
-                                                                            393 11 81 111</a>&nbsp;</p>
+                                                                            style="mso-line-height-rule:exactly;text-decoration:underline;color:#6fa8dc;font-size:14px"
+                                                                            href="tel:{{ $ownerdata->phone2 }}">{{ $ownerdata->phone2Name }}</a>&nbsp;
+                                                                    </p>
+
                                                                     <p align="right"
                                                                         style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">
                                                                         ​<a style="mso-line-height-rule:exactly;text-decoration:underline;color:#6fa8dc;font-size:14px"
                                                                             target="_blank"
-                                                                            href="tel:+39 377 39 11 945">+39 377 39 11
-                                                                            945</a></p>
+                                                                            href="tel:{{ $ownerdata->phone3 }}">{{ $ownerdata->phone3Name }}</a>
+                                                                    </p>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -506,9 +507,11 @@
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
                                                                         class="es-text-mobile-size-16">​</p>
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
-                                                                        class="es-text-mobile-size-16">Il messaggio è stato inviato</p>
+                                                                        class="es-text-mobile-size-16">Il messaggio è
+                                                                        stato inviato</p>
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
-                                                                        class="es-text-mobile-size-16">Ti ricontatteremo
+                                                                        class="es-text-mobile-size-16">Ti
+                                                                        ricontatteremo
                                                                         al più presto.</p>
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
                                                                         class="es-text-mobile-size-16">​</p>
@@ -555,12 +558,15 @@
                                                             role="presentation"
                                                             style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
                                                             <tr>
-                                                                <td align="left" style="padding:0;Margin:0"><span>{{ $ownerdata->companyName }}</span> <br>
-                                                                    <span>di {{ $ownerdata->name }} {{ $ownerdata->surname }}</span> <br>
+                                                                <td align="left" style="padding:0;Margin:0">
+                                                                    <span>{{ $ownerdata->companyName }}</span> <br>
+                                                                    <span>di {{ $ownerdata->name }}
+                                                                        {{ $ownerdata->surname }}</span> <br>
                                                                     <span>{{ $ownerdata->address }}</span> <br>
                                                                     <span>{{ $ownerdata->city }}</span> <br>
                                                                     <span>P.IVA: {{ $ownerdata->pIva }}</span> <br>
-                                                                    <span>C.F.: {{ $ownerdata->codFisc }}</span></td>
+                                                                    <span>C.F.: {{ $ownerdata->codFisc }}</span>
+                                                                </td>
                                                             </tr>
                                                         </table>
                                                     </td>

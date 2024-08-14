@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -31,7 +32,9 @@ class AdminContactMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address($this->senderEmail, $this->contatto->nome . ' ' . $this->contatto->cognome),
+            replyTo: [
+                new Address($this->senderEmail, $this->contatto->nome . ' ' . $this->contatto->cognome),
+            ],
             subject: 'Nuovo messaggio ricevuto',
         );
     }
