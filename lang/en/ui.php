@@ -65,6 +65,8 @@ return [
     'confirmBooking' => 'Confirm Booking',
     'loading' => 'Loading... Please wait',
     'paymentMessage' => 'A 30% deposit is required after confirmation of the booking by our staff',
+    'confirmation_message' => 'Booking request created. A summary email has been sent.',
+
 
     //contact-link
     'contactLinkTitle' => 'For <strong class="text-d">info</strong> or <strong class="text-d">custom services</strong>',
@@ -172,7 +174,20 @@ return [
             <li><strong>Price:</strong> The indicated price covers 1 to 3 participants. For each additional person beyond the fourth, please check the prices on the booking form.</li>
             <li><strong>Notes:</strong> Meals, entrance tickets where required, and any tour guides are not included.</li>
             <li><strong>Booking:</strong> Directly bookable through the booking form. You can choose the date, time, and number of participants.</li>
-        </ul>'
+        </ul>',
+
+    'usefulLinks' => '<p>Useful Links</p>
+    
+    <ul>
+        <li><a href="https://www.airgest.it/" target="_blank">Trapani Airport</a></li>
+        <li><a href="https://aeroportodipalermo.it/" target="_blank">Palermo Airport</a></li>
+        <li><a href="https://www.aeroporto.catania.it/" target="_blank">Catania Airport</a></li>
+        <li><a href="https://aeroportodicomiso.eu/" target="_blank">Comiso Airport</a></li>
+        <br>
+        <li><a href="https://www.comune.trapani.it" target="_blank">Municipality of Trapani</a></li>
+        <li><a href="https://www.comune.palermo.it" target="_blank">Municipality of Palermo</a></li>
+        <li><a href="https://www.comune.catania.it" target="_blank">Municipality of Catania</a></li>
+    </ul>',
 
 
 ];

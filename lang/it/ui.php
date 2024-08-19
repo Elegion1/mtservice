@@ -174,8 +174,20 @@ return [
             <li><strong>Prezzo:</strong> Il prezzo indicato copre da 1 a 3 partecipanti. Per ogni persona aggiuntiva oltre la quarta, si prega di verificare i prezzi sul modulo di prenotazione.</li>
             <li><strong>Note:</strong> I pasti, i biglietti di ingresso ove richiesti e eventuali guide turistiche non sono inclusi.</li>
             <li><strong>Prenotazione:</strong> Prenotabile direttamente tramite il modulo di prenotazione. È possibile scegliere data, orario e numero di partecipanti.</li>
-        </ul>'
+        </ul>',
 
+    'usefulLinks' => '<p>Link Utili</p>
+    
+    <ul>
+        <li><a href="https://www.airgest.it/" target="_blank">Aeroporto di Trapani</a></li>
+        <li><a href="https://aeroportodipalermo.it/" target="_blank">Aeroporto di Palermo</a></li>
+        <li><a href="https://www.aeroporto.catania.it/" target="_blank">Aeroporto di Catania</a></li>
+        <li><a href="https://aeroportodicomiso.eu/" target="_blank">Aeroporto di Comiso</a></li>
+        <br>
+        <li><a href="https://www.comune.trapani.it" target="_blank">Comune di Trapani</a></li>
+        <li><a href="https://www.comune.palermo.it" target="_blank">Comune di Palermo</a></li>
+        <li><a href="https://www.comune.catania.it" target="_blank">Comune di Catania</a></li>
+    </ul>',
 ];
 
 

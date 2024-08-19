@@ -35,6 +35,8 @@
                     @endphp
                     <p>{!! __('ui.excursionNotes', ['duration' => $duration]) !!}</p>
                     <br>
+
+                    <p>{!!__('ui.usefulLinks')!!}</p>
                 </div>
             </div>
             <div class="col-12 col-md-6">

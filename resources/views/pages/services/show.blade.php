@@ -3,8 +3,8 @@
         <div class="row">
             <div class="col-12 col-md-6">
                 <div class="container-fluid justify-content-center d-flex flex-column">
-                    <p class="h2">{{ $service->{'title_' . app()->getLocale()} }}</p>
-                    <p class="h5">{{ $service->{'subtitle_' . app()->getLocale()} }}</p>
+                    <h2 class="text-d">{{ $service->{'title_' . app()->getLocale()} }}</h2>
+                    <p>{{ $service->{'subtitle_' . app()->getLocale()} }}</p>
                     <p>{{ $service->{'subtitleSec_' . app()->getLocale()} }}</p>
                     <p class="text-secondary small">{{ $service->{'abstract_' . app()->getLocale()} }}</p>
                     <p>{!! $service->{'body_' . app()->getLocale()} !!}</p>
@@ -12,6 +12,9 @@
                     @if ($service->links)
                         <a class="small" target="__blank" href="{{ $service->links }}">{{__('ui.clickLink')}}</a>
                     @endif
+
+                    <br>
+                    <p>{!!__('ui.usefulLinks')!!}</p>
                 </div>
             </div>
             <div class="col-12 col-md-6">
