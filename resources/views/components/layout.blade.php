@@ -15,7 +15,7 @@
         gtag('config', 'G-M5SQ98ZHWM');
     </script>
     <meta name="description"
-        content="Noleggio auto, Escursioni e Transfer per la provincia di Trapani. Transfer da e per tutti gli aeroporti della Sicilia.">
+        content="Noleggio auto, Escursioni e Transfer per la provincia di Trapani. Transfer da e per tutti gli aeroporti della Sicilia. Aeroporto di Trapani, Aeroporto di Palermo, Aeroporto di Catania. Escursioni in tutta la Sicilia. Noleggio Auto per la tua vacanza.">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" sizes="32x32" href="https://tranchidatransfer.it/favicon.ico">
@@ -51,7 +51,7 @@
         {{ $title }} | @if ($type)
             {{ ucfirst($type) }} |
         @endif
-        TRANCHIDA Transfer & Rent | Trapani
+        TRANCHIDA Transfer & Rent Trapani
     </title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
