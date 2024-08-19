@@ -57,7 +57,7 @@ return [
     'surname' => 'Cognome',
     'phone' => 'Telefono',
     'email' => 'Email',
-    'bookingConfBodyMsg' => 'Inserisci delle note o eventuali richieste',
+    'bookingConfBodyMsg' => 'Inserisci delle note o eventuali richieste. Es. Numero volo, necessità di seggiolini per bambini, se si trasportano oggetti voluminosi, ecc... ',
     'acceptPrivacy' => 'Accetto la',
     'acceptTerms' => 'Accetto i',
     'privacyPolicy' => 'Privacy Policy',

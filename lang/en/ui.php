@@ -57,7 +57,7 @@ return [
     'surname' => 'Surname',
     'phone' => 'Phone',
     'email' => 'Email',
-    'bookingConfBodyMsg' => 'Enter notes or any requests',
+    'bookingConfBodyMsg' => 'Add Notes or Special Requests: For example, flight number, need for child seats, transporting bulky items, etc..',
     'acceptPrivacy' => 'I accept the',
     'acceptTerms' => 'I accept the',
     'privacyPolicy' => 'Privacy Policy',
