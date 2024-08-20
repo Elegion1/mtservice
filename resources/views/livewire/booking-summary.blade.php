@@ -19,6 +19,7 @@
                 </p>
                 <p>{{ ucfirst(__('ui.price')) }} {{ ucfirst(__('ui.totalPrice')) }}: <span
                         class="text_col">{{ $bookingData['price'] ?? 'N/A' }}</span> €</p>
+
             @elseif ($bookingData['type'] == 'escursione')
                 <p>{{ __('ui.bookingType') }}: <span class="text_col">{{ ucfirst($bookingData['type']) }}</span> a
                     <span class="text_col">{{ $bookingData['departure_name'] ?? 'N/A' }}</span>
@@ -33,6 +34,7 @@
                 </p>
                 <p>{{ ucfirst(__('ui.price')) }} {{ ucfirst(__('ui.totalPrice')) }}: <span
                         class="text_col">{{ $bookingData['price'] ?? 'N/A' }} €</span></p>
+
             @elseif ($bookingData['type'] == 'noleggio')
                 <p>{{ __('ui.bookingType') }}: <span class="text_col">{{ ucfirst($bookingData['type']) }}</span> <span
                         class="text_col">{{ $bookingData['car_name'] ?? 'N/A' }}
@@ -46,9 +48,10 @@
                     <span class="text_col">{{ $bookingData['price'] ?? 'N/A' }} €</span>
                 </p>
             @endif
+
             <p class="text-a">
                 @foreach ($contents as $content)
-                    @if ($content->title_it == 'messaggio seggiolini')
+                    @if ($content->title_it == 'messaggio seggiolini' && $content->order = -1)
                         {{ $content->{'subtitle_' . app()->getLocale()} }}
                     @endif
                 @endforeach

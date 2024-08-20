@@ -5,12 +5,12 @@
             <div class="row rounded">
                 <div class="col-12 col-md-5 mb-2">
                     <label class="form-label" for="dateStart">{{ __('ui.rentStartDate') }}</label>
-                    <input wire:model.live="dateStart" type="date" class="form-control form_input_focused"
+                    <input wire:model.live="dateStart" type="datetime-local" class="form-control form_input_focused"
                         id="dateStart">
                 </div>
                 <div class="col-12 col-md-5 mb-2">
                     <label class="form-label" for="dateEnd">{{ __('ui.rentEndDate') }}</label>
-                    <input wire:model.live="dateEnd" type="date" class="form-control form_input_focused"
+                    <input wire:model.live="dateEnd" type="datetime-local" class="form-control form_input_focused"
                         id="dateEnd">
                 </div>
                 <div class="col-12 col-md-2 mb-2 d-none">

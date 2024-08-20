@@ -1,116 +1,193 @@
 <x-dashboard-layout>
     <div class="row">
-        <div class="col-8">
-            <h1>Lista prenotazioni</h1>
-        </div>
-        <div class="col-4">
-            <button title="Prenotazione in corso" class="btn btn-success btn-sm text-small"><i
-                    class="bi bi-calendar-event"></i></button> <small>In corso</small>
+        <div class="col-12">
+            <h1>Lista Prenotazioni</h1>
         </div>
     </div>
-    <p class="text-small text-center">Oggi: {{ \Carbon\Carbon::now()->timezone('Europe/Rome')->format('d/m/Y') }}</p>
-    <!-- Data di oggi -->
-    @foreach ($bookings as $booking)
+
+    <div class="row my-3">
+        <div class="col-6 text-start">
+            <button id="prevDayBtn" class="btn btn-secondary">Giorno Precedente</button>
+        </div>
+        <div class="col-6 text-end">
+            <button id="nextDayBtn" class="btn btn-secondary">Giorno Successivo</button>
+        </div>
+    </div>
+
+    <div id="bookingsContainer">
         @php
-            $now = \Carbon\Carbon::now()->timezone('Europe/Rome');
-            $startDate = \Carbon\Carbon::parse($booking->start_date)->timezone('Europe/Rome');
-            $endDate = isset($booking->bookingData['date_end'])
-                ? \Carbon\Carbon::parse($booking->bookingData['date_end'])->timezone('Europe/Rome')
-                : null;
-            $isInProgress = $startDate->lessThanOrEqualTo($now) && ($endDate && $endDate->greaterThanOrEqualTo($now));
+            // Raggruppa le prenotazioni per giorno, usando start_date se disponibile, altrimenti end_date
+            $groupedBookings = $bookings->groupBy(function ($booking) {
+                $date = $booking->start_date ?? $booking->end_date;
+                return $date ? \Carbon\Carbon::parse($date)->format('Y-m-d') : 'unknown';
+            });
         @endphp
 
-        <div class="container text-small border mb-3">
-            <div class="row mt-1">
-                <div class="col-9">
-                    <p>Cliente: {{ $booking->name }} {{ $booking->surname }}</p>
-                </div>
-                <div class="col-1">
-                    @if ($isInProgress)
-                        <button title="Prenotazione in corso" class="btn btn-success btn-sm text-small"><i
-                                class="bi bi-calendar-event"></i></button>
+        @foreach ($groupedBookings as $date => $dayBookings)
+            <div class="day-bookings" data-date="{{ $date }}">
+                <h3 class="text-center my-3">
+                    @if ($date !== 'unknown')
+                        {{ \Carbon\Carbon::parse($date)->format('d/m/Y') }}
+                    @else
+                        Data sconosciuta
                     @endif
-                </div>
-                <div class="col-1">
-                    <button title="Elimina prenotazione" type="button" class="btn btn-danger btn-sm text-small"
-                        data-bs-toggle="modal" data-bs-target="#deleteBookingModal{{ $booking->id }}"><i
-                            class="bi bi-trash"></i></button>
+                </h3>
 
-                    <div class="modal fade" id="deleteBookingModal{{ $booking->id }}" tabindex="-1"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <p class="modal-title fs-5" id="exampleModalLabel">Vuoi eliminare questa
-                                        prenotazione?</p>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary btn-sm"
-                                        data-bs-dismiss="modal">Chiudi</button>
-                                    <form action="{{ route('bookings.destroy', $booking) }}" method="POST"
-                                        style="display:inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm text-small">Elimina</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
+                @foreach ($dayBookings->sortBy(function ($booking) {
+        return \Carbon\Carbon::parse($booking->start_date ?? $booking->end_date);
+    }) as $booking)
+                    <div class="booking-item border p-3 mb-2">
+                        <p><strong>Cliente:</strong> {{ $booking->name }} {{ $booking->surname }}</p>
+                        <p><strong>Tipo:</strong> {{ ucfirst($booking->bookingData['type']) }}
+                            @if ($booking->bookingData['type'] == 'noleggio')
+                                <strong>{{ $booking->bookingData['car_name'] }}</strong>
+                            @elseif ($booking->bookingData['type'] == 'escursione')
+                                a <strong>{{ $booking->bookingData['departure_name'] }}</strong>
+                            @endif
+                        </p>
+                        <p><strong>Ore:</strong>
+                            @if ($booking->bookingData['type'] == 'transfer' || $booking->bookingData['type'] == 'escursione')
+                                {{ \Carbon\Carbon::parse($booking->bookingData['date_dep'])->format('H:i') }}
+                            @elseif ($booking->bookingData['type'] == 'noleggio')
+                                {{ \Carbon\Carbon::parse($booking->bookingData['date_start'])->format('H:i') }}
+                            @endif
+                            @if ($booking->bookingData['type'] == 'transfer' || $booking->bookingData['type'] == 'escursione')
+                                <strong>PAX:</strong> {{ $booking->bookingData['passengers'] }}
+                            @endif
+                        </p>
+                        @if ($booking->start_date && $booking->bookingData['type'] == 'transfer')
+                            Da: <strong>{{ $booking->bookingData['departure_name'] }}</strong> a:
+                            <strong>{{ $booking->bookingData['arrival_name'] }}</strong>
+                            @if ($booking->bookingData['date_ret'])
+                                Ritorno il:
+                                {{ \Carbon\Carbon::parse($booking->bookingData['date_ret'])->format('d/m/Y') }} ore:
+                                {{ \Carbon\Carbon::parse($booking->bookingData['date_ret'])->format('H:i') }}
+                            @endif
+                        @endif
+                        @if ($booking->end_date && $booking->bookingData['type'] == 'transfer')
+                            Da: <strong>{{ $booking->bookingData['arrival_name'] }}</strong> a:
+                            <strong>{{ $booking->bookingData['departure_name'] }}</strong> <br>
+                        @endif
+
+                        @if ($booking->bookingData['type'] == 'noleggio' && $booking->start_date)
+                            @if (isset($booking->bookingData['date_end']))
+                                <p>Fine noleggio il:
+                                    {{ \Carbon\Carbon::parse($booking->bookingData['date_end'])->format('d/m/Y') }}</p>
+                            @endif
+                        @elseif ($booking->bookingData['type'] == 'noleggio' && $booking->end_date)
+                            <p class="text-success">Consegna auto</p>
+                            <p>Dal: {{ \Carbon\Carbon::parse($booking->bookingData['date_start'])->format('d/m/Y') }}
+                                al: {{ \Carbon\Carbon::parse($booking->bookingData['date_end'])->format('d/m/Y') }}</p>
+                        @endif
+                        <p>Prezzo: {{ $booking->bookingData['price'] }} €</p>
+                        <p><strong>Note:</strong> {{ $booking->body }}</p>
+                        <button class="btn btn-primary btn-sm open-details-modal" data-bs-toggle="modal"
+                            data-bs-target="#bookingDetailsModal"
+                            data-booking-data="{{ json_encode($booking->bookingData) }}">
+                            Apri info
+                        </button>
                     </div>
+                @endforeach
+            </div>
+        @endforeach
+    </div>
+
+    <div class="modal fade" id="bookingDetailsModal" tabindex="-1" aria-labelledby="bookingDetailsModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bookingDetailsModalLabel">Dettagli della Prenotazione</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="bookingDetailsContent">
+                    <!-- Il contenuto della prenotazione verrà aggiunto qui tramite JavaScript -->
                 </div>
             </div>
-
-            <p>Tipo: {{ ucfirst($booking->bookingData['type']) }}
-                @if ($booking->bookingData['type'] == 'escursione')
-                    a {{ $booking->bookingData['departure_name'] }}
-                @endif
-                       <strong>Prezzo: {{ $booking->bookingData['price'] }} €</strong>
-            </p>
-            <p></p>
-            <p>
-                @if ($booking->bookingData['type'] == 'transfer')
-                    Da {{ $booking->bookingData['departure_name'] }} <br>
-                    a {{ $booking->bookingData['arrival_name'] }}
-                @elseif ($booking->bookingData['type'] == 'noleggio')
-                    Auto: {{ $booking->bookingData['car_name'] }}
-                @endif
-            </p>
-            @if ($booking->bookingData['type'] != 'noleggio')
-                <p>Passeggeri: {{ $booking->bookingData['passengers'] }}</p>
-            @endif
-            @if ($booking->bookingData['type'] == 'transfer' || $booking->bookingData['type'] == 'escursione')
-                <p>Andata:
-                    {{ \Carbon\Carbon::parse($booking->bookingData['date_departure'])->timezone('Europe/Rome')->format('d/m/Y') }}
-                    ore
-                    {{ \Carbon\Carbon::parse($booking->bookingData['time_departure'])->timezone('Europe/Rome')->format('H:i') }}
-                </p>
-            @else
-                <p>Data di inizio:
-                    {{ \Carbon\Carbon::parse($booking->bookingData['date_start'])->timezone('Europe/Rome')->format('d/m/Y') }}
-                </p>
-            @endif
-
-            @if ($booking->bookingData['type'] != 'escursione')
-                @if ($booking->bookingData['type'] == 'transfer' && !is_null($booking->bookingData['date_ret']))
-                    <p>Ritorno:
-                        {{ \Carbon\Carbon::parse($booking->bookingData['date_return'])->timezone('Europe/Rome')->format('d/m/Y') }}
-                        ore
-                        {{ \Carbon\Carbon::parse($booking->bookingData['time_return'])->timezone('Europe/Rome')->format('H:i') }}
-                    @elseif ($booking->bookingData['type'] == 'noleggio')
-                    <p>Data di fine:
-                        {{ \Carbon\Carbon::parse($booking->bookingData['date_end'])->timezone('Europe/Rome')->format('d/m/Y') }}
-                @endif
-                @if ($booking->bookingData['type'] == 'transfer' && $booking->bookingData['sola_andata'])
-                    Sola andata
-                @endif
-                </p>
-            @endif
-            <p>Note: {{ $booking->body }}</p>
-            <span>Contatti:</span>
-            <a href="mailto:{{ $booking->email }}">{{ $booking->email }}</a>
-            <a href="tel:{{ $booking->phone }}">{{ $booking->phone }}</a>
         </div>
-    @endforeach
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Aggiungi un gestore di eventi per il clic sui pulsanti "Apri info"
+            document.querySelectorAll('.open-details-modal').forEach(button => {
+                button.addEventListener('click', () => {
+                    const bookingData = JSON.parse(button.getAttribute('data-booking-data'));
+                    showBookingDetailsModal(bookingData);
+                });
+            });
+
+            // Funzione per mostrare i dettagli della prenotazione nel modale
+            function showBookingDetailsModal(bookingData) {
+                const modal = document.getElementById('bookingDetailsModal');
+                const modalContent = document.getElementById('bookingDetailsContent');
+                modalContent.innerHTML = ''; // Pulisci il contenuto del modale
+
+                // Crea il contenuto del modale con i dettagli della prenotazione
+                const bookingType = bookingData.type;
+                if (bookingType === 'transfer') {
+                    modalContent.innerHTML = `
+                    
+                    <p>Tipologia: <span class="text-primary">${bookingData.type}</span></p>
+                    <p>Prezzo: <span class="text-primary">${bookingData.price} €</span></p>
+                    <p>Data di partenza: <span class="text-primary">${bookingData.date_dep}</span></p>
+                    <p>Data di ritorno: <span class="text-primary">${bookingData.date_ret}</span></p>
+                    <p>Partenza: <span class="text-primary">${bookingData.departure_name}</span></p>
+                    <p>Arrivo: <span class="text-primary">${bookingData.arrival_name}</span></p>
+                    <p>Passeggeri: <span class="text-primary">${bookingData.passengers}</span></p>
+                    <p>Durata: <span class="text-primary">${bookingData.duration} minuti circa</span></p>
+                `;
+                } else if (bookingType === 'escursione') {
+                    modalContent.innerHTML = `
+                    
+                    <p>Tipologia: <span class="text-primary">${bookingData.type}</span></p>
+                    <p>Prezzo: <span class="text-primary">${bookingData.price} €</span></p>
+                    <p>Data di partenza: <span class="text-primary">${bookingData.date_dep}</span></p>
+                    <p>Partenza: <span class="text-primary">${bookingData.departure_name}</span></p>
+                    <p>Passeggeri: <span class="text-primary">${bookingData.passengers}</span></p>
+                `;
+                } else if (bookingType === 'noleggio') {
+                    modalContent.innerHTML = `
+                    
+                    <p>Tipologia: <span class="text-primary">${bookingData.type}</span></p>
+                    <p>Prezzo: <span class="text-primary">${bookingData.price} €</span></p>
+                    <p>Data di inizio noleggio: <span class="text-primary">${bookingData.date_start}</span></p>
+                    <p>Data di fine noleggio: <span class="text-primary">${bookingData.date_end}</span></p>
+                    <p>Auto noleggiata: <span class="text-primary">${bookingData.car_name}</span></p>
+                    <p>Descrizione auto: <span class="text-primary">${bookingData.car_description}</span></p>
+                    <p>Quantità: <span class="text-primary">${bookingData.quantity}</span></p>
+                `;
+                }
+
+                // Apri il modale
+                modal.style.display = 'block';
+            }
+
+            const days = Array.from(document.querySelectorAll('.day-bookings'));
+            let currentDayIndex = days.findIndex(day => day.style.display !== 'none');
+
+            const updateDayVisibility = () => {
+                days.forEach((day, index) => {
+                    day.style.display = index === currentDayIndex ? 'block' : 'none';
+                });
+            };
+
+            document.getElementById('prevDayBtn').addEventListener('click', function() {
+                if (currentDayIndex > 0) {
+                    currentDayIndex--;
+                    updateDayVisibility();
+                }
+            });
+
+            document.getElementById('nextDayBtn').addEventListener('click', function() {
+                if (currentDayIndex < days.length - 1) {
+                    currentDayIndex++;
+                    updateDayVisibility();
+                }
+            });
+
+            updateDayVisibility(); // Mostra il giorno corrente inizialmente
+        });
+    </script>
 </x-dashboard-layout>

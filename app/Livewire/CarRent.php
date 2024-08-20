@@ -28,17 +28,17 @@ class CarRent extends Component
     public function messages()
     {
         return [
-            'dateStart.required' => __('ui.dateStart_required'), 
-            'dateStart.date' => __('ui.dateStart_date'), 
+            'dateStart.required' => __('ui.dateStart_required'),
+            'dateStart.date' => __('ui.dateStart_date'),
             'dateStart.after_or_equal' => __('ui.dateStart_after_or_equal'),
-            'dateEnd.required' => __('ui.dateEnd_required'), 
-            'dateEnd.date' => __('ui.dateEnd_date'), 
-            'dateEnd.after_or_equal' => __('ui.dateEnd_after_or_equal'), 
-            'quantity.required' => __('ui.quantity_required'), 
-            'quantity.integer' => __('ui.quantity_integer'), 
-            'quantity.min' => __('ui.quantity_min'), 
-            'carID.required' => __('ui.carID_required'), 
-            'carID.exists' => __('ui.carID_exists'), 
+            'dateEnd.required' => __('ui.dateEnd_required'),
+            'dateEnd.date' => __('ui.dateEnd_date'),
+            'dateEnd.after_or_equal' => __('ui.dateEnd_after_or_equal'),
+            'quantity.required' => __('ui.quantity_required'),
+            'quantity.integer' => __('ui.quantity_integer'),
+            'quantity.min' => __('ui.quantity_min'),
+            'carID.required' => __('ui.carID_required'),
+            'carID.exists' => __('ui.carID_exists'),
         ];
     }
 
@@ -57,7 +57,10 @@ class CarRent extends Component
         $startDate = new DateTime($this->dateStart);
         $endDate = new DateTime($this->dateEnd);
         $rentInterval = $startDate->diff($endDate);
-        $rentDays = $rentInterval->days;
+
+        // Garantisce che rentDays sia almeno 1
+        $rentDays = max($rentInterval->days, 1);
+
         $car = Car::find($this->carID);
 
         if ($car && $car->price) {

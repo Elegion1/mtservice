@@ -54,18 +54,68 @@ class BookingController extends Controller
 
     public function list()
     {
-        $now = Carbon::now();
-        $oneWeekAgo = $now->copy()->subWeek();
+        $bookings = Booking::all();
 
-        // Filtra le prenotazioni non scadute e prenotazioni fino a una settimana prima
-        $bookings = Booking::all()->filter(function ($booking) use ($oneWeekAgo, $now) {
-            $startDate = Carbon::parse($booking->start_date);
-            $endDate = isset($booking->bookingData['date_end']) ? Carbon::parse($booking->bookingData['date_end']) : null;
+        // Collezione per le prenotazioni elaborate
+        $processedBookings = collect();
 
-            // Considera le prenotazioni che iniziano dopo una settimana fa o che non sono ancora scadute
-            return ($startDate->greaterThanOrEqualTo($oneWeekAgo) || ($endDate && $endDate->greaterThanOrEqualTo($now)));
-        })->sortBy(function ($booking) {
-            return $booking->start_date;
+        foreach ($bookings as $booking) {
+            $bookingData = $booking->bookingData; // Ottieni i dati della prenotazione
+
+            if ($bookingData['type'] == 'transfer' || $bookingData['type'] == 'escursione') {
+                $processedBookings->push((object) [
+                    'name' => $booking->name,
+                    'surname' => $booking->surname,
+                    'email' => $booking->email,
+                    'phone' => $booking->phone,
+                    'body' => $booking->body,
+                    'bookingData' => $booking->bookingData,
+                    'start_date' => $bookingData['date_dep'],
+                    'end_date' => null, // non applicabile per il viaggio di partenza
+                ]);
+
+                if (isset($bookingData['date_ret'])) {
+                    $processedBookings->push((object) [
+                        'name' => $booking->name,
+                        'surname' => $booking->surname,
+                        'email' => $booking->email,
+                        'phone' => $booking->phone,
+                        'body' => $booking->body,
+                        'bookingData' => $booking->bookingData,
+                        'start_date' => null,
+                        'end_date' => $bookingData['date_ret'],
+                    ]);
+                }
+            } elseif ($bookingData['type'] == 'noleggio') {
+                $processedBookings->push((object) [
+                    'name' => $booking->name,
+                    'surname' => $booking->surname,
+                    'email' => $booking->email,
+                    'phone' => $booking->phone,
+                    'body' => $booking->body,
+                    'bookingData' => $booking->bookingData,
+                    'start_date' => $bookingData['date_start'],
+                    'end_date' => null,
+                ]);
+
+                if (isset($bookingData['date_end'])) {
+                    $processedBookings->push((object) [
+                        'name' => $booking->name,
+                        'surname' => $booking->surname,
+                        'email' => $booking->email,
+                        'phone' => $booking->phone,
+                        'body' => $booking->body,
+                        'bookingData' => $booking->bookingData,
+                        'start_date' => null,
+                        'end_date' => $bookingData['date_end'],
+                    ]);
+                }
+            }
+        }
+
+        // Ordina per 'start_date', se null usa 'end_date'
+        $bookings = $processedBookings->sortBy(function ($booking) {
+            return \Carbon\Carbon::parse($booking->start_date ?? $booking->end_date);
         });
 
         return view('dashboard.bookingList', compact('bookings'));
@@ -90,9 +140,7 @@ class BookingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Booking $booking)
-    {
-    }
+    public function show(Booking $booking) {}
 
     /**
      * Show the form for editing the specified resource.

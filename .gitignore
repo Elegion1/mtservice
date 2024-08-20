@@ -20,3 +20,4 @@ yarn-error.log
 /.idea
 /.vscode
 /.lh
+/mtservice_db.backup.dump
