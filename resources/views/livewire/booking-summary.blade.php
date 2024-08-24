@@ -17,9 +17,6 @@
                 @endif
                 <p>{{ __('ui.passengers') }}: <span class="text_col">{{ $bookingData['passengers'] ?? 'N/A' }}</span>
                 </p>
-                <p>{{ ucfirst(__('ui.price')) }} {{ ucfirst(__('ui.totalPrice')) }}: <span
-                        class="text_col">{{ $bookingData['price'] ?? 'N/A' }}</span> €</p>
-
             @elseif ($bookingData['type'] == 'escursione')
                 <p>{{ __('ui.bookingType') }}: <span class="text_col">{{ ucfirst($bookingData['type']) }}</span> a
                     <span class="text_col">{{ $bookingData['departure_name'] ?? 'N/A' }}</span>
@@ -32,9 +29,6 @@
                     {{ __('ui.hours') }} {{ __('ui.approx') }}</p>
                 <p>{{ __('ui.passengers') }}: <span class="text_col">{{ $bookingData['passengers'] ?? 'N/A' }}</span>
                 </p>
-                <p>{{ ucfirst(__('ui.price')) }} {{ ucfirst(__('ui.totalPrice')) }}: <span
-                        class="text_col">{{ $bookingData['price'] ?? 'N/A' }} €</span></p>
-
             @elseif ($bookingData['type'] == 'noleggio')
                 <p>{{ __('ui.bookingType') }}: <span class="text_col">{{ ucfirst($bookingData['type']) }}</span> <span
                         class="text_col">{{ $bookingData['car_name'] ?? 'N/A' }}
@@ -44,45 +38,54 @@
                     <span class="text_col">{{ $bookingData['date_end'] ?? 'N/A' }}</span>
                 </p>
                 <p>{{ __('ui.quantity') }}: <span class="text_col">{{ $bookingData['quantity'] ?? 'N/A' }}</span>
-                    {{ ucfirst(__('ui.price')) }} {{ ucfirst(__('ui.totalPrice')) }}:
-                    <span class="text_col">{{ $bookingData['price'] ?? 'N/A' }} €</span>
+                </p>
+            @endif
+
+            <p wire:model.live="originalPrice">{{ ucfirst(__('ui.price')) }} {{ ucfirst(__('ui.totalPrice')) }}: <span
+                    class="text_col">€{{ number_format($originalPrice, 2) }}</span>
+            </p>
+
+            @if ($originalPrice != $discountedPrice)
+                <p wire:model.live="discountedPrice"><strong>{{ __('ui.discountMessage') }}:</strong> <span class="text_col" style="color: red;">€{{ number_format($discountedPrice, 2) }}</span>
                 </p>
             @endif
 
             <p class="text-a">
                 @foreach ($contents as $content)
-                    @if ($content->title_it == 'messaggio seggiolini' && $content->order = -1)
+                    @if ($content->title_it == 'messaggio seggiolini' && $content->order == -1)
                         {{ $content->{'subtitle_' . app()->getLocale()} }}
                     @endif
                 @endforeach
             </p>
         </div>
+        
         <form wire:submit.prevent="confirmBooking">
             <h6 class="text-black">{{ __('ui.personalData') }}</h6>
             <div class="row">
                 <div class="col-12 col-md-6">
                     <label for="name" class="form-label">{{ __('ui.name') }}</label>
-                    <input type="text" class="form-control form_input_focused" id="name" wire:model="name">
+                    <input type="text" class="form-control form_input_focused" id="name" wire:model.live="name">
                     <x-error-message field='name' />
                 </div>
                 <div class="col-12 col-md-6">
                     <label for="surname" class="form-label">{{ __('ui.surname') }}</label>
-                    <input type="text" class="form-control form_input_focused" id="surname" wire:model="surname">
+                    <input type="text" class="form-control form_input_focused" id="surname" wire:model.live="surname">
                     <x-error-message field='surname' />
                 </div>
 
                 <div class="col-12 col-md-6">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control form_input_focused" id="email" wire:model="email">
+                    <input type="email" class="form-control form_input_focused" id="email" wire:model.live="email">
                     <x-error-message field='email' />
                 </div>
 
                 <div class="col-12 col-md-6">
                     <label for="phone" class="form-label">{{ __('ui.phone') }}</label>
-                    <input type="text" class="form-control form_input_focused" id="phone" wire:model="phone"
+                    <input type="text" class="form-control form_input_focused" id="phone" wire:model.live="phone"
                         minlength="8" maxlength="15">
                     <x-error-message field='phone' />
                 </div>
+                
                 <div class="col-12">
                     <textarea class="form-control form_input_focused" id="body" wire:model="body"
                         placeholder="{{ __('ui.bookingConfBodyMsg') }}" rows="5"></textarea>
@@ -114,13 +117,11 @@
                 <button type="submit" class=" btn bg-a text-white"
                     wire:loading.attr="disabled">{{ __('ui.confirmBooking') }}</button>
             </div>
-
         </form>
 
         <!-- Messaggio di caricamento -->
-        <div class="mb-3" wire:loading wire:target="confirmBooking text-center">
+        <div class="mb-3 text-center" wire:loading wire:target="confirmBooking">
             <p class="h3 text-success">{{ __('ui.loading') }}</p>
         </div>
-
     </div>
 </div>

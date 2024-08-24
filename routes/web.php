@@ -12,9 +12,12 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\ExcursionController;
 use App\Http\Controllers\OwnerDataController;
 use App\Http\Controllers\DestinationController;
+use App\Models\Discount;
 
 //navigazione
 
@@ -129,3 +132,15 @@ Route::get('/dashboard/pages', [PageController::class, 'index'])->name('dashboar
 Route::post('/dashboard/pages', [PageController::class, 'store'])->name('pages.store')->middleware('auth');
 Route::put('/dashboard/pages/{page}', [PageController::class, 'update'])->name('pages.update')->middleware('auth');
 Route::delete('/dashboard/pages/{page}', [PageController::class, 'destroy'])->name('pages.destroy')->middleware('auth');
+
+// Gestione clienti
+Route::get('/dashboard/customers', [CustomerController::class, 'index'])->name('dashboard.customer')->middleware('auth');
+Route::post('/dashboard/customers', [CustomerController::class, 'store'])->name('customers.store')->middleware('auth');
+Route::put('/dashboard/customers/{customer}', [CustomerController::class, 'update'])->name('customers.update')->middleware('auth');
+Route::delete('/dashboard/customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy')->middleware('auth');
+
+// Gestione sconti
+Route::get('/dashboard/discounts', [DiscountController::class, 'index'])->name('dashboard.discount')->middleware('auth');
+Route::post('/dashboard/discounts', [DiscountController::class, 'store'])->name('discounts.store')->middleware('auth');
+Route::put('/dashboard/discounts/{discount}', [DiscountController::class, 'update'])->name('discounts.update')->middleware('auth');
+Route::delete('/dashboard/discounts/{discount}', [DiscountController::class, 'destroy'])->name('discounts.destroy')->middleware('auth');

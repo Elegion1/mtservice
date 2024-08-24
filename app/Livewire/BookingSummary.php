@@ -2,14 +2,15 @@
 
 namespace App\Livewire;
 
+use App\Models\Booking;
+use App\Models\Customer;
+use App\Models\OwnerData;
+use Livewire\Component;
 use Dompdf\Dompdf;
 use Dompdf\Options;
-use App\Models\Booking;
-use Livewire\Component;
-use App\Models\OwnerData;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\BookingAdmin;
 use App\Mail\BookingConfirmation;
-use Illuminate\Support\Facades\Mail;
 
 class BookingSummary extends Component
 {
@@ -22,6 +23,10 @@ class BookingSummary extends Component
     public $privacy_policy = false;
     public $terms_conditions = false;
     public $adminMail;
+
+    public $originalPrice;
+    public $discountedPrice;
+    public $discountPercentage;
 
     public function rules()
     {
@@ -56,17 +61,47 @@ class BookingSummary extends Component
 
         $ownerData = OwnerData::first();
         $this->adminMail = $ownerData->email;
+
+        $this->originalPrice = $this->bookingData['price'];
+        $this->discountedPrice = $this->bookingData['price'];
     }
 
-    public function render()
+    public function updated($field)
     {
-        return view('livewire.booking-summary');
+        // Se i campi necessari per il calcolo del prezzo vengono aggiornati, ricalcola il prezzo
+        if (in_array($field, ['name', 'surname', 'email', 'phone'])) {
+            $this->validateOnly($field);
+            $this->calculatePrice();
+        }
+    }
+
+    public function calculatePrice()
+    {
+        $this->discountedPrice = $this->originalPrice; // Inizializza il prezzo scontato con il prezzo originale
+
+        // Verifica se il cliente esiste già nel database
+        $customer = Customer::where('name', $this->name)
+            ->where('surname', $this->surname)
+            ->where('email', $this->email)
+            ->where('phone', $this->phone)
+            ->first();
+        // Se il cliente esiste, applica uno sconto
+        if ($customer) {
+            $discountPercentage = $customer->discount ?? 0;
+
+            if ($discountPercentage > 0 ) {
+                $discountAmount = ($this->originalPrice * $discountPercentage) / 100;
+                $this->discountedPrice = $this->originalPrice - $discountAmount;
+            }
+        }
+        // dd($this->originalPrice, $this->discountedPrice);
     }
 
     public function confirmBooking()
     {
         $this->validate();
-
+        $this->bookingData['original_price'] = $this->originalPrice;
+        $this->bookingData['price'] = $this->discountedPrice;
         // Salvataggio della prenotazione nel database
         $booking = Booking::create([
             'bookingData' => $this->bookingData,
@@ -77,12 +112,20 @@ class BookingSummary extends Component
             'body' => $this->body,
         ]);
 
+        // Se il cliente non esiste, crea un nuovo record nel database
+        $customer = Customer::firstOrCreate([
+            'name' => $this->name,
+            'surname' => $this->surname,
+            'email' => $this->email,
+            'phone' => $this->phone,
+        ]);
+
         // Generazione del PDF del riepilogo
         $pdf = $this->generatePDF($booking);
 
         // Invio dell'email con il PDF allegato
         Mail::to($this->email)->send(new BookingConfirmation($pdf));
-        Mail::to($this->adminMail)->send(new BookingAdmin($pdf)); // $this->adminMail
+        Mail::to($this->adminMail)->send(new BookingAdmin($pdf));
 
         // Messaggio di conferma
         session()->flash('message', __('ui.confirmation_message'));
@@ -107,5 +150,13 @@ class BookingSummary extends Component
         $dompdf->render();
 
         return $dompdf->output();
+    }
+
+    public function render()
+    {
+        return view('livewire.booking-summary', [
+            'originalPrice' => $this->originalPrice,
+            'discountedPrice' => $this->discountedPrice,
+        ]);
     }
 }
