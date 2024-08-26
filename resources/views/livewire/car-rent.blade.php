@@ -3,12 +3,12 @@
         <form wire:submit.prevent="submitBookingRent">
             <h4 class="text-uppercase text-a"><strong>{{ __('ui.rentTitle') }}</strong></h4>
             <div class="row rounded">
-                <div class="col-12 col-md-5 mb-2">
+                <div class="col-12 col-md-6 mb-2">
                     <label class="form-label" for="dateStart">{{ __('ui.rentStartDate') }}</label>
                     <input wire:model.live="dateStart" type="datetime-local" class="form-control form_input_focused"
                         id="dateStart">
                 </div>
-                <div class="col-12 col-md-5 mb-2">
+                <div class="col-12 col-md-6 mb-2">
                     <label class="form-label" for="dateEnd">{{ __('ui.rentEndDate') }}</label>
                     <input wire:model.live="dateEnd" type="datetime-local" class="form-control form_input_focused"
                         id="dateEnd">

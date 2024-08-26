@@ -1,6 +1,7 @@
 <div>
     <div class="container">
-        <div class="container-fluid m-0 p-0">
+        <div class="container-fluid m-0 p-0 ">
+            
             <h1>{{ __('ui.bookingSummaryTitle') }}</h1>
 
             @if ($bookingData['type'] == 'transfer')
@@ -46,7 +47,8 @@
             </p>
 
             @if ($originalPrice != $discountedPrice)
-                <p wire:model.live="discountedPrice"><strong>{{ __('ui.discountMessage') }}:</strong> <span class="text_col" style="color: red;">€{{ number_format($discountedPrice, 2) }}</span>
+                <p wire:model.live="discountedPrice"><strong>{{ __('ui.discountMessage') }}:</strong> <span
+                        class="text_col" style="color: red;">€{{ number_format($discountedPrice, 2) }}</span>
                 </p>
             @endif
 
@@ -58,7 +60,7 @@
                 @endforeach
             </p>
         </div>
-        
+
         <form wire:submit.prevent="confirmBooking">
             <h6 class="text-black">{{ __('ui.personalData') }}</h6>
             <div class="row">
@@ -69,13 +71,15 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <label for="surname" class="form-label">{{ __('ui.surname') }}</label>
-                    <input type="text" class="form-control form_input_focused" id="surname" wire:model.live="surname">
+                    <input type="text" class="form-control form_input_focused" id="surname"
+                        wire:model.live="surname">
                     <x-error-message field='surname' />
                 </div>
 
                 <div class="col-12 col-md-6">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control form_input_focused" id="email" wire:model.live="email">
+                    <input type="email" class="form-control form_input_focused" id="email"
+                        wire:model.live="email">
                     <x-error-message field='email' />
                 </div>
 
@@ -85,7 +89,7 @@
                         minlength="8" maxlength="15">
                     <x-error-message field='phone' />
                 </div>
-                
+
                 <div class="col-12">
                     <textarea class="form-control form_input_focused" id="body" wire:model="body"
                         placeholder="{{ __('ui.bookingConfBodyMsg') }}" rows="5"></textarea>
@@ -113,15 +117,17 @@
                 <p class="fs-6 text-d">{{ __('ui.paymentMessage') }}</p>
             </div>
 
-            <div class="container-fluid mb-3 p-0 d-flex justify-content-center align-items-center">
+            <div class="container-fluid mb-3 p-0 d-flex justify-content-center align-items-center position-relative ">
+                <div class="loader-wrapper" 
+                wire:loading wire:target="confirmBooking"
+                >
+                    <span class="loader" ></span>
+                </div>
                 <button type="submit" class=" btn bg-a text-white"
                     wire:loading.attr="disabled">{{ __('ui.confirmBooking') }}</button>
             </div>
+
         </form>
 
-        <!-- Messaggio di caricamento -->
-        <div class="mb-3 text-center" wire:loading wire:target="confirmBooking">
-            <p class="h3 text-success">{{ __('ui.loading') }}</p>
-        </div>
     </div>
 </div>

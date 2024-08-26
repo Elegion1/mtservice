@@ -120,6 +120,9 @@ class DiscountController extends Controller
             // Cancella i periodi esistenti
             $discount->discount_periods()->delete();
 
+            foreach($discount->discount_periods() as $el) {
+                dd($el);
+            }
             // Salva i nuovi periodi di validità
             $periods = $request->input('periods');
             foreach ($periods as $period) {

@@ -68,7 +68,7 @@
         <table class="table table-bordered mt-4">
             <thead>
                 <tr>
-                    <th>Nome</th>
+                    <th>Nome sconto</th>
                     <th>Percentuale</th>
                     <th>Applicabile a</th>
                     <th>Categorie di Sconto</th>
@@ -138,7 +138,7 @@
                     <div class="modal-body">
                         {{-- Lo stesso form utilizzato per la creazione, ma precompilato con i dati --}}
                         <form id="editDiscountForm" method="POST"
-                            action="{{ route('discounts.update', $discount->id) }}">
+                            action="">
                             @csrf
                             @method('PUT')
                             <input type="hidden" id="editDiscountId" name="discount_id" value="">
@@ -258,7 +258,7 @@
 
                 });
 
-                // $('#editDiscountForm').attr('action', `/dashboard/discounts/${discountId}`);
+                $('#editDiscountForm').attr('action', `/dashboard/discounts/${discountId}`);
                 $('#editDiscountModal').modal('show');
             });
 
