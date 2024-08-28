@@ -66,7 +66,9 @@ return [
     'loading' => 'Caricamento in corso... Si prega di attendere',
     'paymentMessage' => 'È richiesto un acconto del 30% dopo la conferma della prenotazione da parte del nostro staff',
     'confirmation_message' => 'Richiesta di prenotazione creata. È stata inviata una mail di riepilogo',
-
+    'customerDiscountMessage' => 'Hai già effettuato una prenotazione con noi, per te uno sconto del ',
+    'discountedPrice' => 'Prezzo scontato',
+    'originalPrice' => 'Prezzo originale',
     //fine LIVEWIRE
 
     //contact-link

@@ -1,7 +1,7 @@
 <div>
     <div class="container">
         <div class="container-fluid m-0 p-0 ">
-            
+
             <h1>{{ __('ui.bookingSummaryTitle') }}</h1>
 
             @if ($bookingData['type'] == 'transfer')
@@ -42,13 +42,15 @@
                 </p>
             @endif
 
-            <p wire:model.live="originalPrice">{{ ucfirst(__('ui.price')) }} {{ ucfirst(__('ui.totalPrice')) }}: <span
-                    class="text_col">€{{ number_format($originalPrice, 2) }}</span>
+            <p wire:model.live="originalPrice">
+                {{ ucfirst(__('ui.price')) }} {{ ucfirst(__('ui.totalPrice')) }}:
+                <span class="text_col">€{{ number_format($originalPrice, 2) }}</span>
             </p>
 
             @if ($originalPrice != $discountedPrice)
-                <p wire:model.live="discountedPrice"><strong>{{ __('ui.discountMessage') }}:</strong> <span
-                        class="text_col" style="color: red;">€{{ number_format($discountedPrice, 2) }}</span>
+                <p wire:model.live="discountedPrice">
+                    <strong>{{ ${'discountType_' . app()->getLocale()} }}: {{ $discountPercentage }} %</strong>
+                    <span class="text_col" style="color: red;">€ {{ number_format($discountedPrice, 2) }}</span>
                 </p>
             @endif
 
@@ -118,10 +120,8 @@
             </div>
 
             <div class="container-fluid mb-3 p-0 d-flex justify-content-center align-items-center position-relative ">
-                <div class="loader-wrapper" 
-                wire:loading wire:target="confirmBooking"
-                >
-                    <span class="loader" ></span>
+                <div class="loader-wrapper" wire:loading wire:target="confirmBooking">
+                    <span class="loader"></span>
                 </div>
                 <button type="submit" class=" btn bg-a text-white"
                     wire:loading.attr="disabled">{{ __('ui.confirmBooking') }}</button>

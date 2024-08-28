@@ -120,6 +120,7 @@ class PublicController extends Controller
                 'duration' => 60,
                 'passengers' => 4,
                 'price' => 150.00,
+                'original_price' => 200.00,
                 'car_name' => 'Fiat 500',
                 'car_description' => 'Auto compatta, perfetta per la città',
                 'date_start' => '2024-07-01',

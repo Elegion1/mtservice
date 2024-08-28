@@ -184,8 +184,6 @@
                 <p>{{ __('ui.passengers') }}: <span
                         class="text_col">{{ $booking['bookingData']['passengers'] ?? 'N/A' }}</span>
                 </p>
-                <p>{{ ucfirst(__('ui.price')) }} {{ ucfirst(__('ui.totalPrice')) }}: <span
-                        class="text_col">{{ $booking['bookingData']['price'] ?? 'N/A' }}</span> €</p>
             @elseif ($booking['bookingData']['type'] == 'escursione')
                 <p>{{ __('ui.bookingType') }}: <span
                         class="text_col">{{ ucfirst($booking['bookingData']['type']) }}</span> a
@@ -203,8 +201,6 @@
                 <p>{{ __('ui.passengers') }}: <span
                         class="text_col">{{ $booking['bookingData']['passengers'] ?? 'N/A' }}</span>
                 </p>
-                <p>{{ ucfirst(__('ui.price')) }} {{ ucfirst(__('ui.totalPrice')) }}: <span
-                        class="text_col">{{ $booking['bookingData']['price'] ?? 'N/A' }} €</span></p>
             @elseif ($booking['bookingData']['type'] == 'noleggio')
                 <p>{{ __('ui.bookingType') }}: <span
                         class="text_col">{{ ucfirst($booking['bookingData']['type']) }}</span> <span
@@ -215,12 +211,19 @@
                     {{ __('ui.returnDate') }}:
                     <span class="text_col">{{ $booking['bookingData']['date_end'] ?? 'N/A' }}</span>
                 </p>
-                <p>{{ __('ui.quantity') }}: <span
-                        class="text_col">{{ $booking['bookingData']['quantity'] ?? 'N/A' }}</span>
-                    {{ ucfirst(__('ui.price')) }} {{ ucfirst(__('ui.totalPrice')) }}:
-                    <strong class="text_col">{{ $booking['bookingData']['price'] ?? 'N/A' }} €</strong>
-                </p>
             @endif
+
+            <p>
+                @if ($booking['bookingData']['price'] == $booking['bookingData']['original_price'])
+                    <span>{{ ucfirst(__('ui.price')) }} {{ ucfirst(__('ui.totalPrice')) }}</span>
+                @else
+                    <p>{{ __('ui.originalPrice') }}: € {{ $booking['bookingData']['original_price'] ?? 'N/A' }}</p>
+                    <span>{{ __('ui.discountedPrice') }}</span>
+                @endif
+                : <span class="text_col">€ {{ $booking['bookingData']['price'] ?? 'N/A' }}</span>
+            </p>
+
+            <p>{{ __('ui.paymentMessage') }}</p>
         </div>
     </div>
 

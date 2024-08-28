@@ -11,6 +11,7 @@ use Dompdf\Options;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BookingAdmin;
 use App\Mail\BookingConfirmation;
+use App\Models\Discount;
 
 class BookingSummary extends Component
 {
@@ -27,6 +28,8 @@ class BookingSummary extends Component
     public $originalPrice;
     public $discountedPrice;
     public $discountPercentage;
+    public $discountType_it;
+    public $discountType_en;
 
     public function rules()
     {
@@ -75,9 +78,14 @@ class BookingSummary extends Component
         }
     }
 
+
     public function calculatePrice()
     {
-        $this->discountedPrice = $this->originalPrice; // Inizializza il prezzo scontato con il prezzo originale
+        // Inizializza il prezzo scontato con il prezzo originale
+        $this->discountedPrice = $this->originalPrice;
+
+        // Aggiungi una proprietà per il tipo di sconto
+        // $this->discountType = null;
 
         // Verifica se il cliente esiste già nel database
         $customer = Customer::where('name', $this->name)
@@ -85,16 +93,77 @@ class BookingSummary extends Component
             ->where('email', $this->email)
             ->where('phone', $this->phone)
             ->first();
-        // Se il cliente esiste, applica uno sconto
-        if ($customer) {
-            $discountPercentage = $customer->discount ?? 0;
 
-            if ($discountPercentage > 0 ) {
-                $discountAmount = ($this->originalPrice * $discountPercentage) / 100;
-                $this->discountedPrice = $this->originalPrice - $discountAmount;
+        // Se il cliente ha uno sconto specifico, applicalo e bypassa tutti gli altri sconti
+        if ($customer && $customer->discount > 0) {
+            $discountAmount = ($this->originalPrice * $customer->discount) / 100;
+            $this->discountedPrice = $this->originalPrice - $discountAmount;
+            $this->discountPercentage = $customer->discount;
+            $this->discountType_it = '__(ui.customerDiscountMessage)';
+            $this->discountType_en = '__(ui.customerDiscountMessage)'; // Messaggio del tipo di sconto
+            return;
+        }
+
+        // Ottieni tutti gli sconti attivi con i periodi associati
+        $discounts = Discount::with('discount_periods')->get();
+
+        // Controlla gli sconti disponibili
+        foreach ($discounts as $discount) {
+            $applyDiscount = false;
+
+            // Verifica se lo sconto è applicabile ai clienti esistenti o a tutti
+            if ($discount->applicable_to === 'customers' && $customer) {
+                $applyDiscount = true;
+            } elseif ($discount->applicable_to === 'all') {
+                $applyDiscount = true;
+            }
+
+            // Controlla se lo sconto è applicabile al tipo di servizio specifico
+            $serviceApplicable = false;
+            if ($this->bookingData['type'] === 'transfer' && $discount->applies_to_transfer) {
+                $serviceApplicable = true;
+            } elseif ($this->bookingData['type'] === 'noleggio' && $discount->applies_to_rental) {
+                $serviceApplicable = true;
+            } elseif ($this->bookingData['type'] === 'escursione' && $discount->applies_to_excursion) {
+                $serviceApplicable = true;
+            }
+
+            // Procede solo se lo sconto è applicabile al servizio richiesto
+            if ($applyDiscount && $serviceApplicable) {
+                if ($discount->discount_periods->isEmpty()) {
+                    // Se non ci sono periodi di sconto, applica sempre lo sconto
+                    $applyDiscount = true;
+                } else {
+                    // Se ci sono periodi di sconto, verifica se lo sconto è valido in questo momento
+                    $now = now();
+                    $validPeriod = false;
+                    foreach ($discount->discount_periods as $period) {
+                        if ($now->between($period->start, $period->end)) {
+                            $validPeriod = true;
+                            break;
+                        }
+                    }
+                    $applyDiscount = $validPeriod;
+                }
+
+                // Se lo sconto è applicabile, calcola il prezzo scontato
+                if ($applyDiscount && $discount->percentage > 0) {
+                    $currentDiscountAmount = ($this->originalPrice * $discount->percentage) / 100;
+                    $discountedPriceCandidate = $this->originalPrice - $currentDiscountAmount;
+
+                    // Applica il miglior sconto disponibile
+                    if ($discountedPriceCandidate < $this->discountedPrice) {
+                        $this->discountedPrice = $discountedPriceCandidate;
+                        $this->discountPercentage = $discount->percentage;
+                        $this->discountType_it = $discount->name_it; // Memorizza il nome dello sconto
+                        $this->discountType_en = $discount->name_en;
+                    }
+                }
             }
         }
-        // dd($this->originalPrice, $this->discountedPrice);
+
+        // Debugging (opzionale)
+        // dd($this->originalPrice, $this->discountedPrice, $this->discountPercentage, $this->discountType);
     }
 
     public function confirmBooking()

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('discount_periods', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('start');
-            $table->dateTime('end');
+            $table->dateTime('start')->nullable();
+            $table->dateTime('end')->nullable();
             $table->timestamps();
 
             $table->unsignedBigInteger('discount_id')->nullable();

@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name_it');
+            $table->string('name_en');
             $table->decimal('percentage', 5, 2);
-            $table->enum('applicable_to', ['all', 'customers'])->default('all'); // Sconto per tutti o solo per clienti
+            $table->enum('applicable_to', ['all', 'customers',])->default('all'); // Sconto per tutti o solo per clienti
             $table->boolean('applies_to_transfer')->default(false);
             $table->boolean('applies_to_rental')->default(false);
             $table->boolean('applies_to_excursion')->default(false);

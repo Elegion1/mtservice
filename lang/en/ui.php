@@ -66,6 +66,8 @@ return [
     'loading' => 'Loading... Please wait',
     'paymentMessage' => 'A 30% deposit is required after confirmation of the booking by our staff',
     'confirmation_message' => 'Booking request created. A summary email has been sent.',
+    'discountedPrice' => 'Discounted price',
+    'originalPrice' => 'Original price',
 
 
     //contact-link
