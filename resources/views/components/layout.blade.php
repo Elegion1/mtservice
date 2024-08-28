@@ -14,8 +14,10 @@
 
         gtag('config', 'G-M5SQ98ZHWM');
     </script>
-    <meta name="description"
-        content="Noleggio auto, Escursioni e Transfer per la provincia di Trapani. Transfer da e per tutti gli aeroporti della Sicilia. Aeroporto di Trapani, Aeroporto di Palermo, Aeroporto di Catania. Escursioni in tutta la Sicilia. Noleggio Auto per la tua vacanza.">
+    <meta name="description" lang="it"
+        content="Noleggio auto, Escursioni e Transfer per la provincia di Trapani. Taxi Transfer da e per tutti gli aeroporti e porti della Sicilia. Aeroporto di Trapani, Aeroporto di Palermo, Aeroporto di Catania. Escursioni in tutta la Sicilia. Noleggio Auto per la tua vacanza. Taxi Favignana, Taxi Trapani, Taxi Marsala, Taxi Aeroporto.">
+    <meta name="description" lang="en"
+        content="Car rental, excursions, and transfers for the province of Trapani. Taxi transfers to and from all airports and ports in Sicily. Trapani Airport, Palermo Airport, Catania Airport. Excursions throughout Sicily. Car rental for your vacation. Taxi Favignana, Taxi Trapani, Taxi Marsala, Taxi Airport.">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" sizes="32x32" href="https://tranchidatransfer.it/favicon.ico">
