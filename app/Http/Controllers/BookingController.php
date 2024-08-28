@@ -118,7 +118,25 @@ class BookingController extends Controller
             return \Carbon\Carbon::parse($booking->start_date ?? $booking->end_date);
         });
 
-        return view('dashboard.bookingList', compact('bookings'));
+        // Raggruppa per giorno
+        $groupedByDay = $bookings->groupBy(function ($booking) {
+            return \Carbon\Carbon::parse($booking->start_date ?? $booking->end_date)->format('Y-m-d');
+        });
+
+        // Raggruppa per mese, e all'interno del mese, raggruppa per giorno
+        $groupedByMonth = $bookings->groupBy(function ($booking) {
+            return \Carbon\Carbon::parse($booking->start_date ?? $booking->end_date)->format('Y-m');
+        })->map(function ($monthBookings) {
+            return $monthBookings->groupBy(function ($booking) {
+                return \Carbon\Carbon::parse($booking->start_date ?? $booking->end_date)->format('Y-m-d');
+            });
+        });
+
+        return view('dashboard.bookingList', [
+            'groupedByDay' => $groupedByDay,
+            'groupedByMonth' => $groupedByMonth
+        ]);
+
     }
 
     /**
