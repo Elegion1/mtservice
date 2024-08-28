@@ -12,7 +12,9 @@
                     <th>Messaggio</th>
                     <th>Dati prenotazione</th>
                     <th>Tipo servizio</th>
-                    <th>Prezzo</th>
+                    <th>Totale</th>
+                    <th>Prezzo originale</th>
+                    <th>Sconto applicato</th>
                     <th>Data di aggiunta</th>
                     <th>Azione</th>
                 </tr>
@@ -35,6 +37,14 @@
                         </td>
                         <td>{{ ucfirst($booking->bookingData['type']) }}</td>
                         <td>{{ $booking->bookingData['price'] }} €</td>
+                        <td>{{ $booking->bookingData['original_price'] }} €</td>
+                        <td>
+                            @if ($booking->bookingData['price'] == $booking->bookingData['original_price'])
+                                NO
+                            @else
+                                SI
+                            @endif
+                        </td>
                         <td>{{ $booking->created_at }}</td>
                         <td>
                             <form action="{{ route('bookings.destroy', $booking) }}" method="POST"

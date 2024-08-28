@@ -99,8 +99,8 @@ class BookingSummary extends Component
             $discountAmount = ($this->originalPrice * $customer->discount) / 100;
             $this->discountedPrice = $this->originalPrice - $discountAmount;
             $this->discountPercentage = $customer->discount;
-            $this->discountType_it = '__(ui.customerDiscountMessage)';
-            $this->discountType_en = '__(ui.customerDiscountMessage)'; // Messaggio del tipo di sconto
+            $this->discountType_it = __('ui.customerDiscountMessage');
+            $this->discountType_en = __('ui.customerDiscountMessage'); // Messaggio del tipo di sconto
             return;
         }
 

@@ -49,7 +49,7 @@
 
             @if ($originalPrice != $discountedPrice)
                 <p wire:model.live="discountedPrice">
-                    <strong>{{ ${'discountType_' . app()->getLocale()} }}: {{ $discountPercentage }} %</strong>
+                    <strong>{!! ${'discountType_' . app()->getLocale()} !!} {{ $discountPercentage }} %</strong>
                     <span class="text_col" style="color: red;">€ {{ number_format($discountedPrice, 2) }}</span>
                 </p>
             @endif
