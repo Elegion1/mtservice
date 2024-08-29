@@ -121,7 +121,7 @@
                             setTimeout(function() {
                                 selectOption(select, value);
                                 if (callback) callback();
-                            }, 100); // Tempo di attesa per assicurarsi che le opzioni siano caricate
+                            }, 500); // Tempo di attesa per assicurarsi che le opzioni siano caricate
                         }
 
                         // Seleziona prima la partenza
