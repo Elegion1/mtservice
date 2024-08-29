@@ -1,6 +1,6 @@
 <div>
     <div class="container">
-        <form wire:submit.prevent="submitBookingExcursion">
+        <form wire:submit.prevent="submitBookingExcursion" id="excursionForm">
             <h4 class="text-uppercase text-a"><strong>{{ __('ui.excursionTitle') }}</strong></h4>
             <div class="row">
                 <div class="col-12">

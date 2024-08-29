@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-12">
                     <select wire:model.live="departure" id="departureSelect" class="form-select form_input_focused"
-                        aria-label="Default select example">
+                        aria-label="seleziona luogo di partenza">
                         <option selected>{{ __('ui.selectDeparture') }}</option>
                         @foreach ($destinations as $destination)
                             <option value="{{ $destination->id }}">
@@ -17,8 +17,8 @@
                 </div>
                 <div class="col-12">
                     <select wire:model.live="return" wire:change="calculatePrice" id="returnSelect"
-                        class="form-select form_input_focused" aria-label="Default select example">
-                        <option selected>{{ __('ui.selectDestination') }}</option>
+                        class="form-select form_input_focused" aria-label="seleziona luogo di ritorno">
+                        <option value="0" selected>{{ __('ui.selectDestination') }}</option>
                         @foreach ($routes as $route)
                             @if ($route->departure->id == $departure)
                                 <option value="{{ $route->arrival->id }}">{{ $route->arrival->name }}</option>

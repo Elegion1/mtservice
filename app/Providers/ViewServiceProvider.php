@@ -30,8 +30,11 @@ class ViewServiceProvider extends ServiceProvider
     {
         if (Route::query()->exists()) {
             $tratte = Route::take(5)->get();
-            View::share('tratte', $tratte);
+            $dest = Route::all();
+            View::share('tratte',  $tratte);
+            View::share('dest',  $dest);
         }
+
 
         if (Service::query()->exists()) {
             $services = Service::all();

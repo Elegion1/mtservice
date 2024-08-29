@@ -3,7 +3,7 @@
         <div class="col-12 col-md-6">
             <div class="container rounded bg-white border_custom shadow">
                 <div class="container p-3">
-                    <livewire:prenotazione />
+                    <livewire:escursioni-form />
                 </div>
             </div>
 
@@ -57,10 +57,15 @@
                                             <small class="text-black">{{ __('ui.priceStartingFrom') }}</small>
                                             <strong class="fs-4 text-a">{{ $excursion->price }} €</strong>
                                         </p>
-
-                                        <a class="btn rounded-4 bg-a text-white "
-                                            href="{{ route('excursion.show', ['name_it' => $excursion->name_it, 'id' => $excursion->id]) }}">{{ __('ui.details') }}</a>
-                                        {{-- <a class="btn rounded-4 bg-b text-white " href="">Prenota</a> --}}
+                                        <div class="d-flex justify-content-around align-items-center">
+                                            <a class="btn rounded-4 bg-a text-white btn-sm me-1"
+                                                href="{{ route('excursion.show', ['name_it' => $excursion->name_it, 'id' => $excursion->id]) }}">{{ __('ui.details') }}</a>
+                                            <button class="btn rounded-4 bg-a text-white btn-sm"
+                                                data-escursione-id="{{ $excursion->id }}"
+                                                onclick="selezionaEscursione(this)">
+                                                Prenota
+                                            </button>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -85,4 +90,52 @@
             <x-excursions />
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            window.selezionaEscursione = function(button) {
+                let escursioneId = button.getAttribute('data-escursione-id');
+
+                // Trova il componente Livewire
+                let component = document.querySelector('#excursionForm')
+                if (component) {
+                    // Trova gli elementi select all'interno del componente Livewire
+                    let excursionSelect = component.querySelector('#excursionSelect');
+                    
+
+                    if (excursionSelect) {
+                        // Funzione per selezionare un'opzione dopo che le opzioni sono state caricate
+                        function selectOption(select, value) {
+                            let option = Array.from(select.options).find(opt => opt.value === value);
+                            if (option) {
+                                select.value = option.value;
+                                select.dispatchEvent(new Event('change'));
+                            } else {
+                                console.error(`Opzione ${value} non trovata.`);
+                            }
+                        }
+
+                        // Simula il clic per caricare le opzioni del menu a discesa e poi seleziona l'opzione desiderata
+                        function clickAndSelect(select, value, callback) {
+                            select.click();
+                            setTimeout(function() {
+                                selectOption(select, value);
+                                if (callback) callback();
+                            }, 100); // Tempo di attesa per assicurarsi che le opzioni siano caricate
+                        }
+
+                        // Seleziona prima la partenza
+                        clickAndSelect(excursionSelect, escursioneId, function() {
+                            // Dopo aver selezionato la partenza, seleziona il ritorno
+                            
+                        });
+                    } else {
+                        console.error('Gli elementi select non sono stati trovati.');
+                    }
+                } else {
+                    console.error('Componente Livewire non trovato.');
+                }
+            };
+        });
+    </script>
 </x-layout>

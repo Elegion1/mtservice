@@ -16,6 +16,9 @@ class TransferForm extends Component
     public $andataRitorno = false;
     public $dateDeparture;
     public $dateReturn;
+    public $selectedTratta;
+
+    protected $listeners = ['prenota'];
 
     public function rules()
     {
@@ -26,12 +29,12 @@ class TransferForm extends Component
             'dateDeparture' => 'required|date|after_or_equal:today',
             'dateReturn' => 'nullable|date|after:dateDeparture',
         ];
-    
+
         // Se andataRitorno è true, rendi dateReturn obbligatoria
         if ($this->andataRitorno) {
             $rules['dateReturn'] = 'required|date|after:dateDeparture';
         }
-    
+
         return $rules;
     }
     public function messages()
@@ -61,6 +64,15 @@ class TransferForm extends Component
         if ($field === 'departure' || $field === 'return' || $field === 'transferPassengers' || $field === 'solaAndata' || $field === 'andataRitorno') {
             $this->calculatePrice();
         }
+    }
+
+    public function prenota($trattaId, $departure, $arrival)
+    {
+        // Gestisci i dati della tratta selezionata
+        $this->selectedTratta = $trattaId;
+        dd($this->selectedTratta);
+
+        // Puoi anche fare qualcos'altro, come aggiornare il form o salvare i dati
     }
 
     public function setSolaAndata()
