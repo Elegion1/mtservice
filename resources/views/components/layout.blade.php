@@ -50,10 +50,13 @@
                 }
             @endphp
         @endif
-        {{ $title }} | @if ($type)
+        @if ($title)
+            {{ $title }} |
+        @endif
+        @if ($type)
             {{ ucfirst($type) }} |
         @endif
-        TRANCHIDA Transfer & Rent Trapani
+        TRANCHIDA Transfer & Rent Trapani Taxi
     </title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 

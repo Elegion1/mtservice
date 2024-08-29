@@ -32,7 +32,7 @@ Route::get('/partners', [PublicController::class, 'partners'])->name('partners')
 Route::get('/FAQ', [PublicController::class, 'faq'])->name('faq');
 Route::get('/privacy-terms-and-conditions', [PublicController::class, 'privacy'])->name('privacy');
 Route::get('/servizi/{title_it}/{id}', [ServiceController::class, 'show'])->name('service.show');
-Route::get('/escursioni/{name_it}/{id}', [ExcursionController::class, 'show'])->name('excursion.show');
+Route::get('/escursioni/provincia-di-trapani/{name_it}/{id}', [ExcursionController::class, 'show'])->name('excursion.show');
 Route::get('/servizi', [PublicController::class, 'servizi'])->name('services.index');
 
 // vista dashboard

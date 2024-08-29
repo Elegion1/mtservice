@@ -36,13 +36,17 @@
         </div>
         <div class="col-12 col-lg-6">
             <div class="container-fluid p-3">
-                <h2 class="text-center">{{ __('ui.title2') }}</h2>
+                <a class="text-decoration-none" href="{{ route('services.index') }}">
+                    <h2 class="text-center">{{ __('ui.title2') }}</h2>
+                </a>
                 <x-services />
             </div>
         </div>
         <div class="col-12">
             <div class="container-fluid p-3">
-                <h2 class="text-center mb-3">{{ __('ui.title3') }}</h2>
+                <a class="text-decoration-none" href="{{route('escursioni')}}">
+                    <h2 class="text-center mb-3">{{ __('ui.title3') }}</h2>
+                </a>
                 <x-excursions />
             </div>
         </div>

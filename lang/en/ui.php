@@ -93,6 +93,9 @@ return [
     //footer
     'navigation' => 'Navigation',
     'contacts' => 'Contacts',
+    'footerMessage' => 'Transfer Trapani and Marsala
+Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo, and Catania, available by bus, minibus, and car.
+24/7 Service - Taxi - Excursions in the province of Trapani and throughout Sicily - Airport transfers to San Vito Lo Capo.',
 
     //links
     'Home' => 'home',

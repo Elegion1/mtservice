@@ -94,6 +94,10 @@ return [
     //footer
     'navigation' => 'Navigazione',
     'contacts' => 'Contatti',
+    'footerMessage' => 'Transfer Trapani e Marsala
+Servizio di transfer da e per gli Aeroporti e Porti Siciliani di Trapani, Palermo e Catania, disponibile in bus, minibus e auto.
+Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicilia - Transfer dagli aeroporti per San Vito Lo Capo.
+',
 
     //links
     'Home' => 'home',
