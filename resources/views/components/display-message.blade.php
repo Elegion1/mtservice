@@ -17,6 +17,8 @@
 <script>
     let message = document.querySelector('#flash-message')
     setTimeout(() => {
-        message.remove()
+        if (message) {
+            message.remove();
+        }
     }, 5000);
 </script>

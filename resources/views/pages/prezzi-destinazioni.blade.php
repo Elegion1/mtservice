@@ -1,28 +1,29 @@
 <x-layout>
-    <div class="row">
+    <div class="row p-0" id="prenotazionediv">
         <div class="col-12">
-            <div class="container bg-white rounded border_custom shadow">
+            <div class="container bg-white rounded border_custom shadow" >
                 <livewire:prenotazione id="prenotazioneComponent" />
             </div>
-            <div class="container bg-white rounded p-3 mb-3">
+            <div class="container bg-white rounded p-3">
                 <x-show-content :pagine="$pagine" />
             </div>
         </div>
-        <div class="col-12">
-            <div class="container bg-white rounded shadow p-3">
+        <div class="col-12 p-0 m-0">
+            <div class="container-fluid bg-white p-1">
                 @foreach ($dest as $tratta)
                     <div class="container text-start text-wrap">
                         <div class="row">
-                            <div class="col-2 d-flex justify-content-end align-items-center">
-                                <button class="btn btn-sm bg-a text-white prenota-btn"
-                                    data-tratta-id="{{ $tratta->id }}" data-departure="{{ $tratta->departure->id }}"
+                            <div class="col-3 d-flex justify-content-end align-items-center">
+                                <button class="btn btn-sm bg-a text-white" data-tratta-id="{{ $tratta->id }}"
+                                    data-departure="{{ $tratta->departure->id }}"
                                     data-arrival="{{ $tratta->arrival->id }}" onclick="selezionaTratta(this)">
                                     Prenota
                                 </button>
                             </div>
-                            <div class="col-10">
+                            <div class="col-9">
                                 <p class="h6">{{ __('ui.from') }}
                                     <span class="text_col">{{ $tratta->departure->name }}</span>
+                                    <br class="d-block d-md-none">
                                     {{ __('ui.to') }}
                                     <span class="text_col">{{ $tratta->arrival->name }}</span>
                                 </p>
@@ -89,6 +90,7 @@
                             clickAndSelect(arrivalSelect, arrival, function() {
                                 console.log('Partenza e ritorno selezionati.');
                             });
+                            scrollToComponent('#prenotazionediv');
                         });
                     } else {
                         console.error('Gli elementi select non sono stati trovati.');
@@ -97,6 +99,17 @@
                     console.error('Componente Livewire non trovato.');
                 }
             };
+
+            function scrollToComponent(selector) {
+                let element = document.querySelector(selector);
+                if (element) {
+                    element.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                } else {
+                    console.error('Componente non trovato: ' + selector);
+                }
+            }
         });
     </script>
 </x-layout>
