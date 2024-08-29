@@ -22,17 +22,18 @@ use App\Models\Discount;
 //navigazione
 
 Route::get('/', [PublicController::class, 'home'])->name('home');
-Route::get('/noleggio/auto', [PublicController::class, 'noleggio'])->name('noleggio');
-Route::get('/transfer', [PublicController::class, 'transfer'])->name('transfer');
-Route::get('/escursioni', [PublicController::class, 'escursioni'])->name('escursioni');
+Route::get('/noleggio/auto-trapani', [PublicController::class, 'noleggio'])->name('noleggio');
+Route::get('/transfer-taxi-trapani', [PublicController::class, 'transfer'])->name('transfer');
+Route::get('/escursioni-trapani', [PublicController::class, 'escursioni'])->name('escursioni');
 Route::get('/prezzi-e-destinazioni', [PublicController::class, 'prezziDestinazioni'])->name('prezziDestinazioni');
 Route::get('/dicono-di-noi', [PublicController::class, 'diconoDiNoi'])->name('diconoDiNoi');
-Route::get('/contattaci', [PublicController::class, 'contattaci'])->name('contattaci');
+Route::get('/contattaci-richiesta-informazioni', [PublicController::class, 'contattaci'])->name('contattaci');
 Route::get('/partners', [PublicController::class, 'partners'])->name('partners');
 Route::get('/FAQ', [PublicController::class, 'faq'])->name('faq');
 Route::get('/privacy-terms-and-conditions', [PublicController::class, 'privacy'])->name('privacy');
 Route::get('/servizi/{title_it}/{id}', [ServiceController::class, 'show'])->name('service.show');
 Route::get('/escursioni/{name_it}/{id}', [ExcursionController::class, 'show'])->name('excursion.show');
+Route::get('/servizi', [PublicController::class, 'servizi'])->name('services.index');
 
 // vista dashboard
 Route::get('/dashboard', [PublicController::class, 'dashboard'])->name('dashboard')->middleware('auth');
@@ -42,7 +43,7 @@ Route::get('/view/pdf', [PublicController::class, 'pdf'])->name('pdf')->middlewa
 
 
 // Contattaci
-Route::post('/contattaci', [ContactController::class, 'invia'])->name('inviaForm');
+Route::post('/richiedi-informazioni', [ContactController::class, 'invia'])->name('inviaForm');
 
 // Lingua
 Route::post('/lingua/{lang}', [PublicController::class, 'setLanguage'])->name('setLocale');

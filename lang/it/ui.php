@@ -81,6 +81,9 @@ return [
 
     // services
     'clickLink' => 'Vai al sito',
+    'servicesTitle' => 'Servizio Transfer da e per Aeroporti e Porti Siciliani',
+    'servicesSubtitle' => 'Puntualità e professionalità al servizio del viaggiatore',
+    'servicesBody' => 'Offriamo diversi tipi di servizi di Taxi Transfer in tutta la Sicilia per soddisfare tutte le esigenze e necessità dei nostri clienti. Ecco un elenco delle svariate possibilità che la nostra organizzazione offre:',
 
     //excursions
     'hour' => 'ora',

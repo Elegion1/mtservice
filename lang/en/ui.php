@@ -80,6 +80,9 @@ return [
 
     // services
     'clickLink' => 'Go to the Website',
+    'servicesTitle' => 'Transfer Service to and from Sicilian Airports and Ports',
+    'servicesSubtitle' => 'Punctuality and professionalism at your service',
+    'servicesBody' => 'We offer various types of Taxi Transfer services throughout Sicily to meet all the needs and requirements of our clients. Here is a list of the various options our organization provides:',
 
     //excursions
     'hour' => 'hour',

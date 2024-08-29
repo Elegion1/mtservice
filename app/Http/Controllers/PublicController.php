@@ -6,6 +6,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Models\Page;
 use App\Models\Image;
+use App\Models\Service;
 use Illuminate\Support\Facades\Storage;
 
 class PublicController extends Controller
@@ -92,6 +93,12 @@ class PublicController extends Controller
         return view('pages.privacy-terms');
     }
 
+    public function servizi()
+    {
+        $services = Service::all();
+        return view('pages.services', compact('services'));
+    }
+
     public function setLanguage($lang)
     {
         session()->put('locale', $lang);
@@ -145,8 +152,9 @@ class PublicController extends Controller
         $output = $dompdf->output();
 
         return response()->streamDownload(
-            fn () => print($output),
-            "booking-summary.pdf");
+            fn() => print($output),
+            "booking-summary.pdf"
+        );
     }
 
     //funzione per eliminare le immagini
