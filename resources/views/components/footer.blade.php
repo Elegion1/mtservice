@@ -14,7 +14,8 @@
                 <small>P.IVA: {{ $ownerdata->pIva }}</small><br>
                 <small>C.F.: {{ $ownerdata->codFisc }}</small><br>
                 <br>
-                <a class="nav-link" href="{{ route('privacy') }}" target="_blank">{{ __('ui.privacyPolicy') }}</a>
+                <a class="nav-link" href="{{ route('privacy') }}"
+                    target="_blank">{{ __('ui.privacyPolicy') }}</a>
 
             </div>
 

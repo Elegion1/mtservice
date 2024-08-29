@@ -7,6 +7,7 @@ use Dompdf\Options;
 use App\Models\Page;
 use App\Models\Image;
 use App\Models\Service;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
 class PublicController extends Controller
@@ -90,7 +91,14 @@ class PublicController extends Controller
 
     public function privacy()
     {
-        return view('pages.privacy-terms');
+        $lang = session('locale', config('app.locale'));
+                // Restituisce la vista corretta in base alla lingua
+        if ($lang === 'en') {
+
+            return view('pages.privacy-terms_en');
+        }
+        // Imposta la vista italiana come predefinita
+        return view('pages.privacy-terms_it');
     }
 
     public function servizi()
@@ -99,9 +107,14 @@ class PublicController extends Controller
         return view('pages.services', compact('services'));
     }
 
+
+
     public function setLanguage($lang)
     {
+        // Imposta la lingua nella sessione
         session()->put('locale', $lang);
+
+        // Reindirizza alla pagina precedente
         return redirect()->back();
     }
 
