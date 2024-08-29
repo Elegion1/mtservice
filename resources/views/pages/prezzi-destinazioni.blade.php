@@ -1,12 +1,15 @@
 <x-layout>
     <div class="row">
-        <div class="col-12 col-md-8">
-            <div class="container bg-white rounded p-3">
+        <div class="col-12">
+            <div class="container bg-white rounded border_custom shadow">
+                <livewire:prenotazione />
+            </div>
+            <div class="container bg-white rounded p-3 mb-3">
                 <x-show-content :pagine="$pagine" />
             </div>
         </div>
-        <div class="col-12 col-md-4">
-            <div class="container bg-white rounded  p-3">
+        <div class="col-12">
+            <div class="container bg-white rounded shadow p-3">
                 <x-lista-tratte />
             </div>
             <div class="container my-5">
