@@ -23,8 +23,13 @@ Artisan::command('sitemap:generate', function () {
         $this->comment('Vecchia sitemap cancellata.');
     }
 
-    // Genera la nuova sitemap
-    $sitemap = SitemapGenerator::create('https://tranchidatransfer.it');
+    $sitemap = SitemapGenerator::create('https://tranchidatransfer.it')->getSitemap();
+
+    // Aggiungi URL manualmente se necessario
+    $sitemap->add(Url::create('/some-page')
+        ->setLastModificationDate(now())
+        ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
+        ->setPriority(0.8));
 
     // Scrive la nuova sitemap nel file
     $sitemap->writeToFile($sitemapPath);
