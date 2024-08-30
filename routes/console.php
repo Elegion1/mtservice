@@ -14,13 +14,10 @@ Artisan::command('inspire', function () {
 
 Artisan::command('sitemap:generate', function () {
     
-    $sitemap = SitemapGenerator::create('https://tranchidatransfer.it')
-    ->configureCrawler(function (Crawler $crawler) {
-        $crawler->setMaximumDepth(10);
-    });
+    $sitemap = SitemapGenerator::create('https://www.tranchidatransfer.it');
 
     $sitemap->writeToFile(public_path('sitemap.xml'));
-
+    
     $this->comment('Sitemap generata con successo.');
 });
 
