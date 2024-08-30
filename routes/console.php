@@ -13,7 +13,7 @@ Artisan::command('inspire', function () {
 
 Artisan::command('sitemap:generate', function () {
     
-    $sitemap = SitemapGenerator::create('https://tranchidatransfer.it')->setMaximumCrawlCount(500);
+    $sitemap = SitemapGenerator::create('https://tranchidatransfer.it');
 
     $sitemap->writeToFile(public_path('sitemap.xml'));
 
