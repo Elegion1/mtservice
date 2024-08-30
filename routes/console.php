@@ -24,7 +24,7 @@ Artisan::command('sitemap:generate', function () {
     }
 
     // Genera la nuova sitemap
-    $sitemap = SitemapGenerator::create('https://www.tranchidatransfer.it');
+    $sitemap = SitemapGenerator::create('https://tranchidatransfer.it');
 
     // Scrive la nuova sitemap nel file
     $sitemap->writeToFile($sitemapPath);
