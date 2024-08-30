@@ -12,7 +12,7 @@
                     @endif
                 </div>
                 <div class="container-fluid justify-content-center d-flex flex-column">
-                    <h2 class="text-d">{{ $excursion->{'name_' . app()->getLocale()} }}</h2>
+                    <h2 class="text-d">{!! $excursion->{'name_' . app()->getLocale()} !!}</h2>
                     <small>{{ __('ui.duration') }} {{ $excursion->duration }}
                         @if ($excursion->duration == 1)
                             {{ __('ui.hour') }}

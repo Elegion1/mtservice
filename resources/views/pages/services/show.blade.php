@@ -4,9 +4,9 @@
             <div class="col-12 col-md-6">
                 <div class="container-fluid justify-content-center d-flex flex-column">
                     <h2 class="text-d">{{ $service->{'title_' . app()->getLocale()} }}</h2>
-                    <p>{{ $service->{'subtitle_' . app()->getLocale()} }}</p>
-                    <p>{{ $service->{'subtitleSec_' . app()->getLocale()} }}</p>
-                    <p class="text-secondary small">{{ $service->{'abstract_' . app()->getLocale()} }}</p>
+                    <p>{!! $service->{'subtitle_' . app()->getLocale()} !!}</p>
+                    <p>{!! $service->{'subtitleSec_' . app()->getLocale()} !!}</p>
+                    <p class="text-secondary small">{!! $service->{'abstract_' . app()->getLocale()} !!}</p>
                     <p>{!! $service->{'body_' . app()->getLocale()} !!}</p>
                     <p class="small">{!! $service->{'condition_' . app()->getLocale()} !!}</p>
                     @if ($service->links)
