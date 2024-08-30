@@ -25,7 +25,9 @@
                     <x-links>
                         text-body-secondary text-capitalize p-0 text-small
                     </x-links>
-
+                    <li>
+                        <a class="nav-link text-body-secondary text-capitalize p-0 text-small" href="https://tranchidatransfer.it/sitemap.xml">Sitemap</a>
+                    </li>
                 </ul>
             </div>
 
