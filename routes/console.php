@@ -14,11 +14,10 @@ Artisan::command('inspire', function () {
 
 Artisan::command('sitemap:generate', function () {
     
-    $sitemap = SitemapGenerator::create('https://example.com')
+    $sitemap = SitemapGenerator::create('https://tranchidatransfer.it')
     ->configureCrawler(function (Crawler $crawler) {
         $crawler->setMaximumDepth(10);
     });
-
 
     $sitemap->writeToFile(public_path('sitemap.xml'));
 
