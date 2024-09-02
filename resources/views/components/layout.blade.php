@@ -56,7 +56,7 @@
         @if ($type)
             {{ ucfirst($type) }} |
         @endif
-        TRANCHIDA Transfer & Rent Trapani Taxi
+        Taxi Transfer & Car Rent Trapani | Taxi transfer Aeroporto Palermo e Aeroporto Trapani | Noleggio Auto | Escursioni
     </title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 

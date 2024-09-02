@@ -77,6 +77,7 @@ return [
     //route list
     'perPerson' => 'per person',
     'noRoutesAvailable' => 'No Routes Available',
+    'allDestinations' => 'See all destinations',
 
     // services
     'clickLink' => 'Go to the Website',

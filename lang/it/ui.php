@@ -78,6 +78,7 @@ return [
     //lista-tratte
     'perPerson' => 'a persona',
     'noRoutesAvailable' => 'Non ci sono tratte disponibili',
+    'allDestinations' => 'Tutte le destinazioni',
 
     // services
     'clickLink' => 'Vai al sito',

@@ -1,14 +1,23 @@
 <x-layout>
     <div class="row p-0" id="prenotazionediv">
-        <div class="col-12">
+        <div class="col-12 col-md-6">
             <div class="container bg-white rounded border_custom shadow" >
                 <livewire:prenotazione id="prenotazioneComponent" />
             </div>
+
+            <div class="container my-5">
+                <x-contact-link />
+            </div>
+
+            <div class="container">
+                <h2 class="text-center">{{ __('ui.title2') }}</h2>
+                <x-services />
+            </div>
+        </div>
+        <div class="col-12 col-md-6">
             <div class="container bg-white rounded p-3">
                 <x-show-content :pagine="$pagine" />
             </div>
-        </div>
-        <div class="col-12 p-0 m-0">
             <div class="container-fluid bg-white p-1">
                 @foreach ($dest as $tratta)
                     <div class="container text-start text-wrap">
@@ -34,13 +43,7 @@
                     </div>
                 @endforeach
             </div>
-            <div class="container my-5">
-                <x-contact-link />
-            </div>
-        </div>
-        <div class="col-12 mt-5">
-            <h2 class="text-center">{{ __('ui.title2') }}</h2>
-            <x-services />
+           
         </div>
         <div class="col-12 mt-5">
             <h2 class="text-center mb-3">{{ __('ui.title3') }}</h2>
