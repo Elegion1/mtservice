@@ -1,4 +1,4 @@
-<div id="serviceCarousel" class="carousel service slide p-3" data-bs-ride="carousel">
+<div id="serviceCarousel" class="carousel service slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
         @foreach ($services as $index => $service)
             <button type="button" data-bs-target="#serviceCarousel" data-bs-slide-to="{{ $index }}"
@@ -23,7 +23,7 @@
                             </div>
                             <div
                                 class="col-12 d-flex justify-content-center align-items-center flex-column text-center">
-                                <p class="h3 text-d">{!! $service->{'title_' . app()->getLocale()} !!}</p>
+                                <p class="h5 fs-6 text-d text-uppercase">{!! $service->{'title_' . app()->getLocale()} !!}</p>
                                 <p class="h6">{!! $service->{'subtitle_' . app()->getLocale()} !!}</p>
                                 <p class=" text-wrap ">{!! $service->{'abstract_' . app()->getLocale()} !!}</p>
                                 @if ($service->links)

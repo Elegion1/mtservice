@@ -1,6 +1,6 @@
 {{-- carosello responsive --}}
 
-<div id="excursionCarousel" class="carousel slide p-3" data-bs-ride="carousel">
+<div id="excursionCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
         @foreach ($excursions as $index => $excursion)
             <button type="button" data-bs-target="#excursionCarousel" data-bs-slide-to="{{ $index }}"
@@ -132,7 +132,7 @@
                                             </div>
                                             <div
                                                 class="col-12 d-flex justify-content-center align-items-center flex-column text-center">
-                                                <p class="h3 text-d">{!! $excursion->{'name_' . app()->getLocale()} !!}
+                                                <p class="h5 fs-6 text-d text-uppercase">{!! $excursion->{'name_' . app()->getLocale()} !!}
                                                 </p>
                                                 <p class="text-wrap text-secondary-subtle">
                                                     {!! $excursion->{'abstract_' . app()->getLocale()} !!}</p>
@@ -165,7 +165,7 @@
                                 </div>
                                 <div
                                     class="col-12 d-flex justify-content-center align-items-center flex-column text-center">
-                                    <p class="h3 text-d">{!! $excursion->{'name_' . app()->getLocale()} !!}</p>
+                                    <p class="h5 fs-6 text-d text-uppercase">{!! $excursion->{'name_' . app()->getLocale()} !!}</p>
                                     <p class="text-wrap text-secondary-subtle">
                                         {!! $excursion->{'abstract_' . app()->getLocale()} !!}</p>
                                     
