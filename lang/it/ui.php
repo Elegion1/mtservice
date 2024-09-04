@@ -198,6 +198,12 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
         <li><a href="https://www.comune.palermo.it" target="_blank">Comune di Palermo</a></li>
         <li><a href="https://www.comune.catania.it" target="_blank">Comune di Catania</a></li>
     </ul>',
+
+    'callForInfo' => 'Chiamaci per informazioni',
+    'dearCustomer' => 'Gentile Cliente',
+    'mailMsg' => 'La richiesta di prenotazione è stata effettuata correttamente, in allegato trovi il riepilogo',
+    'mailMsg2' => 'Ti contatteremo al più presto per una conferma',
+    'thxForChoosing' => 'Grazie per aver scelto Tranchida Transfer & Rent!',
 ];
 
 

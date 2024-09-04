@@ -117,7 +117,7 @@
     }
 
     .condizioni-transfer {
-        font-size: 10px;
+        font-size: 9px;
         padding: 0px;
         margin: 0px;
     }
@@ -162,68 +162,53 @@
             <p><strong>Note:</strong> <span class="text-primary">{{ $booking['body'] }}</span></p>
 
             @if ($booking['bookingData']['type'] == 'transfer')
-                <p>{{ __('ui.bookingType') }}: <span
-                        class="text_col">{{ ucfirst($booking['bookingData']['type']) }}</span></p>
-                <p>{{ __('ui.from') }}: <span
-                        class="text_col">{{ $booking['bookingData']['departure_name'] ?? 'N/A' }}</span>
-                    {{ __('ui.to') }}: <span
-                        class="text_col">{{ $booking['bookingData']['arrival_name'] ?? 'N/A' }}</span></p>
-                <p>{{ __('ui.date') }}: <span
-                        class="text_col">{{ $booking['bookingData']['date_departure'] ?? 'N/A' }}</span>
-                    {{ __('ui.time') }}: <span
-                        class="text_col">{{ $booking['bookingData']['time_departure'] ?? 'N/A' }}</span></p>
-                <p>{{ __('ui.duration') }}: <span
-                        class="text_col">{{ $booking['bookingData']['duration'] ?? 'N/A' }}</span>
-                    {{ __('ui.minutes') }} {{ __('ui.approx') }}</p>
+                <p>Tipo di servizio: <span class="text_col">{{ ucfirst($booking['bookingData']['type']) }}</span></p>
+                <p>Transfer da: <span class="text_col">{{ $booking['bookingData']['departure_name'] ?? 'N/A' }}</span>
+                    a: <span class="text_col">{{ $booking['bookingData']['arrival_name'] ?? 'N/A' }}</span></p>
+                <p>Data: <span class="text_col">{{ $booking['bookingData']['date_departure'] ?? 'N/A' }}</span>
+                    ore: <span class="text_col">{{ $booking['bookingData']['time_departure'] ?? 'N/A' }}</span></p>
+                <p>durata: <span class="text_col">{{ $booking['bookingData']['duration'] ?? 'N/A' }}</span>
+                    minuti circa</p>
                 @if (!empty($booking['bookingData']['date_ret']))
-                    <p>{{ __('ui.return') }}: <span
-                            class="text_col">{{ $booking['bookingData']['date_return'] }}</span>
-                        {{ __('ui.time') }} <span class="text_col">{{ $booking['bookingData']['time_return'] }}</span>
+                    <p>Ritorno il: <span class="text_col">{{ $booking['bookingData']['date_return'] }}</span>
+                        ore <span class="text_col">{{ $booking['bookingData']['time_return'] }}</span>
                     </p>
                 @endif
-                <p>{{ __('ui.passengers') }}: <span
-                        class="text_col">{{ $booking['bookingData']['passengers'] ?? 'N/A' }}</span>
+                <p>Passeggeri: <span class="text_col">{{ $booking['bookingData']['passengers'] ?? 'N/A' }}</span>
                 </p>
             @elseif ($booking['bookingData']['type'] == 'escursione')
-                <p>{{ __('ui.bookingType') }}: <span
-                        class="text_col">{{ ucfirst($booking['bookingData']['type']) }}</span> a
+                <p>Tipo di servizio: <span class="text_col">{{ ucfirst($booking['bookingData']['type']) }}</span> a
                     <span class="text_col">{{ $booking['bookingData']['departure_name'] ?? 'N/A' }}</span>
                 </p>
-                <p>{{ __('ui.date') }}: <span
-                        class="text_col">{{ $booking['bookingData']['date_departure'] ?? 'N/A' }}</span>
+                <p>Data: <span class="text_col">{{ $booking['bookingData']['date_departure'] ?? 'N/A' }}</span>
                 </p>
-                <p>{{ __('ui.time') }}: <span
-                        class="text_col">{{ $booking['bookingData']['time_departure'] ?? 'N/A' }}</span>
+                <p>ore: <span class="text_col">{{ $booking['bookingData']['time_departure'] ?? 'N/A' }}</span>
                 </p>
-                <p>{{ __('ui.duration') }}: <span
-                        class="text_col">{{ $booking['bookingData']['duration'] ?? 'N/A' }}</span>
-                    {{ __('ui.hours') }} {{ __('ui.approx') }}</p>
-                <p>{{ __('ui.passengers') }}: <span
-                        class="text_col">{{ $booking['bookingData']['passengers'] ?? 'N/A' }}</span>
+                <p>Durata: <span class="text_col">{{ $booking['bookingData']['duration'] ?? 'N/A' }}</span>
+                    ore circa</p>
+                <p>Passeggeri: <span class="text_col">{{ $booking['bookingData']['passengers'] ?? 'N/A' }}</span>
                 </p>
             @elseif ($booking['bookingData']['type'] == 'noleggio')
-                <p>{{ __('ui.bookingType') }}: <span
-                        class="text_col">{{ ucfirst($booking['bookingData']['type']) }}</span> <span
+                <p>Tipo di servizio: <span class="text_col">{{ ucfirst($booking['bookingData']['type']) }}</span> <span
                         class="text_col">{{ $booking['bookingData']['car_name'] ?? 'N/A' }}
                         {{ $booking['bookingData']['car_description'] ?? 'N/A' }}</span></p>
-                <p>{{ __('ui.collectionDate') }}: <span
-                        class="text_col">{{ $booking['bookingData']['date_start'] ?? 'N/A' }}</span>
-                    {{ __('ui.returnDate') }}:
-                    <span class="text_col">{{ $booking['bookingData']['date_end'] ?? 'N/A' }}</span>
+                <p>Data di ritiro: <span class="text_col">{{ $booking['bookingData']['date_start'] ?? 'N/A' }}</span>
+                </p>
+                <p>Data di consegna: <span class="text_col">{{ $booking['bookingData']['date_end'] ?? 'N/A' }}</span>
                 </p>
             @endif
 
             <p>
                 @if ($booking['bookingData']['price'] == $booking['bookingData']['original_price'])
-                    <span>{{ ucfirst(__('ui.price')) }} {{ ucfirst(__('ui.totalPrice')) }}</span>
+                    <span>Prezzo</span>
                 @else
-                    <p>{{ __('ui.originalPrice') }}: € {{ $booking['bookingData']['original_price'] ?? 'N/A' }}</p>
-                    <span>{{ __('ui.discountedPrice') }}</span>
+                    <p>Prezzo originale: € {{ $booking['bookingData']['original_price'] ?? 'N/A' }}</p>
+                    <span>Prezzo scontato</span>
                 @endif
                 : <span class="text_col">€ {{ $booking['bookingData']['price'] ?? 'N/A' }}</span>
             </p>
 
-            <p>{{ __('ui.paymentMessage') }}</p>
+            <p>È richiesto un acconto del 30% dopo la conferma della prenotazione da parte del nostro staff</p>
         </div>
     </div>
 
@@ -329,6 +314,36 @@
                     "{{ $ownerdata->companyName }}" o il Vostro nome.</li>
                 <li>Sui mezzi è severamente vietato fumare, sporcare e consumare cibi e bevande</li>
             </ol>
+            <p>Condizioni di Noleggio Auto</p>
+            <p>Per garantire la migliore esperienza con i nostri servizi, vi chiediamo di osservare attentamente le
+                seguenti condizioni di noleggio:</p>
+
+            <p>Assicuratevi di portare con voi la patente di guida valida, una carta di credito e una copia della
+                conferma della prenotazione. Il mancato possesso di questi documenti potrebbe comportare la
+                cancellazione della prenotazione.</p>
+
+            <p>Il periodo di noleggio inizia all'orario concordato durante la prenotazione. Qualsiasi ritardo nella
+                restituzione del veicolo comporterà addebiti aggiuntivi. La tariffa oraria per i ritardi è di €15,00.
+                Per ritardi superiori a tre ore, verrà addebitata la tariffa completa di un giorno di noleggio.</p>
+
+            <p>Il veicolo deve essere restituito con lo stesso livello di carburante presente al momento del ritiro. Se
+                il livello di carburante è inferiore, verrà applicata una tassa di rifornimento di €20,00 più il costo
+                del carburante.</p>
+
+            <p>Tutte le multe per infrazioni stradali, i biglietti per il parcheggio e i pedaggi sostenuti durante il
+                periodo di noleggio sono a carico del locatario. In caso di danni al veicolo, potrebbe essere applicata
+                una franchigia fino a €500,00, a seconda della copertura assicurativa selezionata durante la
+                prenotazione.</p>
+
+            <p>Per i noleggi superiori a 7 giorni, viene fornito un check-up di manutenzione del veicolo gratuito. Si
+                prega di contattarci per programmare il check-up almeno 24 ore prima.</p>
+
+            <p>Attrezzature aggiuntive come dispositivi GPS, seggiolini per bambini o portapacchi possono essere
+                noleggiati a un costo aggiuntivo. Si prega di richiedere questi articoli al momento della prenotazione.
+            </p>
+
+            <p>È severamente vietato fumare e consumare cibi o bevande all'interno del veicolo. Una tassa di pulizia di
+                €100,00 verrà addebitata per qualsiasi violazione di questa regola.</p>
             <p>Il presente contratto sarà disciplinato dalla legge italiana; le parti sono ben consapevoli delle norme
                 regolatrici; in caso di controversie sarà competente il Foro di Trapani.</p>
             <p><strong>INFORMATIVA SULLA PRIVACY:</strong></p>

@@ -198,5 +198,11 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
         <li><a href="https://www.comune.catania.it" target="_blank">Municipality of Catania</a></li>
     </ul>',
 
+    'callForInfo' => 'Call us for information',
+    'dearCustomer' => 'Dear Customer',
+    'mailMsg' => 'Your booking request has been successfully submitted, please find the summary attached',
+    'mailMsg2' => 'We will contact you soon for confirmation',
+    'thxForChoosing' => 'Thank you for choosing Tranchida Transfer & Rent!',
+
 
 ];

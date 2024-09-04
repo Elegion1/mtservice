@@ -11,11 +11,16 @@
                 <x-contact-link />
                 <x-show-content :pagine="$pagine" />
             </div>
+
+            <div class="container mt-5">
+                <h2 class="text-center">{{ __('ui.title2') }}</h2>
+                <x-services />
+            </div>
         </div>
 
-        <div class="col-12 col-md-6 ">
+        <div class="col-12 col-md-6">
             <div id="escursioni"
-                class="container d-flex justify-content-center align-items-center flex-column rounded bg-white">
+                class="container d-flex justify-content-center align-items-center flex-column rounded bg-white sticky-top">
                 <h2 class="my-3">{{ __('ui.excursionPageTitle') }}</h2>
 
                 @foreach ($excursionsP as $excursion)
@@ -81,10 +86,8 @@
 
             </div>
         </div>
-        <div class="col-12 mt-5">
-            <h2 class="text-center">{{ __('ui.title2') }}</h2>
-            <x-services />
-        </div>
+
+       
         <div class="col-12 mt-5">
             <h2 class="text-center mb-3">{{ __('ui.title3') }}</h2>
             <x-excursions />
@@ -101,7 +104,7 @@
                 if (component) {
                     // Trova gli elementi select all'interno del componente Livewire
                     let excursionSelect = component.querySelector('#excursionSelect');
-                    
+
 
                     if (excursionSelect) {
                         // Funzione per selezionare un'opzione dopo che le opzioni sono state caricate
@@ -127,7 +130,7 @@
                         // Seleziona prima la partenza
                         clickAndSelect(excursionSelect, escursioneId, function() {
                             // Dopo aver selezionato la partenza, seleziona il ritorno
-                            
+
                         });
                     } else {
                         console.error('Gli elementi select non sono stati trovati.');

@@ -189,12 +189,14 @@ class BookingSummary extends Component
             'phone' => $this->phone,
         ]);
 
+        $language = app()->getLocale();
         // Generazione del PDF del riepilogo
-        $pdf = $this->generatePDF($booking);
+        $pdfClient = $this->generatePDF($booking, $language);
+        $pdfAdmin = $this->generatePDF($booking, 'it');
 
         // Invio dell'email con il PDF allegato
-        Mail::to($this->email)->send(new BookingConfirmation($pdf));
-        Mail::to($this->adminMail)->send(new BookingAdmin($pdf));
+        Mail::to($this->email)->send(new BookingConfirmation($pdfClient));
+        Mail::to($this->adminMail)->send(new BookingAdmin($pdfAdmin));
 
         // Messaggio di conferma
         session()->flash('message', __('ui.confirmation_message'));
@@ -203,7 +205,7 @@ class BookingSummary extends Component
         return redirect()->to('/');
     }
 
-    private function generatePDF($booking)
+    private function generatePDF($booking, $language)
     {
         $data = compact('booking');
 
@@ -214,7 +216,7 @@ class BookingSummary extends Component
         $options->set('defaultFont', 'Roboto');
 
         $dompdf = new Dompdf($options);
-        $dompdf->loadHtml(view('pdf.booking-summary-pdf', $data)->render());
+        $dompdf->loadHtml(view('pdf.booking-summary-pdf_' . $language, $data)->render());
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 

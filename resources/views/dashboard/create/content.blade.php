@@ -31,6 +31,7 @@
             {{-- Ordine --}}
             <div class="mb-3">
                 <label for="create-order" class="form-label">Ordine</label>
+                <small class="text-primary">Contenuto con ordine 0 mostra il titolo e sottotitolo nell'header</small>
                 <input type="number" class="form-control form_input_focused" id="create-order" name="order">
             </div>
 

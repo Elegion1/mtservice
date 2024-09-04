@@ -158,7 +158,7 @@ class PublicController extends Controller
         $options->set('defaultFont', 'Roboto');
 
         $dompdf = new Dompdf($options);
-        $dompdf->loadHtml(view('pdf.booking-summary-pdf', $data)->render());
+        $dompdf->loadHtml(view('pdf.booking-summary-pdf_it', $data)->render());
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
 
