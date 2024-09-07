@@ -9,7 +9,7 @@
                 <x-contact-link />
             </div>
 
-            <div class="container sticky-top">
+            <div class="container sticky-top top_custom">
                 <h2 class="text-center">{{ __('ui.title2') }}</h2>
                 <x-services />
             </div>
