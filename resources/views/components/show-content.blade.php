@@ -11,7 +11,7 @@
                 @endif
                 <div class="col-12">
                     @if ($content->{'title_' . app()->getLocale()})
-                        <h1 class="text-uppercase">{{ $content->{'title_' . app()->getLocale()} }}</h1>
+                        <h1 class="text-uppercase text-wrap">{{ $content->{'title_' . app()->getLocale()} }}</h1>
                     @endif
                     @if ($content->{'subtitle_' . app()->getLocale()})
                         <h6>{{ $content->{'subtitle_' . app()->getLocale()} }}</h6>
@@ -30,3 +30,4 @@
         @endforeach
     @endforeach
 </div>
+
