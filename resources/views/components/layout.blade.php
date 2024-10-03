@@ -1,8 +1,22 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 
 <head>
-    <!-- Google tag (gtag.js) -->
+    <!-- Charset at the top -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- Single meta description -->
+    @if (App::getLocale() == 'en')
+        <meta name="description"
+            content="Car rental, Excursions, and Taxi Transfers 24/7 for the province of Trapani. Taxi transfers to and from all airports and ports in Sicily.">
+    @elseif (App::getLocale() == 'it')
+        <meta name="description"
+            content="Noleggio auto, escursioni e trasferimenti taxi 24/7 per la provincia di Trapani. Trasferimenti taxi da e per tutti gli aeroporti e porti della Sicilia.">
+    @endif
+
+    <!-- Google Tag -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-M5SQ98ZHWM"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -11,18 +25,13 @@
             dataLayer.push(arguments);
         }
         gtag('js', new Date());
-
         gtag('config', 'G-M5SQ98ZHWM');
     </script>
-    <meta name="description" lang="it"
-        content="Noleggio auto, Escursioni e Transfer H24 per la provincia di Trapani. Taxi Transfer da e per tutti gli aeroporti e porti della Sicilia. Aeroporto di Trapani, Aeroporto di Palermo, Aeroporto di Catania, Porto di Trapani, Porto di Palermo. Escursioni in tutta la Sicilia. Noleggio Auto per la tua vacanza. Taxi Favignana, Taxi Trapani, Taxi Marsala, Taxi Aeroporto. Deposito bagagli trapani.">
-    <meta name="description" lang="en"
-        content="Car rental, Excursions, and Taxi Transfers 24/7 for the province of Trapani. Taxi transfers to and from all airports and ports in Sicily. Trapani Airport, Palermo Airport, Catania Airport, Trapani port, Palermo port. Excursions throughout Sicily. Car rental for your vacation. Taxi Favignana, Taxi Trapani, Taxi Marsala, Taxi Airport. Trapani luggage storage.">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon -->
     <link rel="icon" type="image/x-icon" sizes="32x32" href="https://tranchidatransfer.it/favicon.ico">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @include('cookie-consent::index')
+
+    <!-- Title: ensure it's within <head> -->
     <title>
         @php
             $title = '';
@@ -33,17 +42,14 @@
             @if ($currentRouteName == $page->link)
                 @php
                     $title = ucfirst(__('ui.' . $page->name));
-                    break; // Exit the loop if match is found
+                    break;
                 @endphp
             @endif
         @endforeach
         @if (empty($title))
             @php
-                // Ottenere il valore di PATH_INFO
                 $pathInfo = request()->getPathInfo();
-                // Suddividere il percorso in parti
                 $segments = explode('/', $pathInfo);
-                // Estrarre la parte desiderata (in questo caso, la seconda parte)
                 if (isset($segments[2])) {
                     $title = urldecode($segments[2]);
                     $type = urldecode($segments[1]);
@@ -56,10 +62,12 @@
         @if ($type)
             {{ ucfirst($type) }} |
         @endif
-        Taxi Transfer & Car Rent Trapani | Taxi transfer Aeroporto Palermo e Aeroporto Trapani | Noleggio Auto | Escursioni
+        Taxi Transfer & Car Rent Trapani | Taxi transfer Aeroporto Palermo e Aeroporto Trapani | Noleggio Auto |
+        Escursioni
     </title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @include('cookie-consent::index')
 </head>
 
 <body>
