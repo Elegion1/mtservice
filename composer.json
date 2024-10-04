@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.3",
         "barryvdh/laravel-dompdf": "^2.2",
+        "diglactic/laravel-breadcrumbs": "^9.0",
         "dompdf/dompdf": "^2.0",
         "laravel/fortify": "^1.21",
         "laravel/framework": "^11.0",

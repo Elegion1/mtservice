@@ -17,7 +17,7 @@ use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\ExcursionController;
 use App\Http\Controllers\OwnerDataController;
 use App\Http\Controllers\DestinationController;
-use App\Models\Discount;
+
 
 //navigazione
 

@@ -79,6 +79,9 @@
             <x-display-error />
             <x-display-message />
             {{ $slot }}
+            <div class="d-flex justify-content-center align-items-center">
+                {{ Breadcrumbs::render() }}
+            </div>
         </div>
         <div class="border_footer p-0 m-0 bg-linear-gradient">
             <x-footer />
