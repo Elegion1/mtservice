@@ -26,7 +26,7 @@
             @if ($content->page->link == $currentRoute && $content->order == 0 && $content->show)
                 <h1 class="text-b text-shadow text-responsive mt-5">
                     {!! strtoupper($content->{'title_' . app()->getLocale()}) !!}</h1>
-                <p class="text-shadow text-c btn_font_size">{{ $content->{'subtitle_' . app()->getLocale()} }}</p>
+                <h2 class="text-shadow text-c btn_font_size">{{ $content->{'subtitle_' . app()->getLocale()} }}</h2>
             @endif
         </div>
     </div>

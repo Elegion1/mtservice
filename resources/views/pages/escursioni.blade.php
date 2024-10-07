@@ -64,7 +64,7 @@
                                         </p>
                                         <div class="d-flex justify-content-around align-items-center">
                                             <a class="btn rounded-4 bg-a text-white btn-sm me-1"
-                                                href="{{ route('excursion.show', ['name_it' => $excursion->name_it, 'id' => $excursion->id]) }}">{{ __('ui.details') }}</a>
+                                                href="{{ route('excursion.show', ['name' => $excursion->{'name_' . app()->getLocale()}, 'id' => $excursion->id]) }}">{{ __('ui.details') }}</a>
                                             <button class="btn rounded-4 bg-a text-white btn-sm"
                                                 data-escursione-id="{{ $excursion->id }}"
                                                 onclick="selezionaEscursione(this)">

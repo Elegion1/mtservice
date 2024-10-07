@@ -7,7 +7,6 @@ use Dompdf\Options;
 use App\Models\Page;
 use App\Models\Image;
 use App\Models\Service;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
 class PublicController extends Controller
@@ -92,7 +91,7 @@ class PublicController extends Controller
     public function privacy()
     {
         $lang = session('locale', config('app.locale'));
-                // Restituisce la vista corretta in base alla lingua
+        // Restituisce la vista corretta in base alla lingua
         if ($lang === 'en') {
 
             return view('pages.privacy-terms_en');

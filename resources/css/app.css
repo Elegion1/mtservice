@@ -280,4 +280,6 @@ a:hover {
     top: 25px;
 }
 
-
+.breadcrumb-item + .breadcrumb-item::before {
+    content: '>';
+}

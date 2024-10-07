@@ -116,7 +116,7 @@
                         @foreach ($chunk as $excursion)
                             <div class="col-md-4">
                                 <a class="text-reset text-decoration-none"
-                                    href="{{ route('excursion.show', ['name_it' => $excursion->name_it, 'id' => $excursion->id]) }}">
+                                    href="{{ route('excursion.show', ['name' => $excursion->{'name_' . app()->getLocale()}, 'id' => $excursion->id]) }}">
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-12 my-3 d-flex justify-content-center align-items-center">
@@ -150,7 +150,7 @@
                 carouselDynamic.innerHTML = `@foreach ($excursions as $index => $excursion)
                 <div class="carousel-item excursion {{ $index === 0 ? 'active' : '' }}">
                     <a class="text-reset text-decoration-none"
-                        href="{{ route('excursion.show', ['name_it' => $excursion->name_it, 'id' => $excursion->id]) }}">
+                        href="{{ route('excursion.show', ['name' => $excursion->{'name_' . app()->getLocale()}, 'id' => $excursion->id]) }}">
                         <div class="container">
                             <div class="row">
                                 <div class="col-12 my-3 d-flex justify-content-center align-items-center">

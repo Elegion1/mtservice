@@ -69,15 +69,15 @@ Breadcrumbs::for('services.index', function (BreadcrumbTrail $trail) {
 });
 
 // Servizio specifico (Service Detail)
-Breadcrumbs::for('service.show', function (BreadcrumbTrail $trail, $title_it, $id) {
+Breadcrumbs::for('service.show', function (BreadcrumbTrail $trail, $title, $id) {
     $trail->parent('services.index');
-    $trail->push(__('breadcrumbs.service_show', ['title' => $title_it]), route('service.show', [$title_it, $id]));
+    $trail->push(__('breadcrumbs.service_show', ['title' => $title]), route('service.show', [$title, $id]));
 });
 
 // Escursione specifica (Excursion Detail)
-Breadcrumbs::for('excursion.show', function (BreadcrumbTrail $trail, $name_it, $id) {
+Breadcrumbs::for('excursion.show', function (BreadcrumbTrail $trail, $name, $id) {
     $trail->parent('escursioni');
-    $trail->push(__('breadcrumbs.excursion_show', ['name' => $name_it]), route('excursion.show', [$name_it, $id]));
+    $trail->push(__('breadcrumbs.excursion_show', ['name' => $name]), route('excursion.show', [$name, $id]));
 });
 
 // Dashboard
