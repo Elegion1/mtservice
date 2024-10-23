@@ -25,7 +25,8 @@
         <a class="text-decoration-none" href="{{ route('dashboard.ownerData') }}">Dati azienda</a>
     </li>
     <li class="p-1 text-center">
-        <a class="text-decoration-none" target="_blank" href="{{ route('home') }}">Torna al sito</a>
+        <a class="text-decoration-none" target="_blank" href="{{ route('home', ['locale' => 'it']) }}">Torna al
+            sito</a>
     </li>
     <li class="p-1 text-center">
         <form method="POST" action="{{ route('logout') }}">
