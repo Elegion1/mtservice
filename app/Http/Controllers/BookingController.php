@@ -7,6 +7,9 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Models\Booking;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BookingStatusNotification;
 
 class BookingController extends Controller
 {
@@ -61,54 +64,67 @@ class BookingController extends Controller
 
         foreach ($bookings as $booking) {
             $bookingData = $booking->bookingData; // Ottieni i dati della prenotazione
-
-            if ($bookingData['type'] == 'transfer' || $bookingData['type'] == 'escursione') {
-                $processedBookings->push((object) [
-                    'name' => $booking->name,
-                    'surname' => $booking->surname,
-                    'email' => $booking->email,
-                    'phone' => $booking->phone,
-                    'body' => $booking->body,
-                    'bookingData' => $booking->bookingData,
-                    'start_date' => $bookingData['date_dep'],
-                    'end_date' => null, // non applicabile per il viaggio di partenza
-                ]);
-
-                if (isset($bookingData['date_ret'])) {
+            if ($booking->status == 'confirmed') {
+                if ($bookingData['type'] == 'transfer' || $bookingData['type'] == 'escursione') {
                     $processedBookings->push((object) [
+                        'id' => $booking->id,
+                        'status' => $booking->status,
+                        'code' => $booking->code,
                         'name' => $booking->name,
                         'surname' => $booking->surname,
                         'email' => $booking->email,
                         'phone' => $booking->phone,
                         'body' => $booking->body,
                         'bookingData' => $booking->bookingData,
-                        'start_date' => null,
-                        'end_date' => $bookingData['date_ret'],
+                        'start_date' => $bookingData['date_dep'],
+                        'end_date' => null, // non applicabile per il viaggio di partenza
                     ]);
-                }
-            } elseif ($bookingData['type'] == 'noleggio') {
-                $processedBookings->push((object) [
-                    'name' => $booking->name,
-                    'surname' => $booking->surname,
-                    'email' => $booking->email,
-                    'phone' => $booking->phone,
-                    'body' => $booking->body,
-                    'bookingData' => $booking->bookingData,
-                    'start_date' => $bookingData['date_start'],
-                    'end_date' => null,
-                ]);
 
-                if (isset($bookingData['date_end'])) {
+                    if (isset($bookingData['date_ret'])) {
+                        $processedBookings->push((object) [
+                            'id' => $booking->id,
+                            'status' => $booking->status,
+                            'code' => $booking->code,
+                            'name' => $booking->name,
+                            'surname' => $booking->surname,
+                            'email' => $booking->email,
+                            'phone' => $booking->phone,
+                            'body' => $booking->body,
+                            'bookingData' => $booking->bookingData,
+                            'start_date' => null,
+                            'end_date' => $bookingData['date_ret'],
+                        ]);
+                    }
+                } elseif ($bookingData['type'] == 'noleggio') {
                     $processedBookings->push((object) [
+                        'id' => $booking->id,
+                        'status' => $booking->status,
+                        'code' => $booking->code,
                         'name' => $booking->name,
                         'surname' => $booking->surname,
                         'email' => $booking->email,
                         'phone' => $booking->phone,
                         'body' => $booking->body,
                         'bookingData' => $booking->bookingData,
-                        'start_date' => null,
-                        'end_date' => $bookingData['date_end'],
+                        'start_date' => $bookingData['date_start'],
+                        'end_date' => null,
                     ]);
+
+                    if (isset($bookingData['date_end'])) {
+                        $processedBookings->push((object) [
+                            'id' => $booking->id,
+                            'status' => $booking->status,
+                            'code' => $booking->code,
+                            'name' => $booking->name,
+                            'surname' => $booking->surname,
+                            'email' => $booking->email,
+                            'phone' => $booking->phone,
+                            'body' => $booking->body,
+                            'bookingData' => $booking->bookingData,
+                            'start_date' => null,
+                            'end_date' => $bookingData['date_end'],
+                        ]);
+                    }
                 }
             }
         }
@@ -136,7 +152,12 @@ class BookingController extends Controller
             'groupedByDay' => $groupedByDay,
             'groupedByMonth' => $groupedByMonth
         ]);
+    }
 
+    public function bookingToDo()
+    {
+        $bookings = Booking::all();
+        return view('dashboard.bookingsToDo', compact('bookings'));
     }
 
     /**
@@ -171,9 +192,27 @@ class BookingController extends Controller
     /**
      * Update the specified resource in storage.
      */
+
     public function update(Request $request, Booking $booking)
     {
-        //
+        $request->validate([
+            'status' => 'required|in:confirmed,pending,rejected',
+        ]);
+
+        $booking->status = $request->status;
+        $booking->save();
+
+        // Imposta il locale temporaneamente alla lingua del cliente
+        $previousLocale = App::getLocale();  // Salva il locale attuale
+        App::setLocale($booking->locale);    // Imposta il locale della prenotazione
+
+        // Invia la mail nella lingua del cliente
+        Mail::to($booking->email)->send(new BookingStatusNotification($booking));
+
+        // Reimposta il locale originale
+        App::setLocale($previousLocale);
+
+        return redirect()->back()->with('success', 'Stato della prenotazione aggiornato con successo.');
     }
 
     /**

@@ -1,10 +1,13 @@
 <?php
 
+use Livewire\Livewire;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\RouteController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ReviewController;
@@ -19,51 +22,64 @@ use App\Http\Controllers\ExcursionController;
 use App\Http\Controllers\OwnerDataController;
 use App\Http\Controllers\DestinationController;
 
-
+Route::get('/', function () {
+    $locale = app()->getlocale(); // Recupera il locale predefinito
+    return redirect()->to($locale); // Reindirizza alla homepage con il locale
+});
 //navigazione
-if (App::getLocale() == "it") {
-    Route::get('/', [PublicController::class, 'home'])->name('home');
-    Route::get('/noleggio/auto/trapani', [PublicController::class, 'noleggio'])->name('noleggio');
-    Route::get('/transfer-taxi-trapani', [PublicController::class, 'transfer'])->name('transfer');
-    Route::get('/escursioni-trapani', [PublicController::class, 'escursioni'])->name('escursioni');
-    Route::get('/prezzi-e-destinazioni', [PublicController::class, 'prezziDestinazioni'])->name('prezziDestinazioni');
-    Route::get('/dicono-di-noi', [PublicController::class, 'diconoDiNoi'])->name('diconoDiNoi');
-    Route::get('/contattaci-richiesta-informazioni', [PublicController::class, 'contattaci'])->name('contattaci');
-    Route::get('/partners', [PublicController::class, 'partners'])->name('partners');
-    Route::get('/FAQ', [PublicController::class, 'faq'])->name('faq');
-    Route::get('/privacy-terms-and-conditions', [PublicController::class, 'privacy'])->name('privacy');
-    Route::get('/servizi/{title}/{id}', [ServiceController::class, 'show'])->name('service.show');
-    Route::get('/escursioni/provincia-di-trapani/{name}/{id}', [ExcursionController::class, 'show'])->name('excursion.show');
-    Route::get('/servizi', [PublicController::class, 'servizi'])->name('services.index');
-} elseif (App::getLocale() == "en") {
-    Route::get('/', [PublicController::class, 'home'])->name('home');
-    Route::get('/en/rent/cars/trapani', [PublicController::class, 'noleggio'])->name('noleggio');
-    Route::get('/en/transfer-taxi-trapani', [PublicController::class, 'transfer'])->name('transfer');
-    Route::get('/en/excursions-trapani', [PublicController::class, 'escursioni'])->name('escursioni');
-    Route::get('/en/prices-and-destinations', [PublicController::class, 'prezziDestinazioni'])->name('prezziDestinazioni');
-    Route::get('/en/about-us', [PublicController::class, 'diconoDiNoi'])->name('diconoDiNoi');
-    Route::get('/en/contact-us', [PublicController::class, 'contattaci'])->name('contattaci');
-    Route::get('/en/partners', [PublicController::class, 'partners'])->name('partners');
-    Route::get('/en/FAQ', [PublicController::class, 'faq'])->name('faq');
-    Route::get('/en/privacy-terms-and-conditions', [PublicController::class, 'privacy'])->name('privacy');
-    Route::get('/en/services/{title}/{id}', [ServiceController::class, 'show'])->name('service.show');
-    Route::get('/en/excursions/trapani/{name}/{id}', [ExcursionController::class, 'show'])->name('excursion.show');
-    Route::get('/en/services', [PublicController::class, 'servizi'])->name('services.index');
-}
+Route::prefix('{locale}')
+    ->where(['locale' => '[a-zA-Z]{2}'])
+    ->middleware('locale')
+    ->group(function () {
+
+        Livewire::setUpdateRoute(function ($handle) {
+            return Route::post('/livewire/update', $handle);
+        });
+
+        Route::get('/', [PublicController::class, 'home'])->name('home');
+        Route::get('/rent/cars/trapani', [PublicController::class, 'noleggio'])->name('noleggio');
+        Route::get('/transfer-taxi/trapani', [PublicController::class, 'transfer'])->name('transfer');
+        Route::get('/excursions/trapani', [PublicController::class, 'escursioni'])->name('escursioni');
+        Route::get('/prices-and-destinations', [PublicController::class, 'prezziDestinazioni'])->name('prezziDestinazioni');
+        Route::get('/reviews', [PublicController::class, 'diconoDiNoi'])->name('diconoDiNoi');
+        Route::get('/contact-us', [PublicController::class, 'contattaci'])->name('contattaci');
+        Route::get('/partners', [PublicController::class, 'partners'])->name('partners');
+        Route::get('/FAQ', [PublicController::class, 'faq'])->name('faq');
+        Route::get('/privacy-terms-and-conditions', [PublicController::class, 'privacy'])->name('privacy');
+        Route::get('/services', [PublicController::class, 'servizi'])->name('services.index');
+        Route::get('/services/{title}/{id}', [ServiceController::class, 'show'])->name('service.show');
+        Route::get('/excursions/trapani/{name}/{id}', [ExcursionController::class, 'show'])->name('excursion.show');
+
+        // Contattaci
+        Route::post('/info-request', [ContactController::class, 'invia'])->name('inviaForm');
+
+        // visualizza stato prenotazione
+        Route::get('/booking/status', [PublicController::class, 'bookingStatus'])->name('booking.status');
+        Route::post('/booking/status', [PublicController::class, 'bookingStatusCheck'])->name('booking.status.check');
+    });
+
+
+// gestione stato prenotazione
+
+Route::post('/dashboard/bookings/{booking}/update-status', [BookingController::class, 'update'])->name('bookings.update');
+Route::get('/dashboard/booking/status/to-do', [BookingController::class, 'bookingToDo'])->name('booking.todo');
+Route::get('/dashboard/booking/confirm/{booking}', [PublicController::class, 'confirmBooking'])->name('booking.confirm');
+Route::get('/dashboard/booking/reject/{booking}', [PublicController::class, 'rejectBooking'])->name('booking.reject');
+
+
+
+
+
+
+// DASHBOARD
 
 // vista dashboard
 Route::get('/dashboard', [PublicController::class, 'dashboard'])->name('dashboard')->middleware('auth');
+// testing
+Route::get('dashboard/testing', [TestController::class, 'test'])->name('dashboard.testing')->middleware('auth');
+Route::get('/dashboard/generate/pdf/{bookingId}/{lang}', [TestController::class, 'pdf'])->name('testing.genPDF')->middleware('auth');
+Route::get('/dashboard/email/preview/{mailType}/{bookingId?}/{lang?}', [TestController::class, 'emailPreview'])->name('email.view')->middleware('auth');
 
-// Vista PDF 
-Route::get('/view/pdf', [PublicController::class, 'pdf'])->name('pdf')->middleware('auth');
-
-
-// Contattaci
-Route::post('/richiedi-informazioni', [ContactController::class, 'invia'])->name('inviaForm');
-
-// Lingua
-Route::post('/lingua/{lang}', [PublicController::class, 'setLanguage'])->name('setLocale');
-// DASHBOARD
 
 // eliminazione immagini
 Route::delete('/dashboard/images/{id}', [PublicController::class, 'deleteImage'])->name('images.delete')->middleware('auth');
@@ -161,3 +177,9 @@ Route::get('/dashboard/discounts', [DiscountController::class, 'index'])->name('
 Route::post('/dashboard/discounts', [DiscountController::class, 'store'])->name('discounts.store')->middleware('auth');
 Route::put('/dashboard/discounts/{discount}', [DiscountController::class, 'update'])->name('discounts.update')->middleware('auth');
 Route::delete('/dashboard/discounts/{discount}', [DiscountController::class, 'destroy'])->name('discounts.destroy')->middleware('auth');
+
+// Gestione utenti
+Route::get('/dashboard/users', [UserController::class, 'index'])->name('dashboard.users')->middleware('auth');
+Route::post('/dashboard/users', [UserController::class, 'store'])->name('users.store')->middleware('auth');
+Route::put('/dashboard/users/{user}', [UserController::class, 'update'])->name('users.update')->middleware('auth');
+Route::delete('/dashboard/users/{user}', [UserController::class, 'destroy'])->name('users.destroy')->middleware('auth');

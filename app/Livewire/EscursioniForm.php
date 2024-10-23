@@ -9,7 +9,7 @@ class EscursioniForm extends Component
 {
     public $excursionSelect;
     public $excursionPassengers = 1;
-    public $excursionPrice = 0;
+    public $excursionPrice;
     public $excursionDate;
 
     public function rules()
@@ -93,12 +93,12 @@ class EscursioniForm extends Component
         $bookingData['duration'] = $duration;
         $bookingData['departure_name'] = $departureName;
 
-        // Formattare la data di partenza
-        $departureDate = date('D d F Y', strtotime($bookingData['date_dep']));
-        $bookingData['date_departure'] = $departureDate;
+        // // Formattare la data di partenza
+        // $departureDate = date('D d F Y', strtotime($bookingData['date_dep']));
+        // $bookingData['date_departure'] = $departureDate;
 
-        $departureTime = date('H:i', strtotime($bookingData['date_dep']));
-        $bookingData['time_departure'] = $departureTime;
+        // $departureTime = date('H:i', strtotime($bookingData['date_dep']));
+        // $bookingData['time_departure'] = $departureTime;
 
         $this->dispatch('bookingSubmitted', $bookingData);
     }

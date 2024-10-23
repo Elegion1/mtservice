@@ -12,32 +12,12 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
 
-Artisan::command('sitemap:generate', function () {
+Artisan::command('logs:clear', function() {
+    
+    exec('rm -f ' . storage_path('logs/*.log'));
 
-    // Percorso della sitemap
-    $sitemapPath = public_path('sitemap.xml');
-
-    // Verifica se il file della sitemap esiste e lo elimina
-    if (file_exists($sitemapPath)) {
-        unlink($sitemapPath);
-        $this->comment('Vecchia sitemap cancellata.');
-    }
-
-    $sitemap = SitemapGenerator::create('https://tranchidatransfer.it')->getSitemap();
-
-    // Aggiungi URL manualmente se necessario
-    $sitemap->add(Url::create('/some-page')
-        ->setLastModificationDate(now())
-        ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
-        ->setPriority(0.8));
-
-    // Scrive la nuova sitemap nel file
-    $sitemap->writeToFile($sitemapPath);
-
-    $this->comment('Sitemap generata con successo.');
-});
-
-Artisan::command('schedule:run', function () {
-    // Esegui la generazione della sitemap ogni giorno
-    $this->call('sitemap:generate');
-})->describe('Genera la sitemap ogni giorno.');
+    exec('rm -f ' . base_path('*.log'));
+    
+    $this->comment('Logs have been cleared!');
+    
+})->describe('Clear log files');

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -15,11 +15,10 @@
 
 <body>
     @auth
-
         <nav class="navbar navbar-expand-lg bg_nav border_custom shadow z-3 d-flex flex-column mb-5">
             <div class="container">
-                <p>Dashboard</p>
-                <p>Benvenuto: {{ Auth::user()->email }}</p>
+                <p><a href="{{ route('dashboard') }}">Dashboard</a></p>
+                <p>Benvenuto: {{ Auth::user()->name }}</p>
                 <button class="navbar-toggler p-0 border-0 " type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -28,23 +27,23 @@
 
                 <div class="container d-block d-lg-none">
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        @if (Auth::user()->name == 'Admin')
+                        @if (Auth::user()->role == 'admin')
                             <x-admin-links />
-                        @else
+                        @elseif (Auth::user()->role == 'user')
                             <x-user-links />
                         @endif
                     </div>
                 </div>
             </div>
             <div class="container-fluid d-none d-lg-block">
-                @if (Auth::user()->name == 'Admin')
+                @if (Auth::user()->role == 'admin')
                     <x-admin-links />
-                @else
+                @elseif (Auth::user()->role == 'user')
                     <x-user-links />
                 @endif
             </div>
         </nav>
-        <div class="container-fluid mb-5">
+        <div class="container-fluid mb-5 mx-auto">
             <x-display-error />
             <x-display-message />
             <x-display-success />

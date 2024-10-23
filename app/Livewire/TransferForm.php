@@ -155,22 +155,22 @@ class TransferForm extends Component
 
         $bookingData['duration'] = $route->duration;
 
-        // Formattare la data di partenza
-        $departureDate = date('D d F Y', strtotime($bookingData['date_dep']));
-        $bookingData['date_departure'] = $departureDate;
+        // // Formattare la data di partenza
+        // $departureDate = date('D d F Y', strtotime($bookingData['date_dep']));
+        // $bookingData['date_departure'] = $departureDate;
 
-        $departureTime = date('H:i', strtotime($bookingData['date_dep']));
-        $bookingData['time_departure'] = $departureTime;
+        // $departureTime = date('H:i', strtotime($bookingData['date_dep']));
+        // $bookingData['time_departure'] = $departureTime;
 
-        // Se c'è una data di ritorno, formattarla
-        if (!empty($bookingData['date_ret'])) {
+        // // Se c'è una data di ritorno, formattarla
+        // if (!empty($bookingData['date_ret'])) {
 
-            $returnDate = date('D d F Y', strtotime($bookingData['date_ret']));
-            $bookingData['date_return'] = $returnDate;
+        //     $returnDate = date('D d F Y', strtotime($bookingData['date_ret']));
+        //     $bookingData['date_return'] = $returnDate;
 
-            $returnTime = date('H:i', strtotime($bookingData['date_ret']));
-            $bookingData['time_return'] = $returnTime;
-        }
+        //     $returnTime = date('H:i', strtotime($bookingData['date_ret']));
+        //     $bookingData['time_return'] = $returnTime;
+        // }
 
         $this->dispatch('bookingSubmitted', $bookingData);
     }

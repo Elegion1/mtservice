@@ -2,16 +2,22 @@
 
 namespace App\Livewire;
 
-use App\Models\Booking;
-use App\Models\Customer;
-use App\Models\OwnerData;
-use Livewire\Component;
 use Dompdf\Dompdf;
 use Dompdf\Options;
-use Illuminate\Support\Facades\Mail;
-use App\Mail\BookingAdmin;
-use App\Mail\BookingConfirmation;
+use App\Models\Booking;
+use Livewire\Component;
+use App\Models\Customer;
 use App\Models\Discount;
+use App\Models\OwnerData;
+use App\Mail\BookingAdmin;
+use Illuminate\Support\Str;
+use App\Models\CountryDialCode;
+use App\Mail\BookingConfirmation;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 
 class BookingSummary extends Component
 {
@@ -24,6 +30,13 @@ class BookingSummary extends Component
     public $privacy_policy = false;
     public $terms_conditions = false;
     public $adminMail;
+
+    public $dialCodes = [];
+    public $dialCode = '+39';
+    public $dialFlag = [
+        'png' => null,
+        'alt' => null,
+    ];
 
     public $originalPrice;
     public $discountedPrice;
@@ -41,6 +54,7 @@ class BookingSummary extends Component
             'body' => 'required|string|max:1000',
             'privacy_policy' => 'accepted',
             'terms_conditions' => 'accepted',
+            'dialCode' => 'required|string',
         ];
     }
 
@@ -61,20 +75,23 @@ class BookingSummary extends Component
     public function mount($bookingData)
     {
         $this->bookingData = $bookingData;
-
         $ownerData = OwnerData::first();
         $this->adminMail = $ownerData->email;
 
         $this->originalPrice = $this->bookingData['price'];
         $this->discountedPrice = $this->bookingData['price'];
+        $this->dialCodes = $this->getCountryDialCodes();
+        $this->dialFlag = $this->getDialFlag($this->dialCode);
     }
 
     public function updated($field)
     {
-        // Se i campi necessari per il calcolo del prezzo vengono aggiornati, ricalcola il prezzo
         if (in_array($field, ['name', 'surname', 'email', 'phone'])) {
             $this->validateOnly($field);
             $this->calculatePrice();
+        }
+        if ($field === 'dialCode') {
+            $this->dialFlag = $this->getDialFlag($this->dialCode);
         }
     }
 
@@ -166,8 +183,102 @@ class BookingSummary extends Component
         // dd($this->originalPrice, $this->discountedPrice, $this->discountPercentage, $this->discountType);
     }
 
+    public function generateUniqueCode()
+    {
+        do {
+            $code = strtoupper(Str::random(6));
+        } while (Booking::where('code', $code)->exists());
+
+        return $code;
+    }
+
+    public function getCountryDialCodes()
+    {
+        // Prova a recuperare i codici dialettali dal database
+        $dialCodes = CountryDialCode::all()->toArray();
+
+        // Se non ci sono codici nel database, scarica i codici dal servizio esterno
+        if (empty($dialCodes)) {
+            $url = 'https://restcountries.com/v3.1/all?fields=name,idd,flags';
+            $response = Http::get($url);
+
+            if ($response->successful()) {
+                $countries = $response->json();
+                $dialCodes = [];
+
+                foreach ($countries as $country) {
+                    // Controlla se 'idd' esiste e ha la chiave 'root'
+                    if (isset($country['idd']['root'])) {
+                        // Tronca il valore 'alt' se supera i 254 caratteri
+                        $alt = isset($country['flags']['alt']) ? $country['flags']['alt'] : '';
+                        $alt = strlen($alt) > 254 ? substr($alt, 0, 254) : $alt;
+
+                        $dialCodes[] = [
+                            'name' => $country['name']['common'],
+                            'code' => $country['idd']['root'] . ($country['idd']['suffixes'][0] ?? ''),
+                            'flag' => $country['flags']['png'],
+                            'alt' => $alt,
+                        ];
+                    }
+                }
+
+                // Ordina i dial codes per nome del paese in ordine alfabetico
+                usort($dialCodes, function ($a, $b) {
+                    return strcmp($a['name'], $b['name']);
+                });
+
+                // Salva i codici nel database
+                foreach ($dialCodes as $dialCode) {
+                    DB::table('country_dial_codes')->updateOrInsert(
+                        ['code' => $dialCode['code']], // Condizione di esistenza
+                        [
+                            'name' => $dialCode['name'],
+                            'flag' => $dialCode['flag'],
+                            'alt' => $dialCode['alt'],
+                        ]
+                    );
+                }
+            }
+        }
+
+        // Restituisci i codici dialettali (dal database)
+        return CountryDialCode::all()->toArray(); // Recupera di nuovo i dati dal database
+    }
+
+    protected function getDialFlag($dialCode)
+    {
+        foreach ($this->dialCodes as $code) {
+            if ($code['code'] === $dialCode) {
+                return [
+                    'png' => $code['flag'],
+                    'alt' => $code['alt'],
+                ];
+            }
+        }
+        return ['png' => null, 'alt' => null]; // Restituisci null se non trovi una corrispondenza
+    }
+
     public function confirmBooking()
     {
+        $this->name = trim($this->name);
+        $this->surname = trim($this->surname);
+        $this->email = trim($this->email);
+
+        // Rimuoviamo tutti gli spazi e i caratteri non numerici eccetto il segno +
+        $this->phone = preg_replace('/[^\d+]/', '', $this->phone);
+
+        // Ignoriamo il prefisso esistente
+        // Rimuoviamo eventuali prefissi + esistenti
+        $this->phone = ltrim($this->phone, '+');
+
+        // Componiamo il numero di telefono usando solo il prefisso selezionato
+        $this->phone = $this->dialCode . $this->phone;
+
+        // Assicuriamoci che ci sia solo un '+' all'inizio
+        if (!str_starts_with($this->phone, '+')) {
+            $this->phone = '+' . $this->phone;
+        }
+        // dd($this->phone);
         $this->validate();
         $this->bookingData['original_price'] = $this->originalPrice;
         $this->bookingData['price'] = $this->discountedPrice;
@@ -179,6 +290,8 @@ class BookingSummary extends Component
             'email' => $this->email,
             'phone' => $this->phone,
             'body' => $this->body,
+            'code' => $this->generateUniqueCode(),
+            'locale' => App::getLocale(),
         ]);
 
         // Se il cliente non esiste, crea un nuovo record nel database
@@ -195,14 +308,15 @@ class BookingSummary extends Component
         $pdfAdmin = $this->generatePDF($booking, 'it');
 
         // Invio dell'email con il PDF allegato
-        Mail::to($this->email)->send(new BookingConfirmation($pdfClient));
-        Mail::to($this->adminMail)->send(new BookingAdmin($pdfAdmin));
-
+        Mail::to($this->email)->send(new BookingConfirmation($booking, $pdfClient));
+        App::setLocale('it');
+        Mail::to($this->adminMail)->send(new BookingAdmin($booking, $pdfAdmin));
+        App::setlocale($language);
         // Messaggio di conferma
         session()->flash('message', __('ui.confirmation_message'));
 
         // Eventuale reindirizzamento
-        return redirect()->to('/');
+        return redirect()->route('home');
     }
 
     private function generatePDF($booking, $language)
@@ -225,9 +339,11 @@ class BookingSummary extends Component
 
     public function render()
     {
+        // dd($this->dialFlag);
         return view('livewire.booking-summary', [
             'originalPrice' => $this->originalPrice,
             'discountedPrice' => $this->discountedPrice,
+            'dialFlag' => $this->dialFlag,
         ]);
     }
 }

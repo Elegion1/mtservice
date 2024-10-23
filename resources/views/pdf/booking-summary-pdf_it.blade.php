@@ -135,7 +135,7 @@
         <img class="logo-img"
             src="https://tranchidatransfer.it/storage/images/cXXYvbUyhobu6FZQ8X6MX7NEfNkOoZNfMxPk27R4.png" alt="LOGO">
         <div class="booking_number">
-            <span>Prenotazione numero: <span class="text_col">{{ $booking['id'] }}</span></span>
+            <span>Prenotazione numero: <span class="text_col">{{ $booking['code'] }}</span></span>
         </div>
         <div class="contact-info">
             <span>Chiamaci per info</span>
@@ -153,6 +153,12 @@
             <p><strong>Email:</strong> <span class="text-primary">{{ $booking['email'] }}</span></p>
             <p><strong>Telefono:</strong> <span class="text-primary"><a
                         href="tel:{{ $booking['phone'] }}">{{ $booking['phone'] }}</a></span></p>
+            <p>
+                <a
+                    href="{{ route('booking.status', ['locale' => 'it', 'code' => $booking['code'] ?? 'default_code', 'email' => $booking['email'] ?? 'default_email']) }}">
+                    Verifica lo stato della prenotazione
+                </a>
+            </p>
         </div>
 
         <div class="riepilogo">
@@ -165,13 +171,14 @@
                 <p>Tipo di servizio: <span class="text_col">{{ ucfirst($booking['bookingData']['type']) }}</span></p>
                 <p>Transfer da: <span class="text_col">{{ $booking['bookingData']['departure_name'] ?? 'N/A' }}</span>
                     a: <span class="text_col">{{ $booking['bookingData']['arrival_name'] ?? 'N/A' }}</span></p>
-                <p>Data: <span class="text_col">{{ $booking['bookingData']['date_departure'] ?? 'N/A' }}</span>
-                    ore: <span class="text_col">{{ $booking['bookingData']['time_departure'] ?? 'N/A' }}</span></p>
+                <p>Data: <span
+                        class="text_col">{{ \Carbon\Carbon::parse($booking['bookingData']['date_dep'])->translatedFormat('d/m/Y H:i') ?? 'N/A' }}</span>
+                </p>
                 <p>durata: <span class="text_col">{{ $booking['bookingData']['duration'] ?? 'N/A' }}</span>
                     minuti circa</p>
                 @if (!empty($booking['bookingData']['date_ret']))
-                    <p>Ritorno il: <span class="text_col">{{ $booking['bookingData']['date_return'] }}</span>
-                        ore <span class="text_col">{{ $booking['bookingData']['time_return'] }}</span>
+                    <p>Ritorno il: <span
+                            class="text_col">{{ \Carbon\Carbon::parse($booking['bookingData']['date_ret'])->translatedFormat('d/m/Y H:i') }}</span>
                     </p>
                 @endif
                 <p>Passeggeri: <span class="text_col">{{ $booking['bookingData']['passengers'] ?? 'N/A' }}</span>
@@ -180,9 +187,8 @@
                 <p>Tipo di servizio: <span class="text_col">{{ ucfirst($booking['bookingData']['type']) }}</span> a
                     <span class="text_col">{{ $booking['bookingData']['departure_name'] ?? 'N/A' }}</span>
                 </p>
-                <p>Data: <span class="text_col">{{ $booking['bookingData']['date_departure'] ?? 'N/A' }}</span>
-                </p>
-                <p>ore: <span class="text_col">{{ $booking['bookingData']['time_departure'] ?? 'N/A' }}</span>
+                <p>Data: <span
+                        class="text_col">{{ \Carbon\Carbon::parse($booking['bookingData']['date_dep'])->translatedFormat('d/m/Y H:i') ?? 'N/A' }}</span>
                 </p>
                 <p>Durata: <span class="text_col">{{ $booking['bookingData']['duration'] ?? 'N/A' }}</span>
                     ore circa</p>
@@ -192,9 +198,11 @@
                 <p>Tipo di servizio: <span class="text_col">{{ ucfirst($booking['bookingData']['type']) }}</span> <span
                         class="text_col">{{ $booking['bookingData']['car_name'] ?? 'N/A' }}
                         {{ $booking['bookingData']['car_description'] ?? 'N/A' }}</span></p>
-                <p>Data di ritiro: <span class="text_col">{{ $booking['bookingData']['date_start'] ?? 'N/A' }}</span>
+                <p>Data di ritiro: <span
+                        class="text_col">{{ \Carbon\Carbon::parse($booking['bookingData']['date_start'])->translatedFormat('d/m/Y H:i') ?? 'N/A' }}</span>
                 </p>
-                <p>Data di consegna: <span class="text_col">{{ $booking['bookingData']['date_end'] ?? 'N/A' }}</span>
+                <p>Data di consegna: <span
+                        class="text_col">{{ \Carbon\Carbon::parse($booking['bookingData']['date_end'])->translatedFormat('d/m/Y H:i') ?? 'N/A' }}</span>
                 </p>
             @endif
 

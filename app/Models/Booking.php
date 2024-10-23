@@ -20,6 +20,9 @@ class Booking extends Model
         'email',
         'phone',
         'body',
+        'status',
+        'code',
+        'locale',
         'bookingData', // Assicurati che questo campo sia incluso negli attributi fillable
     ];
 

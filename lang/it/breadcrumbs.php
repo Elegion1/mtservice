@@ -14,6 +14,7 @@ return [
     'services' => 'Servizi',
     'service_show' => 'Servizio: :title',
     'excursion_show' => 'Escursione: :name',
+    'bookings' => 'Stato prenotazione',
     'dashboard' => 'Dashboard',
     'dashboard_routes' => 'Gestione Rotte',
     'dashboard_destinations' => 'Gestione Destinazioni',

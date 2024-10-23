@@ -156,4 +156,7 @@ return [
         ]),
     ],
 
+    'redirects' => [
+        'logout' => 'login',
+    ],
 ];

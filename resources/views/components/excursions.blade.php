@@ -17,7 +17,7 @@
                         @foreach ($chunk as $excursion)
                             <div class="col-md-4">
                                 <a class="text-reset text-decoration-none"
-                                    href="{{ route('excursion.show', ['id' => $excursion->id]) }}">
+                                    href="{{ route('excursion.show', ['name' => $excursion->name_it, 'id' => $excursion->id]) }}">
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-12 my-3 d-flex justify-content-center align-items-center">

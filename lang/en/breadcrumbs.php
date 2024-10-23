@@ -14,6 +14,7 @@ return [
     'services' => 'Services',
     'service_show' => 'Service: :title',
     'excursion_show' => 'Excursion: :name',
+    'bookings' => 'Booking status',
     'dashboard' => 'Dashboard',
     'dashboard_routes' => 'Manage Routes',
     'dashboard_destinations' => 'Manage Destinations',

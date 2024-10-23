@@ -15,7 +15,8 @@
             <small>P.IVA: {{ $ownerdata->pIva }}</small><br>
             <small>C.F.: {{ $ownerdata->codFisc }}</small><br>
             <br>
-            <a class="nav-link" href="{{ route('privacy') }}" target="_blank">{{ __('ui.privacyPolicy') }}</a>
+            <a class="nav-link" href="{{ route('privacy') }}#privacy" target="_blank">{{ __('ui.privacyPolicy') }}</a>
+            <a class="nav-link" href="{{ route('privacy') }}#terms" target="_blank">{{ __('ui.termsConditions') }}</a>
 
         </div>
 
@@ -28,6 +29,10 @@
                 <li>
                     <a class="nav-link text-body-secondary text-capitalize p-0 text-small"
                         href="https://tranchidatransfer.it/sitemap.xml">Sitemap</a>
+                </li>
+                <li>
+                    <a class="nav-link text-body-secondary text-capitalize p-0 text-small"
+                        href="{{ route('booking.status') }}">{{__('ui.bookingStatus')}}</a>
                 </li>
             </ul>
         </div>
@@ -65,7 +70,9 @@
                 M.T. Service <i class="bi bi-c-circle"></i> 2024 All
                 rights reserved</small>
             <br>
-            <small>Created and Optimized by Giovanni Sugamiele </small>
+            <small>Created and Optimized by <a
+                    class="text-reset link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+                    href="https://www.linkedin.com/in/giovanni-sugamiele-webdev/">Giovanni Sugamiele</a></small>
         </div>
     </div>
 </footer>

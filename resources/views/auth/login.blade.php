@@ -2,7 +2,7 @@
     <div class="d-flex justify-content-center align-items-center vh-100 vw-100">
         <div class="container p-1 m-3 border bg-secondary-subtle rounded shadow" style="width:50%; min-width:350px">
             <div class="d-flex justify-content-center align-items-center p-3">
-                <a class="text-decoration-none" href="{{route('home')}}" title="Torna indietro"><i class="bi bi-arrow-left-circle"></i></a>
+                <a class="text-decoration-none" href="{{route('home', ['locale' => 'it'])}}" title="Torna indietro"><i class="bi bi-arrow-left-circle"></i></a>
                 <p class="text-a mb-0 mx-auto text-uppercase">Accedi alla dashboard</p>
                 <i style="width: 16px; height:16px"></i>
             </div>

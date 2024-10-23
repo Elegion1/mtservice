@@ -1,5 +1,6 @@
 <?php
 return [
+    'date_format' => 'd/m/Y H:i',
     // HOME
     'title1' => 'Most Frequent Routes',
     'title2' => 'Our Services',
@@ -7,6 +8,7 @@ return [
 
     //navbar
     'navTitle' => 'Book Online or Call',
+    'selectLanguage' => 'Select language :lang',
 
     //Livewire
     //transfer
@@ -26,9 +28,12 @@ return [
     'excursionSelect' => 'Select Excursion',
 
     //booking 
-    'transfer' => 'TRANSFER',
-    'excursions' => 'EXCURSIONS',
-    'carRent' => 'CAR RENTAL',
+    'transfer' => 'transfer',
+    'excursions' => 'excursions',
+    'carRent' => 'car rental',
+
+    'escursione' => 'excursion',
+    'noleggio' => 'car rental',
 
     //car rental
     'rentTitle' => 'Book Your Car',
@@ -57,6 +62,7 @@ return [
     'surname' => 'Surname',
     'phone' => 'Phone',
     'email' => 'Email',
+    'body' => 'Message',
     'bookingConfBodyMsg' => 'Add Notes or Special Requests: For example, flight number, need for child seats, transporting bulky items, etc..',
     'acceptPrivacy' => 'I accept the',
     'acceptTerms' => 'I accept the',
@@ -200,9 +206,34 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
 
     'callForInfo' => 'Call us for information',
     'dearCustomer' => 'Dear Customer',
+    'messageSent' => 'The message has been sent',
+    'contactSoon' => 'We will get back to you as soon as possible',
     'mailMsg' => 'Your booking request has been successfully submitted, please find the summary attached',
     'mailMsg2' => 'We will contact you soon for confirmation',
     'thxForChoosing' => 'Thank you for choosing Tranchida Transfer & Rent!',
+    'bookingStatusMessage' => 'Here you can verify the status of your booking',
+    'clickHere' => 'Click here',
 
+    'bookingStatusUpdate' => 'Your booking status has been updated to :status, click on the link below to see more',
+
+    'bookingStatus' => 'Booking Status',
+    'bookingStatusEmailVerification' => 'Enter the email you used for the booking',
+    'bookingStatusIDVerification' => 'Enter the booking number',
+    'verifyEmail' => 'Verify Email',
+    'bookingID' => 'Booking code',
+    'status' => 'Booking Status',
+    'confirmed' => '<strong class="text-success">Confirmed</strong>',
+    'pending' => '<strong class="text-warning">In progress</strong>',
+    'rejected' => '<strong class="text-danger">Rejected</strong>',
+
+    'backToHome' => 'Back to home',
+
+    'bookingStatusNotification' => 'Booking status notification',
+    'bookingSummary' => 'Booking summary',
+    'infoRequest' => 'Information request',
+
+    'car' => 'Car',
+
+    'contactBody' => 'Insert a message',
 
 ];

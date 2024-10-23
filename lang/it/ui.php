@@ -1,5 +1,6 @@
 <?php
 return [
+    'date_format' => 'd/m/Y H:i',
     // HOME
     'title1' => 'Le tratte più frequenti',
     'title2' => 'I nostri servizi',
@@ -7,6 +8,7 @@ return [
 
     //navbar
     'navTitle' => 'Prenota online o chiama',
+    'selectLanguage' => 'Seleziona lingua :lang',
 
     //Livewire
     //transfer
@@ -26,12 +28,15 @@ return [
     'excursionSelect' => 'Seleziona Escursione',
 
     //prenotazione 
-    'transfer' => 'TRANSFER',
-    'excursions' => 'ESCURSIONI',
-    'carRent' => 'NOLEGGIO AUTO',
+    'transfer' => 'transfer',
+    'excursions' => 'escursioni',
+    'carRent' => 'noleggio auto',
+
+    'escursione' => 'escursione',
+    'noleggio' => 'noleggio',
 
     //noleggio auto
-    'rentTitle' => 'Prenota la tua auto',
+    'rentTitle' => 'Prenota noleggio',
     'rentStartDate' => 'Data di ritiro',
     'rentEndDate' => 'Data di consegna',
     'quantity' => 'Quantità',
@@ -57,6 +62,7 @@ return [
     'surname' => 'Cognome',
     'phone' => 'Telefono',
     'email' => 'Email',
+    'body' => 'Messaggio',
     'bookingConfBodyMsg' => 'Inserisci delle note o eventuali richieste. Es. Numero volo, necessità di seggiolini per bambini, se si trasportano oggetti voluminosi, ecc... ',
     'acceptPrivacy' => 'Accetto la',
     'acceptTerms' => 'Accetto i',
@@ -201,9 +207,38 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
 
     'callForInfo' => 'Chiamaci per informazioni',
     'dearCustomer' => 'Gentile Cliente',
+    'messageSent' => 'Il messaggio è stato inviato',
+    'contactSoon' => 'Ti ricontatteremo al più presto',
     'mailMsg' => 'La richiesta di prenotazione è stata effettuata correttamente, in allegato trovi il riepilogo',
     'mailMsg2' => 'Ti contatteremo al più presto per una conferma',
     'thxForChoosing' => 'Grazie per aver scelto Tranchida Transfer & Rent!',
+    'bookingStatusMessage' => 'Qui puoi verificare lo stato della tua prenotazione',
+    'clickHere' => 'Clicca qui',
+
+    'bookingStatusUpdate' => 'Lo stato della tua prenotazione è stato modificato in :status, clicca sul link in basso per più informazioni',
+
+    'bookingStatus' => 'Stato prenotazione',
+    'bookingStatusEmailVerification' => 'Inserisci la mail con cui hai effettuato la prenotazione',
+    'bookingStatusIDVerification' => 'Inserisci il numero della prenotazione',
+    'verifyEmail' => 'Verifica email',
+    'bookingID' => 'Codice prenotazione',
+
+    'status' => 'Stato prenotazione',
+    'confirmed' => '<strong class="text-success">Confermata</strong>',
+    'pending' => '<strong class="text-warning">In lavorazione</strong>',
+    'rejected' => '<strong class="text-danger">Rifiutata</strong>',
+
+    'backToHome' => 'Torna alla home',
+
+    'bookingStatusNotification' => 'Notifica stato prenotazione',
+    'bookingSummary' => 'Riepilogo prenotazione',
+    'infoRequest' => 'Richesta informazioni',
+
+    'car' => 'Auto',
+
+    'contactBody' => 'Inserisci un messaggio',
+
+
 ];
 
 

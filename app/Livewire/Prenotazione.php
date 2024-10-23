@@ -11,6 +11,19 @@ class Prenotazione extends Component
     public $bookingData = []; // Inizializza come array vuoto
     public $isHome = false; // Variabile per determinare se siamo nella home
 
+    // public $bookingData = [
+    //     "type" => "escursione",
+    //     "price" => "150",
+    //     "date_dep" => "2024-11-03T11:09",
+    //     "duration" => "1",
+    //     "passengers" => 1,
+    //     "departure_id" => "2",
+    //     "date_departure" => "Sun 03 November 2024",
+    //     "departure_name" => "Marsala",
+    //     "original_price" => "150",
+    //     "time_departure" => "11:09",
+    // ];
+
     public function mount()
     {
         $route = Route::currentRouteName();
@@ -27,6 +40,7 @@ class Prenotazione extends Component
             $this->showEscursioni();
         } else {
             $this->showTransfer(); // Default
+            // $this->showBookingSummary($this->bookingData);
         }
     }
 

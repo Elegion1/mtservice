@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
 {
-    public function show($title, $id)
+    public function show($locale, $title, $id)
     {
         $service = Service::findOrFail($id);
 

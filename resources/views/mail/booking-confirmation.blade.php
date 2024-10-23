@@ -510,14 +510,18 @@
                                                                         class="es-text-mobile-size-16">
                                                                         {{ __('ui.mailMsg') }}.</p>
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
-                                                                        class="es-text-mobile-size-16">{{__('ui.mailMsg2')}}.</p>
+                                                                        class="es-text-mobile-size-16">
+                                                                        {{ __('ui.mailMsg2') }}.</p>
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
                                                                         class="es-text-mobile-size-16">​</p>
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
-                                                                        class="es-text-mobile-size-16">{{__('ui.thxForChoosing')}}</p>
+                                                                        class="es-text-mobile-size-16">
+                                                                        {{ __('ui.thxForChoosing') }}</p>
                                                                     <p
                                                                         style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">
-                                                                        ​</p>
+                                                                        {{ __('ui.bookingStatusMessage') }} <a
+                                                                            href="{{ route('booking.status', ['locale' => $locale, 'code' => $booking['code'] ?? 'default_code', 'email' => $booking['email'] ?? 'default_email']) }}">{{ __('ui.clickHere') }}</a>​
+                                                                    </p>
                                                                 </td>
                                                             </tr>
                                                         </table>

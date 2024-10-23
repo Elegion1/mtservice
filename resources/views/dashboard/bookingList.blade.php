@@ -1,123 +1,54 @@
 <x-dashboard-layout>
-    <div class="row">
-        <div class="col-8">
-            <h1>Lista Prenotazioni</h1>
+    <div class="container-fluid">
+
+        <h2 class="text-wrap">Prenotazioni confermate</h2>
+        <a class="btn btn-sm btn-secondary text-small" href="{{ route('booking.todo') }}">Da confermare</a>
+
+        <div class="row d-flex justify-content-center align-items-center mt-1">
+            <div class="col-4 text-start">
+                <button id="prevBtn" class="btn btn-secondary btn-sm text-small">Precedente</button>
+            </div>
+            <div class="col-4">
+                <select id="groupBySelector" class="form-select form-select-sm">
+                    <option value="month" selected>Mese</option>
+                    <option value="day">Giorno</option>
+                </select>
+            </div>
+            <div class="col-4 text-end">
+                <button id="nextBtn" class="btn btn-secondary btn-sm text-small">Successivo</button>
+            </div>
         </div>
 
-        <div class="col-4 mb-3">
-            <select id="groupBySelector" class="form-select">
-                <option value="month" selected>Mese</option>
-                <option value="day">Giorno</option>
-            </select>
-        </div>
-        <div class="col-6 text-start">
-            <button id="prevBtn" class="btn btn-secondary">Precedente</button>
-        </div>
-        <div class="col-6 text-end">
-            <button id="nextBtn" class="btn btn-secondary">Successivo</button>
-        </div>
-    </div>
+        <div id="dayGroup">
+            @foreach ($groupedByDay as $date => $dayBookings)
+                <div class="day-bookings" data-date="{{ $date }}">
+                    <h3 class="text-center my-3 bg-secondary-subtle">
+                        {{ \Carbon\Carbon::parse($date)->translatedFormat('l d/m/Y') }}
+                    </h3>
 
-    <div id="dayGroup">
-        @foreach ($groupedByDay as $date => $dayBookings)
-            <div class="day-bookings" data-date="{{ $date }}">
-                <h3 class="text-center my-3 bg-secondary-subtle">
-                    {{ \Carbon\Carbon::parse($date)->translatedFormat('l d/m/Y') }}
-                </h3>
+                    <x-dayBookingsShow :dayBookings="$dayBookings" />
+                </div>
+            @endforeach
+        </div>
 
-                @foreach ($dayBookings->sortBy('start_date') as $booking)
-                    <div class="booking-item border p-3">
-                        <div class="row">
-                            <div class="col-3">
-                                <!-- Ora di partenza o di noleggio -->
-                                {{ \Carbon\Carbon::parse($booking->start_date ?? $booking->end_date)->format('H:i') }}
-                            </div>
-                            <div class="col-9">
-                                <button class="btn open-details-modal p-0" data-bs-toggle="modal"
-                                    data-bs-target="#bookingDetailsModal"
-                                    data-booking-data="{{ json_encode($booking->bookingData) }}">
-                                    <p class="text-primary text-decoration-underline text-start m-0 text-wrap">
-                                        {{ $booking->name }} {{ $booking->surname }} >>
-                                        {{ ucfirst($booking->bookingData['type']) }}
-                                        @if ($booking->bookingData['type'] == 'noleggio')
-                                            <strong>{{ $booking->bookingData['car_name'] }}</strong>
-                                        @elseif ($booking->bookingData['type'] == 'escursione')
-                                            >> <strong>{{ $booking->bookingData['departure_name'] }}</strong> >>
-                                        @endif
-                                        @if ($booking->start_date && $booking->bookingData['type'] == 'transfer')
-                                            >> <strong>{{ $booking->bookingData['departure_name'] }}</strong> >>
-                                            <strong>{{ $booking->bookingData['arrival_name'] }}</strong> >>
-                                        @endif
-                                        @if ($booking->bookingData['type'] == 'transfer' || $booking->bookingData['type'] == 'escursione')
-                                            {{ $booking->bookingData['passengers'] }} <strong>PAX</strong>
-                                        @endif
-                                        >> {{ $booking->bookingData['price'] }} €
-                                    </p>
-                                </button>
-                            </div>
+        <div id="monthGroup" class="d-none">
+            @foreach ($groupedByMonth as $month => $dayBookingsInMonth)
+                <div class="month-bookings" data-month="{{ $month }}">
+                    <h2 class="text-center my-3 bg-primary-subtle">
+                        {{ \Carbon\Carbon::parse($month . '-01')->translatedFormat('F Y') }}</h2>
+
+                    @foreach ($dayBookingsInMonth as $date => $dayBookings)
+                        <div class="day-bookings" data-date="{{ $date }}">
+                            <h3 class="text-center my-3 bg-secondary-subtle">
+                                {{ \Carbon\Carbon::parse($date)->translatedFormat('l d/m/Y') }}
+                            </h3>
+
+                            <x-dayBookingsShow :dayBookings="$dayBookings" />
                         </div>
-                    </div>
-                @endforeach
-            </div>
-        @endforeach
-    </div>
-
-    <div id="monthGroup" class="d-none">
-        @foreach ($groupedByMonth as $month => $dayBookingsInMonth)
-            <div class="month-bookings" data-month="{{ $month }}">
-                <h2 class="text-center my-4 bg-primary-subtle">
-                    {{ \Carbon\Carbon::parse($month . '-01')->translatedFormat('F Y') }}</h2>
-
-                @foreach ($dayBookingsInMonth as $date => $dayBookings)
-                    <div class="day-bookings" data-date="{{ $date }}">
-                        <h3 class="text-center my-3 bg-secondary-subtle">
-                            {{ \Carbon\Carbon::parse($date)->translatedFormat('l d/m/Y') }}
-                        </h3>
-
-                        @foreach ($dayBookings->sortBy('start_date') as $booking)
-                            <div class="booking-item border p-3">
-                                <div class="row">
-                                    <div class="col-3">
-                                        <!-- Ora di partenza o di noleggio -->
-                                        {{ \Carbon\Carbon::parse($booking->start_date ?? $booking->end_date)->format('H:i') }}
-                                    </div>
-                                    <div class="col-9">
-                                        <button class="btn open-details-modal p-0" data-bs-toggle="modal"
-                                            data-bs-target="#bookingDetailsModal"
-                                            data-booking-data="{{ json_encode($booking->bookingData) }}"
-                                            data-booking-start="{{ $booking->start_date }}"
-                                            data-booking-end="{{ $booking->end_date }}"
-                                            data-booking-name="{{ $booking->name }}"
-                                            data-booking-surname="{{ $booking->surname }}"
-                                            data-booking-phone="{{ $booking->phone }}"
-                                            data-booking-email="{{ $booking->email }}">
-                                            <p class="text-primary text-decoration-underline text-start mb-0 text-wrap">
-                                                {{ $booking->name }} {{ $booking->surname }} >>
-                                                {{ ucfirst($booking->bookingData['type']) }}
-                                                @if ($booking->bookingData['type'] == 'noleggio')
-                                                    <strong>{{ $booking->bookingData['car_name'] }}</strong>
-                                                @elseif ($booking->bookingData['type'] == 'escursione')
-                                                    >> <strong>{{ $booking->bookingData['departure_name'] }}</strong>>
-                                                @endif
-                                                @if ($booking->start_date && $booking->bookingData['type'] == 'transfer')
-                                                    >> <strong>{{ $booking->bookingData['departure_name'] }}</strong>
-                                                    >>
-                                                    <strong>{{ $booking->bookingData['arrival_name'] }}</strong> >>
-                                                @endif
-                                                @if ($booking->bookingData['type'] == 'transfer' || $booking->bookingData['type'] == 'escursione')
-                                                    {{ $booking->bookingData['passengers'] }} <strong>PAX</strong>
-                                                @endif
-                                                >> {{ $booking->bookingData['price'] }} €
-                                            </p>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                @endforeach
-            </div>
-        @endforeach
+                    @endforeach
+                </div>
+            @endforeach
+        </div>
     </div>
 
     <!-- Modal per i dettagli -->
@@ -136,21 +67,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="bookingDetailsModal" tabindex="-1" aria-labelledby="bookingDetailsModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="bookingDetailsModalLabel">Dettagli della Prenotazione</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="bookingDetailsContent">
-                    <!-- Il contenuto della prenotazione verrà aggiunto qui tramite JavaScript -->
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
@@ -164,14 +80,15 @@
                     var surname = button.getAttribute('data-booking-surname') || 'N/A';
                     var phone = button.getAttribute('data-booking-phone') || 'N/A';
                     var email = button.getAttribute('data-booking-email') || 'N/A';
+                    var id = button.getAttribute('data-booking-id') || 'N/A';
 
                     showBookingDetailsModal(bookingData, start_date, end_date, name, surname, phone,
-                        email);
+                        email, id);
                 });
             });
 
             // Funzione per mostrare i dettagli della prenotazione nel modale
-            function showBookingDetailsModal(bookingData, start_date, end_date, name, surname, phone, email) {
+            function showBookingDetailsModal(bookingData, start_date, end_date, name, surname, phone, email, id) {
                 const modal = document.getElementById('bookingDetailsModal');
                 const modalContent = document.getElementById('bookingDetailsContent');
                 modalContent.innerHTML = ''; // Pulisci il contenuto del modale
@@ -201,19 +118,37 @@
         <p>A: <span class="text-primary">${bookingData.departure_name}</span></p>`;
                 } else if (bookingType === 'noleggio') {
                     modalInnerHTML += `
-        <p>Data di inizio noleggio: <span class="text-primary">${start_date}</span></p>
-        <p>Data di fine noleggio: <span class="text-primary">${end_date}</span></p>
+        <p>Data di inizio noleggio: <span class="text-primary">${bookingData.date_start}</span></p>
+        <p>Data di fine noleggio: <span class="text-primary">${bookingData.date_end}</span></p>
         <p>Auto noleggiata: <span class="text-primary">${bookingData.car_name}</span></p>
         <p>Descrizione auto: <span class="text-primary">${bookingData.car_description}</span></p>`;
                 }
 
                 modalInnerHTML += `<p>Prezzo: <span class="text-primary">${bookingData.price} €</span></p>`;
 
+                modalInnerHTML += `<form action="/dashboard/bookings/${id}/update-status"
+                    method="POST" style="display:inline-block;">
+                    @csrf
+                    <input type="hidden" name="status" value="rejected">
+                    <button type="submit" class="btn btn-danger">
+                        Rifiuta prenotazione
+                    </button>
+                </form>`;
+
                 modalContent.innerHTML = modalInnerHTML;
 
                 // Apri il modale
                 modal.style.display = 'block';
             }
+
+            // Restituisce l'indice del mese corrente tra quelli disponibili
+            const findCurrentMonthIndex = () => {
+                const currentMonth = new Date().toISOString().slice(0,
+                    7); // Ottiene il mese corrente nel formato "YYYY-MM"
+                const monthItems = Array.from(document.querySelectorAll('#monthGroup .month-bookings'));
+
+                return monthItems.findIndex(item => item.getAttribute('data-month') === currentMonth);
+            };
 
             const groupBySelector = document.getElementById('groupBySelector');
             const dayGroup = document.getElementById('dayGroup');
@@ -224,6 +159,12 @@
 
             let currentIndex = 0;
             let currentView = 'month'; // Vista predefinita
+
+            // Cerca il mese corrente solo se la vista è mensile
+            const currentMonthIndex = findCurrentMonthIndex();
+            if (currentMonthIndex !== -1) {
+                currentIndex = currentMonthIndex; // Imposta l'indice al mese corrente
+            }
 
             // Cambia visualizzazione quando l'utente seleziona un'opzione diversa
             groupBySelector.addEventListener('change', function() {
@@ -274,7 +215,6 @@
                     item.style.display = index === currentIndex ? 'block' : 'none';
                 });
             };
-
             // Inizializza la visualizzazione mostrando il primo gruppo
             updateView();
         });

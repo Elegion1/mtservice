@@ -13,14 +13,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class BookingAdmin extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $booking;
     public $pdf;
     /**
      * Create a new message instance.
      */
-    public function __construct($pdf)
+    public function __construct($booking, $pdf)
     {
         $this->pdf = $pdf;
+        $this->booking = $booking;
     }
 
     /**
@@ -29,7 +30,7 @@ class BookingAdmin extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Nuova prenotazione',
+            subject: 'Nuova prenotazione disponibile',
         );
     }
 
@@ -40,6 +41,7 @@ class BookingAdmin extends Mailable
     {
         return new Content(
             view: 'mail.booking-admin',
+            with: ['booking' => $this->booking],
         );
     }
 

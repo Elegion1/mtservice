@@ -11,6 +11,7 @@
         "dompdf/dompdf": "^2.0",
         "laravel/fortify": "^1.21",
         "laravel/framework": "^11.0",
+        "laravel/pail": "^1.1",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
         "outhebox/blade-flags": "^1.5",

@@ -4,54 +4,56 @@
 
             <h1>{{ __('ui.bookingSummaryTitle') }}</h1>
 
+            {{-- <p>{{ __('ui.bookingType') }}: <span class="text_col">{{ ucfirst(__('ui.' . $bookingData['type'])) }}</span>
+            </p>
+
             @if ($bookingData['type'] == 'transfer')
-                <p>{{ __('ui.bookingType') }}: <span class="text_col">{{ ucfirst($bookingData['type']) }}</span></p>
                 <p>{{ __('ui.from') }}: <span class="text_col">{{ $bookingData['departure_name'] ?? 'N/A' }}</span>
-                    {{ __('ui.to') }}: <span class="text_col">{{ $bookingData['arrival_name'] ?? 'N/A' }}</span></p>
-                <p>{{ __('ui.date') }}: <span class="text_col">{{ $bookingData['date_departure'] ?? 'N/A' }}</span>
-                    {{ __('ui.time') }}: <span class="text_col">{{ $bookingData['time_departure'] ?? 'N/A' }}</span></p>
+                    {{ __('ui.to') }}: <span class="text_col">{{ $bookingData['arrival_name'] ?? 'N/A' }}</span>
+                </p>
+                <p>{{ __('ui.date') }}: <span
+                        class="text_col">{{ \Carbon\Carbon::parse($booking->bookingData['date_dep'])->translatedFormat('d/m/Y H:i') ?? 'N/A' }}</span>
+                </p>
                 <p>{{ __('ui.duration') }}: <span class="text_col">{{ $bookingData['duration'] ?? 'N/A' }}</span>
-                    {{ __('ui.minutes') }} {{ __('ui.approx') }}</p>
+                    {{ __('ui.minutes') }} {{ __('ui.approx') }}
+                </p>
                 @if (!empty($bookingData['date_ret']))
-                    <p>{{ __('ui.return') }}: <span class="text_col">{{ $bookingData['date_return'] }}</span>
-                        {{ __('ui.time') }} <span class="text_col">{{ $bookingData['time_return'] }}</span></p>
+                    <p>{{ __('ui.return') }}: <span
+                            class="text_col">{{ \Carbon\Carbon::parse($booking->bookingData['date_ret'])->translatedFormat('d/m/Y H:i') }}</span>
+                    </p>
                 @endif
-                <p>{{ __('ui.passengers') }}: <span class="text_col">{{ $bookingData['passengers'] ?? 'N/A' }}</span>
-                </p>
             @elseif ($bookingData['type'] == 'escursione')
-                <p>{{ __('ui.bookingType') }}: <span class="text_col">{{ ucfirst($bookingData['type']) }}</span> a
-                    <span class="text_col">{{ $bookingData['departure_name'] ?? 'N/A' }}</span>
-                </p>
-                <p>{{ __('ui.date') }}: <span class="text_col">{{ $bookingData['date_departure'] ?? 'N/A' }}</span>
+                <p>{{ __('ui.to') }} <span class="text_col">{{ $bookingData['departure_name'] ?? 'N/A' }}</span></p>
+                <p>{{ __('ui.date') }}: <span
+                        class="text_col">{{ \Carbon\Carbon::parse($bookingData['date_dep']) ?? 'N/A' }}</span>
                 </p>
                 <p>{{ __('ui.time') }}: <span class="text_col">{{ $bookingData['time_departure'] ?? 'N/A' }}</span>
                 </p>
                 <p>{{ __('ui.duration') }}: <span class="text_col">{{ $bookingData['duration'] ?? 'N/A' }}</span>
-                    {{ __('ui.hours') }} {{ __('ui.approx') }}</p>
-                <p>{{ __('ui.passengers') }}: <span class="text_col">{{ $bookingData['passengers'] ?? 'N/A' }}</span>
+                    {{ __('ui.hours') }} {{ __('ui.approx') }}
                 </p>
             @elseif ($bookingData['type'] == 'noleggio')
-                <p>{{ __('ui.bookingType') }}: <span class="text_col">{{ ucfirst($bookingData['type']) }}</span> <span
-                        class="text_col">{{ $bookingData['car_name'] ?? 'N/A' }}
+                <p><span class="text_col">{{ $bookingData['car_name'] ?? 'N/A' }}
                         {{ $bookingData['car_description'] ?? 'N/A' }}</span></p>
                 <p>{{ __('ui.collectionDate') }}: <span
-                        class="text_col">{{ $bookingData['date_start'] ?? 'N/A' }}</span> {{ __('ui.returnDate') }}:
-                    <span class="text_col">{{ $bookingData['date_end'] ?? 'N/A' }}</span>
+                        class="text_col">{{ \Carbon\Carbon::parse($booking->bookingData['date_start'])->translatedFormat('d/m/Y H:i') ?? 'N/A' }}</span>
+                    {{ __('ui.returnDate') }}: <span class="text_col">{{ \Carbon\Carbon::parse($booking->bookingData['date_end'])->translatedFormat('d/m/Y H:i') ?? 'N/A' }}</span>
                 </p>
-                <p>{{ __('ui.quantity') }}: <span class="text_col">{{ $bookingData['quantity'] ?? 'N/A' }}</span>
-                </p>
-            @endif
+                <p>{{ __('ui.quantity') }}: <span class="text_col">{{ $bookingData['quantity'] ?? 'N/A' }}</span></p>
+            @endif --}}
 
-            <p wire:model.live="originalPrice">
-                {{ ucfirst(__('ui.price')) }} {{ ucfirst(__('ui.totalPrice')) }}:
-                <span class="text_col">€{{ number_format($originalPrice, 2) }}</span>
-            </p>
+            <x-booking-show :bookingData='$bookingData' />
+
+            {{-- <p wire:model.live="originalPrice">
+                {{ ucfirst(__('ui.price')) }}:
+                <span class="text_col">€ {{ number_format($originalPrice, 2) }}</span>
+            </p> --}}
 
             @if ($originalPrice != $discountedPrice)
                 <p wire:model.live="discountedPrice">
                     <strong>{!! ${'discountType_' . app()->getLocale()} !!} {{ $discountPercentage }} %</strong>
-                    <span class="text_col" style="color: red;">€ {{ number_format($discountedPrice, 2) }}</span>
                 </p>
+                <p>{{__('ui.totalPrice')}}: <span class="text_col">€ {{ number_format($discountedPrice, 2) }}</span></p>
             @endif
 
             <p class="text-a">
@@ -68,28 +70,45 @@
             <div class="row">
                 <div class="col-12 col-md-6">
                     <label for="name" class="form-label">{{ __('ui.name') }}</label>
-                    <input type="text" class="form-control form_input_focused" id="name" wire:model.live="name">
+                    <input type="text" class="form-control form_input_focused" id="name" wire:model.live="name"
+                        placeholder="Mario">
                     <x-error-message field='name' />
                 </div>
                 <div class="col-12 col-md-6">
                     <label for="surname" class="form-label">{{ __('ui.surname') }}</label>
                     <input type="text" class="form-control form_input_focused" id="surname"
-                        wire:model.live="surname">
+                        wire:model.live="surname" placeholder="Rossi">
                     <x-error-message field='surname' />
                 </div>
 
                 <div class="col-12 col-md-6">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control form_input_focused" id="email"
-                        wire:model.live="email">
+                    <input type="email" class="form-control form_input_focused" id="email" wire:model.live="email"
+                        placeholder="mario.rossi@mail.com">
                     <x-error-message field='email' />
                 </div>
-
                 <div class="col-12 col-md-6">
-                    <label for="phone" class="form-label">{{ __('ui.phone') }}</label>
-                    <input type="text" class="form-control form_input_focused" id="phone" wire:model.live="phone"
-                        minlength="8" maxlength="15">
+                    <label for="phone" class="form-label">{{ __('ui.phone') }} <img width="20px"
+                            src="{{ $dialFlag['png'] }}" alt="{{ $dialFlag['alt'] }}"></label>
+                    <div class="d-flex justify-content-between ">
+                        <div class="col-5">
+                            
+                            <select class="form-select" id="dialCode" wire:model.live="dialCode">
+                                @foreach ($dialCodes as $dial)
+                                    @if ($dial['code'] > 0)
+                                        <option value="{{ $dial['code'] }}">{{ $dial['name'] }} {{ $dial['code'] }}
+                                        </option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-7 ps-1">
+                            <input type="text" class="form-control form_input_focused" id="phone"
+                                wire:model.live="phone" minlength="8" maxlength="15" placeholder="3491234567">
+                        </div>
+                    </div>
                     <x-error-message field='phone' />
+                    <x-error-message field='dialCode' />
                 </div>
 
                 <div class="col-12">

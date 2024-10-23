@@ -283,3 +283,8 @@ a:hover {
 .breadcrumb-item + .breadcrumb-item::before {
     content: '>';
 }
+
+.active-locale {
+    font-weight: bold;
+    text-decoration: none;
+}

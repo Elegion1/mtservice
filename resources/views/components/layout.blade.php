@@ -52,12 +52,14 @@
                 $segments = explode('/', $pathInfo);
                 if (isset($segments[2])) {
                     $title = urldecode($segments[2]);
-                    $type = urldecode($segments[1]);
+                    if (isset($segments[3])) {
+                        $type = urldecode($segments[3]);
+                    }
                 }
             @endphp
         @endif
         @if ($title)
-            {{ $title }} |
+            {{ ucfirst($title) }} |
         @endif
         @if ($type)
             {{ ucfirst($type) }} |

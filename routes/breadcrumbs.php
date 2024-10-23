@@ -80,6 +80,16 @@ Breadcrumbs::for('excursion.show', function (BreadcrumbTrail $trail, $name, $id)
     $trail->push(__('breadcrumbs.excursion_show', ['name' => $name]), route('excursion.show', [$name, $id]));
 });
 
+Breadcrumbs::for('booking.status', function (BreadcrumbTrail $trail, $booking) {
+    $trail->parent('home');
+    $trail->push(__('breadcrumbs.bookings', ['booking' => $booking]), route('booking.status', [$booking]));
+});
+
+Breadcrumbs::for('booking.status.check', function (BreadcrumbTrail $trail, $booking) {
+    $trail->parent('home');
+    $trail->push(__('breadcrumbs.bookings', ['booking' => $booking]), route('booking.status', [$booking]));
+});
+
 // Dashboard
 Breadcrumbs::for('dashboard', function (BreadcrumbTrail $trail) {
     $trail->push(__('breadcrumbs.dashboard'), route('dashboard'));

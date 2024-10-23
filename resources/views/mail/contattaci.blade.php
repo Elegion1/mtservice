@@ -413,7 +413,7 @@
                                                             <tr>
                                                                 <td align="center"
                                                                     style="padding:0;Margin:0;font-size:0"><img
-                                                                        src="hhttps://tranchidatransfer.it/storage/images/5DuKqNP0syZxChubAB5Rmm1T4AsvDTrSAd6bcK36.png"
+                                                                        src="https://tranchidatransfer.it/storage/images/5DuKqNP0syZxChubAB5Rmm1T4AsvDTrSAd6bcK36.png"
                                                                         alt="" width="174" class="adapt-img"
                                                                         style="display:block;font-size:14px;border:0;outline:none;text-decoration:none">
                                                                 </td>
@@ -437,7 +437,7 @@
                                                                 <td align="left" style="padding:0;Margin:0">
                                                                     <p align="right"
                                                                         style="Margin:0;mso-line-height-rule:exactly;font-family:arial, 'helvetica neue', helvetica, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">
-                                                                        Chiamaci per informazioni</p>
+                                                                        {{__('ui.callForInfo')}}</p>
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -502,22 +502,18 @@
                                                                 <td align="left" class="es-text-1106"
                                                                     style="padding:0;Margin:0">
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
-                                                                        class="es-text-mobile-size-16">Gentile cliente,
+                                                                        class="es-text-mobile-size-16">{{__('ui.dearCustomer')}},
                                                                     </p>
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
                                                                         class="es-text-mobile-size-16">​</p>
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
-                                                                        class="es-text-mobile-size-16">Il messaggio è
-                                                                        stato inviato</p>
+                                                                        class="es-text-mobile-size-16">{{__('ui.messageSent')}}</p>
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
-                                                                        class="es-text-mobile-size-16">Ti
-                                                                        ricontatteremo
-                                                                        al più presto.</p>
+                                                                        class="es-text-mobile-size-16">{{__('ui.contactSoon')}}.</p>
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
                                                                         class="es-text-mobile-size-16">​</p>
                                                                     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
-                                                                        class="es-text-mobile-size-16">Grazie per aver
-                                                                        scelto TRANCHIDA TRANSFER &amp; RENT!</p>
+                                                                        class="es-text-mobile-size-16">{{__('ui.thxForChoosing')}}</p>
                                                                     <p
                                                                         style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:21px;letter-spacing:0;color:#333333;font-size:14px">
                                                                         ​</p>

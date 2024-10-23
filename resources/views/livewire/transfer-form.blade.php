@@ -34,7 +34,7 @@
                     <label for="transferPassengers" class="form-label">{{ __('ui.passengers') }}</label>
                     <input wire:model.live="transferPassengers" type="number" class="form-control form_input_focused"
                         id="transferPassengers" min="1" max="16" value="1">
-                        <x-error-message field='transferPassengers' />
+                    <x-error-message field='transferPassengers' />
                 </div>
                 <div class="col-6 d-flex flex-column align-items-start justify-content-end ">
                     <div class="form-check">
@@ -58,13 +58,13 @@
                     <label class="form-label" for="dateDeparture">{{ __('ui.departure') }}</label>
                     <input wire:model.live="dateDeparture" type="datetime-local" class="form-control form_input_focused"
                         id="dateDeparture">
-                        <x-error-message field='dateDeparture' />
+                    <x-error-message field='dateDeparture' />
                 </div>
                 <div class="col-12 col-md-6">
                     <label class="form-label" for="dateReturn">{{ __('ui.return') }}</label>
                     <input wire:model.live="dateReturn" type="datetime-local" class="form-control form_input_focused"
                         id="dateReturn" {{ $solaAndata ? 'disabled' : '' }}>
-                        <x-error-message field='dateReturn' />
+                    <x-error-message field='dateReturn' />
                 </div>
             </div>
             <div class="row mb-3 align-items-end">

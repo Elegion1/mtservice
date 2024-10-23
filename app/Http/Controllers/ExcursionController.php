@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Excursion;
 use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class ExcursionController extends Controller
@@ -15,7 +16,7 @@ class ExcursionController extends Controller
         return view('dashboard.excursion', compact('excursions'));
     }
 
-    public function show($name, $id)
+    public function show($locale, $name, $id)
     {
         $excursion = Excursion::findOrFail($id);
 
@@ -77,5 +78,4 @@ class ExcursionController extends Controller
         $excursion->delete();
         return redirect()->route('dashboard.excursion')->with('success', 'Escursione eliminata con successo.');
     }
-
 }

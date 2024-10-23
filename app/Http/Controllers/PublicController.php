@@ -6,7 +6,12 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Models\Page;
 use App\Models\Image;
+use App\Models\Booking;
 use App\Models\Service;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BookingStatusNotification;
 use Illuminate\Support\Facades\Storage;
 
 class PublicController extends Controller
@@ -106,67 +111,79 @@ class PublicController extends Controller
         return view('pages.services', compact('services'));
     }
 
+    public function bookingStatus()
+    {        // Recupera i dati della prenotazione dalla sessione
+        $booking = session('booking');
+        if (!$booking) {
 
-
-    public function setLanguage($lang)
-    {
-        // Imposta la lingua nella sessione
-        session()->put('locale', $lang);
-
-        // Reindirizza alla pagina precedente
-        return redirect()->back();
+            session(['verified' => false]);
+        }
+        return view('pages.booking-status', ['booking' => $booking]);
     }
 
-    // funzione per testare i pdf
-
-    public function pdf()
+    // Check the email and show the booking status if verified
+    public function bookingStatusCheck(Request $request)
     {
-        $booking = [
-            'id' => 1,
-            'name' => 'Mario',
-            'surname' => 'Rossi',
-            'email' => 'mario.rossi@example.com',
-            'phone' => '+39 123 456 7890',
-            'body' => 'Queste sono alcune note per la prenotazione.',
-            'bookingData' => [
-                'type' => 'transfer', // Può essere 'transfer', 'escursione' o 'noleggio'
-                'departure_name' => 'Roma',
-                'arrival_name' => 'Milano',
-                'date_departure' => '2024-07-01',
-                'time_departure' => '10:00',
-                'date_return' => '2024-07-02',
-                'time_return' => '18:00',
-                'duration' => 60,
-                'passengers' => 4,
-                'price' => 150.00,
-                'original_price' => 200.00,
-                'car_name' => 'Fiat 500',
-                'car_description' => 'Auto compatta, perfetta per la città',
-                'date_start' => '2024-07-01',
-                'date_end' => '2024-07-07',
-                'quantity' => 1
-            ]
-        ];
+        // Valida i dati in ingresso
+        $validated = $request->validate([
+            'email' => 'required|email',
+            'code' => 'required|string|size:6'
+        ]);
 
-        $data = compact('booking');
+        $code = strtoupper($validated['code']);
+        // Cerca la prenotazione corrispondente all'ID e all'email
+        $booking = Booking::where('code', $code)
+            ->where('email', $validated['email'])
+            ->first();
 
-        $options = new Options();
-        $options->set('isHtml5ParserEnabled', true);
-        $options->set('isPhpEnabled', true);
-        $options->set('isRemoteEnabled', true);
-        $options->set('defaultFont', 'Roboto');
+        session(['verified' => false]);
+        if ($booking) {
+            // Email verificata correttamente
+            session(['verified' => true]); // Imposta la variabile di sessione
+            return view('pages.booking-status', ['booking' => $booking, 'verified' => true]);
+        } else {
+            // Email o ID non corretti
+            session(['verified' => false]); // Imposta la variabile di sessione per email non valida
+            return redirect()->route('booking.status', ['booking' => $validated['code']])->withErrors([
+                'email' => __('ui.email_not_verified'),
+                'code' => __('ui.code_not_verified'),
+            ]);
+        }
+    }
 
-        $dompdf = new Dompdf($options);
-        $dompdf->loadHtml(view('pdf.booking-summary-pdf_it', $data)->render());
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
+    public function confirmBooking(Booking $booking)
+    {
+        $booking->status = 'confirmed'; // or whatever status you want to set
+        $booking->save();
 
-        $output = $dompdf->output();
+        // Imposta il locale temporaneamente alla lingua del cliente
+        $previousLocale = App::getLocale();  // Salva il locale attuale
+        App::setLocale($booking->locale);    // Imposta il locale della prenotazione
 
-        return response()->streamDownload(
-            fn() => print($output),
-            "booking-summary.pdf"
-        );
+        // Invia la mail nella lingua del cliente
+        Mail::to($booking->email)->send(new BookingStatusNotification($booking));
+
+        // Reimposta il locale originale
+        App::setLocale($previousLocale);
+        return redirect()->back()->with('message', 'Prenotazione confermata con successo.');
+    }
+
+    public function rejectBooking(Booking $booking)
+    {
+        $booking->status = 'rejected'; // or whatever status you want to set
+        $booking->save();
+
+        // Imposta il locale temporaneamente alla lingua del cliente
+        $previousLocale = App::getLocale();  // Salva il locale attuale
+        App::setLocale($booking->locale);    // Imposta il locale della prenotazione
+
+        // Invia la mail nella lingua del cliente
+        Mail::to($booking->email)->send(new BookingStatusNotification($booking));
+
+        // Reimposta il locale originale
+        App::setLocale($previousLocale);
+
+        return redirect()->back()->with('message', 'Prenotazione rifiutata con successo.');
     }
 
     //funzione per eliminare le immagini
