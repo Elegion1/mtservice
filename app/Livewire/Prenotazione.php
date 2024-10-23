@@ -3,10 +3,13 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\Attributes\Url;
 use Illuminate\Support\Facades\Route;
 
 class Prenotazione extends Component
 {
+    #[Url]
+    public $module = '';
     public $currentForm;
     public $bookingData = []; // Inizializza come array vuoto
     public $isHome = false; // Variabile per determinare se siamo nella home
@@ -27,7 +30,7 @@ class Prenotazione extends Component
     public function mount()
     {
         $route = Route::currentRouteName();
-        
+
         // Controlla se la rotta corrente è 'home'
         $this->isHome = $route == 'home';
 
@@ -38,7 +41,7 @@ class Prenotazione extends Component
             $this->showTransfer();
         } elseif ($route == 'escursioni') {
             $this->showEscursioni();
-        } else {
+        } elseif ($route == 'home') {
             $this->showTransfer(); // Default
             // $this->showBookingSummary($this->bookingData);
         }
@@ -47,22 +50,26 @@ class Prenotazione extends Component
     public function showEscursioni()
     {
         $this->currentForm = 'escursioni';
+        $this->module = 'excursions';
     }
 
     public function showTransfer()
     {
         $this->currentForm = 'transfer';
+        $this->module = 'transfer';
     }
 
     public function showRent()
     {
         $this->currentForm = 'noleggio';
+        $this->module = 'carRent';
     }
 
     public function render()
     {
         return view('livewire.prenotazione', [
             'bookingData' => $this->bookingData,
+            'module' => $this->module,
         ]);
     }
 
@@ -74,5 +81,6 @@ class Prenotazione extends Component
     {
         $this->bookingData = $bookingData;
         $this->currentForm = 'bookingSummary'; // Passa al modulo di riepilogo prenotazione
+        $this->module = 'bookingSummary';
     }
 }
