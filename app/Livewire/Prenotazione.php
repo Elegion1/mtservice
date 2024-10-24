@@ -44,6 +44,8 @@ class Prenotazione extends Component
         } elseif ($route == 'home') {
             $this->showTransfer(); // Default
             // $this->showBookingSummary($this->bookingData);
+        } elseif ($route == 'prezziDestinazioni') {
+            $this->showTransfer();
         }
     }
 
