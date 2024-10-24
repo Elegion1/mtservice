@@ -30,8 +30,17 @@
 
             {{-- Ordine --}}
             <div class="row mb-3">
-                <small class="text-primary">Contenuto con ordine 0 mostra il titolo e sottotitolo
-                    nell'header</small>
+                <div class="col-6 text-start">
+                    <small class="text-primary">Contenuto con ordine 0 mostra il titolo e sottotitolo
+                        nell'header</small>
+                </div>
+                <div class="col-6 text-end">
+                    <small class="text-primary">Se la pagina non è selezionata e l'ordine è 0
+                        viene mostrato nell'header di
+                        tutte le pagine</small>
+                </div>
+
+
                 <div class="col-4">
                     <label for="create-order" class="form-label">Ordine</label> <br>
                     <input type="number" class="form-control form_input_focused" id="create-order" name="order">
@@ -51,7 +60,7 @@
                     <label for="page" class="form-label">Pagina</label>
                     <select id="page" name="page_id" class="form-select form_input_focused"
                         aria-label="Default select example">
-                        <option selected>Seleziona una pagina</option>
+                        <option value="" selected>Seleziona una pagina</option>
                         @foreach ($pages as $page)
                             <option value="{{ $page->id }}">{{ $page->name }}</option>
                         @endforeach

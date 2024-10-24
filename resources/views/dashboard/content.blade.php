@@ -23,7 +23,13 @@
             @foreach ($contents as $content)
                 <tr>
                     <td>{{ $content->id }}</td>
-                    <td>{{ $content->page->name }}</td>
+                    <td>
+                        @if (isset($content->page->name))
+                            {{ $content->page->name }}
+                        @else
+                            Tutte
+                        @endif
+                    </td>
                     <td>{{ $content->title_it }}</td>
                     <td>{{ $content->subtitle_it }}</td>
                     <td>{{ $content->body_it }}</td>
@@ -35,8 +41,8 @@
                             No
                         @endif
                     </td>
-                    <td>{{$content->start_date}}</td>
-                    <td>{{$content->end_date}}</td>
+                    <td>{{ $content->start_date }}</td>
+                    <td>{{ $content->end_date }}</td>
                     <td>
                         {{-- @foreach ($content->images as $image)
                             <img src="{{ asset('storage/' . $image->path) }}" alt="Immagine" width="100">
@@ -45,6 +51,9 @@
                             <small>
                                 {{ $content->images->count() }} immagini caricate
                             </small>
+                            @foreach ($content->images as $image)
+                                <img height="50px" src="{{ Storage::url($image->path) }}" alt="">
+                            @endforeach
                         @else
                             <small>Nessuna immagine</small>
                         @endif

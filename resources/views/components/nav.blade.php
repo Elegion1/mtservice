@@ -14,7 +14,7 @@
             @endforeach
         </div>
 
-        @php
+        {{-- @php
             function updateLocaleInUrl($newLocale)
             {
                 $currentUrl = request()->url(); // Get the current URL without query parameters
@@ -29,7 +29,7 @@
 
                 return url(implode('/', $segments)); // Rebuild the URL and return
             }
-        @endphp
+        @endphp --}}
         
         <div class="d-flex justify-content-between align-items-center flex-column">
             <span class="text-a">{{ __('ui.navTitle') }}</span>

@@ -33,8 +33,24 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
-        $content = Content::create($request->all());
+        // // Validazione dei dati
+        // $validatedData = $request->validate([
+        //     'title_it' => 'nullable|string|max:255',
+        //     'subtitle_it' => 'nullable|string',
+        //     'body_it' => 'nullable|string',
+        //     'links' => 'nullable|string',
+        //     'order' => 'nullable|string',
+        //     'show' => 'boolean',
+        //     'page_id' => 'nullable|integer|exists:pages,id', // Assicurati che sia un intero e che esista nella tabella pages
+        //     // Aggiungi altre regole di validazione se necessario
+        // ]);
 
+        // // Rimuovi 'page_id' se non è presente nel request e impostalo a null
+        // if (empty($validatedData['page_id']) || $validatedData['page_id'] === 'Seleziona una pagina') {
+        //     $validatedData['page_id'] = null; // Imposta page_id a null se non fornito
+        // }
+
+        $content = Content::create($request->all());
 
         if ($request->hasFile('images')) {
 
@@ -102,6 +118,4 @@ class ContentController extends Controller
         $content->delete();
         return redirect()->route('dashboard.content')->with('success', 'Contenuto eliminato con successo.');
     }
-
-
 }
