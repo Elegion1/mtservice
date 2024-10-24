@@ -19,7 +19,9 @@ class Content extends Model
         'links',
         'order',
         'show',
-        'page_id'
+        'page_id',
+        'start_date',
+        'end_date'
     ];
 
     public function images()

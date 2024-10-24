@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('bookings', function (Blueprint $table) {
-            $table->enum('status', ['pending', 'confirmed', 'rejected'])->default('pending');
+        Schema::table('contents', function (Blueprint $table) {
+            $table->datetime('start_date')->nullable();
+            $table->datetime('end_date')->nullable();
         });
     }
 
@@ -21,8 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('bookings', function (Blueprint $table) {
-            $table->dropColumn('status');
+        Schema::table('contents', function (Blueprint $table) {
+            $table->dropColumn('start_date');
+            $table->dropColumn('end_date');
         });
     }
 };

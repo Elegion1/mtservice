@@ -1,8 +1,12 @@
+@php
+    use Carbon\Carbon;
+    $now = Carbon::now(); // Ottieni la data e l'ora corrente
+@endphp
+
 <div class="row mb-3">
-    {{-- @dd($pagine) --}}
     @foreach ($pagine as $page)
         @foreach ($page->contents as $content)
-            @if ($content->show)
+            @if ($content->show && (!$content->start_date || $content->start_date <= $now) && (!$content->end_date || $content->end_date >= $now))
                 @if ($content->images->count())
                     <div class="col-12">
                         <img class="rounded" width="100%" src="{{ Storage::url($content->images[0]->path) }}"
@@ -30,4 +34,3 @@
         @endforeach
     @endforeach
 </div>
-

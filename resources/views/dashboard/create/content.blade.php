@@ -29,32 +29,49 @@
             </div>
 
             {{-- Ordine --}}
-            <div class="mb-3">
-                <label for="create-order" class="form-label">Ordine</label>
-                <small class="text-primary">Contenuto con ordine 0 mostra il titolo e sottotitolo nell'header</small>
-                <input type="number" class="form-control form_input_focused" id="create-order" name="order">
+            <div class="row mb-3">
+                <small class="text-primary">Contenuto con ordine 0 mostra il titolo e sottotitolo
+                    nell'header</small>
+                <div class="col-4">
+                    <label for="create-order" class="form-label">Ordine</label> <br>
+                    <input type="number" class="form-control form_input_focused" id="create-order" name="order">
+                </div>
+
+                {{-- Mostra --}}
+                <div class="col-4">
+                    <label for="show" class="form-label">Mostra</label>
+                    <select name="show" id="show" class="form-select" aria-label="Default select example">
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                {{-- pagina --}}
+                <div class="col-4">
+                    <label for="page" class="form-label">Pagina</label>
+                    <select id="page" name="page_id" class="form-select form_input_focused"
+                        aria-label="Default select example">
+                        <option selected>Seleziona una pagina</option>
+                        @foreach ($pages as $page)
+                            <option value="{{ $page->id }}">{{ $page->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
             </div>
 
-            {{-- Mostra --}}
-            <div class="mb-3">
-                <label for="show" class="form-label">Mostra</label>
-                <select name="show" id="show" class="form-select" aria-label="Default select example">
-                    <option value="1">Si</option>
-                    <option value="0">No</option>
-                </select>
+
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="start_date">Data di inizio</label>
+                    <input type="datetime-local" name="start_date" id="start_date" class="form-control">
+                </div>
+                <div class="col-6">
+                    <label for="end_date">Data di fine</label>
+                    <input type="datetime-local" name="end_date" id="end_date" class="form-control">
+                </div>
             </div>
 
-            {{-- pagina --}}
-            <div class="mb-3">
-                <label for="page" class="form-label">Pagina</label>
-                <select id="page" name="page_id" class="form-select form_input_focused"
-                    aria-label="Default select example"  >
-                    <option selected>Seleziona una pagina</option>
-                    @foreach ($pages as $page)
-                        <option value="{{ $page->id }}">{{ $page->name }}</option>
-                    @endforeach
-                </select>
-            </div>
 
             <!-- Immagini -->
             <div class="mb-3">

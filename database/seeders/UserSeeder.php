@@ -19,6 +19,7 @@ class UserSeeder extends Seeder
                 'name' => 'Admin',
                 'email' => 'admin@mtservice.it',
                 'password' => Hash::make('mtservice'),
+                'role' => 'admin',
             ]);
         }
 
@@ -26,6 +27,7 @@ class UserSeeder extends Seeder
             'name' => 'User',
             'email' => 'user@mtservice.it',
             'password' => Hash::make('mtservice'),
+            'role' => 'user',
         ]);
     }
 }

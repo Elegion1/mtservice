@@ -13,6 +13,8 @@
                 <th>Corpo</th>
                 <th>Ordine</th>
                 <th>Mostra</th>
+                <th>Inizio</th>
+                <th>Fine</th>
                 <th>Immagini</th>
                 <th>Azioni</th>
             </tr>
@@ -33,6 +35,8 @@
                             No
                         @endif
                     </td>
+                    <td>{{$content->start_date}}</td>
+                    <td>{{$content->end_date}}</td>
                     <td>
                         {{-- @foreach ($content->images as $image)
                             <img src="{{ asset('storage/' . $image->path) }}" alt="Immagine" width="100">

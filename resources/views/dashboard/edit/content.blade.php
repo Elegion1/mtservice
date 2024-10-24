@@ -33,21 +33,34 @@
                     value="{{ $content->links }}">
             </div>
 
-            <div class="mb-3">
-                <label for="order" class="form-label">Ordine</label><br>
+            <div class="row mb-3">
                 <small class="text-primary">Immagine con ordine 0 mostra l'immagine nell'header</small>
-                <input type="number" class="form-control form_input_focused" id="edit-order" name="order"
-                    value="{{ $content->order }}">
+                <div class="col-6">
+                    <label for="order" class="form-label">Ordine</label><br>
+                    <input type="number" class="form-control form_input_focused" id="edit-order" name="order"
+                        value="{{ $content->order }}">
+                </div>
+                <div class="col-6">
+                    <label for="edit-show" class="form-label">Mostra</label>
+                    <select name="show" value="{{ $content->show }}" id="edit-show" class="form-select"
+                        aria-label="Default select example">
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
             </div>
 
-
-            <div class="mb-3">
-                <label for="edit-show" class="form-label">Mostra</label>
-                <select name="show" value="{{ $content->show }}" id="edit-show" class="form-select"
-                    aria-label="Default select example">
-                    <option value="1">Si</option>
-                    <option value="0">No</option>
-                </select>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <label for="start_date">Data di inizio</label>
+                    <input type="datetime-local" name="start_date" id="start_date" class="form-control"
+                        value="{{ $content->start_date ?? '' }}">
+                </div>
+                <div class="col-6">
+                    <label for="end_date">Data di fine</label>
+                    <input type="datetime-local" name="end_date" id="end_date" class="form-control"
+                        value="{{ $content->end_date ?? '' }}">
+                </div>
             </div>
 
             <!-- Immagini -->

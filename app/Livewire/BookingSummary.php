@@ -209,13 +209,24 @@ class BookingSummary extends Component
                 foreach ($countries as $country) {
                     // Controlla se 'idd' esiste e ha la chiave 'root'
                     if (isset($country['idd']['root'])) {
+                        $root = $country['idd']['root'];
+                        $suffixes = $country['idd']['suffixes'] ?? [];
+
+                        // Se c'è un solo suffisso, lo concateno al prefisso
+                        if (count($suffixes) === 1) {
+                            $code = $root . $suffixes[0];
+                        } else {
+                            // Se ci sono più suffissi, prendo solo il root
+                            $code = $root;
+                        }
+
                         // Tronca il valore 'alt' se supera i 254 caratteri
                         $alt = isset($country['flags']['alt']) ? $country['flags']['alt'] : '';
                         $alt = strlen($alt) > 254 ? substr($alt, 0, 254) : $alt;
 
                         $dialCodes[] = [
                             'name' => $country['name']['common'],
-                            'code' => $country['idd']['root'] . ($country['idd']['suffixes'][0] ?? ''),
+                            'code' => $code,
                             'flag' => $country['flags']['png'],
                             'alt' => $alt,
                         ];

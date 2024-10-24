@@ -4,6 +4,9 @@
         <a class="btn btn-sm btn-secondary text-small" href="{{ route('dashboard.bookingList') }}">Torna a confermate</a>
 
         @foreach ($bookings as $booking)
+            @if (!$booking)
+                <p class="text-center">Nessuna prenotazione in attesa</p>
+            @endif
             @if ($booking->status == 'pending')
                 <x-bookingCard :booking='$booking' />
             @endif
