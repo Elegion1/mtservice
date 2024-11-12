@@ -2,22 +2,22 @@
     <div id="partners" class="container bg-white rounded">
         <div class="container p-3">
             <x-show-content :pagine="$pagine" />
-            <div class="d-flex justify-content-center align-items-center flex-wrap">
+            <div class="d-flex justify-content-center align-items-end flex-wrap">
                 @foreach ($partners as $partner)
-                    <div class="m-3">
-                        <a class="text-decoration-none text-black" target="_blank" href="{{ $partner->link }}">
-                            <div class="d-flex justify-content-center align-items-center">
-                                @if ($partner->images->count() > 0)
-                                    <img width="200px" src="{{ Storage::url($partner->images->first()->path) }}"
-                                        alt="">
-                                @else
-                                    <img width="200px" src="https://picsum.photos/100{{ $partner->id }}"
-                                        alt="">
-                                @endif
-                            </div>
-                            <p class="text-center">{{ $partner->name }}</p>
-                        </a>
-                    </div>
+                    <a class="text-decoration-none text-black m-3" target="_blank" href="{{ $partner->link }}">
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            @if ($partner->images->count() > 0)
+                                <img class="shadow rounded" width="200px"
+                                    src="{{ Storage::url($partner->images->first()->path) }}"
+                                    alt="{{ $partner->name }}img">
+                            @else
+                                <img class="shadow rounded" width="200px"
+                                    src="https://picsum.photos/{{ $partner->id }}00/{{ $partner->id + 150 }}"
+                                    alt="">
+                            @endif
+                            <p class="text-center text-wrap m-3">{{ $partner->name }}</p>
+                        </div>
+                    </a>
                 @endforeach
             </div>
             <div class="d-flex justify-content-between align-items-center mt-4">

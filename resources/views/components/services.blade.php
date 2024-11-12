@@ -9,7 +9,6 @@
     <div class="carousel-inner">
         @foreach ($services as $index => $service)
             <div class="carousel-item service {{ $index === 0 ? 'active' : '' }}">
-                
                 <a class="text-reset text-decoration-none" href="{{ route('service.show', ['title' => $service->{'title_' . app()->getLocale()}, 'id' => $service->id]) }}">
                     <div class="container">
                         <div class="row">

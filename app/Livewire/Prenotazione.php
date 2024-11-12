@@ -35,7 +35,7 @@ class Prenotazione extends Component
         $this->isHome = $route == 'home';
 
         // Imposta il modulo corrente in base alla rotta
-        if ($route == 'noleggio') {
+        if ($route == 'rent') {
             $this->showRent();
         } elseif ($route == 'transfer') {
             $this->showTransfer();
@@ -63,7 +63,7 @@ class Prenotazione extends Component
 
     public function showRent()
     {
-        $this->currentForm = 'noleggio';
+        $this->currentForm = 'rent';
         $this->module = 'carRent';
     }
 
