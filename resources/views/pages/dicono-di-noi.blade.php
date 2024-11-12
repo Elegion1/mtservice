@@ -2,12 +2,10 @@
     <div class="container bg-white rounded">
         <div class="row mx-3">
             <div class="col-12">
-                <x-show-content :pagine="$pagine"/>
+                <x-show-content :pagine="$pagine" />
             </div>
             <div id="diconoDiNoi" class="col-12 mt-3 text-center">
-                <h4>
-                    <strong class="text-uppercase text-a">{{__('ui.someReviews')}}</strong>
-                </h4>
+                <h1 class="text-center">{{ __('ui.someReviews') }}</h1>
                 <div class="container-fluid p-0">
                     <div class="row d-flex justify-content-center">
                         @foreach ($reviewsP as $review)
