@@ -126,7 +126,7 @@
                                                             class="excursion-img" alt="img_{{$excursion->name_en}}">
                                                     @endforeach
                                                 @else
-                                                    <img class="excursion-img" src="https://picsum.photos/{{$excursion->id}}20/{{ $excursion->id + 100}}"
+                                                    <img class="excursion-img" src="https://picsum.photos/20{{$excursion->id}}/{{ $excursion->id + 100}}"
                                                         alt="placeholder">
                                                 @endif
                                             </div>
