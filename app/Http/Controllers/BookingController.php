@@ -57,6 +57,8 @@ class BookingController extends Controller
 
     public function list()
     {
+        App::setLocale('it');
+        
         $bookings = Booking::all();
 
         // Collezione per le prenotazioni elaborate
