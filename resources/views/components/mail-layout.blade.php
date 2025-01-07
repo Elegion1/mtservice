@@ -21,7 +21,7 @@
             </td>
             <td style="padding: 20px; text-align: right;">
                 <!-- Logo -->
-                <img src="{{ Storage::url($ownerdata->images->first()->path) }}" alt="Logo" style="max-height: 50px;">
+                <img src="https://tranchidatransfer.it/storage/images/claY5kngq7rUzaosRsJCrrOEJlS3dP4gJbnJzYzU.svg" alt="Logo" style="max-height: 50px;">
             </td>
         </tr>
         <tr>
