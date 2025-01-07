@@ -1,5 +1,7 @@
 <?php
 return [
+    'it' => 'italiano',
+    'en' => 'inglese',
     'date_format' => 'd/m/Y H:i',
     // HOME
     'title1' => 'Le tratte più frequenti',

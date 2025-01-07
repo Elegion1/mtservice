@@ -18,7 +18,7 @@
                     <form method="GET" action="" id="locale-form" class="m-1 text-center">
                         <select id="locale-select" class="form-select-sm locale-select" onchange="changeLocale()">
                             @foreach (config('app.available_locales') as $locale)
-                                <option value="{{ updateLocaleInUrl($locale) }}"
+                                <option class="text-center" value="{{ updateLocaleInUrl($locale) }}"
                                     {{ app()->getLocale() == $locale ? 'selected' : '' }}>
                                     {{ strtoupper(__('ui.' . $locale)) }}
                                 </option>

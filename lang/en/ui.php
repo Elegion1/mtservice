@@ -1,5 +1,7 @@
 <?php
 return [
+    'it' => 'italian',
+    'en' => 'english',
     'date_format' => 'd/m/Y H:i',
     // HOME
     'title1' => 'Most Frequent Routes',
