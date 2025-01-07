@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ App::getLocale() }}">
 
 <head>
     <!-- Charset at the top -->
@@ -76,17 +76,48 @@
     <x-whatsapp />
     <x-nav />
     <x-masthead />
-    <div class="position-absolute masthead-position">
-        <div class="container">
-            <x-display-error />
-            <x-display-message />
-            {{ $slot }}
-        </div>
-
-        <x-footer />
+    <div id="mainContent" data-currentRoute="{{ $currentRouteName }}">
+        {{ $slot }}
     </div>
+
+    <x-footer />
+
+
 
 
 </body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Funzione per scrollare in alto
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Elemento principale del contenuto
+        const mainContent = document.getElementById('mainContent');
+
+        if (!mainContent) {
+            console.error('Elemento #mainContent non trovato.');
+            return;
+        }
+
+        // Recupera il valore di data-currentRoute
+        const currentRoute = mainContent.getAttribute('data-currentRoute');
+
+        // Logica di scrolling
+        if (currentRoute === 'home') {
+            scrollToTop();
+        } else {
+            mainContent.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+</script>
 
 </html>

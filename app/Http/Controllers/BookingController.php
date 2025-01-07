@@ -6,8 +6,11 @@ use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Models\Booking;
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use App\Jobs\SendReviewRequestJob;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BookingStatusNotification;
 
@@ -57,6 +60,8 @@ class BookingController extends Controller
 
     public function list()
     {
+        App::setLocale('it');
+        
         $bookings = Booking::all();
 
         // Collezione per le prenotazioni elaborate
@@ -201,6 +206,25 @@ class BookingController extends Controller
 
         $booking->status = $request->status;
         $booking->save();
+
+        if ($booking->status == 'confirmed') {
+            $defaultTime = Setting::where('name', 'review_request_default_time')->value('value');
+            $delayDays = Setting::where('name', 'review_request_delay_days')->value('value');
+            // Unisci la data del servizio con l'orario di default
+            $serviceDate = Carbon::parse($booking->service_date . ' ' . $defaultTime);
+    
+            // Aggiungi i giorni di ritardo
+            $delay = $serviceDate->addDays((int) $delayDays);  // (int) per essere sicuro che sia un numero intero
+    
+            Log::info([
+                'service_date' => $booking->service_date,
+                'default_time' => $defaultTime,
+                'delay_days' => $delayDays,
+                'calculated_delay' => $delay,
+            ]);
+            
+            SendReviewRequestJob::dispatch($booking)->delay($delay);
+        }
 
         // Imposta il locale temporaneamente alla lingua del cliente
         $previousLocale = App::getLocale();  // Salva il locale attuale

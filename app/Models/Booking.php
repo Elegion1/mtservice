@@ -23,6 +23,7 @@ class Booking extends Model
         'status',
         'code',
         'locale',
+        'service_date',
         'bookingData', // Assicurati che questo campo sia incluso negli attributi fillable
     ];
 

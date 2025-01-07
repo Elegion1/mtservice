@@ -1,4 +1,5 @@
 <?php
+
 return [
     'date_format' => 'd/m/Y H:i',
     // HOME
@@ -43,6 +44,7 @@ return [
     'rentSelectCar' => 'Select a Vehicle',
     'priceStartingFrom' => 'Starting From',
     'notAvailable' => 'Not Available',
+    'perDay' => 'per day',
 
     //booking summary
     'bookingSummaryTitle' => 'Booking Summary',
@@ -63,18 +65,20 @@ return [
     'phone' => 'Phone',
     'email' => 'Email',
     'body' => 'Message',
-    'bookingConfBodyMsg' => 'Add Notes or Special Requests: For example, flight number, need for child seats, transporting bulky items, etc..',
+    'notesMsg' => 'Special requests or notes for our staff',
+    'bookingConfBodyMsg' => 'Add Notes or Special Requests: For example, flight number, need for child seats, transporting bulky items, etc...',
+    'acceptPolicy' => 'I accept the',
     'acceptPrivacy' => 'I accept the',
     'acceptTerms' => 'I accept the',
+    'and' => 'and',
     'privacyPolicy' => 'Privacy Policy',
     'termsConditions' => 'Terms and Conditions',
     'confirmBooking' => 'Confirm Booking',
     'loading' => 'Loading... Please wait',
     'paymentMessage' => 'A 30% deposit is required after confirmation of the booking by our staff',
-    'confirmation_message' => 'Booking request created. A summary email has been sent.',
+    'confirmation_message' => 'Booking request created. A summary email has been sent',
     'discountedPrice' => 'Discounted price',
     'originalPrice' => 'Original price',
-
 
     //contact-link
     'contactLinkTitle' => 'For <strong class="text-d">info</strong> or <strong class="text-d">custom services</strong>',
@@ -102,7 +106,7 @@ return [
     'contacts' => 'Contacts',
     'footerMessage' => 'Transfer Trapani and Marsala
 Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo, and Catania, available by bus, minibus, and car.
-24/7 Service - Taxi - Excursions in the province of Trapani and throughout Sicily - Airport transfers to San Vito Lo Capo.',
+24/7 Service - Taxi - Excursions in the province of Trapani and throughout Sicily - Airport transfers to San Vito Lo Capo',
 
     //links
     'Home' => 'home',
@@ -119,7 +123,10 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
 
     // dicono di noi
     'someReviews' => 'Reviews',
-
+    'noReviews' => 'No reviews available',
+    'reviewRequest' => 'Leave a review',
+    'dear' => 'Dear',
+    'reviewRequestMailMessage' => 'We would like to ask you to leave a review on our services, click the link below to leave a review',
     'typeOfService' => 'Type of service',
     'message' => 'Insert a message',
     'send' => 'Send',
@@ -133,19 +140,21 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
 
     'faqTitle' => 'Frequently Asked Questions (FAQ)',
 
-    'name_required' => 'The name is required.',
-    'surname_required' => 'The surname is required.',
-    'email_required' => 'The email is required.',
-    'email_email' => 'Please enter a valid email address.',
-    'phone_required' => 'The phone number is required.',
-    'body_required' => 'The notes are required.',
-    'privacy_policy_accepted' => 'You must accept the privacy policy to proceed.',
-    'terms_conditions_accepted' => 'You must accept the terms and conditions to proceed.',
+    'name_required' => 'The name is required',
+    'surname_required' => 'The surname is required',
+    'email_required' => 'The email is required',
+    'email_email' => 'Please enter a valid email address',
+    'phone_required' => 'The phone number is required',
+    'body_required' => 'This field is required',
+    'privacy_policy_accepted' => 'Accept policies to proceed',
+    
 
     'dateStart_required' => 'The pickup date is required',
+    'timeStart_required' => 'The pickup time is required',
     'dateStart_date' => 'The pickup date must be a valid date',
     'dateStart_after_or_equal' => 'The pickup date can\'t be in the past',
     'dateEnd_required' => 'The delivery date is required',
+    'timeEnd_required' => 'The delivery time is required',
     'dateEnd_date' => 'The delivery date must be a valid date',
     'dateEnd_after_or_equal' => 'The delivery date must be the same as or after the pickup date',
     'quantity_required' => 'The quantity is required',
@@ -161,23 +170,27 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
     'excursionPassengers_min' => 'The minimum number of passengers is 1',
     'excursionPassengers_max' => 'The maximum number of passengers is 16',
     'excursionDate_required' => 'The departure date is required',
+    'excursionTime_required' => 'The departure time is required',
     'excursionDate_date' => 'The departure date must be a valid date',
     'excursionDate_after_or_equal' => 'The departure date cannot be in the past',
 
-    'departure_required' => 'Departure is required.',
-    'departure_exists' => 'The selected departure is not valid.',
-    'return_required' => 'Destination is required.',
-    'return_exists' => 'The selected destination is not valid.',
-    'transferPassengers_required' => 'The number of passengers is required.',
-    'transferPassengers_integer' => 'The number of passengers must be an integer.',
-    'transferPassengers_min' => 'The minimum number of passengers is 1.',
-    'transferPassengers_max' => 'The maximum number of passengers is 16.',
-    'dateDeparture_required' => 'The departure date is required.',
-    'dateDeparture_date' => 'The departure date must be a valid date.',
-    'dateDeparture_after_or_equal' => 'The departure date cannot be in the past.',
-    'dateReturn_date' => 'The return date must be a valid date.',
-    'dateReturn_after' => 'The return date must be after the departure date.',
+    'departure_required' => 'Departure is required',
+    'departure_exists' => 'The selected departure is not valid',
+    'return_required' => 'Destination is required',
+    'return_exists' => 'The selected destination is not valid',
+    'transferPassengers_required' => 'The number of passengers is required',
+    'transferPassengers_integer' => 'The number of passengers must be an integer',
+    'transferPassengers_min' => 'The minimum number of passengers is 1',
+    'transferPassengers_max' => 'The maximum number of passengers is 16',
+    'dateDeparture_required' => 'The departure date is required',
+    'dateDeparture_date' => 'The departure date must be a valid date',
+    'dateDeparture_after_or_equal' => 'The departure date cannot be in the past',
+    'timeDeparture_required' => 'Select a departure time',
+    'dateReturn_date' => 'The return date must be a valid date',
+    'dateReturn_after' => 'The return date must be after the departure date',
     'dateReturn_required' => 'The return date is required, or select one way',
+    'timeReturn_required' => 'Select a return time',
+    'invalid_return_time' => 'The return must be selected at least :time after the departure',
 
     'contactMailMessage' => 'The message was sent succesfully',
 
@@ -235,5 +248,9 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
     'car' => 'Car',
 
     'contactBody' => 'Insert a message',
+
+    'en' => 'english',
+    'more' => 'more',
+    'addReturn' => 'add return',
 
 ];

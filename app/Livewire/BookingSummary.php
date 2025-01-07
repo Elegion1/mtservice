@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Models\Booking;
@@ -10,9 +11,11 @@ use App\Models\Customer;
 use App\Models\Discount;
 use App\Models\OwnerData;
 use App\Mail\BookingAdmin;
+use App\Mail\ReviewRequest;
 use Illuminate\Support\Str;
 use App\Models\CountryDialCode;
 use App\Mail\BookingConfirmation;
+use App\Jobs\SendReviewRequestJob;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
@@ -27,9 +30,12 @@ class BookingSummary extends Component
     public $email;
     public $phone;
     public $body;
-    public $privacy_policy = false;
-    public $terms_conditions = false;
+    public $accept_policy = false;
+
     public $adminMail;
+    public $serviceDate;
+
+    public $currentStep = 1; // Step iniziale
 
     public $dialCodes = [];
     public $dialCode = '+39';
@@ -52,8 +58,7 @@ class BookingSummary extends Component
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
             'body' => 'required|string|max:1000',
-            'privacy_policy' => 'accepted',
-            'terms_conditions' => 'accepted',
+            'accept_policy' => 'accepted',
             'dialCode' => 'required|string',
         ];
     }
@@ -67,9 +72,22 @@ class BookingSummary extends Component
             'email.email' => __('ui.email_email'),
             'phone.required' => __('ui.phone_required'),
             'body.required' => __('ui.body_required'),
-            'privacy_policy.accepted' => __('ui.privacy_policy_accepted'),
-            'terms_conditions.accepted' => __('ui.terms_conditions_accepted'),
+            'accept_policy.accepted' => __('ui.privacy_policy_accepted'),
         ];
+    }
+
+    public function submitMessage()
+    {
+        $this->validate([
+            'body' => 'required|string|max:1000',
+        ]);
+
+        $this->currentStep = 2;
+    }
+
+    public function goToStep($step)
+    {
+        $this->currentStep = $step;
     }
 
     public function mount($bookingData)
@@ -220,12 +238,21 @@ class BookingSummary extends Component
                             $code = $root;
                         }
 
+                        // Seleziona il nome nativo
+                        $nativeName = '';
+                        if (isset($country['name']['nativeName']) && is_array($country['name']['nativeName'])) {
+                            $firstNativeLang = array_key_first($country['name']['nativeName']); // Prendi la prima lingua nativa
+                            if (isset($country['name']['nativeName'][$firstNativeLang]['common'])) {
+                                $nativeName = $country['name']['nativeName'][$firstNativeLang]['common'];
+                            }
+                        }
+
                         // Tronca il valore 'alt' se supera i 254 caratteri
                         $alt = isset($country['flags']['alt']) ? $country['flags']['alt'] : '';
                         $alt = strlen($alt) > 254 ? substr($alt, 0, 254) : $alt;
 
                         $dialCodes[] = [
-                            'name' => $country['name']['common'],
+                            'name' => $nativeName ?: $country['name']['common'], // Usa il nome nativo o il nome comune
                             'code' => $code,
                             'flag' => $country['flags']['png'],
                             'alt' => $alt,
@@ -269,65 +296,121 @@ class BookingSummary extends Component
         return ['png' => null, 'alt' => null]; // Restituisci null se non trovi una corrispondenza
     }
 
+    public function generateServiceDate($bookingData)
+    {
+        if ($bookingData['type'] === 'transfer') {
+            if (!empty($bookingData['date_ret'])) {
+                return Carbon::parse($bookingData['date_ret'])->addDay()->toDateString();
+            } else {
+                return Carbon::parse($bookingData['date_dep'])->addDay()->toDateString();
+            }
+        }
+
+        if ($bookingData['type'] === 'escursione') {
+            return Carbon::parse($bookingData['date_dep'])->addDay()->toDateString();
+        }
+
+        if ($bookingData['type'] === 'noleggio') {
+            return Carbon::parse($bookingData['date_end'])->addDay()->toDateString();
+        }
+    }
+
     public function confirmBooking()
+    {
+        try {
+            // Pulizia e normalizzazione input
+            $this->normalizeInputs();
+
+            // Validazione dati
+            $this->validate();
+
+            // Preparazione dati prenotazione
+            $this->bookingData['original_price'] = $this->originalPrice;
+            $this->bookingData['price'] = $this->discountedPrice;
+
+            // Salvataggio della prenotazione
+            $booking = Booking::create([
+                'bookingData' => $this->bookingData,
+                'name' => $this->name,
+                'surname' => $this->surname,
+                'email' => $this->email,
+                'phone' => $this->phone,
+                'body' => $this->body,
+                'code' => $this->generateUniqueCode(),
+                'locale' => app()->getLocale(),
+                'service_date' => $this->generateServiceDate($this->bookingData),
+            ]);
+
+            // Gestione cliente
+            Customer::firstOrCreate([
+                'name' => $this->name,
+                'surname' => $this->surname,
+                'email' => $this->email,
+                'phone' => $this->phone,
+            ]);
+
+            // Invio email
+            $this->sendBookingEmails($booking);
+
+            // Messaggio di conferma e redirect
+            session()->flash('message', __('ui.confirmation_message'));
+            return redirect()->route('home');
+        } catch (\Exception $e) {
+            Log::error('Booking confirmation error: ' . $e->getMessage());
+            session()->flash('error', __('ui.booking_error_message'));
+        }
+    }
+
+    private function normalizeInputs()
     {
         $this->name = trim($this->name);
         $this->surname = trim($this->surname);
         $this->email = trim($this->email);
 
-        // Rimuoviamo tutti gli spazi e i caratteri non numerici eccetto il segno +
         $this->phone = preg_replace('/[^\d+]/', '', $this->phone);
-
-        // Ignoriamo il prefisso esistente
-        // Rimuoviamo eventuali prefissi + esistenti
         $this->phone = ltrim($this->phone, '+');
-
-        // Componiamo il numero di telefono usando solo il prefisso selezionato
         $this->phone = $this->dialCode . $this->phone;
 
-        // Assicuriamoci che ci sia solo un '+' all'inizio
         if (!str_starts_with($this->phone, '+')) {
             $this->phone = '+' . $this->phone;
         }
-        // dd($this->phone);
-        $this->validate();
-        $this->bookingData['original_price'] = $this->originalPrice;
-        $this->bookingData['price'] = $this->discountedPrice;
-        // Salvataggio della prenotazione nel database
-        $booking = Booking::create([
-            'bookingData' => $this->bookingData,
-            'name' => $this->name,
-            'surname' => $this->surname,
-            'email' => $this->email,
-            'phone' => $this->phone,
-            'body' => $this->body,
-            'code' => $this->generateUniqueCode(),
-            'locale' => App::getLocale(),
-        ]);
+    }
 
-        // Se il cliente non esiste, crea un nuovo record nel database
-        $customer = Customer::firstOrCreate([
-            'name' => $this->name,
-            'surname' => $this->surname,
-            'email' => $this->email,
-            'phone' => $this->phone,
-        ]);
-
+    private function sendBookingEmails($booking)
+    {
         $language = app()->getLocale();
-        // Generazione del PDF del riepilogo
         $pdfClient = $this->generatePDF($booking, $language);
+
+        // Invio email all'amministrazione
+        $this->sendAdminEmails($booking, $language);
+        // Invio email al cliente
+        $this->sendEmailSafely($this->email, new BookingConfirmation($booking, $pdfClient), 'Failed to send booking confirmation email');
+        $this->sendEmailSafely($this->email, new ReviewRequest($booking), 'Failed to send review request email');
+    }
+
+    private function sendAdminEmails($booking, $language)
+    {
         $pdfAdmin = $this->generatePDF($booking, 'it');
 
-        // Invio dell'email con il PDF allegato
-        Mail::to($this->email)->send(new BookingConfirmation($booking, $pdfClient));
+        // Cambia lingua e invia email
         App::setLocale('it');
-        Mail::to($this->adminMail)->send(new BookingAdmin($booking, $pdfAdmin));
-        App::setlocale($language);
-        // Messaggio di conferma
-        session()->flash('message', __('ui.confirmation_message'));
+        try {
+            Mail::to($this->adminMail)->send(new BookingAdmin($booking, $pdfAdmin));
+        } catch (\Exception $e) {
+            Log::error('Failed to send admin email: ' . $e->getMessage());
+        } finally {
+            // Ripristina la lingua originale
+            App::setLocale($language);
+        }
+    }
 
-        // Eventuale reindirizzamento
-        return redirect()->route('home');
+    private function sendEmailSafely($recipient, $mailable, $errorMessage)
+    {
+        try {
+            Mail::to($recipient)->send($mailable);
+        } catch (\Exception $e) {
+            Log::error($errorMessage . ': ' . $e->getMessage());
+        }
     }
 
     private function generatePDF($booking, $language)

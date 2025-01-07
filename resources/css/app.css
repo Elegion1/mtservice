@@ -1,3 +1,4 @@
+/* Importazione CSS */
 @import "bootstrap";
 @import "bootstrap-icons";
 @import "./masthead.css";
@@ -5,14 +6,154 @@
 @import "./tinymce.css";
 @import "./loader.css";
 
-.rating {
-    color: orange; /* Cambia il colore delle stelline */
+/* ========== Layout Generale ========== */
+.altezza {
+    height: 2000px;
+}
+.w-custom {
+    width: 50%;
+}
+/* .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+} */
+
+.fixed_height {
+    height: 180px;
 }
 
-.star {
-    font-size: 20px; /* Dimensione delle stelline */
+.fixed_width {
+    width: 147px;
 }
 
+.form_width {
+    max-width: 500px;
+}
+
+.input_width {
+    max-width: 468px;
+}
+
+.input_size {
+    height: 50px;
+    width: 100%;
+}
+
+.bg_dropdown {
+    background-color: transparent;
+    backdrop-filter: blur(10px);
+}
+
+.locale-select {
+    background-color: transparent;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    outline: none;
+    appearance: none; /* Rimuove lo stile nativo del browser */
+}
+
+.locale-select:focus {
+    border-color: 1px solid white; /* Colore del bordo al focus */
+    outline: none;
+    box-shadow: none;
+}
+
+.locale-select option {
+    color: white;
+}
+
+.btn_booking {
+    border-radius: 3px 3px 0px 0px !important;
+    font-size: 0.7rem !important;
+}
+
+.header_text_position {
+    top: 30%;
+    left: 10%;
+}
+
+.header_line {
+    width: 100%;
+    height: 2px;
+    background-color: linear-gradient(to bottom, white, black);
+}
+
+/* ========== Navbar & Header ========== */
+
+.navbar {
+    min-height: 130px;
+}
+
+.navbar_toggler_focused:focus {
+    box-shadow: 0px 0px 0px 0px none !important;
+    -webkit-box-shadow: 0px 0px 0px 0px none !important;
+    -moz-box-shadow: 0px 0px 0px 0px none !important;
+}
+
+.navbar-toggler {
+    color: white !important;
+    border: none !important;
+}
+
+.bg_nav {
+    background: rgb(0, 0, 0);
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.01) 100%
+    );
+}
+
+.nav-link {
+    color: var(--color-d);
+}
+
+.nav-link:hover {
+    color: var(--color-a);
+}
+
+.active_nav {
+    color: var(--color-a) !important;
+}
+
+/* ========== Masthead ========== */
+.masthead-position {
+    top: 100%;
+    width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    .masthead-position {
+        top: 100%;
+    }
+}
+
+/* ========== Tipografia ========== */
+h1,
+h2 {
+    font-weight: 400; 
+}
+
+.text-shadow {
+    text-shadow: 1px 2px 3px black;
+}
+
+.text-responsive {
+    font-size: 1.4rem;
+}
+
+.text-small {
+    font-size: small;
+}
+
+.text_col {
+    color: var(--color-a);
+}
+
+/* ========== Messaggi e Alert ========== */
 .my_alert-danger {
     background-color: rgba(246, 7, 7, 0.886);
 }
@@ -23,38 +164,181 @@
 }
 
 .error-message {
-    min-height: 1rem;
-    /* Riserva spazio per i messaggi di errore */
+    height: 1.125rem;
+    width: 100%;
     display: flex;
-    align-items: center;
-    transition: all 0.3s ease-in-out; /* Aggiunge una transizione fluida */
-    text-align: center;
+    align-items: start;
+    transition: all 0.3s ease-in-out;
+    text-align: start;
+    padding: 0px;
 }
 
 .error {
-    font-size: 0.875rem;
+    font-size: 0.65rem;
 }
 
+/* ========== Button Styles ========== */
 .btn:hover {
-    /* background-color: var(--color-c); */
-    color: white;
-    transition: 0.5s;
-    transform: scale(0.95);
+    transition: 0.3s;
+    transform: scale(0.98);
 }
 
-.altezza {
-    height: 2000px;
+.btn_font_size {
+    font-size: 0.7rem;
 }
 
-.masthead-position {
-    top: 70%;
-    /* background-color: red; */
+.close_position {
+    top: 5px;
+    right: 0px;
+}
+
+.passenger_button {
+    height: 50px;
+    background-color: gray;
+    color: var(--color-b);
+}
+
+.passenger_button:hover {
+    border: 2px solid var(--color-c);
+}
+
+/* .passenger_button:disabled {
+    background-color: white;
+    color: gray;
+    border: 3px solid gray;
+} */
+
+#removePassenger {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+#addPassenger {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+/* ========== Rating & Icone ========== */
+.rating {
+    color: #ffc107;
+}
+
+.star {
+    font-size: 30px;
+}
+
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse; /* Stelle da destra a sinistra */
+    justify-content: start;
+    font-size: 2rem;
+}
+
+.star-rating input {
+    display: none; /* Nasconde i radio button */
+}
+
+.star-rating label {
+    color: #ddd; /* Stelle non selezionate */
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+/* Quando si passa il mouse sopra */
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #ffc107; /* Stelle dorate */
+}
+
+/* Quando una stella è selezionata */
+.star-rating input:checked ~ label {
+    color: #ffc107; /* Stelle dorate */
+}
+
+/* ========== Immagini & Media ========== */
+.logo-img {
+    width: 20vw;
+    max-width: 100px;
+}
+
+.current-image {
+    display: inline-block;
+    position: relative;
+    margin-right: 10px;
+}
+
+.current-image img {
+    display: block;
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.current-image button {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.img-show {
+    width: 100%;
+    max-width: 700px;
+}
+
+.img-content {
     width: 100%;
 }
 
-.text-shadow {
-    text-shadow: 1px 2px 3px black;
+.img_carRent {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    /* max-height: 100px; */
 }
+
+/* ========== Form e Input ========== */
+.form_input {
+    border: none;
+    background-color: var(--color-c);
+}
+
+.form_input:focus {
+    border: none;
+    border-color: none;
+    box-shadow: none;
+    background-color: var(--color-c);
+}
+
+.form_input_focused:focus {
+    border-color: var(--color-a);
+    box-shadow: 0px 0px 5px 1px var(--color-a) !important;
+}
+
+.form-check-input:checked {
+    background-color: var(--color-a);
+    border-color: var(--color-a);
+}
+
+.form_check_round {
+    width: 26px;
+    height: 26px;
+}
+
+.form-check-input_custom {
+    flex-shrink: 0;
+    width: 0px;
+    height: 0px;
+    appearance: none;
+    background-color: none;
+    border: none;
+}
+
+.form-check-input_custom:checked {
+    background-color: none !important;
+    border-color: none !important;
+    box-shadow: none !important;
+}
+
+/* ========== Componenti Specifici ========== */
 .message {
     width: 30vw;
     margin: 0px;
@@ -64,26 +348,6 @@
     .message {
         width: 80vw;
     }
-
-    .masthead-position {
-        top: 50%;
-    }
-}
-
-.current-image {
-    display: inline-block;
-    position: relative;
-    margin-right: 10px;
-}
-.current-image img {
-    display: block;
-    max-width: 100px;
-    max-height: 100px;
-}
-.current-image button {
-    position: absolute;
-    top: 0;
-    right: 0;
 }
 
 .faq-section {
@@ -102,32 +366,18 @@
     color: var(--color-a);
 }
 
-.logo-img {
-    width: 25vw;
-    max-width: 200px;
-    padding: 0px;
+.breadcrumb-item + .breadcrumb-item::before {
+    content: ">";
 }
 
-.img-content {
-    width: 100%;
+/* ========== Footer ========== */
+.border_footer {
+    border-top: 5px solid var(--color-a);
 }
 
-.navbar_toggler_focused:focus {
-    box-shadow: 0px 0px 15px 2px gray !important;
-    -webkit-box-shadow: 0px 0px 15px 2px gray !important;
-    -moz-box-shadow: 0px 0px 15px 2px gray !important;
-}
-
-.nav-link {
-    color: var(--color-d);
-}
-
-.nav-link:hover {
-    color: var(--color-a);
-}
-
-.active_nav {
-    color: var(--color-a) !important;
+/* ========== Personalizzazione ========== */
+.border_custom {
+    border-bottom: 5px solid rgba(0, 0, 0, 0.1);
 }
 
 .active_page {
@@ -148,143 +398,84 @@
     color: var(--color-a);
 }
 
-.text_col {
-    color: var(--color-a);
-}
-
-h1,
-h2 {
-    color: var(--color-a);
-    text-transform: uppercase;
-    text-wrap: nowrap;
-    font-weight: lighter;
-}
-
-p .h1 {
-    text-transform: uppercase;
-    text-wrap: nowrap;
-    font-weight: lighter;
-}
-
-.border_custom {
-    border-bottom: 5px solid var(--color-a);
-}
-
-.border_footer {
-    border-top: 5px solid var(--color-a);
-}
-
-.form_input_focused:focus {
-    border-color: var(--color-a);
-    box-shadow: 0px 0px 5px 1px var(--color-a) !important;
-    -webkit-box-shadow: 0px 0px 5px 1px var(--color-a) !important;
-    -moz-box-shadow: 0px 0px 5px 1px var(--color-a) !important;
-    color: var(--color-a) !important;
-}
-
-.form-check-input:checked {
-    background-color: var(--color-a);
-    border-color: var(--color-a);
-}
-
-a:hover {
-    color: var(--color-a) !important;
-    transform: scale(0.98);
-    transition: 0.3s;
-}
-
-.bg_nav {
-    background-color: rgb(255, 255, 255);
-}
-
-.btn_font_size {
-    font-size: 0.9rem;
-}
-
-.text-small {
-    font-size: small;
-}
-
-.fixed_height {
-    height: 250px;
-}
-
-.img_carRent {
-    /* min-width: 60px; */
-    height: 100%;
-    max-height: 100px;
-    /* max-width: 150px; */
-}
-
-.form_check_round {
-    width: 26px;
-    height: 26px;
-}
-
-#labelRent {
-    margin: 0px;
-    padding: 0px;
-}
-
-.form-check-input_custom {
-    --bs-form-check-bg: var(--bs-body-bg);
-    flex-shrink: 0;
-    width: 1em;
-    height: 1em;
-    margin-top: 0.25em;
-    vertical-align: top;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-color: none;
-    background-image: var(--bs-form-check-bg-image);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    border: none;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-}
-
-.form-check-input_custom:checked {
-    background-color: none !important;
-    border-color: none !important;
-    border-color: none;
-    box-shadow: none !important;
-    -webkit-box-shadow: none !important;
-    -moz-box-shadow: none !important;
-    color: none !important;
-}
-
 .whatsapp {
-    top: 90%;
-    right: 5%;
     position: fixed;
+    bottom: 5%;
+    right: 5%;
     z-index: 100;
-    background-color: var(--color-d);
+    width: 60px;
+    height: 60px;
+}
+
+.contact-menu {
+    position: relative;
+    width: 60px;
+    height: 60px;
+}
+
+.contact-btn {
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    background-color: var(--color-c);
+    color: black;
+    border: none;
+    font-size: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.img-show{
-    width: 100%;
-    max-width: 700px;
+.contact-btn:hover {
+    transform: scale(1.1);
+    
 }
 
-.text-responsive {
-    font-size: 1.4rem;
+.contact-options {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+    pointer-events: none; /* Non cliccabile quando nascosto */
 }
 
-.top_custom {
-    top: 25px;
+.contact-option {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: var(--color-c);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    opacity: 0;
+    transform: scale(0);
+    transition: all 0.3s ease;
+    pointer-events: none;
 }
 
-.breadcrumb-item + .breadcrumb-item::before {
-    content: '>';
+.contact-options.show .contact-option {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto; /* Diventa cliccabile quando visibile */
 }
 
-.active-locale {
-    font-weight: bold;
-    text-decoration: none;
+.contact-option.call1 {
+    top: -50px;
+    left: 10px;
+}
+
+.contact-option.call2 {
+    top: -30px;
+    left: -40px;
+}
+
+.contact-option.whatsappBtn {
+    top: 20px;
+    left: -50px;
 }

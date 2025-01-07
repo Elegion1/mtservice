@@ -3,7 +3,7 @@
         <h2>Servizi</h2>
         <a href="{{route('service.create')}}" class="btn bg-a text-white">Crea</a>
     </div>
-    <table class="table">
+    <table class="table table-sm table-striped">
         <thead>
             <tr>
                 <th>#</th>
@@ -11,6 +11,8 @@
                 <th>Sottotitolo</th>
                 <th>Links</th>
                 <th>Immagini</th>
+                <th>Mostra</th>
+                <th>Sulla home</th>
                 <th>Azione</th>
             </tr>
         </thead>
@@ -21,8 +23,7 @@
                     <td>{{ $service->title_it }}</td>
                     <td>{{ $service->subtitle_it }}</td>
                     <td><a href="{{ $service->links }}">{{ $service->links }}</a></td>
-                    <td>{{ $service->created_at }}</td>
-                    <td>{{ $service->updated_at }}</td>
+                   
                     <td>
                         @if ($service->images->count() > 0)
                             <small>{{ $service->images->count() }} immagini caricate</small>
@@ -30,6 +31,8 @@
                             <small>Nessuna immagine</small>
                         @endif
                     </td>
+                    <td>{{$service->show}}</td>
+                    <td>{{$service->flag}}</td>
                     <td>
                         <a class="btn btn-primary btn-sm"
                             href="{{ route('service.edit', ['service' => $service]) }}">Dettagli</a>

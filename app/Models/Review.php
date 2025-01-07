@@ -13,6 +13,8 @@ class Review extends Model
         'name',
         'title',
         'body',
-        'rating'
+        'rating',
+        'status',
+        'booking',
     ];
 }

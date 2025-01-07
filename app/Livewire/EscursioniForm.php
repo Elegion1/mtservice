@@ -11,6 +11,7 @@ class EscursioniForm extends Component
     public $excursionPassengers = 1;
     public $excursionPrice;
     public $excursionDate;
+    public $excursionTime;
 
     public function rules()
     {
@@ -18,6 +19,7 @@ class EscursioniForm extends Component
             'excursionSelect' => 'required|exists:excursions,id',
             'excursionPassengers' => 'required|integer|min:1|max:16',
             'excursionDate' => 'required|date|after_or_equal:today',
+            'excursionTime' => 'required',
         ];
     }
     public function messages()
@@ -30,6 +32,7 @@ class EscursioniForm extends Component
             'excursionPassengers.min' => __('ui.excursionPassengers_min'),
             'excursionPassengers.max' => __('ui.excursionPassengers_max'),
             'excursionDate.required' => __('ui.excursionDate_required'),
+            'excursionTime.required' => __('ui.excursionTime_required'),
             'excursionDate.date' => __('ui.excursionDate_date'),
             'excursionDate.after_or_equal' => __('ui.excursionDate_after_or_equal'),
         ];
@@ -41,6 +44,22 @@ class EscursioniForm extends Component
 
         if ($field === 'excursionSelect' || $field === 'excursionPassengers' || $field === 'excursionDate') {
             $this->calculatePriceExcursion();
+        }
+    }
+
+    // Funzione per incrementare i passeggeri
+    public function incrementPassengers()
+    {
+        if ($this->excursionPassengers < 16) {
+            $this->excursionPassengers++;
+        }
+    }
+
+    // Funzione per decrementare i passeggeri
+    public function decrementPassengers()
+    {
+        if ($this->excursionPassengers > 1) {
+            $this->excursionPassengers--;
         }
     }
 
@@ -74,13 +93,24 @@ class EscursioniForm extends Component
 
     public function getBookingDataExcursion()
     {
+        // Combina data e ora di partenza in un unico datetime
+        $dateTimeDeparture = $this->combineDateAndTime($this->excursionDate, $this->excursionTime);
+
         return [
-            'type' => 'escursione', // Assuming 'transfer' for transfer bookings
+            'type' => 'escursione', 
             'departure_id' => $this->excursionSelect,
             'passengers' => $this->excursionPassengers,
-            'date_dep' => $this->excursionDate, // Assuming you have a dateDeparture property
+            'date_dep' => $dateTimeDeparture, 
             'price' => $this->excursionPrice,
         ];
+    }
+
+    protected function combineDateAndTime($date, $time)
+    {
+        if ($date && $time) {
+            return "{$date}T{$time}";
+        }
+        return null;
     }
 
     public function submitBookingExcursion()

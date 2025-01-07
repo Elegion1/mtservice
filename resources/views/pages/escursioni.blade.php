@@ -1,15 +1,10 @@
 <x-layout>
     <div class="row">
         <div class="col-12 col-md-6">
-            <div class="container rounded bg-white border_custom shadow">
-                <div class="container p-3">
-                    <livewire:prenotazione />
-                </div>
-            </div>
 
             <div class="container rounded p-3 mt-3">
-                <x-contact-link />
                 <x-show-content :pagine="$pagine" />
+                <x-contact-link />
             </div>
 
             <div class="container mt-5">
@@ -87,11 +82,6 @@
             </div>
         </div>
 
-       
-        <div class="col-12 mt-5">
-            <h2 class="text-center mb-3">{{ __('ui.title3') }}</h2>
-            <x-excursions />
-        </div>
     </div>
 
     <script>

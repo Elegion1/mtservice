@@ -1,9 +1,6 @@
 <x-layout>
     <div class="row p-0" id="prenotazionediv">
         <div class="col-12 col-md-6">
-            <div class="container bg-white rounded border_custom shadow" >
-                <livewire:prenotazione id="prenotazioneComponent" />
-            </div>
 
             <div class="container my-5">
                 <x-contact-link />

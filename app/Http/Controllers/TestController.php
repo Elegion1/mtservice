@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use App\Models\Booking;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 
@@ -19,90 +21,91 @@ class TestController extends Controller
 
     private function bookings()
     {
-        return [
-            [
+        return collect([
+            (object) [
                 'id' => 12,
                 'name' => 'Vance Joyce',
                 'surname' => 'Albert',
                 'email' => 'zove@mailinator.com',
                 'phone' => '+1 (301) 928-4494',
                 'body' => 'Qui at nihil consequ',
-                'bookingData' => '{
-                "type": "escursione", 
-                "price": "150", 
-                "date_dep": "2024-11-03T11:09", 
-                "duration": "1", 
-                "passengers": 1, 
-                "departure_id": "2", 
-                "date_departure": "Sun 03 November 2024", 
-                "departure_name": "Marsala", 
-                "original_price": "150", 
-                "time_departure": "11:09"
-                }',
+                'bookingData' => json_decode('{
+                    "type": "escursione", 
+                    "price": "150", 
+                    "date_dep": "2024-11-03T11:09", 
+                    "duration": "1", 
+                    "passengers": 1, 
+                    "departure_id": "2", 
+                    "date_departure": "Sun 03 November 2024", 
+                    "departure_name": "Marsala", 
+                    "original_price": "150", 
+                    "time_departure": "11:09"
+                }', true),
                 'created_at' => '2024-10-10 11:09:27',
                 'updated_at' => '2024-10-17 14:58:52',
                 'status' => 'confirmed',
                 'code' => 'DQSSDA',
-                'locale' => 'it'
+                'locale' => 'it',
+                'service_date' => '2024-11-03',
             ],
-            [
+            (object) [
                 'id' => 14,
                 'name' => 'Quamar Parrish',
                 'surname' => 'Conrad',
                 'email' => 'devupa@mailinator.com',
                 'phone' => '+1 (914) 824-3353',
                 'body' => 'Inventore non deseru',
-                'bookingData' => '
-                {
-                "type": "noleggio",
-                 "price": 1400,
-                 "car_id": "2",
-                 "car_name": "Volkswagen Up",
-                 "date_end": "2024-11-02T12:45",
-                 "quantity": 1,
-                 "date_start": "2024-10-19T12:45",
-                 "original_price": 1400,
-                 "car_description": "1.0 60cv"
-                 }',
+                'bookingData' => json_decode('{
+                    "type": "noleggio",
+                    "price": 1400,
+                    "car_id": "2",
+                    "car_name": "Volkswagen Up",
+                    "date_end": "2024-11-02T12:45",
+                    "quantity": 1,
+                    "date_start": "2024-10-19T12:45",
+                    "original_price": 1400,
+                    "car_description": "1.0 60cv"
+                }', true),
                 'created_at' => '2024-10-10 12:45:30',
                 'updated_at' => '2024-10-17 14:58:52',
                 'status' => 'confirmed',
                 'code' => 'AJXQLA',
-                'locale' => 'it'
+                'locale' => 'it',
+                'service_date' => '2024-11-02',
             ],
-            [
+            (object) [
                 'id' => 15,
                 'name' => 'Nathaniel Simon',
                 'surname' => 'Delgado',
                 'email' => 'gesohuruda@mailinator.com',
                 'phone' => '+1 (329) 652-4358',
                 'body' => 'Id sed eiusmod deser',
-                'bookingData' => '
-                {
-                "type": "transfer", 
-                "price": 1546,
-                 "date_dep": "2024-10-31T18:04",
-                 "date_ret": "2024-11-10T18:04",
-                 "duration": "26",
-                 "arrival_id": "7",
-                 "passengers": 1,
-                 "date_return": "Sun 10 November 2024",
-                 "sola_andata": false,
-                 "time_return": "18:04",
-                 "arrival_name": "San Vito Lo Capo",
-                 "departure_id": "1",
-                 "date_departure": "Thu 31 October 2024",
-                 "departure_name": "Aeroporto Trapani Birgi V.Florio",
-                 "original_price": 1546,
-                 "time_departure": "18:04"
-                 }',
+                'bookingData' => json_decode('{
+                    "type": "transfer", 
+                    "price": 1546,
+                    "date_dep": "2024-10-31T18:04",
+                    "date_ret": "2024-11-10T18:04",
+                    "duration": "26",
+                    "arrival_id": "7",
+                    "passengers": 1,
+                    "date_return": "Sun 10 November 2024",
+                    "sola_andata": false,
+                    "time_return": "18:04",
+                    "arrival_name": "San Vito Lo Capo",
+                    "departure_id": "1",
+                    "date_departure": "Thu 31 October 2024",
+                    "departure_name": "Aeroporto Trapani Birgi V.Florio",
+                    "original_price": 1546,
+                    "time_departure": "18:04"
+                }', true),
                 'created_at' => '2024-10-14 18:05:06',
                 'updated_at' => '2024-10-17 14:58:52',
                 'status' => 'confirmed',
                 'code' => 'BDUO5P',
-                'locale' => 'it'
+                'locale' => 'it',
+                'service_date' => '2024-11-03',
             ]
-        ];
+        ]);
     }
 
     public function pdf($bookingId, $lang)
@@ -148,12 +151,12 @@ class TestController extends Controller
         );
     }
 
-    public function emailPreview($mailType, $bookingId = null, $lang)
+    public function emailPreview($mailType, $lang, $bookingId = null)
     {
         Log::info("Mail type: " . $mailType);
         Log::info("Booking ID: " . $bookingId);
         Log::info("Language: " . $lang);
-        
+
         App::setLocale($lang);
 
         $bookings = $this->bookings();
@@ -182,5 +185,21 @@ class TestController extends Controller
         Log::info("Loading view: mail." . $mailType);
 
         return view('mail.' . $mailType, compact('booking'));
+    }
+
+    public function jobsIndex()
+    {
+        // Recupera i job in coda (dove 'reserved_at' è null)
+        $jobs = DB::table('jobs')
+            ->whereNull('reserved_at') // I job non ancora in esecuzione
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        // Recupera i job falliti
+        $failedJobs = DB::table('failed_jobs')
+            ->orderBy('failed_at', 'desc')
+            ->get();
+
+        return view('dashboard.jobs', compact('jobs', 'failedJobs'));
     }
 }

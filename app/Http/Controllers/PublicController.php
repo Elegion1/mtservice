@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Models\Page;
 use App\Models\Image;
 use App\Models\Booking;
+use App\Models\Contact;
 use App\Models\Service;
+use App\Models\Setting;
 use Illuminate\Http\Request;
+use Sabberworm\CSS\Settings;
+use App\Jobs\SendReviewRequestJob;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BookingStatusNotification;
 use Illuminate\Support\Facades\Storage;
@@ -26,7 +32,9 @@ class PublicController extends Controller
 
     public function dashboard()
     {
-        return view('dashboard.index');
+        $bookings = Booking::where('status', 'pending')->get();
+        $contacts = Contact::get();
+        return view('dashboard.index', compact('bookings', 'contacts'));
     }
 
     public function noleggio()
@@ -156,6 +164,23 @@ class PublicController extends Controller
         $booking->status = 'confirmed'; // or whatever status you want to set
         $booking->save();
 
+        $defaultTime = Setting::where('name', 'review_request_default_time')->value('value');
+        $delayDays = Setting::where('name', 'review_request_delay_days')->value('value');
+        // Unisci la data del servizio con l'orario di default
+        $serviceDate = Carbon::parse($booking->service_date . ' ' . $defaultTime);
+
+        // Aggiungi i giorni di ritardo
+        $delay = $serviceDate->addDays((int) $delayDays);  // (int) per essere sicuro che sia un numero intero
+
+
+        Log::info([
+            'service_date' => $booking->service_date,
+            'default_time' => $defaultTime,
+            'delay_days' => $delayDays,
+            'calculated_delay' => $delay,
+        ]);
+        
+        SendReviewRequestJob::dispatch($booking)->delay($delay);
         // Imposta il locale temporaneamente alla lingua del cliente
         $previousLocale = App::getLocale();  // Salva il locale attuale
         App::setLocale($booking->locale);    // Imposta il locale della prenotazione

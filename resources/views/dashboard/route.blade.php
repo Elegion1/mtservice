@@ -47,7 +47,7 @@
         <hr>
 
         <h2>Tutte le Tratte</h2>
-        <table class="table">
+        <table class="table table-sm table-striped">
             <thead>
                 <tr>
                     <th>#</th>

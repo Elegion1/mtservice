@@ -23,6 +23,8 @@ class Service extends Model
         'links',
         'condition_it',
         'condition_en',
+        'flag',
+        'show'
     ];
 
     public function images()

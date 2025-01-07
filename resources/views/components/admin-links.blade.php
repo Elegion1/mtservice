@@ -44,6 +44,7 @@
                 <li><a class="dropdown-item" href="{{ route('dashboard.customer') }}">Clienti</a></li>
                 <li><a class="dropdown-item" href="{{ route('dashboard.discount') }}">Sconti</a></li>
                 <li><a class="dropdown-item" href="{{ route('dashboard.contact') }}">Messaggi</a></li>
+                <li><a class="dropdown-item" href="{{ route('dashboard.review') }}">Recensioni</a></li>
             </ul>
         </div>
     </li>
@@ -70,6 +71,7 @@
                 <li><a class="dropdown-item" href="{{ route('dashboard.page') }}">Pagine</a></li>
                 <li><a class="dropdown-item" href="{{ route('dashboard.ownerData') }}">Dati azienda</a></li>
                 <li><a class="dropdown-item" href="{{ route('dashboard.users') }}">Utenti</a></li>
+                <li><a class="dropdown-item" href="{{ route('dashboard.settings') }}">Impostazioni</a></li>
             </ul>
         </div>
     </li>

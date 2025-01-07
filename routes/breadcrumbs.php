@@ -90,6 +90,11 @@ Breadcrumbs::for('booking.status.check', function (BreadcrumbTrail $trail, $book
     $trail->push(__('breadcrumbs.bookings', ['booking' => $booking]), route('booking.status', [$booking]));
 });
 
+Breadcrumbs::for('reviews.create', function (BreadcrumbTrail $trail, $booking_code) {
+    $trail->parent('home'); // Aggiungi il breadcrumb del genitore (Home)
+    $trail->push(__('breadcrumbs.create_review', ['locale' => app()->getLocale(), 'booking_code' => $booking_code]), route('reviews.create', ['locale' => app()->getLocale(), 'booking_code' => $booking_code]));
+});
+
 // Dashboard
 Breadcrumbs::for('dashboard', function (BreadcrumbTrail $trail) {
     $trail->push(__('breadcrumbs.dashboard'), route('dashboard'));

@@ -9,28 +9,35 @@ return [
     //navbar
     'navTitle' => 'Prenota online o chiama',
     'selectLanguage' => 'Seleziona lingua :lang',
+    'selectDate' => 'Seleziona data',
+    'next' => 'avanti',
+    'back' => 'indietro',
 
     //Livewire
     //transfer
+    'transfer' => 'transfer',
     'transferTitle' => 'Prenota Transfer',
     'selectDeparture' => 'Seleziona partenza',
     'selectDestination' => 'Seleziona destinazione',
     'passengers' => 'Passeggeri',
     'oneWay' => 'Sola Andata',
     'returnTrip' => 'Andata e Ritorno',
-    'departure' => 'Andata',
-    'return' => 'Ritorno',
+    'departure' => 'partenza',
+    'destination' => 'destinazione',
+    'outward' => 'andata',
+    'return' => 'ritorno',
     'totalPrice' => 'Totale',
     'submit' => 'PRENOTA',
 
     //escursione
-    'excursionTitle' => 'Prenota Escursione',
+    'excursionTitle' => 'Escursione',
     'excursionSelect' => 'Seleziona Escursione',
 
     //prenotazione 
     'transfer' => 'transfer',
     'excursions' => 'escursioni',
     'carRent' => 'noleggio auto',
+    'obligatoryField' => 'Campi obbligatori',
 
     'escursione' => 'escursione',
     'noleggio' => 'noleggio',
@@ -43,6 +50,9 @@ return [
     'rentSelectCar' => 'seleziona un mezzo',
     'priceStartingFrom' => 'A partire da',
     'notAvailable' => 'non disponibile',
+    'perDay' => 'al giorno',
+    'pickup' => 'ritiro',
+    'dropoff' => 'consegna',
 
     //riepilogo prenotazione
     'bookingSummaryTitle' => 'Riepilogo Prenotazione',
@@ -63,9 +73,12 @@ return [
     'phone' => 'Telefono',
     'email' => 'Email',
     'body' => 'Messaggio',
+    'notesMsg' => 'Richieste o note per il nostro staff',
     'bookingConfBodyMsg' => 'Inserisci delle note o eventuali richieste. Es. Numero volo, necessità di seggiolini per bambini, se si trasportano oggetti voluminosi, ecc... ',
+    'acceptPolicy' => 'Accetto la',
     'acceptPrivacy' => 'Accetto la',
     'acceptTerms' => 'Accetto i',
+    'and' => 'e',
     'privacyPolicy' => 'Privacy Policy',
     'termsConditions' => 'Termini e Condizioni',
     'confirmBooking' => 'Conferma Prenotazione',
@@ -75,6 +88,7 @@ return [
     'customerDiscountMessage' => 'Hai già effettuato una prenotazione con noi, per te uno sconto del ',
     'discountedPrice' => 'Prezzo scontato',
     'originalPrice' => 'Prezzo originale',
+    'seatBoosterMsg' => 'Siamo dotati di seggiolini e alzatine per trasporto bimbi da 1 mese a 10 anni. Aggiungi la tua richiesta durante la prenotazione.',
     //fine LIVEWIRE
 
     //contact-link
@@ -121,7 +135,10 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
 
     // dicono di noi
     'someReviews' => 'Alcune recensioni',
-
+    'noReviews' => 'Nessuna recensione disponibile',
+    'reviewRequest' => 'Lascia una recensione',
+    'dear' => 'Caro/a',
+    'reviewRequestMailMessage' => 'Ti chiediamo di lasciare una recensione sulla tua esperienza con noi, clicca sul link qui sotto',
     'typeOfService' => 'Tipo di servizio',
     'contactUs' => 'contattaci',
     'message' => 'Inserisci un messaggio',
@@ -139,16 +156,17 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
     'email_required' => 'L\'email è obbligatoria',
     'email_email' => 'Inserisci un\'email valida',
     'phone_required' => 'Il numero di telefono è obbligatorio',
-    'body_required' => 'Le note sono obbligatorie',
-    'privacy_policy_accepted' => 'Accetta le privacy policy per proseguire',
-    'terms_conditions_accepted' => 'Accetta i termini e condizioni per proseguire',
+    'body_required' => 'Il campo è obbligatorio',
+    'privacy_policy_accepted' => 'Accetta le condizioni per proseguire',
 
     'dateStart_required' => 'La data di ritiro è obbligatoria',
+    'timeStart_required' => 'L\'ora di ritiro é obbligatoria',
     'dateStart_date' => 'La data di ritiro deve essere una data valida',
     'dateStart_after_or_equal' => 'La data di ritiro non può essere nel passato',
     'dateEnd_required' => 'La data di consegna è obbligatoria',
+    'timeEnd_required' => 'L\'ora di consegna é obbligatoria',
     'dateEnd_date' => 'La data di consegna deve essere una data valida',
-    'dateEnd_after_or_equal' => 'La data di consegna deve essere uguale o successiva alla data di ritiro',
+    'dateEnd_after_or_equal' => 'La data di consegna deve essere dopo la data di ritiro',
     'quantity_required' => 'La quantità è obbligatoria',
     'quantity_integer' => 'La quantità deve essere un numero intero',
     'quantity_min' => 'La quantità deve essere almeno 1',
@@ -162,6 +180,7 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
     'excursionPassengers_min' => 'Il numero minimo di passeggeri è 1',
     'excursionPassengers_max' => 'Il numero massimo di passeggeri è 16',
     'excursionDate_required' => 'La data di partenza è obbligatoria',
+    'excursionTime_required' => 'L\'ora di partenza è obbligatoria',
     'excursionDate_date' => 'La data di partenza deve essere una data valida',
     'excursionDate_after_or_equal' => 'La data di partenza non può essere nel passato',
 
@@ -176,9 +195,12 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
     'dateDeparture_required' => 'La data di partenza è obbligatoria.',
     'dateDeparture_date' => 'La data di partenza deve essere una data valida.',
     'dateDeparture_after_or_equal' => 'La data di partenza non può essere nel passato.',
+    'timeDeparture_required' => 'Seleziona un orario di partenza.',
     'dateReturn_date' => 'La data di ritorno deve essere una data valida.',
     'dateReturn_after' => 'La data di ritorno deve essere dopo la data di partenza.',
-    'dateReturn_required' => 'La data di ritorno è obbligatoria, oppure seleziona sola andata',
+    'dateReturn_required' => 'La data di ritorno è obbligatoria',
+    'timeReturn_required' => 'Seleziona un orario di ritorno.',
+    'invalid_return_time' => 'Il ritorno deve essere selezionato almeno :time dopo la partenza.',
 
     'contactMailMessage' => 'Email inviata con successo',
 
@@ -217,7 +239,7 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
 
     'bookingStatusUpdate' => 'Lo stato della tua prenotazione è stato modificato in :status, clicca sul link in basso per più informazioni',
 
-    'bookingStatus' => 'Stato prenotazione',
+    'bookingStatus' => 'Verifica stato prenotazione',
     'bookingStatusEmailVerification' => 'Inserisci la mail con cui hai effettuato la prenotazione',
     'bookingStatusIDVerification' => 'Inserisci il numero della prenotazione',
     'verifyEmail' => 'Verifica email',
@@ -237,6 +259,10 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
     'car' => 'Auto',
 
     'contactBody' => 'Inserisci un messaggio',
+
+    'it' => 'italiano',
+    'more' => 'altro',
+    'addReturn' => 'aggiungi ritorno',
 
 
 ];

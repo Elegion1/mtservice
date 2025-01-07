@@ -18,7 +18,8 @@ class Excursion extends Model
         'abstract_en',
         'description_it',
         'description_en',
-        'duration'
+        'duration',
+        'show',
     ];
 
     public function images()

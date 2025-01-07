@@ -14,7 +14,7 @@
         </form>
         <hr>
         <h2>Tutte le Destinazioni</h2>
-        <table class="table">
+        <table class="table table-sm table-striped">
             <thead>
                 <tr>
                     <th>#</th>

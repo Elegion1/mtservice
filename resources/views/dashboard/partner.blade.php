@@ -24,7 +24,7 @@
         </form>
         <hr>
         <h2>Tutti i Partner</h2>
-        <table class="table">
+        <table class="table table-sm table-striped">
             <thead>
                 <tr>
                     <th>#</th>

@@ -1,9 +1,9 @@
 <x-dashboard-layout>
     <div class="container-fluid mt-5">
         <h2>Escursioni</h2>
-        <a href="{{route('excursion.create')}}" class="btn bg-a text-white">Crea</a>
+        <a href="{{ route('excursion.create') }}" class="btn bg-a text-white">Crea</a>
     </div>
-    <table class="table">
+    <table class="table table-sm table-striped">
         <thead>
             <tr>
                 <th>#</th>
@@ -13,6 +13,7 @@
                 <th>Durata</th>
                 <th>Data di aggiunta</th>
                 <th>Data di modifica</th>
+                <th>Mostra</th>
                 <th>Immagini</th>
                 <th>Azione</th>
             </tr>
@@ -27,6 +28,7 @@
                     <td>{{ $excursion->duration }} h</td>
                     <td>{{ $excursion->created_at }}</td>
                     <td>{{ $excursion->updated_at }}</td>
+                    <td>{{ $excursion->show }}</td>
                     <td>
                         @if ($excursion->images->count() > 0)
                             <small>{{ $excursion->images->count() }} immagini caricate</small>

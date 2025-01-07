@@ -35,7 +35,7 @@ class OwnerDataSeeder extends Seeder
         ]);
 
         $imagePaths = [
-            'public/media/logo.png',
+            'public/media/svg/logo.svg',
         ];
 
         foreach ($imagePaths as $imagePath) {

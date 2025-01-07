@@ -10,6 +10,15 @@
             @csrf
             @method('PUT')
 
+            <!-- Checkbox: Show -->
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="show" name="show" value="1"
+                    {{ $excursion->show ? 'checked' : '' }}>
+                <label class="form-check-label" for="show">
+                    Mostra 
+                </label>
+            </div>
+
             <!-- Nome Escursione -->
             <div class="mb-3">
                 <label for="edit-name" class="form-label">Nome Escursione *</label>

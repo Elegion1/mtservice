@@ -3,7 +3,7 @@
         <h2>Contenuti</h2>
         <a href="{{ route('content.create') }}" class="btn bg-a text-white">Crea</a>
     </div>
-    <table class="table">
+    <table class="table table-sm table-striped">
         <thead>
             <tr>
                 <th>#</th>

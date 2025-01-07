@@ -35,7 +35,7 @@
             <button type="submit" class="btn btn-primary">Aggiungi cliente</button>
         </form>
         <hr>
-        <table class="table">
+        <table class="table table-sm table-striped">
             <thead>
                 <tr>
                     <th>#</th>

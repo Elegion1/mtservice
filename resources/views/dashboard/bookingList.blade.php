@@ -1,6 +1,6 @@
 <x-dashboard-layout>
     <div class="container-fluid">
-
+        
         <h2 class="text-wrap">Prenotazioni confermate</h2>
         <a class="btn btn-sm btn-secondary text-small" href="{{ route('booking.todo') }}">Da confermare</a>
 

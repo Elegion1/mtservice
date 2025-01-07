@@ -53,9 +53,9 @@ class ViewServiceProvider extends ServiceProvider
             View::share('partners', $partners);
         }
 
-        if (Review::query()->exists()) {
-            $reviewsP = Review::paginate(6);
-            $reviews = Review::all();
+        if (Review::query()->where('status', 'confirmed')->exists()) {
+            $reviewsP = Review::where('status', 'confirmed')->paginate(6);
+            $reviews = Review::get();
             View::share('reviewsP', $reviewsP);
             View::share('reviews', $reviews);
         }

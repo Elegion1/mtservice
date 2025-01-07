@@ -30,4 +30,5 @@ return [
     'dashboard_pages' => 'Manage Pages',
     'dashboard_customers' => 'Manage Customers',
     'dashboard_discounts' => 'Manage Discounts',
+    'create_review' => 'Create review for booking :booking_code',
 ];

@@ -6,9 +6,6 @@
             </div>
         </div>
         <div class="col-12 col-md-6">
-            <div class="container bg-white rounded p-3 border_custom">
-                <livewire:prenotazione />
-            </div>
             <div class="container my-5">
                 <x-contact-link />
             </div>

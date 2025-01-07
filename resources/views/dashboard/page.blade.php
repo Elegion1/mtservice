@@ -29,7 +29,7 @@
         <hr>
 
         <!-- Tabella per visualizzare le pagine esistenti -->
-        <table class="table">
+        <table class="table table-sm table-striped">
             <thead>
                 <tr>
                     <th>#</th>

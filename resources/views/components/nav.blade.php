@@ -1,37 +1,97 @@
-<nav class="navbar navbar-expand-lg bg_nav border_custom shadow z-3 d-flex flex-column">
-    <div class="container">
-        <a href="{{ route('home') }}">
-            <img class="logo-img" src="{{ Storage::url($ownerdata->images->first()->path) }}"
-                alt="LOGO-TRANCHIDA-TRANSFER&RENT">
-        </a>
+<nav class="navbar navbar-expand-lg bg_nav border_custom z-3 position-absolute vw-100">
+    <div class="container-fluid d-flex justify-content-around align-items-center">
 
-        <div class="d-flex justify-content-center align-items-center">
-            @foreach (config('app.available_locales') as $locale)
-                <a href="{{ updateLocaleInUrl($locale) }}"
-                    class="{{ app()->getLocale() == $locale ? 'active-locale' : '' }} nav-link m-1">
-                    {{ strtoupper($locale) }}
-                </a>
-            @endforeach
+        <div>
+            <a class="text-b text-decoration-none d-flex justify-content-center align-items-center m-1"
+                href="{{ route('home') }}">
+                <img class="logo-img" src="{{ Storage::url($ownerdata->images->first()->path) }}"
+                    alt="LOGO-TRANCHIDA-TRANSFER&RENT">
+                <p class="m-1 text-center text-nowrap">{!! $ownerdata->siteName !!}</p>
+            </a>
         </div>
 
-        {{-- @php
-            function updateLocaleInUrl($newLocale)
-            {
-                $currentUrl = request()->url(); // Get the current URL without query parameters
-                $segments = request()->segments(); // Get all URL segments
+        <div>
 
-                // Check if the first segment is a locale and replace it
-                if (in_array($segments[0], config('app.available_locales'))) {
-                    $segments[0] = $newLocale; // Update the locale segment
-                } else {
-                    array_unshift($segments, $newLocale); // Add the new locale as the first segment
-                }
+            <div class="row">
 
-                return url(implode('/', $segments)); // Rebuild the URL and return
-            }
-        @endphp --}}
+                <div class="col-6 col-md-12">
+                    <form method="GET" action="" id="locale-form" class="m-1 text-center">
+                        <select id="locale-select" class="form-select-sm locale-select" onchange="changeLocale()">
+                            @foreach (config('app.available_locales') as $locale)
+                                <option value="{{ updateLocaleInUrl($locale) }}"
+                                    {{ app()->getLocale() == $locale ? 'selected' : '' }}>
+                                    {{ strtoupper(__('ui.' . $locale)) }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </form>
+                </div>
+
+                <div class="col-12">
+                    <div class="container d-none d-lg-block">
+                        <ul class="navbar-nav d-block d-flex align-items-center justify-content-start mb-2 mb-lg-0">
+                            <x-links :linksToShow="['transfer', 'escursioni', 'noleggio']">
+                                text-uppercase text-white text-nowrap
+                            </x-links>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        {{-- dropdown menu --}}
+        <button class="navbar-toggler p-0 border-0 navbar_toggler_focused" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <i id="toggler-icon" class="bi"></i>
+        </button>
         
-        <div class="d-flex justify-content-between align-items-center flex-column">
+        <div class="container-fluid d-block d-lg-none">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav d-flex align-items-center justify-content-center mb-2 mb-lg-0">
+                    <x-links>
+                        text-uppercase text-white text-shadow
+                    </x-links>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</nav>
+
+<script>
+    function changeLocale() {
+        const select = document.getElementById('locale-select');
+        const selectedUrl = select.value;
+        window.location.href = selectedUrl; // Cambia la lingua reindirizzando alla nuova URL
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const togglerIcon = document.querySelector('#toggler-icon');
+
+        // Funzione per gestire il cambio delle icone
+        const toggleIcons = () => {
+            const isExpanded = navbarToggler.getAttribute('aria-expanded') === 'true';
+            if (isExpanded) {
+                togglerIcon.classList.remove('bi-list');
+                togglerIcon.classList.add('bi-x-lg');
+            } else {
+                togglerIcon.classList.remove('bi-x-lg');
+                togglerIcon.classList.add('bi-list');
+            }
+        };
+
+        // Aggiungi l'evento click per aggiornare le icone
+        navbarToggler.addEventListener('click', toggleIcons);
+
+        // Assicura che le icone siano corrette al caricamento della pagina
+        toggleIcons();
+    });
+</script>
+
+
+{{-- <div class="d-flex justify-content-between align-items-center flex-column">
             <span class="text-a">{{ __('ui.navTitle') }}</span>
             <div class="d-flex justify-content-around aling-items-center">
                 @if ($ownerdata->phone2 && $ownerdata->phone2Name)
@@ -45,31 +105,4 @@
                         {{ $ownerdata->phone3Name }}</a>
                 @endif
             </div>
-        </div>
-
-
-        <button class="navbar-toggler p-0 border-0 " type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-
-        <div class="container d-block d-lg-none">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav d-flex align-items-center justify-content-center flex-wrap mx-auto mb-2 mb-lg-0">
-                    <x-links>
-                        text-uppercase text-d
-                    </x-links>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid d-none d-lg-block">
-        <ul class="navbar-nav d-block d-flex align-items-center justify-content-center flex-wrap mx-auto mb-2 mb-lg-0">
-            <x-links>
-                text-uppercase text-d
-            </x-links>
-        </ul>
-    </div>
-</nav>
+        </div> --}}

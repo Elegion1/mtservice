@@ -8,7 +8,7 @@
             <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
                 <img width="100px" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt="">
             </a>
-            <small>© 2024 {{ $ownerdata->companyName }}</small><br>
+            <small>{{ $ownerdata->companyName }}</small><br>
             <small>di {{ $ownerdata->name }} {{ $ownerdata->surname }}</small><br>
             <small>{{ $ownerdata->address }}</small><br>
             <small>{{ $ownerdata->city }}</small><br>
@@ -28,11 +28,11 @@
                 </x-links>
                 <li>
                     <a class="nav-link text-body-secondary text-capitalize p-0 text-small"
-                        href="https://tranchidatransfer.it/sitemap.xml">Sitemap</a>
+                        href="{{ route('booking.status') }}">{{ __('ui.bookingStatus') }}</a>
                 </li>
                 <li>
                     <a class="nav-link text-body-secondary text-capitalize p-0 text-small"
-                        href="{{ route('booking.status') }}">{{__('ui.bookingStatus')}}</a>
+                        href="https://tranchidatransfer.it/sitemap.xml">Sitemap</a>
                 </li>
             </ul>
         </div>
@@ -54,11 +54,14 @@
                             {{ $ownerdata->phone3Name }}</a>
                     </li>
                 @endif
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary"><i
-                            class="bi bi-facebook"></i></a></li>
-                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary"><i
-                            class="bi bi-whatsapp"></i></a></li>
-
+                @if ($ownerdata->facebook)
+                    <li class="nav-item mb-2"><a href="{{ $ownerdata->facebook }}" class="nav-link p-0 text-primary"><i
+                                class="bi bi-facebook"></i></a></li>
+                @endif
+                @if ($ownerdata->whatsapp)
+                    <li class="nav-item mb-2"><a href="{{ $ownerdata->whatsapp }}" class="nav-link p-0 text-success"><i
+                                class="bi bi-whatsapp"></i></a></li>
+                @endif
             </ul>
         </div>
     </div>

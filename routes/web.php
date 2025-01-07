@@ -16,6 +16,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\ExcursionController;
@@ -26,6 +27,7 @@ Route::get('/', function () {
     $locale = app()->getlocale(); // Recupera il locale predefinito
     return redirect()->to($locale); // Reindirizza alla homepage con il locale
 });
+
 //navigazione
 Route::prefix('{locale}')
     ->where(['locale' => '[a-zA-Z]{2}'])
@@ -56,25 +58,35 @@ Route::prefix('{locale}')
         // visualizza stato prenotazione
         Route::get('/booking/status', [PublicController::class, 'bookingStatus'])->name('booking.status');
         Route::post('/booking/status', [PublicController::class, 'bookingStatusCheck'])->name('booking.status.check');
+
+        // recensioni
+        Route::get('/reviews/create/{booking_code}', [ReviewController::class, 'createReview'])->name('reviews.create');
+        Route::post('/reviews/save', [ReviewController::class, 'saveReview'])->name('customer.reviews.store');
     });
 
 
 // gestione stato prenotazione
 
-Route::post('/dashboard/bookings/{booking}/update-status', [BookingController::class, 'update'])->name('bookings.update');
-Route::get('/dashboard/booking/status/to-do', [BookingController::class, 'bookingToDo'])->name('booking.todo');
+Route::post('/dashboard/bookings/{booking}/update-status', [BookingController::class, 'update'])->name('bookings.update')->middleware('auth');
+Route::get('/dashboard/booking/status/to-do', [BookingController::class, 'bookingToDo'])->name('booking.todo')->middleware('auth');
+
 Route::get('/dashboard/booking/confirm/{booking}', [PublicController::class, 'confirmBooking'])->name('booking.confirm');
 Route::get('/dashboard/booking/reject/{booking}', [PublicController::class, 'rejectBooking'])->name('booking.reject');
-
-
-
-
 
 
 // DASHBOARD
 
 // vista dashboard
 Route::get('/dashboard', [PublicController::class, 'dashboard'])->name('dashboard')->middleware('auth');
+Route::get('/dashboard/jobs', [TestController::class, 'jobsIndex'])->name('dashboard.jobs')->middleware('auth');
+
+//impostazioni
+Route::get('/dashboard/settings/', [SettingController::class, 'index'])->name('dashboard.settings'); // Visualizza tutte le impostazioni
+Route::get('/dashboard/settings/create', [SettingController::class, 'create'])->name('settings.create'); // Mostra il form per creare una nuova impostazione
+Route::post('/dashboard/settings/', [SettingController::class, 'store'])->name('settings.store'); // Salva una nuova impostazione
+Route::put('/dashboard/settings/{setting}', [SettingController::class, 'update'])->name('settings.update'); // Aggiorna un'impostazione esistente
+Route::delete('/dashboard/settings/{setting}', [SettingController::class, 'destroy'])->name('settings.destroy'); // Elimina un'impostazione
+
 // testing
 Route::get('dashboard/testing', [TestController::class, 'test'])->name('dashboard.testing')->middleware('auth');
 Route::get('/dashboard/generate/pdf/{bookingId}/{lang}', [TestController::class, 'pdf'])->name('testing.genPDF')->middleware('auth');

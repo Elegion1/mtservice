@@ -5,7 +5,7 @@
             <div class="col-12">
                 <select name="booking" id="bookingSelect" class="form-select w-25 m-3">
                     @foreach ($bookings as $booking)
-                        <option value="{{ $booking['id'] }}">{{ json_decode($booking['bookingData'], true)['type'] }}
+                        <option value="{{ $booking->id }}">{{ $booking->bookingData['type'] }}
                         </option>
                     @endforeach
                 </select>
@@ -33,6 +33,10 @@
                         <div class="col-12 p-1">
                             <button id="emailContattaciIt" class="btn btn-sm btn-success">Contattaci IT</button>
                             <button id="emailContattaciEn" class="btn btn-sm btn-primary">Contattaci EN</button>
+                        </div>
+                        <div class="col-12 p-1">
+                            <button id="emailRecensioneIt" class="btn btn-sm btn-success">Recensione IT</button>
+                            <button id="emailRecensioneEn" class="btn btn-sm btn-primary">Recensione EN</button>
                         </div>
                     </div>
                 </div>
@@ -99,7 +103,7 @@
             // Event listeners per i pulsanti email con lingua fissa basata sui bottoni
             document.getElementById('emailBookingAdmin').addEventListener('click', function() {
                 const selectedBookingId = bookingSelect.value;
-                loadEmailPreview(`/dashboard/email/preview/booking-admin/${selectedBookingId}/it`);
+                loadEmailPreview(`/dashboard/email/preview/booking-admin/it/${selectedBookingId}`);
             });
 
             document.getElementById('emailContattaciAdmin').addEventListener('click', function() {
@@ -108,24 +112,24 @@
 
             document.getElementById('emailBookingConfirmationIt').addEventListener('click', function() {
                 const selectedBookingId = bookingSelect.value;
-                loadEmailPreview(`/dashboard/email/preview/booking-confirmation/${selectedBookingId}/it`);
+                loadEmailPreview(`/dashboard/email/preview/booking-confirmation/it/${selectedBookingId}`);
             });
 
             document.getElementById('emailBookingConfirmationEn').addEventListener('click', function() {
                 const selectedBookingId = bookingSelect.value;
-                loadEmailPreview(`/dashboard/email/preview/booking-confirmation/${selectedBookingId}/en`);
+                loadEmailPreview(`/dashboard/email/preview/booking-confirmation/en/${selectedBookingId}`);
             });
 
             document.getElementById('emailBookingStatusNotificationIt').addEventListener('click', function() {
                 const selectedBookingId = bookingSelect.value;
                 loadEmailPreview(
-                    `/dashboard/email/preview/booking-status-notification/${selectedBookingId}/it`);
+                    `/dashboard/email/preview/booking-status-notification/it/${selectedBookingId}`);
             });
 
             document.getElementById('emailBookingStatusNotificationEn').addEventListener('click', function() {
                 const selectedBookingId = bookingSelect.value;
                 loadEmailPreview(
-                    `/dashboard/email/preview/booking-status-notification/${selectedBookingId}/en`);
+                    `/dashboard/email/preview/booking-status-notification/en/${selectedBookingId}`);
             });
 
             document.getElementById('emailContattaciIt').addEventListener('click', function() {
@@ -133,6 +137,15 @@
             });
             document.getElementById('emailContattaciEn').addEventListener('click', function() {
                 loadEmailPreview(`/dashboard/email/preview/contattaci/en`);
+            });
+
+            document.getElementById('emailRecensioneIt').addEventListener('click', function() {
+                const selectedBookingId = bookingSelect.value;
+                loadEmailPreview(`/dashboard/email/preview/review-request/it/${selectedBookingId}`);
+            });
+            document.getElementById('emailRecensioneEn').addEventListener('click', function() {
+                const selectedBookingId = bookingSelect.value;
+                loadEmailPreview(`/dashboard/email/preview/review-request/en/${selectedBookingId}`);
             });
         });
     </script>

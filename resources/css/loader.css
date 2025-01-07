@@ -1,34 +1,37 @@
 .loader-wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 50px;
-    height: 50px;
-    transform: translate(-50%, -50%);
-    z-index: 10000;
-}
-.loader {
-    width: 50px;
-    height: 50px;
     position: relative;
+    width: 0px;
+    height: 0px;
+    
+    /* z-index: 10000; */
+}
+
+.loader {
+    width: 30px;
+    height: 30px;
+    position: absolute;
     overflow: hidden;
     filter: drop-shadow(0 0 0.75rem gray);
-    
+    /* background-color: red; */
+    top: -40px;
+    left: 250px;
 }
+
 .loader:before {
     content: "";
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     position: absolute;
     left: 0;
     top: 0;
-    border: 5px solid #0000;
+    border: 2px solid #0000;
     border-color: #fff #fff #0000 #0000;
     border-radius: 50%;
     box-sizing: border-box;
     animation: rotate 2s ease-in-out infinite;
     transform: rotate(-360deg);
 }
+
 @keyframes rotate {
     0% {
         border-width: 10px;

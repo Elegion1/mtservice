@@ -35,6 +35,11 @@
                             >>
                             <strong>{{ $booking->bookingData['arrival_name'] }}</strong> >>
                         @endif
+                        @if ($booking->end_date && $booking->bookingData['type'] == 'transfer')
+                            >> <strong>{{ $booking->bookingData['arrival_name'] }}</strong>
+                            >>
+                            <strong>{{ $booking->bookingData['departure_name'] }}</strong> >>
+                        @endif
                         @if ($booking->bookingData['type'] == 'transfer' || $booking->bookingData['type'] == 'escursione')
                             {{ $booking->bookingData['passengers'] }} <strong>PAX</strong>
                         @endif

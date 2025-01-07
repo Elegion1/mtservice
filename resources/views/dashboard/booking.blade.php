@@ -8,7 +8,7 @@
                 <button id="toggleActionsBtn" class="btn btn-sm btn-warning">Azioni</button>
             </div>
         </div>
-        <table class="table">
+        <table class="table table-sm table-striped">
             <thead>
                 <tr>
                     <th>#</th>
@@ -29,7 +29,12 @@
                         <td>{{ $booking->id }}</td>
                         <td>{{ $booking->name }} {{ $booking->surname }}</td>
                         <td>{{ $booking->email }}</td>
-                        <td>{{ $booking->code }}</td>
+                        <td>
+                            {{ $booking->code }}
+                            <a href="{{ route('reviews.create', ['locale' => 'it', 'booking_code' => $booking->code]) }}">
+                                <i class="bi bi-star-half"></i>
+                            </a>
+                        </td>
                         <td>
                             <button class="btn text-primary btn-sm open-details-modal" data-bs-toggle="modal"
                                 data-bs-target="#bookingDetailsModal" data-booking-data="{{ json_encode($booking) }}">

@@ -21,18 +21,37 @@ class Prenotazione extends Component
     //     "duration" => "1",
     //     "passengers" => 1,
     //     "departure_id" => "2",
-    //     "date_departure" => "Sun 03 November 2024",
     //     "departure_name" => "Marsala",
     //     "original_price" => "150",
-    //     "time_departure" => "11:09",
+    // ];
+
+    // public $bookingData = [
+    //     'type' => 'transfer',
+    //     'departure_name' => 'Roma Termini',
+    //     'arrival_name' => 'Fiumicino Airport',
+    //     'date_dep' => '2024-12-05 14:30:00',  // Data e ora di partenza
+    //     'duration' => 45,  // Durata in minuti
+    //     'date_ret' => '2024-12-05 16:15:00',  // Data e ora di ritorno
+    //     'price' => 45,  // Prezzo in euro
+    //     'passengers' => 1,
+    // ];
+
+    // public $bookingData = [
+    //     'type' => 'noleggio',
+    //     'car_name' => 'Fiat 500',
+    //     'car_description' => 'Cabriolet, Blu',
+    //     'date_start' => '2024-12-10 10:00:00',  // Data e ora di ritiro
+    //     'date_end' => '2024-12-12 18:00:00',    // Data e ora di restituzione
+    //     'quantity' => 1,  // Quantità (nella maggior parte dei casi sarà 1)
+    //     'price' => 45,  // Prezzo in euro
     // ];
 
     public function mount()
     {
         $route = Route::currentRouteName();
 
-        // Controlla se la rotta corrente è 'home'
-        $this->isHome = $route == 'home';
+        // Imposta isHome a false solo per noleggio, transfer o escursioni
+        $this->isHome = !in_array($route, ['noleggio', 'transfer', 'escursioni']);
 
         // Imposta il modulo corrente in base alla rotta
         if ($route == 'noleggio') {
@@ -41,7 +60,7 @@ class Prenotazione extends Component
             $this->showTransfer();
         } elseif ($route == 'escursioni') {
             $this->showEscursioni();
-        } elseif ($route == 'home') {
+        } elseif ($this->isHome) {
             $this->showTransfer(); // Default
             // $this->showBookingSummary($this->bookingData);
         } elseif ($route == 'prezziDestinazioni') {

@@ -10,16 +10,22 @@ use Livewire\Component;
 class CarRent extends Component
 {
     public $dateStart;
+    public $timeStart;
     public $dateEnd;
+    public $timeEnd;
     public $quantity = 1;
     public $carID;
     public $rentPrice;
+    
+    public $currentStep = 1; // Step iniziale
 
     public function rules()
     {
         return [
             'dateStart' => 'required|date|after_or_equal:today',
+            'timeStart' => 'required',
             'dateEnd' => 'required|date|after_or_equal:dateStart',
+            'timeEnd' => 'required',
             'quantity' => 'required|integer|min:1',
             'carID' => 'required|exists:cars,id',
         ];
@@ -29,9 +35,11 @@ class CarRent extends Component
     {
         return [
             'dateStart.required' => __('ui.dateStart_required'),
+            'timeStart.required' => __('ui.timeStart_required'),
             'dateStart.date' => __('ui.dateStart_date'),
             'dateStart.after_or_equal' => __('ui.dateStart_after_or_equal'),
             'dateEnd.required' => __('ui.dateEnd_required'),
+            'timeEnd.required' => __('ui.timeEnd_required'),
             'dateEnd.date' => __('ui.dateEnd_date'),
             'dateEnd.after_or_equal' => __('ui.dateEnd_after_or_equal'),
             'quantity.required' => __('ui.quantity_required'),
@@ -40,6 +48,23 @@ class CarRent extends Component
             'carID.required' => __('ui.carID_required'),
             'carID.exists' => __('ui.carID_exists'),
         ];
+    }
+
+    public function goToStep($step)
+    {
+        $this->currentStep = $step;
+    }
+
+    public function submitDateSelection()
+    {
+        $this->validate([
+            'dateStart' => 'required|date',
+            'timeStart' => 'required',
+            'dateEnd' => 'required|date|after_or_equal:dateStart',
+            'timeEnd' => 'required',
+        ]);
+
+        $this->currentStep = 2; // Passa allo step successivo
     }
 
     public function updated($field)
@@ -73,14 +98,24 @@ class CarRent extends Component
 
     public function getBookingDataRent()
     {
+        $dateTimeStart = $this->combineDateAndTime($this->dateStart, $this->timeStart);
+        $dateTimeEnd = $this->combineDateAndTime($this->dateEnd, $this->timeEnd);
         return [
             'type' => 'noleggio',
-            'date_start' => $this->dateStart,
-            'date_end' => $this->dateEnd,
+            'date_start' => $dateTimeStart,
+            'date_end' => $dateTimeEnd,
             'quantity' => $this->quantity,
             'car_ID' => $this->carID,
             'price' => $this->rentPrice,
         ];
+    }
+
+    protected function combineDateAndTime($date, $time)
+    {
+        if ($date && $time) {
+            return "{$date}T{$time}";
+        }
+        return null;
     }
 
     public function submitBookingRent()
@@ -88,14 +123,7 @@ class CarRent extends Component
         $this->calculatePriceRent();
         $this->validate();
 
-        $bookingData = [
-            'type' => 'noleggio',
-            'car_id' => $this->carID,
-            'date_start' => $this->dateStart,
-            'date_end' => $this->dateEnd,
-            'quantity' => $this->quantity,
-            'price' => $this->rentPrice,
-        ];
+        $bookingData = $this->getBookingDataRent();
 
         $car = Car::find($this->carID);
         if ($car) {

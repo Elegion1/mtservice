@@ -1,49 +1,73 @@
 <div>
-    <div class="container">
-        <form wire:submit.prevent="submitBookingExcursion" id="excursionForm">
-            <h4 class="text-uppercase text-a"><strong>{{ __('ui.excursionTitle') }}</strong></h4>
-            <div class="row">
-                <div class="col-12">
-                    <select wire:model.live="excursionSelect" wire:change="calculatePriceExcursion" id="excursionSelect"
-                        class="form-select form_input_focused">
-                        <option selected>{{ __('ui.excursionSelect') }}</option>
-                        @foreach ($excursions as $excursion)
-                            <option value="{{ $excursion->id }}" data-price="{{ $excursion->price }}">
-                                {{ $excursion->{'name_' . app()->getLocale()} }}</option>
-                        @endforeach
-                    </select>
-                    <x-error-message field='excursionSelect' />
-                </div>
+
+    <form wire:submit.prevent="submitBookingExcursion" id="excursionForm">
+
+        <div class="row">
+            <div class="col-12 p-0 m-0">
+                <span>{{ __('ui.excursionTitle') }}</span>
+                <select wire:model.live="excursionSelect" wire:change="calculatePriceExcursion" id="excursionSelect"
+                    class="form-select form_input input_size" aria-label="seleziona escursione">
+                    <option value="">{{ __('ui.excursionSelect') }}</option>
+                    @foreach ($excursions as $excursion)
+                        <option value="{{ $excursion->id }}" data-price="{{ $excursion->price }}">
+                            {{ $excursion->{'name_' . app()->getLocale()} }}</option>
+                    @endforeach
+                </select>
+                <x-error-message field='excursionSelect' />
             </div>
 
-            <div class="row">
-                <div class="col-12 col-md-6">
-                    <label for="excursionPassengers" class="form-label">{{ __('ui.passengers') }}</label>
-                    <input wire:model.live="excursionPassengers" type="number" class="form-control form_input_focused"
-                        id="excursionPassengers" min="1" max="16" value="1">
-                        <x-error-message field='excursionPassengers' />
-                </div>
-                <div class="col-12 col-md-6">
-                    <label class="form-label" for="dateExcursion">{{ __('ui.departure') }}</label>
-                    <input wire:model.live="excursionDate" type="datetime-local" class="form-control form_input_focused"
+            <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
+                <div class="w-custom me-3">
+                    <span>{{ __('ui.date') }}</span>
+                    <input wire:model.live="excursionDate" type="date" class="form-control form_input input_size"
                         id="dateExcursion">
-                        <x-error-message field='excursionDate' />
+                    <x-error-message field='excursionDate' />
+                </div>
+
+                <div class="w-custom">
+                    <span>{{ __('ui.time') }}</span>
+                    <input wire:model.live="excursionTime" type="time" class="form-control form_input input_size"
+                        id="timeExcursion">
+                    <x-error-message field='excursionTime' />
                 </div>
             </div>
 
-            <div class="row mb-3 align-items-end">
-                <div class="col-6 col-md-3">
-                    <label for="excursionPrice" class="form-label">{{ __('ui.totalPrice') }}</label>
+            <div class="col-12 p-0 m-0">
+                <span>{{ __('ui.passengers') }}</span>
+
+                <div class="d-flex align-items-center justify-content-center">
+                    <!-- Bottone per decrementare i passeggeri -->
+                    <button wire:click="decrementPassengers" type="button" id="removePassenger"
+                        class="btn passenger_button" @if ($excursionPassengers == 1) disabled @endif><i
+                            class="bi bi-dash-lg"></i></button>
+
+                    <!-- Input per il numero di passeggeri -->
+                    <input wire:model.live="excursionPassengers" type="number"
+                        class="form-control form_input rounded-0 input_size text-center" id="excursionPassengers"
+                        min="1" max="16" value="1" readonly>
+
+                    <!-- Bottone per incrementare i passeggeri -->
+                    <button wire:click="incrementPassengers" type="button" id="addPassenger"
+                        class="btn passenger_button " @if ($excursionPassengers == 16) disabled @endif><i
+                            class="bi bi-plus-lg"></i></button>
+
+                </div>
+
+                <x-error-message field='excursionPassengers' />
+            </div>
+
+            <div class="col-12 mb-3 p-0">
+                <label>{{ __('ui.totalPrice') }}</label>
+                <div class="d-flex justify-content-start align-items-center bg-c rounded px-2">
+                    <img src="{{ url('/media/svg/currency-euro.svg') }}" alt="">
                     <input wire:model.live="excursionPrice" readonly type="text"
-                        class="form-control form_input_focused" id="excursionPrice" value="€">
-                </div>
-                <div class="col-6 col-md-3 ms-0 ps-0 d-flex justify-content-start align-items-center">
-                    <span class="fs-4">€</span>
-                </div>
-                <div class="col-12 col-md-6 d-grid mt-3">
-                    <button type="submit" class="btn bg-a text-white">{{ __('ui.submit') }}</button>
+                        class="form-control form_input input_size" id="excursionPrice">
                 </div>
             </div>
-        </form>
-    </div>
+
+            <button type="submit"
+                class="btn col-12 input_size bg-dark rounded px-2 text-light">{{ __('ui.submit') }}</button>
+        </div>
+    </form>
+
 </div>

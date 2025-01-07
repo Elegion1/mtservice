@@ -15,9 +15,9 @@
 
 <body>
     @auth
-        <nav class="navbar navbar-expand-lg bg_nav border_custom shadow z-3 d-flex flex-column mb-5">
+        <nav class="navbar navbar-expand-lg shadow z-3 d-flex flex-column mb-3">
             <div class="container">
-                <p><a href="{{ route('dashboard') }}">Dashboard</a></p>
+                <p><a href="{{ route('dashboard') }}">Home Dashboard</a></p>
                 <p>Benvenuto: {{ Auth::user()->name }}</p>
                 <button class="navbar-toggler p-0 border-0 " type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -43,7 +43,7 @@
                 @endif
             </div>
         </nav>
-        <div class="container-fluid mb-5 mx-auto">
+        <div >
             <x-display-error />
             <x-display-message />
             <x-display-success />

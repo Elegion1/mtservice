@@ -38,7 +38,7 @@
             </form>
         </div>
 
-        <table class="table">
+        <table class="table table-sm table-striped">
             <tr>
                 <th>ID</th>
                 <th>Nome</th>

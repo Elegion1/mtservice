@@ -2,7 +2,7 @@
     @if ($tratte)
         <div class="d-flex flex-wrap justify-content-center align-items-center">
             @foreach ($tratte as $tratta)
-                <div class="container text-center text-wrap">
+                <div class="container text-center text-wrap text-uppercase">
                 {{-- <div class="col-2 d-flex justify-content-end align-items-center">
                     <button class="btn btn-sm bg-a text-white prenota-btn">Prenota</button>
                 </div> --}}

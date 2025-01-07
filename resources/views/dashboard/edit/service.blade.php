@@ -10,6 +10,26 @@
             @csrf
             @method('PUT')
 
+            <div class="d-flex justify-content-between align-items-center w-25">
+                <!-- Checkbox: Show -->
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="show" name="show" value="1"
+                        {{ $service->show ? 'checked' : '' }}>
+                    <label class="form-check-label" for="show">
+                        Mostra 
+                    </label>
+                </div>
+
+                <!-- Checkbox: Flag -->
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="flag" name="flag" value="1"
+                        {{ $service->flag ? 'checked' : '' }}>
+                    <label class="form-check-label" for="flag">
+                        Mostra sugli highlights
+                    </label>
+                </div>
+            </div>
+
             <!-- Title -->
             <div class="mb-3">
                 <label for="edit-title" class="form-label">Titolo *</label>
@@ -56,7 +76,6 @@
             <div class="mb-3">
                 <label for="edit-condition" class="form-label">Condizioni</label>
                 <textarea type="text" class="form-control form_input_focused" id="edit-condition" name="condition">{{ $service->condition }}</textarea>
-
             </div>
 
             <!-- Images -->

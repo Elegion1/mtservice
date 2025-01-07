@@ -8,24 +8,74 @@
 }
 
 .masthead {
-    height: 70vh;
+    height: 100vh;
     min-height: 100px;
+    width: 100vw;
+    object-fit: cover;
 }
 
-.text_masthead {
-    top: 25%;
-    left: 50%;
+.pos_masthead {
+    top: 15%;
 }
 
 .indicators_space {
     height: 60px;
 }
 
+/* Gestione dell'immagine */
 .img_car {
-    height: 100%;
     width: 100%;
+    height: 100vh;
     object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0; /* Immagine più in basso nel livello */
 }
+
+/* Sovrapposizione con gradiente */
+.gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.5) 0%,
+        rgba(0, 0, 0, 0.01) 100%
+    );
+    z-index: 1; /* Sopra l'immagine, sotto il contenuto */
+    pointer-events: none; /* Non interferisce con le interazioni */
+}
+
+/* Contenitore del contenuto */
+#headerContainer {
+    
+    z-index: 2; /* Sopra immagine e gradiente */
+    color: white; /* Testo visibile sopra gradiente scuro */
+}
+
+/* Testo nella testata */
+#headerText {
+    height: 700px;
+    
+    z-index: 2; /* Per sicurezza, sopra tutti */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Migliora leggibilità */
+}
+
+@media screen and (max-width: 992px) {
+    #headerText {
+        height: auto;
+    }
+}
+
+#headerBooking {
+    height: 700px;
+    z-index: 2; /* Per sicurezza, sopra tutti */
+    
+}
+
 .service {
     width: 100%;
     /* height: 40vh !important; */
@@ -34,10 +84,10 @@
 }
 
 .service-img {
-   width: 100%;
-   height: 250px;
-   object-fit: cover;
-   max-width: 600px;
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    max-width: 600px;
 }
 
 .service_custom {
@@ -58,7 +108,7 @@
 /* Per dispositivi con larghezza >= 768px (tablet e desktop) */
 @media screen and (min-width: 768px) {
     .excursion-img {
-        width: 100%;   /* Larghezza fissa per tutte le immagini */
+        width: 100%; /* Larghezza fissa per tutte le immagini */
         height: 250px; /* Altezza fissa */
         object-fit: cover; /* Mantiene le proporzioni senza deformazioni */
     }
@@ -67,9 +117,8 @@
 /* Per dispositivi con larghezza < 768px (mobile) */
 @media screen and (max-width: 767px) {
     .excursion-img {
-        width: 100%;   /* Larghezza fissa per tutte le immagini */
+        width: 100%; /* Larghezza fissa per tutte le immagini */
         height: 200px; /* Altezza ridotta per dispositivi più piccoli */
         object-fit: cover; /* Mantiene le proporzioni senza deformazioni */
     }
-
 }
