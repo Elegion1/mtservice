@@ -6,9 +6,12 @@
             $currentRoute = Route::currentRouteName();
             $defaultContent = null;
             $displayedContent = null;
+            $displayedImage = null;
+            $defaultImagePath =
+                'https://tranchidatransfer.it/storage/images/XLwFNr204aSLbrGfbAQc3wJ5eq8emjznHq1X4ucK.jpg';
 
             // Cerca il contenuto specifico per la pagina o quello predefinito
-            // @dd($contents);
+
             foreach ($contents as $content) {
                 if ($content->order == 0 && $content->show) {
                     if (
@@ -31,6 +34,9 @@
                         if (!$content->page && !$defaultContent) {
                             $defaultContent = $content;
                         }
+                    }
+                    if ($content->images->isNotEmpty() && $content->page->link == $currentRoute) {
+                        $displayedImage = $content->images->first()->path;
                     }
                 }
             }
@@ -65,12 +71,11 @@
 
         {{-- Gradiente e immagine --}}
         <div class="gradient-overlay"></div>
-        @if ($displayedContent && $displayedContent->images->isNotEmpty())
-            <img class="img_car" src="{{ Storage::url($displayedContent->images->first()->path) }}" alt="HEADER-IMG">
+
+        @if ($displayedImage)
+            <img class="img_car" src="{{ Storage::url($displayedImage) }}" alt="HEADER-IMG">
         @else
-            <img class="img_car"
-                src="https://tranchidatransfer.it/storage/images/XLwFNr204aSLbrGfbAQc3wJ5eq8emjznHq1X4ucK.jpg"
-                alt="HEADER-IMG-Default">
+            <img class="img_car" src="{{ $defaultImagePath }}" alt="HEADER-IMG-Default">
         @endif
     </div>
 
