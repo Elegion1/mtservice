@@ -1,11 +1,11 @@
 <x-layout>
-    <div class="container mt-5">
+    <div class="container my-5">
         <h1>{{ __('Crea una Recensione') }}</h1>
 
         <!-- Informazioni sulla Prenotazione -->
         <div class="alert alert-info">
-            <strong>{{ __('Codice Prenotazione') }}:</strong> {{ $booking->code }}<br>
-            <strong>{{ __('Servizio') }}:</strong> {{ ucfirst($booking->bookingData['type']) }}<br>
+            <strong>{{ __('ui.bookingID') }}:</strong> {{ $booking->code }}<br>
+            <strong>{{ __('ui.bookingType') }}:</strong> {{ ucfirst($booking->bookingData['type']) }}<br>
         </div>
 
         <!-- Form per Creare la Recensione -->
@@ -15,28 +15,29 @@
 
             <!-- Nome -->
             <div class="mb-3">
-                <label for="name" class="form-label">{{ __('Il tuo Nome') }} <span><small class="text-secondary">Il tuo nome non verrà mostrato per intero quando la recensione verrà pubblicata</small></span></label>
+                <label for="name" class="form-label">{{ __('ui.yourName') }} <span><small
+                            class="text-secondary">{{ __('ui.nameMessage') }}</small></span></label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="Es. Mario Rossi"
                     required>
             </div>
 
             <!-- Titolo della Recensione -->
             <div class="mb-3">
-                <label for="title" class="form-label">{{ __('Titolo') }}</label>
+                <label for="title" class="form-label">{{ __('ui.reviewTitle') }}</label>
                 <input type="text" class="form-control" id="title" name="title"
                     placeholder="Es. Esperienza fantastica!" required>
             </div>
 
             <!-- Corpo della Recensione -->
             <div class="mb-3">
-                <label for="body" class="form-label">{{ __('La tua Recensione') }}</label>
+                <label for="body" class="form-label">{{ __('ui.reviewBody') }}</label>
                 <textarea class="form-control" id="body" name="body" rows="5"
-                    placeholder="Scrivi qui la tua recensione..." required></textarea>
+                    placeholder="{{ __('ui.reviewBodyPlaceholder') }}" required></textarea>
             </div>
 
             <!-- Valutazione -->
             <div class="mb-3">
-                <label for="rating" class="form-label">{{ __('Valutazione') }}</label>
+                <label for="rating" class="form-label">{{ __('ui.rating') }}</label>
                 <div class="star-rating">
                     <input type="radio" name="rating" id="star5" value="5">
                     <label for="star5" class="star">&#9733;</label>
@@ -56,10 +57,8 @@
             </div>
 
             <!-- Pulsante di Invio -->
-            <button type="submit" class="btn btn-primary">{{ __('Invia Recensione') }}</button>
+            <button type="submit" class="btn btn-primary">{{ __('ui.sendReview') }}</button>
         </form>
     </div>
-
-    <x-services />
-    <x-excursions />
+    <x-contact-link />
 </x-layout>

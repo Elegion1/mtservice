@@ -140,8 +140,12 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
     'typeOfService' => 'Type of service',
     'message' => 'Insert a message',
     'send' => 'Send',
-
     'contactUs' => 'contact us',
+    'reviewTitle' => 'Review title',
+    'reviewBody' => 'Review body',
+    'reviewBodyPlaceholder' => 'Write your review here',
+    'rating' => 'Rating',
+    'sendReview' => 'Send Review',
 
     'fromP' => 'From',
     'toP' => 'to',

@@ -385,7 +385,7 @@ class BookingSummary extends Component
         $this->sendAdminEmails($booking, $language);
         // Invio email al cliente
         $this->sendEmailSafely($this->email, new BookingConfirmation($booking, $pdfClient), 'Failed to send booking confirmation email');
-        $this->sendEmailSafely($this->email, new ReviewRequest($booking), 'Failed to send review request email');
+        // $this->sendEmailSafely($this->email, new ReviewRequest($booking), 'Failed to send review request email');
     }
 
     private function sendAdminEmails($booking, $language)
