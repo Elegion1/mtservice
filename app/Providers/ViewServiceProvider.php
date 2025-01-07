@@ -28,51 +28,51 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (Route::query()->exists()) {
-            $tratte = Route::take(5)->get();
-            $dest = Route::all();
-            View::share('tratte',  $tratte);
-            View::share('dest',  $dest);
-        }
+        // if (Route::query()->exists()) {
+        //     $tratte = Route::take(5)->get();
+        //     $dest = Route::all();
+        //     View::share('tratte',  $tratte);
+        //     View::share('dest',  $dest);
+        // }
 
 
-        if (Service::query()->exists()) {
-            $services = Service::all();
-            View::share('services', $services);
-        }
+        // if (Service::query()->exists()) {
+        //     $services = Service::all();
+        //     View::share('services', $services);
+        // }
 
-        if (Excursion::query()->exists()) {
-            $excursionsP = Excursion::paginate(4);
-            $excursions = Excursion::all();
-            View::share('excursionsP', $excursionsP);
-            View::share('excursions', $excursions);
-        }
+        // if (Excursion::query()->exists()) {
+        //     $excursionsP = Excursion::paginate(4);
+        //     $excursions = Excursion::all();
+        //     View::share('excursionsP', $excursionsP);
+        //     View::share('excursions', $excursions);
+        // }
 
-        if (Partner::query()->exists()) {
-            $partners = Partner::paginate(10);
-            View::share('partners', $partners);
-        }
+        // if (Partner::query()->exists()) {
+        //     $partners = Partner::paginate(10);
+        //     View::share('partners', $partners);
+        // }
 
-        if (Review::query()->where('status', 'confirmed')->exists()) {
-            $reviewsP = Review::where('status', 'confirmed')->paginate(6);
-            $reviews = Review::get();
-            View::share('reviewsP', $reviewsP);
-            View::share('reviews', $reviews);
-        }
+        // if (Review::query()->where('status', 'confirmed')->exists()) {
+        //     $reviewsP = Review::where('status', 'confirmed')->paginate(6);
+        //     $reviews = Review::get();
+        //     View::share('reviewsP', $reviewsP);
+        //     View::share('reviews', $reviews);
+        // }
 
-        if (OwnerData::query()->exists()) {
-            $ownerdata = OwnerData::first();
-            View::share('ownerdata', $ownerdata);
-        }
+        // if (OwnerData::query()->exists()) {
+        //     $ownerdata = OwnerData::first();
+        //     View::share('ownerdata', $ownerdata);
+        // }
 
-        if (Page::query()->exists()) {
-            $pages = Page::orderBy('order')->get();
-            View::share('pages', $pages);
-        }
+        // if (Page::query()->exists()) {
+        //     $pages = Page::orderBy('order')->get();
+        //     View::share('pages', $pages);
+        // }
 
-        if (Content::query()->exists()) {
-            $contents = Content::all();
-            View::share('contents', $contents);
-        }
+        // if (Content::query()->exists()) {
+        //     $contents = Content::all();
+        //     View::share('contents', $contents);
+        // }
     }
 }
