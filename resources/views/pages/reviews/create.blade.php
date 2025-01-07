@@ -1,6 +1,6 @@
 <x-layout>
     <div class="container my-5">
-        <h1>{{ __('Crea una Recensione') }}</h1>
+        <h1>{{ __('ui.createReview') }}</h1>
 
         <!-- Informazioni sulla Prenotazione -->
         <div class="alert alert-info">
@@ -25,7 +25,7 @@
             <div class="mb-3">
                 <label for="title" class="form-label">{{ __('ui.reviewTitle') }}</label>
                 <input type="text" class="form-control" id="title" name="title"
-                    placeholder="Es. Esperienza fantastica!" required>
+                    placeholder="{{__('ui.reviewTitlePlaceholder')}}" required>
             </div>
 
             <!-- Corpo della Recensione -->
@@ -60,5 +60,7 @@
             <button type="submit" class="btn btn-primary">{{ __('ui.sendReview') }}</button>
         </form>
     </div>
-    <x-contact-link />
+    <div class="mb-5">
+        <x-contact-link />
+    </div>
 </x-layout>
