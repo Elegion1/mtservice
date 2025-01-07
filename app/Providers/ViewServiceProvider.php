@@ -10,6 +10,7 @@ use App\Models\Partner;
 use App\Models\Service;
 use App\Models\Excursion;
 use App\Models\OwnerData;
+use App\Models\Setting;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 

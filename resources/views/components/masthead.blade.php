@@ -2,13 +2,14 @@
     <div class="masthead">
         @php
             use Carbon\Carbon;
+            use App\Models\Setting;
             $now = Carbon::now();
             $currentRoute = Route::currentRouteName();
             $defaultContent = null;
             $displayedContent = null;
             $displayedImage = null;
             $defaultImagePath =
-                'https://tranchidatransfer.it/storage/images/XLwFNr204aSLbrGfbAQc3wJ5eq8emjznHq1X4ucK.jpg';
+                Setting::where('name', 'default_header_image')->value('value') ?: 'https://picsum.photos/1920/1080';
 
             // Cerca il contenuto specifico per la pagina o quello predefinito
 
