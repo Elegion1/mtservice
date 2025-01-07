@@ -1,5 +1,4 @@
 <?php
-
 return [
     'date_format' => 'd/m/Y H:i',
     // HOME
@@ -10,17 +9,23 @@ return [
     //navbar
     'navTitle' => 'Book Online or Call',
     'selectLanguage' => 'Select language :lang',
+    'selectDate' => 'Select date',
+    'next' => 'next',
+    'back' => 'back',
 
     //Livewire
     //transfer
+    
     'transferTitle' => 'Book Transfer',
     'selectDeparture' => 'Select Departure',
     'selectDestination' => 'Select Destination',
     'passengers' => 'Passengers',
     'oneWay' => 'One Way',
     'returnTrip' => 'Round Trip',
-    'departure' => 'Departure',
-    'return' => 'Return',
+    'departure' => 'departure',
+    'destination' => 'destination',
+    'outward' => 'outward',
+    'return' => 'return',
     'totalPrice' => 'Total',
     'submit' => 'BOOK',
 
@@ -32,6 +37,7 @@ return [
     'transfer' => 'transfer',
     'excursions' => 'excursions',
     'carRent' => 'car rental',
+    'obligatoryField' => 'Obligatory field',
 
     'escursione' => 'excursion',
     'noleggio' => 'car rental',
@@ -45,6 +51,8 @@ return [
     'priceStartingFrom' => 'Starting From',
     'notAvailable' => 'Not Available',
     'perDay' => 'per day',
+    'pickup' => 'Pick-Up',
+    'dropoff' => 'Prop-Off',
 
     //booking summary
     'bookingSummaryTitle' => 'Booking Summary',
@@ -55,8 +63,8 @@ return [
     'time' => 'Time',
     'duration' => 'Duration',
     'minutes' => 'Minutes',
-    'approx' => 'Approx',
-    'price' => 'Price',
+    'approx' => 'approx',
+    'price' => 'price',
     'collectionDate' => 'Pick-Up Date',
     'returnDate' => 'Drop-Off Date',
     'personalData' => 'PERSONAL DATA',
@@ -77,8 +85,10 @@ return [
     'loading' => 'Loading... Please wait',
     'paymentMessage' => 'A 30% deposit is required after confirmation of the booking by our staff',
     'confirmation_message' => 'Booking request created. A summary email has been sent',
+    'customerDiscountMessage' => 'You have already made a reservation with us, enjoy a discount of ',
     'discountedPrice' => 'Discounted price',
     'originalPrice' => 'Original price',
+    'seatBoosterMsg' => 'We provide car seats and boosters for children aged 1 month to 10 years. Add your request during the booking process.',
 
     //contact-link
     'contactLinkTitle' => 'For <strong class="text-d">info</strong> or <strong class="text-d">custom services</strong>',

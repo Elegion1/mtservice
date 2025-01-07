@@ -15,7 +15,7 @@ return [
 
     //Livewire
     //transfer
-    'transfer' => 'transfer',
+    
     'transferTitle' => 'Prenota Transfer',
     'selectDeparture' => 'Seleziona partenza',
     'selectDestination' => 'Seleziona destinazione',
@@ -89,7 +89,6 @@ return [
     'discountedPrice' => 'Prezzo scontato',
     'originalPrice' => 'Prezzo originale',
     'seatBoosterMsg' => 'Siamo dotati di seggiolini e alzatine per trasporto bimbi da 1 mese a 10 anni. Aggiungi la tua richiesta durante la prenotazione.',
-    //fine LIVEWIRE
 
     //contact-link
     'contactLinkTitle' => 'Per <strong class="text-d">info</strong> o <strong class="text-d">servizi</strong> personalizzati',
