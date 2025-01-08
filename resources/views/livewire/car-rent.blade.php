@@ -48,7 +48,7 @@
                 <span class="p-0 mb-3 text-uppercase">{{ ucfirst(__('ui.rentSelectCar')) }}</span>
 
                 <div class="col-12 p-0 m-0">
-                    <div class="row">
+                    <div class="row d-flex justify-content-evenly">
                         @foreach ($cars as $car)
                             <div class="col-5 col-sm-4 {{ $loop->iteration > 3 ? 'mb-0' : 'mb-3' }}">
                                 <x-car-card :car="$car" :selected="$carID == $car->id" />
@@ -59,28 +59,44 @@
                 </div>
 
                 @if ($dateStart && $timeStart && $dateEnd && $timeEnd)
-                    <span
-                        class="bg-c text-center fw-light rounded mb-3 input_size d-flex justify-content-evenly align-items-center">
-                        <span class="text-primary text-start">
-                            <div>
-                                <i class="bi bi-calendar-event"></i>
-                                {{ \Carbon\Carbon::parse($dateStart)->translatedFormat('l j M Y') }}
+                    <div
+                        class="bg-c text-center fw-light rounded mb-3 d-flex justify-content-evenly align-items-center"
+                        id="rentDatesSummary">
+
+                        <!-- Colonna di partenza -->
+                        <div class="d-flex flex-column text-primary text-start small">
+                            <div class="d-flex align-items-center mb-1">
+                                <i class="bi bi-calendar-event me-2 fs-6"></i>
+                                <span>
+                                    {{ \Carbon\Carbon::parse($dateStart)->translatedFormat('l j M Y') }}
+                                </span>
                             </div>
-                            <div>
-                                <i class="bi bi-clock"></i> {{ $timeStart }}
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-clock me-2 fs-6"></i>
+                                <span>{{ $timeStart }}</span>
                             </div>
-                        </span>
-                        <i class="bi bi-arrow-right"></i>
-                        <span class="text-danger text-start">
-                            <div>
-                                <i class="bi bi-calendar-check"></i>
-                                {{ \Carbon\Carbon::parse($dateEnd)->translatedFormat('l j M Y') }}
+                        </div>
+
+                        <!-- Freccia al centro -->
+                        <div class="mx-3">
+                            <i class="bi bi-arrow-right fs-6"></i>
+                        </div>
+
+                        <!-- Colonna di arrivo -->
+                        <div class="d-flex flex-column text-danger text-start small">
+                            <div class="d-flex align-items-center mb-1">
+                                <i class="bi bi-calendar-check me-2 fs-6"></i>
+                                <span>
+                                    {{ \Carbon\Carbon::parse($dateEnd)->translatedFormat('l j M Y') }}
+                                </span>
                             </div>
-                            <div>
-                                <i class="bi bi-clock"></i> {{ $timeEnd }}
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-clock me-2 fs-6"></i>
+                                <span>{{ $timeEnd }}</span>
                             </div>
-                        </span>
-                    </span>
+                        </div>
+
+                    </div>
                 @endif
 
                 <!-- Prezzo Totale -->

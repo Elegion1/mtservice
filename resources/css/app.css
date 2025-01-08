@@ -119,6 +119,10 @@
     color: var(--color-a) !important;
 }
 
+.bg-blur {
+    backdrop-filter: blur(2px);
+}
+
 /* ========== Masthead ========== */
 .masthead-position {
     top: 100%;
@@ -151,6 +155,10 @@ h2 {
 
 .text_col {
     color: var(--color-a);
+}
+
+#rentDatesSummary{
+    font-size: 0.8rem;
 }
 
 /* ========== Messaggi e Alert ========== */
@@ -190,12 +198,15 @@ h2 {
 .close_position {
     top: 5px;
     right: 0px;
+    width: 30px;
+    height: 30px;
 }
 
 .passenger_button {
     height: 50px;
     background-color: gray;
     color: var(--color-b);
+    touch-action: manipulation;
 }
 
 .passenger_button:hover {

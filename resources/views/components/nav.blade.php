@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg_nav border_custom z-3 position-absolute vw-100">
+<nav class="navbar navbar-expand-lg bg_nav border_custom z-3 position-absolute vw-100" id="navbar">
     <div class="container-fluid d-flex justify-content-around align-items-center">
 
         <div>
@@ -69,6 +69,7 @@
     document.addEventListener('DOMContentLoaded', () => {
         const navbarToggler = document.querySelector('.navbar-toggler');
         const togglerIcon = document.querySelector('#toggler-icon');
+        const navbar = document.querySelector('#navbar');
 
         // Funzione per gestire il cambio delle icone
         const toggleIcons = () => {
@@ -76,9 +77,11 @@
             if (isExpanded) {
                 togglerIcon.classList.remove('bi-list');
                 togglerIcon.classList.add('bi-x-lg');
+                navbar.classList.add('bg-blur');
             } else {
                 togglerIcon.classList.remove('bi-x-lg');
                 togglerIcon.classList.add('bi-list');
+                navbar.classList.remove('bg-blur');
             }
         };
 

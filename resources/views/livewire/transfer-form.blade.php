@@ -67,7 +67,7 @@
                     class="col-12 p-0 m-0 d-flex justify-content-between align-items-center position-relative {{ $solaAndata ? 'd-none' : '' }}">
 
                     <button type="button" title="{{ __('ui.oneWay') }}" wire:click="setSolaAndata"
-                        class="position-absolute close_position bg-c border border-light rounded-circle">
+                        class="position-absolute close_position bg-c border border-light rounded-circle text-black">
                         <i class="bi bi-x-lg"></i></button>
 
                     <div class="w-custom me-3">
