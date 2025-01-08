@@ -299,6 +299,12 @@ h2 {
     width: 100%;
 }
 
+.img-fluid {
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
 .img_carRent {
     width: 100%;
     height: 100px;

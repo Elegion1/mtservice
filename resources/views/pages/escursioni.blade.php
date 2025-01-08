@@ -15,18 +15,18 @@
 
         <div class="col-12 col-md-6">
             <div id="escursioni"
-                class="container d-flex justify-content-center align-items-center flex-column rounded bg-white sticky-top">
+                class="container d-flex justify-content-center align-items-center flex-column rounded bg-white sticky-top z-1">
                 <h2 class="my-3">{{ __('ui.excursionPageTitle') }}</h2>
 
                 @foreach ($excursionsP as $excursion)
                     <div class="card border-1 mb-3 overflow-hidden" style="max-width: 540px;">
                         <div class="row g-0">
-                            <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
+                            <div class="col-12 col-md-4">
                                 @if ($excursion->images->isNotEmpty())
                                     <img src="{{ Storage::url($excursion->images->first()->path) }}"
                                         class="img-fluid" alt="...">
                                 @else
-                                    <img src="https://picsum.photos/100{{ $excursion->id }}"
+                                    <img src="https://picsum.photos/1920/73{{$excursion->id}}"
                                         class="img-fluid" alt="immagine non disponibile">
                                 @endif
                             </div>
