@@ -19,19 +19,19 @@
                 <h2 class="my-3">{{ __('ui.excursionPageTitle') }}</h2>
 
                 @foreach ($excursionsP as $excursion)
-                    <div class="card border-1 mb-3" style="max-width: 540px;">
+                    <div class="card border-1 mb-3 overflow-hidden" style="max-width: 540px;">
                         <div class="row g-0">
-                            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                            <div class="col-12 col-md-4 d-flex justify-content-center align-items-center">
                                 @if ($excursion->images->isNotEmpty())
                                     <img src="{{ Storage::url($excursion->images->first()->path) }}"
-                                        class="img-fluid rounded-start" alt="...">
+                                        class="img-fluid" alt="...">
                                 @else
                                     <img src="https://picsum.photos/100{{ $excursion->id }}"
-                                        class="img-fluid rounded-start" alt="immagine non disponibile">
+                                        class="img-fluid" alt="immagine non disponibile">
                                 @endif
                             </div>
 
-                            <div class="col-md-8 p-0">
+                            <div class="col-12 col-md-8 p-0">
                                 <div class="card-body d-flex justify-content-between flex-column h-100">
                                     <h5 class="card-title text-d">{{ $excursion->{'name_' . app()->getLocale()} }}</h5>
                                     <small>{{ __('ui.duration') }} {{ $excursion->duration }}
