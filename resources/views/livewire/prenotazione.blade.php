@@ -5,7 +5,7 @@
             @foreach (['transfer' => 'ui.transfer', 'escursioni' => 'ui.excursions', 'rent' => 'ui.carRent'] as $formType => $label)
                 <button type="button"
                     class="btn btn_booking text-uppercase text-black {{ $currentForm == $formType ? 'bg-b' : 'bg-c' }}"
-                    wire:click="show{{ ucfirst($formType) }}">
+                    wire:click="show{{ ucfirst($formType) }}" id="{{ $formType }}-btn">
                     {{ __($label) }}
                 </button>
             @endforeach
@@ -23,7 +23,6 @@
         wire:model.live="module">
         <div class="container-fluid input_width z-2">
             @if ($currentForm == 'escursioni')
-                
                 @livewire('escursioni-form')
             @elseif ($currentForm == 'transfer')
                 @livewire('transfer-form')

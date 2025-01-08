@@ -23,7 +23,7 @@
                                 <button class="btn btn-sm bg-a text-white" data-tratta-id="{{ $tratta->id }}"
                                     data-departure="{{ $tratta->departure->id }}"
                                     data-arrival="{{ $tratta->arrival->id }}" onclick="selezionaTratta(this)">
-                                    Prenota
+                                    {{ __('ui.select') }}
                                 </button>
                             </div>
                             <div class="col-9">
@@ -40,7 +40,7 @@
                     </div>
                 @endforeach
             </div>
-           
+
         </div>
         <div class="col-12 mt-5">
             <h2 class="text-center mb-3">{{ __('ui.title3') }}</h2>
@@ -50,22 +50,57 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            let transferButton = document.querySelector('#transfer-btn');
+            const MAX_EXECUTION_TIME = 5000; // Tempo massimo in millisecondi (5 secondi)
+            let executionTimedOut = false;
+
             window.selezionaTratta = function(button) {
-                let trattaId = button.getAttribute('data-tratta-id');
-                let departure = button.getAttribute('data-departure');
-                let arrival = button.getAttribute('data-arrival');
 
-                // Trova il componente Livewire
-                let component = document.querySelector('#transferForm');
+                // Imposta un timeout globale
+                let globalTimeout = setTimeout(() => {
+                    executionTimedOut = true;
+                    console.error('Tempo massimo di esecuzione superato.');
+                }, MAX_EXECUTION_TIME);
 
-                if (component) {
+                // Funzione per attendere la comparsa del componente nel DOM
+                function waitForComponent(selector, callback) {
+                    let interval = setInterval(() => {
+                        if (executionTimedOut) {
+                            clearInterval(interval);
+                            return; // Interrompi se il timeout globale è stato raggiunto
+                        }
+
+                        let element = document.querySelector(selector);
+                        if (element) {
+                            clearInterval(interval);
+                            callback(element);
+                        }
+                    }, 100); // Controlla ogni 100ms
+                }
+
+                // Simula il clic per mostrare il componente
+                transferButton.click();
+
+                // Attendi che il componente sia disponibile
+                waitForComponent('#transferForm', function(component) {
+                    if (executionTimedOut) return; // Interrompi se il timeout globale è stato raggiunto
+
+                    // console.log('Componente trovato:', component);
+
+                    let trattaId = button.getAttribute('data-tratta-id');
+                    let departure = button.getAttribute('data-departure');
+                    let arrival = button.getAttribute('data-arrival');
+
                     // Trova gli elementi select all'interno del componente Livewire
                     let departureSelect = component.querySelector('#departureSelect');
                     let arrivalSelect = component.querySelector('#returnSelect');
 
                     if (departureSelect && arrivalSelect) {
-                        // Funzione per selezionare un'opzione dopo che le opzioni sono state caricate
+                        // Funzione per selezionare un'opzione
                         function selectOption(select, value) {
+                            if (executionTimedOut)
+                        return; // Interrompi se il timeout globale è stato raggiunto
+
                             let option = Array.from(select.options).find(opt => opt.value === value);
                             if (option) {
                                 select.value = option.value;
@@ -75,32 +110,32 @@
                             }
                         }
 
-                        // Simula il clic per caricare le opzioni del menu a discesa e poi seleziona l'opzione desiderata
-                        function clickAndSelect(select, value, callback) {
-                            select.click();
-                            setTimeout(function() {
-                                selectOption(select, value);
-                                if (callback) callback();
-                            }, 500); // Tempo di attesa per assicurarsi che le opzioni siano caricate
-                        }
+                        // Seleziona la partenza
+                        selectOption(departureSelect, departure);
 
-                        // Seleziona prima la partenza
-                        clickAndSelect(departureSelect, departure, function() {
-                            // Dopo aver selezionato la partenza, seleziona il ritorno
-                            clickAndSelect(arrivalSelect, arrival, function() {
-                                console.log('Partenza e ritorno selezionati.');
-                            });
-                            scrollToComponent('#prenotazionediv');
-                        });
+                        // Dopo un breve ritardo, seleziona l'arrivo
+                        setTimeout(() => {
+                            if (executionTimedOut)
+                        return; // Interrompi se il timeout globale è stato raggiunto
+
+                            selectOption(arrivalSelect, arrival);
+                            // console.log('Partenza e arrivo selezionati:', departure, arrival);
+
+                            // Scorri fino al componente
+                            scrollToComponent('#transferForm');
+
+                            // Cancella il timeout globale poiché l'operazione è completata
+                            clearTimeout(globalTimeout);
+                        }, 500); // Ritardo di 500ms
                     } else {
                         console.error('Gli elementi select non sono stati trovati.');
                     }
-                } else {
-                    console.error('Componente Livewire non trovato.');
-                }
+                });
             };
 
             function scrollToComponent(selector) {
+                if (executionTimedOut) return; // Interrompi se il timeout globale è stato raggiunto
+
                 let element = document.querySelector(selector);
                 if (element) {
                     element.scrollIntoView({
@@ -112,4 +147,5 @@
             }
         });
     </script>
+
 </x-layout>

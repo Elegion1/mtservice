@@ -19,7 +19,7 @@
                 <h2 class="my-3">{{ __('ui.excursionPageTitle') }}</h2>
 
                 @foreach ($excursionsP as $excursion)
-                    <div class="card border-0 mb-3" style="max-width: 540px;">
+                    <div class="card border-1 mb-3" style="max-width: 540px;">
                         <div class="row g-0">
                             <div class="col-md-4 d-flex justify-content-center align-items-center">
                                 @if ($excursion->images->isNotEmpty())
@@ -31,8 +31,8 @@
                                 @endif
                             </div>
 
-                            <div class="col-md-8">
-                                <div class="card-body">
+                            <div class="col-md-8 p-0">
+                                <div class="card-body d-flex justify-content-between flex-column h-100">
                                     <h5 class="card-title text-d">{{ $excursion->{'name_' . app()->getLocale()} }}</h5>
                                     <small>{{ __('ui.duration') }} {{ $excursion->duration }}
                                         @if ($excursion->duration == 1)
@@ -55,7 +55,7 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <p class="m-0">
                                             <small class="text-black">{{ __('ui.priceStartingFrom') }}</small>
-                                            <strong class="fs-4 text-a">{{ $excursion->price }} €</strong>
+                                            <strong class="fs-4 text-d">{{ $excursion->price }} €</strong>
                                         </p>
                                         <div class="d-flex justify-content-around align-items-center">
                                             <a class="btn rounded-4 bg-a text-white btn-sm me-1"
@@ -63,7 +63,7 @@
                                             <button class="btn rounded-4 bg-a text-white btn-sm"
                                                 data-escursione-id="{{ $excursion->id }}"
                                                 onclick="selezionaEscursione(this)">
-                                                Prenota
+                                                {{ __('ui.book') }}
                                             </button>
                                         </div>
 
@@ -119,8 +119,9 @@
 
                         // Seleziona prima la partenza
                         clickAndSelect(excursionSelect, escursioneId, function() {
-                            // Dopo aver selezionato la partenza, seleziona il ritorno
-
+                            component.scrollIntoView({
+                                behavior: 'smooth'
+                            });
                         });
                     } else {
                         console.error('Gli elementi select non sono stati trovati.');

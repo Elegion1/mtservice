@@ -30,6 +30,8 @@ return [
     'return' => 'ritorno',
     'totalPrice' => 'Totale',
     'submit' => 'PRENOTA',
+    'book' => 'Prenota',
+    'select' => 'Seleziona',
 
     //escursione
     'excursionTitle' => 'Escursione',
