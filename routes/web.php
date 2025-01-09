@@ -139,6 +139,9 @@ Route::get('/dashboard/bookings/pdf/{id}', [BookingController::class, 'showPdf']
 // Gestione messaggi
 Route::get('/dashboard/contacts', [ContactController::class, 'index'])->name('dashboard.contact')->middleware('auth');
 Route::delete('/dashboard/contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy')->middleware('auth');
+Route::put('/dashboard/contacts/{contact}', [ContactController::class, 'update'])->name('contacts.update')->middleware('auth');
+// Route::put('/dashboard/contacts/mark-all-read', [ContactController::class, 'markAllRead'])->name('contacts.markAllRead')->middleware('auth');
+// Route::put('/dashboard/contacts/mark-all-unread', [ContactController::class, 'markAllUnread'])->name('contacts.markAllUnread')->middleware('auth');
 
 // Gestione servizi
 Route::get('/dashboard/services', [ServiceController::class, 'index'])->name('dashboard.service')->middleware('auth');

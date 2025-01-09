@@ -54,7 +54,7 @@
                         @csrf
                         <input type="hidden" name="status" value="confirmed">
                         <button title="Accetta prenotazione" type="submit" class="btn btn-sm">
-                            <i class="bi bi-check-circle-fill text-success"></i>
+                            <i class="bi bi-check-circle-fill text-success fs-2"></i>
                         </button>
                     </form>
                 @endif
@@ -65,7 +65,7 @@
                         @csrf
                         <input type="hidden" name="status" value="rejected">
                         <button title="Rifiuta prenotazione" type="submit" class="btn btn-sm">
-                            <i class="bi bi-x-circle-fill text-danger"></i>
+                            <i class="bi bi-x-circle-fill text-danger fs-2"></i>
                         </button>
                     </form>
                 @endif
@@ -76,7 +76,7 @@
                         @csrf
                         <input type="hidden" name="status" value="pending">
                         <button title="Sposta in lavorazione" type="submit" class="btn btn-sm">
-                            <i class="bi bi-exclamation-circle-fill text-warning"></i>
+                            <i class="bi bi-exclamation-circle-fill text-warning fs-2"></i>
                         </button>
                     </form>
                 @endif

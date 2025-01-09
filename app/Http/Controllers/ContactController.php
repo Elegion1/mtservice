@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Contact;
 use App\Mail\ContactMail;
 use App\Models\OwnerData;
 use Illuminate\Http\Request;
 use App\Mail\AdminContactMail;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
@@ -86,8 +88,36 @@ class ContactController extends Controller
      */
     public function update(Request $request, Contact $contact)
     {
-        //
+        $contact->read = !$contact->read;
+        $contact->save();
+
+        return response()->json([
+            'success' => true,
+            'read' => $contact->read,
+        ]);
     }
+
+    // public function markAllRead()
+    // {
+    //     try {
+    //         $updated = Contact::where('read', false)->update(['read' => true]);
+    //         return response()->json(['success' => $updated > 0]);
+    //     } catch (Exception $e) {
+    //         Log::error('Errore durante l\'aggiornamento dei messaggi: ' . $e->getMessage());
+    //         return response()->json(['success' => false, 'message' => 'Errore durante l\'aggiornamento.'], 500);
+    //     }
+    // }
+
+    // public function markAllUnread()
+    // {
+    //     try {
+    //         $updated = Contact::where('read', true)->update(['read' => false]);
+    //         return response()->json(['success' => $updated > 0]);
+    //     } catch (Exception $e) {
+    //         Log::error('Errore durante l\'aggiornamento dei messaggi: ' . $e->getMessage());
+    //         return response()->json(['success' => false, 'message' => 'Errore durante l\'aggiornamento.'], 500);
+    //     }
+    // }
 
     /**
      * Remove the specified resource from storage.

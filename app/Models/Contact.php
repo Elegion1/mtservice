@@ -16,6 +16,7 @@ class Contact extends Model
         'telefono',
         'servizio',
         'messaggio',
+        'read'
     ];
     
 }
