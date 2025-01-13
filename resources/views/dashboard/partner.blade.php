@@ -2,9 +2,9 @@
     <div class="container-fluid mt-5">
         <h1>Gestione Partner</h1>
 
-         
+        <button id="partnerCreateBtn" class="btn btn-success">Crea partner</button>
 
-        <form action="{{ route('partners.store') }}" method="POST" enctype="multipart/form-data">
+        <form id="partnerCreateForm" class="d-none" action="{{ route('partners.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="mb-3 col-4">
@@ -13,11 +13,13 @@
                 </div>
                 <div class="mb-3 col-4">
                     <label for="link" class="form-label">Link</label>
-                    <input type="text" class="form-control form_input_focused" id="link" name="link" required>
+                    <input type="text" class="form-control form_input_focused" id="link" name="link"
+                        required>
                 </div>
                 <div class="mb-3 col-4">
                     <label for="images" class="form-label">Immagini</label>
-                    <input type="file" class="form-control form_input_focused" id="images" name="images[]" multiple>
+                    <input type="file" class="form-control form_input_focused" id="images" name="images[]"
+                        multiple>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Aggiungi Partner</button>
@@ -83,15 +85,18 @@
                         @method('PUT')
                         <div class="mb-3">
                             <label for="edit_name" class="form-label">Nome Partner</label>
-                            <input type="text" class="form-control form_input_focused" id="edit_name" name="name" required>
+                            <input type="text" class="form-control form_input_focused" id="edit_name" name="name"
+                                required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_link" class="form-label">Link</label>
-                            <input type="text" class="form-control form_input_focused" id="edit_link" name="link" required>
+                            <input type="text" class="form-control form_input_focused" id="edit_link" name="link"
+                                required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_images" class="form-label">Aggiungi nuove immagini</label>
-                            <input type="file" class="form-control form_input_focused" id="edit_images" name="images[]" multiple>
+                            <input type="file" class="form-control form_input_focused" id="edit_images"
+                                name="images[]" multiple>
                         </div>
                         <div class="mb-3">
                             <label for="edit_current_images" class="form-label">Immagini Caricate</label>
@@ -109,6 +114,12 @@
     <!-- JavaScript per gestire il modale di modifica -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            var partnerCreateBtn = document.getElementById('partnerCreateBtn');
+            var partnerCreateForm = document.getElementById('partnerCreateForm');
+            partnerCreateBtn.addEventListener('click', () => {
+                partnerCreateForm.classList.toggle('d-none');
+                partnerCreateBtn.innerHTML = partnerCreateForm.classList.contains('d-none') ? 'Crea partner' : 'Nascondi';
+            });
             // Funzione per mostrare le anteprime delle immagini esistenti nel modale di modifica
             function showCurrentImages(images) {
                 const currentImagesDiv = document.getElementById('edit-current-images');

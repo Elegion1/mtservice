@@ -1,19 +1,25 @@
 <x-dashboard-layout>
     <div class="container-fluid mt-5">
         <h1>Gestione Destinazioni</h1>
+        
+        <button id="destinationCreateBtn" class="btn btn-success">Crea destinazione</button>
 
-        <form action="{{ route('destinations.store') }}" method="POST">
+        <form class="d-none" id="destinationFormCreate" action="{{ route('destinations.store') }}" method="POST">
             @csrf
             <div class="row">
                 <div class="mb-3 col-lg-4 col-12">
                     <label for="name" class="form-label">Destinazione</label>
-                    <input type="text" class="form-control form_input_focused" id="name" name="name" required>
+                    <input type="text" class="form-control form_input_focused" id="name" name="name"
+                        required>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Aggiungi Destinazione</button>
         </form>
+
         <hr>
+
         <h2>Tutte le Destinazioni</h2>
+
         <table class="table table-sm table-striped">
             <thead>
                 <tr>
@@ -59,7 +65,8 @@
                         @method('PUT')
                         <div class="mb-3">
                             <label for="edit_name" class="form-label">Nome Destinazione</label>
-                            <input type="text" class="form-control form_input_focused" id="edit_name" name="name" required>
+                            <input type="text" class="form-control form_input_focused" id="edit_name" name="name"
+                                required>
                         </div>
                         <button type="submit" class="btn btn-primary">Salva Modifiche</button>
                     </form>
@@ -70,6 +77,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            var destinationCreateBtn = document.getElementById('destinationCreateBtn');
+            var destinationFormCreate = document.getElementById('destinationFormCreate');
+            destinationCreateBtn.addEventListener('click', function() {
+                destinationFormCreate.classList.toggle('d-none');
+                destinationCreateBtn.innerText = destinationFormCreate.classList.contains('d-none') ? 'Crea Destinazione' : 'Nascondi';
+            });
             var editDestinationModal = document.getElementById('editDestinationModal');
             editDestinationModal.addEventListener('show.bs.modal', function(event) {
                 var button = event.relatedTarget;
@@ -80,7 +93,7 @@
                 modal.querySelector('#edit_name').value = name;
 
                 var form = modal.querySelector('#editDestinationForm');
-                form.action = '{{ url("dashboard/destinations") }}/' + id;
+                form.action = '{{ url('dashboard/destinations') }}/' + id;
             });
         });
     </script>

@@ -20,7 +20,7 @@
                     </a>
                 @endforeach
             </div>
-            <div class="d-flex justify-content-between align-items-center mt-4">
+            <div class="d-flex justify-content-center align-items-center mt-4">
                 {{ $partners->links('vendor.pagination.bootstrap-5') }}
             </div>
         </div>

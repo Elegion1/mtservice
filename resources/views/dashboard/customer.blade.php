@@ -1,12 +1,16 @@
 <x-dashboard-layout>
     <div class="container-fluid mt-5">
         <h1>Gestione clienti</h1>
-        <form action="{{ route('customers.store') }}" method="POST">
+
+        <button id="customerCreateBtn" class="btn btn-success">Crea cliente</button>
+
+        <form class="d-none" id="customerFormCreate" action="{{ route('customers.store') }}" method="POST">
             @csrf
             <div class="row">
                 <div class="mb-3 col-lg-4 col-12">
                     <label for="name" class="form-label">Nome</label>
-                    <input type="text" class="form-control form_input_focused" id="name" name="name" required>
+                    <input type="text" class="form-control form_input_focused" id="name" name="name"
+                        required>
                 </div>
                 <div class="mb-3 col-lg-4 col-12">
                     <label for="surname" class="form-label">Cognome</label>
@@ -34,6 +38,7 @@
             </div>
             <button type="submit" class="btn btn-primary">Aggiungi cliente</button>
         </form>
+
         <hr>
         <table class="table table-sm table-striped">
             <thead>
@@ -65,7 +70,8 @@
                                 data-bs-target="#editCustomerModal" data-id="{{ $customer->id }}"
                                 data-name="{{ $customer->name }}" data-surname="{{ $customer->surname }}"
                                 data-email="{{ $customer->email }}" data-phone="{{ $customer->phone }}"
-                                data-body="{{ $customer->body }}" data-discount="{{ $customer->discount }}">Modifica</button>
+                                data-body="{{ $customer->body }}"
+                                data-discount="{{ $customer->discount }}">Modifica</button>
 
                             <form action="{{ route('customers.destroy', $customer) }}" method="POST"
                                 style="display:inline-block;">
@@ -101,27 +107,28 @@
                         </div>
                         <div class="mb-3">
                             <label for="edit_surname" class="form-label">Cognome</label>
-                            <input type="text" class="form-control form_input_focused" id="edit_surname" name="surname"
-                                required>
+                            <input type="text" class="form-control form_input_focused" id="edit_surname"
+                                name="surname" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_email" class="form-label">Email</label>
-                            <input type="text" class="form-control form_input_focused" id="edit_email" name="email"
-                                required>
+                            <input type="text" class="form-control form_input_focused" id="edit_email"
+                                name="email" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_phone" class="form-label">Telefono</label>
-                            <input type="text" class="form-control form_input_focused" id="edit_phone" name="phone"
-                                required>
+                            <input type="text" class="form-control form_input_focused" id="edit_phone"
+                                name="phone" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_discount" class="form-label">Sconto %</label>
-                            <input type="number" class="form-control form_input_focused" id="edit_discount" name="discount"
-                                >
+                            <input type="number" class="form-control form_input_focused" id="edit_discount"
+                                name="discount">
                         </div>
                         <div class="mb-3">
                             <label for="edit_body" class="form-label">Note</label>
-                            <input type="text" class="form-control form_input_focused" id="edit_body" name="body" >
+                            <input type="text" class="form-control form_input_focused" id="edit_body"
+                                name="body">
                         </div>
                         <button type="submit" class="btn btn-primary">Salva Modifiche</button>
                     </form>
@@ -132,6 +139,13 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            var customerCreateBtn = document.getElementById('customerCreateBtn');
+            var customerFormCreate = document.getElementById('customerFormCreate');
+            customerCreateBtn.addEventListener('click', function() {
+                customerFormCreate.classList.toggle('d-none');
+                customerCreateBtn.innerHTML = customerFormCreate.classList.contains('d-none') ?
+                    'Crea cliente' : 'Nascondi';
+            });
             var editCustomerModal = document.getElementById('editCustomerModal');
             editCustomerModal.addEventListener('show.bs.modal', function(event) {
                 var button = event.relatedTarget;
@@ -150,7 +164,7 @@
                 modal.querySelector('#edit_phone').value = phone;
                 modal.querySelector('#edit_discount').value = discount;
                 modal.querySelector('#edit_body').value = body;
-                
+
 
                 var form = modal.querySelector('#editCustomerForm');
                 form.action = '{{ url('dashboard/customers') }}/' + id;

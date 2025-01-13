@@ -112,16 +112,14 @@ class TestController extends Controller
     {
         // Recupera la prenotazione dall'array o dal database (se utilizzi un database)
         $bookings = $this->bookings();
-        $booking = collect($bookings)->firstWhere('id', $bookingId);
-
+        $bookingJson = collect($bookings)->firstWhere('id', $bookingId);
+        
+        $booking = (array) $bookingJson;
+        
+        
         if (!$booking) {
             abort(404, 'Booking not found');
         }
-
-        // Decodifica 'bookingData' da JSON a array associativo
-        $booking['bookingData'] = json_decode($booking['bookingData'], true);
-
-
 
         // Imposta le opzioni per Dompdf
         $options = new Options();

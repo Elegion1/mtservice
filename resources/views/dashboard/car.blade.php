@@ -2,7 +2,9 @@
     <div class="container-fluid mt-5">
         <h1>Gestione Auto</h1>
 
-        <form action="{{ route('cars.store') }}" method="POST" enctype="multipart/form-data">
+        <button id="carCreateBtn" class="btn btn-success">Crea Auto</button>
+
+        <form class="d-none" id="carFormCreate" action="{{ route('cars.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="mb-3 col-lg-3 col-12">
@@ -117,6 +119,13 @@
     <!-- JavaScript per gestire il modale di modifica -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            var carCreateBtn = document.getElementById('carCreateBtn');
+            var carFormCreate = document.getElementById('carFormCreate');
+
+            carCreateBtn.addEventListener('click', function() {
+                carFormCreate.classList.toggle('d-none');
+                carCreateBtn.innerHTML = carFormCreate.classList.contains('d-none') ? 'Crea Auto' : 'Nascondi';
+            });
             // Funzione per mostrare le anteprime delle immagini esistenti nel modale di modifica
             function showCurrentImages(images) {
                 const currentImagesDiv = document.getElementById('edit-current-images');

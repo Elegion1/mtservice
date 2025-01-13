@@ -7,7 +7,7 @@
                 @csrf
                 <div class="d-flex justify-content-center align-items-center">
 
-                    <div class="row w-50">
+                    <div class="row w-md-50">
                         <div class="col-12 mb-3">
                             <label for="email">{{ __('ui.bookingStatusEmailVerification') }}</label>
                             <input type="email" class="form-control form_input_focused" id="email" name="email"

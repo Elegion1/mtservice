@@ -4,8 +4,10 @@
             <h2>Gestione Sconti</h2>
         </div>
 
+        <button id="discountCreateBtn" class="btn btn-success">Crea sconto</button>
+
         {{-- Form per la creazione dello sconto --}}
-        <form id="discountForm" method="POST" action="{{ route('discounts.store') }}">
+        <form class="d-none" id="discountForm" method="POST" action="{{ route('discounts.store') }}">
             @csrf
             <input type="hidden" id="discountId" name="discount_id" value="">
 
@@ -81,7 +83,7 @@
             <tbody>
                 @foreach ($discounts as $discount)
                     <tr>
-                        <td>{{ $discount->name_it}}</td>
+                        <td>{{ $discount->name_it }}</td>
                         <td>{{ $discount->percentage }}%</td>
                         <td>{{ $discount->applicable_to == 'all' ? 'Tutti' : 'Solo Clienti' }}</td>
                         <td>
@@ -106,10 +108,9 @@
                             </ul>
                         </td>
                         <td>
-                            <button class="btn btn-sm btn-warning editDiscount" data-id="{{ $discount->id }}"
-                                data-name_it="{{ $discount->name_it }}"
-                                data-name_en="{{ $discount->name_en }}"
-                                data-percentage="{{ $discount->percentage }}"
+                            <button class="btn btn-sm btn-warning editDiscount" data-bs-target="#editDiscountModal"
+                                data-id="{{ $discount->id }}" data-name_it="{{ $discount->name_it }}"
+                                data-name_en="{{ $discount->name_en }}" data-percentage="{{ $discount->percentage }}"
                                 data-applicable_to="{{ $discount->applicable_to }}"
                                 data-transfer="{{ $discount->applies_to_transfer }}"
                                 data-rental="{{ $discount->applies_to_rental }}"
@@ -141,20 +142,21 @@
                     </div>
                     <div class="modal-body">
                         {{-- Lo stesso form utilizzato per la creazione, ma precompilato con i dati --}}
-                        <form id="editDiscountForm" method="POST"
-                            action="">
+                        <form id="editDiscountForm" method="POST" action="">
                             @csrf
                             @method('PUT')
                             <input type="hidden" id="editDiscountId" name="discount_id" value="">
 
                             <div class="mb-3">
-                                <label for="edit_name_it" class="form-label">Nome Sconto</label>
-                                <input type="text" class="form-control" id="edit_name_it" name="name_it" required>
+                                <label for="edit_name_it" class="form-label">Nome Sconto IT</label>
+                                <input type="text" class="form-control" id="edit_name_it" name="name_it"
+                                    required>
                             </div>
 
                             <div class="mb-3">
-                                <label for="edit_name_en" class="form-label">Nome Sconto</label>
-                                <input type="text" class="form-control" id="edit_name_en" name="name_en" required>
+                                <label for="edit_name_en" class="form-label">Nome Sconto EN</label>
+                                <input type="text" class="form-control" id="edit_name_en" name="name_en"
+                                    required>
                             </div>
 
                             <div class="mb-3">
@@ -174,16 +176,16 @@
                             <p>Categorie di sconto</p>
                             <div class="mb-3">
                                 <input class="form-check-input" type="checkbox" value="1"
-                                    id="applies_to_transfer" name="applies_to_transfer">
-                                <label for="applies_to_transfer" class="form-check-label">Transfer</label>
+                                    id="edit_applies_to_transfer" name="applies_to_transfer">
+                                <label for="edit_applies_to_transfer" class="form-check-label">Transfer</label>
 
                                 <input class="form-check-input" type="checkbox" value="1"
-                                    id="applies_to_rental" name="applies_to_rental">
-                                <label for="applies_to_rental" class="form-check-label">Noleggio Auto</label>
+                                    id="edit_applies_to_rental" name="applies_to_rental">
+                                <label for="edit_applies_to_rental" class="form-check-label">Noleggio Auto</label>
 
                                 <input class="form-check-input" type="checkbox" value="1"
-                                    id="applies_to_excursion" name="applies_to_excursion">
-                                <label for="applies_to_excursion" class="form-check-label">Escursioni</label>
+                                    id="edit_applies_to_excursion" name="applies_to_excursion">
+                                <label for="edit_applies_to_excursion" class="form-check-label">Escursioni</label>
                             </div>
 
 
@@ -206,6 +208,16 @@
     </div>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var discountCreateBtn = document.getElementById('discountCreateBtn');
+            var discountFormCreate = document.getElementById('discountForm');
+            discountCreateBtn.addEventListener('click', function() {
+                discountFormCreate.classList.toggle('d-none');
+                discountCreateBtn.innerHTML = discountFormCreate.classList.contains('d-none') ?
+                    'Crea Sconto' : 'Nascondi';
+            });
+        });
+
         $(document).ready(function() {
             // Aggiungi un nuovo periodo di validità nella sezione di creazione
             $('#addPeriod').click(function() {
@@ -241,6 +253,8 @@
                 let appliesToRental = $(this).data('rental');
                 let appliesToExcursion = $(this).data('excursion');
                 let periods = $(this).data('periods');
+
+                console.log(applicableTo, appliesToTransfer, appliesToRental, appliesToExcursion);
 
                 $('#editDiscountId').val(discountId);
                 $('#edit_name_it').val(name_it);
@@ -302,5 +316,6 @@
             });
         });
     </script>
+
 
 </x-dashboard-layout>

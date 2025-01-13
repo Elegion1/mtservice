@@ -3,7 +3,9 @@
     <div class="container-fluid mt-5">
         <h1>Gestione Tratte</h1>
 
-        <form action="{{ route('routes.store') }}" method="POST">
+        <button id="routeCreateBtn" class="btn btn-success">Crea tratta</button>
+
+        <form class="d-none" id="routeCreateForm" action="{{ route('routes.store') }}" method="POST">
             @csrf
             <div class="row">
                 <div class="mb-3 col-lg-4 col-12">
@@ -26,19 +28,23 @@
                 </div>
                 <div class="mb-3 col-lg-4 col-12">
                     <label for="distance" class="form-label">Distanza (km)</label>
-                    <input type="number" class="form-control form_input_focused" id="distance" name="distance" required>
+                    <input type="number" class="form-control form_input_focused" id="distance" name="distance"
+                        required>
                 </div>
                 <div class="mb-3 col-lg-4 col-12">
                     <label for="price" class="form-label">Prezzo (€)</label>
-                    <input type="number" class="form-control form_input_focused" id="price" name="price" required>
+                    <input type="number" class="form-control form_input_focused" id="price" name="price"
+                        required>
                 </div>
                 <div class="mb-3 col-lg-4 col-12">
                     <label for="price_increment" class="form-label">Incremento di prezzo per passeggero</label>
-                    <input type="number" class="form-control form_input_focused" id="price_increment" name="price_increment">
+                    <input type="number" class="form-control form_input_focused" id="price_increment"
+                        name="price_increment">
                 </div>
                 <div class="mb-3 col-lg-4 col-12">
                     <label for="duration" class="form-label">Tempo di Percorrenza (Minuti)</label>
-                    <input type="number" class="form-control form_input_focused" id="duration" name="duration" required>
+                    <input type="number" class="form-control form_input_focused" id="duration" name="duration"
+                        required>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Aggiungi tratta</button>
@@ -105,11 +111,13 @@
                         @method('PUT')
                         <div class="mb-3">
                             <label for="edit_distance" class="form-label">Distanza (km)</label>
-                            <input type="number" class="form-control form_input_focused" id="edit_distance" name="distance" required>
+                            <input type="number" class="form-control form_input_focused" id="edit_distance"
+                                name="distance" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_price" class="form-label">Prezzo (€)</label>
-                            <input type="number" class="form-control form_input_focused" id="edit_price" name="price" required>
+                            <input type="number" class="form-control form_input_focused" id="edit_price"
+                                name="price" required>
                         </div>
                         <div class="mb-3">
                             <label for="edit_price_increment" class="form-label">Incremento di prezzo per
@@ -119,7 +127,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="edit_duration" class="form-label">Tempo di Percorrenza (Minuti)</label>
-                            <input type="text" class="form-control form_input_focused" id="edit_duration" name="duration" required>
+                            <input type="text" class="form-control form_input_focused" id="edit_duration"
+                                name="duration" required>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Salva Modifiche</button>
@@ -132,7 +141,17 @@
     <script>
         // JavaScript per precompilare il modale di modifica con i dati della rotta selezionata
         document.addEventListener('DOMContentLoaded', function() {
+
+            var createRouteBtn = document.getElementById('routeCreateBtn');
+            var routeCreateForm = document.getElementById('routeCreateForm');
+
+            createRouteBtn.addEventListener('click', function() {
+                routeCreateForm.classList.toggle('d-none');
+                createRouteBtn.innerHTML = routeCreateForm.classList.contains('d-none') ? 'Crea tratta' : 'Nascondi';
+            });
+
             var editRouteModal = document.getElementById('editRouteModal');
+
             editRouteModal.addEventListener('show.bs.modal', function(event) {
                 var button = event.relatedTarget;
                 var id = button.getAttribute('data-id');
@@ -152,6 +171,8 @@
 
                 var form = modal.querySelector('#editRouteForm');
                 form.action = '/routes/' + id;
+
+
             });
         });
     </script>

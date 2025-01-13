@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 ">
             <div id="escursioni"
                 class="container d-flex justify-content-center align-items-center flex-column rounded bg-white sticky-top z-1">
                 <h2 class="my-3">{{ __('ui.excursionPageTitle') }}</h2>
