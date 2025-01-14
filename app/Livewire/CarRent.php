@@ -143,7 +143,7 @@ class CarRent extends Component
             $isCarAvailable = true;
 
             foreach ($bookings as $booking) {
-                if ($booking->bookingData['type'] == 'noleggio' && $booking->bookingData['car_id'] == $car->id) {
+                if ($booking->bookingData['type'] == 'noleggio' && $booking->bookingData['car_ID'] == $car->id) {
                     $bookingStartDate = strtotime($booking->bookingData['date_start']);
                     $bookingEndDate = strtotime($booking->bookingData['date_end']);
                     $selectedStartDate = strtotime($this->dateStart);
