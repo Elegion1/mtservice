@@ -7,7 +7,7 @@
             <p>{{ __('ui.bookingID') }}: {{ $booking->code }}</p>
             <p>{{ __('ui.name') }}: {{ $booking->name }} {{ $booking->surname }}</p>
             <p>{{ __('ui.email') }}: {{ $booking->email }}</p>
-            <p>{{ __('ui.phone') }}: {{ $booking->phone }}</p>
+            <p>{{ __('ui.phone') }}: {{$booking->dial_code}} {{ $booking->phone }}</p>
             <p>{{ __('ui.body') }}: {{ $booking->body }}</p>
         </div>
     @endif 

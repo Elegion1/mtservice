@@ -28,7 +28,7 @@
                                 >> Consegna
                             @endif
                         @elseif ($booking->bookingData['type'] == 'escursione')
-                            >> <strong>{{ $booking->bookingData['departure_name'] }}</strong>>
+                            >> <strong>{{ $booking->bookingData['departure_name'] }}</strong> >>
                         @endif
                         @if ($booking->start_date && $booking->bookingData['type'] == 'transfer')
                             >> <strong>{{ $booking->bookingData['departure_name'] }}</strong>

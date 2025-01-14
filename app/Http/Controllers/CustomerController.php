@@ -35,6 +35,7 @@ class CustomerController extends Controller
             'surname' => 'required',
             'email' => 'required',
             'phone' => 'required',
+            'dial_code' => 'nullable',
             'discount' => 'nullable',
             'body' => 'nullable',
         ]);
@@ -43,6 +44,7 @@ class CustomerController extends Controller
         $customer->name = $validated['name'];
         $customer->surname = $validated['surname'];
         $customer->email = $validated['email'];
+        $customer->dial_code = $validated['dial_code'];
         $customer->phone = $validated['phone'];
         $customer->discount = $validated['discount'];
         $customer->body = $validated['body'];

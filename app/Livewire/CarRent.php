@@ -16,7 +16,7 @@ class CarRent extends Component
     public $quantity = 1;
     public $carID;
     public $rentPrice;
-    
+
     public $currentStep = 1; // Step iniziale
 
     public function rules()
@@ -137,7 +137,7 @@ class CarRent extends Component
     public function render()
     {
         $cars = Car::all();
-        $bookings = Booking::all();
+        $bookings = Booking::whereIn('status', ['confirmed', 'pending'])->get();
 
         $availableCars = $cars->map(function ($car) use ($bookings) {
             $isCarAvailable = true;

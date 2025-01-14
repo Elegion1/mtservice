@@ -43,8 +43,8 @@ class ViewServiceProvider extends ServiceProvider
         }
 
         if (Excursion::query()->exists()) {
-            $excursionsP = Excursion::paginate(4);
-            $excursions = Excursion::all();
+            $excursionsP = Excursion::where('show', 1)->paginate(4);
+            $excursions = Excursion::where('show', 1)->get();
             View::share('excursionsP', $excursionsP);
             View::share('excursions', $excursions);
         }

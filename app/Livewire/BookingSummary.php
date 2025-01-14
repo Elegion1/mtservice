@@ -335,6 +335,7 @@ class BookingSummary extends Component
                 'surname' => $this->surname,
                 'email' => $this->email,
                 'phone' => $this->phone,
+                'dial_code' => $this->dialCode,
                 'body' => $this->body,
                 'code' => $this->generateUniqueCode(),
                 'locale' => app()->getLocale(),
@@ -346,6 +347,7 @@ class BookingSummary extends Component
                 'name' => $this->name,
                 'surname' => $this->surname,
                 'email' => $this->email,
+                'dial_code' => $this->dialCode,
                 'phone' => $this->phone,
             ]);
 
@@ -369,11 +371,11 @@ class BookingSummary extends Component
 
         $this->phone = preg_replace('/[^\d+]/', '', $this->phone);
         $this->phone = ltrim($this->phone, '+');
-        $this->phone = $this->dialCode . $this->phone;
+        // $this->phone = $this->dialCode . $this->phone;
 
-        if (!str_starts_with($this->phone, '+')) {
-            $this->phone = '+' . $this->phone;
-        }
+        // if (!str_starts_with($this->phone, '+')) {
+        //     $this->phone = '+' . $this->phone;
+        // }
     }
 
     private function sendBookingEmails($booking)

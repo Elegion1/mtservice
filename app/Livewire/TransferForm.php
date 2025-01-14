@@ -159,7 +159,7 @@ class TransferForm extends Component
             'return' => 'required|exists:destinations,id',
             'dateDeparture' => 'required|date|after_or_equal:today',
             'timeDeparture' => 'required',
-            'dateReturn' => 'nullable|date|after:dateDeparture',
+            'dateReturn' => 'nullable|date|after_or_equal:dateDeparture',
             'timeReturn' => 'nullable',
         ]);
 

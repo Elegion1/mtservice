@@ -61,7 +61,9 @@
                         <td>{{ $customer->name }}</td>
                         <td>{{ $customer->surname }}</td>
                         <td><a href="mailto:{{ $customer->email }}">{{ $customer->email }}</a></td>
-                        <td><a href="tel:{{ $customer->phone }}">{{ $customer->phone }}</a></td>
+                        <td><a
+                                href="tel:{{ $customer->dial_code }}{{ $customer->phone }}">{{ $customer->dial_code }} {{ $customer->phone }}</a>
+                        </td>
                         <td>{{ $customer->body }}</td>
                         <td>{{ $customer->discount }} %</td>
                         <td>{{ $customer->created_at }}</td>

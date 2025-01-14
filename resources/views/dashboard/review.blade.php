@@ -22,8 +22,10 @@
                         </div>
                     </div>
                 </form>
+                <button id="createReviewBtn" class="btn btn-success mt-3">Crea recensione</button>
             </div>
-            <div class="col-12 col-md-6 d-none d-md-block">
+
+            <div id="createReviewForm" class="col-12 col-md-6 d-none">
                 <form action="{{ route('reviews.store') }}" method="POST">
                     @csrf
                     <div class="row">
@@ -149,6 +151,12 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+        var createReviewBtn = document.getElementById('createReviewBtn');
+        var createReviewForm = document.getElementById('createReviewForm');
+        createReviewBtn.addEventListener('click', function() {  
+            createReviewForm.classList.toggle('d-none');
+            createReviewBtn.innerHTML = createReviewForm.classList.contains('d-none') ? 'Aggiungi Recensione' : 'Nascondi';
+        });
             var editReviewModal = document.getElementById('editReviewModal');
             editReviewModal.addEventListener('show.bs.modal', function(event) {
                 var button = event.relatedTarget;

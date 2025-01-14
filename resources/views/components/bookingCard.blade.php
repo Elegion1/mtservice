@@ -12,7 +12,7 @@
                     <i class="bi bi-x-circle-fill text-danger"></i>
                 @endif
                 {{ $booking->name }}, {{ $booking->surname }}
-            </button>
+        </button>
         </h5>
         <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
         <p class="card-text">
@@ -44,7 +44,8 @@
         <div class="d-flex justify-content-between align-items-center flex-wrap">
             <div class="d-flex flex-column align-items-center justify-content-start">
                 <a href="mailto:{{ $booking->email }}" class="card-link text-small">{{ $booking->email }}</a>
-                <a href="tel:{{ $booking->phone }}" class="card-link text-small">{{ $booking->phone }}</a>
+                <a href="tel:{{ $booking->dial_code }}{{ $booking->phone }}"
+                    class="card-link text-small">{{$booking->dial_code}} {{ $booking->phone }}</a>
             </div>
 
             <span class="d-flex justify-content-center align-items-center">
@@ -80,7 +81,7 @@
                         </button>
                     </form>
                 @endif
-                
+
                 {{-- <form action="{{ route('bookings.destroy', $booking) }}" method="POST"
                     style="display:inline-block;">
                     @csrf
