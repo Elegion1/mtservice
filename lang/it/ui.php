@@ -1,12 +1,14 @@
 <?php
 return [
     'it' => 'italiano',
-    'en' => 'inglese',
+    'en' => 'english',
+
     'date_format' => 'd/m/Y H:i',
     // HOME
     'title1' => 'Le tratte più frequenti',
     'title2' => 'I nostri servizi',
     'title3' => 'Le nostre escursioni',
+    'serviceHighlightTitle' => 'I servizi più richiesti',
 
     //navbar
     'navTitle' => 'Prenota online o chiama',
@@ -57,6 +59,7 @@ return [
     'perDay' => 'al giorno',
     'pickup' => 'ritiro',
     'dropoff' => 'consegna',
+    'carsDisplay' => 'Scegli il veicolo più adatto a te',
 
     //riepilogo prenotazione
     'bookingSummaryTitle' => 'Riepilogo Prenotazione',

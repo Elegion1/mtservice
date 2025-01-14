@@ -50,17 +50,18 @@
                 <div class="col-12 p-0 m-0">
                     <div class="row d-flex justify-content-evenly">
                         @foreach ($cars as $car)
-                            <div class="col-5 col-sm-4 {{ $loop->iteration > 3 ? 'mb-0' : 'mb-3' }}">
-                                <x-car-card :car="$car" :selected="$carID == $car->id" />
-                            </div>
+                            @if ($car->show)
+                                <div class="col-5 col-sm-4 {{ $loop->iteration > 3 ? 'mb-0' : 'mb-3' }}">
+                                    <x-car-card :car="$car" :selected="$carID == $car->id" />
+                                </div>
+                            @endif
                         @endforeach
                     </div>
                     <x-error-message field='carID' />
                 </div>
 
                 @if ($dateStart && $timeStart && $dateEnd && $timeEnd)
-                    <div
-                        class="bg-c text-center fw-light rounded mb-3 d-flex justify-content-evenly align-items-center"
+                    <div class="bg-c text-center fw-light rounded mb-3 d-flex justify-content-evenly align-items-center"
                         id="rentDatesSummary">
 
                         <!-- Colonna di partenza -->
@@ -114,7 +115,7 @@
                         class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
                     <!-- Pulsante Submit -->
                     <button type="submit"
-                        class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.submit') }}</button>
+                        class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
                 </div>
             @endif
         </div>

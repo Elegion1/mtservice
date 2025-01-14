@@ -1,8 +1,15 @@
 <div>
+    @php
+        $formLabels = [
+            'transfer' => 'ui.transfer',
+            'escursioni' => 'ui.excursions',
+            'rent' => 'ui.carRent',
+        ];
+    @endphp
 
     @if ($isHome)
         <div id="form-top" class="d-flex justify-content-start ">
-            @foreach (['transfer' => 'ui.transfer', 'escursioni' => 'ui.excursions', 'rent' => 'ui.carRent'] as $formType => $label)
+            @foreach ($formLabels as $formType => $label)
                 <button type="button"
                     class="btn btn_booking text-uppercase text-black {{ $currentForm == $formType ? 'bg-b' : 'bg-c' }}"
                     wire:click="show{{ ucfirst($formType) }}" id="{{ $formType }}-btn">
@@ -22,6 +29,9 @@
     <div class="p-3 bg-b shadow form_width @if ($isHome) rounded-bottom rounded-end @else rounded @endif"
         wire:model.live="module">
         <div class="container-fluid input_width z-2">
+            @if (!$isHome)
+                <p class="text-uppercase text-center bg-c text-dark rounded p-1">{{__('ui.book')}} {{ __($formLabels[$currentForm]) }}</p>
+            @endif
             @if ($currentForm == 'escursioni')
                 @livewire('escursioni-form')
             @elseif ($currentForm == 'transfer')

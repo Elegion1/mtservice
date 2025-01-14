@@ -1,6 +1,6 @@
 <x-layout>
     <div class="row p-0" id="prenotazionediv">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-lg-6">
 
             <div class="container my-5">
                 <x-contact-link />
@@ -11,7 +11,7 @@
                 <x-services />
             </div>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-lg-6">
             <div class="container bg-white rounded p-3">
                 <x-show-content :pagine="$pagine" />
             </div>

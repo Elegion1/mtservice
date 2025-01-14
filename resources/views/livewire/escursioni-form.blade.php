@@ -66,7 +66,7 @@
             </div>
 
             <button type="submit"
-                class="btn col-12 input_size bg-dark rounded px-2 text-light">{{ __('ui.submit') }}</button>
+                class="btn col-12 input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
         </div>
     </form>
 

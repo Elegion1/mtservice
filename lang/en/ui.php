@@ -1,12 +1,14 @@
 <?php
 return [
-    'it' => 'italian',
+    'it' => 'italiano',
     'en' => 'english',
+    
     'date_format' => 'd/m/Y H:i',
     // HOME
     'title1' => 'Most Frequent Routes',
     'title2' => 'Our Services',
     'title3' => 'Our Excursions',
+    'serviceHighlightTitle' => 'Most requested services',
 
     //navbar
     'navTitle' => 'Book Online or Call',
@@ -56,7 +58,8 @@ return [
     'notAvailable' => 'Not Available',
     'perDay' => 'per day',
     'pickup' => 'Pick-Up',
-    'dropoff' => 'Prop-Off',
+    'dropoff' => 'Drop-Off',
+    'carsDisplay' => 'Choose the vehicle that best suits your needs',
 
     //booking summary
     'bookingSummaryTitle' => 'Booking Summary',
@@ -87,7 +90,7 @@ return [
     'termsConditions' => 'Terms and Conditions',
     'confirmBooking' => 'Confirm Booking',
     'loading' => 'Loading... Please wait',
-    'paymentMessage' => 'A 30% deposit is required after confirmation of the booking by our staff',
+    'paymentMessage' => 'A 30% deposit is required once our staff confirms your booking',
     'confirmation_message' => 'Booking request created. A summary email has been sent',
     'customerDiscountMessage' => 'You have already made a reservation with us, enjoy a discount of ',
     'discountedPrice' => 'Discounted price',
@@ -214,17 +217,17 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
     'timeReturn_required' => 'Select a return time',
     'invalid_return_time' => 'The return must be selected at least :time after the departure',
 
-    'contactMailMessage' => 'The message was sent succesfully',
+    'contactMailMessage' => 'The message was sent successfully',
 
     'other' => 'other',
 
-    'excursionNotes' => '<p><strong>Excursion Details:</strong></p>
-        <ul>
-            <li><strong>Duration:</strong> Approximately :duration hours.</li>
-            <li><strong>Price:</strong> The indicated price covers 1 to 3 participants. For each additional person beyond the fourth, please check the prices on the booking form.</li>
-            <li><strong>Notes:</strong> Meals, entrance tickets where required, and any tour guides are not included.</li>
-            <li><strong>Booking:</strong> Directly bookable through the booking form. You can choose the date, time, and number of participants.</li>
-        </ul>',
+      'excursionNotes' => '<p><strong>Excursion Details:</strong></p>
+      <ul>
+          <li><strong>Duration:</strong> About :duration hours.</li>
+          <li><strong>Price:</strong> Includes up to 3 participants. Additional participants, see booking form prices.</li>
+          <li><strong>Notes:</strong> Meals, entrance tickets, and guides are not included.</li>
+          <li><strong>Booking:</strong> Book directly using the form by selecting date, time, and participants.</li>
+      </ul>',
 
     'usefulLinks' => '<p>Useful Links</p>
     

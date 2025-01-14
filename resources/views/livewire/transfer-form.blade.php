@@ -177,7 +177,7 @@
                         class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
                     <!-- Pulsante Submit -->
                     <button type="submit"
-                        class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.submit') }}</button>
+                        class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
                 </div>
             @endif
         </div>

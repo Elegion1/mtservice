@@ -1,6 +1,6 @@
 <x-layout>
     <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-lg-6">
 
             <div class="container rounded p-3 mt-3">
                 <x-show-content :pagine="$pagine" />
@@ -13,7 +13,7 @@
             </div>
         </div>
 
-        <div class="col-12 col-md-6 ">
+        <div class="col-12 col-lg-6 ">
             <div id="escursioni"
                 class="container d-flex justify-content-center align-items-center flex-column rounded bg-white sticky-top z-1">
                 <h2 class="my-3">{{ __('ui.excursionPageTitle') }}</h2>
@@ -58,12 +58,12 @@
                                             <strong class="fs-4 text-d">{{ $excursion->price }} €</strong>
                                         </p>
                                         <div class="d-flex justify-content-around align-items-center">
-                                            <a class="btn rounded-4 bg-a text-white btn-sm me-1"
+                                            <a class="btn rounded bg-a text-white btn-sm me-1"
                                                 href="{{ route('excursion.show', ['name' => $excursion->{'name_' . app()->getLocale()}, 'id' => $excursion->id]) }}">{{ __('ui.details') }}</a>
-                                            <button class="btn rounded-4 bg-a text-white btn-sm"
+                                            <button class="btn rounded bg-a text-white btn-sm"
                                                 data-escursione-id="{{ $excursion->id }}"
                                                 onclick="selezionaEscursione(this)">
-                                                {{ __('ui.book') }}
+                                                {{ __('ui.select') }}
                                             </button>
                                         </div>
 

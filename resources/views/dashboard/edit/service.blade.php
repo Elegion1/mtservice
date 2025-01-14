@@ -13,15 +13,17 @@
             <div class="d-flex justify-content-between align-items-center w-25">
                 <!-- Checkbox: Show -->
                 <div class="form-check mb-3">
+                    <input type="hidden" name="show" value="0">
                     <input class="form-check-input" type="checkbox" id="show" name="show" value="1"
                         {{ $service->show ? 'checked' : '' }}>
                     <label class="form-check-label" for="show">
-                        Mostra 
+                        Mostra
                     </label>
                 </div>
 
                 <!-- Checkbox: Flag -->
                 <div class="form-check mb-3">
+                    <input type="hidden" name="flag" value="0">
                     <input class="form-check-input" type="checkbox" id="flag" name="flag" value="1"
                         {{ $service->flag ? 'checked' : '' }}>
                     <label class="form-check-label" for="flag">

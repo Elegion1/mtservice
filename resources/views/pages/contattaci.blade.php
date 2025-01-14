@@ -27,6 +27,7 @@
                 <div class="col-12 col-md-6 mb-3">
                     <label for="servizio">{{ __('ui.typeOfService') }}:</label>
                     <select class="form-control form_input_focused" id="servizio" name="servizio" required>
+                        <option class="text-lowercase" selected value="">{{__('ui.select')}} {{strtolower(__('ui.typeOfService'))}}</option>
                         <option value="transfer">{{ ucfirst(strtolower(__('ui.transfer'))) }}</option>
                         <option value="escursione">{{ ucfirst(strtolower(__('ui.excursions'))) }}</option>
                         <option value="noleggio auto">{{ ucfirst(strtolower(__('ui.carRent'))) }}</option>

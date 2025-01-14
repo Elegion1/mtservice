@@ -4,12 +4,14 @@
 
         <button id="carCreateBtn" class="btn btn-success">Crea Auto</button>
 
-        <form class="d-none" id="carFormCreate" action="{{ route('cars.store') }}" method="POST" enctype="multipart/form-data">
+        <form class="d-none" id="carFormCreate" action="{{ route('cars.store') }}" method="POST"
+            enctype="multipart/form-data">
             @csrf
             <div class="row">
                 <div class="mb-3 col-lg-3 col-12">
                     <label for="name" class="form-label">Nome Auto</label>
-                    <input type="text" class="form-control form_input_focused" id="name" name="name" required>
+                    <input type="text" class="form-control form_input_focused" id="name" name="name"
+                        required>
                 </div>
                 <div class="mb-3 col-lg-3 col-12">
                     <label for="description" class="form-label">Descrizione</label>
@@ -39,6 +41,7 @@
                     <th>Descrizione</th>
                     <th>Immagine</th>
                     <th>Prezzo</th>
+                    <th>Mostra</th>
                     <th>Azione</th>
                 </tr>
             </thead>
@@ -50,11 +53,11 @@
                         <td>{{ $car->description }}</td>
                         <td>
                             @foreach ($car->images as $image)
-                                <img src="{{ Storage::url($image->path) }}" alt="{{ $car->name }}"
-                                    width="50px">
+                                <img src="{{ Storage::url($image->path) }}" alt="{{ $car->name }}" width="50px">
                             @endforeach
                         </td>
                         <td>{{ $car->price }} €</td>
+                        <td>{{ $car->show ? 'Si' : 'No' }}</td>
                         <td>
                             <button class="btn btn-warning btn-sm edit-open-details-modal" data-bs-toggle="modal"
                                 data-bs-target="#editCarModal" data-car="{{ json_encode($car) }}">Modifica</button>
@@ -83,6 +86,11 @@
                     <form id="editCarForm" action="" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+                        <div class="mb-3">
+                            <input type="hidden" name="show" value="0">
+                            <label for="edit_show">Mostra</label>
+                            <input type="checkbox" class="form-check-input" id="edit_show" name="show" value="1">
+                        </div>
                         <div class="mb-3">
                             <label for="edit_name" class="form-label">Nome Auto</label>
                             <input type="text" class="form-control form_input_focused" id="edit_name" name="name"
@@ -124,7 +132,8 @@
 
             carCreateBtn.addEventListener('click', function() {
                 carFormCreate.classList.toggle('d-none');
-                carCreateBtn.innerHTML = carFormCreate.classList.contains('d-none') ? 'Crea Auto' : 'Nascondi';
+                carCreateBtn.innerHTML = carFormCreate.classList.contains('d-none') ? 'Crea Auto' :
+                    'Nascondi';
             });
             // Funzione per mostrare le anteprime delle immagini esistenti nel modale di modifica
             function showCurrentImages(images) {
@@ -153,6 +162,7 @@
                     form.querySelector('#edit_name').value = car.name;
                     form.querySelector('#edit_description').value = car.description;
                     form.querySelector('#edit_price').value = car.price;
+                    form.querySelector('#edit_show').checked = car.show;
 
                     // Mostra le immagini esistenti nel modale di modifica
                     showCurrentImages(car.images);

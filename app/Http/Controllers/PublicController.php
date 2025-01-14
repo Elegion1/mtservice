@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Dompdf\Dompdf;
+use App\Models\Car;
 use Dompdf\Options;
 use App\Models\Page;
 use App\Models\Image;
@@ -42,7 +43,8 @@ class PublicController extends Controller
         $pagine = Page::where('link', 'noleggio')->with(['contents' => function ($query) {
             $query->where('order', '!=', 0);
         }])->get();
-        return view('pages.noleggio-auto', compact('pagine'));
+        $cars = Car::all();
+        return view('pages.noleggio-auto', compact('pagine', 'cars'));
     }
 
     public function transfer()
