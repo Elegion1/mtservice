@@ -8,12 +8,15 @@ use App\Models\Car;
 use Dompdf\Options;
 use App\Models\Page;
 use App\Models\Image;
+use App\Models\Route;
+use App\Models\Review;
 use App\Models\Booking;
 use App\Models\Contact;
+use App\Models\Partner;
 use App\Models\Service;
 use App\Models\Setting;
+use App\Models\Excursion;
 use Illuminate\Http\Request;
-use Sabberworm\CSS\Settings;
 use App\Jobs\SendReviewRequestJob;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
@@ -28,14 +31,16 @@ class PublicController extends Controller
         $pagine = Page::where('link', 'home')->with(['contents' => function ($query) {
             $query->where('order', '!=', 0);
         }])->get();
-        return view('welcome', compact('pagine'));
+        $tratte = Route::where('show', 1)->take(5)->get();
+        return view('welcome', compact('pagine', 'tratte'));
     }
 
     public function dashboard()
     {
         $bookings = Booking::where('status', 'pending')->get();
         $contacts = Contact::get();
-        return view('dashboard.index', compact('bookings', 'contacts'));
+        $reviews = Review::all();
+        return view('dashboard.index', compact('bookings', 'contacts', 'reviews'));
     }
 
     public function noleggio()
@@ -43,7 +48,7 @@ class PublicController extends Controller
         $pagine = Page::where('link', 'noleggio')->with(['contents' => function ($query) {
             $query->where('order', '!=', 0);
         }])->get();
-        $cars = Car::all();
+        $cars = Car::where('show', 1)->get();
         return view('pages.noleggio-auto', compact('pagine', 'cars'));
     }
 
@@ -60,7 +65,8 @@ class PublicController extends Controller
         $pagine = Page::where('link', 'escursioni')->with(['contents' => function ($query) {
             $query->where('order', '!=', 0);
         }])->get();
-        return view('pages.escursioni', compact('pagine'));
+        $excursionsP = Excursion::where('show', 1)->paginate(4);
+        return view('pages.escursioni', compact('pagine', 'excursionsP'));
     }
 
     public function prezziDestinazioni()
@@ -68,7 +74,8 @@ class PublicController extends Controller
         $pagine = Page::where('link', 'prezziDestinazioni')->with(['contents' => function ($query) {
             $query->where('order', '!=', 0);
         }])->get();
-        return view('pages.prezzi-destinazioni', compact('pagine'));
+        $tratte = Route::where('show', 1)->get();
+        return view('pages.prezzi-destinazioni', compact('pagine', 'tratte'));
     }
 
     public function diconoDiNoi()
@@ -76,7 +83,8 @@ class PublicController extends Controller
         $pagine = Page::where('link', 'diconoDiNoi')->with(['contents' => function ($query) {
             $query->where('order', '!=', 0);
         }])->get();
-        return view('pages.dicono-di-noi', compact('pagine'));
+        $reviewsP = Review::where('status', 'confirmed')->paginate(6);
+        return view('pages.dicono-di-noi', compact('pagine', 'reviewsP'));
     }
 
     public function contattaci()
@@ -92,7 +100,8 @@ class PublicController extends Controller
         $pagine = Page::where('link', 'partners')->with(['contents' => function ($query) {
             $query->where('order', '!=', 0);
         }])->get();
-        return view('pages.partners', compact('pagine'));
+        $partners = Partner::paginate(10);
+        return view('pages.partners', compact('pagine', 'partners'));
     }
 
     public function faq()
@@ -147,6 +156,7 @@ class PublicController extends Controller
             ->first();
 
         session(['verified' => false]);
+
         if ($booking) {
             // Email verificata correttamente
             session(['verified' => true]); // Imposta la variabile di sessione
@@ -174,14 +184,13 @@ class PublicController extends Controller
         // Aggiungi i giorni di ritardo
         $delay = $serviceDate->addDays((int) $delayDays);  // (int) per essere sicuro che sia un numero intero
 
-
         Log::info([
             'service_date' => $booking->service_date,
             'default_time' => $defaultTime,
             'delay_days' => $delayDays,
             'calculated_delay' => $delay,
         ]);
-        
+
         SendReviewRequestJob::dispatch($booking)->delay($delay);
         // Imposta il locale temporaneamente alla lingua del cliente
         $previousLocale = App::getLocale();  // Salva il locale attuale

@@ -136,7 +136,7 @@ class CarRent extends Component
 
     public function render()
     {
-        $cars = Car::all();
+        $cars = Car::where('show', 1)->get();
         $bookings = Booking::whereIn('status', ['confirmed', 'pending'])->get();
 
         $availableCars = $cars->map(function ($car) use ($bookings) {

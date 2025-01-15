@@ -97,10 +97,10 @@ class EscursioniForm extends Component
         $dateTimeDeparture = $this->combineDateAndTime($this->excursionDate, $this->excursionTime);
 
         return [
-            'type' => 'escursione', 
+            'type' => 'escursione',
             'departure_id' => $this->excursionSelect,
             'passengers' => $this->excursionPassengers,
-            'date_dep' => $dateTimeDeparture, 
+            'date_dep' => $dateTimeDeparture,
             'price' => $this->excursionPrice,
         ];
     }
@@ -135,7 +135,7 @@ class EscursioniForm extends Component
 
     public function render()
     {
-        $excursions = Excursion::all();
+        $excursions = Excursion::where('show', 1)->get();
         return view('livewire.escursioni-form', compact('excursions'));
     }
 }

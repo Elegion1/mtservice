@@ -63,6 +63,7 @@
                     <th>Prezzo</th>
                     <th>Incremento di prezzo</th>
                     <th>Tempo di Percorrenza</th>
+                    <th>Mostra</th>
                     <th>Azioni</th>
                 </tr>
             </thead>
@@ -76,13 +77,15 @@
                         <td>{{ $route->price }} €</td>
                         <td>{{ $route->price_increment }} €</td>
                         <td>{{ $route->duration }} Min</td>
+                        <td>{{ $route->show ? 'Si' : 'No' }}</td>
                         <td>
                             <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#editRouteModal" data-id="{{ $route->id }}"
                                 data-distance="{{ $route->distance }}" data-price="{{ $route->price }}"
                                 data-duration="{{ $route->duration }}"
                                 data-price_increment="{{ $route->price_increment }}"
-                                data-name="{{ $route->departure->name }} - {{ $route->arrival->name }}">Modifica</button>
+                                data-name="{{ $route->departure->name }} - {{ $route->arrival->name }}"
+                                data-show="{{ $route->show }}">Modifica</button>
                             <form action="{{ route('routes.destroy', $route) }}" method="POST"
                                 style="display:inline-block;">
                                 @csrf
@@ -109,6 +112,12 @@
                         <p id="route_name"></p>
                         @csrf
                         @method('PUT')
+                        <div class="mb-3">
+                            <input type="hidden" name="show" value="0">
+                            <label for="edit_show">Mostra</label>
+                            <input type="checkbox" class="form-check-input" id="edit_show" name="show"
+                                value="1">
+                        </div>
                         <div class="mb-3">
                             <label for="edit_distance" class="form-label">Distanza (km)</label>
                             <input type="number" class="form-control form_input_focused" id="edit_distance"
@@ -147,7 +156,8 @@
 
             createRouteBtn.addEventListener('click', function() {
                 routeCreateForm.classList.toggle('d-none');
-                createRouteBtn.innerHTML = routeCreateForm.classList.contains('d-none') ? 'Crea tratta' : 'Nascondi';
+                createRouteBtn.innerHTML = routeCreateForm.classList.contains('d-none') ? 'Crea tratta' :
+                    'Nascondi';
             });
 
             var editRouteModal = document.getElementById('editRouteModal');
@@ -160,17 +170,18 @@
                 var price_increment = button.getAttribute('data-price_increment');
                 var duration = button.getAttribute('data-duration');
                 var name = button.getAttribute('data-name');
+                var show = button.getAttribute('data-show');
 
                 var modal = this;
                 modal.querySelector('#edit_distance').value = distance;
                 modal.querySelector('#edit_price').value = price;
                 modal.querySelector('#edit_price_increment').value = price_increment;
                 modal.querySelector('#edit_duration').value = duration;
-                modal.querySelector('#edit_duration').value = duration;
+                modal.querySelector('#edit_show').checked = show == 1;
                 modal.querySelector('#route_name').innerHTML = name;
 
                 var form = modal.querySelector('#editRouteForm');
-                form.action = '/routes/' + id;
+                form.action = '/dashboard/routes/' + id;
 
 
             });

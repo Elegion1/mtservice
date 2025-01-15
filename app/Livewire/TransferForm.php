@@ -62,7 +62,7 @@ class TransferForm extends Component
         }
 
         // Recupera il tragitto dalla rotta
-        $route = Route::where('departure_id', $this->departure)->where('arrival_id', $this->return)->first();
+        $route = $this->getRoutedata($this->departure, $this->return);
 
         // Se la rotta non esiste, segnala l'errore
         if (!$route) {

@@ -16,7 +16,7 @@
                 <x-show-content :pagine="$pagine" />
             </div>
             <div class="container-fluid bg-white p-1">
-                @foreach ($dest as $tratta)
+                @foreach ($tratte as $tratta)
                     <div class="container text-start text-wrap">
                         <div class="row">
                             <div class="col-3 d-flex justify-content-end align-items-center">

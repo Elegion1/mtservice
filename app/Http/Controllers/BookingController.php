@@ -138,7 +138,7 @@ class BookingController extends Controller
         $bookings = $processedBookings->sortBy(function ($booking) {
             return \Carbon\Carbon::parse($booking->start_date ?? $booking->end_date);
         });
-
+        
         // Raggruppa per giorno
         $groupedByDay = $bookings->groupBy(function ($booking) {
             return \Carbon\Carbon::parse($booking->start_date ?? $booking->end_date)->format('Y-m-d');

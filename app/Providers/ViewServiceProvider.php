@@ -29,37 +29,32 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if (Route::query()->exists()) {
-            $tratte = Route::take(5)->get();
-            $dest = Route::all();
-            View::share('tratte',  $tratte);
-            View::share('dest',  $dest);
-        }
-
+        // if (Route::query()->exists()) {
+        //     $tratte = Route::where('show', 1)->take(5)->get();
+        //     View::share('tratte',  $tratte);
+        // }
 
         if (Service::query()->exists()) {
-            $services = Service::all();
+            $services = Service::where('show', 1)->get();   
             View::share('services', $services);
         }
 
         if (Excursion::query()->exists()) {
-            $excursionsP = Excursion::where('show', 1)->paginate(4);
             $excursions = Excursion::where('show', 1)->get();
-            View::share('excursionsP', $excursionsP);
             View::share('excursions', $excursions);
         }
 
-        if (Partner::query()->exists()) {
-            $partners = Partner::paginate(10);
-            View::share('partners', $partners);
-        }
+        // if (Partner::query()->exists()) {
+        //     $partners = Partner::paginate(10);
+        //     View::share('partners', $partners);
+        // }
 
-        if (Review::query()->where('status', 'confirmed')->exists()) {
-            $reviewsP = Review::where('status', 'confirmed')->paginate(6);
-            $reviews = Review::get();
-            View::share('reviewsP', $reviewsP);
-            View::share('reviews', $reviews);
-        }
+        // if (Review::query()->where('status', 'confirmed')->exists()) {
+
+        //     $reviews = Review::get();
+
+        //     View::share('reviews', $reviews);
+        // }
 
         if (OwnerData::query()->exists()) {
             $ownerdata = OwnerData::first();

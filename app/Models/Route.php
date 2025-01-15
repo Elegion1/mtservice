@@ -13,7 +13,8 @@ class Route extends Model
         'price',
         'price_increment',
         'duration',
-        'distance'
+        'distance',
+        'show',
     ];
 
     public function departure()

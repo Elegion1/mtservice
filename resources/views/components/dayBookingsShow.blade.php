@@ -1,4 +1,4 @@
-@foreach ($dayBookings->sortBy('start_date') as $booking)
+@foreach ($dayBookings as $booking)
     <div class="booking-item border p-3">
         <div class="row">
             <div class="col-3 d-flex flex-wrap justify-content-between align-items-center">

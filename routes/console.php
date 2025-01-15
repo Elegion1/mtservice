@@ -24,7 +24,9 @@ Artisan::command('logs:clear', function() {
 // Esegui il Job ogni ora
 // Definizione del comando
 Artisan::command('expire:bookings', function () {
-    dispatch(new ExpirePendingBookings());
+    echo "Checking expired bookings...\n";
+    dispatch(new ExpirePendingBookings())->handle();
+    echo "Done!\n";
 })->describe('Mark pending bookings as rejected if older than 24 hours');
 
 // Pianifica l'esecuzione automatica

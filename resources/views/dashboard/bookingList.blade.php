@@ -25,7 +25,7 @@
                     <h3 class="text-center my-3 bg-secondary-subtle">
                         {{ \Carbon\Carbon::parse($date)->translatedFormat('l d/m/Y') }}
                     </h3>
-
+                    
                     <x-dayBookingsShow :dayBookings="$dayBookings" />
                 </div>
             @endforeach
@@ -42,7 +42,7 @@
                             <h3 class="text-center my-3 bg-secondary-subtle">
                                 {{ \Carbon\Carbon::parse($date)->translatedFormat('l d/m/Y') }}
                             </h3>
-
+                            
                             <x-dayBookingsShow :dayBookings="$dayBookings" />
                         </div>
                     @endforeach

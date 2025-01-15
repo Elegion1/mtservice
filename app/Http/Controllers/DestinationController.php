@@ -17,6 +17,7 @@ class DestinationController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
+            'show' => 'required | boolean',
         ]);
 
         $destination = new Destination();
@@ -30,6 +31,7 @@ class DestinationController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
+            'show' => 'required | boolean',
         ]);
 
         $destination->update($validated);

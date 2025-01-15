@@ -1,7 +1,7 @@
 <x-dashboard-layout>
     <div class="container-fluid mt-5">
         <h1>Gestione Destinazioni</h1>
-        
+
         <button id="destinationCreateBtn" class="btn btn-success">Crea destinazione</button>
 
         <form class="d-none" id="destinationFormCreate" action="{{ route('destinations.store') }}" method="POST">
@@ -25,6 +25,7 @@
                 <tr>
                     <th>#</th>
                     <th>Nome</th>
+                    <th>Mostra</th>
                     <th>Azione</th>
                 </tr>
             </thead>
@@ -33,10 +34,12 @@
                     <tr>
                         <td>{{ $destination->id }}</td>
                         <td>{{ $destination->name }}</td>
+                        <td>{{ $destination->show ? 'Si' : 'No' }}</td>
                         <td>
                             <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                 data-bs-target="#editDestinationModal" data-id="{{ $destination->id }}"
-                                data-name="{{ $destination->name }}">Modifica</button>
+                                data-name="{{ $destination->name }}"
+                                data-show="{{ $destination->show }}">Modifica</button>
                             <form action="{{ route('destinations.destroy', $destination) }}" method="POST"
                                 style="display:inline-block;">
                                 @csrf
@@ -64,6 +67,12 @@
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
+                            <input type="hidden" name="show" value="0">
+                            <label for="edit_show">Mostra</label>
+                            <input type="checkbox" class="form-check-input" id="edit_show" name="show"
+                                value="1">
+                        </div>
+                        <div class="mb-3">
                             <label for="edit_name" class="form-label">Nome Destinazione</label>
                             <input type="text" class="form-control form_input_focused" id="edit_name" name="name"
                                 required>
@@ -77,20 +86,27 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+
             var destinationCreateBtn = document.getElementById('destinationCreateBtn');
             var destinationFormCreate = document.getElementById('destinationFormCreate');
+
             destinationCreateBtn.addEventListener('click', function() {
                 destinationFormCreate.classList.toggle('d-none');
-                destinationCreateBtn.innerText = destinationFormCreate.classList.contains('d-none') ? 'Crea Destinazione' : 'Nascondi';
+                destinationCreateBtn.innerText = destinationFormCreate.classList.contains('d-none') ?
+                    'Crea Destinazione' : 'Nascondi';
             });
+
             var editDestinationModal = document.getElementById('editDestinationModal');
+
             editDestinationModal.addEventListener('show.bs.modal', function(event) {
                 var button = event.relatedTarget;
                 var id = button.getAttribute('data-id');
                 var name = button.getAttribute('data-name');
+                var show = button.getAttribute('data-show');
 
                 var modal = this;
                 modal.querySelector('#edit_name').value = name;
+                modal.querySelector('#edit_show').checked = show == 1;
 
                 var form = modal.querySelector('#editDestinationForm');
                 form.action = '{{ url('dashboard/destinations') }}/' + id;

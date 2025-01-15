@@ -24,11 +24,12 @@ class ReviewController extends Controller
 
     public function create()
     {
-        return view('dashboard.review');
+        $reviews = Review::all();
+        return view('dashboard.review', compact('reviews'));
     }
 
     public function saveReview(Request $request)
-    {   
+    {
         // Validazione dei dati in ingresso
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -37,21 +38,21 @@ class ReviewController extends Controller
             'rating' => 'required|integer|min:1|max:5',
             'booking' => 'required|string|exists:bookings,code', // Assicurati che il booking_code esista
         ]);
-        
+
         // Trova la prenotazione in base al codice
         $booking = Booking::where('code', $request->booking)->first();
 
         if (!$booking) {
             return redirect()->back()->with('error', 'Codice di prenotazione non valido.');
         }
-        
+
         // Aggiungi il valore "pending" al campo status e associa la recensione alla prenotazione
         $validatedData['status'] = 'pending';
         $validatedData['booking'] = $booking->code; // Associa la recensione alla prenotazione
-        
+
         // Crea la recensione
         Review::create($validatedData);
-        
+
         // Redirect con messaggio di successo
         return redirect()->route('home')->with('success', 'La tua recensione è stata inviata ed è in attesa di approvazione.');
     }

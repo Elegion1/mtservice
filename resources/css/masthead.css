@@ -64,16 +64,18 @@
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Migliora leggibilità */
 }
 
+#headerBooking {
+    height: 700px;
+    z-index: 2; /* Per sicurezza, sopra tutti */
+}
+
 @media screen and (max-width: 992px) {
     #headerText {
         height: auto;
     }
-}
-
-#headerBooking {
-    height: 700px;
-    z-index: 2; /* Per sicurezza, sopra tutti */
-    
+    #headerBooking {
+        height: 500px;
+    }
 }
 
 .service {

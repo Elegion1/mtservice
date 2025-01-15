@@ -6,7 +6,7 @@
 
         <div class="mb-3 text-small">
             <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
-                <img width="100px" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt="">
+                <img class="logo-footer" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt="">
             </a>
             <small>{{ $ownerdata->companyName }}</small><br>
             <small>di {{ $ownerdata->name }} {{ $ownerdata->surname }}</small><br>

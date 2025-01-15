@@ -21,7 +21,7 @@ class RouteController extends Controller
      */
     public function create()
     {
-        $destinations = Destination::all();
+        $destinations = Destination::where('show', 1)->get();
         $routes = Route::with(['departure', 'arrival'])->get();
         return view('dashboard.route', compact('destinations', 'routes'));
     }
@@ -32,13 +32,14 @@ class RouteController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'departure_id' => 'required|exists:destinations,id',
-            'arrival_id' => 'required|exists:destinations,id|different:departure_id',
             'distance' => 'required|numeric',
             'price' => 'required|numeric',
             'duration' => 'required|numeric',
-            'price_increment' => 'numeric',
+            'price_increment' => 'nullable|numeric',
+            'show' => 'nullable|boolean',
         ]);
+        
+        $validated['show'] = $validated['show'] ?? 0; // Imposta un valore predefinito per 'show'
 
         $route = new Route();
         $route->departure_id = $validated['departure_id'];
@@ -47,6 +48,7 @@ class RouteController extends Controller
         $route->price = $validated['price'];
         $route->duration = $validated['duration'];
         $route->price_increment = $validated['price_increment'];
+        $route->show = $validated['show'];
         $route->save();
 
         return redirect()->route('dashboard.route')->with('success', 'Rotta creata con successo!');
@@ -72,15 +74,17 @@ class RouteController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Route $route)
-    {
+    {   
         $validated = $request->validate([
             'distance' => 'required|numeric',
             'price' => 'required|numeric',
             'duration' => 'required|numeric',
-            'price_increment' => 'numeric',
-
+            'price_increment' => 'nullable|numeric',
+            'show' => 'nullable|boolean',
         ]);
-
+        
+        $validated['show'] = $validated['show'] ?? 0; // Imposta un valore predefinito per 'show'
+        
         $route->update($validated);
 
         return redirect()->route('dashboard.route')->with('success', 'Rotta aggiornata con successo!');

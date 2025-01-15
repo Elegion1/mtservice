@@ -120,7 +120,7 @@
 }
 
 .bg-blur {
-    backdrop-filter: blur(2px);
+    backdrop-filter: blur(4px);
 }
 
 /* ========== Masthead ========== */
@@ -267,6 +267,16 @@ h2 {
 }
 
 /* ========== Immagini & Media ========== */
+.logo-footer {
+    width: 100px;
+}
+
+@media screen and (max-width: 768px) {
+    .logo-footer {
+        width: 50px;
+    }
+}
+
 .logo-img {
     width: 20vw;
     max-width: 100px;
