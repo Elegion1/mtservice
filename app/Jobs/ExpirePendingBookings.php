@@ -45,6 +45,7 @@ class ExpirePendingBookings implements ShouldQueue
             ->get();
 
         Log::info($expiredBookings);
+        Log::info('Server time: ' . Carbon::now());
         
         if ($expiredBookings->isEmpty()) {
             Log::info('No pending bookings to expire.');
