@@ -61,14 +61,13 @@ class ExpirePendingBookings implements ShouldQueue
             Log::warning('No administrator email found. Skipping admin notification.');
         }
 
-        $notificationEnabled = Setting::where('name', 'booking_rejected_notification')->value('value');
-        Log::info('Booking rejected notification is ' . ($notificationEnabled ? 'enabled' : 'disabled'));
-
+        $notification = (bool) Setting::where('name', 'booking_rejected_notification')->value('value');
+        Log::info('Booking rejected notification is ' . ($notification ? 'enabled' : 'disabled'));
 
         foreach ($expiredBookings as $booking) {
             try {
                 $booking->update(['status' => 'rejected']);
-                if (!$notificationEnabled) {
+                if (!$notification) {
                     Log::info("Booking ID {$booking->id} marked as rejected. Notification disabled.");
                     continue;
                 } else {
