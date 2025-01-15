@@ -34,7 +34,7 @@ class ExpirePendingBookings implements ShouldQueue
     public function handle(): void
     {
         $expireTime = Setting::where('name', 'booking_pending_expire_time')->value('value');
-
+        Log::info('Booking pending expire time is set to: ' . ($expireTime ?? 'N/A'));
         if (!$expireTime) {
             Log::warning('Booking pending expire time is not set. Using default value of 1 hour.');
             $expireTime = 1;
@@ -43,7 +43,9 @@ class ExpirePendingBookings implements ShouldQueue
         $expiredBookings = Booking::where('status', 'pending')
             ->where('created_at', '<', Carbon::now()->subHours($expireTime))
             ->get();
+
         Log::info($expiredBookings);
+        
         if ($expiredBookings->isEmpty()) {
             Log::info('No pending bookings to expire.');
             return;
