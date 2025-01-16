@@ -1,5 +1,5 @@
 <x-layout>
-    <div id="partners" class="container bg-white rounded">
+    <div id="partners" class="container bg-white rounded mt-5 mt-md-3">
         <div class="container p-3">
             <x-show-content :pagine="$pagine" />
             <div class="d-flex justify-content-center align-items-end flex-wrap">

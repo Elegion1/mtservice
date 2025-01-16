@@ -1,6 +1,6 @@
 <x-dashboard-layout>
     <div class="container-fluid">
-        
+
         <h2 class="text-wrap">Prenotazioni confermate</h2>
         <a class="btn btn-sm btn-secondary text-small" href="{{ route('booking.todo') }}">Da confermare</a>
 
@@ -25,7 +25,7 @@
                     <h3 class="text-center my-3 bg-secondary-subtle">
                         {{ \Carbon\Carbon::parse($date)->translatedFormat('l d/m/Y') }}
                     </h3>
-                    
+
                     <x-dayBookingsShow :dayBookings="$dayBookings" />
                 </div>
             @endforeach
@@ -42,7 +42,7 @@
                             <h3 class="text-center my-3 bg-secondary-subtle">
                                 {{ \Carbon\Carbon::parse($date)->translatedFormat('l d/m/Y') }}
                             </h3>
-                            
+
                             <x-dayBookingsShow :dayBookings="$dayBookings" />
                         </div>
                     @endforeach
@@ -82,6 +82,9 @@
                     var email = button.getAttribute('data-booking-email') || 'N/A';
                     var id = button.getAttribute('data-booking-id') || 'N/A';
 
+                    console.log(start_date, bookingData.date_dep);
+                    console.log(end_date, bookingData.date_ret);
+
                     showBookingDetailsModal(bookingData, start_date, end_date, name, surname, phone,
                         email, id);
                 });
@@ -96,6 +99,13 @@
                 // Crea il contenuto del modale con i dettagli della prenotazione
                 const bookingType = bookingData.type;
 
+                const dateDep = bookingData.date_dep ? new Date(bookingData.date_dep).toLocaleString('it-IT') : 'N/A';
+                const dateRet = bookingData.date_ret ? new Date(bookingData.date_ret).toLocaleString('it-IT') : 'N/A';
+                const dateStart = bookingData.date_start ? new Date(bookingData.date_start).toLocaleString(
+                    'it-IT') : 'N/A';
+                const dateEnd = bookingData.date_end ? new Date(bookingData.date_end).toLocaleString('it-IT') :
+                    'N/A';
+
                 let modalInnerHTML = `
         <p><span class="text-primary">${name} ${surname}</span></p>
         <p><a href="tel:${phone}">${phone}</a> <a href="mailto:${email}">${email}</a></p>
@@ -103,23 +113,23 @@
 
                 if (bookingType === 'transfer' && start_date !== 'N/A') {
                     modalInnerHTML += `
-        <p>Data di partenza: <span class="text-primary">${bookingData.date_dep}</span></p>
-        <p>Data di ritorno: <span class="text-primary">${bookingData.date_ret}</span></p>
+        <p>Data di partenza: <span class="text-primary">${dateDep}</span></p>
+        <p>Data di ritorno: <span class="text-primary">${dateRet}</span></p>
         <p>Transfer da: <span class="text-primary">${bookingData.departure_name}</span></p>
         <p>Transfer a: <span class="text-primary">${bookingData.arrival_name}</span></p>`;
                 } else if (bookingType === 'transfer' && end_date !== 'N/A') {
                     modalInnerHTML += `
-        <p>Data di ritorno: <span class="text-primary">${bookingData.date_ret}</span></p>
+        <p>Data di ritorno: <span class="text-primary">${dateRet}</span></p>
         <p>Transfer da: <span class="text-primary">${bookingData.arrival_name}</span></p>
         <p>Transfer a: <span class="text-primary">${bookingData.departure_name}</span></p>`;
                 } else if (bookingType === 'escursione') {
                     modalInnerHTML += `
-        <p>Data di partenza: <span class="text-primary">${bookingData.date_dep}</span></p>
+        <p>Data di partenza: <span class="text-primary">${dateDep}</span></p>
         <p>A: <span class="text-primary">${bookingData.departure_name}</span></p>`;
                 } else if (bookingType === 'noleggio') {
                     modalInnerHTML += `
-        <p>Data di inizio noleggio: <span class="text-primary">${bookingData.date_start}</span></p>
-        <p>Data di fine noleggio: <span class="text-primary">${bookingData.date_end}</span></p>
+        <p>Data di inizio noleggio: <span class="text-primary">${dateStart}</span></p>
+        <p>Data di fine noleggio: <span class="text-primary">${dateEnd}</span></p>
         <p>Auto noleggiata: <span class="text-primary">${bookingData.car_name}</span></p>
         <p>Descrizione auto: <span class="text-primary">${bookingData.car_description}</span></p>`;
                 }

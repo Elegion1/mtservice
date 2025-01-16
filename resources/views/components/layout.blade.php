@@ -76,7 +76,7 @@
     <x-whatsapp />
     <x-nav />
     <x-masthead />
-    <div id="mainContent" data-currentRoute="{{ $currentRouteName }}" class="overflow-hidden">
+    <div id="mainContent" data-currentRoute="{{ $currentRouteName }}" class="overflow-hidden mt-5">
         {{ $slot }}
     </div>
 

@@ -1,28 +1,22 @@
 <x-layout>
 
     <div class="container-fluid">
-        <h2 class="text-center mt-5">{{__('ui.serviceHighlightTitle')}}</h2>
+        <h2 class="text-center mt-5 mt-md-3">{{ __('ui.serviceHighlightTitle') }}</h2>
         <div class="d-flex justify-content-center align-items-start flex-wrap flex-md-nowrap mt-3">
             <x-services-overview />
         </div>
     </div>
-    <div class="container">
 
+    <div class="container">
         <div class="row">
 
             <div class="col-12 mt-5">
-
                 <div class="text-center">
                     <x-show-content :pagine="$pagine" />
-                    
                 </div>
-
-
                 <div class="container my-3">
                     <x-contact-link />
                 </div>
-
-
             </div>
 
             <div class="col-12 col-lg-6">
@@ -36,6 +30,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-12 col-lg-6">
                 <div class="container-fluid p-3">
                     <a class="text-decoration-none text-reset" href="{{ route('services.index') }}">
@@ -44,6 +39,7 @@
                     <x-services />
                 </div>
             </div>
+
             <div class="col-12">
                 <div class="container-fluid p-3">
                     <a class="text-decoration-none text-reset" href="{{ route('escursioni') }}">
@@ -52,6 +48,7 @@
                     <x-excursions />
                 </div>
             </div>
+
         </div>
     </div>
 </x-layout>

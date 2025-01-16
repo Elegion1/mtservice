@@ -7,7 +7,7 @@
             </div>
 
             {{-- Sezione Recensioni --}}
-            <div id="diconoDiNoi" class="col-12 mt-3 text-center">
+            <div id="diconoDiNoi" class="col-12 mt-5 mt-md-3 text-center">
                 <h1 class="text-center">
                     {{ isset($reviewsP) ? __('ui.someReviews') : __('ui.noReviews') }}
                 </h1>
