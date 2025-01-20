@@ -89,7 +89,7 @@ class Prenotazione extends Component
 
     public function render()
     {
-        Log::info('User is choosing a service ' . $this->module . json_encode(session()->all()));
+        Log::info('User is choosing a service ' . $this->module . ' ' . json_encode(session()->all()));
         return view('livewire.prenotazione', [
             'bookingData' => $this->bookingData,
             'module' => $this->module,
