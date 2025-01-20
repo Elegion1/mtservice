@@ -135,7 +135,7 @@
                                 name="rating" required min="1" max="5">
                         </div>
                         <div class="mb-3">
-                            <label for="edit_status" class="form-label">Valutazione</label>
+                            <label for="edit_status" class="form-label">Stato</label>
                             <select class="form-select" name="status" id="edit_status">
                                 <option value="pending">In attesa</option>
                                 <option value="confirmed">Approvata</option>

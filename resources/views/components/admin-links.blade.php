@@ -72,11 +72,12 @@
                 <li><a class="dropdown-item" href="{{ route('dashboard.ownerData') }}">Dati azienda</a></li>
                 <li><a class="dropdown-item" href="{{ route('dashboard.users') }}">Utenti</a></li>
                 <li><a class="dropdown-item" href="{{ route('dashboard.settings') }}">Impostazioni</a></li>
+                <li><a class="dropdown-item" href="{{ route('dashboard.logs') }}">Logs</a></li>
             </ul>
         </div>
     </li>
     <li>
-        <a class="text-decoration-none p-1" href="{{route('dashboard.testing')}}">TEST</a>
+        <a class="text-decoration-none p-1" href="{{ route('dashboard.testing') }}">TEST</a>
     </li>
 
 

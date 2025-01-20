@@ -17,9 +17,11 @@ use App\Models\Service;
 use App\Models\Setting;
 use App\Models\Excursion;
 use Illuminate\Http\Request;
+use Sabberworm\CSS\Settings;
 use App\Jobs\SendReviewRequestJob;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BookingStatusNotification;
 use Illuminate\Support\Facades\Storage;
@@ -140,6 +142,52 @@ class PublicController extends Controller
         return view('pages.booking-status', ['booking' => $booking]);
     }
 
+    public function showLogs()
+    {
+        $logFile = storage_path('logs/laravel.log');
+
+        if (!File::exists($logFile)) {
+            return view('dashboard.logs', ['logEntries' => []]);
+        }
+
+        $logs = File::get($logFile);
+
+        // Estrai tutte le entries del log con il timestamp come delimitatore
+        preg_match_all('/\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\].*?(?=(\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\]|$))/s', $logs, $matches);
+
+        $logEntries = $matches[0];
+
+        // Recupera la lunghezza massima dai settings, con un valore predefinito di 1000
+        $maxLength = Setting::where('name', 'log_max_character_length')->value('value') ?? 1000;
+
+        // Filtra le entries per lunghezza e per esclusione di termini specifici
+        $filteredLogEntries = array_filter($logEntries, function ($entry) use ($maxLength) {
+            $excludePatterns = ['syntax error', 'SQLSTATE'];
+            $isTooLong = strlen($entry) > $maxLength;
+
+            foreach ($excludePatterns as $pattern) {
+                if (stripos($entry, $pattern) !== false) {
+                    return false; // Escludi se contiene uno dei pattern
+                }
+            }
+
+            return !$isTooLong;
+        });
+
+        // Ordina le entries per timestamp dal più recente al meno recente
+        usort($filteredLogEntries, function ($a, $b) {
+            preg_match('/\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\]/', $a, $timestampA);
+            preg_match('/\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\]/', $b, $timestampB);
+
+            $timeA = isset($timestampA[0]) ? strtotime(trim($timestampA[0], '[]')) : 0;
+            $timeB = isset($timestampB[0]) ? strtotime(trim($timestampB[0], '[]')) : 0;
+
+            return $timeB <=> $timeA;
+        });
+
+        return view('dashboard.logs', ['logEntries' => $filteredLogEntries]);
+    }
+
     // Check the email and show the booking status if verified
     public function bookingStatusCheck(Request $request)
     {
@@ -191,7 +239,6 @@ class PublicController extends Controller
             'calculated_delay' => $delay,
         ]);
 
-        SendReviewRequestJob::dispatch($booking)->delay($delay);
         // Imposta il locale temporaneamente alla lingua del cliente
         $previousLocale = App::getLocale();  // Salva il locale attuale
         App::setLocale($booking->locale);    // Imposta il locale della prenotazione
@@ -199,6 +246,7 @@ class PublicController extends Controller
         // Invia la mail nella lingua del cliente
         Mail::to($booking->email)->send(new BookingStatusNotification($booking));
 
+        SendReviewRequestJob::dispatch($booking)->delay($delay);
         // Reimposta il locale originale
         App::setLocale($previousLocale);
         return redirect()->back()->with('message', 'Prenotazione confermata con successo.');

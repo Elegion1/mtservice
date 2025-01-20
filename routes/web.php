@@ -22,6 +22,7 @@ use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\ExcursionController;
 use App\Http\Controllers\OwnerDataController;
 use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\LogController;
 
 Route::get('/', function () {
     $locale = app()->getlocale(); // Recupera il locale predefinito
@@ -66,135 +67,131 @@ Route::prefix('{locale}')
 
 
 // gestione stato prenotazione
+Route::middleware(['auth'])->prefix('dashboard')->group(function () {
 
-Route::post('/dashboard/bookings/{booking}/update-status', [BookingController::class, 'update'])->name('bookings.update')->middleware('auth');
-Route::get('/dashboard/booking/status/to-do', [BookingController::class, 'bookingToDo'])->name('booking.todo')->middleware('auth');
+    Route::post('/bookings/{booking}/update-status', [BookingController::class, 'update'])->name('bookings.update');
+    Route::get('/booking/status/to-do', [BookingController::class, 'bookingToDo'])->name('booking.todo');
 
-Route::get('/dashboard/booking/confirm/{booking}', [PublicController::class, 'confirmBooking'])->name('booking.confirm');
-Route::get('/dashboard/booking/reject/{booking}', [PublicController::class, 'rejectBooking'])->name('booking.reject');
-
-
-// DASHBOARD
-
-// vista dashboard
-Route::get('/dashboard', [PublicController::class, 'dashboard'])->name('dashboard')->middleware('auth');
-Route::get('/dashboard/jobs', [TestController::class, 'jobsIndex'])->name('dashboard.jobs')->middleware('auth');
-
-//impostazioni
-Route::get('/dashboard/settings/', [SettingController::class, 'index'])->name('dashboard.settings'); // Visualizza tutte le impostazioni
-Route::get('/dashboard/settings/create', [SettingController::class, 'create'])->name('settings.create'); // Mostra il form per creare una nuova impostazione
-Route::post('/dashboard/settings/', [SettingController::class, 'store'])->name('settings.store'); // Salva una nuova impostazione
-Route::put('/dashboard/settings/{setting}', [SettingController::class, 'update'])->name('settings.update'); // Aggiorna un'impostazione esistente
-Route::delete('/dashboard/settings/{setting}', [SettingController::class, 'destroy'])->name('settings.destroy'); // Elimina un'impostazione
-
-// testing
-Route::get('dashboard/testing', [TestController::class, 'test'])->name('dashboard.testing')->middleware('auth');
-Route::get('/dashboard/generate/pdf/{bookingId}/{lang}', [TestController::class, 'pdf'])->name('testing.genPDF')->middleware('auth');
-Route::get('/dashboard/email/preview/{mailType}/{bookingId?}/{lang?}', [TestController::class, 'emailPreview'])->name('email.view')->middleware('auth');
+    Route::get('/booking/confirm/{booking}', [PublicController::class, 'confirmBooking'])->name('booking.confirm');
+    Route::get('/booking/reject/{booking}', [PublicController::class, 'rejectBooking'])->name('booking.reject');
 
 
-// eliminazione immagini
-Route::delete('/dashboard/images/{id}', [PublicController::class, 'deleteImage'])->name('images.delete')->middleware('auth');
+    // DASHBOARD
 
-// Gestione rotte
-Route::get('/dashboard/routes', [RouteController::class, 'create'])->name('dashboard.route')->middleware('auth');
-Route::post('dashboard/routes', [RouteController::class, 'store'])->name('routes.store')->middleware('auth');
-Route::put('dashboard/routes/{route}', [RouteController::class, 'update'])->name('routes.update')->middleware('auth');
-Route::delete('dashboard/routes/{route}', [RouteController::class, 'destroy'])->name('routes.destroy')->middleware('auth');
+    // vista dashboard
+    Route::get('/', [PublicController::class, 'dashboard'])->name('dashboard');
+    Route::get('/jobs', [TestController::class, 'jobsIndex'])->name('dashboard.jobs');
+    Route::get('/logs', [PublicController::class, 'showLogs'])->name('dashboard.logs');
 
-// Gestione destinazioni
-Route::get('/dashboard/destinations', [DestinationController::class, 'create'])->name('dashboard.destination')->middleware('auth');
-Route::post('dashboard/destinations', [DestinationController::class, 'store'])->name('destinations.store')->middleware('auth');
-Route::put('dashboard/destinations/{destination}', [DestinationController::class, 'update'])->name('destinations.update')->middleware('auth');
-Route::delete('dashboard/destinations/{destination}', [DestinationController::class, 'destroy'])->name('destinations.destroy')->middleware('auth');
+    //impostazioni
+    Route::get('/settings/', [SettingController::class, 'index'])->name('dashboard.settings'); // Visualizza tutte le impostazioni
+    Route::get('/settings/create', [SettingController::class, 'create'])->name('settings.create'); // Mostra il form per creare una nuova impostazione
+    Route::post('/settings/', [SettingController::class, 'store'])->name('settings.store'); // Salva una nuova impostazione
+    Route::put('/settings/{setting}', [SettingController::class, 'update'])->name('settings.update'); // Aggiorna un'impostazione esistente
+    Route::delete('/settings/{setting}', [SettingController::class, 'destroy'])->name('settings.destroy'); // Elimina un'impostazione
 
-// Gestione escursioni
-Route::get('/dashboard/excursions', [ExcursionController::class, 'index'])->name('dashboard.excursion')->middleware('auth');
-Route::get('/dashboard/excursion/create', [ExcursionController::class, 'create'])->name('excursion.create')->middleware('auth');
-Route::get('/dashboard/excursions/edit/{excursion}', [ExcursionController::class, 'edit'])->name('excursion.edit')->middleware('auth');
-Route::post('dashboard/excursions', [ExcursionController::class, 'store'])->name('excursions.store')->middleware('auth');
-Route::put('dashboard/excursions/{excursion}', [ExcursionController::class, 'update'])->name('excursions.update')->middleware('auth');
-Route::delete('dashboard/excursions/{excursion}', [ExcursionController::class, 'destroy'])->name('excursions.destroy')->middleware('auth');
+    // testing
+    Route::get('/testing', [TestController::class, 'test'])->name('dashboard.testing');
+    Route::get('/generate/pdf/{bookingId}/{lang}', [TestController::class, 'pdf'])->name('testing.genPDF');
+    Route::get('/email/preview/{mailType}/{bookingId?}/{lang?}', [TestController::class, 'emailPreview'])->name('email.view');
 
+    // eliminazione immagini
+    Route::delete('/images/{id}', [PublicController::class, 'deleteImage'])->name('images.delete');
 
-// Gestione auto
-Route::get('/dashboard/cars', [CarController::class, 'create'])->name('dashboard.car')->middleware('auth');
-Route::post('/dashboard/cars', [CarController::class, 'store'])->name('cars.store')->middleware('auth');
-Route::put('/dashboard/cars/{car}', [CarController::class, 'update'])->name('cars.update')->middleware('auth');
-Route::delete('/dashboard/cars/{car}', [CarController::class, 'destroy'])->name('cars.destroy')->middleware('auth');
+    // Gestione rotte
+    Route::get('/routes', [RouteController::class, 'create'])->name('dashboard.route');
+    Route::post('/routes', [RouteController::class, 'store'])->name('routes.store');
+    Route::put('/routes/{route}', [RouteController::class, 'update'])->name('routes.update');
+    Route::delete('/routes/{route}', [RouteController::class, 'destroy'])->name('routes.destroy');
 
+    // Gestione destinazioni
+    Route::get('/destinations', [DestinationController::class, 'create'])->name('dashboard.destination');
+    Route::post('/destinations', [DestinationController::class, 'store'])->name('destinations.store');
+    Route::put('/destinations/{destination}', [DestinationController::class, 'update'])->name('destinations.update');
+    Route::delete('/destinations/{destination}', [DestinationController::class, 'destroy'])->name('destinations.destroy');
 
-// Gestione recensioni
-Route::get('/dashboard/reviews', [ReviewController::class, 'create'])->name('dashboard.review')->middleware('auth');
-Route::post('/dashboard/reviews', [ReviewController::class, 'store'])->name('reviews.store')->middleware('auth');
-Route::put('/dashboard/reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update')->middleware('auth');
-Route::delete('/dashboard/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy')->middleware('auth');
+    // Gestione escursioni
+    Route::get('/excursions', [ExcursionController::class, 'index'])->name('dashboard.excursion');
+    Route::get('/excursion/create', [ExcursionController::class, 'create'])->name('excursion.create');
+    Route::get('/excursions/edit/{excursion}', [ExcursionController::class, 'edit'])->name('excursion.edit');
+    Route::post('/excursions', [ExcursionController::class, 'store'])->name('excursions.store');
+    Route::put('/excursions/{excursion}', [ExcursionController::class, 'update'])->name('excursions.update');
+    Route::delete('/excursions/{excursion}', [ExcursionController::class, 'destroy'])->name('excursions.destroy');
 
-// Gestione prenotazioni
-Route::get('/dashboard/bookings', [BookingController::class, 'index'])->name('dashboard.booking')->middleware('auth');
-Route::get('/dashboard/bookings/list', [BookingController::class, 'list'])->name('dashboard.bookingList')->middleware('auth');
-Route::delete('/dashboard/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy')->middleware('auth');
-Route::get('/dashboard/bookings/pdf/{id}', [BookingController::class, 'showPdf'])->name('booking.pdf')->middleware('auth');
+    // Gestione auto
+    Route::get('/cars', [CarController::class, 'create'])->name('dashboard.car');
+    Route::post('/cars', [CarController::class, 'store'])->name('cars.store');
+    Route::put('/cars/{car}', [CarController::class, 'update'])->name('cars.update');
+    Route::delete('/cars/{car}', [CarController::class, 'destroy'])->name('cars.destroy');
 
-// Gestione messaggi
-Route::get('/dashboard/contacts', [ContactController::class, 'index'])->name('dashboard.contact')->middleware('auth');
-Route::delete('/dashboard/contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy')->middleware('auth');
-Route::put('/dashboard/contacts/{contact}', [ContactController::class, 'update'])->name('contacts.update')->middleware('auth');
-// Route::put('/dashboard/contacts/mark-all-read', [ContactController::class, 'markAllRead'])->name('contacts.markAllRead')->middleware('auth');
-// Route::put('/dashboard/contacts/mark-all-unread', [ContactController::class, 'markAllUnread'])->name('contacts.markAllUnread')->middleware('auth');
+    // Gestione recensioni
+    Route::get('/reviews', [ReviewController::class, 'create'])->name('dashboard.review');
+    Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews.store');
+    Route::put('/reviews/{review}', [ReviewController::class, 'update'])->name('reviews.update');
+    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy'])->name('reviews.destroy');
 
-// Gestione servizi
-Route::get('/dashboard/services', [ServiceController::class, 'index'])->name('dashboard.service')->middleware('auth');
-Route::get('/dashboard/service/create', [ServiceController::class, 'create'])->name('service.create')->middleware('auth');
-Route::get('/dashboard/services/edit/{service}', [ServiceController::class, 'edit'])->name('service.edit')->middleware('auth');
-Route::post('/dashboard/services', [ServiceController::class, 'store'])->name('services.store')->middleware('auth');
-Route::put('/dashboard/services/{service}', [ServiceController::class, 'update'])->name('services.update')->middleware('auth');
-Route::delete('/dashboard/services/{service}', [ServiceController::class, 'destroy'])->name('services.destroy')->middleware('auth');
+    // Gestione prenotazioni
+    Route::get('/bookings', [BookingController::class, 'index'])->name('dashboard.booking');
+    Route::get('/bookings/list', [BookingController::class, 'list'])->name('dashboard.bookingList');
+    Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
+    Route::get('/bookings/pdf/{id}', [BookingController::class, 'showPdf'])->name('booking.pdf');
 
+    // Gestione messaggi
+    Route::get('/contacts', [ContactController::class, 'index'])->name('dashboard.contact');
+    Route::delete('/contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
+    Route::put('/contacts/{contact}', [ContactController::class, 'update'])->name('contacts.update');
+    // Route::put('/contacts/mark-all-read', [ContactController::class, 'markAllRead'])->name('contacts.markAllRead');
+    // Route::put('/contacts/mark-all-unread', [ContactController::class, 'markAllUnread'])->name('contacts.markAllUnread');
 
-// Gestione Partner
-Route::get('/dashboard/partners', [PartnerController::class, 'index'])->name('dashboard.partner')->middleware('auth');
-Route::post('/dashboard/partners', [PartnerController::class, 'store'])->name('partners.store')->middleware('auth');
-Route::put('/dashboard/partners/{partner}', [PartnerController::class, 'update'])->name('partners.update')->middleware('auth');
-Route::delete('/dashboard/partners/{partner}', [PartnerController::class, 'destroy'])->name('partners.destroy')->middleware('auth');
+    // Gestione servizi
+    Route::get('/services', [ServiceController::class, 'index'])->name('dashboard.service');
+    Route::get('/service/create', [ServiceController::class, 'create'])->name('service.create');
+    Route::get('/services/edit/{service}', [ServiceController::class, 'edit'])->name('service.edit');
+    Route::post('/services', [ServiceController::class, 'store'])->name('services.store');
+    Route::put('/services/{service}', [ServiceController::class, 'update'])->name('services.update');
+    Route::delete('/services/{service}', [ServiceController::class, 'destroy'])->name('services.destroy');
 
+    // Gestione Partner
+    Route::get('/partners', [PartnerController::class, 'index'])->name('dashboard.partner');
+    Route::post('/partners', [PartnerController::class, 'store'])->name('partners.store');
+    Route::put('/partners/{partner}', [PartnerController::class, 'update'])->name('partners.update');
+    Route::delete('/partners/{partner}', [PartnerController::class, 'destroy'])->name('partners.destroy');
 
-// Gestione Dati Azienda
-Route::get('/dashboard/owner', [OwnerDataController::class, 'index'])->name('dashboard.ownerData')->middleware('auth');
-Route::post('/dashboard/owner', [OwnerDataController::class, 'store'])->name('owner.store')->middleware('auth');
-Route::put('/dashboard/owner/{ownerData}', [OwnerDataController::class, 'update'])->name('owner.update')->middleware('auth');
-Route::delete('/dashboard/owner/{id}', [OwnerDataController::class, 'destroy'])->name('owner.destroy')->middleware('auth');
+    // Gestione Dati Azienda
+    Route::get('/owner', [OwnerDataController::class, 'index'])->name('dashboard.ownerData');
+    Route::post('/owner', [OwnerDataController::class, 'store'])->name('owner.store');
+    Route::put('/owner/{ownerData}', [OwnerDataController::class, 'update'])->name('owner.update');
+    Route::delete('/owner/{id}', [OwnerDataController::class, 'destroy'])->name('owner.destroy');
 
+    // Gestione contenuti
+    Route::get('/contents', [ContentController::class, 'index'])->name('dashboard.content');
+    Route::get('/content/create', [ContentController::class, 'create'])->name('content.create');
+    Route::get('/contents/edit/{content}', [ContentController::class, 'edit'])->name('content.edit');
+    Route::post('/contents', [ContentController::class, 'store'])->name('contents.store');
+    Route::put('/contents/{content}', [ContentController::class, 'update'])->name('contents.update');
+    Route::delete('/contents/{content}', [ContentController::class, 'destroy'])->name('contents.destroy');
 
-// Gestione contenuti
-Route::get('/dashboard/contents', [ContentController::class, 'index'])->name('dashboard.content')->middleware('auth');
-Route::get('/dashboard/content/create', [ContentController::class, 'create'])->name('content.create')->middleware('auth');
-Route::get('/dashboard/contents/edit/{content}', [ContentController::class, 'edit'])->name('content.edit')->middleware('auth');
-Route::post('/dashboard/contents', [ContentController::class, 'store'])->name('contents.store')->middleware('auth');
-Route::put('/dashboard/contents/{content}', [ContentController::class, 'update'])->name('contents.update')->middleware('auth');
-Route::delete('/dashboard/contents/{content}', [ContentController::class, 'destroy'])->name('contents.destroy')->middleware('auth');
+    // Gestione pagine
+    Route::get('/pages', [PageController::class, 'index'])->name('dashboard.page');
+    Route::post('/pages', [PageController::class, 'store'])->name('pages.store');
+    Route::put('/pages/{page}', [PageController::class, 'update'])->name('pages.update');
+    Route::delete('/pages/{page}', [PageController::class, 'destroy'])->name('pages.destroy');
 
+    // Gestione clienti
+    Route::get('/customers', [CustomerController::class, 'index'])->name('dashboard.customer');
+    Route::post('/customers', [CustomerController::class, 'store'])->name('customers.store');
+    Route::put('/customers/{customer}', [CustomerController::class, 'update'])->name('customers.update');
+    Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
 
-// Gestione pagine
-Route::get('/dashboard/pages', [PageController::class, 'index'])->name('dashboard.page')->middleware('auth');
-Route::post('/dashboard/pages', [PageController::class, 'store'])->name('pages.store')->middleware('auth');
-Route::put('/dashboard/pages/{page}', [PageController::class, 'update'])->name('pages.update')->middleware('auth');
-Route::delete('/dashboard/pages/{page}', [PageController::class, 'destroy'])->name('pages.destroy')->middleware('auth');
+    // Gestione sconti
+    Route::get('/discounts', [DiscountController::class, 'index'])->name('dashboard.discount');
+    Route::post('/discounts', [DiscountController::class, 'store'])->name('discounts.store');
+    Route::put('/discounts/{discount}', [DiscountController::class, 'update'])->name('discounts.update');
+    Route::delete('/discounts/{discount}', [DiscountController::class, 'destroy'])->name('discounts.destroy');
 
-// Gestione clienti
-Route::get('/dashboard/customers', [CustomerController::class, 'index'])->name('dashboard.customer')->middleware('auth');
-Route::post('/dashboard/customers', [CustomerController::class, 'store'])->name('customers.store')->middleware('auth');
-Route::put('/dashboard/customers/{customer}', [CustomerController::class, 'update'])->name('customers.update')->middleware('auth');
-Route::delete('/dashboard/customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy')->middleware('auth');
-
-// Gestione sconti
-Route::get('/dashboard/discounts', [DiscountController::class, 'index'])->name('dashboard.discount')->middleware('auth');
-Route::post('/dashboard/discounts', [DiscountController::class, 'store'])->name('discounts.store')->middleware('auth');
-Route::put('/dashboard/discounts/{discount}', [DiscountController::class, 'update'])->name('discounts.update')->middleware('auth');
-Route::delete('/dashboard/discounts/{discount}', [DiscountController::class, 'destroy'])->name('discounts.destroy')->middleware('auth');
-
-// Gestione utenti
-Route::get('/dashboard/users', [UserController::class, 'index'])->name('dashboard.users')->middleware('auth');
-Route::post('/dashboard/users', [UserController::class, 'store'])->name('users.store')->middleware('auth');
-Route::put('/dashboard/users/{user}', [UserController::class, 'update'])->name('users.update')->middleware('auth');
-Route::delete('/dashboard/users/{user}', [UserController::class, 'destroy'])->name('users.destroy')->middleware('auth');
+    // Gestione utenti
+    Route::get('/users', [UserController::class, 'index'])->name('dashboard.users');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+});

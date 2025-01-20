@@ -24,7 +24,7 @@ class ReviewController extends Controller
 
     public function create()
     {
-        $reviews = Review::all();
+        $reviews = Review::orderBy('updated_at', 'desc')->get();
         return view('dashboard.review', compact('reviews'));
     }
 
@@ -64,7 +64,6 @@ class ReviewController extends Controller
             'title' => 'required',
             'body' => 'required',
             'rating' => 'required|integer|min:1|max:5',
-            'status' => 'required|in:pending,confirmed,rejected',
         ]);
 
         $review = new Review();
@@ -72,7 +71,6 @@ class ReviewController extends Controller
         $review->title = $validated['title'];
         $review->body = $validated['body'];
         $review->rating = $validated['rating'];
-        $review->status = $validated['status'];
         $review->save();
 
         return redirect()->route('dashboard.review')->with('success', 'Recensione creata con successo!');

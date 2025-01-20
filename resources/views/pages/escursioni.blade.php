@@ -23,11 +23,11 @@
                         <div class="row g-0">
                             <div class="col-12 col-md-4">
                                 @if ($excursion->images->isNotEmpty())
-                                    <img src="{{ Storage::url($excursion->images->first()->path) }}"
-                                        class="img-fluid" alt="...">
+                                    <img src="{{ Storage::url($excursion->images->first()->path) }}" class="img-fluid"
+                                        alt="...">
                                 @else
-                                    <img src="https://picsum.photos/1920/73{{$excursion->id}}"
-                                        class="img-fluid" alt="immagine non disponibile">
+                                    <img src="https://picsum.photos/1920/73{{ $excursion->id }}" class="img-fluid"
+                                        alt="immagine non disponibile">
                                 @endif
                             </div>
 
