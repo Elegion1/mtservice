@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\Schedule;
 Artisan::command('logs:clear', function() {
     exec('rm -f ' . storage_path('logs/*.log'));
     exec('rm -f ' . base_path('*.log'));
-    DB::table('logs')->truncate();
     $this->comment('Logs have been cleared!');
-    
 })->describe('Clear log files');
 
 // Esegui il Job ogni ora
