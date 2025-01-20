@@ -36,7 +36,7 @@ class SendReviewRequestJob implements ShouldQueue
 
         try {
             Mail::to($this->booking->email)->send(new ReviewRequest($this->booking));
-            Log::info('Job completato per la prenotazione: ' . $this->booking->id);
+            Log::info('Inviata richiesta di recensione per la prenotazione: ' . $this->booking->id);
         } catch (\Exception $e) {
             Log::error('Errore durante l\'invio della mail: ' . $e->getMessage());
         }

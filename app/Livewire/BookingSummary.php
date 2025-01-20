@@ -353,7 +353,7 @@ class BookingSummary extends Component
 
             // Invio email
             $this->sendBookingEmails($booking);
-
+            Log::info('User created a booking: type: ' . $booking->bookingData['type'] . 'name: ' . $booking->name . ' ' . $booking->surname);
             // Messaggio di conferma e redirect
             session()->flash('message', __('ui.confirmation_message'));
             return redirect()->route('home');

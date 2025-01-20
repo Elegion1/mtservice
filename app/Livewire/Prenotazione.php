@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use Livewire\Attributes\Url;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 class Prenotazione extends Component
@@ -88,6 +89,7 @@ class Prenotazione extends Component
 
     public function render()
     {
+        Log::info('User is choosing a service ' . $this->module . session()->all());
         return view('livewire.prenotazione', [
             'bookingData' => $this->bookingData,
             'module' => $this->module,

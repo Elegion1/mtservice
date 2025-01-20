@@ -6,14 +6,17 @@ use App\Models\Review;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 
 class ReviewController extends Controller
 {
 
     public function createReview($locale, $booking_code)
     {
+
         $booking = Booking::where('code', $booking_code)->first();
         // dd($locale, $booking_code, $booking);
+        Log::info('User opened review creation page ' . $booking->code . ' ' . $booking->name . ' ' . $booking->surname);
 
         if (!$booking || $booking->status !== 'confirmed') {
             return redirect()->route('home', ['locale' => $locale])->with('error', 'Codice di prenotazione non valido.');
@@ -52,6 +55,8 @@ class ReviewController extends Controller
 
         // Crea la recensione
         Review::create($validatedData);
+
+        Log::info('User created a review ' . $validatedData);
 
         // Redirect con messaggio di successo
         return redirect()->route('home')->with('success', 'La tua recensione è stata inviata ed è in attesa di approvazione.');

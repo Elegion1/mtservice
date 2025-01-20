@@ -40,6 +40,8 @@ class ContactController extends Controller
         // Invia l'email all'amministratore con l'indirizzo del contatto come mittente
         Mail::to($adminMail)->send(new AdminContactMail($contatto, $contatto->email));
 
+        Log::info('User sent a contact form ' . $validatedData);
+
         return redirect()->back()->with('message', __('ui.contactMailMessage'));
     }
     /**
