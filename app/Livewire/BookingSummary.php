@@ -341,8 +341,11 @@ class BookingSummary extends Component
                 'locale' => app()->getLocale(),
                 'service_date' => $this->generateServiceDate($this->bookingData),
             ]);
-
             // Gestione cliente
+            $createCustomer = Setting::where('create_customer', 'name')->value('value')->get();
+            
+            if($createCustomer)
+            {
             Customer::firstOrCreate([
                 'name' => $this->name,
                 'surname' => $this->surname,
@@ -350,6 +353,7 @@ class BookingSummary extends Component
                 'dial_code' => $this->dialCode,
                 'phone' => $this->phone,
             ]);
+            }
 
             // Invio email
             $this->sendBookingEmails($booking);
