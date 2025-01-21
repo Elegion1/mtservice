@@ -32,14 +32,17 @@ class RouteController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'departure_id' => 'required|exists:destinations,id',  // Verifica se la partenza esiste
+            'arrival_id' => 'required|exists:destinations,id',      // Verifica se l'arrivo esiste
             'distance' => 'required|numeric',
             'price' => 'required|numeric',
             'duration' => 'required|numeric',
             'price_increment' => 'nullable|numeric',
             'show' => 'nullable|boolean',
         ]);
-        
-        $validated['show'] = $validated['show'] ?? 0; // Imposta un valore predefinito per 'show'
+
+        $validated['show'] = $validated['show'] ?? 0;          // Imposta valore di default per 'show'
+        $validated['price_increment'] = $validated['price_increment'] ?? 0; // Imposta valore di default per 'price_increment'
 
         $route = new Route();
         $route->departure_id = $validated['departure_id'];
@@ -74,7 +77,7 @@ class RouteController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, Route $route)
-    {   
+    {
         $validated = $request->validate([
             'distance' => 'required|numeric',
             'price' => 'required|numeric',
@@ -82,9 +85,9 @@ class RouteController extends Controller
             'price_increment' => 'nullable|numeric',
             'show' => 'nullable|boolean',
         ]);
-        
+
         $validated['show'] = $validated['show'] ?? 0; // Imposta un valore predefinito per 'show'
-        
+
         $route->update($validated);
 
         return redirect()->route('dashboard.route')->with('success', 'Rotta aggiornata con successo!');
