@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Models\Booking;
+use App\Models\Setting;
 use Livewire\Component;
 use App\Models\Customer;
 use App\Models\Discount;
@@ -298,21 +299,17 @@ class BookingSummary extends Component
 
     public function generateServiceDate($bookingData)
     {
-        if ($bookingData['type'] === 'transfer') {
-            if (!empty($bookingData['date_ret'])) {
-                return Carbon::parse($bookingData['date_ret'])->addDay()->toDateString();
-            } else {
-                return Carbon::parse($bookingData['date_dep'])->addDay()->toDateString();
-            }
-        }
+        $dateKeyMap = [
+            'transfer' => !empty($bookingData['date_ret']) ? 'date_ret' : 'date_dep',
+            'escursione' => 'date_dep',
+            'noleggio' => 'date_end',
+        ];
 
-        if ($bookingData['type'] === 'escursione') {
-            return Carbon::parse($bookingData['date_dep'])->addDay()->toDateString();
-        }
+        // Determina la chiave corretta basata sul tipo di prenotazione
+        $dateKey = $dateKeyMap[$bookingData['type']] ?? null;
 
-        if ($bookingData['type'] === 'noleggio') {
-            return Carbon::parse($bookingData['date_end'])->addDay()->toDateString();
-        }
+        // Se la chiave esiste, calcola e restituisce la data
+        return $dateKey ? Carbon::parse($bookingData[$dateKey])->addDay()->toDateString() : null;
     }
 
     public function confirmBooking()
@@ -341,29 +338,37 @@ class BookingSummary extends Component
                 'locale' => app()->getLocale(),
                 'service_date' => $this->generateServiceDate($this->bookingData),
             ]);
-            // Gestione cliente
-            $createCustomer = Setting::where('create_customer', 'name')->value('value')->get();
-            
-            if($createCustomer)
-            {
-            Customer::firstOrCreate([
-                'name' => $this->name,
-                'surname' => $this->surname,
-                'email' => $this->email,
-                'dial_code' => $this->dialCode,
-                'phone' => $this->phone,
-            ]);
-            }
 
             // Invio email
             $this->sendBookingEmails($booking);
             Log::info('User created a booking: type: ' . $booking->bookingData['type'] . ' name: ' . $booking->name . ' ' . $booking->surname);
+
             // Messaggio di conferma e redirect
             session()->flash('message', __('ui.confirmation_message'));
+
+            $this->createCustomer($this->name, $this->surname, $this->email, $this->dialCode, $this->phone);
+
             return redirect()->route('home');
         } catch (\Exception $e) {
             Log::error('Booking confirmation error: ' . $e->getMessage());
             session()->flash('error', __('ui.booking_error_message'));
+        }
+    }
+
+    private function createCustomer($name, $surname, $email, $dialCode, $phone)
+    {
+        $createCustomer = Setting::where('name', 'create_customer')->value('value');
+        if ($createCustomer) {
+            Customer::firstOrCreate([
+                'name' => $name,
+                'surname' => $surname,
+                'email' => $email,
+                'dial_code' => $dialCode,
+                'phone' => $phone,
+            ]);
+            Log::info('Customer created');
+        } else {
+            Log::info('Customer not created, setting disabled');
         }
     }
 
