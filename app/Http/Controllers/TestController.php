@@ -197,7 +197,6 @@ class TestController extends Controller
         $failedJobs = DB::table('failed_jobs')
             ->orderBy('failed_at', 'desc')
             ->get();
-
         return view('dashboard.jobs', compact('jobs', 'failedJobs'));
     }
 }

@@ -19,23 +19,20 @@
             <tbody>
                 @foreach ($jobs as $job)
                     @php
-                        // Decodifica il payload
-                        $payload = json_decode($job->payload, true);
-
-                        // Verifica se il job è un tipo che ha una prenotazione
-                        if (isset($payload['data']['command'])) {
-                            $commandData = unserialize($payload['data']['command']);
-
-                            // Verifica se 'booking' è presente nel comando
-                            if (isset($commandData->booking)) {
-                                $bookingId = $commandData->booking->id;
-                                $booking = \App\Models\Booking::find($bookingId);
+                        try {
+                            $payload = json_decode($job->payload, true);
+                            if (isset($payload['data']['command'])) {
+                                $commandData = unserialize($payload['data']['command']);
+                                $booking = isset($commandData->booking)
+                                    ? \App\Models\Booking::findOrFail($commandData->booking->id)
+                                    : null;
                             } else {
                                 $booking = null;
                             }
-                        } else {
-                            $booking = null;
+                        } catch (Exception $e) {
+                            $booking = null; // Puoi anche loggare l'errore se vuoi
                         }
+                        
                     @endphp
                     <tr>
                         <td>{{ $job->id }}</td>
@@ -69,7 +66,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($failedJobs as $failedJob)
+                {{-- @foreach ($failedJobs as $failedJob)
                     @php
                         // Decodifica il payload
                         $payload = json_decode($failedJob->payload, true);
@@ -104,7 +101,7 @@
                         <td>{{ $exceptionMessage }}</td>
                         <td>{{ $failedJob->failed_at }}</td>
                     </tr>
-                @endforeach
+                @endforeach --}}
             </tbody>
         </table>
     </div>
