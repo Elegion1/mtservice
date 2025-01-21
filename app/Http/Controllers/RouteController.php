@@ -41,6 +41,11 @@ class RouteController extends Controller
             'show' => 'nullable|boolean',
         ]);
 
+        // Verifica che departure_id e arrival_id siano diversi
+        if ($validated['departure_id'] == $validated['arrival_id']) {
+            return redirect()->back()->withErrors(['departure_id' => 'Partenza e arrivo non possono essere uguali.']);
+        }
+
         $validated['show'] = $validated['show'] ?? 0;          // Imposta valore di default per 'show'
         $validated['price_increment'] = $validated['price_increment'] ?? 0; // Imposta valore di default per 'price_increment'
 
