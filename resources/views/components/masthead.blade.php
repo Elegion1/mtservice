@@ -14,7 +14,7 @@
             // Cerca il contenuto specifico per la pagina o quello predefinito
 
             foreach ($contents as $content) {
-                if ($content->order == 0 && $content->show) {
+                if ($content->order == 0) {
                     if (
                         !empty($content->{'title_' . app()->getLocale()}) ||
                         !empty($content->{'subtitle_' . app()->getLocale()})

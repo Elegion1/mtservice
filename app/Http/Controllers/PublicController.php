@@ -12,6 +12,7 @@ use App\Models\Route;
 use App\Models\Review;
 use App\Models\Booking;
 use App\Models\Contact;
+use App\Models\Content;
 use App\Models\Partner;
 use App\Models\Service;
 use App\Models\Setting;
@@ -28,90 +29,74 @@ use Illuminate\Support\Facades\Storage;
 
 class PublicController extends Controller
 {
-    public function home()
+    public function getPageData($link, $extraData = [])
     {
-        $pagine = Page::where('link', 'home')->with(['contents' => function ($query) {
-            $query->where('order', '!=', 0);
-        }])->get();
-        $tratte = Route::where('show', 1)->take(5)->get();
-        return view('welcome', compact('pagine', 'tratte'));
+        $pagine = Page::where('link', $link)
+            ->with(['contents' => function ($query) {
+                $query->where('order', '!=', 0);
+            }])->get();
+
+        return array_merge(['pagine' => $pagine], $extraData);
     }
 
-    public function dashboard()
+    public function home()
     {
-        $bookings = Booking::where('status', 'pending')->get();
-        $contacts = Contact::get();
-        $reviews = Review::all();
-        return view('dashboard.index', compact('bookings', 'contacts', 'reviews'));
+        $tratte = Route::where('show', 1)->take(5)->get();
+        $data = $this->getPageData('home', ['tratte' => $tratte]); // Ottieni i dati della pagina
+        return view('welcome', $data);
     }
 
     public function noleggio()
     {
-        $pagine = Page::where('link', 'noleggio')->with(['contents' => function ($query) {
-            $query->where('order', '!=', 0);
-        }])->get();
         $cars = Car::where('show', 1)->get();
-        return view('pages.noleggio-auto', compact('pagine', 'cars'));
+        $data = $this->getPageData('noleggio', ['cars' => $cars]);
+        return view('pages.noleggio-auto', $data);
     }
 
     public function transfer()
     {
-        $pagine = Page::where('link', 'transfer')->with(['contents' => function ($query) {
-            $query->where('order', '!=', 0);
-        }])->get();
-        return view('pages.transfer', compact('pagine'));
+        $data = $this->getPageData('transfer');
+        return view('pages.transfer', $data);
     }
 
     public function escursioni()
     {
-        $pagine = Page::where('link', 'escursioni')->with(['contents' => function ($query) {
-            $query->where('order', '!=', 0);
-        }])->get();
         $excursionsP = Excursion::where('show', 1)->paginate(4);
-        return view('pages.escursioni', compact('pagine', 'excursionsP'));
+        $data = $this->getPageData('escursioni', ['excursionsP' => $excursionsP]);
+        return view('pages.escursioni', $data);
     }
 
     public function prezziDestinazioni()
     {
-        $pagine = Page::where('link', 'prezziDestinazioni')->with(['contents' => function ($query) {
-            $query->where('order', '!=', 0);
-        }])->get();
         $tratte = Route::where('show', 1)->get();
-        return view('pages.prezzi-destinazioni', compact('pagine', 'tratte'));
+        $data = $this->getPageData('prezziDestinazioni', ['tratte' => $tratte]);
+        return view('pages.prezzi-destinazioni', $data);
     }
 
     public function diconoDiNoi()
     {
-        $pagine = Page::where('link', 'diconoDiNoi')->with(['contents' => function ($query) {
-            $query->where('order', '!=', 0);
-        }])->get();
         $reviewsP = Review::where('status', 'confirmed')->paginate(6);
-        return view('pages.dicono-di-noi', compact('pagine', 'reviewsP'));
+        $data = $this->getPageData('diconoDiNoi', ['reviewsP' => $reviewsP]);
+        return view('pages.dicono-di-noi', $data);
     }
 
     public function contattaci()
     {
-        $pagine = Page::where('link', 'contattaci')->with(['contents' => function ($query) {
-            $query->where('order', '!=', 0);
-        }])->get();
-        return view('pages.contattaci', compact('pagine'));
+        $data = $this->getPageData('contattaci');
+        return view('pages.contattaci', $data);
     }
 
     public function partners()
     {
-        $pagine = Page::where('link', 'partners')->with(['contents' => function ($query) {
-            $query->where('order', '!=', 0);
-        }])->get();
         $partners = Partner::paginate(10);
-        return view('pages.partners', compact('pagine', 'partners'));
+        $data = $this->getPageData('partners', ['partners' => $partners]);
+        return view('pages.partners', $data);
     }
 
     public function faq()
     {
-        $pagine = Page::where('link', 'faq')->with(['contents' => function ($query) {
-            $query->where('order', '!=', 0);
-        }])->get();
-        return view('pages.faq', compact('pagine'));
+        $data = $this->getPageData('faq');
+        return view('pages.faq', $data);
     }
 
     public function privacy()
@@ -130,6 +115,14 @@ class PublicController extends Controller
     {
         $services = Service::all();
         return view('pages.services', compact('services'));
+    }
+
+    public function dashboard()
+    {
+        $bookings = Booking::where('status', 'pending')->get();
+        $contacts = Contact::all();
+        $reviews = Review::all();
+        return view('dashboard.index', compact('bookings', 'contacts', 'reviews'));
     }
 
     public function bookingStatus()

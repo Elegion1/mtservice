@@ -1,7 +1,6 @@
 <x-layout>
-
     <div class="container-fluid">
-        <h2 class="text-center mt-5 mt-md-3">{{ __('ui.serviceHighlightTitle') }}</h2>
+        <h2 class="text-center text-uppercase mt-5 mt-md-3">{{ __('ui.serviceHighlightTitle') }}</h2>
         <div class="d-flex justify-content-center align-items-start flex-wrap flex-md-nowrap mt-3">
             <x-services-overview />
         </div>

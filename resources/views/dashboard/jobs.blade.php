@@ -1,5 +1,4 @@
 <x-dashboard-layout>
-
     <div class="container-fluid mt-5">
         <h1>Job in Corso</h1>
 
@@ -23,24 +22,25 @@
                         // Decodifica il payload
                         $payload = json_decode($job->payload, true);
 
-                        // Verifica se 'command' esiste e se è un oggetto serializzato
-                        $commandData = isset($payload['data']['command'])
-                            ? unserialize($payload['data']['command'])
-                            : null;
-                        $bookingId = $commandData ? $commandData->booking->id : null;
+                        // Verifica se il job è un tipo che ha una prenotazione
+                        if (isset($payload['data']['command'])) {
+                            $commandData = unserialize($payload['data']['command']);
 
-                        // Recupera la prenotazione, se presente
-                        if ($bookingId) {
-                            $booking = \App\Models\Booking::find($bookingId);
+                            // Verifica se 'booking' è presente nel comando
+                            if (isset($commandData->booking)) {
+                                $bookingId = $commandData->booking->id;
+                                $booking = \App\Models\Booking::find($bookingId);
+                            } else {
+                                $booking = null;
+                            }
                         } else {
                             $booking = null;
                         }
                     @endphp
                     <tr>
                         <td>{{ $job->id }}</td>
-                        <td>{{ $booking->code }}</td>
-                        <td>{{ $booking->status }}</td>
-                        <!-- Limitiamo il payload per leggibilità -->
+                        <td>{{ $booking ? $booking->code : 'N/A' }}</td>
+                        <td>{{ $booking ? $booking->status : 'N/A' }}</td>
                         <td>{{ $job->attempts }}</td>
                         <td>
                             @if ($job->reserved_at)
@@ -73,28 +73,36 @@
                     @php
                         // Decodifica il payload
                         $payload = json_decode($failedJob->payload, true);
+                        // Verifica se il job è un tipo che ha una prenotazione
+                        if (isset($payload['data']['command'])) {
+                            $commandData = unserialize($payload['data']['command']);
 
-                        // Verifica se 'command' esiste e se è un oggetto serializzato
-                        $commandData = isset($payload['data']['command'])
-                            ? unserialize($payload['data']['command'])
-                            : null;
-                        $bookingId = $commandData ? $commandData->booking->id : null;
-
-                        // Recupera la prenotazione, se presente
-                        if ($bookingId) {
-                            $booking = \App\Models\Booking::find($bookingId);
+                            // Verifica se 'booking' è presente nel comando
+                            if (isset($commandData->booking)) {
+                                $bookingId = $commandData->booking->id;
+                                $booking = \App\Models\Booking::find($bookingId);
+                            } else {
+                                $booking = null;
+                            }
                         } else {
                             $booking = null;
                         }
+
+                        $pattern = '/: (.*?) in/';
+                        preg_match($pattern, $failedJob->exception, $matches);
+
+                        if (isset($matches[1])) {
+                            $error = $matches[1];
+                            $exceptionMessage = $error; // Mostra l'errore estratto
+                        }
+
                     @endphp
                     <tr>
                         <td>{{ $failedJob->id }}</td>
                         <td>{{ $failedJob->queue }}</td>
-                        <td>{{ $booking->code }}</td>
-                        <!-- Limitiamo il payload per leggibilità -->
-                        <td>{{ \Illuminate\Support\Str::limit($failedJob->exception, 50) }}</td>
-                        <!-- Limitiamo l'eccezione per leggibilità -->
-                        <td>{{ \Carbon\Carbon::createFromTimestamp($failedJob->failed_at)->toDateTimeString() }}</td>
+                        <td>{{ $payload['displayName'] }}</td>
+                        <td>{{ $exceptionMessage }}</td>
+                        <td>{{ $failedJob->failed_at }}</td>
                     </tr>
                 @endforeach
             </tbody>

@@ -1,5 +1,5 @@
 @foreach ($services as $service)
-    @if ($service->show && $service->flag)
+    @if ($service->flag)
         <div class="service">
             <a class="text-reset text-decoration-none"
                 href="{{ route('service.show', ['title' => $service->{'title_' . app()->getLocale()}, 'id' => $service->id]) }}">

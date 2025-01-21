@@ -1,39 +1,34 @@
 <x-layout>
-    <div class="container bg-white rounded mb-3">
+    <div class="container mb-3">
         <div class="container p-3">
-            <h1>{{ __('ui.servicesTitle') }}</h1>
+            <h2>{{ __('ui.servicesTitle') }}</h2>
             <p>{{ __('ui.servicesSubtitle') }}</p>
             <p>{{ __('ui.servicesBody') }}</p>
         </div>
         <div class="row">
-            @foreach ($services as $index => $service)
+            @foreach ($services as $service)
+                @php
+                    $locale = app()->getLocale();
+                    $title = $service->{'title_' . $locale};
+                    $subtitle = $service->{'subtitle_' . $locale};
+                    $imagePath = $service->images->isNotEmpty()
+                        ? Storage::url($service->images->first()->path)
+                        : "https://picsum.photos/1920/108{$service->id}";
+                @endphp
                 <div class="col-md-4 col-12">
                     <div class="service_custom">
-                        <a class="text-reset text-decoration-none" href="{{ route('service.show', ['title' => $service->{'title_' . app()->getLocale()}, 'id' => $service->id]) }}">
-
+                        <a class="text-reset text-decoration-none"
+                            href="{{ route('service.show', ['title' => $title, 'id' => $service->id]) }}">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-12 my-3 d-flex justify-content-center align-items-center">
-                                        @if ($service->images->isNotEmpty())
-                                            @foreach ($service->images as $image)
-                                                <img src="{{ Storage::url($image->path) }}" class="service-img_custom"
-                                                    alt="img_{{ $service->title_en }}">
-                                            @endforeach
-                                        @else
-                                            <img class="service-img_custom "
-                                                src="https://picsum.photos/1920/108{{ $service->id }}"
-                                                alt="placeholder">
-                                        @endif
+                                        <img src="{{ $imagePath }}" class="service-img_custom"
+                                            alt="img_{{ $service->title_en }}">
                                     </div>
                                     <div
                                         class="col-12 d-flex justify-content-center align-items-center flex-column text-center">
-                                        <p class="h3 text-d">{{ $service->{'title_' . app()->getLocale()} }}</p>
-                                        <p class="h6">{{ $service->{'subtitle_' . app()->getLocale()} }}</p>
-                                        <p class=" text-wrap ">{{ $service->{'abstract_' . app()->getLocale()} }}</p>
-                                        @if ($service->links)
-                                            <a class="small" target="__blank"
-                                                href="{{ $service->links }}">{{ __('ui.clickLink') }}</a>
-                                        @endif
+                                        <p class="h3 text-d">{{ $title }}</p>
+                                        <p class="h6">{{ $subtitle }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -41,7 +36,7 @@
                     </div>
                 </div>
             @endforeach
-            <div class="ccol-12 my-3">
+            <div class="col-12 mb-3 mt-5">
                 <x-contact-link />
             </div>
             <div class="col-12 mt-5">

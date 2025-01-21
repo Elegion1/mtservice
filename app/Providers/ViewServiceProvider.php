@@ -35,7 +35,7 @@ class ViewServiceProvider extends ServiceProvider
         // }
 
         if (Service::query()->exists()) {
-            $services = Service::where('show', 1)->get();   
+            $services = Service::where('show', 1)->get();
             View::share('services', $services);
         }
 
@@ -67,7 +67,7 @@ class ViewServiceProvider extends ServiceProvider
         }
 
         if (Content::query()->exists()) {
-            $contents = Content::all();
+            $contents = Content::where('show', 1)->get();
             View::share('contents', $contents);
         }
     }

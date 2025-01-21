@@ -45,6 +45,10 @@
     backdrop-filter: blur(10px);
 }
 
+img {
+    border-radius: 0.375rem;
+}
+
 .locale-select {
     background-color: transparent;
     color: white;
@@ -141,6 +145,21 @@ h2 {
     font-weight: 400; 
 }
 
+h2:hover {
+    transition: 0.3s;
+    transform: scaleX(1);
+    transform-origin: center;
+    text-decoration: underline !important;
+    text-decoration-color: var(--color-d) !important;
+    text-underline-offset: 3px;
+}
+
+a:hover {
+    transition: 0.3s;
+    text-shadow: 1px 2px 10px gray !important;
+}
+
+
 .text-shadow {
     text-shadow: 1px 2px 3px black;
 }
@@ -162,7 +181,7 @@ h2 {
 }
 
 /* ========== Messaggi e Alert ========== */
-.my_alert-danger {
+.my-alert-danger {
     background-color: rgba(246, 7, 7, 0.886);
 }
 
