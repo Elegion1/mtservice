@@ -37,13 +37,7 @@
                         </td>
                         <td>{{ $contact->created_at }}</td>
                         <td>
-                            <form action="{{ route('contacts.destroy', $contact) }}" method="POST"
-                                style="display:inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('Sei sicuro di voler eliminare questo messaggio?')">Elimina</button>
-                            </form>
+                            <x-delete-button :route="'contacts.destroy'" :model="$contact" />
                         </td>
                     </tr>
                 @endforeach
@@ -85,40 +79,5 @@
                 })
                 .catch(error => console.error('Errore:', error));
         }
-        // document.getElementById('mark-all-read').addEventListener('click', function() {
-        //     fetch(`/dashboard/contacts/mark-all-read`, {
-        //             method: 'PUT',
-        //             headers: {
-        //                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
-        //                 'Content-Type': 'application/json',
-        //             },
-        //         })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             if (data.success) {
-        //                 location.reload(); // Ricarica la pagina per aggiornare lo stato
-        //             } else {
-        //                 alert('Errore durante l\'aggiornamento.');
-        //             }
-        //         });
-        // });
-
-        // document.getElementById('mark-all-unread').addEventListener('click', function() {
-        //     fetch(`/dashboard/contacts/mark-all-unread`, {
-        //             method: 'PUT',
-        //             headers: {
-        //                 'X-CSRF-TOKEN': '{{ csrf_token() }}',
-        //                 'Content-Type': 'application/json',
-        //             },
-        //         })
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             if (data.success) {
-        //                 location.reload(); // Ricarica la pagina per aggiornare lo stato
-        //             } else {
-        //                 alert('Errore durante l\'aggiornamento.');
-        //             }
-        //         });
-        // });
     </script>
 </x-dashboard-layout>

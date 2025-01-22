@@ -36,16 +36,8 @@
                         <td>{{ $destination->name }}</td>
                         <td>{{ $destination->show ? 'Si' : 'No' }}</td>
                         <td>
-                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#editDestinationModal" data-id="{{ $destination->id }}"
-                                data-name="{{ $destination->name }}"
-                                data-show="{{ $destination->show }}">Modifica</button>
-                            <form action="{{ route('destinations.destroy', $destination) }}" method="POST"
-                                style="display:inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
-                            </form>
+                            <x-edit-button :id="'Destination'" :data="$destination" />
+                            <x-delete-button :route="'destinations.destroy'" :model="$destination" />
                         </td>
                     </tr>
                 @endforeach
@@ -54,35 +46,17 @@
     </div>
 
     <!-- Modale per Modifica Destinazione -->
-    <div class="modal fade" id="editDestinationModal" tabindex="-1" aria-labelledby="editDestinationModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editDestinationModalLabel">Modifica Destinazione</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editDestinationForm" action="" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="mb-3">
-                            <input type="hidden" name="show" value="0">
-                            <label for="edit_show">Mostra</label>
-                            <input type="checkbox" class="form-check-input" id="edit_show" name="show"
-                                value="1">
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit_name" class="form-label">Nome Destinazione</label>
-                            <input type="text" class="form-control form_input_focused" id="edit_name" name="name"
-                                required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Salva Modifiche</button>
-                    </form>
-                </div>
-            </div>
+    <x-modal :id="'Destination'" :title="'Modifica destinazione'">
+        <div class="mb-3">
+            <input type="hidden" name="show" value="0">
+            <label for="edit_show">Mostra</label>
+            <input type="checkbox" class="form-check-input" id="edit_show" name="show" value="1">
         </div>
-    </div>
+        <div class="mb-3">
+            <label for="edit_name" class="form-label">Nome Destinazione</label>
+            <input type="text" class="form-control form_input_focused" id="edit_name" name="name" required>
+        </div>
+    </x-modal>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -96,21 +70,6 @@
                     'Crea Destinazione' : 'Nascondi';
             });
 
-            var editDestinationModal = document.getElementById('editDestinationModal');
-
-            editDestinationModal.addEventListener('show.bs.modal', function(event) {
-                var button = event.relatedTarget;
-                var id = button.getAttribute('data-id');
-                var name = button.getAttribute('data-name');
-                var show = button.getAttribute('data-show');
-
-                var modal = this;
-                modal.querySelector('#edit_name').value = name;
-                modal.querySelector('#edit_show').checked = show == 1;
-
-                var form = modal.querySelector('#editDestinationForm');
-                form.action = '{{ url('dashboard/destinations') }}/' + id;
-            });
         });
     </script>
 </x-dashboard-layout>

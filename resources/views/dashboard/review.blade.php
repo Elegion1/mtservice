@@ -83,16 +83,8 @@
                             <td>{{ $review->created_at }}</td>
                             <td>{{ $review->updated_at }}</td>
                             <td>
-                                <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                    data-bs-target="#editReviewModal" data-id="{{ $review->id }}"
-                                    data-name="{{ $review->name }}" data-title="{{ $review->title }}"
-                                    data-body="{{ $review->body }}" data-rating="{{ $review->rating }}"
-                                    data-status="{{ $review->status }}">Modifica</button>
-                                <form action="{{ route('reviews.destroy', $review) }}" method="POST"
-                                    style="display:inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
+                                <x-edit-button :id="'Review'" :data="$review" />
+                                <x-delete-button :route="'reviews.destroy'" :model="$review" />
                                 </form>
                             </td>
                         </tr>
@@ -103,80 +95,42 @@
     </div>
 
     <!-- Modale per Modifica Recensione -->
-    <div class="modal fade" id="editReviewModal" tabindex="-1" aria-labelledby="editReviewModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editReviewModalLabel">Modifica Recensione</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editReviewForm" action="" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="mb-3">
-                            <label for="edit_name" class="form-label">Nome</label>
-                            <input type="text" class="form-control form_input_focused" id="edit_name" name="name"
-                                required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit_title" class="form-label">Titolo</label>
-                            <input type="text" class="form-control form_input_focused" id="edit_title"
-                                name="title" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit_body" class="form-label">Recensione</label>
-                            <textarea class="form-control form_input_focused" id="edit_body" name="body" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit_rating" class="form-label">Valutazione</label>
-                            <input type="number" class="form-control form_input_focused" id="edit_rating"
-                                name="rating" required min="1" max="5">
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit_status" class="form-label">Stato</label>
-                            <select class="form-select" name="status" id="edit_status">
-                                <option value="pending">In attesa</option>
-                                <option value="confirmed">Approvata</option>
-                                <option value="rejected">Rifiutata</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Salva Modifiche</button>
-                    </form>
-                </div>
-            </div>
+    <x-modal :id="'Review'" :title="'Modifica recensione'">
+        <div class="mb-3">
+            <label for="edit_name" class="form-label">Nome</label>
+            <input type="text" class="form-control form_input_focused" id="edit_name" name="name" required>
         </div>
-    </div>
+        <div class="mb-3">
+            <label for="edit_title" class="form-label">Titolo</label>
+            <input type="text" class="form-control form_input_focused" id="edit_title" name="title" required>
+        </div>
+        <div class="mb-3">
+            <label for="edit_body" class="form-label">Recensione</label>
+            <textarea class="form-control form_input_focused" id="edit_body" name="body" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="edit_rating" class="form-label">Valutazione</label>
+            <input type="number" class="form-control form_input_focused" id="edit_rating" name="rating" required
+                min="1" max="5">
+        </div>
+        <div class="mb-3">
+            <label for="edit_status" class="form-label">Stato</label>
+            <select class="form-select" name="status" id="edit_status">
+                <option value="pending">In attesa</option>
+                <option value="confirmed">Approvata</option>
+                <option value="rejected">Rifiutata</option>
+            </select>
+        </div>
+    </x-modal>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-        var createReviewBtn = document.getElementById('createReviewBtn');
-        var createReviewForm = document.getElementById('createReviewForm');
-        createReviewBtn.addEventListener('click', function() {  
-            createReviewForm.classList.toggle('d-none');
-            createReviewBtn.innerHTML = createReviewForm.classList.contains('d-none') ? 'Aggiungi Recensione' : 'Nascondi';
-        });
-            var editReviewModal = document.getElementById('editReviewModal');
-            editReviewModal.addEventListener('show.bs.modal', function(event) {
-                var button = event.relatedTarget;
-                var id = button.getAttribute('data-id');
-                var name = button.getAttribute('data-name');
-                var title = button.getAttribute('data-title');
-                var body = button.getAttribute('data-body');
-                var rating = button.getAttribute('data-rating');
-                var status = button.getAttribute('data-status');
-
-
-                var modal = this;
-                modal.querySelector('#edit_name').value = name;
-                modal.querySelector('#edit_title').value = title;
-                modal.querySelector('#edit_body').value = body;
-                modal.querySelector('#edit_rating').value = rating;
-                modal.querySelector('#edit_status').value = status;
-
-                var form = modal.querySelector('#editReviewForm');
-                form.action = '{{ url('dashboard/reviews') }}/' + id;
+            var createReviewBtn = document.getElementById('createReviewBtn');
+            var createReviewForm = document.getElementById('createReviewForm');
+            createReviewBtn.addEventListener('click', function() {
+                createReviewForm.classList.toggle('d-none');
+                createReviewBtn.innerHTML = createReviewForm.classList.contains('d-none') ?
+                    'Aggiungi Recensione' : 'Nascondi';
             });
 
             // Filtra le recensioni in base allo stato selezionato

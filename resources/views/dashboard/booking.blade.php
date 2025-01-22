@@ -31,7 +31,8 @@
                         <td>{{ $booking->email }}</td>
                         <td>
                             {{ $booking->code }}
-                            <a href="{{ route('reviews.create', ['locale' => 'it', 'booking_code' => $booking->code]) }}">
+                            <a
+                                href="{{ route('reviews.create', ['locale' => 'it', 'booking_code' => $booking->code]) }}">
                                 <i class="bi bi-star-half"></i>
                             </a>
                         </td>
@@ -54,6 +55,7 @@
                             @endif
                         </td>
                         <td class="action-column" style="display: none;">
+                            
                             @if ($booking->status != 'confirmed')
                                 <form action="{{ route('bookings.update', $booking) }}" method="POST"
                                     style="display:inline-block;">
@@ -86,19 +88,14 @@
                                     </button>
                                 </form>
                             @endif
-                            <form action="{{ route('bookings.destroy', $booking) }}" method="POST"
-                                style="display:inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn text-danger btn-sm">
-                                    <i class="bi bi-trash3-fill"></i>
-                                </button>
-                            </form>
+
+                            <x-delete-button :route="'bookings.destroy'" :model="$booking" :label="true" />
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
+
     </div>
 
     <!-- Modale per visualizzare le informazioni sulla prenotazione -->

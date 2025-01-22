@@ -36,12 +36,7 @@
                     <td>
                         <a class="btn btn-primary btn-sm"
                             href="{{ route('service.edit', ['service' => $service]) }}">Dettagli</a>
-                        <form action="{{ route('services.destroy', $service) }}" method="POST"
-                            style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
-                        </form>
+                        <x-delete-button :route="'services.destroy'" :model="$service" />
                     </td>
                 </tr>
             @endforeach

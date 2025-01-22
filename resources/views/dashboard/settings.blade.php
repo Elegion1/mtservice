@@ -42,14 +42,8 @@
                         <td>{{ $setting->created_at }}</td>
                         <td>{{ $setting->updated_at }}</td>
                         <td>
-                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#editSettingModal" data-id="{{ $setting->id }}"
-                                data-name="{{ $setting->name }}" data-value="{{ $setting->value }}">Modifica</button>
-                            <form action="{{ route('settings.destroy', $setting) }}" method="POST" style="display:inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
-                            </form>
+                            <x-edit-button :id="'Setting'" :data="$setting" />
+                            <x-delete-button :route="'settings.destroy'" :model="$setting" />
                         </td>
                     </tr>
                 @endforeach
@@ -58,49 +52,15 @@
     </div>
 
     <!-- Modale per Modifica Impostazione -->
-    <div class="modal fade" id="editSettingModal" tabindex="-1" aria-labelledby="editSettingModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editSettingModalLabel">Modifica Impostazione</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editSettingForm" action="" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="mb-3">
-                            <label for="edit_name" class="form-label">Nome</label>
-                            <input type="text" class="form-control" id="edit_name" name="name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit_value" class="form-label">Valore</label>
-                            <input type="text" class="form-control" id="edit_value" name="value" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Salva Modifiche</button>
-                    </form>
-                </div>
-            </div>
+    <x-modal :id="'Setting'" :title="'Modifica impostazione'">
+        <div class="mb-3">
+            <label for="edit_name" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="edit_name" name="name" required>
         </div>
-    </div>
+        <div class="mb-3">
+            <label for="edit_value" class="form-label">Valore</label>
+            <input type="text" class="form-control" id="edit_value" name="value" required>
+        </div>
+    </x-modal>
 
-    <!-- Script per Gestire la Modale -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var editSettingModal = document.getElementById('editSettingModal');
-            editSettingModal.addEventListener('show.bs.modal', function(event) {
-                var button = event.relatedTarget;
-                var id = button.getAttribute('data-id');
-                var name = button.getAttribute('data-name');
-                var value = button.getAttribute('data-value');
-
-                var modal = this;
-                modal.querySelector('#edit_name').value = name;
-                modal.querySelector('#edit_value').value = value;
-
-                var form = modal.querySelector('#editSettingForm');
-                form.action = '{{ url('/dashboard/settings') }}/' + id;
-            });
-        });
-    </script>
 </x-dashboard-layout>

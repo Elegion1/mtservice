@@ -61,12 +61,7 @@
                     <td>
                         <a class="btn btn-primary btn-sm"
                             href="{{ route('content.edit', ['content' => $content]) }}">Dettagli</a>
-                        <form action="{{ route('contents.destroy', $content) }}" method="POST"
-                            style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
-                        </form>
+                        <x-delete-button :route="'contents.destroy'" :model="$content" />
                     </td>
                 </tr>
             @endforeach

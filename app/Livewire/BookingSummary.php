@@ -17,6 +17,7 @@ use Illuminate\Support\Str;
 use App\Models\CountryDialCode;
 use App\Mail\BookingConfirmation;
 use App\Jobs\SendReviewRequestJob;
+use Exception;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
@@ -120,86 +121,111 @@ class BookingSummary extends Component
         // Inizializza il prezzo scontato con il prezzo originale
         $this->discountedPrice = $this->originalPrice;
 
-        // Aggiungi una proprietà per il tipo di sconto
-        // $this->discountType = null;
+        // Verifica se il cliente ha uno sconto specifico
+        $this->applyCustomerDiscount();
 
+        // Applica gli sconti generali
+        $this->applyGeneralDiscounts();
+    }
+
+    private function applyCustomerDiscount()
+    {
         // Verifica se il cliente esiste già nel database
-        $customer = Customer::where('name', $this->name)
-            ->where('surname', $this->surname)
-            ->where('email', $this->email)
-            ->where('phone', $this->phone)
-            ->first();
+        $customer = $this->getCustomer();
 
-        // Se il cliente ha uno sconto specifico, applicalo e bypassa tutti gli altri sconti
+        // Se il cliente ha uno sconto specifico, applicalo e bypassa gli altri sconti
         if ($customer && $customer->discount > 0) {
             $discountAmount = ($this->originalPrice * $customer->discount) / 100;
             $this->discountedPrice = $this->originalPrice - $discountAmount;
             $this->discountPercentage = $customer->discount;
             $this->discountType_it = __('ui.customerDiscountMessage');
             $this->discountType_en = __('ui.customerDiscountMessage'); // Messaggio del tipo di sconto
-            return;
         }
+    }
 
+    private function applyGeneralDiscounts()
+    {
         // Ottieni tutti gli sconti attivi con i periodi associati
         $discounts = Discount::with('discount_periods')->get();
 
         // Controlla gli sconti disponibili
         foreach ($discounts as $discount) {
-            $applyDiscount = false;
-
-            // Verifica se lo sconto è applicabile ai clienti esistenti o a tutti
-            if ($discount->applicable_to === 'customers' && $customer) {
-                $applyDiscount = true;
-            } elseif ($discount->applicable_to === 'all') {
-                $applyDiscount = true;
-            }
-
-            // Controlla se lo sconto è applicabile al tipo di servizio specifico
-            $serviceApplicable = false;
-            if ($this->bookingData['type'] === 'transfer' && $discount->applies_to_transfer) {
-                $serviceApplicable = true;
-            } elseif ($this->bookingData['type'] === 'noleggio' && $discount->applies_to_rental) {
-                $serviceApplicable = true;
-            } elseif ($this->bookingData['type'] === 'escursione' && $discount->applies_to_excursion) {
-                $serviceApplicable = true;
-            }
+            $applyDiscount = $this->isDiscountApplicable($discount);
 
             // Procede solo se lo sconto è applicabile al servizio richiesto
-            if ($applyDiscount && $serviceApplicable) {
-                if ($discount->discount_periods->isEmpty()) {
-                    // Se non ci sono periodi di sconto, applica sempre lo sconto
-                    $applyDiscount = true;
-                } else {
-                    // Se ci sono periodi di sconto, verifica se lo sconto è valido in questo momento
-                    $now = now();
-                    $validPeriod = false;
-                    foreach ($discount->discount_periods as $period) {
-                        if ($now->between($period->start, $period->end)) {
-                            $validPeriod = true;
-                            break;
-                        }
-                    }
-                    $applyDiscount = $validPeriod;
-                }
+            if ($applyDiscount && $this->isServiceApplicable($discount)) {
+                $this->applyDiscountToPrice($discount);
+            }
+        }
+    }
 
-                // Se lo sconto è applicabile, calcola il prezzo scontato
-                if ($applyDiscount && $discount->percentage > 0) {
-                    $currentDiscountAmount = ($this->originalPrice * $discount->percentage) / 100;
-                    $discountedPriceCandidate = $this->originalPrice - $currentDiscountAmount;
+    private function getCustomer()
+    {
+        return Customer::where('name', $this->name)
+            ->where('surname', $this->surname)
+            ->where('email', $this->email)
+            ->where('phone', $this->phone)
+            ->first();
+    }
 
-                    // Applica il miglior sconto disponibile
-                    if ($discountedPriceCandidate < $this->discountedPrice) {
-                        $this->discountedPrice = $discountedPriceCandidate;
-                        $this->discountPercentage = $discount->percentage;
-                        $this->discountType_it = $discount->name_it; // Memorizza il nome dello sconto
-                        $this->discountType_en = $discount->name_en;
-                    }
-                }
+    private function isDiscountApplicable($discount)
+    {
+        // Verifica se lo sconto è applicabile ai clienti esistenti o a tutti
+        if (($discount->applicable_to === 'customers' && $this->getCustomer()) || $discount->applicable_to === 'all') {
+            // Verifica se lo sconto è valido in un periodo specifico
+            return $this->isDiscountInValidPeriod($discount);
+        }
+
+        return false;
+    }
+
+    private function isDiscountInValidPeriod($discount)
+    {
+        // Se ci sono periodi di sconto, verifica se lo sconto è valido in questo momento
+        if ($discount->discount_periods->isEmpty()) {
+            return true;
+        }
+
+        $now = now();
+        foreach ($discount->discount_periods as $period) {
+            if ($now->between($period->start, $period->end)) {
+                return true;
             }
         }
 
-        // Debugging (opzionale)
-        // dd($this->originalPrice, $this->discountedPrice, $this->discountPercentage, $this->discountType);
+        return false;
+    }
+
+    private function isServiceApplicable($discount)
+    {
+        // Controlla se lo sconto è applicabile al tipo di servizio specifico
+        switch ($this->bookingData['type']) {
+            case 'transfer':
+                return $discount->applies_to_transfer;
+            case 'noleggio':
+                return $discount->applies_to_rental;
+            case 'escursione':
+                return $discount->applies_to_excursion;
+            default:
+                return false;
+        }
+    }
+
+    private function applyDiscountToPrice($discount)
+    {
+        // Se lo sconto è applicabile, calcola il prezzo scontato
+        if ($discount->percentage > 0) {
+            $currentDiscountAmount = ($this->originalPrice * $discount->percentage) / 100;
+            $discountedPriceCandidate = $this->originalPrice - $currentDiscountAmount;
+
+            // Applica il miglior sconto disponibile
+            if ($discountedPriceCandidate < $this->discountedPrice) {
+                $this->discountedPrice = $discountedPriceCandidate;
+                $this->discountPercentage = $discount->percentage;
+                $this->discountType_it = $discount->name_it; // Memorizza il nome dello sconto
+                $this->discountType_en = $discount->name_en;
+            }
+        }
     }
 
     public function generateUniqueCode()
@@ -392,35 +418,32 @@ class BookingSummary extends Component
         $language = app()->getLocale();
         $pdfClient = $this->generatePDF($booking, $language);
 
-        // Invio email all'amministrazione
-        $this->sendAdminEmails($booking, $language);
-        // Invio email al cliente
-        $this->sendEmailSafely($this->email, new BookingConfirmation($booking, $pdfClient), 'Failed to send booking confirmation email');
-        // $this->sendEmailSafely($this->email, new ReviewRequest($booking), 'Failed to send review request email');
+        // Invia email all'amministrazione
+        $this->sendEmail($this->adminMail, new BookingAdmin($booking, $this->generatePDF($booking, 'it')), 'Failed to send admin email', 'it');
+
+        // Invia email al cliente
+        $this->sendEmail($this->email, new BookingConfirmation($booking, $pdfClient), 'Failed to send booking confirmation email', $language);
     }
 
-    private function sendAdminEmails($booking, $language)
+    private function sendEmail($recipient, $mailable, $errorMessage, $language)
     {
-        $pdfAdmin = $this->generatePDF($booking, 'it');
+        $currentLanguage = app()->getLocale();
 
-        // Cambia lingua e invia email
-        App::setLocale('it');
-        try {
-            Mail::to($this->adminMail)->send(new BookingAdmin($booking, $pdfAdmin));
-        } catch (\Exception $e) {
-            Log::error('Failed to send admin email: ' . $e->getMessage());
-        } finally {
-            // Ripristina la lingua originale
+        // Cambia la lingua se necessario
+        if ($language !== $currentLanguage) {
             App::setLocale($language);
         }
-    }
 
-    private function sendEmailSafely($recipient, $mailable, $errorMessage)
-    {
         try {
+            // Invia l'email al destinatario
             Mail::to($recipient)->send($mailable);
         } catch (\Exception $e) {
             Log::error($errorMessage . ': ' . $e->getMessage());
+        } finally {
+            // Ripristina la lingua originale
+            if ($language !== $currentLanguage) {
+                App::setLocale($currentLanguage);
+            }
         }
     }
 

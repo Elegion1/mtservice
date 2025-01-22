@@ -79,19 +79,8 @@
                         <td>{{ $route->duration }} Min</td>
                         <td>{{ $route->show ? 'Si' : 'No' }}</td>
                         <td>
-                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                data-bs-target="#editRouteModal" data-id="{{ $route->id }}"
-                                data-distance="{{ $route->distance }}" data-price="{{ $route->price }}"
-                                data-duration="{{ $route->duration }}"
-                                data-price_increment="{{ $route->price_increment }}"
-                                data-name="{{ $route->departure->name }} - {{ $route->arrival->name }}"
-                                data-show="{{ $route->show }}">Modifica</button>
-                            <form action="{{ route('routes.destroy', $route) }}" method="POST"
-                                style="display:inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
-                            </form>
+                            <x-edit-button :id="'Route'" :data="$route" />
+                            <x-delete-button :route="'routes.destroy'" :model="$route" />
                         </td>
                     </tr>
                 @endforeach
@@ -100,52 +89,32 @@
     </div>
 
     <!-- Modale per Modifica Rotta -->
-    <div class="modal fade" id="editRouteModal" tabindex="-1" aria-labelledby="editRouteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editRouteModalLabel">Modifica Rotta</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editRouteForm" action="" method="POST">
-                        <p id="route_name"></p>
-                        @csrf
-                        @method('PUT')
-                        <div class="mb-3">
-                            <input type="hidden" name="show" value="0">
-                            <label for="edit_show">Mostra</label>
-                            <input type="checkbox" class="form-check-input" id="edit_show" name="show"
-                                value="1">
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit_distance" class="form-label">Distanza (km)</label>
-                            <input type="number" class="form-control form_input_focused" id="edit_distance"
-                                name="distance" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit_price" class="form-label">Prezzo (€)</label>
-                            <input type="number" class="form-control form_input_focused" id="edit_price"
-                                name="price" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit_price_increment" class="form-label">Incremento di prezzo per
-                                passeggero</label>
-                            <input type="text" class="form-control form_input_focused" id="edit_price_increment"
-                                name="price_increment" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit_duration" class="form-label">Tempo di Percorrenza (Minuti)</label>
-                            <input type="text" class="form-control form_input_focused" id="edit_duration"
-                                name="duration" required>
-                        </div>
+    <x-modal :id="'Route'" :title="'Modifica rotta'">
 
-                        <button type="submit" class="btn btn-primary">Salva Modifiche</button>
-                    </form>
-                </div>
-            </div>
+        <div class="mb-3">
+            <input type="hidden" name="show" value="0">
+            <label for="edit_show">Mostra</label>
+            <input type="checkbox" class="form-check-input" id="edit_show" name="show" value="1">
         </div>
-    </div>
+        <div class="mb-3">
+            <label for="edit_distance" class="form-label">Distanza (km)</label>
+            <input type="number" class="form-control form_input_focused" id="edit_distance" name="distance" required>
+        </div>
+        <div class="mb-3">
+            <label for="edit_price" class="form-label">Prezzo (€)</label>
+            <input type="number" class="form-control form_input_focused" id="edit_price" name="price" required>
+        </div>
+        <div class="mb-3">
+            <label for="edit_price_increment" class="form-label">Incremento di prezzo per
+                passeggero</label>
+            <input type="text" class="form-control form_input_focused" id="edit_price_increment"
+                name="price_increment" required>
+        </div>
+        <div class="mb-3">
+            <label for="edit_duration" class="form-label">Tempo di Percorrenza (Minuti)</label>
+            <input type="text" class="form-control form_input_focused" id="edit_duration" name="duration" required>
+        </div>
+    </x-modal>
 
     <script>
         // JavaScript per precompilare il modale di modifica con i dati della rotta selezionata
@@ -160,31 +129,6 @@
                     'Nascondi';
             });
 
-            var editRouteModal = document.getElementById('editRouteModal');
-
-            editRouteModal.addEventListener('show.bs.modal', function(event) {
-                var button = event.relatedTarget;
-                var id = button.getAttribute('data-id');
-                var distance = button.getAttribute('data-distance');
-                var price = button.getAttribute('data-price');
-                var price_increment = button.getAttribute('data-price_increment');
-                var duration = button.getAttribute('data-duration');
-                var name = button.getAttribute('data-name');
-                var show = button.getAttribute('data-show');
-
-                var modal = this;
-                modal.querySelector('#edit_distance').value = distance;
-                modal.querySelector('#edit_price').value = price;
-                modal.querySelector('#edit_price_increment').value = price_increment;
-                modal.querySelector('#edit_duration').value = duration;
-                modal.querySelector('#edit_show').checked = show == 1;
-                modal.querySelector('#route_name').innerHTML = name;
-
-                var form = modal.querySelector('#editRouteForm');
-                form.action = '/dashboard/routes/' + id;
-
-
-            });
         });
     </script>
 </x-dashboard-layout>

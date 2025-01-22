@@ -39,12 +39,7 @@
                     <td>
                         <a class="btn btn-primary btn-sm"
                             href="{{ route('excursion.edit', ['excursion' => $excursion]) }}">Dettagli</a>
-                        <form action="{{ route('excursions.destroy', $excursion) }}" method="POST"
-                            style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Elimina</button>
-                        </form>
+                        <x-delete-button :route="'excursions.destroy'" :model="$excursion" />
                     </td>
                 </tr>
             @endforeach

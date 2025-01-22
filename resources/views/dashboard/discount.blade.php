@@ -118,12 +118,7 @@
                                 data-periods="{{ json_encode($discount->discount_periods) }}">
                                 Modifica
                             </button>
-                            <form action="{{ route('discounts.destroy', $discount) }}" method="POST"
-                                style="display:inline-block;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">Elimina</button>
-                            </form>
+                            <x-delete-button :route="'discounts.destroy'" :model="$discount" />
                         </td>
                     </tr>
                 @endforeach
