@@ -427,24 +427,12 @@ class BookingSummary extends Component
 
     private function sendEmail($recipient, $mailable, $errorMessage, $language)
     {
-        $currentLanguage = app()->getLocale();
-
-        // Cambia la lingua se necessario
-        if ($language !== $currentLanguage) {
-            App::setLocale($language);
-        }
-
-        try {
-            // Invia l'email al destinatario
-            Mail::to($recipient)->send($mailable);
-        } catch (\Exception $e) {
-            Log::error('[BookingSummary] ' . $errorMessage . ': ' . $e->getMessage());
-        } finally {
-            // Ripristina la lingua originale
-            if ($language !== $currentLanguage) {
-                App::setLocale($currentLanguage);
-            }
-        }
+        sendEmail(
+            $recipient,   // Destinatario dell'email
+            $mailable,    // La mail da inviare
+            $errorMessage, // Messaggio di errore da loggare in caso di fallimento
+            $language     // Lingua dell'email
+        );
     }
 
     private function generatePDF($booking, $language)

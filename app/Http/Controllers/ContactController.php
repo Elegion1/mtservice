@@ -36,10 +36,20 @@ class ContactController extends Controller
         $contatto->save();
 
         // Invia l'email al contatto
-        Mail::to($contatto->email)->send(new ContactMail($contatto));
-        // Invia l'email all'amministratore con l'indirizzo del contatto come mittente
-        Mail::to($adminMail)->send(new AdminContactMail($contatto, $contatto->email));
+        sendEmail(
+            $contatto->email, // Destinatario
+            new ContactMail($contatto), // Mailable
+            'Errore nell\'invio dell\'email al contatto', // Messaggio di errore
+            $contatto->locale // Locale del contatto
+        );
 
+        // Invia l'email all'amministratore con l'indirizzo del contatto come mittente
+        sendEmail(
+            $adminMail, // Destinatario
+            new AdminContactMail($contatto, $contatto->email), // Mailable
+            'Errore nell\'invio dell\'email all\'amministratore', // Messaggio di errore
+            $contatto->locale // Locale del contatto (puoi usare lo stesso locale del contatto o un locale diverso per l'amministratore)
+        );
         Log::info('User sent a contact form ' . $validatedData['nome'] . ' ' . $validatedData['cognome']);
 
         return redirect()->back()->with('message', __('ui.contactMailMessage'));

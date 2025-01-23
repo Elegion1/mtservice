@@ -25,9 +25,10 @@ class SettingController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:settings,name',
             'value' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
         ]);
 
-        Setting::create($request->only(['name', 'value']));
+        Setting::create($request->only(['name', 'value', 'type']));
 
         return redirect()->route('dashboard.settings')->with('success', 'Impostazione aggiunta con successo.');
     }
@@ -40,9 +41,10 @@ class SettingController extends Controller
         $request->validate([
             'name' => 'required|string|max:255|unique:settings,name,' . $setting->id,
             'value' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
         ]);
 
-        $setting->update($request->only(['name', 'value']));
+        $setting->update($request->only(['name', 'value', 'type']));
 
         return redirect()->route('dashboard.settings')->with('success', 'Impostazione aggiornata con successo.');
     }

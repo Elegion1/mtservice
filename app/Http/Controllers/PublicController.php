@@ -232,16 +232,17 @@ class PublicController extends Controller
             'calculated_delay' => $delay,
         ]);
 
-        // Imposta il locale temporaneamente alla lingua del cliente
-        $previousLocale = App::getLocale();  // Salva il locale attuale
-        App::setLocale($booking->locale);    // Imposta il locale della prenotazione
-
         // Invia la mail nella lingua del cliente
-        Mail::to($booking->email)->send(new BookingStatusNotification($booking));
+        sendEmail(
+            $booking->email, // Destinatario
+            new BookingStatusNotification($booking), // Mailable
+            'Errore nell\'invio dell\'email di stato prenotazione', // Messaggio di errore
+            $booking->locale // Locale della prenotazione
+        );
 
+        // Dispatcia il job per inviare la richiesta di recensione
         SendReviewRequestJob::dispatch($booking)->delay($delay);
-        // Reimposta il locale originale
-        App::setLocale($previousLocale);
+
         return redirect()->back()->with('message', 'Prenotazione confermata con successo.');
     }
 
@@ -250,15 +251,13 @@ class PublicController extends Controller
         $booking->status = 'rejected'; // or whatever status you want to set
         $booking->save();
 
-        // Imposta il locale temporaneamente alla lingua del cliente
-        $previousLocale = App::getLocale();  // Salva il locale attuale
-        App::setLocale($booking->locale);    // Imposta il locale della prenotazione
-
         // Invia la mail nella lingua del cliente
-        Mail::to($booking->email)->send(new BookingStatusNotification($booking));
-
-        // Reimposta il locale originale
-        App::setLocale($previousLocale);
+        sendEmail(
+            $booking->email, // Destinatario
+            new BookingStatusNotification($booking), // Mailable
+            'Errore nell\'invio dell\'email di stato prenotazione', // Messaggio di errore
+            $booking->locale // Locale della prenotazione
+        );
 
         return redirect()->back()->with('message', 'Prenotazione rifiutata con successo.');
     }

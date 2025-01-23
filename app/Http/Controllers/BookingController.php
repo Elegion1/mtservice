@@ -61,7 +61,7 @@ class BookingController extends Controller
     public function list()
     {
         App::setLocale('it');
-        
+
         $bookings = Booking::all();
 
         // Collezione per le prenotazioni elaborate
@@ -138,7 +138,7 @@ class BookingController extends Controller
         $bookings = $processedBookings->sortBy(function ($booking) {
             return \Carbon\Carbon::parse($booking->start_date ?? $booking->end_date);
         });
-        
+
         // Raggruppa per giorno
         $groupedByDay = $bookings->groupBy(function ($booking) {
             return \Carbon\Carbon::parse($booking->start_date ?? $booking->end_date)->format('Y-m-d');
@@ -212,29 +212,27 @@ class BookingController extends Controller
             $delayDays = Setting::where('name', 'review_request_delay_days')->value('value');
             // Unisci la data del servizio con l'orario di default
             $serviceDate = Carbon::parse($booking->service_date . ' ' . $defaultTime);
-    
+
             // Aggiungi i giorni di ritardo
             $delay = $serviceDate->addDays((int) $delayDays);  // (int) per essere sicuro che sia un numero intero
-    
+
             Log::info([
                 'service_date' => $booking->service_date,
                 'default_time' => $defaultTime,
                 'delay_days' => $delayDays,
                 'calculated_delay' => $delay,
             ]);
-            
+
             SendReviewRequestJob::dispatch($booking)->delay($delay);
         }
 
-        // Imposta il locale temporaneamente alla lingua del cliente
-        $previousLocale = App::getLocale();  // Salva il locale attuale
-        App::setLocale($booking->locale);    // Imposta il locale della prenotazione
-
-        // Invia la mail nella lingua del cliente
-        Mail::to($booking->email)->send(new BookingStatusNotification($booking));
-
-        // Reimposta il locale originale
-        App::setLocale($previousLocale);
+        // Usa la funzione sendEmail per inviare la mail con il locale del cliente
+        sendEmail(
+            $booking->email, // Destinatario
+            new BookingStatusNotification($booking), // Mailable
+            'Errore nell\'invio dell\'email di notifica', // Messaggio di errore in caso di fallimento
+            $booking->locale // Imposta il locale della prenotazione
+        );
 
         return redirect()->back()->with('success', 'Stato della prenotazione aggiornato con successo.');
     }

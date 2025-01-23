@@ -45,7 +45,7 @@ class ExpirePendingBookings implements ShouldQueue
             ->get();
 
         Log::info('[ExpirePendingBookings] Server time: ' . Carbon::now());
-        
+
         if ($expiredBookings->isEmpty()) {
             Log::info('[ExpirePendingBookings] No pending bookings to expire.');
             return;
@@ -55,7 +55,12 @@ class ExpirePendingBookings implements ShouldQueue
         Log::info('[ExpirePendingBookings] Found ' . $expiredBookings->count() . ' pending bookings to expire, sending notification to: ' . ($adminData->email ?? 'N/A'));
 
         if ($adminData) {
-            Mail::to($adminData->email)->send(new ExpiredBookingsNotification($expiredBookings));
+            sendEmail(
+                $adminData->email, // Destinatario
+                new ExpiredBookingsNotification($expiredBookings), // Mailable
+                'Errore nell\'invio dell\'email di notifica scadenza prenotazioni', // Messaggio di errore
+                'it' // Locale per l'amministratore
+            );
         } else {
             Log::warning('[ExpirePendingBookings] No administrator email found. Skipping admin notification.');
         }
@@ -66,12 +71,20 @@ class ExpirePendingBookings implements ShouldQueue
         foreach ($expiredBookings as $booking) {
             try {
                 $booking->update(['status' => 'rejected']);
+
                 if (!$notification) {
                     Log::info('[ExpirePendingBookings] Booking ID {$booking->id} marked as rejected. Notification disabled.');
                     continue;
                 } else {
                     Log::info('[ExpirePendingBookings] Booking ID {$booking->id} marked as rejected. Sending notification.');
-                    Mail::to($booking->email)->send(new BookingStatusNotification($booking));
+
+                    // Usa la funzione sendEmail per inviare la mail
+                    sendEmail(
+                        $booking->email, // Destinatario
+                        new BookingStatusNotification($booking), // Mailable
+                        'Errore nell\'invio della notifica di prenotazione rifiutata', // Messaggio di errore
+                        $booking->locale // Locale della prenotazione
+                    );
                 }
 
                 Log::info('[ExpirePendingBookings] Booking ID {$booking->id} marked as rejected and notification sent.');

@@ -10,6 +10,10 @@
                     <input type="text" class="form-control" id="name" name="name" required>
                 </div>
                 <div class="mb-3 col-5">
+                    <label for="type" class="form-label">Tipo</label>
+                    <input type="text" class="form-control" id="type" name="type" required>
+                </div>
+                <div class="mb-3 col-5">
                     <label for="value" class="form-label">Valore</label>
                     <input type="text" class="form-control" id="value" name="value" required>
                 </div>
@@ -27,6 +31,7 @@
                 <tr>
                     <th>#</th>
                     <th>Nome</th>
+                    <th>Tipo</th>
                     <th>Valore</th>
                     <th>Data Creazione</th>
                     <th>Data Modifica</th>
@@ -38,6 +43,7 @@
                     <tr>
                         <td>{{ $setting->id }}</td>
                         <td>{{ $setting->name }}</td>
+                        <td>{{ $setting->type }}</td>
                         <td>{{ $setting->value }}</td>
                         <td>{{ $setting->created_at }}</td>
                         <td>{{ $setting->updated_at }}</td>
@@ -58,8 +64,12 @@
             <input type="text" class="form-control" id="edit_name" name="name" required>
         </div>
         <div class="mb-3">
+            <label for="edit_type" class="form-label">Tipo</label>
+            <input type="text" class="form-control" id="edit_type" name="type" required>
+        </div>
+        <div class="mb-3">
             <label for="edit_value" class="form-label">Valore</label>
-            <input type="text" class="form-control" id="edit_value" name="value" required>
+            <input type="" class="form-control" id="edit_value" name="value" >
         </div>
     </x-modal>
 
