@@ -19,8 +19,8 @@ class Discount extends Model
         'applies_to_excursion',
     ];
 
-    public function discount_periods()
+    public function time_periods()
     {
-        return $this->hasMany(DiscountPeriod::class);
+        return $this->hasMany(TimePeriod::class);
     }
 }

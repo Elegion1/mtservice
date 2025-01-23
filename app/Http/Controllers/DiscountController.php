@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Discount;
 use Illuminate\Http\Request;
-use App\Models\DiscountPeriod;
+use App\Models\TimePeriod;
 
 class DiscountController extends Controller
 {
@@ -56,7 +56,7 @@ class DiscountController extends Controller
             $periods = $request->input('periods');
             foreach ($periods as $period) {
                 if ($period['start'] && $period['end']) {
-                    $discount->discount_periods()->create([
+                    $discount->time_periods()->create([
                         'start' => $period['start'],
                         'end' => $period['end'],
                     ]);
@@ -113,14 +113,14 @@ class DiscountController extends Controller
         // Gestisci i periodi di validità associati
         if ($request->has('periods')) {
             // Cancella i periodi esistenti
-            $discount->discount_periods()->delete();
+            $discount->time_periods()->delete();
 
             // Salva i nuovi periodi di validità
             $periods = $request->input('periods');
             foreach ($periods as $period) {
                 // Solo salva il periodo se la data di fine è successiva o uguale alla data di inizio
                 if (strtotime($period['end']) >= strtotime($period['start'])) {
-                    $discount->discount_periods()->create([
+                    $discount->time_periods()->create([
                         'start' => $period['start'],
                         'end' => $period['end'],
                     ]);
@@ -140,7 +140,7 @@ class DiscountController extends Controller
     public function destroy(Discount $discount)
     {
         // Cancellazione dei periodi di validità associati
-        // $discount->discount_periods()->delete();
+        // $discount->time_periods()->delete();
 
         // Cancellazione dello sconto
         $discount->delete();

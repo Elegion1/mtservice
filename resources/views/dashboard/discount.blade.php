@@ -48,9 +48,9 @@
 
             {{-- Sezione per aggiungere periodi di validità --}}
             <div class="mb-3">
-                <label for="discount_periods" class="form-label">Periodi di Validità</label>
-                <div id="discount_periods">
-                    <div class="row mb-2 discount-period">
+                <label for="time_periods" class="form-label">Periodi di Validità</label>
+                <div id="time_periods">
+                    <div class="row mb-2 time-period">
                         <div class="col-5">
                             <input type="datetime-local" class="form-control" name="periods[0][start]">
                         </div>
@@ -101,7 +101,7 @@
                         </td>
                         <td>
                             <ul>
-                                @foreach ($discount->discount_periods as $period)
+                                @foreach ($discount->time_periods as $period)
                                     <li>{{ \Carbon\Carbon::parse($period->start)->format('d/m/Y') }} -
                                         {{ \Carbon\Carbon::parse($period->end)->format('d/m/Y') }}</li>
                                 @endforeach
@@ -115,7 +115,7 @@
                                 data-transfer="{{ $discount->applies_to_transfer }}"
                                 data-rental="{{ $discount->applies_to_rental }}"
                                 data-excursion="{{ $discount->applies_to_excursion }}"
-                                data-periods="{{ json_encode($discount->discount_periods) }}">
+                                data-periods="{{ json_encode($discount->time_periods) }}">
                                 Modifica
                             </button>
                             <x-delete-button :route="'discounts.destroy'" :model="$discount" />
@@ -186,8 +186,8 @@
 
                             {{-- Sezione per aggiungere periodi di validità --}}
                             <div class="mb-3">
-                                <label for="edit_discount_periods" class="form-label">Periodi di Validità</label>
-                                <div id="edit_discount_periods">
+                                <label for="edit_time_periods" class="form-label">Periodi di Validità</label>
+                                <div id="edit_time_periods">
                                     {{-- I periodi verranno inseriti dinamicamente tramite JavaScript --}}
                                 </div>
                                 <button type="button" class="btn btn-secondary" id="edit_addPeriod">Aggiungi
@@ -216,9 +216,9 @@
         $(document).ready(function() {
             // Aggiungi un nuovo periodo di validità nella sezione di creazione
             $('#addPeriod').click(function() {
-                let index = $('#discount_periods .discount-period').length;
-                $('#discount_periods').append(`
-                    <div class="row mb-2 discount-period">
+                let index = $('#time_periods .time-period').length;
+                $('#time_periods').append(`
+                    <div class="row mb-2 time-period">
                         <div class="col-5">
                             <input type="datetime-local" class="form-control" name="periods[${index}][start]" required>
                         </div>
@@ -234,7 +234,7 @@
 
             // Rimuovi un periodo di validità
             $(document).on('click', '.removePeriod', function() {
-                $(this).closest('.discount-period').remove();
+                $(this).closest('.time-period').remove();
             });
 
             // Gestisci il click sul pulsante Modifica
@@ -260,10 +260,10 @@
                 $('#edit_applies_to_rental').prop('checked', appliesToRental);
                 $('#edit_applies_to_excursion').prop('checked', appliesToExcursion);
 
-                $('#edit_discount_periods').empty();
+                $('#edit_time_periods').empty();
                 periods.forEach((period, index) => {
-                    $('#edit_discount_periods').append(`
-                        <div class="row mb-2 discount-period">
+                    $('#edit_time_periods').append(`
+                        <div class="row mb-2 time-period">
                             <div class="col-5">
                                 <input type="datetime-local" class="form-control" name="periods[${index}][start]" value="${period.start}" required>
                             </div>
@@ -284,9 +284,9 @@
 
             // Aggiungi un nuovo periodo di validità nella sezione di modifica
             $(document).on('click', '#edit_addPeriod', function() {
-                let index = $('#edit_discount_periods .discount-period').length;
-                $('#edit_discount_periods').append(`
-                    <div class="row mb-2 discount-period">
+                let index = $('#edit_time_periods .time-period').length;
+                $('#edit_time_periods').append(`
+                    <div class="row mb-2 time-period">
                         <div class="col-5">
                             <input type="datetime-local" class="form-control" name="periods[${index}][start]" required>
                         </div>
@@ -302,12 +302,12 @@
 
             // Assicurati che i periodi di validità esistenti siano eliminabili
             $(document).on('click', '.removePeriod', function() {
-                $(this).closest('.discount-period').remove();
+                $(this).closest('.time-period').remove();
             });
 
             // Chiudi il modale e ripristina l'azione del form
             $('#editDiscountModal').on('hidden.bs.modal', function() {
-                $('#edit_discount_periods').empty();
+                $('#edit_time_periods').empty();
             });
         });
     </script>

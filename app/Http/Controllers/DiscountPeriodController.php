@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DiscountPeriod;
+use App\Models\TimePeriod;
 use Illuminate\Http\Request;
 
-class DiscountPeriodController extends Controller
+class TimePeriodController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class DiscountPeriodController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DiscountPeriod $discountPeriod)
+    public function show(TimePeriod $TimePeriod)
     {
         //
     }
@@ -42,7 +42,7 @@ class DiscountPeriodController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DiscountPeriod $discountPeriod)
+    public function edit(TimePeriod $TimePeriod)
     {
         //
     }
@@ -50,7 +50,7 @@ class DiscountPeriodController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DiscountPeriod $discountPeriod)
+    public function update(Request $request, TimePeriod $TimePeriod)
     {
         //
     }
@@ -58,7 +58,7 @@ class DiscountPeriodController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DiscountPeriod $discountPeriod)
+    public function destroy(TimePeriod $TimePeriod)
     {
         //
     }

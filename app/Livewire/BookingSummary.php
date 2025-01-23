@@ -146,7 +146,7 @@ class BookingSummary extends Component
     private function applyGeneralDiscounts()
     {
         // Ottieni tutti gli sconti attivi con i periodi associati
-        $discounts = Discount::with('discount_periods')->get();
+        $discounts = Discount::with('time_periods')->get();
 
         // Controlla gli sconti disponibili
         foreach ($discounts as $discount) {
@@ -182,12 +182,12 @@ class BookingSummary extends Component
     private function isDiscountInValidPeriod($discount)
     {
         // Se ci sono periodi di sconto, verifica se lo sconto è valido in questo momento
-        if ($discount->discount_periods->isEmpty()) {
+        if ($discount->time_periods->isEmpty()) {
             return true;
         }
 
         $now = now();
-        foreach ($discount->discount_periods as $period) {
+        foreach ($discount->time_periods as $period) {
             if ($now->between($period->start, $period->end)) {
                 return true;
             }

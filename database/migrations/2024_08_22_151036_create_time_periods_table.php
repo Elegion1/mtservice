@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('discount_periods', function (Blueprint $table) {
+        Schema::create('time_periods', function (Blueprint $table) {
             $table->id();
             $table->dateTime('start')->nullable();
             $table->dateTime('end')->nullable();
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('discount_periods');
+        Schema::dropIfExists('time_periods');
     }
 };

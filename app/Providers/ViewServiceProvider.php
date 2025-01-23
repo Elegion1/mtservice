@@ -29,11 +29,7 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // if (Route::query()->exists()) {
-        //     $tratte = Route::where('show', 1)->take(5)->get();
-        //     View::share('tratte',  $tratte);
-        // }
-
+       
         if (Service::query()->exists()) {
             $services = Service::where('show', 1)->get();
             View::share('services', $services);
@@ -43,18 +39,6 @@ class ViewServiceProvider extends ServiceProvider
             $excursions = Excursion::where('show', 1)->get();
             View::share('excursions', $excursions);
         }
-
-        // if (Partner::query()->exists()) {
-        //     $partners = Partner::paginate(10);
-        //     View::share('partners', $partners);
-        // }
-
-        // if (Review::query()->where('status', 'confirmed')->exists()) {
-
-        //     $reviews = Review::get();
-
-        //     View::share('reviews', $reviews);
-        // }
 
         if (OwnerData::query()->exists()) {
             $ownerdata = OwnerData::first();
