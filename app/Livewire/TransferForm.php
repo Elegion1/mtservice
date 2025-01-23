@@ -72,7 +72,7 @@ class TransferForm extends Component
 
         // Recupera la durata del tragitto e il tempo minimo di attesa
         $durationMinutes = $route->duration;
-        $minWaitTimeMinutes = Setting::getValue('transfer_return_minimum_wait_time_minutes', 60);
+        $minWaitTimeMinutes = getSetting('transfer_return_minimum_wait_time_minutes', 60);
         $minMinutesWait = $durationMinutes + $minWaitTimeMinutes;  // Tempo minimo di attesa
 
         // Calcola la differenza in minuti tra l'orario di partenza e ritorno

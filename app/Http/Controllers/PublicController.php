@@ -151,7 +151,7 @@ class PublicController extends Controller
         $logEntries = $matches[0];
 
         // Recupera la lunghezza massima dai settings, con un valore predefinito di 1000
-        $maxLength = Setting::where('name', 'log_max_character_length')->value('value') ?? 1000;
+        $maxLength = getSetting('log_max_character_length');
 
         // Filtra le entries per lunghezza e per esclusione di termini specifici
         $filteredLogEntries = array_filter($logEntries, function ($entry) use ($maxLength) {
@@ -217,8 +217,8 @@ class PublicController extends Controller
         $booking->status = 'confirmed'; // or whatever status you want to set
         $booking->save();
 
-        $defaultTime = Setting::where('name', 'review_request_default_time')->value('value');
-        $delayDays = Setting::where('name', 'review_request_delay_days')->value('value');
+        $defaultTime = getSetting('review_request_default_time');
+        $delayDays = getSetting('review_request_delay_days');
         // Unisci la data del servizio con l'orario di default
         $serviceDate = Carbon::parse($booking->service_date . ' ' . $defaultTime);
 

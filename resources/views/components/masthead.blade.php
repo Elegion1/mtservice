@@ -8,7 +8,7 @@
             $defaultContent = null;
             $displayedContent = null;
             $displayedImage = null;
-            $defaultImageSetting = Setting::where('name', 'default_header_image')->value('value');
+            $defaultImageSetting = getSetting('default_header_image');
             $defaultImagePath = $defaultImageSetting ?: 'https://picsum.photos/1920/1080';
 
             // Cerca il contenuto specifico per la pagina o quello predefinito

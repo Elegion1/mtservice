@@ -33,7 +33,7 @@ class ExpirePendingBookings implements ShouldQueue
      */
     public function handle(): void
     {
-        $expireTime = Setting::where('name', 'booking_pending_expire_time')->value('value');
+        $expireTime = getSetting('booking_pending_expire_time');
         Log::info('[ExpirePendingBookings] Booking pending expire time is set to: ' . ($expireTime ?? 'N/A') . ' Hour');
         if (!$expireTime) {
             Log::warning('[ExpirePendingBookings] Booking pending expire time is not set. Using default value of 1 hour.');
@@ -65,7 +65,7 @@ class ExpirePendingBookings implements ShouldQueue
             Log::warning('[ExpirePendingBookings] No administrator email found. Skipping admin notification.');
         }
 
-        $notification = (bool) Setting::where('name', 'booking_rejected_notification')->value('value');
+        $notification = (bool) getSetting('booking_rejected_notification');
         Log::info('[ExpirePendingBookings] Booking rejected notification is ' . ($notification ? 'enabled' : 'disabled'));
 
         foreach ($expiredBookings as $booking) {

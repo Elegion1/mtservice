@@ -102,7 +102,7 @@
             @if ($currentStep == 2)
 
                 @if ($dateDeparture && $timeDeparture && $departureName && $arrivalName)
-                    <div class="col-12 p-0 m-0 bg-c rounded p-2">
+                    <div class="col-12 m-0 bg-c rounded p-2">
                         <p>
                             <span class="text_col">{{ $departureName ?? 'N/A' }}</span>
                             <span class="mx-2">

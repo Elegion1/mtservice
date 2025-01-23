@@ -245,7 +245,7 @@ class BookingSummary extends Component
         // Se non ci sono codici nel database, scarica i codici dal servizio esterno
         if (empty($dialCodes)) {
             $url = 'https://restcountries.com/v3.1/all?fields=name,idd,flags';
-            $response = Http::get($url);
+            $response = Http::withoutVerifying()->get($url);
 
             if ($response->successful()) {
                 $countries = $response->json();
@@ -383,7 +383,7 @@ class BookingSummary extends Component
 
     private function createCustomer($name, $surname, $email, $dialCode, $phone)
     {
-        $createCustomer = Setting::where('name', 'create_customer')->value('value');
+        $createCustomer = getSetting('create_customer');
         if ($createCustomer) {
             Customer::firstOrCreate([
                 'name' => $name,

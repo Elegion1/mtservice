@@ -208,8 +208,8 @@ class BookingController extends Controller
         $booking->save();
 
         if ($booking->status == 'confirmed') {
-            $defaultTime = Setting::where('name', 'review_request_default_time')->value('value');
-            $delayDays = Setting::where('name', 'review_request_delay_days')->value('value');
+            $defaultTime = getSetting('review_request_default_time');
+            $delayDays = getSetting('review_request_delay_days');
             // Unisci la data del servizio con l'orario di default
             $serviceDate = Carbon::parse($booking->service_date . ' ' . $defaultTime);
 
