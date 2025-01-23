@@ -30,15 +30,15 @@ class SendReviewRequestJob implements ShouldQueue
     public function handle(): void
     {
         if ($this->booking->status != 'confirmed') {
-            Log::warning('Prenotazione non confermata. Job interrotto. ID Prenotazione: ' . $this->booking->id);
+            Log::warning('[SendReviewRequestJob] Prenotazione non confermata. Job interrotto. ID Prenotazione: ' . $this->booking->id);
             return;
         }
 
         try {
             Mail::to($this->booking->email)->send(new ReviewRequest($this->booking));
-            Log::info('Inviata richiesta di recensione per la prenotazione: ' . $this->booking->id);
+            Log::info('[SendReviewRequestJob] Inviata richiesta di recensione per la prenotazione: ' . $this->booking->id . ' Lingua: ' . $this->booking->locale);
         } catch (\Exception $e) {
-            Log::error('Errore durante l\'invio della mail: ' . $e->getMessage());
+            Log::error('[SendReviewRequestJob] Errore durante l\'invio della mail: ' . $e->getMessage());
         }
     }
 }

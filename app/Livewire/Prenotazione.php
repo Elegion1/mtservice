@@ -67,7 +67,7 @@ class Prenotazione extends Component
         } elseif ($route == 'prezziDestinazioni') {
             $this->showTransfer();
         }
-        Log::info('User is choosing a service ' . $this->module . ' ' . json_encode(session()->all()));
+        Log::info('[LivewirePrenotazione] User is choosing a service ' . $this->module . ' ' . json_encode(session()->all()));
     }
 
     public function showEscursioni()
@@ -106,6 +106,6 @@ class Prenotazione extends Component
         $this->currentForm = 'bookingSummary'; // Passa al modulo di riepilogo prenotazione
         $this->module = 'bookingSummary';
 
-        Log::info('User entered Booking Summary: ' . json_encode($bookingData));
+        Log::info('[LivewirePrenotazione] User entered Booking Summary: ' . json_encode($bookingData));
     }
 }

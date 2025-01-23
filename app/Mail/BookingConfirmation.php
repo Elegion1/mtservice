@@ -44,7 +44,7 @@ class BookingConfirmation extends Mailable
     {
         return new Content(
             view: 'mail.booking-confirmation',
-            with: ['booking' => $this->booking, 'locale' => App::getLocale()],
+            with: ['booking' => $this->booking, 'locale' => $this->booking->locale],
         );
     }
 
@@ -55,7 +55,7 @@ class BookingConfirmation extends Mailable
      */
     public function attachments(): array
     {
-        $filename = 'booking_' . now()->format('YmdHis') . '.pdf';
+        $filename = 'booking_' . $this->booking->code . now()->format('YmdHis') . '.pdf';
         return [
             Attachment::fromData(fn() => $this->pdf, $filename)->withMime('application/pdf')
         ];

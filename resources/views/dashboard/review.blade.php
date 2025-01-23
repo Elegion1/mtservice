@@ -66,6 +66,7 @@
                         <th>Recensione</th>
                         <th>Valutazione</th>
                         <th>Stato</th>
+                        <th>Prenotazione</th>
                         <th>Data di aggiunta</th>
                         <th>Data di modifica</th>
                         <th>Azione</th>
@@ -80,12 +81,12 @@
                             <td>{{ $review->body }}</td>
                             <td>{{ $review->rating }}</td>
                             <td>{{ $review->status }}</td>
+                            <td>{{ $review->booking }}</td>
                             <td>{{ $review->created_at }}</td>
                             <td>{{ $review->updated_at }}</td>
                             <td>
                                 <x-edit-button :id="'Review'" :data="$review" />
                                 <x-delete-button :route="'reviews.destroy'" :model="$review" />
-                                </form>
                             </td>
                         </tr>
                     @endforeach

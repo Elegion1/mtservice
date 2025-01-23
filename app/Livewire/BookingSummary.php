@@ -367,7 +367,7 @@ class BookingSummary extends Component
 
             // Invio email
             $this->sendBookingEmails($booking);
-            Log::info('User created a booking: type: ' . $booking->bookingData['type'] . ' name: ' . $booking->name . ' ' . $booking->surname);
+            Log::info('[BookingSummary] User created a booking: type: ' . $booking->bookingData['type'] . ' name: ' . $booking->name . ' ' . $booking->surname);
 
             // Messaggio di conferma e redirect
             session()->flash('message', __('ui.confirmation_message'));
@@ -376,7 +376,7 @@ class BookingSummary extends Component
 
             return redirect()->route('home');
         } catch (\Exception $e) {
-            Log::error('Booking confirmation error: ' . $e->getMessage());
+            Log::error('[BookingSummary] Booking confirmation error: ' . $e->getMessage());
             session()->flash('error', __('ui.booking_error_message'));
         }
     }
@@ -392,9 +392,9 @@ class BookingSummary extends Component
                 'dial_code' => $dialCode,
                 'phone' => $phone,
             ]);
-            Log::info('Customer created');
+            Log::info('[BookingSummary] Customer created');
         } else {
-            Log::info('Customer not created, setting disabled');
+            Log::info('[BookingSummary] Customer not created, setting disabled');
         }
     }
 
@@ -438,7 +438,7 @@ class BookingSummary extends Component
             // Invia l'email al destinatario
             Mail::to($recipient)->send($mailable);
         } catch (\Exception $e) {
-            Log::error($errorMessage . ': ' . $e->getMessage());
+            Log::error('[BookingSummary] ' . $errorMessage . ': ' . $e->getMessage());
         } finally {
             // Ripristina la lingua originale
             if ($language !== $currentLanguage) {

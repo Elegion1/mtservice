@@ -16,7 +16,7 @@ class ReviewController extends Controller
 
         $booking = Booking::where('code', $booking_code)->first();
         // dd($locale, $booking_code, $booking);
-        Log::info('User opened review creation page ' . $booking->code . ' ' . $booking->name . ' ' . $booking->surname);
+        Log::info('User opened review creation page code: ' . $booking->code . ' Name: ' . $booking->name . ' ' . $booking->surname);
 
         if (!$booking || $booking->status !== 'confirmed') {
             return redirect()->route('home', ['locale' => $locale])->with('error', 'Codice di prenotazione non valido.');
@@ -56,7 +56,7 @@ class ReviewController extends Controller
         // Crea la recensione
         Review::create($validatedData);
 
-        Log::info('User created a review ' . $validatedData);
+        Log::info('User created a review ' . $validatedData['name'] . ' ' . $validatedData['title'] . ' ' . 'Valutazione: ' . $validatedData['rating'] );
 
         // Redirect con messaggio di successo
         return redirect()->route('home')->with('success', 'La tua recensione è stata inviata ed è in attesa di approvazione.');
@@ -69,6 +69,7 @@ class ReviewController extends Controller
             'title' => 'required',
             'body' => 'required',
             'rating' => 'required|integer|min:1|max:5',
+            'booking' => 'nullable|string|exists:booking,code'
         ]);
 
         $review = new Review();

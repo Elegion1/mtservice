@@ -34,9 +34,9 @@ class ExpirePendingBookings implements ShouldQueue
     public function handle(): void
     {
         $expireTime = Setting::where('name', 'booking_pending_expire_time')->value('value');
-        Log::info('Booking pending expire time is set to: ' . ($expireTime ?? 'N/A') . ' Hour');
+        Log::info('[ExpirePendingBookings] Booking pending expire time is set to: ' . ($expireTime ?? 'N/A') . ' Hour');
         if (!$expireTime) {
-            Log::warning('Booking pending expire time is not set. Using default value of 1 hour.');
+            Log::warning('[ExpirePendingBookings] Booking pending expire time is not set. Using default value of 1 hour.');
             $expireTime = 1;
         }
 
@@ -44,39 +44,39 @@ class ExpirePendingBookings implements ShouldQueue
             ->where('created_at', '<', Carbon::now()->subHours($expireTime))
             ->get();
 
-        Log::info('Server time: ' . Carbon::now());
+        Log::info('[ExpirePendingBookings] Server time: ' . Carbon::now());
         
         if ($expiredBookings->isEmpty()) {
-            Log::info('No pending bookings to expire.');
+            Log::info('[ExpirePendingBookings] No pending bookings to expire.');
             return;
         }
 
         $adminData = OwnerData::whereNotNull('email')->first();
-        Log::info('Found ' . $expiredBookings->count() . ' pending bookings to expire, sending notification to: ' . ($adminData->email ?? 'N/A'));
+        Log::info('[ExpirePendingBookings] Found ' . $expiredBookings->count() . ' pending bookings to expire, sending notification to: ' . ($adminData->email ?? 'N/A'));
 
         if ($adminData) {
             Mail::to($adminData->email)->send(new ExpiredBookingsNotification($expiredBookings));
         } else {
-            Log::warning('No administrator email found. Skipping admin notification.');
+            Log::warning('[ExpirePendingBookings] No administrator email found. Skipping admin notification.');
         }
 
         $notification = (bool) Setting::where('name', 'booking_rejected_notification')->value('value');
-        Log::info('Booking rejected notification is ' . ($notification ? 'enabled' : 'disabled'));
+        Log::info('[ExpirePendingBookings] Booking rejected notification is ' . ($notification ? 'enabled' : 'disabled'));
 
         foreach ($expiredBookings as $booking) {
             try {
                 $booking->update(['status' => 'rejected']);
                 if (!$notification) {
-                    Log::info("Booking ID {$booking->id} marked as rejected. Notification disabled.");
+                    Log::info('[ExpirePendingBookings] Booking ID {$booking->id} marked as rejected. Notification disabled.');
                     continue;
                 } else {
-                    Log::info("Booking ID {$booking->id} marked as rejected. Sending notification.");
+                    Log::info('[ExpirePendingBookings] Booking ID {$booking->id} marked as rejected. Sending notification.');
                     Mail::to($booking->email)->send(new BookingStatusNotification($booking));
                 }
 
-                Log::info("Booking ID {$booking->id} marked as rejected and notification sent.");
+                Log::info('[ExpirePendingBookings] Booking ID {$booking->id} marked as rejected and notification sent.');
             } catch (\Exception $e) {
-                Log::error("Failed to process booking ID {$booking->id}: " . $e->getMessage());
+                Log::error('[ExpirePendingBookings] Failed to process booking ID {$booking->id}: ' . $e->getMessage());
             }
         }
     }
