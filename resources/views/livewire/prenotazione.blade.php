@@ -4,18 +4,19 @@
             'transfer' => 'ui.transfer',
             'escursioni' => 'ui.excursions',
             'rent' => 'ui.carRent',
-            'bookingSummary' => 'ui.bookingSummary'
         ];
     @endphp
 
     @if ($isHome)
         <div id="form-top" class="d-flex justify-content-start ">
             @foreach ($formLabels as $formType => $label)
-                <button type="button"
-                    class="btn btn_booking text-uppercase text-black {{ $currentForm == $formType ? 'bg-b' : 'bg-c' }}"
-                    wire:click="show{{ ucfirst($formType) }}" id="{{ $formType }}-btn">
-                    {{ __($label) }}
-                </button>
+                @if ($formType !== 'bookingSummary')
+                    <button type="button"
+                        class="btn btn_booking text-uppercase text-black {{ $currentForm == $formType ? 'bg-b' : 'bg-c' }}"
+                        wire:click="show{{ ucfirst($formType) }}" id="{{ $formType }}-btn">
+                        {{ __($label) }}
+                    </button>
+                @endif
             @endforeach
 
             {{-- Bottone "riepilogo prenotazione" visibile solo quando il form attivo è bookingSummary --}}
@@ -31,7 +32,8 @@
         wire:model.live="module">
         <div class="container-fluid input_width z-2">
             @if (!$isHome)
-                <p class="text-uppercase text-center bg-c text-dark rounded p-1">{{__('ui.book')}} {{ __($formLabels[$currentForm]) }}</p>
+                <p class="text-uppercase text-center bg-c text-dark rounded p-1">{{ __('ui.book') }}
+                    {{ __($formLabels[$currentForm]) }}</p>
             @endif
             @if ($currentForm == 'escursioni')
                 @livewire('escursioni-form')
