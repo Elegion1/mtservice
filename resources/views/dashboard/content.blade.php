@@ -1,8 +1,8 @@
 <x-dashboard-layout>
-    <div class="container-fluid mt-5">
-        <h2>Contenuti</h2>
-        <a href="{{ route('content.create') }}" class="btn bg-a text-white">Crea</a>
-    </div>
+
+    <h2>Contenuti</h2>
+    <a href="{{ route('content.create') }}" class="btn bg-a text-white">Crea</a>
+
     <table class="table table-sm table-striped">
         <thead>
             <tr>
@@ -61,7 +61,7 @@
                     <td>
                         <a class="btn btn-primary btn-sm"
                             href="{{ route('content.edit', ['content' => $content]) }}">Dettagli</a>
-                        <x-delete-button :route="'contents.destroy'" :model="$content" />
+                        <x-delete-button :route="'contents'" :model="$content" />
                     </td>
                 </tr>
             @endforeach

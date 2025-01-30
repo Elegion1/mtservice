@@ -1,8 +1,8 @@
 <x-dashboard-layout>
-    <div class="container-fluid mt-5">
-        <h2>Escursioni</h2>
-        <a href="{{ route('excursion.create') }}" class="btn bg-a text-white">Crea</a>
-    </div>
+
+    <h2>Escursioni</h2>
+    <a href="{{ route('excursion.create') }}" class="btn bg-a text-white">Crea</a>
+
     <table class="table table-sm table-striped">
         <thead>
             <tr>
@@ -39,7 +39,7 @@
                     <td>
                         <a class="btn btn-primary btn-sm"
                             href="{{ route('excursion.edit', ['excursion' => $excursion]) }}">Dettagli</a>
-                        <x-delete-button :route="'excursions.destroy'" :model="$excursion" />
+                        <x-delete-button :route="'excursions'" :model="$excursion" />
                     </td>
                 </tr>
             @endforeach

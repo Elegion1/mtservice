@@ -1,17 +1,17 @@
 <x-dashboard-layout>
-    <div class="container-fluid">
-        <h2>Prenotazioni in attesa</h2>
-        <a class="btn btn-sm btn-secondary text-small" href="{{ route('dashboard.bookingList') }}">Torna a confermate</a>
 
-        @foreach ($bookings as $booking)
-            @if (!$booking)
-                <p class="text-center">Nessuna prenotazione in attesa</p>
-            @endif
-            @if ($booking->status == 'pending')
-                <x-bookingCard :booking='$booking' />
-            @endif
-        @endforeach
-    </div>
+    <h2>Prenotazioni in attesa</h2>
+    <a class="btn btn-sm btn-secondary text-small" href="{{ route('dashboard.bookingList') }}">Torna a confermate</a>
+
+    @foreach ($bookings as $booking)
+        @if (!$booking)
+            <p class="text-center">Nessuna prenotazione in attesa</p>
+        @endif
+        @if ($booking->status == 'pending')
+            <x-bookingCard :booking='$booking' />
+        @endif
+    @endforeach
+
 
     <!-- Modale per visualizzare le informazioni sulla prenotazione -->
     <div class="modal fade" id="bookingDetailsModal" tabindex="-1" aria-labelledby="bookingDetailsModalLabel"
@@ -50,8 +50,10 @@
                 // Crea il contenuto del modale con i dettagli della prenotazione
                 const bookingType = bookingData.type;
 
-                const dateDep = bookingData.date_dep ? new Date(bookingData.date_dep).toLocaleString('it-IT') : 'N/A';
-                const dateRet = bookingData.date_ret ? new Date(bookingData.date_ret).toLocaleString('it-IT') : 'N/A';
+                const dateDep = bookingData.date_dep ? new Date(bookingData.date_dep).toLocaleString('it-IT') :
+                    'N/A';
+                const dateRet = bookingData.date_ret ? new Date(bookingData.date_ret).toLocaleString('it-IT') :
+                    'N/A';
                 const dateStart = bookingData.date_start ? new Date(bookingData.date_start).toLocaleString(
                     'it-IT') : 'N/A';
                 const dateEnd = bookingData.date_end ? new Date(bookingData.date_end).toLocaleString('it-IT') :

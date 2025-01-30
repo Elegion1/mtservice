@@ -19,5 +19,9 @@ class TimePeriod extends Model
     {
         return $this->belongsTo(Discount::class);
     }
-}
 
+    public function carPrices()
+    {
+        return $this->hasMany(CarPrice::class);
+    }
+}

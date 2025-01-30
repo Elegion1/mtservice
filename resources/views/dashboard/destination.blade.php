@@ -1,49 +1,48 @@
 <x-dashboard-layout>
-    <div class="container-fluid mt-5">
-        <h1>Gestione Destinazioni</h1>
 
-        <button id="destinationCreateBtn" class="btn btn-success">Crea destinazione</button>
+    <h1>Gestione Destinazioni</h1>
 
-        <form class="d-none" id="destinationFormCreate" action="{{ route('destinations.store') }}" method="POST">
-            @csrf
-            <div class="row">
-                <div class="mb-3 col-lg-4 col-12">
-                    <label for="name" class="form-label">Destinazione</label>
-                    <input type="text" class="form-control form_input_focused" id="name" name="name"
-                        required>
-                </div>
+    <button id="destinationCreateBtn" class="btn btn-success">Crea destinazione</button>
+
+    <form class="d-none" id="destinationFormCreate" action="{{ route('destinations.store') }}" method="POST">
+        @csrf
+        <div class="row">
+            <div class="mb-3 col-lg-4 col-12">
+                <label for="name" class="form-label">Destinazione</label>
+                <input type="text" class="form-control form_input_focused" id="name" name="name" required>
             </div>
-            <button type="submit" class="btn btn-primary">Aggiungi Destinazione</button>
-        </form>
+        </div>
+        <button type="submit" class="btn btn-primary">Aggiungi Destinazione</button>
+    </form>
 
-        <hr>
+    <hr>
 
-        <h2>Tutte le Destinazioni</h2>
+    <h2>Tutte le Destinazioni</h2>
 
-        <table class="table table-sm table-striped">
-            <thead>
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Mostra</th>
+                <th>Azione</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($destinations as $destination)
                 <tr>
-                    <th>#</th>
-                    <th>Nome</th>
-                    <th>Mostra</th>
-                    <th>Azione</th>
+                    <td>{{ $destination->id }}</td>
+                    <td>{{ $destination->name }}</td>
+                    <td>{{ $destination->show ? 'Si' : 'No' }}</td>
+                    <td>
+                        <x-edit-button :id="'Destination'" :data="$destination" />
+                        <x-delete-button :route="'destinations'" :model="$destination" />
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach ($destinations as $destination)
-                    <tr>
-                        <td>{{ $destination->id }}</td>
-                        <td>{{ $destination->name }}</td>
-                        <td>{{ $destination->show ? 'Si' : 'No' }}</td>
-                        <td>
-                            <x-edit-button :id="'Destination'" :data="$destination" />
-                            <x-delete-button :route="'destinations.destroy'" :model="$destination" />
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+            @endforeach
+        </tbody>
+    </table>
+
 
     <!-- Modale per Modifica Destinazione -->
     <x-modal :id="'Destination'" :title="'Modifica destinazione'">

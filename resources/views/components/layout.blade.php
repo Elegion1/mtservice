@@ -72,7 +72,7 @@
     @include('cookie-consent::index')
 </head>
 
-<body>
+<body class="overflow-x-hidden">
     <x-whatsapp />
     <x-nav />
     <x-masthead />

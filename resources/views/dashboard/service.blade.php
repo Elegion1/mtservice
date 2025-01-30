@@ -1,8 +1,8 @@
 <x-dashboard-layout>
-    <div class="container-fluid mt-5">
-        <h2>Servizi</h2>
-        <a href="{{ route('service.create') }}" class="btn bg-a text-white">Crea</a>
-    </div>
+
+    <h2>Servizi</h2>
+    <a href="{{ route('service.create') }}" class="btn bg-a text-white">Crea</a>
+
     <table class="table table-sm table-striped">
         <thead>
             <tr>
@@ -36,7 +36,7 @@
                     <td>
                         <a class="btn btn-primary btn-sm"
                             href="{{ route('service.edit', ['service' => $service]) }}">Dettagli</a>
-                        <x-delete-button :route="'services.destroy'" :model="$service" />
+                        <x-delete-button :route="'services'" :model="$service" />
                     </td>
                 </tr>
             @endforeach

@@ -1,55 +1,55 @@
 <x-dashboard-layout>
-    <div class="container-fluid">
 
-        <h2 class="text-wrap">Prenotazioni confermate</h2>
-        <a class="btn btn-sm btn-secondary text-small" href="{{ route('booking.todo') }}">Da confermare</a>
 
-        <div class="row d-flex justify-content-center align-items-center mt-1">
-            <div class="col-4 text-start">
-                <button id="prevBtn" class="btn btn-secondary btn-sm text-small">Precedente</button>
-            </div>
-            <div class="col-4">
-                <select id="groupBySelector" class="form-select form-select-sm">
-                    <option value="month" selected>Mese</option>
-                    <option value="day">Giorno</option>
-                </select>
-            </div>
-            <div class="col-4 text-end">
-                <button id="nextBtn" class="btn btn-secondary btn-sm text-small">Successivo</button>
-            </div>
+    <h2 class="text-wrap">Prenotazioni confermate</h2>
+    <a class="btn btn-sm btn-secondary text-small" href="{{ route('booking.todo') }}">Da confermare</a>
+
+    <div class="row d-flex justify-content-center align-items-center mt-1">
+        <div class="col-4 text-start">
+            <button id="prevBtn" class="btn btn-secondary btn-sm text-small">Precedente</button>
         </div>
-
-        <div id="dayGroup">
-            @foreach ($groupedByDay as $date => $dayBookings)
-                <div class="day-bookings" data-date="{{ $date }}">
-                    <h3 class="text-center my-3 bg-secondary-subtle">
-                        {{ \Carbon\Carbon::parse($date)->translatedFormat('l d/m/Y') }}
-                    </h3>
-
-                    <x-dayBookingsShow :dayBookings="$dayBookings" />
-                </div>
-            @endforeach
+        <div class="col-4">
+            <select id="groupBySelector" class="form-select form-select-sm">
+                <option value="month" selected>Mese</option>
+                <option value="day">Giorno</option>
+            </select>
         </div>
-
-        <div id="monthGroup" class="d-none">
-            @foreach ($groupedByMonth as $month => $dayBookingsInMonth)
-                <div class="month-bookings" data-month="{{ $month }}">
-                    <h2 class="text-center my-3 bg-primary-subtle">
-                        {{ \Carbon\Carbon::parse($month . '-01')->translatedFormat('F Y') }}</h2>
-
-                    @foreach ($dayBookingsInMonth as $date => $dayBookings)
-                        <div class="day-bookings" data-date="{{ $date }}">
-                            <h3 class="text-center my-3 bg-secondary-subtle">
-                                {{ \Carbon\Carbon::parse($date)->translatedFormat('l d/m/Y') }}
-                            </h3>
-
-                            <x-dayBookingsShow :dayBookings="$dayBookings" />
-                        </div>
-                    @endforeach
-                </div>
-            @endforeach
+        <div class="col-4 text-end">
+            <button id="nextBtn" class="btn btn-secondary btn-sm text-small">Successivo</button>
         </div>
     </div>
+
+    <div id="dayGroup">
+        @foreach ($groupedByDay as $date => $dayBookings)
+            <div class="day-bookings" data-date="{{ $date }}">
+                <h3 class="text-center my-3 bg-secondary-subtle">
+                    {{ \Carbon\Carbon::parse($date)->translatedFormat('l d/m/Y') }}
+                </h3>
+
+                <x-dayBookingsShow :dayBookings="$dayBookings" />
+            </div>
+        @endforeach
+    </div>
+
+    <div id="monthGroup" class="d-none">
+        @foreach ($groupedByMonth as $month => $dayBookingsInMonth)
+            <div class="month-bookings" data-month="{{ $month }}">
+                <h2 class="text-center my-3 bg-primary-subtle">
+                    {{ \Carbon\Carbon::parse($month . '-01')->translatedFormat('F Y') }}</h2>
+
+                @foreach ($dayBookingsInMonth as $date => $dayBookings)
+                    <div class="day-bookings" data-date="{{ $date }}">
+                        <h3 class="text-center my-3 bg-secondary-subtle">
+                            {{ \Carbon\Carbon::parse($date)->translatedFormat('l d/m/Y') }}
+                        </h3>
+
+                        <x-dayBookingsShow :dayBookings="$dayBookings" />
+                    </div>
+                @endforeach
+            </div>
+        @endforeach
+    </div>
+
 
     <!-- Modal per i dettagli -->
     <div class="modal fade" id="bookingDetailsModal" tabindex="-1" aria-labelledby="bookingDetailsModalLabel"
@@ -99,8 +99,10 @@
                 // Crea il contenuto del modale con i dettagli della prenotazione
                 const bookingType = bookingData.type;
 
-                const dateDep = bookingData.date_dep ? new Date(bookingData.date_dep).toLocaleString('it-IT') : 'N/A';
-                const dateRet = bookingData.date_ret ? new Date(bookingData.date_ret).toLocaleString('it-IT') : 'N/A';
+                const dateDep = bookingData.date_dep ? new Date(bookingData.date_dep).toLocaleString('it-IT') :
+                    'N/A';
+                const dateRet = bookingData.date_ret ? new Date(bookingData.date_ret).toLocaleString('it-IT') :
+                    'N/A';
                 const dateStart = bookingData.date_start ? new Date(bookingData.date_start).toLocaleString(
                     'it-IT') : 'N/A';
                 const dateEnd = bookingData.date_end ? new Date(bookingData.date_end).toLocaleString('it-IT') :

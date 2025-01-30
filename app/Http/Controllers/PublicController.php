@@ -216,22 +216,23 @@ class PublicController extends Controller
     {
         $booking->status = 'confirmed'; // or whatever status you want to set
         $booking->save();
+        
+        $delayDays = getSetting('review_request_delay_days');
 
         $defaultTime = getSetting('review_request_default_time');
-        $delayDays = getSetting('review_request_delay_days');
         // Unisci la data del servizio con l'orario di default
         $serviceDate = Carbon::parse($booking->service_date . ' ' . $defaultTime);
-
+        
         // Aggiungi i giorni di ritardo
         $delay = $serviceDate->addDays((int) $delayDays);  // (int) per essere sicuro che sia un numero intero
-
+        
         Log::info([
             'service_date' => $booking->service_date,
             'default_time' => $defaultTime,
             'delay_days' => $delayDays,
             'calculated_delay' => $delay,
         ]);
-
+        
         // Invia la mail nella lingua del cliente
         sendEmail(
             $booking->email, // Destinatario
@@ -239,7 +240,7 @@ class PublicController extends Controller
             'Errore nell\'invio dell\'email di stato prenotazione', // Messaggio di errore
             $booking->locale // Locale della prenotazione
         );
-
+        
         // Dispatcia il job per inviare la richiesta di recensione
         SendReviewRequestJob::dispatch($booking)->delay($delay);
 

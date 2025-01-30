@@ -9,11 +9,11 @@
                     <i class="bi bi-telephone"></i>
                 </a>
             @endif
-            @if ($ownerdata->phone3)
+            {{-- @if ($ownerdata->phone3)
                 <a href="tel:{{ $ownerdata->phone3 }}" class="contact-option call2 shadow text-black">
                     <i class="bi bi-telephone"></i>
                 </a>
-            @endif
+            @endif --}}
             {{-- <a href="mailto:{{$ownerdata->email}}" class="contact-option email shadow">
                 <i class="bi bi-envelope"></i>
             </a> --}}

@@ -1,72 +1,74 @@
 <x-dashboard-layout>
-    <div class="container-fluid mt-5">
-        <h1>Job in Corso</h1>
 
-        <!-- Job in Coda -->
-        <h2>Job in Coda</h2>
-        <table class="table table-sm table-striped">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Codice prenotazione</th>
-                    <th>Stato</th>
-                    <th>Attempts</th>
-                    <th>Stato</th>
-                    <th>Data esecuzione</th>
-                    <th>Data Creazione</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($jobs as $job)
-                    @php
-                        try {
-                            $payload = json_decode($job->payload, true);
-                            if (isset($payload['data']['command'])) {
-                                $commandData = unserialize($payload['data']['command']);
-                                $booking = isset($commandData->booking)
-                                    ? \App\Models\Booking::findOrFail($commandData->booking->id)
-                                    : null;
-                            } else {
-                                $booking = null;
-                            }
-                        } catch (Exception $e) {
-                            $booking = null; // Puoi anche loggare l'errore se vuoi
+    <h1>Job in Corso</h1>
+
+    <!-- Job in Coda -->
+    <h2>Job in Coda</h2>
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Codice prenotazione</th>
+                <th>Locale</th>
+                <th>Stato</th>
+                <th>Attempts</th>
+                <th>Stato</th>
+                <th>Data esecuzione</th>
+                <th>Data Creazione</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($jobs as $job)
+                @php
+                    try {
+                        $payload = json_decode($job->payload, true);
+                        if (isset($payload['data']['command'])) {
+                            $commandData = unserialize($payload['data']['command']);
+                            $booking = isset($commandData->booking)
+                                ? \App\Models\Booking::findOrFail($commandData->booking->id)
+                                : null;
+                        } else {
+                            $booking = null;
                         }
-                        
-                    @endphp
-                    <tr>
-                        <td>{{ $job->id }}</td>
-                        <td>{{ $booking ? $booking->code : 'N/A' }}</td>
-                        <td>{{ $booking ? $booking->status : 'N/A' }}</td>
-                        <td>{{ $job->attempts }}</td>
-                        <td>
-                            @if ($job->reserved_at)
-                                In Esecuzione
-                            @else
-                                In Coda
-                            @endif
-                        </td>
-                        <td>{{ \Carbon\Carbon::createFromTimestamp($job->available_at)->toDateTimeString() }}</td>
-                        <td>{{ \Carbon\Carbon::createFromTimestamp($job->created_at)->toDateTimeString() }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+                    } catch (Exception $e) {
+                        $booking = null; // Puoi anche loggare l'errore se vuoi
+                    }
 
-        <!-- Job Falliti -->
-        <h2>Job Falliti</h2>
-        <table class="table table-sm table-striped">
-            <thead>
+                @endphp
                 <tr>
-                    <th>#</th>
-                    <th>Queue</th>
-                    <th>Payload</th>
-                    <th>Eccezione</th>
-                    <th>Data Fallimento</th>
+                    <td>{{ $job->id }}</td>
+                    <td>{{ $booking ? $booking->code : 'N/A' }}</td>
+                    <td>{{ $booking ? $booking->locale : 'N/A' }}</td>
+                    <td>{{ $booking ? $booking->status : 'N/A' }}</td>
+                    <td>{{ $job->attempts }}</td>
+                    <td>
+                        @if ($job->reserved_at)
+                            In Esecuzione
+                        @else
+                            In Coda
+                        @endif
+                    </td>
+                    <td>{{ \Carbon\Carbon::createFromTimestamp($job->available_at)->toDateTimeString() }}</td>
+                    <td>{{ \Carbon\Carbon::createFromTimestamp($job->created_at)->toDateTimeString() }}</td>
                 </tr>
-            </thead>
-            <tbody>
-                {{-- @foreach ($failedJobs as $failedJob)
+            @endforeach
+        </tbody>
+    </table>
+
+    <!-- Job Falliti -->
+    <h2>Job Falliti</h2>
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Queue</th>
+                <th>Payload</th>
+                <th>Eccezione</th>
+                <th>Data Fallimento</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{-- @foreach ($failedJobs as $failedJob)
                     @php
                         // Decodifica il payload
                         $payload = json_decode($failedJob->payload, true);
@@ -102,7 +104,7 @@
                         <td>{{ $failedJob->failed_at }}</td>
                     </tr>
                 @endforeach --}}
-            </tbody>
-        </table>
-    </div>
+        </tbody>
+    </table>
+
 </x-dashboard-layout>

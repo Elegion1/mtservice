@@ -1,102 +1,101 @@
 <x-dashboard-layout>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 justify-content-start align-items-center">
-                <h1>Gestione Prenotazioni</h1>
-            </div>
-            <div class="col-md-6 d-flex justify-content-end align-items-center">
-                <button id="toggleActionsBtn" class="btn btn-sm btn-warning">Azioni</button>
-            </div>
+
+    <div class="row">
+        <div class="col-md-6 justify-content-start align-items-center">
+            <h1>Gestione Prenotazioni</h1>
         </div>
-        <table class="table table-sm table-striped">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>Codice</th>
-                    <th>Info</th>
-                    <th>Tipo</th>
-                    <th>Totale</th>
-                    <th>Creazione</th>
-                    <th>Stato</th>
-                    <th class="action-column" style="display: none;">Modifica</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($bookings as $booking)
-                    <tr>
-                        <td>{{ $booking->id }}</td>
-                        <td>{{ $booking->name }} {{ $booking->surname }}</td>
-                        <td>{{ $booking->email }}</td>
-                        <td>
-                            {{ $booking->code }}
-                            <a
-                                href="{{ route('reviews.create', ['locale' => 'it', 'booking_code' => $booking->code]) }}">
-                                <i class="bi bi-star-half"></i>
-                            </a>
-                        </td>
-                        <td>
-                            <button class="btn text-primary btn-sm open-details-modal" data-bs-toggle="modal"
-                                data-bs-target="#bookingDetailsModal" data-booking-data="{{ json_encode($booking) }}">
-                                <i class="bi bi-info-circle"></i>
-                            </button>
-                        </td>
-                        <td>{{ ucfirst($booking->bookingData['type']) }}</td>
-                        <td>{{ $booking->bookingData['price'] }} €</td>
-                        <td>{{ $booking->created_at }} </td>
-                        <td>
-                            @if ($booking->status == 'confirmed')
-                                <i class="bi bi-check-circle-fill text-success"></i>
-                            @elseif ($booking->status == 'pending')
-                                <i class="bi bi-exclamation-circle-fill text-warning"></i>
-                            @elseif ($booking->status == 'rejected')
-                                <i class="bi bi-x-circle-fill text-danger"></i>
-                            @endif
-                        </td>
-                        <td class="action-column" style="display: none;">
-                            
-                            @if ($booking->status != 'confirmed')
-                                <form action="{{ route('bookings.update', $booking) }}" method="POST"
-                                    style="display:inline-block;">
-                                    @csrf
-                                    <input type="hidden" name="status" value="confirmed">
-                                    <button title="Accetta prenotazione" type="submit" class="btn btn-sm">
-                                        <i class="bi bi-check-circle-fill text-success"></i>
-                                    </button>
-                                </form>
-                            @endif
-
-                            @if ($booking->status != 'rejected')
-                                <form action="{{ route('bookings.update', $booking) }}" method="POST"
-                                    style="display:inline-block;">
-                                    @csrf
-                                    <input type="hidden" name="status" value="rejected">
-                                    <button title="Rifiuta prenotazione" type="submit" class="btn btn-sm">
-                                        <i class="bi bi-x-circle-fill text-danger"></i>
-                                    </button>
-                                </form>
-                            @endif
-
-                            @if ($booking->status != 'pending')
-                                <form action="{{ route('bookings.update', $booking) }}" method="POST"
-                                    style="display:inline-block;">
-                                    @csrf
-                                    <input type="hidden" name="status" value="pending">
-                                    <button title="Sposta in lavorazione" type="submit" class="btn btn-sm">
-                                        <i class="bi bi-exclamation-circle-fill text-warning"></i>
-                                    </button>
-                                </form>
-                            @endif
-
-                            <x-delete-button :route="'bookings.destroy'" :model="$booking" :label="true" />
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
-
+        <div class="col-md-6 d-flex justify-content-end align-items-center">
+            <button id="toggleActionsBtn" class="btn btn-sm btn-warning">Azioni</button>
+        </div>
     </div>
+    <table class="table table-sm table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Codice</th>
+                <th>Info</th>
+                <th>Tipo</th>
+                <th>Totale</th>
+                <th>Creazione</th>
+                <th>Stato</th>
+                <th class="action-column" style="display: none;">Modifica</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($bookings as $booking)
+                <tr>
+                    <td>{{ $booking->id }}</td>
+                    <td>{{ $booking->name }} {{ $booking->surname }}</td>
+                    <td>{{ $booking->email }}</td>
+                    <td>
+                        {{ $booking->code }}
+                        <a href="{{ route('reviews.create', ['locale' => 'it', 'booking_code' => $booking->code]) }}">
+                            <i class="bi bi-star-half"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <button class="btn text-primary btn-sm open-details-modal" data-bs-toggle="modal"
+                            data-bs-target="#bookingDetailsModal" data-booking-data="{{ json_encode($booking) }}">
+                            <i class="bi bi-info-circle"></i>
+                        </button>
+                    </td>
+                    <td>{{ ucfirst($booking->bookingData['type']) }}</td>
+                    <td>{{ $booking->bookingData['price'] }} €</td>
+                    <td>{{ $booking->created_at }} </td>
+                    <td>
+                        @if ($booking->status == 'confirmed')
+                            <i class="bi bi-check-circle-fill text-success"></i>
+                        @elseif ($booking->status == 'pending')
+                            <i class="bi bi-exclamation-circle-fill text-warning"></i>
+                        @elseif ($booking->status == 'rejected')
+                            <i class="bi bi-x-circle-fill text-danger"></i>
+                        @endif
+                    </td>
+                    <td class="action-column" style="display: none;">
+
+                        @if ($booking->status != 'confirmed')
+                            <form action="{{ route('bookings.update', $booking) }}" method="POST"
+                                style="display:inline-block;">
+                                @csrf
+                                <input type="hidden" name="status" value="confirmed">
+                                <button title="Accetta prenotazione" type="submit" class="btn btn-sm">
+                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                </button>
+                            </form>
+                        @endif
+
+                        @if ($booking->status != 'rejected')
+                            <form action="{{ route('bookings.update', $booking) }}" method="POST"
+                                style="display:inline-block;">
+                                @csrf
+                                <input type="hidden" name="status" value="rejected">
+                                <button title="Rifiuta prenotazione" type="submit" class="btn btn-sm">
+                                    <i class="bi bi-x-circle-fill text-danger"></i>
+                                </button>
+                            </form>
+                        @endif
+
+                        @if ($booking->status != 'pending')
+                            <form action="{{ route('bookings.update', $booking) }}" method="POST"
+                                style="display:inline-block;">
+                                @csrf
+                                <input type="hidden" name="status" value="pending">
+                                <button title="Sposta in lavorazione" type="submit" class="btn btn-sm">
+                                    <i class="bi bi-exclamation-circle-fill text-warning"></i>
+                                </button>
+                            </form>
+                        @endif
+
+                        <x-delete-button :route="'bookings'" :model="$booking" :label="true" />
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+
 
     <!-- Modale per visualizzare le informazioni sulla prenotazione -->
     <div class="modal fade" id="bookingDetailsModal" tabindex="-1" aria-labelledby="bookingDetailsModalLabel"

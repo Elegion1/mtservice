@@ -32,6 +32,7 @@ if (!function_exists('sendEmail')) {
         // Cambia la lingua solo se necessario
         if ($language !== $currentLanguage) {
             App::setLocale($language);
+            Log::info('[MailHelper] Language changed to: ' . App::getLocale());
         }
         Log::info('[MailHelper] Sending email to: ' . $recipient . ' Language: ' . $language);
         try {
@@ -44,6 +45,7 @@ if (!function_exists('sendEmail')) {
             // Ripristina la lingua originale solo se è stata cambiata
             if ($language !== $currentLanguage) {
                 App::setLocale($currentLanguage);
+                Log::info('[MailHelper] Language restored to: ' . App::getLocale());
             }
         }
     }

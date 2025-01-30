@@ -221,9 +221,12 @@ class BookingController extends Controller
                 'default_time' => $defaultTime,
                 'delay_days' => $delayDays,
                 'calculated_delay' => $delay,
+                'booking_locale' => $booking->locale,
             ]);
-
+            $appLocale = App::getLocale();
+            App::setLocale($booking->locale);
             SendReviewRequestJob::dispatch($booking)->delay($delay);
+            App::setLocale($appLocale);
         }
 
         // Usa la funzione sendEmail per inviare la mail con il locale del cliente

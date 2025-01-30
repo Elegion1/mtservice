@@ -22,7 +22,7 @@ class RouteController extends Controller
     public function create()
     {
         $destinations = Destination::where('show', 1)->get();
-        $routes = Route::with(['departure', 'arrival'])->get();
+        $routes = Route::with(['departure', 'arrival'])->orderBy('departure', 'desc')->get();
         return view('dashboard.route', compact('destinations', 'routes'));
     }
 

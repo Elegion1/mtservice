@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Models\CarPrice;
 use App\Models\Image;
+use App\Models\TimePeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,7 +17,9 @@ class CarController extends Controller
     public function create()
     {
         $cars = Car::all();
-        return view('dashboard.car', compact('cars'));
+        $carPrices = CarPrice::with('timePeriod')->get();
+        $timePeriods = TimePeriod::all();
+        return view('dashboard.car', compact('cars', 'carPrices', 'timePeriods'));
     }
 
     /**
@@ -23,28 +27,25 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        // $validated = $request->validate([
-        //     'name' => 'required',
-        //     'description' => 'required',
-        //     'img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        //     'price' => 'required|numeric',
-        // ]);
+        // Debug iniziale
+        // dd($request->all());
 
-        // $imageName = time() . '.' . $request->img->extension();
-        // $request->img->move(public_path('/storage/cars'), $imageName);
+        // Validazione dei dati
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+            'images.*' => 'nullable|file|mimes:jpg,jpeg,png',
+        ]);
 
-        // $car = new Car();
-        // $car->name = $validated['name'];
-        // $car->description = $validated['description'];
-        // $car->img = $imageName;
-        // $car->price = $validated['price'];
-        // $car->save();
+        // Crea la macchina
+        $car = Car::create($validated);
 
-        $car = Car::create($request->all());
+        // Salva le immagini
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
                 $path = $file->store('images', 'public');
-                Image::Create([
+                Image::create([
                     'path' => $path,
                     'car_id' => $car->id,
                 ]);
@@ -59,33 +60,18 @@ class CarController extends Controller
      */
     public function update(Request $request, Car $car)
     {
-        // $validated = $request->validate([
-        //     'name' => 'required',
-        //     'description' => 'required',
-        //     'img' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        //     'price' => 'required|numeric',
-        // ]);
-
-        // // Verifica se è stata caricata una nuova immagine
-        // if ($request->hasFile('img')) {
-        //     // Elimina l'immagine precedente
-        //     if ($car->img) {
-        //         $imagePath = Storage::delete('public/cars/' . $car->img);
-        //         if (file_exists($imagePath)) {
-        //             unlink($imagePath);
-        //         }
-        //     }
-
-        //     // Carica la nuova immagine
-        //     $imageName = time() . '.' . $request->img->extension();
-        //     $request->img->move(public_path('/storage/cars'), $imageName);
-        //     $car->img = $imageName;
-        // }
-
-        // $car->update($validated);
-
-
         $car->update($request->all());
+
+        // // Associa periodi esistenti
+        // if ($request->has('existing_periods') && is_array($request->input('existing_periods'))) {
+        //     foreach ($request->input('existing_periods') as $periodId) {
+        //         CarPrice::create([
+        //             'car_id' => $car->id,
+        //             'time_period_id' => $periodId,
+        //             'price' => $car->price, // Usa il prezzo base o specifica un altro input
+        //         ]);
+        //     }
+        // }
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
@@ -114,6 +100,4 @@ class CarController extends Controller
 
         return redirect()->route('dashboard.car')->with('success', 'Auto eliminata con successo!');
     }
-
-   
 }

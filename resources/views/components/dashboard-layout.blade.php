@@ -15,10 +15,10 @@
 
 <body>
     @auth
-        <nav class="navbar navbar-expand-lg shadow z-3 d-flex flex-column mb-3">
+        <nav class="navbar navbar-expand-lg navbar-dashboard shadow z-3 d-flex flex-column mb-3">
             <div class="container">
-                <p><a href="{{ route('dashboard') }}">Home Dashboard</a></p>
-                <p>Benvenuto: {{ Auth::user()->name }}</p>
+                <a class="btn btn-primary" href="{{ route('dashboard') }}">Home Dashboard</a>
+                <p class="small">Benvenuto: {{ Auth::user()->name }}</p>
                 <button class="navbar-toggler p-0 border-0 " type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -43,7 +43,7 @@
                 @endif
             </div>
         </nav>
-        <div >
+        <div class="container-fluid">
             <x-display-error />
             <x-display-message />
             <x-display-success />

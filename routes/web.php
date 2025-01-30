@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
@@ -17,12 +18,13 @@ use App\Http\Controllers\ContentController;
 use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\CarPriceController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\ExcursionController;
 use App\Http\Controllers\OwnerDataController;
+use App\Http\Controllers\TimePeriodController;
 use App\Http\Controllers\DestinationController;
-use App\Http\Controllers\LogController;
 
 Route::get('/', function () {
     $locale = app()->getlocale(); // Recupera il locale predefinito
@@ -123,6 +125,16 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::post('/cars', [CarController::class, 'store'])->name('cars.store');
     Route::put('/cars/{car}', [CarController::class, 'update'])->name('cars.update');
     Route::delete('/cars/{car}', [CarController::class, 'destroy'])->name('cars.destroy');
+    
+    // Gestione prezzi auto per periodi
+    Route::post('/carprices/', [CarPriceController::class, 'store'])->name('carprices.store');
+    Route::put('/carprices/{carPrice}', [CarPriceController::class, 'update'])->name('carprices.update');
+    Route::delete('/carprices/{carPrice}', [CarPriceController::class, 'destroy'])->name('carprices.destroy');
+
+    // Gestione periodi
+    Route::post('/timeperiods', [TimePeriodController::class, 'store'])->name('timeperiods.store');
+    Route::put('/timeperiods/{timePeriod}', [TimePeriodController::class, 'update'])->name('timeperiods.update');
+    Route::delete('/timeperiods/{timePeriod}', [TimePeriodController::class, 'destroy'])->name('timeperiods.destroy');
 
     // Gestione recensioni
     Route::get('/reviews', [ReviewController::class, 'create'])->name('dashboard.review');
