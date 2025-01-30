@@ -4,6 +4,7 @@
             'transfer' => 'ui.transfer',
             'escursioni' => 'ui.excursions',
             'rent' => 'ui.carRent',
+            'bookingSummary' => 'ui.bookingSummary',
         ];
     @endphp
 
