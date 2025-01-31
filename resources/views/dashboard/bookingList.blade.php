@@ -105,8 +105,8 @@
                 currentView = 'day';
                 currentIndex = 0; // Reset dell'indice quando si cambia vista
                 updateView();
-                groupBySelectorDay.classList.add('bg-secondary-subtle');
-                groupBySelectorMonth.classList.remove('bg-secondary');
+                groupBySelectorMonth.classList.remove('bg-secondary-subtle');
+                groupBySelectorDay.classList.add('bg-secondary');
             });
 
             groupBySelectorMonth.addEventListener('click', function() {
