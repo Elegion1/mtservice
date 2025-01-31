@@ -24,7 +24,7 @@
 
 /* Gestione dell'immagine */
 .img_car {
-    width: 100%;
+    width: 100vw;
     height: 100vh;
     object-fit: cover;
     position: absolute;
@@ -51,7 +51,6 @@
 
 /* Contenitore del contenuto */
 #headerContainer {
-    
     z-index: 2; /* Sopra immagine e gradiente */
     color: white; /* Testo visibile sopra gradiente scuro */
 }
@@ -59,7 +58,7 @@
 /* Testo nella testata */
 #headerText {
     height: 700px;
-    
+
     z-index: 2; /* Per sicurezza, sopra tutti */
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8); /* Migliora leggibilità */
 }

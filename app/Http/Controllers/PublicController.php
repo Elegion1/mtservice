@@ -214,6 +214,10 @@ class PublicController extends Controller
 
     public function confirmBooking(Booking $booking)
     {
+        if($booking->status === 'confirmed') {
+            return redirect()->back()->withErrors(['message' => 'Prenotazione già confermata.']);
+        }
+
         $booking->status = 'confirmed'; // or whatever status you want to set
         $booking->save();
         
@@ -249,6 +253,10 @@ class PublicController extends Controller
 
     public function rejectBooking(Booking $booking)
     {
+        if($booking->status === 'rejected') {
+            return redirect()->back()->withErrors(['message' => 'Prenotazione già rifiutata.']);
+        }
+        
         $booking->status = 'rejected'; // or whatever status you want to set
         $booking->save();
 

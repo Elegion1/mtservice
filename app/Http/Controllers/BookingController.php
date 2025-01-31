@@ -152,10 +152,13 @@ class BookingController extends Controller
                 return \Carbon\Carbon::parse($booking->start_date ?? $booking->end_date)->format('Y-m-d');
             });
         });
+        
+        $pendingBookings = Booking::where('status', 'pending')->get();
 
         return view('dashboard.bookingList', [
             'groupedByDay' => $groupedByDay,
-            'groupedByMonth' => $groupedByMonth
+            'groupedByMonth' => $groupedByMonth,
+            'pendingBookings' => $pendingBookings,
         ]);
     }
 
@@ -203,6 +206,10 @@ class BookingController extends Controller
         $request->validate([
             'status' => 'required|in:confirmed,pending,rejected',
         ]);
+
+        if ($booking->status == $request->status) {
+            return redirect()->back()->with('error', 'Stato della prenotazione già impostato su ' . $request->status);
+        } 
 
         $booking->status = $request->status;
         $booking->save();

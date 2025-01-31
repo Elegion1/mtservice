@@ -27,13 +27,14 @@ if (!function_exists('sendEmail')) {
 
     function sendEmail($recipient, $mailable, $errorMessage, $language)
     {
-        $currentLanguage = app()->getLocale();
-
+        $currentLanguage = App::getLocale();
+        Log::info('[MailHelper] Current language: ' . $currentLanguage);
         // Cambia la lingua solo se necessario
         if ($language !== $currentLanguage) {
             App::setLocale($language);
             Log::info('[MailHelper] Language changed to: ' . App::getLocale());
         }
+        
         Log::info('[MailHelper] Sending email to: ' . $recipient . ' Language: ' . $language);
         try {
             // Invia l'email al destinatario
