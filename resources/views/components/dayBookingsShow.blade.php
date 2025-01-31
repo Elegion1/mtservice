@@ -1,11 +1,11 @@
-<div class="day-bookings overflow-auto overflow-x-hidden border" style="height: 55vh;" data-date="{{ $date }}">
+<div class="day-bookings border" data-date="{{ $date }}">
     @if (isset($dayGroup))
         <div class="p-1 bg-secondary-subtle d-flex justify-content-start">
             <strong>
                 {{ \Carbon\Carbon::parse($date)->translatedFormat('l') }}
             </strong>
         </div>
-        @else
+    @else
         <div class="p-1 bg-secondary-subtle d-flex justify-content-between">
             <strong>
                 {{ \Carbon\Carbon::parse($date)->translatedFormat('d F Y') }}

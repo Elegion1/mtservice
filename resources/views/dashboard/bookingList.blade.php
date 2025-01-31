@@ -30,9 +30,11 @@
 
     <div id="dayGroup">
         <h2 id="dayTitle" class="text-center my-1 text-uppercase"></h2>
-        @foreach ($groupedByDay as $date => $dayBookings)
-            <x-dayBookingsShow :dayBookings="$dayBookings" :date="$date" :dayGroup="'true'" />
-        @endforeach
+        <div class="overflow-auto overflow-x-hidden" style="height: 55vh;">
+            @foreach ($groupedByDay as $date => $dayBookings)
+                <x-dayBookingsShow :dayBookings="$dayBookings" :date="$date" :dayGroup="'true'" />
+            @endforeach
+        </div>
     </div>
 
     <div id="monthGroup" class="d-none">
@@ -41,10 +43,11 @@
                 <h2 class="text-center my-1">
                     {{ strtoupper(\Carbon\Carbon::parse($month . '-01')->translatedFormat('F Y')) }}
                 </h2>
-
-                @foreach ($dayBookingsInMonth as $date => $dayBookings)
-                    <x-dayBookingsShow :dayBookings="$dayBookings" :date="$date" />
-                @endforeach
+                <div class="overflow-auto overflow-x-hidden" style="height: 55vh;">
+                    @foreach ($dayBookingsInMonth as $date => $dayBookings)
+                        <x-dayBookingsShow :dayBookings="$dayBookings" :date="$date" />
+                    @endforeach
+                </div>
             </div>
         @endforeach
     </div>
