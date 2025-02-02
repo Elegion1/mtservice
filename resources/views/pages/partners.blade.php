@@ -2,16 +2,16 @@
     <div id="partners" class="container bg-white rounded mt-5 mt-md-3">
         <div class="container p-3">
             <x-show-content :pagine="$pagine" />
-            <div class="d-flex justify-content-center align-items-end flex-wrap">
+            <div class="row d-flex justify-content-center align-items-end">
                 @foreach ($partners as $partner)
-                    <a class="text-decoration-none text-black m-3" target="_blank" href="{{ $partner->link }}">
+                    <a class="col-3 text-decoration-none text-black m-3" target="_blank" href="{{ $partner->link }}">
                         <div class="d-flex flex-column justify-content-center align-items-center">
                             @if ($partner->images->count() > 0)
-                                <img class="shadow rounded" width="200px"
+                                <img class="shadow rounded" style="width: 200px; height: 200px; object-fit: cover;"
                                     src="{{ Storage::url($partner->images->first()->path) }}"
                                     alt="{{ $partner->name }}img">
                             @else
-                                <img class="shadow rounded" width="200px"
+                                <img class="shadow rounded" style="width: 200px; height: 200px; object-fit: cover;"
                                     src="https://picsum.photos/{{ $partner->id }}00/{{ $partner->id + 150 }}"
                                     alt="">
                             @endif
