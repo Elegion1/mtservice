@@ -88,7 +88,7 @@ class PublicController extends Controller
 
     public function partners()
     {
-        $partners = Partner::paginate(10);
+        $partners = Partner::paginate(9);
         $data = $this->getPageData('partners', ['partners' => $partners]);
         return view('pages.partners', $data);
     }
