@@ -15,30 +15,49 @@
             <div class="container bg-white rounded p-3">
                 <x-show-content :pagine="$pagine" />
             </div>
-            <div class="container-fluid bg-white p-1">
-                @foreach ($tratte as $tratta)
-                    <div class="container text-start text-wrap">
-                        <div class="row">
-                            <div class="col-3 d-flex justify-content-end align-items-center">
-                                <button class="btn btn-sm bg-a text-white" data-tratta-id="{{ $tratta->id }}"
-                                    data-departure="{{ $tratta->departure->id }}"
-                                    data-arrival="{{ $tratta->arrival->id }}" onclick="selezionaTratta(this)">
-                                    {{ __('ui.select') }}
+            <div class="container bg-white p-3">
+
+                @php
+                    $tratteByDeparture = $tratte->groupBy('departure.name');
+                @endphp
+
+                <div class="accordion" id="tratteAccordion">
+                    @foreach ($tratteByDeparture as $departure => $tratte)
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading{{ Str::slug($departure) }}">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse{{ Str::slug($departure) }}" aria-expanded="false"
+                                    aria-controls="collapse{{ Str::slug($departure) }}">
+                                    {{ __('ui.from') }} {{ $departure }}
                                 </button>
-                            </div>
-                            <div class="col-9">
-                                <p class="h6">{{ __('ui.from') }}
-                                    <span class="text_col">{{ $tratta->departure->name }}</span>
-                                    <br class="d-block d-md-none">
-                                    {{ __('ui.to') }}
-                                    <span class="text_col">{{ $tratta->arrival->name }}</span>
-                                </p>
-                                <p>{{ __('ui.priceStartingFrom') }} <span class="text-d">€ {{ $tratta->price }}
-                                    </span>{{ __('ui.perPerson') }}</p>
+                            </h2>
+                            <div id="collapse{{ Str::slug($departure) }}" class="accordion-collapse collapse"
+                                aria-labelledby="heading{{ Str::slug($departure) }}" data-bs-parent="#tratteAccordion">
+                                <div class="accordion-body">
+                                    @foreach ($tratte as $tratta)
+                                        <div
+                                            class="d-flex justify-content-between align-items-center border-bottom py-2">
+                                            <p class="m-0">
+                                                {{ __('ui.to') }} <span
+                                                    class="fw-bold">{{ $tratta->arrival->name }}</span> <br>
+                                                {{ __('ui.from') }}
+                                                <span class="text-d">€ {{ $tratta->price }}</span>
+                                                {{ __('ui.perPerson') }}
+                                            </p>
+                                            <button class="btn btn-sm bg-a text-white"
+                                                data-tratta-id="{{ $tratta->id }}"
+                                                data-departure="{{ $tratta->departure->id }}"
+                                                data-arrival="{{ $tratta->arrival->id }}"
+                                                onclick="selezionaTratta(this)">
+                                                {{ __('ui.select') }}
+                                            </button>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                </div>
             </div>
 
         </div>
@@ -99,7 +118,7 @@
                         // Funzione per selezionare un'opzione
                         function selectOption(select, value) {
                             if (executionTimedOut)
-                        return; // Interrompi se il timeout globale è stato raggiunto
+                                return; // Interrompi se il timeout globale è stato raggiunto
 
                             let option = Array.from(select.options).find(opt => opt.value === value);
                             if (option) {
@@ -116,7 +135,7 @@
                         // Dopo un breve ritardo, seleziona l'arrivo
                         setTimeout(() => {
                             if (executionTimedOut)
-                        return; // Interrompi se il timeout globale è stato raggiunto
+                                return; // Interrompi se il timeout globale è stato raggiunto
 
                             selectOption(arrivalSelect, arrival);
                             // console.log('Partenza e arrivo selezionati:', departure, arrival);
