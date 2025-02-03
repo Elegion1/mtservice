@@ -3,7 +3,7 @@
     <h2 class="text-nowrap">Prenotazioni confermate</h2>
     <a class="btn btn-sm btn-secondary text-small" href="{{ route('booking.todo') }}">Da confermare
         @if ($pendingBookings->count() > 0)
-            <span class="p-2 rounded-circle text-white bg-warning">{{ $bookings->count() }}</span>
+            <span class="p-2 rounded-circle text-white bg-warning">{{ $pendingBookings->count() }}</span>
         @endif
     </a>
 
