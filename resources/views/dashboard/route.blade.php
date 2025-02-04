@@ -25,7 +25,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="mb-3 col-lg-4 col-2">
+            <div class="mb-3 col-lg-4 col-12">
                 <label for="distance" class="form-label">Distanza (km)</label>
                 <input type="number" class="form-control form_input_focused" id="distance" name="distance" required>
             </div>
