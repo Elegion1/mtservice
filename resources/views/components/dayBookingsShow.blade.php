@@ -135,6 +135,8 @@
         const status = booking.status || 'N/A';
         const payment_status = booking.payment_status || 'N/A';
         const id = booking.id || 'N/A';
+        const start_date = booking.start_date;
+        const end_date = booking.end_date;
 
 
         let modalInnerHTML = `
