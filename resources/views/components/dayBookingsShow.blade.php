@@ -177,7 +177,7 @@
         }
 
         modalInnerHTML +=
-       `<p>Prezzo: <span class="text-primary">${bookingData.price} €</span> | Acconto 30%: <span class="text-primary">${bookingData.price * 0.3} €</span></p>
+       `<p>Prezzo: <span class="text-primary">${bookingData.price} €</span> | Acconto 30%: <span class="text-primary">${(bookingData.price * 0.3).toFixed(2)} €</span></p>
         <p>Pagamento: <span class="text-primary">${paymentStatus}</span></p>`;
 
         let newPaymentStatus;
