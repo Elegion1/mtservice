@@ -2,7 +2,7 @@
 return [
     'it' => 'italiano',
     'en' => 'english',
-    
+
     'date_format' => 'd/m/Y H:i',
     // HOME
     'title1' => 'Most Frequent Routes',
@@ -19,7 +19,7 @@ return [
 
     //Livewire
     //transfer
-    
+
     'transferTitle' => 'Book Transfer',
     'selectDeparture' => 'Select Departure',
     'selectDestination' => 'Select Destination',
@@ -172,7 +172,7 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
     'phone_required' => 'The phone number is required',
     'body_required' => 'This field is required',
     'privacy_policy_accepted' => 'Accept policies to proceed',
-    
+
 
     'dateStart_required' => 'The pickup date is required',
     'timeStart_required' => 'The pickup time is required',
@@ -219,9 +219,23 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
 
     'contactMailMessage' => 'The message was sent successfully',
 
+
+    'mailDepositMessage' => 'We remind you that a payment of 30% of the total price is required to finalize the booking.',
+
+    'paymentAmountMessage' => 'Make a payment of :amount € at this link:  
+        <a target="_blank" href="https://revolut.me/atranchida">revolut.me/atranchida</a>  
+        <br/>  
+        Enter the booking code <strong> :code </strong> and your name and surname in the notes field.',
+
+    'paymentStatus' => 'Payment status',
+    'paypaid' => '<strong class="text-success">Paid</strong>',
+    'paypending' => '<strong class="text-warning">Not yet received</strong>',
+    'paydeposit_paid' => '<strong class="text-primary">Deposit paid</strong>',
+
+
     'other' => 'other',
 
-      'excursionNotes' => '<p><strong>Excursion Details:</strong></p>
+    'excursionNotes' => '<p><strong>Excursion Details:</strong></p>
       <ul>
           <li><strong>Duration:</strong> About :duration hours.</li>
           <li><strong>Price:</strong> Includes up to 3 participants. Additional participants, see booking form prices.</li>

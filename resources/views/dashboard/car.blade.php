@@ -1,9 +1,11 @@
 <x-dashboard-layout>
 
     <h1>Gestione Auto</h1>
-    <button id="carCreateBtn" class="btn btn-success">Crea Auto</button>
-    <button id="periodCreateBtn" class="btn btn-primary">Crea Periodo</button>
-    <button id="carPriceAssociateBtn" class="btn btn-info">Associa Periodo</button>
+    <div class="d-flex justify-content-around align-items-center">
+        <button id="carCreateBtn" class="btn btn-sm btn-success">Crea Auto</button>
+        <button id="periodCreateBtn" class="btn btn-sm btn-primary">Crea Periodo</button>
+        <button id="carPriceAssociateBtn" class="btn btn-sm btn-info">Associa Periodo</button>
+    </div>
 
     <form action="{{ route('cars.store') }}" method="POST" class="d-none mt-3" id="carFormCreate"
         enctype="multipart/form-data">
@@ -43,12 +45,12 @@
         enctype="multipart/form-data">
         @csrf
         <div class="row mb-2 ">
-            <div class="col-4">
+            <div class="col-6">
                 <label for="start" class="form-label">Data di inizio</label>
                 <input type="datetime-local" class="form-control" id="start" name="start"
                     placeholder="Inizio periodo">
             </div>
-            <div class="col-4">
+            <div class="col-6">
                 <label for="end" class="form-label">Data di inizio</label>
                 <input type="datetime-local" class="form-control" id="end" name="end"
                     placeholder="Fine periodo">
@@ -61,7 +63,7 @@
         enctype="multipart/form-data">
         @csrf
         <div class="row mb-3">
-            <div class="col-3">
+            <div class="col-12 col-md-4">
                 <label for="car_id" class="form-label">Auto</label>
                 <select name="car_id" id="car_id" class="form-control">
                     <option value="" selected>Seleziona auto</option>
@@ -73,22 +75,20 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-9 d-flex">
-                <div>
-                    <label for="timeperiods" class="form-label">Periodi</label>
-                    <select name="time_period_id" id="timeperiods" class="form-control">
-                        @foreach ($timePeriods as $period)
-                            <option value="{{ $period->id }}">
-                                Da: {{ \Carbon\Carbon::parse($period->start)->format('d/m/Y H:i') }} a:
-                                {{ \Carbon\Carbon::parse($period->end)->format('d/m/Y H:i') }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="ms-3">
-                    <label for="price" class="form-label">Prezzo</label>
-                    <input type="number" class="form-control" id="price" name="price" placeholder="Prezzo">
-                </div>
+            <div class="col-12 col-md-5">
+                <label for="timeperiods" class="form-label">Periodi</label>
+                <select name="time_period_id" id="timeperiods" class="form-control">
+                    @foreach ($timePeriods as $period)
+                        <option value="{{ $period->id }}">
+                            Da: {{ \Carbon\Carbon::parse($period->start)->format('d/m/Y H:i') }} a:
+                            {{ \Carbon\Carbon::parse($period->end)->format('d/m/Y H:i') }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-12 col-md-3">
+                <label for="price" class="form-label">Prezzo</label>
+                <input type="number" class="form-control" id="price" name="price" placeholder="Prezzo">
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Associa Periodo</button>
@@ -97,39 +97,68 @@
     <hr>
 
     <h2>Tutte le Auto</h2>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Nome</th>
-                <th>Descrizione</th>
-                <th>Immagine</th>
-                <th>Prezzo</th>
-                <th>Mostra</th>
-                <th>Azione</th>
-            </tr>
-        </thead>
-        <tbody>
+    @if (request()->header('User-Agent') && preg_match('/Mobile|Android|iPhone/i', request()->header('User-Agent')))
+        <div class="overflow-y-auto border-bottom rounded" style="height: 65vh">
             @foreach ($cars as $car)
-                <tr>
-                    <td>{{ $car->id }}</td>
-                    <td>{{ $car->name }}</td>
-                    <td>{{ $car->description }}</td>
-                    <td>
-                        @foreach ($car->images as $image)
-                            <img src="{{ Storage::url($image->path) }}" alt="{{ $car->name }}" width="50px">
-                        @endforeach
-                    </td>
-                    <td>{{ $car->price }} €</td>
-                    <td>{{ $car->show ? 'Si' : 'No' }}</td>
-                    <td>
-                        <x-edit-button :id="'Car'" :data="$car" />
-                        <x-delete-button :route="'cars'" :model="$car" />
-                    </td>
-                </tr>
+                <div class="card shadow-sm mb-3 overflow-hidden">
+                    <div class="card-body row">
+                        <div class="col-6">
+                            <h5 class="card-title">{{ $car->name }}</h5>
+                            <p class="card-text">{{ $car->description }}</p>
+                            <p class="card-text">Prezzo: {{ $car->price }} €</p>
+                            <p class="card-text">Mostra: {{ $car->show ? 'Si' : 'No' }}</p>
+                        </div>
+                        <div class="col-6 d-flex justify-content-center align-items-center">
+                            @foreach ($car->images as $image)
+                                <img src="{{ Storage::url($image->path) }}" alt="{{ $car->name }}"
+                                    width="200px">
+                            @endforeach
+                        </div>
+                        <div class="d-flex justify-content-end">
+
+                            <x-edit-button :id="'Car'" :data="$car" />
+                            <x-delete-button :route="'cars'" :model="$car" />
+                        </div>
+                    </div>
+                </div>
             @endforeach
-        </tbody>
-    </table>
+        </div>
+    @else
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Descrizione</th>
+                    <th>Immagine</th>
+                    <th>Prezzo</th>
+                    <th>Mostra</th>
+                    <th>Azione</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($cars as $car)
+                    <tr>
+                        <td>{{ $car->id }}</td>
+                        <td>{{ $car->name }}</td>
+                        <td>{{ $car->description }}</td>
+                        <td>
+                            @foreach ($car->images as $image)
+                                <img src="{{ Storage::url($image->path) }}" alt="{{ $car->name }}"
+                                    width="50px">
+                            @endforeach
+                        </td>
+                        <td>{{ $car->price }} €</td>
+                        <td>{{ $car->show ? 'Si' : 'No' }}</td>
+                        <td>
+                            <x-edit-button :id="'Car'" :data="$car" />
+                            <x-delete-button :route="'cars'" :model="$car" />
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
 
     <hr>
 
@@ -179,53 +208,90 @@
     @php
         $groupedCarPrices = $carPrices->groupBy('time_period_id');
     @endphp
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Inizio</th>
-                <th>Fine</th>
-                <th>Auto</th>
-                <th>Prezzo</th>
-                <th>CarPrice</th>
-                <th>Periodo</th>
-            </tr>
-        </thead>
-        <tbody>
+    @if (request()->header('User-Agent') && preg_match('/Mobile|Android|iPhone/i', request()->header('User-Agent')))
+        <div class="row">
             @foreach ($groupedCarPrices as $timePeriodId => $group)
-                <tr>
-                    <td>{{ $group->first()->id }}</td>
-                    <td>{{ $group->first()->timePeriod->start }}</td>
-                    <td>{{ $group->first()->timePeriod->end }}</td>
-                    <td>
-                        @foreach ($group as $carPrice)
-                            {{ $carPrice->car->name }} <br>
-                        @endforeach
-                    </td>
-                    <td>
-                        @foreach ($group as $carPrice)
-                            {{ $carPrice->price }} € <br>
-                        @endforeach
-                    </td>
-                    <td>
-                        @foreach ($group as $carPrice)
-                            <div class=" mb-1">
-                                <x-edit-button :id="'CarPrice'" :data="$carPrice" />
-                                <x-delete-button :route="'carprices'" :model="$carPrice" /> <br>
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <p class="card-title">Periodo: <br>
+                                Da
+                                {{ \Carbon\Carbon::parse($group->first()->timePeriod->start)->translatedFormat('d F Y H:i') }}
+                                <br>
+                                a
+                                {{ \Carbon\Carbon::parse($group->first()->timePeriod->end)->translatedFormat('d F Y H:i') }}
+                            </p>
+
+                            @foreach ($group as $carPrice)
+                                <div class="d-flex justify-content-between align-items-center">
+
+                                    <p class="mb-1">{{ $carPrice->car->name }}</p>
+
+                                    <div class="d-flex justify-content-between align-items-center ">
+                                        <span class="me-3">{{ $carPrice->price }} €</span>
+                                        <x-edit-button :id="'CarPrice'" :data="$carPrice" :label="true" />
+                                        <x-delete-button :route="'carprices'" :model="$carPrice" :label="true" />
+                                    </div>
+                                </div>
+                            @endforeach
+
+                            <div class="d-flex justify-content-between mt-2">
+                                <div>
+                                    <x-edit-button :id="'TimePeriod'" :data="$group->first()->timePeriod" />
+                                    <x-delete-button :route="'timeperiods'" :model="$group->first()->timePeriod" />
+                                </div>
                             </div>
-                        @endforeach
-                    </td>
-                    <td>
-                        <x-edit-button :id="'TimePeriod'" :data="$group->first()->timePeriod" />
-                        <x-delete-button :route="'timeperiods'" :model="$group->first()->timePeriod" />
-                    </td>
-                </tr>
+                        </div>
+                    </div>
+                </div>
             @endforeach
-        </tbody>
-    </table>
-
-
+        </div>
+    @else
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Inizio</th>
+                    <th>Fine</th>
+                    <th>Auto</th>
+                    <th>Prezzo</th>
+                    <th>CarPrice</th>
+                    <th>Periodo</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($groupedCarPrices as $timePeriodId => $group)
+                    <tr>
+                        <td>{{ $group->first()->id }}</td>
+                        <td>{{ $group->first()->timePeriod->start }}</td>
+                        <td>{{ $group->first()->timePeriod->end }}</td>
+                        <td>
+                            @foreach ($group as $carPrice)
+                                {{ $carPrice->car->name }} <br>
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach ($group as $carPrice)
+                                {{ $carPrice->price }} € <br>
+                            @endforeach
+                        </td>
+                        <td>
+                            @foreach ($group as $carPrice)
+                                <div class=" mb-1">
+                                    <x-edit-button :id="'CarPrice'" :data="$carPrice" />
+                                    <x-delete-button :route="'carprices'" :model="$carPrice" /> <br>
+                                </div>
+                            @endforeach
+                        </td>
+                        <td>
+                            <x-edit-button :id="'TimePeriod'" :data="$group->first()->timePeriod" />
+                            <x-delete-button :route="'timeperiods'" :model="$group->first()->timePeriod" />
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
     <!-- Modale per Modifica Auto -->
     <x-modal :id="'Car'" :title="'Modifica auto'">
 

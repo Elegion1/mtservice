@@ -22,6 +22,7 @@ class Booking extends Model
         'phone',
         'body',
         'status',
+        'payment_status',
         'code',
         'locale',
         'service_date',

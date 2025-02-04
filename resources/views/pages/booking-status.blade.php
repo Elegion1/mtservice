@@ -28,7 +28,6 @@
         @else
             <div class="container">
                 <x-booking-show :booking="$booking" :bookingData="$booking->bookingData" />
-
             </div>
         @endif
 

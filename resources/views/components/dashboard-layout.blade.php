@@ -15,7 +15,7 @@
 
 <body>
     @auth
-        <nav class="navbar navbar-expand-lg navbar-dashboard shadow z-3 d-flex flex-column mb-3">
+        <nav class="navbar navbar-expand-lg navbar-dashboard z-3 d-flex flex-column mb-1 border-bottom">
             <div class="container">
                 <a class="btn btn-primary" href="{{ route('dashboard') }}">Home Dashboard</a>
                 <p class="small">Benvenuto: {{ Auth::user()->name }}</p>

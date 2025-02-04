@@ -97,6 +97,18 @@ return [
     'originalPrice' => 'Prezzo originale',
     'seatBoosterMsg' => 'Siamo dotati di seggiolini e alzatine per trasporto bimbi da 1 mese a 10 anni. Aggiungi la tua richiesta durante la prenotazione.',
 
+    'mailDepositMessage' => 'Ti ricordiamo che è richiesto un pagamento del 30% del prezzo totale per finalizzare la prenotazione',
+    'paymentAmountMessage' => 'Effettua un pagamento di :amount € a questo link: 
+    <a target="_blank" href="https://revolut.me/atranchida">revolut.me/atranchida</a>
+    <br/>
+    Inserisci il codice della prenotazione <strong> :code </strong> e il tuo nome e cognome nel campo note.
+    ',
+
+    'paymentStatus' => 'Stato pagamento',
+    'paypaid' => '<strong class="text-success">Pagato</strong>',
+    'paypending' => '<strong class="text-warning">Non ancora ricevuto</strong>',
+    'paydeposit_paid' => '<strong class="text-primary">Acconto pagato</strong>',
+
     //contact-link
     'contactLinkTitle' => 'Per <strong class="text-d">info</strong> o <strong class="text-d">servizi</strong> personalizzati',
     'contactLinkBtn' => 'contattaci',

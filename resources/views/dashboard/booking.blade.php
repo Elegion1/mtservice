@@ -43,15 +43,9 @@
                     </td>
                     <td>{{ ucfirst($booking->bookingData['type']) }}</td>
                     <td>{{ $booking->bookingData['price'] }} €</td>
-                    <td>{{ $booking->created_at }} </td>
+                    <td>{{ $booking->created_at }}</td>
                     <td>
-                        @if ($booking->status == 'confirmed')
-                            <i class="bi bi-check-circle-fill text-success"></i>
-                        @elseif ($booking->status == 'pending')
-                            <i class="bi bi-exclamation-circle-fill text-warning"></i>
-                        @elseif ($booking->status == 'rejected')
-                            <i class="bi bi-x-circle-fill text-danger"></i>
-                        @endif
+                        <x-status :status="$booking->status" />
                     </td>
                     <td class="action-column" style="display: none;">
 

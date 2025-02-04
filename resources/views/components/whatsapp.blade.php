@@ -5,7 +5,7 @@
         </button>
         <div class="contact-options">
             @if ($ownerdata->phone2)
-                <a href="tel:{{ $ownerdata->phone2 }}" class="contact-option call1 shadow text-black">
+                <a href="tel:{{ $ownerdata->phone2 }}" class="contact-option call2 shadow text-black">
                     <i class="bi bi-telephone"></i>
                 </a>
             @endif

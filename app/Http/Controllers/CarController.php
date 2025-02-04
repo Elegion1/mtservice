@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
-use App\Models\CarPrice;
 use App\Models\Image;
+use App\Models\CarPrice;
 use App\Models\TimePeriod;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Storage;
 
 class CarController extends Controller
@@ -16,6 +17,7 @@ class CarController extends Controller
      */
     public function create()
     {
+        App::setlocale('it');
         $cars = Car::all();
         $carPrices = CarPrice::with('timePeriod')->get();
         $timePeriods = TimePeriod::all();

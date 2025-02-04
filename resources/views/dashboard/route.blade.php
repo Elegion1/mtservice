@@ -25,9 +25,13 @@
                     @endforeach
                 </select>
             </div>
-            <div class="mb-3 col-lg-4 col-12">
+            <div class="mb-3 col-lg-4 col-2">
                 <label for="distance" class="form-label">Distanza (km)</label>
                 <input type="number" class="form-control form_input_focused" id="distance" name="distance" required>
+            </div>
+            <div class="mb-3 col-lg-4 col-12">
+                <label for="duration" class="form-label">Tempo di Percorrenza (Minuti)</label>
+                <input type="number" class="form-control form_input_focused" id="duration" name="duration" required>
             </div>
             <div class="mb-3 col-lg-4 col-12">
                 <label for="price" class="form-label">Prezzo (€)</label>
@@ -38,10 +42,7 @@
                 <input type="number" class="form-control form_input_focused" id="price_increment"
                     name="price_increment">
             </div>
-            <div class="mb-3 col-lg-4 col-12">
-                <label for="duration" class="form-label">Tempo di Percorrenza (Minuti)</label>
-                <input type="number" class="form-control form_input_focused" id="duration" name="duration" required>
-            </div>
+           
         </div>
         <button type="submit" class="btn btn-primary">Aggiungi tratta</button>
     </form>
@@ -49,39 +50,62 @@
     <hr>
 
     <h2>Tutte le Tratte</h2>
-    <table class="table table-sm table-striped">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Partenza</th>
-                <th>Arrivo</th>
-                <th>Distanza</th>
-                <th>Prezzo</th>
-                <th>Incremento di prezzo</th>
-                <th>Tempo di Percorrenza</th>
-                <th>Mostra</th>
-                <th>Azioni</th>
-            </tr>
-        </thead>
-        <tbody>
+    @if (request()->header('User-Agent') && preg_match('/Mobile|Android|iPhone/i', request()->header('User-Agent')))
+        <div class="overflow-y-auto border-bottom rounded" style="height: 65vh">
             @foreach ($routes as $route)
-                <tr>
-                    <td>{{ $route->id }}</td>
-                    <td>{{ $route->departure->name }}</td>
-                    <td>{{ $route->arrival->name }}</td>
-                    <td>{{ $route->distance }} km</td>
-                    <td>{{ $route->price }} €</td>
-                    <td>{{ $route->price_increment }} €</td>
-                    <td>{{ $route->duration }} Min</td>
-                    <td>{{ $route->show ? 'Si' : 'No' }}</td>
-                    <td>
-                        <x-edit-button :id="'Route'" :data="$route" />
-                        <x-delete-button :route="'routes'" :model="$route" />
-                    </td>
-                </tr>
+                <div class="mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <p class="card-text">{{ $route->departure->name }} ➝ {{ $route->arrival->name }}</p>
+                            <p class="card-text">Distanza: {{ $route->distance }} km</p>
+                            <p class="card-text">Prezzo: {{ $route->price }} €</p>
+                            <p class="card-text">Incremento per passeggero: {{ $route->price_increment }} €</p>
+                            <p class="card-text">Tempo di percorrenza: {{ $route->duration }} min</p>
+                            <p class="card-text">Mostra: {{ $route->show ? 'Si' : 'No' }}</p>
+                            <div class="d-flex justify-content-end">
+                                <x-edit-button :id="'Route'" :data="$route" />
+                                <x-delete-button :route="'routes'" :model="$route" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @endforeach
-        </tbody>
-    </table>
+        </div>
+    @else
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Partenza</th>
+                    <th>Arrivo</th>
+                    <th>Distanza</th>
+                    <th>Prezzo</th>
+                    <th>Incremento di prezzo</th>
+                    <th>Tempo di Percorrenza</th>
+                    <th>Mostra</th>
+                    <th>Azioni</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($routes as $route)
+                    <tr>
+                        <td>{{ $route->id }}</td>
+                        <td>{{ $route->departure->name }}</td>
+                        <td>{{ $route->arrival->name }}</td>
+                        <td>{{ $route->distance }} km</td>
+                        <td>{{ $route->price }} €</td>
+                        <td>{{ $route->price_increment }} €</td>
+                        <td>{{ $route->duration }} Min</td>
+                        <td>{{ $route->show ? 'Si' : 'No' }}</td>
+                        <td>
+                            <x-edit-button :id="'Route'" :data="$route" />
+                            <x-delete-button :route="'routes'" :model="$route" />
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
 
 
     <!-- Modale per Modifica Rotta -->
@@ -108,7 +132,8 @@
         </div>
         <div class="mb-3">
             <label for="edit_duration" class="form-label">Tempo di Percorrenza (Minuti)</label>
-            <input type="text" class="form-control form_input_focused" id="edit_duration" name="duration" required>
+            <input type="text" class="form-control form_input_focused" id="edit_duration" name="duration"
+                required>
         </div>
     </x-modal>
 

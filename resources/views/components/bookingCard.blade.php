@@ -2,20 +2,23 @@
     <div class="card-body">
         <button class="btn btn-sm open-details-modal text-start m-0 p-0" data-bs-toggle="modal"
             data-bs-target="#bookingDetailsModal" data-booking-data="{{ json_encode($booking) }}">
-            <h5 class="card-title text-capitalize">{{ $booking->bookingData['type'] }}
+            <p class="h6 card-text text-capitalize">{{ $booking->bookingData['type'] }}
                 <i class="bi bi-info-circle text-primary"></i>
-                @if ($booking->status == 'confirmed')
-                    <i class="bi bi-check-circle-fill text-success"></i>
-                @elseif ($booking->status == 'pending')
-                    <i class="bi bi-exclamation-circle-fill text-warning"></i>
-                @elseif ($booking->status == 'rejected')
-                    <i class="bi bi-x-circle-fill text-danger"></i>
-                @endif
+                <x-status :status="$booking->status" /><br>
                 {{ $booking->name }}, {{ $booking->surname }}
+            </p>
         </button>
-        </h5>
-        <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
-        <p class="card-text">
+        <p class="mb-0">
+            Pagamento: @if ($booking->payment_status == 'pending')
+                In attesa
+            @elseif ($booking->payment_status == 'deposit_paid')
+                Acconto pagato
+            @elseif ($booking->payment_status == 'paid')
+                Pagato
+            @endif
+        </p>
+        <p class="card-text ">
+
             @if ($booking->bookingData['type'] == 'transfer')
                 {{ \Carbon\Carbon::parse($booking->bookingData['date_dep'])->translatedFormat('d/m/Y H:i') }}
                 <br>
@@ -39,13 +42,15 @@
                 {{ $booking->bookingData['car_name'] }}
             @endif
             <br>
-            {{ $booking->body }}
+            Note: {{ $booking->body }}
         </p>
-        <div class="d-flex justify-content-between align-items-center flex-wrap">
-            <div class="d-flex flex-column align-items-center justify-content-start">
-                <a href="mailto:{{ $booking->email }}" class="card-link text-small">{{ $booking->email }}</a>
+
+        <div class="d-flex justify-content-between align-items-center">
+
+            <div class="d-flex flex-column align-items-start justify-content-center">
                 <a href="tel:{{ $booking->dial_code }}{{ $booking->phone }}"
-                    class="card-link text-small">{{$booking->dial_code}} {{ $booking->phone }}</a>
+                    class="text-small">{{ $booking->dial_code }} {{ $booking->phone }}</a>
+                <a href="mailto:{{ $booking->email }}" class="text-small">{{ $booking->email }}</a>
             </div>
 
             <span class="d-flex justify-content-center align-items-center">
@@ -55,7 +60,7 @@
                         @csrf
                         <input type="hidden" name="status" value="confirmed">
                         <button title="Accetta prenotazione" type="submit" class="btn btn-sm">
-                            <i class="bi bi-check-circle-fill text-success fs-2"></i>
+                            <i class="bi bi-check-circle-fill text-success fs-1"></i>
                         </button>
                     </form>
                 @endif
@@ -66,7 +71,7 @@
                         @csrf
                         <input type="hidden" name="status" value="rejected">
                         <button title="Rifiuta prenotazione" type="submit" class="btn btn-sm">
-                            <i class="bi bi-x-circle-fill text-danger fs-2"></i>
+                            <i class="bi bi-x-circle-fill text-danger fs-1"></i>
                         </button>
                     </form>
                 @endif
@@ -77,20 +82,12 @@
                         @csrf
                         <input type="hidden" name="status" value="pending">
                         <button title="Sposta in lavorazione" type="submit" class="btn btn-sm">
-                            <i class="bi bi-exclamation-circle-fill text-warning fs-2"></i>
+                            <i class="bi bi-exclamation-circle-fill text-warning fs-1"></i>
                         </button>
                     </form>
                 @endif
-
-                {{-- <form action="{{ route('bookings.destroy', $booking) }}" method="POST"
-                    style="display:inline-block;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn text-danger btn-sm">
-                        <i class="bi bi-trash3-fill"></i>
-                    </button>
-                </form> --}}
             </span>
+
         </div>
     </div>
 </div>

@@ -5,7 +5,6 @@
     @if (isset($label))
         <button type="button" class="btn text-danger btn-sm"
             onclick="confirmDelete('{{ $model->id }}', '{{ $route }}')">
-            {{ $label }}
             <i class="bi bi-trash3-fill"></i>
         </button>
     @else

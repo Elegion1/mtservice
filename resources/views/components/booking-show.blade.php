@@ -3,6 +3,7 @@
         <div class="col-md-6 col-12">
             @if (isset($booking->status))
                 <p>{{ __('ui.status') }}: {!! __('ui.' . $booking->status) !!}</p>
+                <p>{{__('ui.paymentStatus')}}: {!! __('ui.pay' . $booking->payment_status)!!}</p>
             @endif
             <p>{{ __('ui.bookingID') }}: {{ $booking->code }}</p>
             <p>{{ __('ui.name') }}: {{ $booking->name }} {{ $booking->surname }}</p>

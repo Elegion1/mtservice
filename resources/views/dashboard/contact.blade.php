@@ -1,49 +1,74 @@
 <x-dashboard-layout>
 
     <h1>Gestione Messaggi</h1>
-    {{-- <div class="d-flex mb-3">
-            <button id="mark-all-read" class="btn btn-success me-2">Segna tutti come letti</button>
-            <button id="mark-all-unread" class="btn btn-warning">Segna tutti come non letti</button>
-        </div> --}}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Nome</th>
-                <th>Cognome</th>
-                <th>Email</th>
-                <th>Telefono</th>
-                <th>Messaggio</th>
-                <th>Letto</th>
-                <th>Data di Aggiunta</th>
-                <th>Azione</th>
-            </tr>
-        </thead>
-        <tbody>
+    @if (request()->header('User-Agent') && preg_match('/Mobile|Android|iPhone/i', request()->header('User-Agent')))
+        {{-- Vista Mobile (Card) --}}
+        <div class="overflow-y-auto border-bottom rounded" style="height: 80vh">
             @foreach ($contacts as $contact)
-                <tr>
-                    <td>{{ $contact->id }}</td>
-                    <td>{{ $contact->nome }}</td>
-                    <td>{{ $contact->cognome }}</td>
-                    <td><a href="mailto:{{ $contact->email }}">{{ $contact->email }}</a></td>
-                    <td><a href="tel:{{ $contact->telefono }}">{{ $contact->telefono }}</a></td>
-                    <td>{{ $contact->messaggio }}</td>
-                    <td class="fs-5 text-primary">
-                        <button class="btn btn-link p-0 m-0 align-baseline text-primary"
-                            onclick="toggleReadStatus({{ $contact->id }})">
-                            <i class="bi {{ $contact->read ? 'bi-eye' : 'bi-eye-slash' }}"></i>
-                        </button>
-                    </td>
-                    <td>{{ $contact->created_at }}</td>
-                    <td>
-                        <x-delete-button :route="'contacts'" :model="$contact" />
-                    </td>
-                </tr>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <p><strong>Nome:</strong> {{ $contact->nome }} {{ $contact->cognome }}</p>
+                        <p><strong>Email:</strong> <a href="mailto:{{ $contact->email }}">{{ $contact->email }}</a></p>
+                        <p><strong>Telefono:</strong> <a href="tel:{{ $contact->telefono }}">{{ $contact->telefono }}</a>
+                        </p>
+                        <p><strong>Messaggio:</strong> {{ $contact->messaggio }}</p>
+                        <p><strong>Letto:</strong>
+                            <button class="btn btn-link p-0 m-0 align-baseline text-primary"
+                                onclick="toggleReadStatus({{ $contact->id }})">
+                                <i class="bi {{ $contact->read ? 'bi-eye' : 'bi-eye-slash' }}"></i>
+                            </button>
+                        </p>
+                        <p><strong>Data di Aggiunta:</strong> {{ $contact->created_at }}</p>
+                        <div class="d-flex justify-content-end">
+                            <x-delete-button :route="'contacts'" :model="$contact" />
+                        </div>
+                    </div>
+                </div>
             @endforeach
-        </tbody>
-    </table>
-
+        </div>
+    @else
+        {{-- Vista Desktop (Tabella) --}}
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                        <th>Email</th>
+                        <th>Telefono</th>
+                        <th>Messaggio</th>
+                        <th>Letto</th>
+                        <th>Data di Aggiunta</th>
+                        <th>Azione</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($contacts as $contact)
+                        <tr>
+                            <td>{{ $contact->id }}</td>
+                            <td>{{ $contact->nome }}</td>
+                            <td>{{ $contact->cognome }}</td>
+                            <td><a href="mailto:{{ $contact->email }}">{{ $contact->email }}</a></td>
+                            <td><a href="tel:{{ $contact->telefono }}">{{ $contact->telefono }}</a></td>
+                            <td>{{ $contact->messaggio }}</td>
+                            <td class="fs-5 text-primary">
+                                <button class="btn btn-link p-0 m-0 align-baseline text-primary"
+                                    onclick="toggleReadStatus({{ $contact->id }})">
+                                    <i class="bi {{ $contact->read ? 'bi-eye' : 'bi-eye-slash' }}"></i>
+                                </button>
+                            </td>
+                            <td>{{ $contact->created_at }}</td>
+                            <td>
+                                <x-delete-button :route="'contacts'" :model="$contact" />
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    @endif
 
     <script>
         function toggleReadStatus(contactId) {
@@ -80,4 +105,5 @@
                 .catch(error => console.error('Errore:', error));
         }
     </script>
+
 </x-dashboard-layout>

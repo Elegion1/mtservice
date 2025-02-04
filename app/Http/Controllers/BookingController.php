@@ -67,70 +67,110 @@ class BookingController extends Controller
         // Collezione per le prenotazioni elaborate
         $processedBookings = collect();
 
+        // foreach ($bookings as $booking) {
+        //     $bookingData = $booking->bookingData; // Ottieni i dati della prenotazione
+        //     if ($booking->status == 'confirmed') {
+        //         if ($bookingData['type'] == 'transfer' || $bookingData['type'] == 'escursione') {
+        //             $processedBookings->push((object) [
+        //                 'id' => $booking->id,
+        //                 'status' => $booking->status,
+        //                 'code' => $booking->code,
+        //                 'name' => $booking->name,
+        //                 'surname' => $booking->surname,
+        //                 'email' => $booking->email,
+        //                 'phone' => $booking->phone,
+        //                 'body' => $booking->body,
+        //                 'bookingData' => $booking->bookingData,
+        //                 'start_date' => $bookingData['date_dep'],
+        //                 'end_date' => null, // non applicabile per il viaggio di partenza
+        //             ]);
+
+        //             if (isset($bookingData['date_ret'])) {
+        //                 $processedBookings->push((object) [
+        //                     'id' => $booking->id,
+        //                     'status' => $booking->status,
+        //                     'code' => $booking->code,
+        //                     'name' => $booking->name,
+        //                     'surname' => $booking->surname,
+        //                     'email' => $booking->email,
+        //                     'phone' => $booking->phone,
+        //                     'body' => $booking->body,
+        //                     'bookingData' => $booking->bookingData,
+        //                     'start_date' => null,
+        //                     'end_date' => $bookingData['date_ret'],
+        //                 ]);
+        //             }
+        //         } elseif ($bookingData['type'] == 'noleggio') {
+        //             $processedBookings->push((object) [
+        //                 'id' => $booking->id,
+        //                 'status' => $booking->status,
+        //                 'code' => $booking->code,
+        //                 'name' => $booking->name,
+        //                 'surname' => $booking->surname,
+        //                 'email' => $booking->email,
+        //                 'phone' => $booking->phone,
+        //                 'body' => $booking->body,
+        //                 'bookingData' => $booking->bookingData,
+        //                 'start_date' => $bookingData['date_start'],
+        //                 'end_date' => null,
+        //             ]);
+
+        //             if (isset($bookingData['date_end'])) {
+        //                 $processedBookings->push((object) [
+        //                     'id' => $booking->id,
+        //                     'status' => $booking->status,
+        //                     'code' => $booking->code,
+        //                     'name' => $booking->name,
+        //                     'surname' => $booking->surname,
+        //                     'email' => $booking->email,
+        //                     'phone' => $booking->phone,
+        //                     'body' => $booking->body,
+        //                     'bookingData' => $booking->bookingData,
+        //                     'start_date' => null,
+        //                     'end_date' => $bookingData['date_end'],
+        //                 ]);
+        //             }
+        //         }
+        //     }
+        // }
+
         foreach ($bookings as $booking) {
-            $bookingData = $booking->bookingData; // Ottieni i dati della prenotazione
-            if ($booking->status == 'confirmed') {
-                if ($bookingData['type'] == 'transfer' || $bookingData['type'] == 'escursione') {
-                    $processedBookings->push((object) [
-                        'id' => $booking->id,
-                        'status' => $booking->status,
-                        'code' => $booking->code,
-                        'name' => $booking->name,
-                        'surname' => $booking->surname,
-                        'email' => $booking->email,
-                        'phone' => $booking->phone,
-                        'body' => $booking->body,
-                        'bookingData' => $booking->bookingData,
-                        'start_date' => $bookingData['date_dep'],
-                        'end_date' => null, // non applicabile per il viaggio di partenza
-                    ]);
-
-                    if (isset($bookingData['date_ret'])) {
-                        $processedBookings->push((object) [
-                            'id' => $booking->id,
-                            'status' => $booking->status,
-                            'code' => $booking->code,
-                            'name' => $booking->name,
-                            'surname' => $booking->surname,
-                            'email' => $booking->email,
-                            'phone' => $booking->phone,
-                            'body' => $booking->body,
-                            'bookingData' => $booking->bookingData,
-                            'start_date' => null,
-                            'end_date' => $bookingData['date_ret'],
-                        ]);
-                    }
-                } elseif ($bookingData['type'] == 'noleggio') {
-                    $processedBookings->push((object) [
-                        'id' => $booking->id,
-                        'status' => $booking->status,
-                        'code' => $booking->code,
-                        'name' => $booking->name,
-                        'surname' => $booking->surname,
-                        'email' => $booking->email,
-                        'phone' => $booking->phone,
-                        'body' => $booking->body,
-                        'bookingData' => $booking->bookingData,
-                        'start_date' => $bookingData['date_start'],
-                        'end_date' => null,
-                    ]);
-
-                    if (isset($bookingData['date_end'])) {
-                        $processedBookings->push((object) [
-                            'id' => $booking->id,
-                            'status' => $booking->status,
-                            'code' => $booking->code,
-                            'name' => $booking->name,
-                            'surname' => $booking->surname,
-                            'email' => $booking->email,
-                            'phone' => $booking->phone,
-                            'body' => $booking->body,
-                            'bookingData' => $booking->bookingData,
-                            'start_date' => null,
-                            'end_date' => $bookingData['date_end'],
-                        ]);
-                    }
-                }
+            if ($booking->status !== 'confirmed') {
+                continue; // Salta le prenotazioni non confermate
+            }
+        
+            $bookingData = $booking->bookingData;
+            $type = $bookingData['type'];
+            $startDateKey = $type === 'noleggio' ? 'date_start' : 'date_dep';
+            $endDateKey = $type === 'noleggio' ? 'date_end' : 'date_ret';
+        
+            // Funzione per aggiungere la prenotazione alla lista
+            $addBooking = function ($startDate, $endDate) use ($booking, $bookingData, &$processedBookings) {
+                $processedBookings->push((object) [
+                    'id' => $booking->id,
+                    'status' => $booking->status,
+                    'payment_status' => $booking->payment_status,
+                    'code' => $booking->code,
+                    'name' => $booking->name,
+                    'surname' => $booking->surname,
+                    'email' => $booking->email,
+                    'dial_code' => $booking->dial_code,
+                    'phone' => $booking->phone,
+                    'body' => $booking->body,
+                    'bookingData' => $bookingData,
+                    'start_date' => $startDate,
+                    'end_date' => $endDate,
+                ]);
+            };
+        
+            // Aggiungi la prenotazione con la data di inizio
+            if (isset($bookingData[$startDateKey])) {
+                $addBooking($bookingData[$startDateKey], null);
+            }
+        
+            // Aggiungi la prenotazione con la data di fine (se presente)
+            if (isset($bookingData[$endDateKey])) {
+                $addBooking(null, $bookingData[$endDateKey]);
             }
         }
 
@@ -152,7 +192,7 @@ class BookingController extends Controller
                 return \Carbon\Carbon::parse($booking->start_date ?? $booking->end_date)->format('Y-m-d');
             });
         });
-        
+
         $pendingBookings = Booking::where('status', 'pending')->get();
 
         return view('dashboard.bookingList', [
@@ -201,51 +241,67 @@ class BookingController extends Controller
      * Update the specified resource in storage.
      */
 
-    public function update(Request $request, Booking $booking)
-    {
-        $request->validate([
-            'status' => 'required|in:confirmed,pending,rejected',
-        ]);
-
-        if ($booking->status == $request->status) {
-            return redirect()->back()->with('error', 'Stato della prenotazione già impostato su ' . $request->status);
-        } 
-
-        $booking->status = $request->status;
-        $booking->save();
-
-        if ($booking->status == 'confirmed') {
-            $defaultTime = getSetting('review_request_default_time');
-            $delayDays = getSetting('review_request_delay_days');
-            // Unisci la data del servizio con l'orario di default
-            $serviceDate = Carbon::parse($booking->service_date . ' ' . $defaultTime);
-
-            // Aggiungi i giorni di ritardo
-            $delay = $serviceDate->addDays((int) $delayDays);  // (int) per essere sicuro che sia un numero intero
-
-            Log::info([
-                'service_date' => $booking->service_date,
-                'default_time' => $defaultTime,
-                'delay_days' => $delayDays,
-                'calculated_delay' => $delay,
-                'booking_locale' => $booking->locale,
-            ]);
-            $appLocale = App::getLocale();
-            App::setLocale($booking->locale);
-            SendReviewRequestJob::dispatch($booking)->delay($delay);
-            App::setLocale($appLocale);
-        }
-
-        // Usa la funzione sendEmail per inviare la mail con il locale del cliente
-        sendEmail(
-            $booking->email, // Destinatario
-            new BookingStatusNotification($booking), // Mailable
-            'Errore nell\'invio dell\'email di notifica', // Messaggio di errore in caso di fallimento
-            $booking->locale // Imposta il locale della prenotazione
-        );
-
-        return redirect()->back()->with('success', 'Stato della prenotazione aggiornato con successo.');
-    }
+     public function update(Request $request, Booking $booking)
+     {
+         // Validazione unica per entrambi i campi
+         $validated = $request->validate([
+             'status' => 'nullable|in:confirmed,pending,rejected',
+             'payment_status' => 'nullable|in:pending,paid,deposit_paid',
+         ]);
+     
+         $updates = [];
+     
+         // Aggiornamento stato della prenotazione
+         if ($request->filled('status') && $booking->status !== $request->status) {
+             $updates['status'] = $request->status;
+         }
+     
+         // Aggiornamento stato del pagamento
+         if ($request->filled('payment_status') && $booking->payment_status !== $request->payment_status) {
+             $updates['payment_status'] = $request->payment_status;
+         }
+     
+         // Se ci sono modifiche, salva
+         if (!empty($updates)) {
+             $booking->update($updates);
+         } else {
+             return redirect()->back()->with('error', 'Nessuna modifica effettuata.');
+         }
+     
+         // Se la prenotazione è confermata, programma l'invio della richiesta di recensione
+         if (isset($updates['status']) && $updates['status'] === 'confirmed') {
+             $defaultTime = getSetting('review_request_default_time');
+             $delayDays = getSetting('review_request_delay_days');
+     
+             $serviceDate = Carbon::parse($booking->service_date . ' ' . $defaultTime);
+             $delay = $serviceDate->addDays((int) $delayDays);
+     
+             Log::info([
+                 'service_date' => $booking->service_date,
+                 'default_time' => $defaultTime,
+                 'delay_days' => $delayDays,
+                 'calculated_delay' => $delay,
+                 'booking_locale' => $booking->locale,
+             ]);
+     
+             $appLocale = App::getLocale();
+             App::setLocale($booking->locale);
+             SendReviewRequestJob::dispatch($booking)->delay($delay);
+             App::setLocale($appLocale);
+         }
+     
+         // Invia email di notifica solo se lo stato è cambiato
+         if (isset($updates['status'])) {
+             sendEmail(
+                 $booking->email,
+                 new BookingStatusNotification($booking),
+                 'Errore nell\'invio dell\'email di notifica',
+                 $booking->locale
+             );
+         }
+     
+         return redirect()->back()->with('success', 'Prenotazione aggiornata con successo.');
+     }
 
     /**
      * Remove the specified resource from storage.

@@ -1,11 +1,22 @@
 <x-dashboard-layout>
 
     <h2 class="text-nowrap">Prenotazioni confermate</h2>
-    <a class="btn btn-sm btn-secondary text-small" href="{{ route('booking.todo') }}">Da confermare
-        @if ($pendingBookings->count() > 0)
-            <span class="p-2 rounded-circle text-white bg-warning">{{ $pendingBookings->count() }}</span>
-        @endif
-    </a>
+    <div class="row">
+        <div class="col-4 d-grid">
+            <a id="pendingBookingsBtn" class="btn btn-sm btn-secondary text-small d-flex justify-content-around align-items-center" href="{{ route('booking.todo') }}">In attesa
+                @if ($pendingBookings->count() > 0)
+                    <span style="width: 20px; height:20px;" class="d-flex justify-content-center align-items-center p-1 rounded-circle text-white bg-warning text-small">
+                        {{ $pendingBookings->count() }}
+                    </span>
+                @endif
+            </a>
+        </div>
+        <div class="col-8 d-flex justify-content-between align-items-center">
+            <span class="bg-warning-subtle p-1 text-small border rounded text-secondary">Noleggio</span>
+            <span class="bg-info-subtle p-1 text-small border rounded text-secondary">Escursioni</span>
+            <span class="bg-success-subtle p-1 text-small border rounded text-secondary">Transfer</span>
+        </div>
+    </div>
 
     <div class="row d-flex justify-content-between align-items-center mt-1">
         <div class="col-4 d-grid">
@@ -17,13 +28,9 @@
             </button>
         </div>
         <div class="col-8 d-grid">
-            {{-- <select id="groupBySelector" class="form-select form-select-sm">
-                <option value="month" selected>Mese</option>
-                <option value="day">Giorno</option>
-            </select> --}}
-            <button id="groupBySelectorMonth" class="btn bg-secondary-subtle btn-sm text-small mb-1">Agenda
+            <button id="groupBySelectorMonth" class="btn btn-sm text-small mb-1">Agenda
                 Mese</button>
-            <button id="groupBySelectorDay" class="btn bg-secondary-subtle btn-sm text-small">Agenda Giorno</button>
+            <button id="groupBySelectorDay" class="btn btn-sm text-small">Agenda Giorno</button>
         </div>
 
     </div>
@@ -105,16 +112,13 @@
                 currentView = 'day';
                 currentIndex = 0; // Reset dell'indice quando si cambia vista
                 updateView();
-                groupBySelectorMonth.classList.remove('bg-secondary-subtle');
-                groupBySelectorDay.classList.add('bg-secondary');
+
             });
 
             groupBySelectorMonth.addEventListener('click', function() {
                 currentView = 'month';
                 currentIndex = 0; // Reset dell'indice quando si cambia vista
                 updateView();
-                groupBySelectorMonth.classList.add('bg-secondary');
-                groupBySelectorDay.classList.remove('bg-secondary-subtle');
             });
 
             // Gestione del pulsante precedente
@@ -135,13 +139,19 @@
 
             // Aggiorna la visualizzazione in base al raggruppamento selezionato
             const updateView = () => {
-                if (currentView === 'day') {
-                    dayGroup.classList.remove('d-none');
-                    monthGroup.classList.add('d-none');
-                } else {
-                    dayGroup.classList.add('d-none');
-                    monthGroup.classList.remove('d-none');
-                }
+                const isDayView = currentView === 'day';
+
+                dayGroup.classList.toggle('d-none', !isDayView);
+                monthGroup.classList.toggle('d-none', isDayView);
+
+                groupBySelectorDay.classList.toggle('bg-secondary', isDayView);
+                groupBySelectorDay.classList.toggle('text-white', isDayView);
+                groupBySelectorDay.classList.toggle('bg-secondary-subtle', !isDayView);
+
+                groupBySelectorMonth.classList.toggle('bg-secondary', !isDayView);
+                groupBySelectorMonth.classList.toggle('text-white', !isDayView);
+                groupBySelectorMonth.classList.toggle('bg-secondary-subtle', isDayView);
+
                 showCurrentItem();
             };
 

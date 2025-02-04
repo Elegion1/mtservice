@@ -44,42 +44,67 @@
     </form>
 
     <hr>
-    <table class="table table-sm table-striped">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Nome</th>
-                <th>Cognome</th>
-                <th>Email</th>
-                <th>Telefono</th>
-                <th>Note</th>
-                <th>Sconto %</th>
-                <th>Data di aggiunta</th>
-                <th>Azione</th>
-            </tr>
-        </thead>
-        <tbody>
+    @if (request()->header('User-Agent') && preg_match('/Mobile|Android|iPhone/i', request()->header('User-Agent')))
+        <div class="overflow-y-auto border-bottom rounded" style="height: 65vh">
             @foreach ($customers as $customer)
-                <tr>
-                    <td>{{ $customer->id }}</td>
-                    <td>{{ $customer->name }}</td>
-                    <td>{{ $customer->surname }}</td>
-                    <td><a href="mailto:{{ $customer->email }}">{{ $customer->email }}</a></td>
-                    <td><a href="tel:{{ $customer->dial_code }}{{ $customer->phone }}">{{ $customer->dial_code }}
-                            {{ $customer->phone }}</a>
-                    </td>
-                    <td>{{ $customer->body }}</td>
-                    <td>{{ $customer->discount }} %</td>
-                    <td>{{ $customer->created_at }}</td>
-                    <td>
-                        <x-edit-button :id="'Customer'" :data="$customer" />
-                        <x-delete-button :route="'customers'" :model="$customer" />
-                    </td>
-                </tr>
+                <div class="mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $customer->name }} {{ $customer->surname }}</h5>
+                            <p class="card-text"><strong>Email:</strong> <a
+                                    href="mailto:{{ $customer->email }}">{{ $customer->email }}</a></p>
+                            <p class="card-text"><strong>Telefono:</strong> <a
+                                    href="tel:{{ $customer->dial_code }}{{ $customer->phone }}">{{ $customer->dial_code }}
+                                    {{ $customer->phone }}</a></p>
+                            <p class="card-text"><strong>Note:</strong> {{ $customer->body }}</p>
+                            <p class="card-text"><strong>Sconto:</strong> {{ $customer->discount }}%</p>
+                            <p class="card-text text-muted"><small>Aggiunto il: {{ $customer->created_at }}</small></p>
+                            <div class="d-flex justify-content-between">
+                                <x-edit-button :id="'Customer'" :data="$customer" />
+                                <x-delete-button :route="'customers'" :model="$customer" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @endforeach
-        </tbody>
-    </table>
-
+        </div>
+    @else
+        <table class="table table-sm table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Email</th>
+                    <th>Telefono</th>
+                    <th>Note</th>
+                    <th>Sconto %</th>
+                    <th>Data di aggiunta</th>
+                    <th>Azione</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($customers as $customer)
+                    <tr>
+                        <td>{{ $customer->id }}</td>
+                        <td>{{ $customer->name }}</td>
+                        <td>{{ $customer->surname }}</td>
+                        <td><a href="mailto:{{ $customer->email }}">{{ $customer->email }}</a></td>
+                        <td><a href="tel:{{ $customer->dial_code }}{{ $customer->phone }}">{{ $customer->dial_code }}
+                                {{ $customer->phone }}</a>
+                        </td>
+                        <td>{{ $customer->body }}</td>
+                        <td>{{ $customer->discount }} %</td>
+                        <td>{{ $customer->created_at }}</td>
+                        <td>
+                            <x-edit-button :id="'Customer'" :data="$customer" />
+                            <x-delete-button :route="'customers'" :model="$customer" />
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
 
 
     <!-- Modale per Modifica Cliente -->
@@ -104,7 +129,8 @@
             </div>
             <div>
                 <label for="edit_phone" class="form-label">Telefono</label>
-                <input type="text" class="form-control form_input_focused" id="edit_phone" name="phone" required>
+                <input type="text" class="form-control form_input_focused" id="edit_phone" name="phone"
+                    required>
             </div>
         </div>
         <div class="mb-3">

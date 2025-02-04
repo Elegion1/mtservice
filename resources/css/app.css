@@ -231,6 +231,10 @@ a:hover {
     touch-action: manipulation;
 }
 
+#prevBtn, #nextBtn, #groupBySelectorMonth, #groupBySelectorDay, #pendingBookingsBtn {
+    touch-action: manipulation;
+}
+
 .passenger_button:hover {
     border: 2px solid var(--color-c);
 }
