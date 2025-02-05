@@ -3,6 +3,8 @@
     --color-b: #fcfafa;
     --color-c: #ebebeb;
     --color-d: #00ac0e;
+    --color-e: #f4f4f4;
+    --color-f: #bcbcbc;
 }
 
 .bg-a {
@@ -21,8 +23,16 @@
     background-color: var(--color-d) !important;
 }
 
+.bg-e {
+    background-color: var(--color-e) !important;
+}
+
+.bg-f {
+    background-color: var(--color-f) !important;
+}
+
 .bg-linear-gradient {
-    background: linear-gradient(0deg, var(--color-c), white );
+    background: linear-gradient(0deg, var(--color-f), var(--color-e));
 }
 
 .text-a {

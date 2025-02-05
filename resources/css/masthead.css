@@ -1,14 +1,14 @@
-.carousel-item {
-    /* min-height: 100px; */
+/* .carousel-item {
+    
     background: no-repeat center center scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-}
+} */
 
 .masthead {
-    height: 100vh;
+    height: 80vh;
     min-height: 100px;
     width: 100vw;
     object-fit: cover;
@@ -25,7 +25,7 @@
 /* Gestione dell'immagine */
 .img_car {
     width: 100vw;
-    height: 100vh;
+    height: 80vh;
     object-fit: cover;
     position: absolute;
     top: 0;
@@ -74,6 +74,12 @@
     }
     #headerBooking {
         height: 500px;
+    }
+    .masthead {
+        height: 100vh;
+    }
+    .img_car {
+        height: 100vh;
     }
 }
 

@@ -1,5 +1,5 @@
 @if (session('message'))
-    <div class="container">
+    <div id="display-info" class="container">
         <div class="row justify-content-center">
             <div class="col-12 d-flex justify-content-center">
                 <div id="flash-message"

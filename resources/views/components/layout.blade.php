@@ -72,7 +72,7 @@
     @include('cookie-consent::index')
 </head>
 
-<body class="overflow-x-hidden">
+<body class="overflow-x-hidden bg-e">
     <x-whatsapp />
     <x-nav />
     <x-masthead />
@@ -107,9 +107,9 @@
 
         // Recupera il valore di data-currentRoute
         const currentRoute = mainContent.getAttribute('data-currentRoute');
-
+        const displayInfo = document.getElementById('display-info');
         // Logica di scrolling
-        if (currentRoute === 'home') {
+        if (currentRoute === 'home' || displayInfo) {
             scrollToTop();
         } else {
             mainContent.scrollIntoView({

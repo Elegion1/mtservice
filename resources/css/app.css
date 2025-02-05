@@ -115,13 +115,13 @@ img {
     );
 }
 
-.nav-link {
+/* .nav-link {
     color: var(--color-d);
-}
+} */
 
-.nav-link:hover {
+/* .nav-link:hover {
     color: var(--color-a);
-}
+} */
 
 .active_nav {
     color: var(--color-a) !important;

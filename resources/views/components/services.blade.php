@@ -2,7 +2,7 @@
     <div class="carousel-indicators">
         @foreach ($services as $index => $service)
             <button type="button" data-bs-target="#serviceCarousel" data-bs-slide-to="{{ $index }}"
-                class="{{ $index === 0 ? 'active' : '' }}" aria-current="{{ $index === 0 ? 'true' : 'false' }}"
+                class="{{ $index === 0 ? 'active' : '' }} bg-a" aria-current="{{ $index === 0 ? 'true' : 'false' }}"
                 aria-label="Slide {{ $index + 1 }}"></button>
         @endforeach
     </div>
