@@ -4,7 +4,7 @@
     </div>
     <div class="d-flex pt-3">
 
-        <div class="mb-3 text-small" style="width: 36vw">
+        <div id="footerOwnerData" class="mb-3 text-small">
             <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
                 <img class="logo-footer" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt="">
             </a>
@@ -21,7 +21,7 @@
                 target="_blank">{{ __('ui.termsConditions') }}</a>
         </div>
 
-        <div class="mb-3 text-center" style="width: 42vw">
+        <div id="footerNavigation" class="mb-3 text-center">
             <h6>{{ __('ui.navigation') }}</h6>
             <ul class="nav flex-column justify-content-between align-items-center">
                 <x-links>
@@ -38,7 +38,7 @@
             </ul>
         </div>
 
-        <div class="mb-3 text-end" style="width: 22vw">
+        <div id="footerContacts" class="mb-3 text-end">
             <h6>{{ __('ui.contacts') }}</h6>
             <ul class="nav flex-column text-small">
                 @if ($ownerdata->phone2 && $ownerdata->phone2Name)

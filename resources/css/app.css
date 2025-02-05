@@ -231,7 +231,11 @@ a:hover {
     touch-action: manipulation;
 }
 
-#prevBtn, #nextBtn, #groupBySelectorMonth, #groupBySelectorDay, #pendingBookingsBtn {
+#prevBtn,
+#nextBtn,
+#groupBySelectorMonth,
+#groupBySelectorDay,
+#pendingBookingsBtn {
     touch-action: manipulation;
 }
 
@@ -428,6 +432,31 @@ a:hover {
     border-top: 5px solid var(--color-a);
 }
 
+#footerOwnerData {
+    width: 33vw;
+}
+
+#footerNavigation {
+    width: 34vw;
+}
+
+#footerContacts {
+    width: 33vw;
+}
+
+@media screen and (max-width: 476px) {
+    #footerOwnerData {
+        width: 36vw;
+    }
+    
+    #footerNavigation {
+        width: 42vw;
+    }
+    
+    #footerContacts {
+        width: 22vw;
+    }
+}
 /* ========== Personalizzazione ========== */
 .border_custom {
     border-bottom: 5px solid rgba(0, 0, 0, 0.1);
