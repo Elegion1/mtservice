@@ -132,7 +132,7 @@ class CarRent extends Component
                     // Somma il prezzo per il periodo corrente
                     $totalPrice += $carPrice->price * $this->quantity;
                     if ($currentDate->toDateString() == $endDate->toDateString()) {
-                        
+
                         while ($currentDate->format('H:i:s') < $endDate->format('H:i:s')) {
                             $totalPrice += $carPrice->price * $this->quantity;
                             Log::info('Applying price for period: ' . $currentDate . ' - ' . $carPrice->price);
@@ -142,7 +142,6 @@ class CarRent extends Component
                                 $found = true;
                                 break;
                             }
-
                         }
                     }
                     $found = true;
@@ -212,17 +211,20 @@ class CarRent extends Component
     public function render()
     {
         $cars = Car::where('show', 1)->get();
-        $bookings = Booking::whereIn('status', ['confirmed', 'pending'])->get();
 
+        $bookings = Booking::whereIn('status', ['confirmed', 'pending'])
+            ->whereJsonContains('bookingData->type', 'noleggio')
+            ->get();
+        
         $availableCars = $cars->map(function ($car) use ($bookings) {
             $isCarAvailable = true;
 
             foreach ($bookings as $booking) {
-                if ($booking->bookingData['type'] == 'noleggio' && $booking->bookingData['car_ID'] == $car->id) {
+                if ($booking->bookingData['car_ID'] == $car->id) {
                     $bookingStartDate = strtotime($booking->bookingData['date_start']);
                     $bookingEndDate = strtotime($booking->bookingData['date_end']);
                     $selectedStartDate = strtotime($this->dateStart);
-                    $selectedEndDate = strtotime($this->dateEnd);
+                    $selectedEndDate = strtotime($this->dateEnd);   
 
                     if (
                         ($selectedStartDate >= $bookingStartDate && $selectedStartDate <= $bookingEndDate) ||
@@ -239,6 +241,6 @@ class CarRent extends Component
             return $car;
         });
 
-        return view('livewire.car-rent', ['cars' => $availableCars, 'bookings' => $bookings]);
+        return view('livewire.car-rent', ['cars' => $availableCars]);
     }
 }

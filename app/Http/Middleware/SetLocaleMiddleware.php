@@ -42,9 +42,10 @@ class SetLocaleMiddleware
             App::setLocale($locale);
             URL::defaults(['locale' => $locale]);
         } else {
+            dd('fallback');
             // Reindirizza alla lingua di default se il prefisso non è valido
             // Log::info("Reindirizzamento alla lingua di fallback: " . config('app.fallback_locale'));
-            return redirect('/' . config('app.fallback_locale'));
+            return redirect('/' . 'it');
         }
         // Log::info("Percorso dopo il controllo della lingua: " . $request->path());
 

@@ -27,7 +27,7 @@ use App\Http\Controllers\TimePeriodController;
 use App\Http\Controllers\DestinationController;
 
 Route::get('/', function () {
-    $locale = app()->getlocale(); // Recupera il locale predefinito
+    $locale = App::getLocale(); // Recupera il locale predefinito
     return redirect()->to($locale); // Reindirizza alla homepage con il locale
 });
 
