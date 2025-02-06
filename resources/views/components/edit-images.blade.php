@@ -9,3 +9,27 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const currentImagesDiv = document.getElementById('edit-current-images');
+
+        if (currentImagesDiv) {
+            const dataImages = currentImagesDiv.getAttribute('data-images');
+
+            if (dataImages) {
+                try {
+                    const images = JSON.parse(dataImages);
+
+                    // Mostra le immagini esistenti (se la funzione è definita)
+                    if (typeof window.showCurrentImages === "function") {
+                        window.showCurrentImages(images || []);
+                    } else {
+                        console.warn("La funzione showCurrentImages non è definita.");
+                    }
+                } catch (error) {
+                    console.error("Errore nel parsing delle immagini:", error);
+                }
+            }
+        }
+    });
+</script>
