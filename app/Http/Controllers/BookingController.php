@@ -9,9 +9,11 @@ use App\Models\Booking;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Jobs\SendReviewRequestJob;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Queue;
 use App\Mail\BookingStatusNotification;
 
 class BookingController extends Controller
@@ -138,12 +140,12 @@ class BookingController extends Controller
             if ($booking->status !== 'confirmed') {
                 continue; // Salta le prenotazioni non confermate
             }
-        
+
             $bookingData = $booking->bookingData;
             $type = $bookingData['type'];
             $startDateKey = $type === 'noleggio' ? 'date_start' : 'date_dep';
             $endDateKey = $type === 'noleggio' ? 'date_end' : 'date_ret';
-        
+
             // Funzione per aggiungere la prenotazione alla lista
             $addBooking = function ($startDate, $endDate) use ($booking, $bookingData, &$processedBookings) {
                 $processedBookings->push((object) [
@@ -162,12 +164,12 @@ class BookingController extends Controller
                     'end_date' => $endDate,
                 ]);
             };
-        
+
             // Aggiungi la prenotazione con la data di inizio
             if (isset($bookingData[$startDateKey])) {
                 $addBooking($bookingData[$startDateKey], null);
             }
-        
+
             // Aggiungi la prenotazione con la data di fine (se presente)
             if (isset($bookingData[$endDateKey])) {
                 $addBooking(null, $bookingData[$endDateKey]);
@@ -241,67 +243,94 @@ class BookingController extends Controller
      * Update the specified resource in storage.
      */
 
-     public function update(Request $request, Booking $booking)
-     {
-         // Validazione unica per entrambi i campi
-         $validated = $request->validate([
-             'status' => 'nullable|in:confirmed,pending,rejected',
-             'payment_status' => 'nullable|in:pending,paid,deposit_paid',
-         ]);
-     
-         $updates = [];
-     
-         // Aggiornamento stato della prenotazione
-         if ($request->filled('status') && $booking->status !== $request->status) {
-             $updates['status'] = $request->status;
-         }
-     
-         // Aggiornamento stato del pagamento
-         if ($request->filled('payment_status') && $booking->payment_status !== $request->payment_status) {
-             $updates['payment_status'] = $request->payment_status;
-         }
-     
-         // Se ci sono modifiche, salva
-         if (!empty($updates)) {
-             $booking->update($updates);
-         } else {
-             return redirect()->back()->with('error', 'Nessuna modifica effettuata.');
-         }
-     
-         // Se la prenotazione è confermata, programma l'invio della richiesta di recensione
-         if (isset($updates['status']) && $updates['status'] === 'confirmed') {
-             $defaultTime = getSetting('review_request_default_time');
-             $delayDays = getSetting('review_request_delay_days');
-     
-             $serviceDate = Carbon::parse($booking->service_date . ' ' . $defaultTime);
-             $delay = $serviceDate->addDays((int) $delayDays);
-     
-             Log::info([
-                 'service_date' => $booking->service_date,
-                 'default_time' => $defaultTime,
-                 'delay_days' => $delayDays,
-                 'calculated_delay' => $delay,
-                 'booking_locale' => $booking->locale,
-             ]);
-     
-             $appLocale = App::getLocale();
-             App::setLocale($booking->locale);
-             SendReviewRequestJob::dispatch($booking)->delay($delay);
-             App::setLocale($appLocale);
-         }
-     
-         // Invia email di notifica solo se lo stato è cambiato
-         if (isset($updates['status'])) {
-             sendEmail(
-                 $booking->email,
-                 new BookingStatusNotification($booking),
-                 'Errore nell\'invio dell\'email di notifica',
-                 $booking->locale
-             );
-         }
-     
-         return redirect()->back()->with('success', 'Prenotazione aggiornata con successo.');
-     }
+    public function update(Request $request, Booking $booking)
+    {
+        // Memorizza lo stato originale prima dell'aggiornamento
+        $originalStatus = $booking->status;
+
+        // Validazione unica per entrambi i campi
+        $validated = $request->validate([
+            'status' => 'nullable|in:confirmed,pending,rejected',
+            'payment_status' => 'nullable|in:pending,paid,deposit_paid',
+        ]);
+
+        $updates = [];
+
+        // Aggiornamento stato della prenotazione
+        if ($request->filled('status') && $booking->status !== $request->status) {
+            $updates['status'] = $request->status;
+        }
+
+        // Aggiornamento stato del pagamento
+        if ($request->filled('payment_status') && $booking->payment_status !== $request->payment_status) {
+            $updates['payment_status'] = $request->payment_status;
+        }
+
+        // **Cancella il job solo se lo stato passa da "confirmed" a "rejected"**
+        if (isset($updates['status']) && $originalStatus === 'confirmed' && $updates['status'] === 'rejected' || $updates['status'] === 'pending') {
+            Log::info("Tentativo di cancellazione del job per la prenotazione: {$booking->code}");
+
+            $jobToDelete = getJobs($booking);
+
+            if ($jobToDelete) {
+                Log::info("Job trovato per la prenotazione {$booking->code}. ID Job: {$jobToDelete->id}. Eliminazione in corso...");
+                DB::table('jobs')->where('id', $jobToDelete->id)->delete();
+                Log::info("Job {$jobToDelete->id} eliminato con successo.");
+            } else {
+                Log::warning("Nessun job trovato per la prenotazione {$booking->code}. Nessuna eliminazione eseguita.");
+            }
+        }
+
+        // Se ci sono modifiche, salva
+        if (!empty($updates)) {
+            $booking->update($updates);
+        } else {
+            return redirect()->back()->with('error', 'Nessuna modifica effettuata.');
+        }
+
+        // Se la prenotazione è confermata, programma l'invio della richiesta di recensione
+        if (isset($updates['status']) && $updates['status'] === 'confirmed') {
+            $defaultTime = getSetting('review_request_default_time');
+            $delayDays = getSetting('review_request_delay_days');
+
+            $serviceDate = Carbon::parse($booking->service_date . ' ' . $defaultTime);
+            $delay = $serviceDate->addDays((int) $delayDays);
+
+            Log::info([
+                'service_date' => $booking->service_date,
+                'default_time' => $defaultTime,
+                'delay_days' => $delayDays,
+                'calculated_delay' => $delay,
+                'booking_locale' => $booking->locale,
+            ]);
+
+            // Controlla se esistono già jobs per la prenotazione
+            $findJob = getJobs($booking);
+
+            if ($findJob) {
+                Log::info("Job trovato per la prenotazione {$booking->code}. ID Job: {$findJob->id}. Annullo creazione del Job");
+                return redirect()->back()->withErrors(['message' => 'Job già presente']);
+            } else {
+                $appLocale = App::getLocale();
+                App::setLocale($booking->locale);
+                SendReviewRequestJob::dispatch($booking)->delay($delay);
+                App::setLocale($appLocale);
+                Log::info("Job per la richiesta di recensione creato per la prenotazione: {$booking->code}, con invio previsto per: {$delay->toDateTimeString()}");
+            }
+        }
+
+        // Invia email di notifica solo se lo stato è cambiato
+        if (isset($updates['status'])) {
+            sendEmail(
+                $booking->email,
+                new BookingStatusNotification($booking),
+                'Errore nell\'invio dell\'email di notifica',
+                $booking->locale
+            );
+        }
+
+        return redirect()->back()->with('success', 'Prenotazione aggiornata con successo.');
+    }
 
     /**
      * Remove the specified resource from storage.

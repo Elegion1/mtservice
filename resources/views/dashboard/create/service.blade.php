@@ -133,46 +133,6 @@
                 switchLanguage('en');
             });
 
-            // Gestione del click sul pulsante "Elimina" immagine
-            document.getElementById('create-current-images').addEventListener('click', (event) => {
-                if (event.target.classList.contains('remove-image')) {
-                    const imageId = event.target.getAttribute('data-image-id');
-
-                    // Invia una richiesta DELETE al server per eliminare l'immagine
-                    fetch(`/dashboard/images/${imageId}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}', // Assicurati di includere il token CSRF
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                // Rimuovi visivamente l'anteprima dell'immagine eliminata
-                                event.target.closest('.current-image').remove();
-                                // Aggiungi qui eventuali feedback visivi o logica aggiuntiva dopo l'eliminazione
-                            } else {
-                                // Gestisci errori o situazioni in cui l'eliminazione non è riuscita
-                                console.error(data.error);
-                            }
-                        })
-                        .catch(error => {
-                            console.error(
-                                'Si è verificato un errore durante l\'eliminazione dell\'immagine:',
-                                error);
-                        });
-                }
-            });
-            // Ensure form submission is working as expected
-            document.getElementById('createServiceForm').addEventListener('submit', (event) => {
-                // Add additional validation or checks if needed
-
-                // Optionally, prevent default form submission for testing
-                // event.preventDefault();
-
-                // Log form submission to console for debugging
-                console.log('Form submitted');
-            });
         });
     </script>
 </x-dashboard-layout>

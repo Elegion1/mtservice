@@ -20,10 +20,12 @@ use App\Models\Excursion;
 use Illuminate\Http\Request;
 use Sabberworm\CSS\Settings;
 use App\Jobs\SendReviewRequestJob;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Queue;
 use App\Mail\BookingStatusNotification;
 use Illuminate\Support\Facades\Storage;
 
@@ -214,29 +216,29 @@ class PublicController extends Controller
 
     public function confirmBooking(Booking $booking)
     {
-        if($booking->status === 'confirmed') {
+        if ($booking->status === 'confirmed') {
             return redirect()->back()->withErrors(['message' => 'Prenotazione già confermata.']);
         }
 
         $booking->status = 'confirmed'; // or whatever status you want to set
         $booking->save();
-        
+
         $delayDays = getSetting('review_request_delay_days');
 
         $defaultTime = getSetting('review_request_default_time');
         // Unisci la data del servizio con l'orario di default
         $serviceDate = Carbon::parse($booking->service_date . ' ' . $defaultTime);
-        
+
         // Aggiungi i giorni di ritardo
         $delay = $serviceDate->addDays((int) $delayDays);  // (int) per essere sicuro che sia un numero intero
-        
+
         Log::info([
             'service_date' => $booking->service_date,
             'default_time' => $defaultTime,
             'delay_days' => $delayDays,
             'calculated_delay' => $delay,
         ]);
-        
+
         // Invia la mail nella lingua del cliente
         sendEmail(
             $booking->email, // Destinatario
@@ -244,19 +246,47 @@ class PublicController extends Controller
             'Errore nell\'invio dell\'email di stato prenotazione', // Messaggio di errore
             $booking->locale // Locale della prenotazione
         );
+
+        // Controlla se esistono già jobs per la prenotazione
+        $findJob = getJobs($booking);
         
-        // Dispatcia il job per inviare la richiesta di recensione
-        SendReviewRequestJob::dispatch($booking)->delay($delay);
+        if ($findJob) {
+            Log::info("Job trovato per la prenotazione {$booking->code}. ID Job: {$findJob->id}. Annullo creazione del Job");
+            return redirect()->back()->withErrors(['message' => 'Job già presente']);
+        } else {
+            // Dispatcha il job per inviare la richiesta di recensione
+            $appLocale = App::getLocale();
+            App::setLocale($booking->locale);
+            SendReviewRequestJob::dispatch($booking)->delay($delay);
+            App::setLocale($appLocale);
+            Log::info("Job per la richiesta di recensione creato per la prenotazione: {$booking->code}, con invio previsto per: {$delay->toDateTimeString()}");
+        }
+
 
         return redirect()->back()->with('message', 'Prenotazione confermata con successo.');
     }
 
     public function rejectBooking(Booking $booking)
     {
-        if($booking->status === 'rejected') {
+        if ($booking->status === 'rejected') {
             return redirect()->back()->withErrors(['message' => 'Prenotazione già rifiutata.']);
         }
-        
+
+        if ($booking->status === 'confirmed') {
+            // **Cancella il job programmato per la richiesta di recensione**
+            Log::info("Tentativo di cancellazione del job per la prenotazione: {$booking->code}");
+
+            $jobToDelete = getJobs($booking);
+
+            if ($jobToDelete) {
+                Log::info("Job trovato per la prenotazione {$booking->code}. ID Job: {$jobToDelete->id}. Eliminazione in corso...");
+                DB::table('jobs')->where('id', $jobToDelete->id)->delete();
+                Log::info("Job {$jobToDelete->id} eliminato con successo.");
+            } else {
+                Log::warning("Nessun job trovato per la prenotazione {$booking->code}. Nessuna eliminazione eseguita.");
+            }
+        }
+
         $booking->status = 'rejected'; // or whatever status you want to set
         $booking->save();
 

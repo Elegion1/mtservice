@@ -71,10 +71,6 @@ class ExcursionController extends Controller
 
     public function destroy(Excursion $excursion)
     {
-        foreach ($excursion->images as $image) {
-            Storage::disk('public')->delete($image->path);
-            $image->delete();
-        }
         $excursion->delete();
         return redirect()->route('dashboard.excursion')->with('success', 'Escursione eliminata con successo.');
     }

@@ -4,7 +4,8 @@
 </div>
 <div class="mb-3">
     <label for="edit_current_images" class="form-label">Immagini Caricate</label>
-    <div id="edit-current-images">
+    <div id="edit-current-images" @if (isset($images)) data-images="{{ json_encode($images) }}" @endif>
         <!-- Anteprime delle immagini esistenti verranno aggiunte qui -->
     </div>
 </div>
+

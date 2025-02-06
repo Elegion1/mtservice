@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Setting;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -34,7 +35,7 @@ if (!function_exists('sendEmail')) {
             App::setLocale($language);
             Log::info('[MailHelper] Language changed to: ' . App::getLocale());
         }
-        
+
         Log::info('[MailHelper] Sending email to: ' . $recipient . ' Language: ' . $language);
         try {
             // Invia l'email al destinatario
@@ -56,4 +57,21 @@ function getSetting($name)
 {
     $setting = Setting::where('name', $name)->first();
     return $setting ? $setting->value : null;
+}
+
+function getJobs($booking)
+{
+    // Ottimizzare la query per cercare solo job relativi a una prenotazione
+    return DB::table('jobs')
+        ->get()
+        ->first(function ($job) use ($booking) {
+            $payload = json_decode($job->payload, true);
+
+            if (isset($payload['data']['command'])) {
+                $commandData = unserialize($payload['data']['command']);
+                return isset($commandData->booking) && $commandData->booking->code === $booking->code;
+            }
+
+            return false;
+        });
 }

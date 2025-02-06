@@ -24,6 +24,11 @@ class SendReviewRequestJob implements ShouldQueue
         $this->booking = $booking;
     }
 
+    public function jobId()
+    {
+        return 'review_request_' . $this->booking->code;
+    }
+
     /**
      * Execute the job.
      */

@@ -62,22 +62,7 @@
             </div>
 
             <!-- Immagini -->
-            <div class="mb-3">
-                <label for="edit_images" class="form-label">Aggiungi nuove immagini</label>
-                <input type="file" class="form-control form_input_focused" id="edit_images" name="images[]" multiple>
-            </div>
-            <div class="mb-3">
-                <label for="edit_current_images" class="form-label">Immagini Caricate</label>
-                <div id="edit-current-images">
-                    @foreach ($excursion->images as $image)
-                        <div class="current-image">
-                            <img src="{{ asset('storage/' . $image->path) }}" alt="Immagine" width="100">
-                            <button type="button" class="btn btn-danger btn-sm remove-image"
-                                data-image-id="{{ $image->id }}">Elimina</button>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
+            <x-edit-images :images="$excursion->images" />
 
             <button type="submit" class="btn btn-primary">Salva Modifiche</button>
         </form>
@@ -143,37 +128,6 @@
                 switchLanguage('en');
             });
 
-
-            // Gestione del click sul pulsante "Elimina" immagine
-            document.getElementById('edit-current-images').addEventListener('click', (event) => {
-                if (event.target.classList.contains('remove-image')) {
-                    const imageId = event.target.getAttribute('data-image-id');
-
-                    // Invia una richiesta DELETE al server per eliminare l'immagine
-                    fetch(`/dashboard/images/${imageId}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}', // Assicurati di includere il token CSRF
-                            }
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.success) {
-                                // Rimuovi visivamente l'anteprima dell'immagine eliminata
-                                event.target.closest('.current-image').remove();
-                                // Aggiungi qui eventuali feedback visivi o logica aggiuntiva dopo l'eliminazione
-                            } else {
-                                // Gestisci errori o situazioni in cui l'eliminazione non è riuscita
-                                console.error(data.error);
-                            }
-                        })
-                        .catch(error => {
-                            console.error(
-                                'Si è verificato un errore durante l\'eliminazione dell\'immagine:',
-                                error);
-                        });
-                }
-            });
         });
     </script>
 </x-dashboard-layout>

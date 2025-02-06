@@ -111,10 +111,6 @@ class ContentController extends Controller
      */
     public function destroy(Content $content)
     {
-        foreach ($content->images as $image) {
-            Storage::disk('public')->delete($image->path);
-            $image->delete();
-        }
         $content->delete();
         return redirect()->route('dashboard.content')->with('success', 'Contenuto eliminato con successo.');
     }

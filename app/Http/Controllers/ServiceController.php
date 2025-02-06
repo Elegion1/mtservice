@@ -67,10 +67,6 @@ class ServiceController extends Controller
 
     public function destroy(Service $service)
     {
-        foreach ($service->images as $image) {
-            Storage::disk('public')->delete($image->path);
-            $image->delete();
-        }
         $service->delete();
         return redirect()->route('dashboard.service')->with('success', 'Servizio eliminato con successo.');
     }
