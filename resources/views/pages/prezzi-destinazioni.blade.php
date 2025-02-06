@@ -12,10 +12,10 @@
             </div>
         </div>
         <div class="col-12 col-lg-6">
-            <div class="container p-3">
+            <div class="p-3 pb-0">
                 <x-show-content :pagine="$pagine" />
             </div>
-            <div class="container p-3">
+            <div class="p-3 pt-0">
 
                 @php
                     $tratteByDeparture = $tratte->groupBy('departure.name');
