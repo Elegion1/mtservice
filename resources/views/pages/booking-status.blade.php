@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container bg-white rounded p-3 mb-5">
+    <div class="container rounded p-3 mb-5">
         <h1 class="text-center mb-3">{{ __('ui.bookingStatus') }}</h1>
 
         @if (!session('verified'))

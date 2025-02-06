@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container bg-white rounded p-3">
+    <div class="container bg-white rounded p-3 mb-5">
         <h2 id="privacy">Informativa sulla Privacy</h2>
         <p>Desideriamo informarLa che la legge n.675/1996 in materia di protezione dei dati personali, prevede la tutela
             delle persone e di altri soggetti rispetto al trattamento dei dati personali. Secondo la legge indicata,

@@ -23,10 +23,8 @@
 
         <div id="footerNavigation" class="mb-3 text-center">
             <h6>{{ __('ui.navigation') }}</h6>
-            <ul class="nav flex-column justify-content-between align-items-center">
-                <x-links>
-                    text-capitalize p-0 text-small
-                </x-links>
+            <ul class="list-unstyled">
+                <x-footer-links />
                 <li>
                     <a class="text-decoration-none text-reset text-capitalize p-0 text-small"
                         href="{{ route('booking.status') }}">{{ __('ui.bookingStatus') }}</a>

@@ -1,14 +1,16 @@
 <x-layout>
-    <div class="container-fluid bg-white rounded p-3">
+    <div class="container-fluid p-3">
         <div class="row">
             <div class="col-12 col-md-6">
-                <div class="container-fluid my-2 my-md-0 justify-content-center align-items-center d-flex d-block d-md-none">
+                <div
+                    class="container-fluid my-2 my-md-0 justify-content-center align-items-center d-flex d-block d-md-none">
                     @if ($excursion->images->isNotEmpty())
                         @foreach ($excursion->images as $image)
-                            <img src="{{ Storage::url($image->path) }}" class="img-show m-1" alt="img_{{$excursion->name_en}}">
+                            <img src="{{ Storage::url($image->path) }}" class="img-show m-1"
+                                alt="img_{{ $excursion->name_en }}">
                         @endforeach
                     @else
-                        <img class="img-show" src="https://picsum.photos/600/400" alt="placeholder">
+                        <img class="img-show m-1" src="https://picsum.photos/600/400" alt="placeholder">
                     @endif
                 </div>
                 <div class="container-fluid justify-content-center d-flex flex-column">
@@ -23,7 +25,8 @@
                     </small>
                     <p>
                         {{ __('ui.priceStartingFrom') }}
-                        <strong class="text-d">{{ $excursion->price }} €</strong> <small>{{ __('ui.perPerson') }}</small>
+                        <strong class="text-d">{{ $excursion->price }} €</strong>
+                        <small>{{ __('ui.perPerson') }}</small>
                     </p>
                     <br>
                     {!! $excursion->{'abstract_' . app()->getLocale()} !!}
@@ -36,18 +39,21 @@
                     <p>{!! __('ui.excursionNotes', ['duration' => $duration]) !!}</p>
                     <br>
 
-                    <p>{!!__('ui.usefulLinks')!!}</p>
+                    <p>{!! __('ui.usefulLinks') !!}</p>
                 </div>
             </div>
             <div class="col-12 col-md-6">
-                <div class="container-fluid my-2 my-md-0 justify-content-center align-items-center d-flex d-none d-md-block">
-                    @if ($excursion->images->isNotEmpty())
-                        @foreach ($excursion->images as $image)
-                            <img src="{{ Storage::url($image->path) }}" class="img-show m-1" alt="img_{{$excursion->name_en}}">
-                        @endforeach
-                    @else
-                        <img class="img-show" src="https://picsum.photos/600/400" alt="placeholder">
-                    @endif
+                <div class="my-2 my-md-0 d-none d-md-block">
+                    <div class="d-flex justify-content-center align-items-center">
+                        @if ($excursion->images->isNotEmpty())
+                            @foreach ($excursion->images as $image)
+                                <img src="{{ Storage::url($image->path) }}" class="img-show m-1"
+                                    alt="img_{{ $excursion->name_en }}">
+                            @endforeach
+                        @else
+                            <img class="img-show m-1" src="https://picsum.photos/600/400" alt="placeholder">
+                        @endif
+                    </div>
                 </div>
                 <div class="container-fluid">
                     <x-contact-link />

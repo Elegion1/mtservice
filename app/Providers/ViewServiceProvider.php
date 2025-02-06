@@ -29,7 +29,7 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-       
+
         if (Service::query()->exists()) {
             $services = Service::where('show', 1)->get();
             View::share('services', $services);
@@ -46,7 +46,7 @@ class ViewServiceProvider extends ServiceProvider
         }
 
         if (Page::query()->exists()) {
-            $pages = Page::orderBy('order')->get();
+            $pages = Page::where('show', 1)->orderBy('order')->get();
             View::share('pages', $pages);
         }
 

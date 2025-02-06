@@ -1,21 +1,21 @@
 <x-layout>
-    <div id="partners" class="container bg-white rounded mt-5 mt-md-3">
-        <div class="container p-3">
+    <div id="partners" class="container rounded mt-5 mt-md-3">
+        <div class="container">
             <x-show-content :pagine="$pagine" />
-            <div class="row d-flex justify-content-center align-items-end">
+            <div class="row justify-content-center align-items-start">
                 @foreach ($partners as $partner)
-                    <a class="col-3 text-decoration-none text-black m-3" target="_blank" href="{{ $partner->link }}">
+                    <a id="partnerCard" class="col-12 col-md-6 col-lg-4 text-decoration-none text-black" target="_blank"
+                        href="{{ $partner->link }}">
                         <div class="d-flex flex-column justify-content-center align-items-center">
                             @if ($partner->images->count() > 0)
-                                <img class="shadow rounded" style="width: 200px; height: 200px; object-fit: cover;"
-                                    src="{{ Storage::url($partner->images->first()->path) }}"
+                                <img class="shadow rounded" src="{{ Storage::url($partner->images->first()->path) }}"
                                     alt="{{ $partner->name }}img">
                             @else
-                                <img class="shadow rounded" style="width: 200px; height: 200px; object-fit: cover;"
+                                <img class="shadow rounded"
                                     src="https://picsum.photos/{{ $partner->id }}00/{{ $partner->id + 150 }}"
                                     alt="">
                             @endif
-                            <p class="text-center text-wrap m-3">{{ $partner->name }}</p>
+                            <p class="text-center text-wrap mt-3">{{ $partner->name }}</p>
                         </div>
                     </a>
                 @endforeach

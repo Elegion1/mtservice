@@ -85,6 +85,16 @@ img {
     background-color: linear-gradient(to bottom, white, black);
 }
 
+#reviewCard {
+    max-width: 400px;
+}
+
+#partnerCard > div > img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
 /* ========== Navbar & Header ========== */
 
 .navbar {
@@ -448,11 +458,11 @@ a:hover {
     #footerOwnerData {
         width: 36vw;
     }
-    
+
     #footerNavigation {
         width: 42vw;
     }
-    
+
     #footerContacts {
         width: 22vw;
     }

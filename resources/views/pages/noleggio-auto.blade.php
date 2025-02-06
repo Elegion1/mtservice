@@ -1,7 +1,7 @@
 <x-layout>
     <div class="row">
         <div class="col-12 col-lg-6">
-            <div class="container bg-white rounded p-3">
+            <div class="container p-3">
                 <x-show-content :pagine="$pagine" />
             </div>
         </div>

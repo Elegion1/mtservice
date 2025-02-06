@@ -15,11 +15,11 @@
 
         <div class="col-12 col-lg-6 ">
             <div id="escursioni"
-                class="container d-flex justify-content-center align-items-center flex-column rounded bg-white sticky-top z-1">
+                class="container d-flex justify-content-center align-items-center flex-column rounded sticky-top z-1">
                 <h2 class="my-3">{{ __('ui.excursionPageTitle') }}</h2>
 
                 @foreach ($excursionsP as $excursion)
-                    <div class="card border-1 mb-3 overflow-hidden" style="max-width: 540px;">
+                    <div class="card border-1 mb-3 overflow-hidden bg-c" style="max-width: 540px;">
                         <div class="row g-0">
                             <div class="col-12 col-md-4">
                                 @if ($excursion->images->isNotEmpty())

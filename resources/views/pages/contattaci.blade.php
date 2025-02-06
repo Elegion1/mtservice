@@ -1,5 +1,5 @@
 <x-layout>
-    <div class="container bg-white rounded p-3 mt-5 mt-md-3">
+    <div class="container rounded p-3 mt-5 mt-md-3">
         <x-show-content :pagine="$pagine" />
         <h2>{{ ucfirst(__('ui.contactUs')) }} </h2>
         <form action="{{ route('inviaForm') }}" method="POST">

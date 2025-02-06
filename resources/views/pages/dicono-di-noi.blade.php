@@ -1,34 +1,36 @@
 <x-layout>
-    <div class="container bg-white rounded">
+    <div>
         {{-- Contenuto principale --}}
-        <div class="row mx-3">
-            <div class="col-12">
+        <div class="mx-3">
+            <div>
                 <x-show-content :pagine="$pagine" />
             </div>
 
             {{-- Sezione Recensioni --}}
-            <div id="diconoDiNoi" class="col-12 mt-5 mt-md-3 text-center">
+            <div id="diconoDiNoi" class=" mt-5 mt-md-3 text-center">
                 <h1 class="text-center">
                     {{ isset($reviewsP) ? __('ui.someReviews') : __('ui.noReviews') }}
                 </h1>
 
                 @if (isset($reviewsP))
-                    <div class="container-fluid p-0">
-                        <div class="row d-flex justify-content-center">
+                    <div class="container">
+                        <div class="row d-flex justify-content-center gap-3">
                             @foreach ($reviewsP as $review)
-                                <div class="col-12 col-md-3 m-3 p-2 border rounded">
+                                <div id="reviewCard"
+                                    class="col-12 col-md-6 col-lg-4 p-3 border rounded bg-white d-flex flex-column justify-content-between align-items-center">
+
                                     {{-- Titolo Recensione --}}
                                     <p class="h5 text-d">{{ $review->title }}</p>
 
                                     {{-- Corpo della Recensione --}}
-                                    <p>{!! $review->body !!}</p>
+                                    <p class="m-0">{!! $review->body !!}</p>
 
                                     {{-- Nome Recensore --}}
-                                    <p>
-                                        <small class="text-a">
-                                            {{ strtoupper(substr($review->name, 0, 1)) . '. ' . strtoupper(substr(explode(' ', $review->name)[1] ?? '', 0, 1)) }}.
-                                        </small>
-                                    </p>
+
+                                    <small class="text-a">
+                                        {{ strtoupper(substr($review->name, 0, 1)) . '. ' . strtoupper(substr(explode(' ', $review->name)[1] ?? '', 0, 1)) . '.' }}
+                                    </small>
+
 
                                     {{-- Stelle di valutazione --}}
                                     <div class="rating">
@@ -50,8 +52,8 @@
         </div>
 
         {{-- Sezione Servizi e Contatti --}}
-        <div class="col-12 mt-5">
-            <div class="container my-5">
+        <div class=" mt-5">
+            <div class=" my-5">
                 <x-contact-link />
             </div>
             <h2 class="text-center">{{ __('ui.title2') }}</h2>
