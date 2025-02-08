@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Queue;
 use App\Mail\BookingStatusNotification;
 
+use function PHPUnit\Framework\isEmpty;
+
 class BookingController extends Controller
 {
     public function showPdf($id)
@@ -65,37 +67,21 @@ class BookingController extends Controller
     {
         App::setLocale('it');
 
-        $user = Auth::user();
-
-        // // Ottieni gli utenti che possono vedere ogni tipo di prenotazione
-        // $showTransferFor = explode(', ', getSetting('show_transfer'));
-        // $showEscursioniFor = explode(', ', getSetting('show_escursioni'));
-        // $showNoleggioFor = explode(', ', getSetting('show_noleggio'));
-
-        // // Inizializza un array per i tipi di prenotazioni visibili
-        // $allowedTypes = [];
-
-        // if (in_array($user->name, $showTransferFor)) {
-        //     $allowedTypes[] = 'transfer';
-        // }
-        // if (in_array($user->name, $showEscursioniFor)) {
-        //     $allowedTypes[] = 'escursione';
-        // }
-        // if (in_array($user->name, $showNoleggioFor)) {
-        //     $allowedTypes[] = 'noleggio';
-        // }
-
         $allowedTypes = getAllowedBookingTypes();
 
         // Creazione della query per le prenotazioni confermate
+        if (isEmpty($allowedTypes)) {
+            $bookings = Booking::where('status', 'confirmed')->get();
+            $pendingBookings = Booking::where('status', 'pending')->get();
+        } else {
+            $bookings = Booking::whereIn('bookingData->type', $allowedTypes)
+                ->where('status', 'confirmed')
+                ->get();
 
-        $bookings = Booking::whereIn('bookingData->type', $allowedTypes)
-            ->where('status', 'confirmed')
-            ->get();
-
-        $pendingBookings = Booking::whereIn('bookingData->type', $allowedTypes)
-            ->where('status', 'pending')
-            ->get();
+            $pendingBookings = Booking::whereIn('bookingData->type', $allowedTypes)
+                ->where('status', 'pending')
+                ->get();
+        }
 
 
         // Collezione per le prenotazioni elaborate
@@ -157,8 +143,6 @@ class BookingController extends Controller
             });
         });
 
-
-
         return view('dashboard.bookingList', [
             'groupedByDay' => $groupedByDay,
             'groupedByMonth' => $groupedByMonth,
@@ -169,10 +153,14 @@ class BookingController extends Controller
     public function bookingToDo()
     {
         $allowedTypes = getAllowedBookingTypes();
-
-        $bookings = Booking::whereIn('bookingData->type', $allowedTypes)
-            ->where('status', 'pending')
-            ->get();
+        
+        if (isEmpty($allowedTypes)) {
+            $bookings = Booking::where('status', 'pending')->get();
+        } else {
+            $bookings = Booking::whereIn('bookingData->type', $allowedTypes)
+                ->where('status', 'pending')
+                ->get();
+        }
 
         return view('dashboard.bookingsToDo', compact('bookings'));
     }

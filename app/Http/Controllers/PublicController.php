@@ -29,6 +29,8 @@ use Illuminate\Support\Facades\Queue;
 use App\Mail\BookingStatusNotification;
 use Illuminate\Support\Facades\Storage;
 
+use function PHPUnit\Framework\isEmpty;
+
 class PublicController extends Controller
 {
     public function getPageData($link, $extraData = [])
@@ -123,11 +125,13 @@ class PublicController extends Controller
     {
         $allowedTypes = getAllowedBookingTypes();
 
-        // Creazione della query per le prenotazioni confermate
-
-        $bookings = Booking::whereIn('bookingData->type', $allowedTypes)
-            ->where('status', 'pending')
-            ->get();
+        if (isEmpty($allowedTypes)) {
+            $bookings = Booking::where('status', 'pending')->get();
+        } else {
+            $bookings = Booking::whereIn('bookingData->type', $allowedTypes)
+                ->where('status', 'pending')
+                ->get();
+        }
 
         $contacts = Contact::all();
         $reviews = Review::all();
@@ -137,10 +141,11 @@ class PublicController extends Controller
     public function bookingStatus()
     {        // Recupera i dati della prenotazione dalla sessione
         $booking = session('booking');
-        if (!$booking) {
 
+        if (!$booking) {
             session(['verified' => false]);
         }
+        
         return view('pages.booking-status', ['booking' => $booking]);
     }
 
@@ -256,7 +261,7 @@ class PublicController extends Controller
 
         // Controlla se esistono già jobs per la prenotazione
         $findJob = getJobs($booking);
-        
+
         if ($findJob) {
             Log::info("Job trovato per la prenotazione {$booking->code}. ID Job: {$findJob->id}. Annullo creazione del Job");
             return redirect()->back()->withErrors(['message' => 'Job già presente']);
