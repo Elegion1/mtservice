@@ -213,9 +213,9 @@ class CarRent extends Component
         $cars = Car::where('show', 1)->get();
 
         $bookings = Booking::whereIn('status', ['confirmed', 'pending'])
-            ->whereJsonContains('bookingData->type', 'noleggio')
+            ->where('bookingData->type', 'noleggio')
             ->get();
-        
+
         $availableCars = $cars->map(function ($car) use ($bookings) {
             $isCarAvailable = true;
 
@@ -224,7 +224,7 @@ class CarRent extends Component
                     $bookingStartDate = strtotime($booking->bookingData['date_start']);
                     $bookingEndDate = strtotime($booking->bookingData['date_end']);
                     $selectedStartDate = strtotime($this->dateStart);
-                    $selectedEndDate = strtotime($this->dateEnd);   
+                    $selectedEndDate = strtotime($this->dateEnd);
 
                     if (
                         ($selectedStartDate >= $bookingStartDate && $selectedStartDate <= $bookingEndDate) ||

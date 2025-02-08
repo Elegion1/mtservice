@@ -12,6 +12,7 @@ use App\Jobs\SendReviewRequestJob;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Queue;
 use App\Mail\BookingStatusNotification;
@@ -64,82 +65,43 @@ class BookingController extends Controller
     {
         App::setLocale('it');
 
-        $bookings = Booking::all();
+        $user = Auth::user();
+
+        // // Ottieni gli utenti che possono vedere ogni tipo di prenotazione
+        // $showTransferFor = explode(', ', getSetting('show_transfer'));
+        // $showEscursioniFor = explode(', ', getSetting('show_escursioni'));
+        // $showNoleggioFor = explode(', ', getSetting('show_noleggio'));
+
+        // // Inizializza un array per i tipi di prenotazioni visibili
+        // $allowedTypes = [];
+
+        // if (in_array($user->name, $showTransferFor)) {
+        //     $allowedTypes[] = 'transfer';
+        // }
+        // if (in_array($user->name, $showEscursioniFor)) {
+        //     $allowedTypes[] = 'escursione';
+        // }
+        // if (in_array($user->name, $showNoleggioFor)) {
+        //     $allowedTypes[] = 'noleggio';
+        // }
+
+        $allowedTypes = getAllowedBookingTypes();
+
+        // Creazione della query per le prenotazioni confermate
+
+        $bookings = Booking::whereIn('bookingData->type', $allowedTypes)
+            ->where('status', 'confirmed')
+            ->get();
+
+        $pendingBookings = Booking::whereIn('bookingData->type', $allowedTypes)
+            ->where('status', 'pending')
+            ->get();
+
 
         // Collezione per le prenotazioni elaborate
         $processedBookings = collect();
 
-        // foreach ($bookings as $booking) {
-        //     $bookingData = $booking->bookingData; // Ottieni i dati della prenotazione
-        //     if ($booking->status == 'confirmed') {
-        //         if ($bookingData['type'] == 'transfer' || $bookingData['type'] == 'escursione') {
-        //             $processedBookings->push((object) [
-        //                 'id' => $booking->id,
-        //                 'status' => $booking->status,
-        //                 'code' => $booking->code,
-        //                 'name' => $booking->name,
-        //                 'surname' => $booking->surname,
-        //                 'email' => $booking->email,
-        //                 'phone' => $booking->phone,
-        //                 'body' => $booking->body,
-        //                 'bookingData' => $booking->bookingData,
-        //                 'start_date' => $bookingData['date_dep'],
-        //                 'end_date' => null, // non applicabile per il viaggio di partenza
-        //             ]);
-
-        //             if (isset($bookingData['date_ret'])) {
-        //                 $processedBookings->push((object) [
-        //                     'id' => $booking->id,
-        //                     'status' => $booking->status,
-        //                     'code' => $booking->code,
-        //                     'name' => $booking->name,
-        //                     'surname' => $booking->surname,
-        //                     'email' => $booking->email,
-        //                     'phone' => $booking->phone,
-        //                     'body' => $booking->body,
-        //                     'bookingData' => $booking->bookingData,
-        //                     'start_date' => null,
-        //                     'end_date' => $bookingData['date_ret'],
-        //                 ]);
-        //             }
-        //         } elseif ($bookingData['type'] == 'noleggio') {
-        //             $processedBookings->push((object) [
-        //                 'id' => $booking->id,
-        //                 'status' => $booking->status,
-        //                 'code' => $booking->code,
-        //                 'name' => $booking->name,
-        //                 'surname' => $booking->surname,
-        //                 'email' => $booking->email,
-        //                 'phone' => $booking->phone,
-        //                 'body' => $booking->body,
-        //                 'bookingData' => $booking->bookingData,
-        //                 'start_date' => $bookingData['date_start'],
-        //                 'end_date' => null,
-        //             ]);
-
-        //             if (isset($bookingData['date_end'])) {
-        //                 $processedBookings->push((object) [
-        //                     'id' => $booking->id,
-        //                     'status' => $booking->status,
-        //                     'code' => $booking->code,
-        //                     'name' => $booking->name,
-        //                     'surname' => $booking->surname,
-        //                     'email' => $booking->email,
-        //                     'phone' => $booking->phone,
-        //                     'body' => $booking->body,
-        //                     'bookingData' => $booking->bookingData,
-        //                     'start_date' => null,
-        //                     'end_date' => $bookingData['date_end'],
-        //                 ]);
-        //             }
-        //         }
-        //     }
-        // }
-
         foreach ($bookings as $booking) {
-            if ($booking->status !== 'confirmed') {
-                continue; // Salta le prenotazioni non confermate
-            }
 
             $bookingData = $booking->bookingData;
             $type = $bookingData['type'];
@@ -195,7 +157,7 @@ class BookingController extends Controller
             });
         });
 
-        $pendingBookings = Booking::where('status', 'pending')->get();
+
 
         return view('dashboard.bookingList', [
             'groupedByDay' => $groupedByDay,
@@ -206,7 +168,12 @@ class BookingController extends Controller
 
     public function bookingToDo()
     {
-        $bookings = Booking::all();
+        $allowedTypes = getAllowedBookingTypes();
+
+        $bookings = Booking::whereIn('bookingData->type', $allowedTypes)
+            ->where('status', 'pending')
+            ->get();
+
         return view('dashboard.bookingsToDo', compact('bookings'));
     }
 
@@ -266,8 +233,13 @@ class BookingController extends Controller
             $updates['payment_status'] = $request->payment_status;
         }
 
+
         // **Cancella il job solo se lo stato passa da "confirmed" a "rejected"**
-        if (isset($updates['status']) && $originalStatus === 'confirmed' && $updates['status'] === 'rejected' || $updates['status'] === 'pending') {
+        if (
+            array_key_exists('status', $updates) &&
+            $originalStatus === 'confirmed' &&
+            ($updates['status'] === 'rejected' || $updates['status'] === 'pending')
+        ) {
             Log::info("Tentativo di cancellazione del job per la prenotazione: {$booking->code}");
 
             $jobToDelete = getJobs($booking);

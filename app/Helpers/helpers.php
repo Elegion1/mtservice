@@ -4,6 +4,7 @@ use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 if (!function_exists('updateLocaleInUrl')) {
@@ -74,4 +75,29 @@ function getJobs($booking)
 
             return false;
         });
+}
+
+function getAllowedBookingTypes()
+{
+    $user = Auth::user();
+
+    // Ottieni gli utenti autorizzati per ogni tipo di prenotazione
+    $showTransferFor = explode(', ', getSetting('show_transfer'));
+    $showEscursioniFor = explode(', ', getSetting('show_escursioni'));
+    $showNoleggioFor = explode(', ', getSetting('show_noleggio'));
+
+    // Inizializza un array per i tipi visibili
+    $allowedTypes = [];
+
+    if (in_array($user->name, $showTransferFor)) {
+        $allowedTypes[] = 'transfer';
+    }
+    if (in_array($user->name, $showEscursioniFor)) {
+        $allowedTypes[] = 'escursione';
+    }
+    if (in_array($user->name, $showNoleggioFor)) {
+        $allowedTypes[] = 'noleggio';
+    }
+
+    return $allowedTypes;
 }

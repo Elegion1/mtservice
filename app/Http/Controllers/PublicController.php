@@ -121,7 +121,14 @@ class PublicController extends Controller
 
     public function dashboard()
     {
-        $bookings = Booking::where('status', 'pending')->get();
+        $allowedTypes = getAllowedBookingTypes();
+
+        // Creazione della query per le prenotazioni confermate
+
+        $bookings = Booking::whereIn('bookingData->type', $allowedTypes)
+            ->where('status', 'pending')
+            ->get();
+
         $contacts = Contact::all();
         $reviews = Review::all();
         return view('dashboard.index', compact('bookings', 'contacts', 'reviews'));

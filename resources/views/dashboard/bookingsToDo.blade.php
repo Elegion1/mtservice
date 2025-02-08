@@ -3,15 +3,13 @@
     <h2>Prenotazioni in attesa</h2>
     <a class="btn btn-sm btn-secondary text-small" href="{{ route('dashboard.bookingList') }}">Torna a confermate</a>
 
-    @foreach ($bookings as $booking)
-        @if (!$booking)
-            <p class="text-center">Nessuna prenotazione in attesa</p>
-        @endif
-        @if ($booking->status == 'pending')
+    @if ($bookings->count() == 0)
+        <p class="text-center">Nessuna prenotazione in attesa</p>
+    @else
+        @foreach ($bookings as $booking)
             <x-bookingCard :booking='$booking' />
-        @endif
-    @endforeach
-
+        @endforeach
+    @endif
 
     <!-- Modale per visualizzare le informazioni sulla prenotazione -->
     <div class="modal fade" id="bookingDetailsModal" tabindex="-1" aria-labelledby="bookingDetailsModalLabel"
