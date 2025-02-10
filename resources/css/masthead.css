@@ -83,6 +83,21 @@
     }
 }
 
+@media screen and (max-height: 800px) {
+    #headerText {
+        height: auto;
+    }
+    #headerBooking {
+        height: 500px;
+    }
+    .masthead {
+        height: 100vh;
+    }
+    .img_car {
+        height: 100vh;
+    }
+}
+
 .service {
     width: 100%;
     /* height: 40vh !important; */

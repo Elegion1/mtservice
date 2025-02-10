@@ -145,56 +145,62 @@ class PublicController extends Controller
         if (!$booking) {
             session(['verified' => false]);
         }
-        
+
         return view('pages.booking-status', ['booking' => $booking]);
     }
 
     public function showLogs()
     {
-        $logFile = storage_path('logs/laravel.log');
+        try {
+            $logFile = storage_path('logs/laravel.log');
 
-        if (!File::exists($logFile)) {
-            return view('dashboard.logs', ['logEntries' => []]);
-        }
-
-        $logs = File::get($logFile);
-
-        // Estrai tutte le entries del log con il timestamp come delimitatore
-        preg_match_all('/\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\].*?(?=(\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\]|$))/s', $logs, $matches);
-
-        $logEntries = $matches[0];
-
-        // Recupera la lunghezza massima dai settings, con un valore predefinito di 1000
-        $maxLength = getSetting('log_max_character_length');
-
-        // Filtra le entries per lunghezza e per esclusione di termini specifici
-        $filteredLogEntries = array_filter($logEntries, function ($entry) use ($maxLength) {
-            $excludePatterns = ['syntax error', 'SQLSTATE'];
-            $isTooLong = strlen($entry) > $maxLength;
-
-            foreach ($excludePatterns as $pattern) {
-                if (stripos($entry, $pattern) !== false) {
-                    return false; // Escludi se contiene uno dei pattern
-                }
+            // Se il file non esiste o non è leggibile, mostra una pagina vuota
+            if (!File::exists($logFile) || !is_readable($logFile)) {
+                Log::warning("Log file non trovato o non leggibile: {$logFile}");
+                return view('dashboard.logs', ['logEntries' => []]);
             }
 
-            return !$isTooLong;
-        });
+            $logs = File::get($logFile);
 
-        // Ordina le entries per timestamp dal più recente al meno recente
-        usort($filteredLogEntries, function ($a, $b) {
-            preg_match('/\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\]/', $a, $timestampA);
-            preg_match('/\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\]/', $b, $timestampB);
+            // Estrai le entries dei log usando i timestamp come delimitatori
+            preg_match_all('/\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\].*?(?=(\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\]|$))/s', $logs, $matches);
+            $logEntries = $matches[0] ?? [];
 
-            $timeA = isset($timestampA[0]) ? strtotime(trim($timestampA[0], '[]')) : 0;
-            $timeB = isset($timestampB[0]) ? strtotime(trim($timestampB[0], '[]')) : 0;
+            // Recupera la lunghezza massima dai settings, con valore predefinito
+            $maxLength = getSetting('log_max_character_length') ?? 1000;
 
-            return $timeB <=> $timeA;
-        });
+            // Filtra le entries
+            $filteredLogEntries = array_filter($logEntries, function ($entry) use ($maxLength) {
+                $excludePatterns = ['syntax error', 'SQLSTATE'];
+                $isTooLong = strlen($entry) > $maxLength;
 
-        return view('dashboard.logs', ['logEntries' => $filteredLogEntries]);
+                foreach ($excludePatterns as $pattern) {
+                    if (stripos($entry, $pattern) !== false) {
+                        return false; // Escludi se contiene uno dei pattern
+                    }
+                }
+
+                return !$isTooLong;
+            });
+
+            // Ordina per timestamp decrescente
+            usort($filteredLogEntries, function ($a, $b) {
+                preg_match('/\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\]/', $a, $timestampA);
+                preg_match('/\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\]/', $b, $timestampB);
+
+                $timeA = isset($timestampA[0]) ? strtotime(trim($timestampA[0], '[]')) : 0;
+                $timeB = isset($timestampB[0]) ? strtotime(trim($timestampB[0], '[]')) : 0;
+
+                return $timeB <=> $timeA;
+            });
+
+            return view('dashboard.logs', ['logEntries' => $filteredLogEntries]);
+        } catch (\Exception $e) {
+            Log::error("Errore durante la lettura dei log: " . $e->getMessage());
+            return view('dashboard.logs', ['logEntries' => []]);
+        }
     }
-
+    
     // Check the email and show the booking status if verified
     public function bookingStatusCheck(Request $request)
     {
