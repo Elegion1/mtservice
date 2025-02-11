@@ -153,7 +153,7 @@ class BookingController extends Controller
     public function bookingToDo()
     {
         $allowedTypes = getAllowedBookingTypes();
-        
+
         if (isEmpty($allowedTypes)) {
             $bookings = Booking::where('status', 'pending')->get();
         } else {
@@ -269,7 +269,7 @@ class BookingController extends Controller
 
             if ($findJob) {
                 Log::info("Job trovato per la prenotazione {$booking->code}. ID Job: {$findJob->id}. Annullo creazione del Job");
-                return redirect()->back()->withErrors(['message' => 'Job già presente']);
+                return redirect()->back()->with('message', 'Job già presente');
             } else {
                 $appLocale = App::getLocale();
                 App::setLocale($booking->locale);
@@ -279,14 +279,19 @@ class BookingController extends Controller
             }
         }
 
-        // Invia email di notifica solo se lo stato è cambiato
-        if (isset($updates['status'])) {
-            sendEmail(
-                $booking->email,
-                new BookingStatusNotification($booking),
-                'Errore nell\'invio dell\'email di notifica',
-                $booking->locale
-            );
+        $notification = getSetting('email_notification');
+
+        if ($notification) {
+            
+            // Invia email di notifica solo se lo stato è cambiato
+            if (isset($updates['status'])) {
+                sendEmail(
+                    $booking->email,
+                    new BookingStatusNotification($booking),
+                    'Errore nell\'invio dell\'email di notifica',
+                    $booking->locale
+                );
+            }
         }
 
         return redirect()->back()->with('success', 'Prenotazione aggiornata con successo.');
