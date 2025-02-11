@@ -17,7 +17,7 @@ class DestinationController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'show' => 'required | boolean',
+            'show' => 'nullable | boolean',
         ]);
 
         $destination = new Destination();
