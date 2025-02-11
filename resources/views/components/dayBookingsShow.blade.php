@@ -42,16 +42,16 @@
                 <div class="col-9 p-0">
                     <button
                         class="btn open-details-modal ps-1 h-100 
-                    @if ($booking->bookingData['type'] == 'noleggio') bg-warning-subtle
+                    @if ($booking->bookingData['type'] == 'noleggio') bg-warning
                     @elseif ($booking->bookingData['type'] == 'escursione')
-                            bg-info-subtle
+                            bg-success
                     @elseif ($booking->bookingData['type'] == 'transfer')
-                            bg-success-subtle @endif
+                            bg-danger @endif
                             "
                         data-bs-toggle="modal" data-bs-target="#bookingDetailsModal"
                         data-booking-data="{{ json_encode($booking->bookingData) }}"
                         data-booking="{{ json_encode($booking) }}">
-                        <p class="text-primary text-decoration-underline text-start text-small mb-0 text-wrap">
+                        <p class="text-black text-decoration-underline text-start text-small mb-0 text-wrap">
 
                             {{ $booking->name }} {{ $booking->surname }} >>
                             {{ ucfirst($booking->bookingData['type']) }}

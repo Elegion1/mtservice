@@ -64,17 +64,6 @@ class CarController extends Controller
     {
         $car->update($request->all());
 
-        // // Associa periodi esistenti
-        // if ($request->has('existing_periods') && is_array($request->input('existing_periods'))) {
-        //     foreach ($request->input('existing_periods') as $periodId) {
-        //         CarPrice::create([
-        //             'car_id' => $car->id,
-        //             'time_period_id' => $periodId,
-        //             'price' => $car->price, // Usa il prezzo base o specifica un altro input
-        //         ]);
-        //     }
-        // }
-
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
                 $path = $file->store('images', 'public');

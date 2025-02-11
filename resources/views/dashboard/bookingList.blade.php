@@ -12,9 +12,9 @@
             </a>
         </div>
         <div class="col-8 d-flex justify-content-between align-items-center">
-            <span class="bg-warning-subtle p-1 text-small border rounded text-secondary">Noleggio</span>
-            <span class="bg-info-subtle p-1 text-small border rounded text-secondary">Escursioni</span>
-            <span class="bg-success-subtle p-1 text-small border rounded text-secondary">Transfer</span>
+            <span class="bg-warning p-1 text-small border rounded text-black">Noleggio</span>
+            <span class="bg-success p-1 text-small border rounded text-black">Escursioni</span>
+            <span class="bg-danger p-1 text-small border rounded text-black">Transfer</span>
         </div>
     </div>
 
