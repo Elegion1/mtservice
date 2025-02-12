@@ -23,9 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Carbon::macro('defaultFormat', function () {
-            $format = __('ui.date_format');  // Recupera il formato dal file di traduzione
-            return $this->format($format);
-        });
+    
     }
 }
