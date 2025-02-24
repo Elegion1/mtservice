@@ -13,7 +13,16 @@
             (object) ['name' => 'minimum_rent_days'],
             (object) ['name' => 'transfer_return_minimum_wait_time_minutes'],
             (object) ['name' => 'default_header_image'],
+            (object) ['name' => 'whatsapp_access_token'],
+            (object) ['name' => 'show_transfer'],
+            (object) ['name' => 'show_escursioni'],
+            (object) ['name' => 'show_noleggio'],
         ];
+
+        $filteredSettings = collect($defaultSettings)->filter(function ($setting) use ($settings) {
+            $existingSetting = $settings->firstWhere('name', $setting->name);
+            return !$existingSetting || is_null($existingSetting->value);
+        });
     @endphp
 
     <h1>Gestione Impostazioni</h1>
@@ -26,10 +35,8 @@
                 <label for="name" class="form-label">Nome Impostazione</label>
                 <select name="name" id="name" class="form-select">
                     <option value="">Seleziona un'impostazione</option>
-                    @foreach ($defaultSettings as $setting)
-                        @if (!isset($setting->value))
-                            <option value="{{ $setting->name }}">{{ $setting->name }}</option>
-                        @endif
+                    @foreach ($filteredSettings as $setting)
+                        <option value="{{ $setting->name }}">{{ $setting->name }}</option>
                     @endforeach
                 </select>
             </div>
