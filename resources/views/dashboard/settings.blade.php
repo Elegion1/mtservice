@@ -1,5 +1,21 @@
 <x-dashboard-layout>
 
+    @php
+        $defaultSettings = [
+            (object) ['name' => 'review_request_default_time'],
+            (object) ['name' => 'review_request_delay_days'],
+            (object) ['name' => 'email_notification'],
+            (object) ['name' => 'log_max_character_length'],
+            (object) ['name' => 'booking_pending_expire_time'],
+            (object) ['name' => 'booking_rejected_notification'],
+            (object) ['name' => 'create_customer'],
+            (object) ['name' => 'send_whatsapp_message'],
+            (object) ['name' => 'minimum_rent_days'],
+            (object) ['name' => 'transfer_return_minimum_wait_time_minutes'],
+            (object) ['name' => 'default_header_image'],
+        ];
+    @endphp
+
     <h1>Gestione Impostazioni</h1>
 
     <!-- Form per Aggiungere Nuova Impostazione -->
@@ -10,7 +26,7 @@
                 <label for="name" class="form-label">Nome Impostazione</label>
                 <select name="name" id="name" class="form-select">
                     <option value="">Seleziona un'impostazione</option>
-                    @foreach ($settings as $setting)
+                    @foreach ($defaultSettings as $setting)
                         @if (!isset($setting->value))
                             <option value="{{ $setting->name }}">{{ $setting->name }}</option>
                         @endif
@@ -97,4 +113,3 @@
     </x-modal>
 
 </x-dashboard-layout>
- 
