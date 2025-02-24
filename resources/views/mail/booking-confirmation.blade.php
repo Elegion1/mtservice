@@ -22,9 +22,15 @@
     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
         class="es-text-mobile-size-16">
 
-        {!! __('ui.paymentAmountMessage', ['amount' => number_format($booking->bookingData['price'] * 0.3, 2), 'code' => $booking->code]) !!}
+        {!! __('ui.paymentAmountMessage', [
+            'amount' => number_format($booking->bookingData['price'] * 0.3, 2),
+            'code' => $booking->code,
+        ]) !!}
 
     </p>
+    <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
+        class="es-text-mobile-size-16">​</p>
+        
     <p style="Margin:0;mso-line-height-rule:exactly;font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;line-height:32px !important;letter-spacing:0;color:#333333;font-size:16px"
         class="es-text-mobile-size-16">
         {{ __('ui.thxForChoosing') }}</p>

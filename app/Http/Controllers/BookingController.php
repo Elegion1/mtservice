@@ -53,7 +53,6 @@ class BookingController extends Controller
         return $dompdf->stream('booking-summary.pdf');
     }
 
-
     /**
      * Display a listing of the resource.
      */

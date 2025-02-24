@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\File;
 
 class TestController extends Controller
 {
@@ -113,10 +114,10 @@ class TestController extends Controller
         // Recupera la prenotazione dall'array o dal database (se utilizzi un database)
         $bookings = $this->bookings();
         $bookingJson = collect($bookings)->firstWhere('id', $bookingId);
-        
+
         $booking = (array) $bookingJson;
-        
-        
+
+
         if (!$booking) {
             abort(404, 'Booking not found');
         }
@@ -198,5 +199,57 @@ class TestController extends Controller
             ->orderBy('failed_at', 'desc')
             ->get();
         return view('dashboard.jobs', compact('jobs', 'failedJobs'));
+    }
+
+    public function showLogs()
+    {
+        try {
+            $logFile = storage_path('logs/laravel.log');
+
+            // Se il file non esiste o non è leggibile, mostra una pagina vuota
+            if (!File::exists($logFile) || !is_readable($logFile)) {
+                Log::warning("Log file non trovato o non leggibile: {$logFile}");
+                return view('dashboard.logs', ['logEntries' => []]);
+            }
+
+            $logs = File::get($logFile);
+
+            // Estrai le entries dei log usando i timestamp come delimitatori
+            preg_match_all('/\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\].*?(?=(\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\]|$))/s', $logs, $matches);
+            $logEntries = $matches[0] ?? [];
+
+            // Recupera la lunghezza massima dai settings, con valore predefinito
+            $maxLength = getSetting('log_max_character_length') ?? 1000;
+
+            // Filtra le entries
+            $filteredLogEntries = array_filter($logEntries, function ($entry) use ($maxLength) {
+                $excludePatterns = ['syntax error', 'SQLSTATE'];
+                $isTooLong = strlen($entry) > $maxLength;
+
+                foreach ($excludePatterns as $pattern) {
+                    if (stripos($entry, $pattern) !== false) {
+                        return false; // Escludi se contiene uno dei pattern
+                    }
+                }
+
+                return !$isTooLong;
+            });
+
+            // Ordina per timestamp decrescente
+            usort($filteredLogEntries, function ($a, $b) {
+                preg_match('/\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\]/', $a, $timestampA);
+                preg_match('/\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\]/', $b, $timestampB);
+
+                $timeA = isset($timestampA[0]) ? strtotime(trim($timestampA[0], '[]')) : 0;
+                $timeB = isset($timestampB[0]) ? strtotime(trim($timestampB[0], '[]')) : 0;
+
+                return $timeB <=> $timeA;
+            });
+
+            return view('dashboard.logs', ['logEntries' => $filteredLogEntries]);
+        } catch (\Exception $e) {
+            Log::error("Errore durante la lettura dei log: " . $e->getMessage());
+            return view('dashboard.logs', ['logEntries' => []]);
+        }
     }
 }

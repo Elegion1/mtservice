@@ -1,10 +1,12 @@
 <?php
 
+use App\Models\Route;
 use App\Models\Setting;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
 if (!function_exists('updateLocaleInUrl')) {
@@ -100,4 +102,95 @@ function getAllowedBookingTypes()
     }
 
     return $allowedTypes;
+}
+
+function sendWPMessage($booking, $templateName, $languageCode = 'it')
+{
+    $phoneNumber = ltrim($booking->dial_code, "+") . $booking->phone;
+
+    $accessToken = getSetting('whatsapp_access_token');
+
+    if (!$accessToken) {
+        Log::error('Access token WhatsApp non configurato');
+        return response()->json(['error' => 'Access token WhatsApp non configurato'], 500);
+    }
+
+    // Log della richiesta in uscita
+    Log::info('Invio messaggio WhatsApp', [
+        'to' => $phoneNumber,
+        'template' => $templateName,
+        'language' => $languageCode
+    ]);
+
+    try {
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $accessToken,
+            'Content-Type' => 'application/json',
+        ])->post('https://graph.facebook.com/v22.0/499713656568876/messages', [
+            'messaging_product' => 'whatsapp',
+            'to' => $phoneNumber,
+            'type' => 'template',
+            'template' => [
+                'name' => $templateName,
+                'language' => [
+                    'code' => $languageCode,
+                ],
+                'components' => [
+                    [
+                        'type' => 'body',
+                        'parameters' => [
+                            [
+                                'type' => 'text',
+                                'parameter_name' => 'name',  // Aggiungi il nome del parametro nel template
+                                'text' => $booking->name  // Nome del cliente
+                            ],
+                            [
+                                'type' => 'text',
+                                'parameter_name' => 'bookingcode',  // Aggiungi il nome del parametro nel template
+                                'text' => $booking->code  // Codice prenotazione
+                            ],
+                            [
+                                'type' => 'text',
+                                'parameter_name' => 'price',  // Aggiungi il nome del parametro nel template
+                                'text' => (string)$booking->bookingData['price']  // Prezzo della prenotazione
+                            ],
+                            [
+                                'type' => 'text',
+                                'parameter_name' => 'link',  // Aggiungi il nome del parametro nel template
+                                'text' => 'https://revolut.me/atranchida'  // Link di pagamento
+                            ],
+                            [
+                                'type' => 'text',
+                                'parameter_name' => 'bookingstatus',  // Aggiungi il nome del parametro nel template
+                                'text' => 'https://tranchidatransfer.it/' . $booking->locale . '/booking/status?code=' . $booking->code . '&email=' . $booking->email  // Link stato prenotazione
+                            ]
+                        ]
+                    ]
+                ]
+            ],
+        ]);
+        Log::info('Richiesta: ' . $response);
+
+        // Log della risposta
+        Log::info('Risposta WhatsApp API', [
+            'status' => $response->status(),
+            'body' => $response->json()
+        ]);
+        return $response;
+    } catch (\Exception $e) {
+        // Log dell'errore
+        Log::error('Errore nell\'invio del messaggio WhatsApp', [
+            'error' => $e->getMessage()
+        ]);
+
+        return response()->json(['error' => 'Errore nell\'invio del messaggio'], 500);
+    }
+}
+
+function combineDateAndTime($date, $time)
+{
+    if ($date && $time) {
+        return "{$date}T{$time}";
+    }
+    return null;
 }

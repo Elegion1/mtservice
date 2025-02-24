@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use DateTime;
 use Carbon\Carbon;
 use App\Models\Car;
 use App\Models\Booking;
@@ -20,6 +19,12 @@ class CarRent extends Component
     public $carID;
     public $rentPrice;
 
+    public $startDateMin;
+    public $endDateMin;
+    public $startTimeMin;
+    public $endTimeMin;
+    public $minimumDays;
+
     public $currentStep = 1; // Step iniziale
 
     public function rules()
@@ -27,7 +32,7 @@ class CarRent extends Component
         return [
             'dateStart' => 'required|date|after_or_equal:today',
             'timeStart' => 'required',
-            'dateEnd' => 'required|date|after_or_equal:dateStart',
+            'dateEnd' => 'required|date|after:dateStart',
             'timeEnd' => 'required',
             'quantity' => 'required|integer|min:1',
             'carID' => 'required|exists:cars,id',
@@ -60,6 +65,13 @@ class CarRent extends Component
 
     public function submitDateSelection()
     {
+        $this->resetErrorBag();
+        $this->minDates();
+
+        if ($this->getErrorBag()->isNotEmpty()) {
+            return;
+        }
+
         $this->validate([
             'dateStart' => 'required|date',
             'timeStart' => 'required',
@@ -67,7 +79,7 @@ class CarRent extends Component
             'timeEnd' => 'required',
         ]);
 
-        $this->currentStep = 2; // Passa allo step successivo
+        $this->goToStep(2);
 
         if ($this->carID) {
             $this->calculatePriceRent();
@@ -76,7 +88,7 @@ class CarRent extends Component
 
     public function updated($field)
     {
-        if (in_array($field, ['dateStart', 'dateEnd', 'quantity', 'carID'])) {
+        if (array_key_exists($field, $this->rules())) {
             $this->validateOnly($field);
             $this->calculatePriceRent();
         }
@@ -86,15 +98,14 @@ class CarRent extends Component
     {
         $this->validate();
 
-        $startDate = $this->convertDate($this->combineDateAndTime($this->dateStart, $this->timeStart));
-        $endDate = $this->convertDate($this->combineDateAndTime($this->dateEnd, $this->timeEnd));
+        $startDate = $this->convertDate(combineDateAndTime($this->dateStart, $this->timeStart));
+        $endDate = $this->convertDate(combineDateAndTime($this->dateEnd, $this->timeEnd));
 
         Log::info('Start date: ' . $startDate);
         Log::info('End date: ' . $endDate);
 
         // Calcolare la differenza in ore tra dateStart e dateEnd
         $hours = $startDate->diffInHours($endDate);
-        // $hours = ($interval->days * 24) + $interval->h + ($interval->i / 60) + ($interval->s / 3600);
 
         // Arrotonda sempre per eccesso
         $rentDays = ceil($hours / 24);
@@ -172,8 +183,8 @@ class CarRent extends Component
 
     public function getBookingDataRent()
     {
-        $dateTimeStart = $this->combineDateAndTime($this->dateStart, $this->timeStart);
-        $dateTimeEnd = $this->combineDateAndTime($this->dateEnd, $this->timeEnd);
+        $dateTimeStart = combineDateAndTime($this->dateStart, $this->timeStart);
+        $dateTimeEnd = combineDateAndTime($this->dateEnd, $this->timeEnd);
         return [
             'type' => 'noleggio',
             'date_start' => $dateTimeStart,
@@ -182,14 +193,6 @@ class CarRent extends Component
             'car_ID' => $this->carID,
             'price' => $this->rentPrice,
         ];
-    }
-
-    protected function combineDateAndTime($date, $time)
-    {
-        if ($date && $time) {
-            return "{$date}T{$time}";
-        }
-        return null;
     }
 
     public function submitBookingRent()
@@ -208,8 +211,62 @@ class CarRent extends Component
         $this->dispatch('bookingSubmitted', $bookingData);
     }
 
+    public function minDates()
+    {
+        $minimumRentDays = getSetting('minimum_rent_days');
+        $this->minimumDays = $minimumRentDays;
+        $minimumRentHours = $minimumRentDays * 24; // Calcola le ore minime
+
+        $startDate = $this->convertDate(combineDateAndTime($this->dateStart, $this->timeStart));
+        $endDate = $this->convertDate(combineDateAndTime($this->dateEnd, $this->timeEnd));
+
+        $rentHours = $startDate->diffInHours($endDate);
+
+        // Imposta date e ore minime
+        $this->startDateMin = date('Y-m-d');
+        $this->startTimeMin = date('H:i');
+
+        if ($this->dateStart && $this->timeStart) {
+            $this->endTimeMin = $this->timeStart;
+        }
+
+        if ($this->dateStart) {
+            $this->endDateMin = date('Y-m-d', strtotime($this->dateStart . ' + ' . $minimumRentDays . ' days'));
+        } else {
+            $this->endDateMin = date('Y-m-d', strtotime(date('Y-m-d') . ' + ' . $minimumRentDays . ' days'));
+        }
+
+        if ($this->dateEnd && !$this->dateStart) {
+            $this->startDateMin = date('Y-m-d', strtotime($this->dateEnd . ' - ' . $minimumRentDays . ' days'));
+        }
+
+        if ($this->dateStart && $this->dateEnd) {
+            $startDate = new \DateTime($this->dateStart);
+            $endDate = new \DateTime($this->dateEnd);
+            $diff = $startDate->diff($endDate)->days;
+
+            if ($diff < $minimumRentDays) {
+                $this->addError('dateEnd', __('ui.minimum_days_error', ['days' => $minimumRentDays]));
+                return;
+            }
+
+            if ($rentHours < $minimumRentHours) {
+                $this->addError('timeEnd', __('ui.minimum_hours_error', ['hours' => $minimumRentHours]));
+                return;
+            }
+
+            if ($diff == $minimumRentDays) {
+                $this->endTimeMin = $this->timeStart;
+            } else {
+                $this->endTimeMin = null;
+            }
+        }
+    }
+
     public function render()
     {
+        $this->minDates();
+
         $cars = Car::where('show', 1)->get();
 
         $bookings = Booking::whereIn('status', ['confirmed', 'pending'])

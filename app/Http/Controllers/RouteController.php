@@ -32,8 +32,8 @@ class RouteController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'departure_id' => 'required|exists:destinations,id',  // Verifica se la partenza esiste
-            'arrival_id' => 'required|exists:destinations,id',      // Verifica se l'arrivo esiste
+            'departure_id' => 'required|exists:destinations,id',
+            'arrival_id' => 'required|exists:destinations,id',
             'distance' => 'required|numeric',
             'price' => 'required|numeric',
             'duration' => 'required|numeric',
@@ -46,18 +46,20 @@ class RouteController extends Controller
             return redirect()->back()->withErrors(['departure_id' => 'Partenza e arrivo non possono essere uguali.']);
         }
 
-        $validated['show'] = $validated['show'] ?? 0;          // Imposta valore di default per 'show'
-        $validated['price_increment'] = $validated['price_increment'] ?? 0; // Imposta valore di default per 'price_increment'
+        // Controlla se esiste già una rotta con la stessa partenza e arrivo
+        $existingRoute = Route::where('departure_id', $validated['departure_id'])
+            ->where('arrival_id', $validated['arrival_id'])
+            ->exists();
 
-        $route = new Route();
-        $route->departure_id = $validated['departure_id'];
-        $route->arrival_id = $validated['arrival_id'];
-        $route->distance = $validated['distance'];
-        $route->price = $validated['price'];
-        $route->duration = $validated['duration'];
-        $route->price_increment = $validated['price_increment'];
-        $route->show = $validated['show'];
-        $route->save();
+        if ($existingRoute) {
+            return redirect()->back()->withErrors(['departure_id' => 'Questa rotta esiste già.']);
+        }
+
+        $validated['show'] = $validated['show'] ?? 0;
+        $validated['price_increment'] = $validated['price_increment'] ?? 0;
+
+        // Creazione della nuova rotta
+        Route::create($validated);
 
         return redirect()->route('dashboard.route')->with('success', 'Rotta creata con successo!');
     }

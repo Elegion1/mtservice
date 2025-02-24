@@ -148,58 +148,6 @@ class PublicController extends Controller
 
         return view('pages.booking-status', ['booking' => $booking]);
     }
-
-    public function showLogs()
-    {
-        try {
-            $logFile = storage_path('logs/laravel.log');
-
-            // Se il file non esiste o non è leggibile, mostra una pagina vuota
-            if (!File::exists($logFile) || !is_readable($logFile)) {
-                Log::warning("Log file non trovato o non leggibile: {$logFile}");
-                return view('dashboard.logs', ['logEntries' => []]);
-            }
-
-            $logs = File::get($logFile);
-
-            // Estrai le entries dei log usando i timestamp come delimitatori
-            preg_match_all('/\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\].*?(?=(\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\]|$))/s', $logs, $matches);
-            $logEntries = $matches[0] ?? [];
-
-            // Recupera la lunghezza massima dai settings, con valore predefinito
-            $maxLength = getSetting('log_max_character_length') ?? 1000;
-
-            // Filtra le entries
-            $filteredLogEntries = array_filter($logEntries, function ($entry) use ($maxLength) {
-                $excludePatterns = ['syntax error', 'SQLSTATE'];
-                $isTooLong = strlen($entry) > $maxLength;
-
-                foreach ($excludePatterns as $pattern) {
-                    if (stripos($entry, $pattern) !== false) {
-                        return false; // Escludi se contiene uno dei pattern
-                    }
-                }
-
-                return !$isTooLong;
-            });
-
-            // Ordina per timestamp decrescente
-            usort($filteredLogEntries, function ($a, $b) {
-                preg_match('/\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\]/', $a, $timestampA);
-                preg_match('/\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\]/', $b, $timestampB);
-
-                $timeA = isset($timestampA[0]) ? strtotime(trim($timestampA[0], '[]')) : 0;
-                $timeB = isset($timestampB[0]) ? strtotime(trim($timestampB[0], '[]')) : 0;
-
-                return $timeB <=> $timeA;
-            });
-
-            return view('dashboard.logs', ['logEntries' => $filteredLogEntries]);
-        } catch (\Exception $e) {
-            Log::error("Errore durante la lettura dei log: " . $e->getMessage());
-            return view('dashboard.logs', ['logEntries' => []]);
-        }
-    }
     
     // Check the email and show the booking status if verified
     public function bookingStatusCheck(Request $request)
@@ -232,92 +180,92 @@ class PublicController extends Controller
         }
     }
 
-    public function confirmBooking(Booking $booking)
-    {
-        if ($booking->status === 'confirmed') {
-            return redirect()->back()->withErrors(['message' => 'Prenotazione già confermata.']);
-        }
+    // public function confirmBooking(Booking $booking)
+    // {
+    //     if ($booking->status === 'confirmed') {
+    //         return redirect()->back()->withErrors(['message' => 'Prenotazione già confermata.']);
+    //     }
 
-        $booking->status = 'confirmed'; // or whatever status you want to set
-        $booking->save();
+    //     $booking->status = 'confirmed'; // or whatever status you want to set
+    //     $booking->save();
 
-        $delayDays = getSetting('review_request_delay_days');
+    //     $delayDays = getSetting('review_request_delay_days');
 
-        $defaultTime = getSetting('review_request_default_time');
-        // Unisci la data del servizio con l'orario di default
-        $serviceDate = Carbon::parse($booking->service_date . ' ' . $defaultTime);
+    //     $defaultTime = getSetting('review_request_default_time');
+    //     // Unisci la data del servizio con l'orario di default
+    //     $serviceDate = Carbon::parse($booking->service_date . ' ' . $defaultTime);
 
-        // Aggiungi i giorni di ritardo
-        $delay = $serviceDate->addDays((int) $delayDays);  // (int) per essere sicuro che sia un numero intero
+    //     // Aggiungi i giorni di ritardo
+    //     $delay = $serviceDate->addDays((int) $delayDays);  // (int) per essere sicuro che sia un numero intero
 
-        Log::info([
-            'service_date' => $booking->service_date,
-            'default_time' => $defaultTime,
-            'delay_days' => $delayDays,
-            'calculated_delay' => $delay,
-        ]);
+    //     Log::info([
+    //         'service_date' => $booking->service_date,
+    //         'default_time' => $defaultTime,
+    //         'delay_days' => $delayDays,
+    //         'calculated_delay' => $delay,
+    //     ]);
 
-        // Invia la mail nella lingua del cliente
-        sendEmail(
-            $booking->email, // Destinatario
-            new BookingStatusNotification($booking), // Mailable
-            'Errore nell\'invio dell\'email di stato prenotazione', // Messaggio di errore
-            $booking->locale // Locale della prenotazione
-        );
+    //     // Invia la mail nella lingua del cliente
+    //     sendEmail(
+    //         $booking->email, // Destinatario
+    //         new BookingStatusNotification($booking), // Mailable
+    //         'Errore nell\'invio dell\'email di stato prenotazione', // Messaggio di errore
+    //         $booking->locale // Locale della prenotazione
+    //     );
 
-        // Controlla se esistono già jobs per la prenotazione
-        $findJob = getJobs($booking);
+    //     // Controlla se esistono già jobs per la prenotazione
+    //     $findJob = getJobs($booking);
 
-        if ($findJob) {
-            Log::info("Job trovato per la prenotazione {$booking->code}. ID Job: {$findJob->id}. Annullo creazione del Job");
-            return redirect()->back()->withErrors(['message' => 'Job già presente']);
-        } else {
-            // Dispatcha il job per inviare la richiesta di recensione
-            $appLocale = App::getLocale();
-            App::setLocale($booking->locale);
-            SendReviewRequestJob::dispatch($booking)->delay($delay);
-            App::setLocale($appLocale);
-            Log::info("Job per la richiesta di recensione creato per la prenotazione: {$booking->code}, con invio previsto per: {$delay->toDateTimeString()}");
-        }
+    //     if ($findJob) {
+    //         Log::info("Job trovato per la prenotazione {$booking->code}. ID Job: {$findJob->id}. Annullo creazione del Job");
+    //         return redirect()->back()->withErrors(['message' => 'Job già presente']);
+    //     } else {
+    //         // Dispatcha il job per inviare la richiesta di recensione
+    //         $appLocale = App::getLocale();
+    //         App::setLocale($booking->locale);
+    //         SendReviewRequestJob::dispatch($booking)->delay($delay);
+    //         App::setLocale($appLocale);
+    //         Log::info("Job per la richiesta di recensione creato per la prenotazione: {$booking->code}, con invio previsto per: {$delay->toDateTimeString()}");
+    //     }
 
 
-        return redirect()->back()->with('message', 'Prenotazione confermata con successo.');
-    }
+    //     return redirect()->back()->with('message', 'Prenotazione confermata con successo.');
+    // }
 
-    public function rejectBooking(Booking $booking)
-    {
-        if ($booking->status === 'rejected') {
-            return redirect()->back()->withErrors(['message' => 'Prenotazione già rifiutata.']);
-        }
+    // public function rejectBooking(Booking $booking)
+    // {
+    //     if ($booking->status === 'rejected') {
+    //         return redirect()->back()->withErrors(['message' => 'Prenotazione già rifiutata.']);
+    //     }
 
-        if ($booking->status === 'confirmed') {
-            // **Cancella il job programmato per la richiesta di recensione**
-            Log::info("Tentativo di cancellazione del job per la prenotazione: {$booking->code}");
+    //     if ($booking->status === 'confirmed') {
+    //         // **Cancella il job programmato per la richiesta di recensione**
+    //         Log::info("Tentativo di cancellazione del job per la prenotazione: {$booking->code}");
 
-            $jobToDelete = getJobs($booking);
+    //         $jobToDelete = getJobs($booking);
 
-            if ($jobToDelete) {
-                Log::info("Job trovato per la prenotazione {$booking->code}. ID Job: {$jobToDelete->id}. Eliminazione in corso...");
-                DB::table('jobs')->where('id', $jobToDelete->id)->delete();
-                Log::info("Job {$jobToDelete->id} eliminato con successo.");
-            } else {
-                Log::warning("Nessun job trovato per la prenotazione {$booking->code}. Nessuna eliminazione eseguita.");
-            }
-        }
+    //         if ($jobToDelete) {
+    //             Log::info("Job trovato per la prenotazione {$booking->code}. ID Job: {$jobToDelete->id}. Eliminazione in corso...");
+    //             DB::table('jobs')->where('id', $jobToDelete->id)->delete();
+    //             Log::info("Job {$jobToDelete->id} eliminato con successo.");
+    //         } else {
+    //             Log::warning("Nessun job trovato per la prenotazione {$booking->code}. Nessuna eliminazione eseguita.");
+    //         }
+    //     }
 
-        $booking->status = 'rejected'; // or whatever status you want to set
-        $booking->save();
+    //     $booking->status = 'rejected'; // or whatever status you want to set
+    //     $booking->save();
 
-        // Invia la mail nella lingua del cliente
-        sendEmail(
-            $booking->email, // Destinatario
-            new BookingStatusNotification($booking), // Mailable
-            'Errore nell\'invio dell\'email di stato prenotazione', // Messaggio di errore
-            $booking->locale // Locale della prenotazione
-        );
+    //     // Invia la mail nella lingua del cliente
+    //     sendEmail(
+    //         $booking->email, // Destinatario
+    //         new BookingStatusNotification($booking), // Mailable
+    //         'Errore nell\'invio dell\'email di stato prenotazione', // Messaggio di errore
+    //         $booking->locale // Locale della prenotazione
+    //     );
 
-        return redirect()->back()->with('message', 'Prenotazione rifiutata con successo.');
-    }
+    //     return redirect()->back()->with('message', 'Prenotazione rifiutata con successo.');
+    // }
 
     //funzione per eliminare le immagini
     public function deleteImage($id)

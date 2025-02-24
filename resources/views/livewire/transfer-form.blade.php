@@ -12,9 +12,8 @@
                     <select wire:model.live="departure" id="departureSelect" class="form-select form_input input_size"
                         aria-label="seleziona luogo di partenza">
                         <option value="">{{ __('ui.selectDeparture') }}</option>
-                        @foreach ($destinations as $destination)
-                            <option value="{{ $destination->id }}">
-                                {{ $destination->name }}</option>
+                        @foreach ($routes->unique('departure_id') as $route)
+                            <option value="{{ $route->departure->id }}">{{ $route->departure->name }}</option>
                         @endforeach
                     </select>
 
@@ -30,7 +29,7 @@
                         class="form-select form_input input_size" aria-label="seleziona luogo di ritorno">
                         <option value="">{{ __('ui.selectDestination') }}</option>
                         @foreach ($routes as $route)
-                            @if ($route->departure->id == $departure)
+                            @if ($route->departure_id == $departure)
                                 <option value="{{ $route->arrival->id }}">{{ $route->arrival->name }}</option>
                             @endif
                         @endforeach
@@ -45,8 +44,8 @@
 
                         <span class="text-capitalize">{{ __('ui.outward') }}</span>
 
-                        <input wire:model.live="dateDeparture" type="date" class="form-control form_input input_size"
-                            id="dateDeparture">
+                        <input wire:model.live="dateDeparture" type="date" min="{{ date('Y-m-d') }}"
+                            class="form-control form_input input_size" id="dateDeparture">
 
                         <x-error-message field='dateDeparture' />
                     </div>
@@ -55,8 +54,8 @@
 
                         <span>{{ __('ui.time') }}</span>
 
-                        <input wire:model.live="timeDeparture" type="time" class="form-control form_input input_size"
-                            id="timeDeparture">
+                        <input wire:model.live="timeDeparture" type="time" min="{{ date('H:i') }}"
+                            class="form-control form_input input_size" id="timeDeparture">
 
                         <x-error-message field='timeDeparture' />
                     </div>
@@ -73,8 +72,8 @@
                     <div class="w-custom me-3">
                         <span class="text-capitalize">{{ __('ui.return') }}</span>
 
-                        <input wire:model.live="dateReturn" type="date" class="form-control form_input input_size"
-                            id="dateReturn">
+                        <input wire:model.live="dateReturn" type="date" min="{{ date('Y-m-d') }}"
+                            class="form-control form_input input_size" id="dateReturn">
 
                         <x-error-message field='dateReturn' />
                     </div>
@@ -82,8 +81,8 @@
                     <div class="w-custom">
                         <span>{{ __('ui.time') }}</span>
 
-                        <input wire:model.live="timeReturn" type="time" class="form-control form_input input_size"
-                            id="timeReturn">
+                        <input wire:model.live="timeReturn" type="time" min="{{ $minReturnTime }}"
+                            class="form-control form_input input_size" id="timeReturn">
 
                         <x-error-message field='timeReturn' />
 
@@ -92,7 +91,7 @@
                 </div>
 
                 <button wire:click="setAndataRitorno"
-                    class="btn py-2 input_size border border-3 my-3 {{ !$solaAndata ? 'd-none' : '' }}">
+                    class="btn py-2 input_size border border-3 mt-2 mb-3 {{ !$solaAndata ? 'd-none' : '' }}">
                     <small>{{ strtoupper(__('ui.addReturn')) }}</small>
                 </button>
                 <button wire:click="submitTransferSelection" type="button"
@@ -139,6 +138,7 @@
                         </p>
                     </div>
                 @endif
+
                 <div class="col-12 p-0 m-0">
                     <span>{{ __('ui.passengers') }}</span>
 

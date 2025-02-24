@@ -74,8 +74,8 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::post('/bookings/{booking}/update-status', [BookingController::class, 'update'])->name('bookings.update');
     Route::get('/booking/status/to-do', [BookingController::class, 'bookingToDo'])->name('booking.todo');
 
-    Route::get('/booking/confirm/{booking}', [PublicController::class, 'confirmBooking'])->name('booking.confirm');
-    Route::get('/booking/reject/{booking}', [PublicController::class, 'rejectBooking'])->name('booking.reject');
+    // Route::get('/booking/confirm/{booking}', [PublicController::class, 'confirmBooking'])->name('booking.confirm');
+    // Route::get('/booking/reject/{booking}', [PublicController::class, 'rejectBooking'])->name('booking.reject');
 
 
     // DASHBOARD
@@ -83,7 +83,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     // vista dashboard
     Route::get('/', [PublicController::class, 'dashboard'])->name('dashboard');
     Route::get('/jobs', [TestController::class, 'jobsIndex'])->name('dashboard.jobs');
-    Route::get('/logs', [PublicController::class, 'showLogs'])->name('dashboard.logs');
+    Route::get('/logs', [TestController::class, 'showLogs'])->name('dashboard.logs');
 
     //impostazioni
     Route::get('/settings/', [SettingController::class, 'index'])->name('dashboard.settings'); // Visualizza tutte le impostazioni

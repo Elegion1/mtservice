@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use App\Models\Route;
-use App\Models\Setting;
 use Livewire\Component;
 use App\Models\Destination;
 
@@ -20,6 +19,8 @@ class TransferForm extends Component
     public $dateReturn;
     public $timeReturn;
 
+    public $minReturnTime;
+
     public $departureName;
     public $arrivalName;
     public $route;
@@ -30,68 +31,65 @@ class TransferForm extends Component
 
     public function rules()
     {
-        $rules = [
+        return array_merge([
             'departure' => 'required|exists:destinations,id',
             'return' => 'required|exists:destinations,id',
             'transferPassengers' => 'required|integer|min:1|max:16',
             'dateDeparture' => 'required|date|after_or_equal:today',
             'timeDeparture' => 'required',
-            'dateReturn' => 'nullable|date|after:dateDeparture',
-            'timeReturn' => 'nullable',
-        ];
+        ], $this->getReturnRules());
+    }
 
-        // Se andataRitorno è true, rendi dateReturn obbligatoria
-        if ($this->dateDeparture == $this->dateReturn && $this->andataRitorno) {
-            $rules['dateReturn'] = 'required|date';
-            $rules['timeReturn'] = ['required', function ($attribute, $value, $fail) {
-                $this->validateReturnTime($fail);
-            }];
-        } elseif ($this->andataRitorno) {
-            $rules['dateReturn'] = 'required|date|after:dateDeparture';
-            $rules['timeReturn'] = 'required';
+    private function getReturnRules()
+    {
+        if (!$this->andataRitorno) {
+            return [
+                'dateReturn' => 'nullable|date|after:dateDeparture',
+                'timeReturn' => 'nullable',
+            ];
         }
 
-        return $rules;
+        return [
+            'dateReturn' => 'required|date|after_or_equal:dateDeparture',
+            'timeReturn' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    $this->validateReturnTime($fail);
+                },
+            ],
+        ];
     }
 
     private function validateReturnTime($fail)
     {
-        // Verifica se tutti i parametri necessari sono presenti
-        if (!$this->departure || !$this->return || !$this->dateDeparture || !$this->timeDeparture || !$this->dateReturn || !$this->timeReturn) {
-            return;  // Se uno dei parametri non è presente, interrompi la funzione
+        if (!$this->departure || !$this->return || !$this->timeDeparture || !$this->timeReturn) {
+            return;  // Interrompi se mancano dati
         }
 
-        // Recupera il tragitto dalla rotta
-        $route = $this->getRoutedata($this->departure, $this->return);
-
-        // Se la rotta non esiste, segnala l'errore
+        $route = $this->getRouteData($this->departure, $this->return);
         if (!$route) {
-            $fail(__('ui.invalid_route')); // Traduzione per "Tragitto non valido"
+            $fail(__('ui.invalid_route'));
             return;
         }
 
-        // Recupera la durata del tragitto e il tempo minimo di attesa
         $durationMinutes = $route->duration;
         $minWaitTimeMinutes = getSetting('transfer_return_minimum_wait_time_minutes', 60);
-        $minMinutesWait = $durationMinutes + $minWaitTimeMinutes;  // Tempo minimo di attesa
+        $minMinutesWait = $durationMinutes + $minWaitTimeMinutes;
 
-        // Calcola la differenza in minuti tra l'orario di partenza e ritorno
         $departureTimestamp = strtotime($this->timeDeparture);
         $returnTimestamp = strtotime($this->timeReturn);
-        $diffMinutes = ($returnTimestamp - $departureTimestamp) / 60;  // Differenza in minuti
 
-        // Se il ritorno è valido (cioè la differenza è maggiore o uguale al minimo), prosegui
-        if ($diffMinutes >= $minMinutesWait) {
-            // Se il ritorno è valido, non fare nulla e continua il flusso
-            return;
-        } else {
-            // Altrimenti, segnala l'errore con il tempo minimo di attesa
-            $hours = floor($minMinutesWait / 60);
-            $minutes = $minMinutesWait % 60;
-            $formattedTime = sprintf('%02d:%02d', $hours, $minutes);
+        if (!$departureTimestamp || !$returnTimestamp) {
+            return;  // Evita errori se il formato dell'ora è errato
+        }
 
+        $diffMinutes = ($returnTimestamp - $departureTimestamp) / 60;
+
+        $this->minReturnTime = date('H:i', strtotime($this->timeDeparture . " + {$minMinutesWait} minutes"));
+
+        if ($diffMinutes < $minMinutesWait) {
             $fail(__('ui.invalid_return_time', [
-                'time' => $formattedTime,  // Mostra il tempo minimo formattato come ora
+                'time' => sprintf('%02d:%02d', floor($minMinutesWait / 60), $minMinutesWait % 60),
             ]));
         }
     }
@@ -111,6 +109,7 @@ class TransferForm extends Component
             'dateDeparture.date' => __('ui.dateDeparture_date'),
             'dateDeparture.after_or_equal' => __('ui.dateDeparture_after_or_equal'),
             'timeDeparture.required' => __('ui.timeDeparture_required'),
+            'timeDeparture.after_or_equal' => __('ui.timeDeparture_after'),
             'dateReturn.date' => __('ui.dateReturn_date'),
             'dateReturn.after' => __('ui.dateReturn_after'),
             'dateReturn.required' => __('ui.dateReturn_required'),
@@ -122,7 +121,7 @@ class TransferForm extends Component
     {
         $this->validateOnly($field);
 
-        if (in_array($field, ['departure', 'return', 'transferPassengers', 'solaAndata', 'andataRitorno'])) {
+        if (in_array($field, ['departure', 'return', 'transferPassengers', 'solaAndata', 'andataRitorno', 'timeDeparture'])) {
             $this->calculatePrice();
 
             $this->departureName = $this->departure ? $this->getDestName($this->departure) : null;
@@ -131,7 +130,7 @@ class TransferForm extends Component
         }
     }
 
-    public function getRoutedata($departure, $arrival)
+    public function getRouteData($departure, $arrival)
     {
         return Route::where('departure_id', $departure)->where('arrival_id', $arrival)->first();
     }
@@ -154,14 +153,7 @@ class TransferForm extends Component
 
     public function submitTransferSelection()
     {
-        $this->validate([
-            'departure' => 'required|exists:destinations,id',
-            'return' => 'required|exists:destinations,id',
-            'dateDeparture' => 'required|date|after_or_equal:today',
-            'timeDeparture' => 'required',
-            'dateReturn' => 'nullable|date|after_or_equal:dateDeparture',
-            'timeReturn' => 'nullable',
-        ]);
+        $this->validate();
 
         $this->goToStep(2);
     }
@@ -202,24 +194,22 @@ class TransferForm extends Component
 
     private function calculateBasePrice($route, $passengers)
     {
-        $basePrice = $route->price;
-        $incrementPrice = $route->price_increment;
+        if ($passengers <= 4) return $route->price;
 
-        if ($passengers <= 4) {
-            return $basePrice;
-        } elseif ($passengers <= 8) {
-            return $basePrice + $incrementPrice * ($passengers - 4);
-        } elseif ($passengers <= 12) {
-            return ($basePrice * 2) + $incrementPrice * 4;
-        } else {
-            return ($basePrice * 2) + $incrementPrice * 4 + $incrementPrice * ($passengers - 12);
+        $incrementPrice = $route->price_increment;
+        $extraPassengers = max(0, $passengers - 4);
+
+        if ($passengers <= 8) {
+            return $route->price + ($incrementPrice * $extraPassengers);
         }
+
+        return ($route->price * 2) + ($incrementPrice * ($extraPassengers > 8 ? $extraPassengers - 8 : 4));
     }
 
     public function calculatePrice()
     {
         if ($this->departure && $this->return) {
-            $route = Route::where('departure_id', $this->departure)->where('arrival_id', $this->return)->first();
+            $route = $this->getRouteData($this->departure, $this->return);
             if (!$route) {
                 $this->transferPrice = 0;
                 return;
@@ -235,10 +225,10 @@ class TransferForm extends Component
     public function getBookingDataTransfer()
     {
         // Combina data e ora di partenza in un unico datetime
-        $dateTimeDeparture = $this->combineDateAndTime($this->dateDeparture, $this->timeDeparture);
+        $dateTimeDeparture = combineDateAndTime($this->dateDeparture, $this->timeDeparture);
 
         // Combina data e ora di ritorno, se esistono
-        $dateTimeReturn = $this->combineDateAndTime($this->dateReturn, $this->timeReturn);
+        $dateTimeReturn = combineDateAndTime($this->dateReturn, $this->timeReturn);
 
         return [
             'type' => 'transfer', // Assuming 'transfer' for transfer bookings
@@ -250,15 +240,6 @@ class TransferForm extends Component
             'date_ret' => $dateTimeReturn,
             'price' => $this->transferPrice,
         ];
-    }
-
-    // Metodo per combinare data e ora in un unico formato datetime
-    protected function combineDateAndTime($date, $time)
-    {
-        if ($date && $time) {
-            return "{$date}T{$time}";
-        }
-        return null;
     }
 
     public function submitBookingTransfer()
@@ -277,8 +258,7 @@ class TransferForm extends Component
 
     public function render()
     {
-        $destinations = Destination::all();
-        $routes = Route::with(['departure', 'arrival'])->get();
-        return view('livewire.transfer-form', compact('destinations', 'routes'));
+        $routes = Route::with(['departure', 'arrival'])->where('show', 1)->get();
+        return view('livewire.transfer-form', compact('routes'));
     }
 }

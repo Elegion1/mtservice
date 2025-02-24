@@ -22,6 +22,7 @@ class EscursioniForm extends Component
             'excursionTime' => 'required',
         ];
     }
+
     public function messages()
     {
         return [
@@ -32,9 +33,9 @@ class EscursioniForm extends Component
             'excursionPassengers.min' => __('ui.excursionPassengers_min'),
             'excursionPassengers.max' => __('ui.excursionPassengers_max'),
             'excursionDate.required' => __('ui.excursionDate_required'),
-            'excursionTime.required' => __('ui.excursionTime_required'),
             'excursionDate.date' => __('ui.excursionDate_date'),
             'excursionDate.after_or_equal' => __('ui.excursionDate_after_or_equal'),
+            'excursionTime.required' => __('ui.excursionTime_required'),
         ];
     }
 
@@ -52,6 +53,7 @@ class EscursioniForm extends Component
     {
         if ($this->excursionPassengers < 16) {
             $this->excursionPassengers++;
+            $this->calculatePriceExcursion();   
         }
     }
 
@@ -60,41 +62,51 @@ class EscursioniForm extends Component
     {
         if ($this->excursionPassengers > 1) {
             $this->excursionPassengers--;
+            $this->calculatePriceExcursion();
         }
     }
 
     public function calculatePriceExcursion()
     {
-        if ($this->excursionSelect && $this->excursionPassengers) {
-            $excursion = Excursion::find($this->excursionSelect);
-            if ($excursion) {
-                $basePrice = $excursion->price;
-                $incrementPrice = $excursion->price_increment;
-                $passengers = $this->excursionPassengers;
-
-                if ($passengers <= 4) {
-                    $totalPrice = $basePrice;
-                } elseif ($passengers <= 8) {
-                    $totalPrice = $basePrice + $incrementPrice * ($passengers - 4);
-                } elseif ($passengers >= 9 && $passengers <= 12) {
-                    $totalPrice = ($basePrice * 2) + $incrementPrice * 4;
-                } elseif ($passengers > 12 && $passengers <= 16) {
-                    $totalPrice = ($basePrice * 2) + $incrementPrice * 4 + $incrementPrice * ($passengers - 12);
-                }
-
-                $this->excursionPrice = $totalPrice;
-            } else {
-                $this->excursionPrice = 0;
-            }
-        } else {
+        // Se non è stata selezionata un'escursione o se il numero di passeggeri è zero, imposta il prezzo a 0
+        if (!$this->excursionSelect || !$this->excursionPassengers) {
             $this->excursionPrice = 0;
+            return;
         }
+
+        // Recupera l'escursione selezionata
+        $excursion = Excursion::find($this->excursionSelect);
+
+        // Se l'escursione non esiste, imposta il prezzo a 0
+        if (!$excursion) {
+            $this->excursionPrice = 0;
+            return;
+        }
+
+        // Prezzo di base e incremento per passeggero extra
+        $basePrice = $excursion->price;
+        $incrementPrice = $excursion->price_increment;
+        $passengers = $this->excursionPassengers;
+        
+        // Calcolo del prezzo in base al numero di passeggeri
+        if ($passengers <= 4) {
+            $totalPrice = $basePrice;  // Prezzo base per fino a 4 passeggeri
+        } elseif ($passengers <= 8) {
+            $totalPrice = $basePrice + $incrementPrice * ($passengers - 4);  // Prezzo base + incremento per i passeggeri sopra 4
+        } elseif ($passengers <= 12) {
+            $totalPrice = $basePrice + $incrementPrice * 4;  // Prezzo base + incremento per i 4 passeggeri extra (fino a 8)
+        } else {
+            $totalPrice = $basePrice + $incrementPrice * 4 + $incrementPrice * ($passengers - 12);  // Prezzo base + incremento per i passeggeri sopra 12
+        }
+
+        // Assegna il prezzo totale calcolato
+        $this->excursionPrice = $totalPrice;
     }
 
     public function getBookingDataExcursion()
     {
         // Combina data e ora di partenza in un unico datetime
-        $dateTimeDeparture = $this->combineDateAndTime($this->excursionDate, $this->excursionTime);
+        $dateTimeDeparture = combineDateAndTime($this->excursionDate, $this->excursionTime);
 
         return [
             'type' => 'escursione',
@@ -105,30 +117,14 @@ class EscursioniForm extends Component
         ];
     }
 
-    protected function combineDateAndTime($date, $time)
-    {
-        if ($date && $time) {
-            return "{$date}T{$time}";
-        }
-        return null;
-    }
-
     public function submitBookingExcursion()
     {
         $this->validate();
 
         $bookingData = $this->getBookingDataExcursion();
-        $departureName = Excursion::find($bookingData['departure_id'])->name_it;
-        $duration = Excursion::find($bookingData['departure_id'])->duration;
-        $bookingData['duration'] = $duration;
-        $bookingData['departure_name'] = $departureName;
-
-        // // Formattare la data di partenza
-        // $departureDate = date('D d F Y', strtotime($bookingData['date_dep']));
-        // $bookingData['date_departure'] = $departureDate;
-
-        // $departureTime = date('H:i', strtotime($bookingData['date_dep']));
-        // $bookingData['time_departure'] = $departureTime;
+        $excursion = Excursion::find($bookingData['departure_id']);
+        $bookingData['departure_name'] = $excursion->name_it;
+        $bookingData['duration'] = $excursion->duration;
 
         $this->dispatch('bookingSubmitted', $bookingData);
     }

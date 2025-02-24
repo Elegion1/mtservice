@@ -16,22 +16,58 @@ window.showModal = function (id, item) {
             ) {
                 const propertyName = inputId.replace("edit_", ""); // Estrai il nome della proprietà
                 if (item[propertyName] !== undefined) {
-                    if (input.type === "checkbox") {
-                        input.checked = !!item[propertyName];
-                    } else if (input.type === "date") {
-                        input.value =
-                            item[propertyName]?.substring(0, 10) || "";
-                    } else if (input.type === "datetime-local") {
-                        if (item[propertyName]) {
-                            const date = new Date(item[propertyName] + "Z");
-                            input.value = !isNaN(date)
-                                ? date.toISOString().slice(0, 16)
-                                : "";
-                        } else {
-                            input.value = "";
-                        }
-                    } else {
-                        input.value = item[propertyName] || "";
+                    switch (input.type) {
+                        case "checkbox":
+                            input.checked = !!item[propertyName];
+                            break;
+                        case "date":
+                            input.value =
+                                item[propertyName]?.substring(0, 10) || "";
+                            break;
+                        case "datetime-local":
+                            if (item[propertyName]) {
+                                const date = new Date(item[propertyName] + "Z");
+                                input.value = !isNaN(date)
+                                    ? date.toISOString().slice(0, 16)
+                                    : "";
+                            } else {
+                                input.value = "";
+                            }
+                            break;
+                        case "time":
+                            if (item[propertyName]) {
+                                const date = new Date(
+                                    `1970-01-01T${item[propertyName]}Z`
+                                );
+                                input.value = !isNaN(date)
+                                    ? date.toISOString().slice(11, 16)
+                                    : "";
+                            } else {
+                                input.value = "";
+                            }
+                            break;
+                        case "url":
+                        case "number":
+                        case "text":
+                            input.value = item[propertyName] || "";
+                            break;
+                        case "select-one":
+                            if (
+                                Array.from(input.options).some(
+                                    (opt) => opt.value == item[propertyName]
+                                )
+                            ) {
+                                input.value = item[propertyName];
+                            } else {
+                                console.warn(
+                                    `Valore "${item[propertyName]}" non trovato nel select ${inputId}`
+                                );
+                            }
+                            break;
+                        default:
+                            console.warn(
+                                `Tipo di input non gestito: ${input.type}`
+                            );
                     }
                 }
             }

@@ -60,6 +60,8 @@ return [
     'pickup' => 'Pick-Up',
     'dropoff' => 'Drop-Off',
     'carsDisplay' => 'Choose the vehicle that best suits your needs',
+    'minimumRent' => 'Minimum rent',
+    'days' => 'days',
 
     //booking summary
     'bookingSummaryTitle' => 'Booking Summary',
@@ -210,12 +212,16 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
     'dateDeparture_required' => 'The departure date is required',
     'dateDeparture_date' => 'The departure date must be a valid date',
     'dateDeparture_after_or_equal' => 'The departure date cannot be in the past',
-    'timeDeparture_required' => 'Select a departure time',
+    'timeDeparture_required' => 'Select departure time',
+    'timeDeparture_after' => 'Departure time can\'t be in the past!',
     'dateReturn_date' => 'The return date must be a valid date',
     'dateReturn_after' => 'The return date must be after the departure date',
     'dateReturn_required' => 'The return date is required, or select one way',
     'timeReturn_required' => 'Select a return time',
     'invalid_return_time' => 'The return must be selected at least :time after the departure',
+
+    'minimum_hours_error' => 'The minimum rental time is :hours hours',
+    'minimum_days_error' => 'The minimum rental time is :days days',
 
     'contactMailMessage' => 'The message was sent successfully',
 

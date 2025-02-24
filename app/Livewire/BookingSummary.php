@@ -6,23 +6,18 @@ use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Models\Booking;
-use App\Models\Setting;
 use Livewire\Component;
 use App\Models\Customer;
 use App\Models\Discount;
 use App\Models\OwnerData;
 use App\Mail\BookingAdmin;
-use App\Mail\ReviewRequest;
 use Illuminate\Support\Str;
 use App\Models\CountryDialCode;
 use App\Mail\BookingConfirmation;
-use App\Jobs\SendReviewRequestJob;
-use Exception;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Mail;
+
 
 class BookingSummary extends Component
 {
@@ -245,7 +240,7 @@ class BookingSummary extends Component
         // Se non ci sono codici nel database, scarica i codici dal servizio esterno
         if (empty($dialCodes)) {
             $url = 'https://restcountries.com/v3.1/all?fields=name,idd,flags';
-            
+
             $response = Http::get($url);
 
             if ($response->successful()) {
@@ -407,15 +402,16 @@ class BookingSummary extends Component
 
         $this->phone = preg_replace('/[^\d+]/', '', $this->phone);
         $this->phone = ltrim($this->phone, '+');
-        // $this->phone = $this->dialCode . $this->phone;
-
-        // if (!str_starts_with($this->phone, '+')) {
-        //     $this->phone = '+' . $this->phone;
-        // }
     }
 
     private function sendBookingEmails($booking)
     {
+        $sendWPMessage = getSetting('send_whatsapp_message');
+
+        if ($sendWPMessage) {
+            sendWPMessage($booking, 'booking_notification');
+        }
+
         $language = app()->getLocale();
         $pdfClient = $this->generatePDF($booking, $language);
 

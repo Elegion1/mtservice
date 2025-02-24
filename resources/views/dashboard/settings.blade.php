@@ -1,27 +1,43 @@
 <x-dashboard-layout>
 
     <h1>Gestione Impostazioni</h1>
+
     <!-- Form per Aggiungere Nuova Impostazione -->
     <form action="{{ route('settings.store') }}" method="POST">
         @csrf
         <div class="row">
-            <div class="mb-3 col-5">
+            <div class="mb-3 col-12 col-md-4">
                 <label for="name" class="form-label">Nome Impostazione</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <select name="name" id="name" class="form-select">
+                    <option value="">Seleziona un'impostazione</option>
+                    @foreach ($settings as $setting)
+                        @if (!isset($setting->value))
+                            <option value="{{ $setting->name }}">{{ $setting->name }}</option>
+                        @endif
+                    @endforeach
+                </select>
             </div>
-            <div class="mb-3 col-5">
+            <div class="mb-3 col-12 col-md-4">
                 <label for="type" class="form-label">Tipo</label>
-                <input type="text" class="form-control" id="type" name="type" required>
+                <select name="type" id="type" class="form-select" required>
+                    <option value="">Seleziona un tipo</option>
+                    <option value="text">Testo</option>
+                    <option value="date">Data</option>
+                    <option value="time">Ora</option>
+                    <option value="url">URL</option>
+                    <option value="number">Numero</option>
+                </select>
             </div>
-            <div class="mb-3 col-5">
+            <div class="mb-3 col-12 col-md-4">
                 <label for="value" class="form-label">Valore</label>
                 <input type="text" class="form-control" id="value" name="value" required>
             </div>
-            <div class="mb-3 col-2 d-flex align-items-end">
+            <div class="mb-3 col-12 d-flex align-items-end">
                 <button type="submit" class="btn btn-primary">Aggiungi</button>
             </div>
         </div>
     </form>
+
     <hr>
 
     <!-- Tabella delle Impostazioni -->
@@ -65,7 +81,14 @@
         </div>
         <div class="mb-3">
             <label for="edit_type" class="form-label">Tipo</label>
-            <input type="text" class="form-control" id="edit_type" name="type" required>
+            <select name="type" id="edit_type" class="form-select" required>
+                <option value="">Seleziona un tipo</option>
+                <option value="text">Testo</option>
+                <option value="date">Data</option>
+                <option value="time">Ora</option>
+                <option value="url">URL</option>
+                <option value="number">Numero</option>
+            </select>
         </div>
         <div class="mb-3">
             <label for="edit_value" class="form-label">Valore</label>
@@ -74,3 +97,4 @@
     </x-modal>
 
 </x-dashboard-layout>
+ 

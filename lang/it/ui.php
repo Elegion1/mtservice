@@ -60,6 +60,8 @@ return [
     'pickup' => 'ritiro',
     'dropoff' => 'consegna',
     'carsDisplay' => 'Scegli il veicolo più adatto a te',
+    'minimumRent' => 'Noleggio minimo',
+    'days' => 'giorni',
 
     //riepilogo prenotazione
     'bookingSummaryTitle' => 'Riepilogo Prenotazione',
@@ -223,11 +225,15 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
     'dateDeparture_date' => 'La data di partenza deve essere una data valida.',
     'dateDeparture_after_or_equal' => 'La data di partenza non può essere nel passato.',
     'timeDeparture_required' => 'Seleziona un orario di partenza.',
+    'timeDeparture_after' => 'L\'ora di partenza non può essere nel passato!',
     'dateReturn_date' => 'La data di ritorno deve essere una data valida.',
     'dateReturn_after' => 'La data di ritorno deve essere dopo la data di partenza.',
     'dateReturn_required' => 'La data di ritorno è obbligatoria',
     'timeReturn_required' => 'Seleziona un orario di ritorno.',
     'invalid_return_time' => 'Il ritorno deve essere selezionato almeno :time dopo la partenza.',
+
+    'minimum_hours_error' => 'Il tempo minimo di noleggio è di :hours ore',
+    'minimum_days_error' => 'Il tempo minimo di noleggio è di :days giorni',
 
     'contactMailMessage' => 'Email inviata con successo',
 

@@ -10,6 +10,8 @@ class Route extends Model
     use HasFactory;
 
     protected $fillable = [
+        'departure_id',
+        'arrival_id',
         'price',
         'price_increment',
         'duration',

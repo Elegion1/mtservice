@@ -5,20 +5,28 @@
         <div class="row">
 
             @if ($currentStep == 1)
-                <h6 class="p-0 mb-3 text-uppercase">{{ ucfirst(__('ui.selectDate')) }}</h6>
+                <div class="d-flex justify-content-between align-items-center p-0">
+                    <h6 class="p-0 mb-3 text-uppercase">{{ ucfirst(__('ui.selectDate')) }}</h6>
+                    @if ($minimumDays > 0)
+                        <span class="mb-3 text-danger small">{{ __('ui.minimumRent') }}: {{ $minimumDays }}
+                            {{ __('ui.days') }}
+                        </span>
+                    @endif
+                </div>
+
                 <!-- Data e Ora di Inizio -->
                 <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
                     <div class="w-custom me-3">
                         <span>{{ __('ui.rentStartDate') }}</span>
-                        <input wire:model.live="dateStart" type="date" class="form-control form_input input_size"
-                            id="dateStart">
+                        <input wire:model.live="dateStart" type="date" min="{{ $startDateMin }}"
+                            class="form-control form_input input_size" id="dateStart">
                         <x-error-message field='dateStart' />
                     </div>
 
                     <div class="w-custom">
                         <span>{{ __('ui.time') }}</span>
-                        <input wire:model.live="timeStart" type="time" class="form-control form_input input_size"
-                            id="timeStart">
+                        <input wire:model.live="timeStart" type="time" min="{{ $startTimeMin }}" step="900"
+                            class="form-control form_input input_size" id="timeStart">
                         <x-error-message field='timeStart' />
                     </div>
                 </div>
@@ -27,15 +35,15 @@
                 <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
                     <div class="w-custom me-3">
                         <span>{{ __('ui.rentEndDate') }}</span>
-                        <input wire:model.live="dateEnd" type="date" class="form-control form_input input_size"
-                            id="dateEnd">
+                        <input wire:model.live="dateEnd" type="date" min="{{ $endDateMin }}"
+                            class="form-control form_input input_size" id="dateEnd">
                         <x-error-message field='dateEnd' />
                     </div>
 
                     <div class="w-custom">
                         <span>{{ __('ui.time') }}</span>
-                        <input wire:model.live="timeEnd" type="time" class="form-control form_input input_size"
-                            id="timeEnd">
+                        <input wire:model.live="timeEnd" type="time" min="{{ $endTimeMin }}" step="900"
+                            class="form-control form_input input_size" id="timeEnd">
                         <x-error-message field='timeEnd' />
                     </div>
                 </div>
