@@ -172,12 +172,87 @@ class BookingController extends Controller
         //
     }
 
+    public function getBookingCode()
+    {
+        $code = generateUniqueCode();
+        return response()->json(['code' => $code]);
+    }
+
+    public function getBookingData(Request $request)
+    {
+        // Recupera il parametro encryptedData dalla query string
+        $encryptedData = $request->query('encryptedData');
+
+        // Decodifica i dati da Base64
+        $decodedData = base64_decode($encryptedData);
+
+        // Converti la stringa JSON in un array associativo
+        $bookingData = json_decode($decodedData, true);
+
+        Log::info('Richiesta di prenotazione ricevuta.', $bookingData);
+
+        $data = $this->adaptBookingData($bookingData);
+        Log::info('Dati adattati per la prenotazione.', $data);
+        $booking = Booking::create($data);
+
+        return response()->json(['success' => true, 'data' => $bookingData, 'booking' => $booking], 201);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request) {}
+
+    private function adaptBookingData($data)
     {
-        //
+        // Logga i dati ricevuti per il debug
+        Log::info('Dati di input ricevuti per l\'adattamento:', $data);
+
+        try {
+            // Controlla se i dati obbligatori sono presenti
+            if (!isset($data['name']) || !isset($data['surname']) || !isset($data['price'])) {
+                Log::error('Dati obbligatori mancanti: name, surname o price');
+                throw new \Exception('Dati obbligatori mancanti');
+            }
+
+            // Adatta i dati
+            $adaptedData = [
+                'name' => $data['name'],
+                'surname' => $data['surname'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'dial_code' => null,
+                'body' => $data['message'] ?? '',
+                'bookingData' => [
+                    'type' => 'transfer',
+                    'price' => $data['price'],
+                    'original_price' => $data['price'],
+                    'date_dep' => $data['dateStart'] . 'T' . $data['timeStart'],
+                    'date_ret' => isset($data['dateReturn']) && isset($data['timeReturn']) ? $data['dateReturn'] . 'T' . $data['timeReturn'] : null,
+                    'sola_andata' => isset($data['dateReturn']) && isset($data['timeReturn']) ? false : true,
+                    'duration' => $data['duration'] ?? 1,
+                    'passengers' => $data['passengers'],
+                    'departure_id' => null,
+                    'departure_name' => explode(' - ', $data['route'])[0],
+                    'arrival_name' => explode(' - ', $data['route'])[1],
+                    'sito_favignana' => true,
+                ],
+                'code' => $data['code'],
+                'service_date' => $data['dateStart'],
+                'status' => 'confirmed',
+                'payment_status' => $data['paymentStatus'] == 'COMPLETED' ? 'paid' : 'pending',
+                'locale' => $data['locale'] ?? 'it',
+            ];
+
+            // Logga i dati adattati per verificarli
+            Log::info('Dati adattati:', $adaptedData);
+
+            return $adaptedData;
+        } catch (\Exception $e) {
+            // Logga eventuali errori
+            Log::error('Errore durante l\'adattamento dei dati: ' . $e->getMessage());
+            return null;  // O gestisci come preferisci
+        }
     }
 
     /**
@@ -281,7 +356,7 @@ class BookingController extends Controller
         $notification = getSetting('email_notification');
 
         if ($notification) {
-            
+
             // Invia email di notifica solo se lo stato è cambiato
             if (isset($updates['status'])) {
                 sendEmail(

@@ -223,15 +223,6 @@ class BookingSummary extends Component
         }
     }
 
-    public function generateUniqueCode()
-    {
-        do {
-            $code = strtoupper(Str::random(6));
-        } while (Booking::where('code', $code)->exists());
-
-        return $code;
-    }
-
     public function getCountryDialCodes()
     {
         // Prova a recuperare i codici dialettali dal database
@@ -356,7 +347,7 @@ class BookingSummary extends Component
                 'phone' => $this->phone,
                 'dial_code' => $this->dialCode,
                 'body' => $this->body,
-                'code' => $this->generateUniqueCode(),
+                'code' => generateUniqueCode(),
                 'locale' => app()->getLocale(),
                 'service_date' => $this->generateServiceDate($this->bookingData),
             ]);

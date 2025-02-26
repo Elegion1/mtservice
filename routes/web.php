@@ -1,6 +1,7 @@
 <?php
 
 use Livewire\Livewire;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -67,6 +68,9 @@ Route::prefix('{locale}')
         Route::post('/reviews/save', [ReviewController::class, 'saveReview'])->name('customer.reviews.store');
     });
 
+Route::get('dashboard/bookingfromreact/getBookingCode', [BookingController::class, 'getBookingCode']);
+Route::get('dashboard/bookingfromreact/getBookingData', [BookingController::class, 'getBookingData']);
+
 
 // gestione stato prenotazione
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
@@ -125,7 +129,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::post('/cars', [CarController::class, 'store'])->name('cars.store');
     Route::put('/cars/{car}', [CarController::class, 'update'])->name('cars.update');
     Route::delete('/cars/{car}', [CarController::class, 'destroy'])->name('cars.destroy');
-    
+
     // Gestione prezzi auto per periodi
     Route::post('/carprices/', [CarPriceController::class, 'store'])->name('carprices.store');
     Route::put('/carprices/{carPrice}', [CarPriceController::class, 'update'])->name('carprices.update');

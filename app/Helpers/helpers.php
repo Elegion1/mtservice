@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\Route;
+use App\Models\Booking;
 use App\Models\Setting;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
@@ -193,4 +195,13 @@ function combineDateAndTime($date, $time)
         return "{$date}T{$time}";
     }
     return null;
+}
+
+function generateUniqueCode()
+{
+    do {
+        $code = strtoupper(Str::random(6));
+    } while (Booking::where('code', $code)->exists());
+
+    return $code;
 }

@@ -15,6 +15,7 @@
             <span class="bg-warning p-1 text-small border rounded text-black">Noleggio</span>
             <span class="bg-success p-1 text-small border rounded text-black">Escursioni</span>
             <span class="bg-danger p-1 text-small border rounded text-black">Transfer</span>
+            <span class="bg-info p-1 text-small border rounded text-black">Sito Favignana</span>
         </div>
     </div>
 
