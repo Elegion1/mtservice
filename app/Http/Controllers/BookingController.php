@@ -175,6 +175,8 @@ class BookingController extends Controller
     public function getBookingCode()
     {
         $code = generateUniqueCode();
+        Log::info('Codice generato per la prenotazione: ' . $code . response()->json(['code' => $code]));
+
         return response()->json(['code' => $code]);
     }
 
