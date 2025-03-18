@@ -94,6 +94,88 @@ class CarRent extends Component
         }
     }
 
+    // public function calculatePriceRent()
+    // {
+    //     $this->validate();
+
+    //     $startDate = $this->convertDate(combineDateAndTime($this->dateStart, $this->timeStart));
+    //     $endDate = $this->convertDate(combineDateAndTime($this->dateEnd, $this->timeEnd));
+
+    //     Log::info('Start date: ' . $startDate);
+    //     Log::info('End date: ' . $endDate);
+
+    //     // Calcolare la differenza in ore tra dateStart e dateEnd
+    //     $hours = $startDate->diffInHours($endDate);
+
+    //     // Arrotonda sempre per eccesso
+    //     $rentDays = ceil($hours / 24);
+
+    //     $car = Car::find($this->carID);
+    //     if (!$car) {
+    //         $this->rentPrice = 0;
+    //         return;
+    //     }
+
+    //     Log::info('Rent days: ' . $rentDays . ' - ' . $hours);
+
+    //     // Recupera tutti i prezzi e periodi associati all'auto
+    //     $carPrices = CarPrice::where('car_id', $this->carID)->get();
+    //     $totalPrice = 0;
+    //     $currentDate = clone $startDate;
+    //     $remainingDays = $rentDays;
+
+    //     Log::info('Remaining days: ' . $remainingDays);
+
+    //     while ($remainingDays > 0 && $currentDate <= $endDate) {
+    //         $found = false;
+    //         Log::info('Remaining days While: ' . $remainingDays);
+
+    //         foreach ($carPrices as $carPrice) {
+    //             $periodStart = $this->convertDate($carPrice->timePeriod->start);
+    //             $periodEnd = $this->convertDate($carPrice->timePeriod->end);
+    //             // dd($periodStart, $periodEnd, $currentDate, $startDate, $endDate);
+
+    //             Log::info('Period: ' . $periodStart . ' - ' . $periodEnd);
+
+    //             // Controlla se la data corrente è all'interno del periodo (con ore, minuti e secondi)
+    //             if ($currentDate >= $periodStart && $currentDate <= $periodEnd) {
+    //                 Log::info('Applying price for period: ' . $currentDate . ' - ' . $carPrice->price);
+    //                 // Somma il prezzo per il periodo corrente
+    //                 $totalPrice += $carPrice->price * $this->quantity;
+    //                 if ($currentDate->toDateString() == $endDate->toDateString()) {
+
+    //                     while ($currentDate->format('H:i:s') < $endDate->format('H:i:s')) {
+    //                         $totalPrice += $carPrice->price * $this->quantity;
+    //                         Log::info('Applying price for period: ' . $currentDate . ' - ' . $carPrice->price);
+    //                         $diff = $currentDate->diffInHours($endDate);
+    //                         if ($diff < 24) {
+    //                             Log::info('Remaining hours: ' . $diff . ' - ' . $currentDate->format('H:i:s') . ' - ' . $endDate->format('H:i:s'));
+    //                             $found = true;
+    //                             break;
+    //                         }
+    //                     }
+    //                 }
+    //                 $found = true;
+    //                 break;
+    //             }
+    //         }
+
+    //         // Se il giorno non rientra in nessun periodo, usa il prezzo base dell'auto
+    //         if (!$found && $car->price) {
+    //             Log::info('Applying base price for: ' . $currentDate . ' - ' . $car->price);
+    //             $totalPrice += $car->price * $this->quantity;
+    //         }
+
+    //         // Passa al giorno successivo
+    //         $currentDate->addDay();
+    //         $remainingDays--; // Decrementa il numero di giorni rimanenti
+    //     }
+
+    //     Log::info('Total price: ' . $totalPrice);
+
+    //     $this->rentPrice = $totalPrice;
+    // }
+
     public function calculatePriceRent()
     {
         $this->validate();
@@ -126,49 +208,41 @@ class CarRent extends Component
 
         Log::info('Remaining days: ' . $remainingDays);
 
-        while ($remainingDays >= 0 && $currentDate <= $endDate) {
+        while ($remainingDays > 0 && $currentDate <= $endDate) {
             $found = false;
             Log::info('Remaining days While: ' . $remainingDays);
 
             foreach ($carPrices as $carPrice) {
                 $periodStart = $this->convertDate($carPrice->timePeriod->start);
                 $periodEnd = $this->convertDate($carPrice->timePeriod->end);
-                // dd($periodStart, $periodEnd, $currentDate, $startDate, $endDate);
 
                 Log::info('Period: ' . $periodStart . ' - ' . $periodEnd);
 
-                // Controlla se la data corrente è all'interno del periodo (con ore, minuti e secondi)
                 if ($currentDate >= $periodStart && $currentDate <= $periodEnd) {
                     Log::info('Applying price for period: ' . $currentDate . ' - ' . $carPrice->price);
-                    // Somma il prezzo per il periodo corrente
                     $totalPrice += $carPrice->price * $this->quantity;
-                    if ($currentDate->toDateString() == $endDate->toDateString()) {
 
-                        while ($currentDate->format('H:i:s') < $endDate->format('H:i:s')) {
-                            $totalPrice += $carPrice->price * $this->quantity;
-                            Log::info('Applying price for period: ' . $currentDate . ' - ' . $carPrice->price);
-                            $diff = $currentDate->diffInHours($endDate);
-                            if ($diff < 24) {
-                                Log::info('Remaining hours: ' . $diff . ' - ' . $currentDate->format('H:i:s') . ' - ' . $endDate->format('H:i:s'));
-                                $found = true;
-                                break;
-                            }
+                    if ($currentDate->toDateString() == $endDate->toDateString()) {
+                        $diff = $currentDate->diffInHours($endDate);
+                        if ($diff < 24) {
+                            $totalPrice += ($carPrice->price * $this->quantity) * ($diff / 24);
+                            Log::info('Applying proportional price for last day: ' . $diff . ' hours');
+                            $found = true;
                         }
                     }
+
                     $found = true;
                     break;
                 }
             }
 
-            // Se il giorno non rientra in nessun periodo, usa il prezzo base dell'auto
             if (!$found && $car->price) {
                 Log::info('Applying base price for: ' . $currentDate . ' - ' . $car->price);
                 $totalPrice += $car->price * $this->quantity;
             }
 
-            // Passa al giorno successivo
             $currentDate->addDay();
-            $remainingDays--; // Decrementa il numero di giorni rimanenti
+            $remainingDays--;
         }
 
         Log::info('Total price: ' . $totalPrice);
