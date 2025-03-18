@@ -13,11 +13,11 @@
 .w-custom {
     width: 50%;
 }
-/* .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-} */
+
+.scroller-height {
+    height: calc(100vh - 320px); /* Sostituisci 200px con l'altezza effettiva degli elementi superiori */
+    overflow: auto;
+}
 
 .fixed_height {
     height: 180px;

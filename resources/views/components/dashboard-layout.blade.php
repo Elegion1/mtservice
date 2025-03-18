@@ -43,7 +43,7 @@
                 @endif
             </div>
         </nav>
-        <div class="container-fluid mb-5">
+        <div class="container-fluid">
             <x-display-error />
             <x-display-message />
             <x-display-success />

@@ -16,24 +16,27 @@
         </div>
     @endif
     @foreach ($dayBookings as $booking)
-        <div class="booking-item border-bottom border-2 container-fluid">
+        <div class="booking-item border-bottom border-1 container-fluid">
             <div class="row">
-                <div class="col-3 d-flex ps-1 pe-0">
-                    <div class="d-flex flex-column justify-content-around align-items-start ">
+                <div class="col-3 p-0">
+                    <div class="row gap-1">
 
-                        <span class="fs-5 w-100">
+                        <span class="col-6 fs-5">
                             {{ \Carbon\Carbon::parse($booking->start_date ?? $booking->end_date)->format('H:i') }}
-                            <span class="fs-3">
-                                @if ($booking->payment_status == 'pending')
-                                    <i class="bi bi-hourglass text-warning" title="Pagamento in attesa"></i>
-                                @elseif ($booking->payment_status == 'deposit_paid')
-                                    <i class="bi bi-cash-coin text-primary" title="Acconto pagato"></i>
-                                @elseif ($booking->payment_status == 'paid')
-                                    <i class="bi bi-check-circle-fill text-success" title="Pagato"></i>
-                                @endif
-                            </span>
                         </span>
-                        <span class="text-primary">
+                        <span class="col-5 fs-4">
+                            @if ($booking->payment_status == 'pending')
+                                <i class="bi bi-hourglass text-warning" title="Pagamento in attesa"></i>
+                            @elseif ($booking->payment_status == 'deposit_paid')
+                                <i class="bi bi-cash-coin text-primary" title="Acconto pagato"></i>
+                            @elseif ($booking->payment_status == 'paid')
+                                <i class="bi bi-check-circle-fill text-success" title="Pagato"></i>
+                            @endif
+                        </span>
+
+
+
+                        <span class="col-12 text-primary">
                             {{ $booking->code }}
                         </span>
                     </div>
@@ -45,10 +48,15 @@
                     @if ($booking->bookingData['type'] == 'noleggio') bg-warning
                     @elseif ($booking->bookingData['type'] == 'escursione')
                             bg-success
-                    @elseif($booking->bookingData['sito_favignana'] = true)
-                            bg-info
                     @elseif ($booking->bookingData['type'] == 'transfer')
-                            bg-danger @endif
+
+                        @if (!empty($booking->bookingData['sito_favignana']))
+                            bg-info 
+                        @else
+                            bg-danger
+                        @endif 
+
+                    @endif
                             "
                         data-bs-toggle="modal" data-bs-target="#bookingDetailsModal"
                         data-booking-data="{{ json_encode($booking->bookingData) }}"
@@ -94,16 +102,6 @@
         button.addEventListener('click', () => {
             const bookingData = JSON.parse(button.getAttribute('data-booking-data'));
             const booking = JSON.parse(button.getAttribute('data-booking'));
-            // var end_date = button.getAttribute('data-booking-end') || 'N/A';
-            // var name = button.getAttribute('data-booking-name') || 'N/A';
-            // var surname = button.getAttribute('data-booking-surname') || 'N/A';
-            // var phone = button.getAttribute('data-booking-phone') || 'N/A';
-            // var email = button.getAttribute('data-booking-email') || 'N/A';
-            // var body = button.getAttribute('data-booking-body') || 'N/A';
-            // var id = button.getAttribute('data-booking-id') || 'N/A';
-
-            // console.log(booking.start_date, bookingData.date_dep);
-            // console.log(booking.end_date, bookingData.date_ret);
             console.log(booking);
 
             showBookingDetailsModal(bookingData, booking);

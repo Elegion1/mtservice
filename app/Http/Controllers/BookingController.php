@@ -6,15 +6,11 @@ use Carbon\Carbon;
 use Dompdf\Dompdf;
 use Dompdf\Options;
 use App\Models\Booking;
-use App\Models\Setting;
 use Illuminate\Http\Request;
 use App\Jobs\SendReviewRequestJob;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Queue;
 use App\Mail\BookingStatusNotification;
 
 use function PHPUnit\Framework\isEmpty;

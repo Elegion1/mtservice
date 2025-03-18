@@ -3,19 +3,24 @@
     <h2 class="text-nowrap">Prenotazioni confermate</h2>
     <div class="row">
         <div class="col-4 d-grid">
-            <a id="pendingBookingsBtn" class="btn btn-sm btn-secondary text-small d-flex justify-content-around align-items-center" href="{{ route('booking.todo') }}">In attesa
+            <a id="pendingBookingsBtn"
+                class="btn btn-sm btn-secondary text-small d-flex justify-content-around align-items-center"
+                href="{{ route('booking.todo') }}">In attesa
                 @if ($pendingBookings->count() > 0)
-                    <span style="width: 20px; height:20px;" class="d-flex justify-content-center align-items-center p-1 rounded-circle text-white bg-warning text-small">
+                    <span style="width: 20px; height:20px;"
+                        class="d-flex justify-content-center align-items-center p-1 rounded-circle text-white bg-warning text-small">
                         {{ $pendingBookings->count() }}
                     </span>
                 @endif
             </a>
         </div>
-        <div class="col-8 d-flex justify-content-between align-items-center">
-            <span class="bg-warning p-1 text-small border rounded text-black">Noleggio</span>
-            <span class="bg-success p-1 text-small border rounded text-black">Escursioni</span>
-            <span class="bg-danger p-1 text-small border rounded text-black">Transfer</span>
-            <span class="bg-info p-1 text-small border rounded text-black">Sito Favignana</span>
+        <div class="col-8 px-4">
+            <div class="row">
+                <span class="col-6 text-center bg-warning p-1 text-small border rounded text-black">Noleggio</span>
+                <span class="col-6 text-center bg-success p-1 text-small border rounded text-black">Escursioni</span>
+                <span class="col-6 text-center bg-danger p-1 text-small border rounded text-black">Transfer</span>
+                <span class="col-6 text-center bg-info p-1 text-small border rounded text-black">Sito Favignana</span>
+            </div>
         </div>
     </div>
 
@@ -38,7 +43,7 @@
 
     <div id="dayGroup">
         <h2 id="dayTitle" class="text-center my-1 text-uppercase"></h2>
-        <div class="overflow-auto overflow-x-hidden" style="height: 55vh;">
+        <div class="overflow-auto overflow-x-hidden scroller-height" >
             @foreach ($groupedByDay as $date => $dayBookings)
                 <x-dayBookingsShow :dayBookings="$dayBookings" :date="$date" :dayGroup="'true'" />
             @endforeach
@@ -51,7 +56,7 @@
                 <h2 class="text-center my-1">
                     {{ strtoupper(\Carbon\Carbon::parse($month . '-01')->translatedFormat('F Y')) }}
                 </h2>
-                <div class="overflow-auto overflow-x-hidden" style="height: 55vh;">
+                <div class="overflow-auto overflow-x-hidden scroller-height" >
                     @foreach ($dayBookingsInMonth as $date => $dayBookings)
                         <x-dayBookingsShow :dayBookings="$dayBookings" :date="$date" />
                     @endforeach
