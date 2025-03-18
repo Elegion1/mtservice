@@ -404,41 +404,13 @@ class BookingSummary extends Component
         }
 
         $language = app()->getLocale();
-        $pdfClient = $this->generatePDF($booking, $language);
+        $pdfClient = generatePDF($booking, $language);
 
         // Invia email all'amministrazione
-        $this->sendEmail($this->adminMail, new BookingAdmin($booking, $this->generatePDF($booking, 'it')), 'Failed to send admin email', 'it');
+        sendEmail($this->adminMail, new BookingAdmin($booking, generatePDF($booking, 'it')), 'Failed to send admin email', 'it');
 
         // Invia email al cliente
-        $this->sendEmail($this->email, new BookingConfirmation($booking, $pdfClient), 'Failed to send booking confirmation email', $language);
-    }
-
-    private function sendEmail($recipient, $mailable, $errorMessage, $language)
-    {
-        sendEmail(
-            $recipient,   // Destinatario dell'email
-            $mailable,    // La mail da inviare
-            $errorMessage, // Messaggio di errore da loggare in caso di fallimento
-            $language     // Lingua dell'email
-        );
-    }
-
-    private function generatePDF($booking, $language)
-    {
-        $data = compact('booking');
-
-        $options = new Options();
-        $options->set('isHtml5ParserEnabled', true);
-        $options->set('isPhpEnabled', true);
-        $options->set('isRemoteEnabled', true);
-        $options->set('defaultFont', 'Roboto');
-
-        $dompdf = new Dompdf($options);
-        $dompdf->loadHtml(view('pdf.booking-summary-pdf_' . $language, $data)->render());
-        $dompdf->setPaper('A4', 'portrait');
-        $dompdf->render();
-
-        return $dompdf->output();
+        sendEmail($this->email, new BookingConfirmation($booking, $pdfClient), 'Failed to send booking confirmation email', $language);
     }
 
     public function render()

@@ -8,47 +8,17 @@ use Dompdf\Options;
 use App\Models\Booking;
 use Illuminate\Http\Request;
 use App\Jobs\SendReviewRequestJob;
+use App\Mail\BookingAdmin;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use App\Mail\BookingStatusNotification;
+use App\Models\OwnerData;
 
 use function PHPUnit\Framework\isEmpty;
 
 class BookingController extends Controller
 {
-    public function showPdf($id)
-    {
-        $booking = Booking::find($id);
-
-        // Dati necessari per generare la vista del PDF
-        $data = compact('booking');
-
-        // Opzioni per Dompdf
-        $options = new Options();
-        $options->set('isHtml5ParserEnabled', true);
-        $options->set('isPhpEnabled', true);
-        $options->set('defaultFont', 'Arial');
-
-        // Crea una nuova istanza di Dompdf
-        $dompdf = new Dompdf($options);
-
-        // Carica la vista del PDF
-        $view = view('pdf.booking-summary-pdf', $data)->render();
-
-        // Carica il contenuto HTML nel Dompdf
-        $dompdf->loadHtml($view);
-
-        // Imposta il formato del documento
-        $dompdf->setPaper('A4', 'portrait');
-
-        // Rendi il PDF
-        $dompdf->render();
-
-        // Restituisci il PDF al client
-        return $dompdf->stream('booking-summary.pdf');
-    }
-
     /**
      * Display a listing of the resource.
      */
@@ -77,7 +47,6 @@ class BookingController extends Controller
                 ->where('status', 'pending')
                 ->get();
         }
-
 
         // Collezione per le prenotazioni elaborate
         $processedBookings = collect();
@@ -193,6 +162,15 @@ class BookingController extends Controller
         Log::info('Dati adattati per la prenotazione.', $data);
         $booking = Booking::create($data);
 
+        $adminMail = OwnerData::value('email');
+
+        sendEmail(
+            $adminMail,
+            new BookingAdmin($booking, generatePDF($booking, 'it')),
+            'Errore nell\'invio dell\'email di notifica',
+            'it'
+        );
+
         return response()->json(['success' => true, 'data' => $bookingData, 'booking' => $booking], 201);
     }
 
@@ -203,9 +181,6 @@ class BookingController extends Controller
 
     private function adaptBookingData($data)
     {
-        // Logga i dati ricevuti per il debug
-        Log::info('Dati di input ricevuti per l\'adattamento:', $data);
-
         try {
             // Controlla se i dati obbligatori sono presenti
             if (!isset($data['name']) || !isset($data['surname']) || !isset($data['price'])) {
@@ -241,9 +216,6 @@ class BookingController extends Controller
                 'payment_status' => $data['paymentStatus'] == 'COMPLETED' ? 'paid' : 'pending',
                 'locale' => $data['locale'] ?? 'it',
             ];
-
-            // Logga i dati adattati per verificarli
-            Log::info('Dati adattati:', $adaptedData);
 
             return $adaptedData;
         } catch (\Exception $e) {

@@ -150,7 +150,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/bookings', [BookingController::class, 'index'])->name('dashboard.booking');
     Route::get('/bookings/list', [BookingController::class, 'list'])->name('dashboard.bookingList');
     Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
-    Route::get('/bookings/pdf/{id}', [BookingController::class, 'showPdf'])->name('booking.pdf');
+    // Route::get('/bookings/pdf/{id}', [BookingController::class, 'showPdf'])->name('booking.pdf');
 
     // Gestione messaggi
     Route::get('/contacts', [ContactController::class, 'index'])->name('dashboard.contact');

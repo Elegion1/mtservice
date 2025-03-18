@@ -1,5 +1,7 @@
 <?php
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Models\Route;
 use App\Models\Booking;
 use App\Models\Setting;
@@ -204,4 +206,22 @@ function generateUniqueCode()
     } while (Booking::where('code', $code)->exists());
 
     return $code;
+}
+
+function generatePDF($booking, $language)
+{
+    $data = compact('booking');
+
+    $options = new Options();
+    $options->set('isHtml5ParserEnabled', true);
+    $options->set('isPhpEnabled', true);
+    $options->set('isRemoteEnabled', true);
+    $options->set('defaultFont', 'Roboto');
+
+    $dompdf = new Dompdf($options);
+    $dompdf->loadHtml(view('pdf.booking-summary-pdf_' . $language, $data)->render());
+    $dompdf->setPaper('A4', 'portrait');
+    $dompdf->render();
+
+    return $dompdf->output();
 }
