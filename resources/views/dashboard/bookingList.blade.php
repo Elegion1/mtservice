@@ -16,10 +16,19 @@
         </div>
         <div class="col-8 px-4">
             <div class="row">
-                <span class="col-6 text-center bg-warning p-1 text-small border rounded text-black">Noleggio</span>
-                <span class="col-6 text-center bg-success p-1 text-small border rounded text-black">Escursioni</span>
-                <span class="col-6 text-center bg-danger p-1 text-small border rounded text-black">Transfer</span>
-                <span class="col-6 text-center bg-info p-1 text-small border rounded text-black">Sito Favignana</span>
+
+                <button class="col-12 btn btn-sm btn-filter bg-secondary p-1 border rounded text-white"
+                    data-type="all">Tutti</button>
+                <button class="col-6 btn btn-sm btn-filter bg-warning p-1 border rounded text-black"
+                    data-type="noleggio">Noleggio</button>
+                <button class="col-6 btn btn-sm btn-filter bg-success p-1 border rounded text-black"
+                    data-type="escursione">Escursioni</button>
+                <button class="col-6 btn btn-sm btn-filter bg-danger p-1 border rounded text-black"
+                    data-type="transfer">Transfer</button>
+                <button class="col-6 btn btn-sm btn-filter bg-info p-1 border rounded text-black"
+                    data-type="sito_favignana">Sito
+                    Favignana</button>
+
             </div>
         </div>
     </div>
@@ -43,7 +52,7 @@
 
     <div id="dayGroup">
         <h2 id="dayTitle" class="text-center my-1 text-uppercase"></h2>
-        <div class="overflow-auto overflow-x-hidden scroller-height" >
+        <div class="overflow-auto overflow-x-hidden scroller-height">
             @foreach ($groupedByDay as $date => $dayBookings)
                 <x-dayBookingsShow :dayBookings="$dayBookings" :date="$date" :dayGroup="'true'" />
             @endforeach
@@ -56,7 +65,7 @@
                 <h2 class="text-center my-1">
                     {{ strtoupper(\Carbon\Carbon::parse($month . '-01')->translatedFormat('F Y')) }}
                 </h2>
-                <div class="overflow-auto overflow-x-hidden scroller-height" >
+                <div class="overflow-auto overflow-x-hidden scroller-height">
                     @foreach ($dayBookingsInMonth as $date => $dayBookings)
                         <x-dayBookingsShow :dayBookings="$dayBookings" :date="$date" />
                     @endforeach
@@ -87,6 +96,32 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            //filtra le prenotazioni in base al tipo
+            const buttons = document.querySelectorAll('.btn-filter');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const selectedType = this.getAttribute('data-type');
+
+                    document.querySelectorAll('.booking-item').forEach(item => {
+                        const itemType = item.getAttribute('data-type');
+                        const isFavignana = item.getAttribute('data-favignana') === 'true';
+
+                        if (
+                            selectedType === 'all' ||
+                            (selectedType === 'transfer' && itemType === 'transfer' && !
+                                isFavignana) ||
+                            (selectedType === 'sito_favignana' && isFavignana) ||
+                            (selectedType !== 'transfer' && selectedType !==
+                                'sito_favignana' && itemType === selectedType)
+                        ) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
 
             // Restituisce l'indice del mese corrente tra quelli disponibili
             const findCurrentMonthIndex = () => {

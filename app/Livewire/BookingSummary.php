@@ -3,15 +3,14 @@
 namespace App\Livewire;
 
 use Carbon\Carbon;
-use Dompdf\Dompdf;
-use Dompdf\Options;
+
 use App\Models\Booking;
 use Livewire\Component;
 use App\Models\Customer;
 use App\Models\Discount;
 use App\Models\OwnerData;
 use App\Mail\BookingAdmin;
-use Illuminate\Support\Str;
+
 use App\Models\CountryDialCode;
 use App\Mail\BookingConfirmation;
 use Illuminate\Support\Facades\DB;
@@ -47,6 +46,12 @@ class BookingSummary extends Component
     public $discountType_it;
     public $discountType_en;
 
+    public $flightNumber;
+    public $departureAirport;
+    public $departureTime;
+    public $arrivalAirport;
+    public $arrivalTime;
+
     public function rules()
     {
         return [
@@ -75,16 +80,57 @@ class BookingSummary extends Component
 
     public function submitMessage()
     {
-        $this->validate([
-            'body' => 'required|string|max:1000',
-        ]);
+        // Definizione delle regole di validazione
+        $validationRules = [
+            'body' => 'required|string',
+        ];
 
-        $this->currentStep = 2;
+        // Campi opzionali relativi al volo
+        $flightFields = [
+            'flightNumber' => 'Volo',
+            'departureAirport' => 'Aeroporto di partenza',
+            'departureTime' => 'Orario di partenza',
+            'arrivalAirport' => 'Aeroporto di arrivo',
+            'arrivalTime' => 'Orario di arrivo',
+        ];
+
+        // Convalida i dati
+        $this->validate($validationRules);
+
+        // Composizione del messaggio
+        $messageBody = $this->body;
+        $messageBody .= $this->buildMessage($flightFields);
+
+        // Aggiorna il messaggio
+        $this->body = $messageBody;
+
+        // Passa allo step successivo
+        goToStep(2, $this->currentStep);
+    }
+
+    /**
+     * Genera dinamicamente la parte del messaggio con i dettagli del volo.
+     */
+    private function buildMessage(array $fields): string
+    {
+        $message = "";
+        foreach ($fields as $field => $label) {
+            if (!empty($this->$field)) {
+                $message .= "\n{$label}: {$this->$field}\n";
+            }
+        }
+        return $message;
     }
 
     public function goToStep($step)
     {
-        $this->currentStep = $step;
+        goToStep($step, $this->currentStep);
+    }
+
+
+    public function goBack()
+    {
+        $this->dispatch('goBack');
     }
 
     public function mount($bookingData)
@@ -109,7 +155,6 @@ class BookingSummary extends Component
             $this->dialFlag = $this->getDialFlag($this->dialCode);
         }
     }
-
 
     public function calculatePrice()
     {

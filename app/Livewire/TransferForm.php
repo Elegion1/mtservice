@@ -5,6 +5,8 @@ namespace App\Livewire;
 use App\Models\Route;
 use Livewire\Component;
 use App\Models\Destination;
+use Livewire\Attributes\On;
+use Illuminate\Support\Facades\Log;
 
 class TransferForm extends Component
 {
@@ -27,7 +29,22 @@ class TransferForm extends Component
 
     public $currentStep = 1; // Step iniziale
 
-    protected $listeners = ['prenota'];
+    #[On('populateForm')]
+    public function populateFields($data)
+    {
+        Log::info('populateFields called with data: ' . json_encode($data));
+        // $this->departure = $data['departure'];
+        // $this->return = $data['return'];
+        // $this->transferPassengers = $data['passengers'];
+        // $this->solaAndata = $data['sola_andata'];
+        // $this->andataRitorno = !$data['sola_andata'];
+        // $this->dateDeparture = $data['date_dep'];
+        // $this->timeDeparture = date('H:i', strtotime($data['date_dep']));
+        // $this->dateReturn = $data['date_ret'];
+        // $this->timeReturn = $data['date_ret'] ? date('H:i', strtotime($data['date_ret'])) : null;
+
+        // $this->calculatePriceTransfer();
+    }
 
     public function rules()
     {
@@ -122,7 +139,7 @@ class TransferForm extends Component
         $this->validateOnly($field);
 
         if (in_array($field, ['departure', 'return', 'transferPassengers', 'solaAndata', 'andataRitorno', 'timeDeparture'])) {
-            $this->calculatePrice();
+            $this->calculatePriceTransfer();
 
             $this->departureName = $this->departure ? $this->getDestName($this->departure) : null;
             $this->arrivalName = $this->return ? $this->getDestName($this->return) : null;
@@ -148,7 +165,7 @@ class TransferForm extends Component
 
     public function goToStep($step)
     {
-        $this->currentStep = $step;
+        goToStep($step, $this->currentStep);
     }
 
     public function submitTransferSelection()
@@ -159,21 +176,9 @@ class TransferForm extends Component
     }
 
     // Funzione per incrementare i passeggeri
-    public function incrementPassengers()
+    public function updatePassengers($change)
     {
-        if ($this->transferPassengers < 16) {
-            $this->transferPassengers++;
-            $this->calculatePrice();
-        }
-    }
-
-    // Funzione per decrementare i passeggeri
-    public function decrementPassengers()
-    {
-        if ($this->transferPassengers > 1) {
-            $this->transferPassengers--;
-            $this->calculatePrice();
-        }
+        passengerNumber($change, $this->transferPassengers, [$this, 'calculatePriceTransfer']);
     }
 
     public function setSolaAndata()
@@ -182,44 +187,36 @@ class TransferForm extends Component
         $this->andataRitorno = false;
         $this->dateReturn = null;
         $this->timeReturn = null;
-        $this->calculatePrice();
+        $this->calculatePriceTransfer();
     }
 
     public function setAndataRitorno()
     {
         $this->solaAndata = false;
         $this->andataRitorno = true;
-        $this->calculatePrice();
+        $this->calculatePriceTransfer();
     }
 
-    private function calculateBasePrice($route, $passengers)
+    public function calculatePriceTransfer()
     {
-        if ($passengers <= 4) return $route->price;
-
-        $incrementPrice = $route->price_increment;
-        $extraPassengers = max(0, $passengers - 4);
-
-        if ($passengers <= 8) {
-            return $route->price + ($incrementPrice * $extraPassengers);
-        }
-
-        return ($route->price * 2) + ($incrementPrice * ($extraPassengers > 8 ? $extraPassengers - 8 : 4));
-    }
-
-    public function calculatePrice()
-    {
-        if ($this->departure && $this->return) {
-            $route = $this->getRouteData($this->departure, $this->return);
-            if (!$route) {
-                $this->transferPrice = 0;
-                return;
-            }
-
-            $price = $this->calculateBasePrice($route, $this->transferPassengers);
-            $this->transferPrice = $this->andataRitorno ? $price * 2 : $price;
-        } else {
+        // Se partenza o destinazione non sono impostate, prezzo a 0
+        if (!$this->departure || !$this->return) {
             $this->transferPrice = 0;
+            return;
         }
+
+        // Recupera i dati della tratta
+        $route = $this->getRouteData($this->departure, $this->return);
+        if (!$route) {
+            $this->transferPrice = 0;
+            return;
+        }
+
+        // Calcola il prezzo con la funzione helper
+        $price = calculateBasePrice($route->price, $route->price_increment, $this->transferPassengers);
+
+        // Se andata e ritorno, raddoppia il prezzo
+        $this->transferPrice = $this->andataRitorno ? $price * 2 : $price;
     }
 
     public function getBookingDataTransfer()

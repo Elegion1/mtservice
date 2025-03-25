@@ -15,7 +15,7 @@
 }
 
 .scroller-height {
-    height: calc(100vh - 320px); /* Sostituisci 200px con l'altezza effettiva degli elementi superiori */
+    height: calc(100vh - 360px); /* Sostituisci 200px con l'altezza effettiva degli elementi superiori */
     overflow: auto;
 }
 

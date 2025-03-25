@@ -33,8 +33,12 @@
         wire:model.live="module">
         <div class="container-fluid input_width z-2">
             @if (!$isHome)
-                <p class="text-uppercase text-center bg-c text-dark rounded p-1">{{ __('ui.book') }}
-                    {{ __($formLabels[$currentForm]) }}</p>
+                <p class="text-uppercase text-center bg-c text-dark rounded p-1">
+                    @if ($currentForm !== 'bookingSummary')
+                        {{ __('ui.book') }}
+                    @endif
+                    {{ __($formLabels[$currentForm]) }}
+                </p>
             @endif
             @if ($currentForm == 'escursioni')
                 @livewire('escursioni-form')

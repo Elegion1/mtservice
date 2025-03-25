@@ -225,3 +225,40 @@ function generatePDF($booking, $language)
 
     return $dompdf->output();
 }
+
+function calculateBasePrice($basePrice, $incrementPrice, $passengers)
+{
+    if ($passengers <= 4) return $basePrice;
+
+    $extraPassengers = max(0, $passengers - 4);
+
+    if ($passengers <= 8) {
+        return $basePrice + ($incrementPrice * $extraPassengers);
+    }
+
+    // Dopo 8 passeggeri, si aggiunge un secondo veicolo e si ricalcola il prezzo
+    $firstVehiclePrice = $basePrice + ($incrementPrice * 4); // Fino a 8 passeggeri
+    $remainingPassengers = $passengers - 8; // Calcoliamo i passeggeri del secondo veicolo
+
+    $secondVehiclePrice = $basePrice; // Secondo veicolo parte dal prezzo base
+    if ($remainingPassengers > 4) {
+        $secondVehiclePrice += $incrementPrice * ($remainingPassengers - 4);
+    }
+
+    return $firstVehiclePrice + $secondVehiclePrice;
+}
+
+function passengerNumber($change, &$passengerProperty, $priceCallback)
+{
+    $newCount = $passengerProperty + $change;
+
+    if ($newCount >= 1 && $newCount <= 16) {
+        $passengerProperty = $newCount;
+        $priceCallback();
+    }
+}
+
+function goToStep($step, &$currentStep)
+{
+    $currentStep = $step;
+}

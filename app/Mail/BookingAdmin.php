@@ -22,6 +22,12 @@ class BookingAdmin extends Mailable
     {
         $this->pdf = $pdf;
         $this->booking = $booking;
+
+        if (!empty($this->booking->bookingData['sito_favignana'])) {
+            $this->subject = 'Nuova prenotazione sito Favignana';
+        } else {
+            $this->subject = 'Nuova prenotazione disponibile';
+        }
     }
 
     /**
@@ -30,7 +36,7 @@ class BookingAdmin extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Nuova prenotazione disponibile',
+            subject: $this->subject,
         );
     }
 

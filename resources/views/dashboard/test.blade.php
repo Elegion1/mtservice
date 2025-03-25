@@ -2,7 +2,7 @@
 
     <h1>pagina di test</h1>
     <div class="row">
-        <div class="col-12">
+        <div class="col-6">
             <select name="booking" id="bookingSelect" class="form-select w-25 m-3">
                 @foreach ($bookings as $booking)
                     <option value="{{ $booking->id }}">{{ $booking->bookingData['type'] }}
@@ -10,6 +10,12 @@
                 @endforeach
             </select>
         </div>
+
+        <div class="col-6">
+            <label for="dateInput">Seleziona una data:</label>
+            <input type="text" id="dateInput" readonly>
+        </div>
+
         <div class="col-6">
             <div class="container rounded-5 border">
                 <h3 class="m-4">Mail</h3>
@@ -71,6 +77,22 @@
             const pdfItLink = document.getElementById('pdfIt');
             const pdfEnLink = document.getElementById('pdfEn');
             const emailPreview = document.getElementById('emailPreview');
+
+            var dateInput = document.getElementById("datePicker");
+
+            if (dateInput) {
+                dateInput.addEventListener("click", function() {
+                    new AnyPicker({
+                        inputElement: dateInput,
+                        mode: "date",
+                        dateTimeFormat: "DD-MM-YYYY",
+                        locale: "it",
+                        onChange: function(selectedDate) {
+                            dateInput.value = selectedDate.format("DD-MM-YYYY");
+                        }
+                    }).show();
+                });
+            }
 
             function loadEmailPreview(route) {
                 console.log('Caricamento email per il percorso:', route); // Log del percorso chiamato

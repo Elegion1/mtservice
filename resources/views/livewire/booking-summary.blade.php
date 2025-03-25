@@ -1,6 +1,6 @@
 <div>
-    @if ($currentStep == 1)
-        <div class="row">
+    <div class="row">
+        @if ($currentStep == 1)
             <x-booking-summary-title :isRequired="true"> bookingSummaryTitle </x-booking-summary-title>
 
             <div class="bg-c p-3 pb-0 rounded m-0 ">
@@ -90,13 +90,6 @@
                     @endif
                 @endif
 
-                {{-- @php
-                    $discountedPrice = 400;
-                    $originalPrice = 500;
-                    $discountPercentage = 10;
-                    $discountType_it = 'sconto';
-                @endphp --}}
-
                 <p wire:model.live="originalPrice">
                     {{ ucfirst(__('ui.price')) }}:
                     <span class="text_col">€ {{ number_format($originalPrice, 2) }}</span>
@@ -118,19 +111,33 @@
                 {{ __('ui.seatBoosterMsg') }}
             </p>
 
+            <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
+                <button wire:click="goBack" type="button" onclick="scrollToTop()"
+                    class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
+                <button type="button" wire:click="goToStep(1.5)" onclick="scrollToTop()"
+                    class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
+            </div>
+        @endif
+
+        @if ($currentStep == 1.5)
+            <x-booking-summary-title :isRequired="true"> flightInfoAndNotes </x-booking-summary-title>
             <!-- Messaggio -->
             <div class="col-12 p-0">
+                <x-flight-info />
                 <label for="body" class="form-label">{{ __('ui.notesMsg') }} <x-required-field /></label>
                 <textarea class="form-control form_input" id="body" wire:model="body"
                     placeholder="{{ __('ui.bookingConfBodyMsg') }}" rows="5"></textarea>
                 <x-error-message field='body' />
             </div>
+            <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
+                <button type="button" wire:click="goToStep(1)" onclick="scrollToTop()"
+                    class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
+                <button wire:click="submitMessage()" type="button"
+                    class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
+            </div>
+        @endif
+    </div>
 
-            <button wire:click="submitMessage()" type="button"
-                class="btn col-12 input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
-        </div>
-
-    @endif
 
     @if ($currentStep == 2)
 
@@ -194,7 +201,8 @@
                 <div class="col-12 d-flex align-items-center justify-content-between p-0">
                     <!-- Privacy Policy and Terms and Conditions Checkbox -->
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="accept_policy" wire:model="accept_policy">
+                        <input type="checkbox" class="form-check-input" id="accept_policy"
+                            wire:model="accept_policy">
                         <label for="accept_policy" class="form-check-label small">
                             {{ __('ui.acceptPolicy') }}
                             <a href="{{ route('privacy') }}#privacy"
@@ -223,7 +231,7 @@
 
                 <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
                     {{-- Pulsante Back --}}
-                    <button wire:click="goToStep(1)" type="button" onclick="scrollToTop()"
+                    <button wire:click="goToStep(1.5)" type="button" onclick="scrollToTop()"
                         class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
                     <!-- Pulsante Submit -->
                     <button type="submit"

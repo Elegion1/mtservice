@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -96,10 +97,12 @@ class Prenotazione extends Component
         ]);
     }
 
-    protected $listeners = [
-        'bookingSubmitted' => 'showBookingSummary',
-    ];
-
+    // protected $listeners = [
+    //     'bookingSubmitted' => 'showBookingSummary',
+    //     'goBack' => 'goBack',
+    // ];
+    
+    #[On('bookingSubmitted')]
     public function showBookingSummary($bookingData)
     {
         $this->bookingData = $bookingData;
@@ -107,5 +110,35 @@ class Prenotazione extends Component
         $this->module = 'bookingSummary';
 
         Log::info('[LivewirePrenotazione] User entered Booking Summary: ' . json_encode($bookingData));
+    }
+
+    public function dispatchData($data)
+    {
+        Log::info('Emitting populateForm event with data: ' . json_encode($data));
+        $this->dispatch('populateForm', $data);
+    }
+
+    #[On('goBack')]
+    public function goBack()
+    {
+        if (isset($this->bookingData['type'])) {
+            switch ($this->bookingData['type']) {
+                case 'escursione':
+                    $this->showEscursioni();
+                    $this->dispatchData($this->bookingData);
+                    break;
+                case 'transfer':
+                    $this->showTransfer();
+                    $this->dispatchData($this->bookingData);
+                    break;
+                case 'noleggio':
+                    $this->showRent();
+                    $this->dispatchData($this->bookingData);
+                    break;
+                default:
+                    $this->showTransfer(); // Default, puoi personalizzare come preferisci
+                    $this->dispatchData($this->bookingData);
+            }
+        }
     }
 }

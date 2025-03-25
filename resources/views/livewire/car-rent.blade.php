@@ -18,14 +18,14 @@
                 <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
                     <div class="w-custom me-3">
                         <span>{{ __('ui.rentStartDate') }}</span>
-                        <input wire:model.live="dateStart" type="date" min="{{ $startDateMin }}"
+                        <input wire:model.live="dateStart" type="date" placeholder="gg/mm/aaaa" min="{{ $startDateMin }}"
                             class="form-control form_input input_size" id="dateStart">
                         <x-error-message field='dateStart' />
                     </div>
 
                     <div class="w-custom">
                         <span>{{ __('ui.time') }}</span>
-                        <input wire:model.live="timeStart" type="time" min="{{ $startTimeMin }}" step="900"
+                        <input wire:model.live="timeStart" type="time" placeholder="hh:mm" min="{{ $startTimeMin }}" step="900"
                             class="form-control form_input input_size" id="timeStart">
                         <x-error-message field='timeStart' />
                     </div>
@@ -35,14 +35,14 @@
                 <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
                     <div class="w-custom me-3">
                         <span>{{ __('ui.rentEndDate') }}</span>
-                        <input wire:model.live="dateEnd" type="date" min="{{ $endDateMin }}"
+                        <input wire:model.live="dateEnd" type="date" placeholder="gg/mm/aaaa" min="{{ $endDateMin }}"
                             class="form-control form_input input_size" id="dateEnd">
                         <x-error-message field='dateEnd' />
                     </div>
 
                     <div class="w-custom">
                         <span>{{ __('ui.time') }}</span>
-                        <input wire:model.live="timeEnd" type="time" min="{{ $endTimeMin }}" step="900"
+                        <input wire:model.live="timeEnd" type="time" placeholder="hh:mm" min="{{ $endTimeMin }}" step="900"
                             class="form-control form_input input_size" id="timeEnd">
                         <x-error-message field='timeEnd' />
                     </div>

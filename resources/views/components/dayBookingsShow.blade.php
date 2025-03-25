@@ -1,22 +1,23 @@
 <div class="day-bookings border" data-date="{{ $date }}">
-    @if (isset($dayGroup))
-        <div class="p-1 bg-secondary-subtle d-flex justify-content-start">
+    <div
+        class="p-1 bg-secondary-subtle sticky-top d-flex @if (isset($dayGroup)) justify-content-center @else justify-content-between @endif">
+        @if (isset($dayGroup))
             <strong>
                 {{ \Carbon\Carbon::parse($date)->translatedFormat('l') }}
             </strong>
-        </div>
-    @else
-        <div class="p-1 bg-secondary-subtle d-flex justify-content-between">
+        @else
             <strong>
                 {{ \Carbon\Carbon::parse($date)->translatedFormat('d F Y') }}
             </strong>
             <strong>
                 {{ \Carbon\Carbon::parse($date)->translatedFormat('l') }}
             </strong>
-        </div>
-    @endif
+
+        @endif
+    </div>
     @foreach ($dayBookings as $booking)
-        <div class="booking-item border-bottom border-1 container-fluid">
+        <div class="booking-item border-bottom border-1 container-fluid" data-type="{{ $booking->bookingData['type'] }}"
+            data-favignana="{{ isset($booking->bookingData['sito_favignana']) ? 'true' : 'false' }}">
             <div class="row">
                 <div class="col-3 p-0">
                     <div class="row gap-1">
@@ -33,8 +34,6 @@
                                 <i class="bi bi-check-circle-fill text-success" title="Pagato"></i>
                             @endif
                         </span>
-
-
 
                         <span class="col-12 text-primary">
                             {{ $booking->code }}
@@ -53,8 +52,7 @@
                         @if (!empty($booking->bookingData['sito_favignana']))
                             bg-info 
                         @else
-                            bg-danger
-                        @endif 
+                            bg-danger @endif 
 
                     @endif
                             "
@@ -138,24 +136,22 @@
         const start_date = booking.start_date;
         const end_date = booking.end_date;
 
+        const formattedBody = body.replace(/\n/g, '<br>');
 
         let modalInnerHTML = `
         <p><span class="text-primary">${name} ${surname}</span></p>
         <p><a href="tel:${dial_code}${phone}">${phone}</a> <a href="mailto:${email}">${email}</a></p>
-        <p>Messaggio: <span class="text-primary">${body}</span></p>
+        <p>Note: <span class="text-primary">${formattedBody}</span></p>
         <p>Tipologia: <span class="text-primary text-capitalize">${bookingData.type}</span></p>`;
 
         if (bookingType === 'transfer' && start_date !== 'N/A') {
             modalInnerHTML += `
         <p>Data di partenza: <span class="text-primary">${dateDep}</span></p>
-        <p>Data di ritorno: <span class="text-primary">${dateRet}</span></p>
         <p>Transfer da: <span class="text-primary">${bookingData.departure_name}</span></p>
         <p>Transfer a: <span class="text-primary">${bookingData.arrival_name}</span></p>`;
         } else if (bookingType === 'transfer' && end_date !== 'N/A') {
             modalInnerHTML += `
-        <p>Data di ritorno: <span class="text-primary">${dateRet}</span></p>
-        <p>Transfer da: <span class="text-primary">${bookingData.arrival_name}</span></p>
-        <p>Transfer a: <span class="text-primary">${bookingData.departure_name}</span></p>`;
+        <p>Data di ritorno: <span class="text-primary">${dateRet}</span></p>`;
         } else if (bookingType === 'escursione') {
             modalInnerHTML += `
         <p>A: <span class="text-primary">${bookingData.departure_name}</span></p>

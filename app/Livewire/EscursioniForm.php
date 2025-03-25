@@ -49,58 +49,26 @@ class EscursioniForm extends Component
     }
 
     // Funzione per incrementare i passeggeri
-    public function incrementPassengers()
+    public function updatePassengers($change)
     {
-        if ($this->excursionPassengers < 16) {
-            $this->excursionPassengers++;
-            $this->calculatePriceExcursion();   
-        }
-    }
-
-    // Funzione per decrementare i passeggeri
-    public function decrementPassengers()
-    {
-        if ($this->excursionPassengers > 1) {
-            $this->excursionPassengers--;
-            $this->calculatePriceExcursion();
-        }
+        passengerNumber($change, $this->excursionPassengers, [$this, 'calculatePriceExcursion']);
     }
 
     public function calculatePriceExcursion()
     {
-        // Se non è stata selezionata un'escursione o se il numero di passeggeri è zero, imposta il prezzo a 0
         if (!$this->excursionSelect || !$this->excursionPassengers) {
             $this->excursionPrice = 0;
             return;
         }
 
-        // Recupera l'escursione selezionata
         $excursion = Excursion::find($this->excursionSelect);
 
-        // Se l'escursione non esiste, imposta il prezzo a 0
         if (!$excursion) {
             $this->excursionPrice = 0;
             return;
         }
 
-        // Prezzo di base e incremento per passeggero extra
-        $basePrice = $excursion->price;
-        $incrementPrice = $excursion->price_increment;
-        $passengers = $this->excursionPassengers;
-        
-        // Calcolo del prezzo in base al numero di passeggeri
-        if ($passengers <= 4) {
-            $totalPrice = $basePrice;  // Prezzo base per fino a 4 passeggeri
-        } elseif ($passengers <= 8) {
-            $totalPrice = $basePrice + $incrementPrice * ($passengers - 4);  // Prezzo base + incremento per i passeggeri sopra 4
-        } elseif ($passengers <= 12) {
-            $totalPrice = $basePrice + $incrementPrice * 4;  // Prezzo base + incremento per i 4 passeggeri extra (fino a 8)
-        } else {
-            $totalPrice = $basePrice + $incrementPrice * 4 + $incrementPrice * ($passengers - 12);  // Prezzo base + incremento per i passeggeri sopra 12
-        }
-
-        // Assegna il prezzo totale calcolato
-        $this->excursionPrice = $totalPrice;
+        $this->excursionPrice = calculateBasePrice($excursion->price, $excursion->price_increment, $this->excursionPassengers);
     }
 
     public function getBookingDataExcursion()

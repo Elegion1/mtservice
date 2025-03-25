@@ -19,14 +19,14 @@
             <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
                 <div class="w-custom me-3">
                     <span>{{ __('ui.date') }}</span>
-                    <input wire:model.live="excursionDate" type="date" min="{{ date('Y-m-d') }}"
+                    <input wire:model.live="excursionDate" type="date" placeholder="gg/mm/aaaa" min="{{ date('Y-m-d') }}"
                         class="form-control form_input input_size" id="dateExcursion">
                     <x-error-message field='excursionDate' />
                 </div>
 
                 <div class="w-custom">
                     <span>{{ __('ui.time') }}</span>
-                    <input wire:model.live="excursionTime" type="time" class="form-control form_input input_size"
+                    <input wire:model.live="excursionTime" type="time" placeholder="hh:mm" class="form-control form_input input_size"
                         id="timeExcursion">
                     <x-error-message field='excursionTime' />
                 </div>
@@ -37,7 +37,7 @@
 
                 <div class="d-flex align-items-center justify-content-center">
                     <!-- Bottone per decrementare i passeggeri -->
-                    <button wire:click="decrementPassengers" type="button" id="removePassenger"
+                    <button wire:click="updatePassengers(-1)" type="button" id="removePassenger"
                         class="btn passenger_button" @if ($excursionPassengers == 1) disabled @endif><i
                             class="bi bi-dash-lg"></i></button>
 
@@ -47,7 +47,7 @@
                         min="1" max="16" value="1" readonly>
 
                     <!-- Bottone per incrementare i passeggeri -->
-                    <button wire:click="incrementPassengers" type="button" id="addPassenger"
+                    <button wire:click="updatePassengers(1)" type="button" id="addPassenger"
                         class="btn passenger_button " @if ($excursionPassengers == 16) disabled @endif><i
                             class="bi bi-plus-lg"></i></button>
 

@@ -60,7 +60,7 @@ class CarRent extends Component
 
     public function goToStep($step)
     {
-        $this->currentStep = $step;
+        goToStep($step, $this->currentStep);
     }
 
     public function submitDateSelection()

@@ -3,16 +3,19 @@
         <div class="col-md-6 col-12">
             @if (isset($booking->status))
                 <p>{{ __('ui.status') }}: {!! __('ui.' . $booking->status) !!}</p>
-                <p>{{__('ui.paymentStatus')}}: {!! __('ui.pay' . $booking->payment_status)!!}</p>
+                <p>{{ __('ui.paymentStatus') }}: {!! __('ui.pay' . $booking->payment_status) !!}</p>
             @endif
             <p>{{ __('ui.bookingID') }}: {{ $booking->code }}</p>
             <p>{{ __('ui.name') }}: {{ $booking->name }} {{ $booking->surname }}</p>
             <p>{{ __('ui.email') }}: {{ $booking->email }}</p>
-            <p>{{ __('ui.phone') }}: {{$booking->dial_code}} {{ $booking->phone }}</p>
+            <p>{{ __('ui.phone') }}: {{ $booking->dial_code }} {{ $booking->phone }}</p>
             <p>{{ __('ui.body') }}: {{ $booking->body }}</p>
         </div>
-    @endif 
+    @endif
     <div class="col-md-6 col-12">
+        @if ($admin)
+            <p>PRENOTAZIONE SITO FAVIGNANA</p>
+        @endif
         @if ($bookingData['type'] == 'transfer')
             <p>{{ __('ui.bookingType') }}: <span class="text_col">{{ ucfirst($bookingData['type']) }}</span>
             </p>

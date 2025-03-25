@@ -1,12 +1,12 @@
 <?php
 
 use Livewire\Livewire;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Log;
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CarController;
-use App\Http\Controllers\LogController;
+
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
@@ -86,9 +86,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
 
     // vista dashboard
     Route::get('/', [PublicController::class, 'dashboard'])->name('dashboard');
-    Route::get('/jobs', [TestController::class, 'jobsIndex'])->name('dashboard.jobs');
-    Route::get('/logs', [TestController::class, 'showLogs'])->name('dashboard.logs');
-
+    
     //impostazioni
     Route::get('/settings/', [SettingController::class, 'index'])->name('dashboard.settings'); // Visualizza tutte le impostazioni
     Route::get('/settings/create', [SettingController::class, 'create'])->name('settings.create'); // Mostra il form per creare una nuova impostazione
@@ -100,6 +98,8 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/testing', [TestController::class, 'test'])->name('dashboard.testing');
     Route::get('/generate/pdf/{bookingId}/{lang}', [TestController::class, 'pdf'])->name('testing.genPDF');
     Route::get('/email/preview/{mailType}/{bookingId?}/{lang?}', [TestController::class, 'emailPreview'])->name('email.view');
+    Route::get('/jobs', [TestController::class, 'jobsIndex'])->name('dashboard.jobs');
+    Route::get('/logs', [TestController::class, 'showLogs'])->name('dashboard.logs');
 
     // eliminazione immagini
     Route::delete('/images/{id}', [PublicController::class, 'deleteImage'])->name('images.delete');

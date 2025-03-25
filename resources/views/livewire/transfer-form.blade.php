@@ -25,7 +25,7 @@
 
                     <span class="text-capitalize">{{ __('ui.destination') }}</span>
 
-                    <select wire:model.live="return" wire:change="calculatePrice" id="returnSelect"
+                    <select wire:model.live="return" wire:change="calculatePriceTransfer" id="returnSelect"
                         class="form-select form_input input_size" aria-label="seleziona luogo di ritorno">
                         <option value="">{{ __('ui.selectDestination') }}</option>
                         @foreach ($routes as $route)
@@ -44,7 +44,7 @@
 
                         <span class="text-capitalize">{{ __('ui.outward') }}</span>
 
-                        <input wire:model.live="dateDeparture" type="date" min="{{ date('Y-m-d') }}"
+                        <input wire:model.live="dateDeparture" type="date" placeholder="gg/mm/aaaa" min="{{ date('Y-m-d') }}"
                             class="form-control form_input input_size" id="dateDeparture">
 
                         <x-error-message field='dateDeparture' />
@@ -54,7 +54,7 @@
 
                         <span>{{ __('ui.time') }}</span>
 
-                        <input wire:model.live="timeDeparture" type="time" min="{{ date('H:i') }}"
+                        <input wire:model.live="timeDeparture" type="time" placeholder="hh:mm" min="{{ date('H:i') }}"
                             class="form-control form_input input_size" id="timeDeparture">
 
                         <x-error-message field='timeDeparture' />
@@ -72,7 +72,7 @@
                     <div class="w-custom me-3">
                         <span class="text-capitalize">{{ __('ui.return') }}</span>
 
-                        <input wire:model.live="dateReturn" type="date" min="{{ date('Y-m-d') }}"
+                        <input wire:model.live="dateReturn" type="date" placeholder="gg/mm/aaaa" min="{{ date('Y-m-d') }}"
                             class="form-control form_input input_size" id="dateReturn">
 
                         <x-error-message field='dateReturn' />
@@ -81,7 +81,7 @@
                     <div class="w-custom">
                         <span>{{ __('ui.time') }}</span>
 
-                        <input wire:model.live="timeReturn" type="time" min="{{ $minReturnTime }}"
+                        <input wire:model.live="timeReturn" type="time" placeholder="hh:mm" min="{{ $minReturnTime }}"
                             class="form-control form_input input_size" id="timeReturn">
 
                         <x-error-message field='timeReturn' />
@@ -144,7 +144,7 @@
 
                     <div class="d-flex align-items-center justify-content-center">
                         <!-- Bottone per decrementare i passeggeri -->
-                        <button wire:click="decrementPassengers" type="button" id="removePassenger"
+                        <button wire:click="updatePassengers(-1)" type="button" id="removePassenger"
                             class="btn passenger_button" @if ($transferPassengers == 1) disabled @endif><i
                                 class="bi bi-dash-lg"></i></button>
 
@@ -154,7 +154,7 @@
                             min="1" max="16" value="1" readonly>
 
                         <!-- Bottone per incrementare i passeggeri -->
-                        <button wire:click="incrementPassengers" type="button" id="addPassenger"
+                        <button wire:click="updatePassengers(1)" type="button" id="addPassenger"
                             class="btn passenger_button" @if ($transferPassengers == 16) disabled @endif><i
                                 class="bi bi-plus-lg"></i></button>
 

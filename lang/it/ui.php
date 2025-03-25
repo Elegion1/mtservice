@@ -19,7 +19,7 @@ return [
 
     //Livewire
     //transfer
-    
+
     'transferTitle' => 'Prenota Transfer',
     'selectDeparture' => 'Seleziona partenza',
     'selectDestination' => 'Seleziona destinazione',
@@ -296,6 +296,27 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
     'it' => 'italiano',
     'more' => 'altro',
     'addReturn' => 'aggiungi ritorno',
+
+
+    'flight_number' => 'Numero volo',
+    'flight_number_placeholder' => 'Inserisci il numero del volo',
+
+    'departure_airport' => 'Aeroporto di partenza',
+    'departure_airport_placeholder' => 'Inserisci l\'aeroporto di partenza',
+
+    'departure_time' => 'Orario di partenza',
+    'departure_time_placeholder' => 'Inserisci l\'orario di partenza',
+
+    'arrival_airport' => 'Aeroporto di arrivo',
+    'arrival_airport_placeholder' => 'Inserisci l\'aeroporto di arrivo',
+
+    'arrival_time' => 'Orario di arrivo',
+    'arrival_time_placeholder' => 'Inserisci l\'orario di arrivo',
+
+    'flightInfoAndNotes' => 'Note e info volo',
+
+    'email_not_verified' => 'Email non verificata',
+    'code_not_verified' => 'Codice non verificato',
 
 
 ];

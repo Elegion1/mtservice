@@ -10,10 +10,8 @@ use Illuminate\Support\Facades\Log;
 
 class ReviewController extends Controller
 {
-
     public function createReview($locale, $booking_code)
     {
-
         $booking = Booking::where('code', $booking_code)->first();
         // dd($locale, $booking_code, $booking);
         Log::info('User opened review creation page code: ' . $booking->code . ' Name: ' . $booking->name . ' ' . $booking->surname);
@@ -31,6 +29,7 @@ class ReviewController extends Controller
         return view('dashboard.review', compact('reviews'));
     }
 
+    // permette all'utente di creare una recensione
     public function saveReview(Request $request)
     {
         // Validazione dei dati in ingresso
@@ -56,7 +55,7 @@ class ReviewController extends Controller
         // Crea la recensione
         Review::create($validatedData);
 
-        Log::info('User created a review ' . $validatedData['name'] . ' ' . $validatedData['title'] . ' ' . 'Valutazione: ' . $validatedData['rating'] );
+        Log::info('User created a review ' . $validatedData['name'] . ' ' . $validatedData['title'] . ' ' . 'Valutazione: ' . $validatedData['rating']);
 
         // Redirect con messaggio di successo
         return redirect()->route('home')->with('success', 'La tua recensione è stata inviata ed è in attesa di approvazione.');

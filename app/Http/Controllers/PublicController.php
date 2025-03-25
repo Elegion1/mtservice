@@ -2,31 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use Dompdf\Dompdf;
 use App\Models\Car;
-use Dompdf\Options;
+
 use App\Models\Page;
 use App\Models\Image;
 use App\Models\Route;
 use App\Models\Review;
 use App\Models\Booking;
 use App\Models\Contact;
-use App\Models\Content;
+
 use App\Models\Partner;
 use App\Models\Service;
-use App\Models\Setting;
+
 use App\Models\Excursion;
 use Illuminate\Http\Request;
-use Sabberworm\CSS\Settings;
-use App\Jobs\SendReviewRequestJob;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Queue;
-use App\Mail\BookingStatusNotification;
+
 use Illuminate\Support\Facades\Storage;
 
 use function PHPUnit\Framework\isEmpty;
