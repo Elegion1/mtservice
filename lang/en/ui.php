@@ -298,23 +298,59 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
     'more' => 'more',
     'addReturn' => 'add return',
 
-    'flight_number' => 'Flight Number',
-    'flight_number_placeholder' => 'Enter flight number',
+    'flightNumber' => 'Flight Number',
+    'flightNumberPlaceholder' => 'Enter flight number',
 
-    'departure_airport' => 'Departure Airport',
-    'departure_airport_placeholder' => 'Enter departure airport',
+    'departureAirport' => 'Departure Airport',
+    'departureAirportPlaceholder' => 'Enter departure airport',
 
-    'departure_time' => 'Departure Time',
-    'departure_time_placeholder' => 'Enter departure time',
+    'departureTime' => 'Departure Time',
+    'departureTimePlaceholder' => 'Enter departure time',
 
-    'arrival_airport' => 'Arrival Airport',
-    'arrival_airport_placeholder' => 'Enter arrival airport',
+    'arrivalAirport' => 'Arrival Airport',
+    'arrivalAirportPlaceholder' => 'Enter arrival airport',
 
-    'arrival_time' => 'Arrival Time',
-    'arrival_time_placeholder' => 'Enter arrival time',
+    'arrivalTime' => 'Arrival Time',
+    'arrivalTimePlaceholder' => 'Enter arrival time',
 
     'flightInfoAndNotes' => 'Notes and flight info',
 
     'email_not_verified' => 'Email not verified',
     'code_not_verified' => 'Code not verified',
+
+    'driverName' => 'Driver Name',
+    'driverNamePlaceholder' => 'Enter the name',
+
+    'driverBirthDate' => 'Date of Birth',
+
+    'driverBirthPlace' => 'Place of Birth',
+    'driverBirthPlacePlaceholder' => 'Enter place of birth',
+
+    'driverAddress' => 'Address',
+    'driverAddressPlaceholder' => 'Enter address',
+
+    'driverCity' => 'City',
+    'driverCityPlaceholder' => 'Enter city',
+
+    'driverPostalCode' => 'Postal Code',
+    'driverPostalCodePlaceholder' => 'Enter postal code',
+
+    'driverCountry' => 'Country',
+    'driverCountryPlaceholder' => 'Enter country',
+
+    'driverLicenseNumber' => 'License Number',
+    'driverLicenseNumberPlaceholder' => 'Enter license number',
+
+    'driverLicenseType' => 'License Type',
+    'driverLicenseTypePlaceholder' => 'Enter license type',
+
+    'driverLicenseIssueDate' => 'Issue Date',
+
+    'driverLicenseExpirationDate' => 'Expiration Date',
+
+    'driverLicenseCountry' => 'Country of Issue',
+    'driverLicenseCountryPlaceholder' => 'Enter country of issue',
+
+    'driverLicenseProvince' => 'Province of Issue',
+    'driverLicenseProvincePlaceholder' => 'Enter province',
 ];

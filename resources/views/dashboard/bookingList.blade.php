@@ -15,21 +15,7 @@
             </a>
         </div>
         <div class="col-8 px-4">
-            <div class="row">
-
-                <button class="col-12 btn btn-sm btn-filter bg-secondary p-1 border rounded text-white"
-                    data-type="all">Tutti</button>
-                <button class="col-6 btn btn-sm btn-filter bg-warning p-1 border rounded text-black"
-                    data-type="noleggio">Noleggio</button>
-                <button class="col-6 btn btn-sm btn-filter bg-success p-1 border rounded text-black"
-                    data-type="escursione">Escursioni</button>
-                <button class="col-6 btn btn-sm btn-filter bg-danger p-1 border rounded text-black"
-                    data-type="transfer">Transfer</button>
-                <button class="col-6 btn btn-sm btn-filter bg-info p-1 border rounded text-black"
-                    data-type="sito_favignana">Sito
-                    Favignana</button>
-
-            </div>
+            <div id="buttons-container" class="row"></div>
         </div>
     </div>
 
@@ -99,6 +85,40 @@
             //filtra le prenotazioni in base al tipo
             const buttons = document.querySelectorAll('.btn-filter');
 
+            const buttonsData = [{
+                    label: "Tutti",
+                    type: "all",
+                    bgClass: "bg-secondary col-12",
+                    textColor: "text-white"
+                },
+                {
+                    label: "Noleggio",
+                    type: "noleggio",
+                    bgClass: "bg-warning",
+                    textColor: "text-black"
+                },
+                {
+                    label: "Escursioni",
+                    type: "escursione",
+                    bgClass: "bg-success",
+                    textColor: "text-black"
+                },
+                {
+                    label: "Transfer",
+                    type: "transfer",
+                    bgClass: "bg-danger",
+                    textColor: "text-black"
+                },
+                {
+                    label: "Sito Favignana",
+                    type: "sito_favignana",
+                    bgClass: "bg-info",
+                    textColor: "text-black"
+                }
+            ];
+
+            generateButtons("buttons-container");
+
             buttons.forEach(button => {
                 button.addEventListener('click', function() {
                     const selectedType = this.getAttribute('data-type');
@@ -122,6 +142,28 @@
                     });
                 });
             });
+
+            function generateButtons(containerId) {
+                const container = document.getElementById(containerId);
+                if (!container) return;
+
+                container.innerHTML = ""; // Pulisce il contenitore prima di aggiungere i pulsanti
+
+                buttonsData.forEach(({
+                    label,
+                    type,
+                    bgClass,
+                    textColor
+                }) => {
+                    const button = document.createElement("button");
+                    button.className =
+                        `col-6 btn btn-sm btn-filter ${bgClass} p-1 border rounded ${textColor}`;
+                    button.dataset.type = type;
+                    button.textContent = label;
+
+                    container.appendChild(button);
+                });
+            }
 
             // Restituisce l'indice del mese corrente tra quelli disponibili
             const findCurrentMonthIndex = () => {

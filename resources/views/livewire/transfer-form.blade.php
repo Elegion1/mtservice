@@ -94,6 +94,7 @@
                     class="btn py-2 input_size border border-3 mt-2 mb-3 {{ !$solaAndata ? 'd-none' : '' }}">
                     <small>{{ strtoupper(__('ui.addReturn')) }}</small>
                 </button>
+
                 <button wire:click="submitTransferSelection" type="button"
                     class="btn col-12 input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
             @endif

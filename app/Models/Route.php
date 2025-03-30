@@ -19,6 +19,13 @@ class Route extends Model
         'show',
     ];
 
+    public function reverseRoute()
+    {
+        return self::where('departure_id', $this->arrival_id)
+            ->where('arrival_id', $this->departure_id)
+            ->first();
+    }
+
     public function departure()
     {
         return $this->belongsTo(Destination::class, 'departure_id');

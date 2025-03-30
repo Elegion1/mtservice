@@ -42,7 +42,6 @@
                 <input type="number" class="form-control form_input_focused" id="price_increment"
                     name="price_increment">
             </div>
-           
         </div>
         <button type="submit" class="btn btn-primary">Aggiungi tratta</button>
     </form>
@@ -52,19 +51,21 @@
     <h2>Tutte le Tratte</h2>
     @if (request()->header('User-Agent') && preg_match('/Mobile|Android|iPhone/i', request()->header('User-Agent')))
         <div class="overflow-y-auto border-bottom rounded" style="height: 65vh">
-            @foreach ($routes as $route)
+            @foreach ($groupedRoutes as $group)
                 <div class="mb-4">
                     <div class="card shadow-sm">
                         <div class="card-body">
-                            <p class="card-text">{{ $route->departure->name }} ➝ {{ $route->arrival->name }}</p>
-                            <p class="card-text">Distanza: {{ $route->distance }} km</p>
-                            <p class="card-text">Prezzo: {{ $route->price }} €</p>
-                            <p class="card-text">Incremento per passeggero: {{ $route->price_increment }} €</p>
-                            <p class="card-text">Tempo di percorrenza: {{ $route->duration }} min</p>
-                            <p class="card-text">Mostra: {{ $route->show ? 'Si' : 'No' }}</p>
+                            <p class="card-text">
+                                {{ $group['route']->departure->name }} ↔ {{ $group['route']->arrival->name }}
+                            </p>
+                            <p class="card-text">Distanza: {{ $group['route']->distance }} km</p>
+                            <p class="card-text">Prezzo: {{ $group['route']->price }} €</p>
+                            <p class="card-text">Incremento per passeggero: {{ $group['route']->price_increment }} €</p>
+                            <p class="card-text">Tempo di percorrenza: {{ $group['route']->duration }} min</p>
+                            <p class="card-text">Mostra: {{ $group['route']->show ? 'Si' : 'No' }}</p>
                             <div class="d-flex justify-content-end">
-                                <x-edit-button :id="'Route'" :data="$route" />
-                                <x-delete-button :route="'routes'" :model="$route" />
+                                <x-edit-button :id="'Route'" :data="$group['route']" />
+                                <x-delete-button :route="'routes'" :model="$group['route']" />
                             </div>
                         </div>
                     </div>
@@ -76,8 +77,7 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Partenza</th>
-                    <th>Arrivo</th>
+                    <th>Rotta</th>
                     <th>Distanza</th>
                     <th>Prezzo</th>
                     <th>Incremento di prezzo</th>
@@ -87,19 +87,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($routes as $route)
+                @foreach ($groupedRoutes as $group)
                     <tr>
-                        <td>{{ $route->id }}</td>
-                        <td>{{ $route->departure->name }}</td>
-                        <td>{{ $route->arrival->name }}</td>
-                        <td>{{ $route->distance }} km</td>
-                        <td>{{ $route->price }} €</td>
-                        <td>{{ $route->price_increment }} €</td>
-                        <td>{{ $route->duration }} Min</td>
-                        <td>{{ $route->show ? 'Si' : 'No' }}</td>
+                        <td>{{ $group['route']->id }} / {{ $group['reverseRoute']->id }}</td>
+                        <td>{{ $group['route']->departure->name }} ↔ {{ $group['route']->arrival->name }}</td>
+                        <td>{{ $group['route']->distance }} km</td>
+                        <td>{{ $group['route']->price }} €</td>
+                        <td>{{ $group['route']->price_increment }} €</td>
+                        <td>{{ $group['route']->duration }} Min</td>
+                        <td>{{ $group['route']->show ? 'Si' : 'No' }}</td>
                         <td>
-                            <x-edit-button :id="'Route'" :data="$route" />
-                            <x-delete-button :route="'routes'" :model="$route" />
+                            <x-edit-button :id="'Route'" :data="$group['route']" />
+                            <x-delete-button :route="'routes'" :model="$group['route']" />
                         </td>
                     </tr>
                 @endforeach
@@ -121,6 +120,10 @@
             <input type="number" class="form-control form_input_focused" id="edit_distance" name="distance" required>
         </div>
         <div class="mb-3">
+            <label for="edit_duration" class="form-label">Tempo di Percorrenza (Minuti)</label>
+            <input type="text" class="form-control form_input_focused" id="edit_duration" name="duration" required>
+        </div>
+        <div class="mb-3">
             <label for="edit_price" class="form-label">Prezzo (€)</label>
             <input type="number" class="form-control form_input_focused" id="edit_price" name="price" required>
         </div>
@@ -129,11 +132,6 @@
                 passeggero</label>
             <input type="text" class="form-control form_input_focused" id="edit_price_increment"
                 name="price_increment" required>
-        </div>
-        <div class="mb-3">
-            <label for="edit_duration" class="form-label">Tempo di Percorrenza (Minuti)</label>
-            <input type="text" class="form-control form_input_focused" id="edit_duration" name="duration"
-                required>
         </div>
     </x-modal>
 

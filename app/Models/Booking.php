@@ -26,7 +26,8 @@ class Booking extends Model
         'code',
         'locale',
         'service_date',
-        'bookingData', // Assicurati che questo campo sia incluso negli attributi fillable
+        'bookingData',
+        'info',
     ];
 
     /**
@@ -36,6 +37,7 @@ class Booking extends Model
      */
     protected $casts = [
         'bookingData' => 'array', // Casta il campo bookingData come array
+        'info' => 'array', // Casta il campo info come array
     ];
 
     public function getStartDateAttribute()

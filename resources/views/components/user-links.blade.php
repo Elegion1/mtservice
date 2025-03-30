@@ -1,10 +1,10 @@
 <!-- resources/views/components/user-navigation-menu.blade.php -->
 <ul class="navbar-nav d-flex align-items-center justify-content-center flex-wrap mx-auto mb-2 mb-lg-0">
     <li class="p-1 text-center">
-        <a class="text-decoration-none" href="{{ route('dashboard.route') }}">Tratte</a>
+        <a class="text-decoration-none" href="{{ route('dashboard.destination') }}">Destinazioni</a>
     </li>
     <li class="p-1 text-center">
-        <a class="text-decoration-none" href="{{ route('dashboard.destination') }}">Destinazioni</a>
+        <a class="text-decoration-none" href="{{ route('dashboard.excursion') }}">Escursioni</a>
     </li>
     <li class="p-1 text-center">
         <a class="text-decoration-none" href="{{ route('dashboard.car') }}">Auto</a>

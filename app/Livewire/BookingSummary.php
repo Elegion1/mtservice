@@ -26,6 +26,7 @@ class BookingSummary extends Component
     public $email;
     public $phone;
     public $body;
+    public $info;
     public $accept_policy = false;
 
     public $adminMail;
@@ -51,6 +52,20 @@ class BookingSummary extends Component
     public $departureTime;
     public $arrivalAirport;
     public $arrivalTime;
+
+    public $driverName;
+    public $driverBirthDate;
+    public $driverBirthPlace;
+    public $driverAddress;
+    public $driverCity;
+    public $driverPostalCode;
+    public $driverCountry;
+    public $driverLicenseNumber;
+    public $driverLicenseType;
+    public $driverLicenseIssueDate;
+    public $driverLicenseExpirationDate;
+    public $driverLicenseCountry;
+    public $driverLicenseProvince;
 
     public function rules()
     {
@@ -94,32 +109,63 @@ class BookingSummary extends Component
             'arrivalTime' => 'Orario di arrivo',
         ];
 
+        $driverData = [
+            'driverName' => 'Nome Guidatore',
+            'driverBirthDate' => 'Data di nascita',
+            'driverBirthPlace' => 'Luogo di nascita',
+            'driverAddress' => 'Indirizzo',
+            'driverCity' => 'Città',
+            'driverPostalCode' => 'CAP',
+            'driverCountry' => 'Paese',
+            'driverLicenseNumber' => 'Numero di patente',
+            'driverLicenseType' => 'Tipo di patente',
+            'driverLicenseIssueDate' => 'Data di rilascio',
+            'driverLicenseExpirationDate' => 'Data di scadenza',
+            'driverLicenseCountry' => 'Paese di rilascio',
+            'driverLicenseProvince' => 'Provincia di rilascio',
+        ];
+
+        // Se il tipo di prenotazione è "noleggio", rendi obbligatori i campi del guidatore
+        if ($this->bookingData['type'] === 'noleggio') {
+            foreach (array_keys($driverData) as $field) {
+                $validationRules[$field] = 'required|string';
+            }
+
+            // Per i campi data, usa una validazione specifica
+            $validationRules['driverBirthDate'] = 'required|date';
+            $validationRules['driverLicenseIssueDate'] = 'required|date';
+            $validationRules['driverLicenseExpirationDate'] = 'required|date';
+        }
+
         // Convalida i dati
         $this->validate($validationRules);
 
-        // Composizione del messaggio
-        $messageBody = $this->body;
-        $messageBody .= $this->buildMessage($flightFields);
+        // Salva i dati del volo e del guidatore nella colonna info
+        $infoData = [
+            'flight' => [],
+            'driver' => [],
+        ];
 
-        // Aggiorna il messaggio
-        $this->body = $messageBody;
+        // Aggiungi i dati del volo
+        foreach ($flightFields as $key => $label) {
+            $infoData['flight'][$key] = $this->$key ?? null;
+        }
+
+        // Aggiungi i dati del guidatore se è un noleggio
+        if ($this->bookingData['type'] === 'noleggio') {
+            foreach ($driverData as $key => $label) {
+                $infoData['driver'][$key] = $this->$key ?? null;
+            }
+        }
+
+        // Salva il messaggio originale
+        $this->body = $this->body;
+
+        // Salva i dati aggiuntivi come JSON
+        $this->info = json_encode($infoData);
 
         // Passa allo step successivo
         goToStep(2, $this->currentStep);
-    }
-
-    /**
-     * Genera dinamicamente la parte del messaggio con i dettagli del volo.
-     */
-    private function buildMessage(array $fields): string
-    {
-        $message = "";
-        foreach ($fields as $field => $label) {
-            if (!empty($this->$field)) {
-                $message .= "\n{$label}: {$this->$field}\n";
-            }
-        }
-        return $message;
     }
 
     public function goToStep($step)
@@ -392,6 +438,7 @@ class BookingSummary extends Component
                 'phone' => $this->phone,
                 'dial_code' => $this->dialCode,
                 'body' => $this->body,
+                'info' => $this->info,
                 'code' => generateUniqueCode(),
                 'locale' => app()->getLocale(),
                 'service_date' => $this->generateServiceDate($this->bookingData),

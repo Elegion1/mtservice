@@ -125,6 +125,19 @@ img {
     );
 }
 
+.price-tag {
+    position: absolute;
+    bottom: -10px; /* Regola questa distanza per centrare tra l'immagine e il titolo */
+    left: 74%;
+    transform: translateX(-50%);
+    background: var(--color-d); /* Sfondo dorato semitrasparente */
+    color: #fff; /* Testo bianco */
+    padding: 5px 10px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
 /* .nav-link {
     color: var(--color-d);
 } */
@@ -350,7 +363,7 @@ a:hover {
 }
 
 .img-fluid {
-    height: 100%;
+    width: 100%;
     object-fit: cover;
     object-position: center;
 }

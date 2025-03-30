@@ -132,6 +132,35 @@
             <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
                 <button type="button" wire:click="goToStep(1)" onclick="scrollToTop()"
                     class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
+                <button
+                    @if ($bookingData['type'] == 'noleggio') wire:click="goToStep(1.7)"
+                    @else 
+                        wire:click="submitMessage()" @endif
+                    type="button"
+                    class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
+            </div>
+        @endif
+
+        @if ($currentStep == 1.7)
+            <x-booking-summary-title :isRequired="true"> driverInfo </x-booking-summary-title>
+            <div class="col-12 p-0">
+                <x-driver-info />
+            </div>
+            <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
+                <button type="button" wire:click="goToStep(1.5)" onclick="scrollToTop()"
+                    class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
+                <button wire:click="goToStep(1.8)" type="button"
+                    class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
+            </div>
+        @endif
+        @if ($currentStep == 1.8)
+            <x-booking-summary-title :isRequired="true"> licenseInfo </x-booking-summary-title>
+            <div class="col-12 p-0">
+                <x-license-info :bookingData="$bookingData" />
+            </div>
+            <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
+                <button type="button" wire:click="goToStep(1.7)" onclick="scrollToTop()"
+                    class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
                 <button wire:click="submitMessage()" type="button"
                     class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
             </div>
@@ -179,7 +208,8 @@
                     </label>
                     <div class="d-flex justify-content-between">
                         <div class="me-3 w-custom">
-                            <select class="form-select form_input input_size" id="dialCode" wire:model.live="dialCode">
+                            <select class="form-select form_input input_size" id="dialCode"
+                                wire:model.live="dialCode">
                                 @foreach ($dialCodes as $dial)
                                     @if ($dial['code'] > 0)
                                         <option value="{{ $dial['code'] }}">{{ $dial['name'] }} {{ $dial['code'] }}
@@ -231,7 +261,13 @@
 
                 <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
                     {{-- Pulsante Back --}}
-                    <button wire:click="goToStep(1.5)" type="button" onclick="scrollToTop()"
+                    <button
+                        @if ($bookingData['type'] == 'noleggio') 
+                            wire:click="goToStep(1.8)" 
+                        @else 
+                            wire:click="goToStep(1.5)" 
+                        @endif
+                        type="button" onclick="scrollToTop()"
                         class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
                     <!-- Pulsante Submit -->
                     <button type="submit"
@@ -240,7 +276,6 @@
                 <div class="loader-wrapper" wire:loading wire:target="confirmBooking">
                     <span class="loader"></span>
                 </div>
-
 
             </div>
         </form>

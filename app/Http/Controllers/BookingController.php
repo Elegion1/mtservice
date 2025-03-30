@@ -71,6 +71,7 @@ class BookingController extends Controller
                     'dial_code' => $booking->dial_code,
                     'phone' => $booking->phone,
                     'body' => $booking->body,
+                    'info' => $booking->info,
                     'bookingData' => $bookingData,
                     'start_date' => $startDate,
                     'end_date' => $endDate,

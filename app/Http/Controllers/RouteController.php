@@ -23,7 +23,18 @@ class RouteController extends Controller
     {
         $destinations = Destination::where('show', 1)->get();
         $routes = Route::with(['departure', 'arrival'])->get();
-        return view('dashboard.route', compact('destinations', 'routes'));
+
+        $groupedRoutes = [];
+        foreach ($routes as $route) {
+            $reverseRoute = $route->reverseRoute();
+            if ($reverseRoute && !isset($groupedRoutes[$reverseRoute->id])) {
+                $groupedRoutes[$route->id] = [
+                    'route' => $route,
+                    'reverseRoute' => $reverseRoute
+                ];
+            }
+        }
+        return view('dashboard.route', compact('destinations', 'groupedRoutes'));
     }
 
     /**
@@ -61,6 +72,18 @@ class RouteController extends Controller
         // Creazione della nuova rotta
         Route::create($validated);
 
+        if (!Route::where('departure_id', $validated['arrival_id'])->where('arrival_id', $validated['departure_id'])->exists()) {
+            Route::create([
+                'departure_id' => $validated['arrival_id'],
+                'arrival_id' => $validated['departure_id'],
+                'price' => $validated['price'],
+                'price_increment' => $validated['price_increment'],
+                'duration' => $validated['duration'],
+                'distance' => $validated['distance'],
+                'show' => $validated['show'],
+            ]);
+        }
+
         return redirect()->route('dashboard.route')->with('success', 'Rotta creata con successo!');
     }
 
@@ -85,19 +108,27 @@ class RouteController extends Controller
      */
     public function update(Request $request, Route $route)
     {
-        $validated = $request->validate([
-            'distance' => 'required|numeric',
+        $validatedData = $request->validate([
             'price' => 'required|numeric',
+            'price_increment' => 'required|numeric',
             'duration' => 'required|numeric',
-            'price_increment' => 'nullable|numeric',
-            'show' => 'nullable|boolean',
+            'distance' => 'required|numeric',
+            'show' => 'required|boolean',
         ]);
 
-        $validated['show'] = $validated['show'] ?? 0; // Imposta un valore predefinito per 'show'
+        // Aggiorna la rotta originale
+        $route->update($validatedData);
 
-        $route->update($validated);
+        // Trova la rotta di ritorno
+        $returnRoute = Route::where('departure_id', $route->arrival_id)
+            ->where('arrival_id', $route->departure_id)
+            ->first();
 
-        return redirect()->route('dashboard.route')->with('success', 'Rotta aggiornata con successo!');
+        if ($returnRoute) {
+            $returnRoute->update($validatedData);
+        }
+
+        return redirect()->back()->with('success', 'Rotta aggiornata con successo');
     }
 
     /**
@@ -105,8 +136,17 @@ class RouteController extends Controller
      */
     public function destroy(Route $route)
     {
+        // Trova la rotta inversa
+        $returnRoute = Route::where('departure_id', $route->arrival_id)
+            ->where('arrival_id', $route->departure_id)
+            ->first();
+
+        if ($returnRoute) {
+            $returnRoute->delete();
+        }
+
         $route->delete();
 
-        return redirect()->route('dashboard.route')->with('success', 'Rotta eliminata con successo!');
+        return redirect()->back()->with('success', 'Rotta eliminata con successo');
     }
 }

@@ -57,7 +57,6 @@
                     @endif
                             "
                         data-bs-toggle="modal" data-bs-target="#bookingDetailsModal"
-                        data-booking-data="{{ json_encode($booking->bookingData) }}"
                         data-booking="{{ json_encode($booking) }}">
                         <p class="text-black text-decoration-underline text-start text-small mb-0 text-wrap">
 
@@ -98,16 +97,33 @@
 <script>
     document.querySelectorAll('.open-details-modal').forEach(button => {
         button.addEventListener('click', () => {
-            const bookingData = JSON.parse(button.getAttribute('data-booking-data'));
-            const booking = JSON.parse(button.getAttribute('data-booking'));
-            console.log(booking);
 
-            showBookingDetailsModal(bookingData, booking);
+            const booking = JSON.parse(button.getAttribute('data-booking'));
+            const bookingData = booking.bookingData;
+            const info = JSON.parse(booking.info);
+
+            showBookingDetailsModal(bookingData, booking, info);
         });
     });
 
+    function toggleDetails(key) {
+        const detailsElement = document.getElementById(`details-${key}`);
+        const iconElement = document.getElementById(`icon-${key}`);
+
+        // Controlla se i dettagli sono visibili
+        if (detailsElement.style.display === 'none') {
+            detailsElement.style.display = 'block';
+            iconElement.classList.remove('bi-chevron-down');
+            iconElement.classList.add('bi-chevron-up');
+        } else {
+            detailsElement.style.display = 'none';
+            iconElement.classList.remove('bi-chevron-up');
+            iconElement.classList.add('bi-chevron-down');
+        }
+    }
+
     // Funzione per mostrare i dettagli della prenotazione nel modale
-    function showBookingDetailsModal(bookingData, booking) {
+    function showBookingDetailsModal(bookingData, booking, info) {
         const modal = document.getElementById('bookingDetailsModal');
         const modalContent = document.getElementById('bookingDetailsContent');
         modalContent.innerHTML = ''; // Pulisci il contenuto del modale
@@ -138,11 +154,73 @@
 
         const formattedBody = body.replace(/\n/g, '<br>');
 
+        const translations = {
+            flight: {
+                flightNumber: 'Numero volo',
+                departureAirport: 'Aeroporto partenza',
+                departureTime: 'Orario partenza',
+                arrivalAirport: 'Aeroporto arrivo',
+                arrivalTime: 'Orario arrivo'
+            },
+            driver: {
+                driverName: 'Nome conducente',
+                driverBirthDate: 'Data nascita',
+                driverBirthPlace: 'Luogo nascita',
+                driverAddress: 'Indirizzo',
+                driverCity: 'Città',
+                driverPostalCode: 'CAP',
+                driverCountry: 'Paese',
+                driverLicenseNumber: 'Numero patente',
+                driverLicenseType: 'Tipo patente',
+                driverLicenseIssueDate: 'Rilascio patente',
+                driverLicenseExpirationDate: 'Scadenza patente',
+                driverLicenseCountry: 'Paese rilascio patente',
+                driverLicenseProvince: 'Provincia rilascio patente'
+            }
+        };
+
         let modalInnerHTML = `
         <p><span class="text-primary">${name} ${surname}</span></p>
         <p><a href="tel:${dial_code}${phone}">${phone}</a> <a href="mailto:${email}">${email}</a></p>
-        <p>Note: <span class="text-primary">${formattedBody}</span></p>
-        <p>Tipologia: <span class="text-primary text-capitalize">${bookingData.type}</span></p>`;
+        <p>Tipologia: <span class="text-primary text-capitalize">${bookingData.type}</span></p>
+        <p>Note: <br/> <span class="text-primary">${formattedBody}</span></p>`;
+
+        // Verifica che info sia un oggetto
+        if (typeof info === 'object' && info !== null) {
+            // Itera sulle chiavi di info (come 'flight' e 'driver')
+            Object.entries(info).forEach(([key, value]) => {
+                // Aggiungi un'intestazione per ogni gruppo di dati (come 'Flight' o 'Driver')
+                modalInnerHTML += `
+            <p class="text-uppercase text-primary border rounded p-1 m-0" style="cursor: pointer;" onclick="toggleDetails('${key}')">
+                Info ${key} <i id="icon-${key}" class="bi bi-chevron-down"></i>
+            </p>`;
+
+                // Aggiungi una sezione che contiene i dettagli da nascondere inizialmente
+                modalInnerHTML += `
+            <div id="details-${key}" class="border rounded p-1 mb-1" style="display: none;">
+        `;
+
+                // Se la proprietà è un oggetto, itera sui suoi campi
+                if (typeof value === 'object' && value !== null) {
+                    Object.entries(value).forEach(([subKey, subValue]) => {
+                        if (subKey && subValue) {
+                            // Recupera la traduzione della subkey (se esiste)
+                            const translatedSubKey = translations[key] && translations[key][subKey] ?
+                                translations[key][subKey] : subKey;
+
+                            modalInnerHTML += `
+                        <p>${translatedSubKey}: <span class="text-primary text-uppercase">${subValue}</span></p>
+                    `;
+                        }
+                    });
+                }
+
+                // Chiudi il contenitore dei dettagli
+                modalInnerHTML += `</div> <div class="mb-3"></div>`;
+            });
+        } else {
+            console.warn("La variabile 'info' non è un oggetto:", info);
+        }
 
         if (bookingType === 'transfer' && start_date !== 'N/A') {
             modalInnerHTML += `
