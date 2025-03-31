@@ -180,9 +180,13 @@
         };
 
         let modalInnerHTML = `
-        <p><span class="text-primary">${name} ${surname}</span></p>
-        <p><a href="tel:${dial_code}${phone}">${phone}</a> <a href="mailto:${email}">${email}</a></p>
-        <p>Tipologia: <span class="text-primary text-capitalize">${bookingData.type}</span></p>
+        <p>
+            <span class="text-primary text-uppercase">${bookingData.type}</span>
+        </p>
+        <p>    
+            <span class="text-primary text-uppercase">${name} ${surname}</span>
+        </p>
+        <p>Tel: <a href="tel:${dial_code}${phone}">${phone}</a> Mail: <a href="mailto:${email}">${email}</a></p>
         <p>Note: <br/> <span class="text-primary">${formattedBody}</span></p>`;
 
         // Verifica che info sia un oggetto
