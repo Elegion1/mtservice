@@ -24,7 +24,7 @@ class DestinationController extends Controller
         $destination->name = $validated['name'];
         $destination->save();
 
-        return redirect()->route('dashboard.destination')->with('success', 'Destinazione creata con successo!');
+        return redirect()->route('dashboard.route')->with('success', 'Destinazione creata con successo!');
     }
 
     public function update(Request $request, Destination $destination)

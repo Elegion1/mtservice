@@ -3,6 +3,18 @@
     <h1>Gestione Tratte</h1>
 
     <button id="routeCreateBtn" class="btn btn-success">Crea tratta</button>
+    <button id="destinationCreateBtn" class="btn btn-success">Crea destinazione</button>
+
+    <form class="d-none" id="destinationFormCreate" action="{{ route('destinations.store') }}" method="POST">
+        @csrf
+        <div class="row">
+            <div class="mb-3 col-lg-4 col-12">
+                <label for="name" class="form-label">Destinazione</label>
+                <input type="text" class="form-control form_input_focused" id="name" name="name" required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Aggiungi Destinazione</button>
+    </form>
 
     <form class="d-none" id="routeCreateForm" action="{{ route('routes.store') }}" method="POST">
         @csrf
@@ -60,7 +72,8 @@
                             </p>
                             <p class="card-text">Distanza: {{ $group['route']->distance }} km</p>
                             <p class="card-text">Prezzo: {{ $group['route']->price }} €</p>
-                            <p class="card-text">Incremento per passeggero: {{ $group['route']->price_increment }} €</p>
+                            <p class="card-text">Incremento per passeggero: {{ $group['route']->price_increment }} €
+                            </p>
                             <p class="card-text">Tempo di percorrenza: {{ $group['route']->duration }} min</p>
                             <p class="card-text">Mostra: {{ $group['route']->show ? 'Si' : 'No' }}</p>
                             <div class="d-flex justify-content-end">
@@ -121,7 +134,8 @@
         </div>
         <div class="mb-3">
             <label for="edit_duration" class="form-label">Tempo di Percorrenza (Minuti)</label>
-            <input type="text" class="form-control form_input_focused" id="edit_duration" name="duration" required>
+            <input type="text" class="form-control form_input_focused" id="edit_duration" name="duration"
+                required>
         </div>
         <div class="mb-3">
             <label for="edit_price" class="form-label">Prezzo (€)</label>
@@ -141,6 +155,14 @@
 
             var createRouteBtn = document.getElementById('routeCreateBtn');
             var routeCreateForm = document.getElementById('routeCreateForm');
+            var destinationCreateBtn = document.getElementById('destinationCreateBtn');
+            var destinationFormCreate = document.getElementById('destinationFormCreate');
+
+            destinationCreateBtn.addEventListener('click', function() {
+                destinationFormCreate.classList.toggle('d-none');
+                destinationCreateBtn.innerText = destinationFormCreate.classList.contains('d-none') ?
+                    'Crea Destinazione' : 'Nascondi';
+            });
 
             createRouteBtn.addEventListener('click', function() {
                 routeCreateForm.classList.toggle('d-none');

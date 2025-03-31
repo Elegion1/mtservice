@@ -353,4 +353,7 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
 
     'driverLicenseProvince' => 'Province of Issue',
     'driverLicenseProvincePlaceholder' => 'Enter province',
+
+    'driverInfo' => 'Driver Info',
+    'licenseInfo' => 'License Info',
 ];

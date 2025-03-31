@@ -354,6 +354,9 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
     'driverLicenseProvince' => 'Provincia di rilascio',
     'driverLicenseProvincePlaceholder' => 'Inserisci la provincia',
 
+    'driverInfo' => 'Informazioni Guidatore',
+    'licenseInfo' => 'Informazioni Patente',
+
 ];
 
 
