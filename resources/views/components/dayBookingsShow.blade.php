@@ -158,9 +158,9 @@
             flight: {
                 flightNumber: 'Numero volo',
                 departureAirport: 'Aeroporto partenza',
-                departureTime: 'Orario partenza',
+                departureTime: 'Ora partenza',
                 arrivalAirport: 'Aeroporto arrivo',
-                arrivalTime: 'Orario arrivo'
+                arrivalTime: 'Ora arrivo'
             },
             driver: {
                 driverName: 'Nome conducente',
@@ -196,7 +196,7 @@
                 // Aggiungi un'intestazione per ogni gruppo di dati (come 'Flight' o 'Driver')
                 modalInnerHTML += `
             <p class="text-uppercase text-primary border rounded p-1 m-0" style="cursor: pointer;" onclick="toggleDetails('${key}')">
-                Info ${key} <i id="icon-${key}" class="bi bi-chevron-down"></i>
+                Info ${key === 'flight' ? 'Volo' : key === 'driver' ? 'Guidatore' : key} <i id="icon-${key}" class="bi bi-chevron-down"></i>
             </p>`;
 
                 // Aggiungi una sezione che contiene i dettagli da nascondere inizialmente
@@ -207,6 +207,10 @@
                 // Se la proprietà è un oggetto, itera sui suoi campi
                 if (typeof value === 'object' && value !== null) {
                     Object.entries(value).forEach(([subKey, subValue]) => {
+                        if (subKey === 'flightNumber') {
+                            subValue =
+                                `<a target="_blank" href="https://www.flightradar24.com/data/flights/${subValue}">${subValue}</a>`;
+                        }
                         if (subKey && subValue) {
                             // Recupera la traduzione della subkey (se esiste)
                             const translatedSubKey = translations[key] && translations[key][subKey] ?
