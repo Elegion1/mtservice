@@ -55,7 +55,7 @@ class PublicController extends Controller
 
     public function escursioni()
     {
-        $excursionsP = Excursion::where('show', 1)->paginate(4);
+        $excursionsP = Excursion::where('show', 1)->orderBy('name_it', 'asc')->paginate(4);
         $data = $this->getPageData('escursioni', ['excursionsP' => $excursionsP]);
         return view('pages.escursioni', $data);
     }
@@ -82,7 +82,7 @@ class PublicController extends Controller
 
     public function partners()
     {
-        $partners = Partner::paginate(9);
+        $partners = Partner::orderBy('name', 'asc')->paginate(9);
         $data = $this->getPageData('partners', ['partners' => $partners]);
         return view('pages.partners', $data);
     }
