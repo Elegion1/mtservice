@@ -7,7 +7,7 @@
         class="es-text-mobile-size-16">
     <div style="font-family: Arial, sans-serif; padding: 10px;">
 
-        <x-booking-show :booking="$booking" :bookingData="$booking->bookingData" :admin="$booking->bookingData['sito_favignana']" />
+        <x-booking-show :booking="$booking" :bookingData="$booking->bookingData" :admin="$booking->bookingData['sito_favignana'] ?? null" />
     </div>
     ​</p>
 
