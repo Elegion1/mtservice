@@ -51,7 +51,7 @@
                     placeholder="Inizio periodo">
             </div>
             <div class="col-6">
-                <label for="end" class="form-label">Data di inizio</label>
+                <label for="end" class="form-label">Data di fine</label>
                 <input type="datetime-local" class="form-control" id="end" name="end"
                     placeholder="Fine periodo">
             </div>

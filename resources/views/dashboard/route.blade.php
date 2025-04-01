@@ -4,6 +4,7 @@
 
     <button id="routeCreateBtn" class="btn btn-success">Crea tratta</button>
     <button id="destinationCreateBtn" class="btn btn-success">Crea destinazione</button>
+    <a href="{{ route('dashboard.destination') }}" class="btn btn-success">Mostra Destinazioni</a>
 
     <form class="d-none" id="destinationFormCreate" action="{{ route('destinations.store') }}" method="POST">
         @csrf
