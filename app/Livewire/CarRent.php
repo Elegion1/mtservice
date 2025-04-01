@@ -224,11 +224,11 @@ class CarRent extends Component
 
                     if ($currentDate->toDateString() == $endDate->toDateString()) {
                         $diff = $currentDate->diffInHours($endDate);
-                        if ($diff < 24) {
-                            $totalPrice += ($carPrice->price * $this->quantity) + $carPrice->price;
-                            Log::info('Applying proportional price for last day: ' . $diff . ' hours');
-                            $found = true;
-                        }
+                        // if ($diff < 24) {
+                        //     $totalPrice += ($carPrice->price * $this->quantity) * ($diff / 24);
+                        //     Log::info('Applying proportional price for last day: ' . $diff . ' hours');
+                        //     $found = true;
+                        // }
                     }
 
                     $found = true;
