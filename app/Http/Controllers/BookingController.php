@@ -245,27 +245,37 @@ class BookingController extends Controller
 
     public function update(Request $request, Booking $booking)
     {
+        // Log per tracciare l'inizio della richiesta
+        Log::info("Inizio aggiornamento della prenotazione: {$booking->code}");
+
         // Memorizza lo stato originale prima dell'aggiornamento
         $originalStatus = $booking->status;
+        Log::info("Stato originale della prenotazione: {$originalStatus}");
 
         // Validazione unica per entrambi i campi
         $validated = $request->validate([
             'status' => 'nullable|in:confirmed,pending,rejected',
             'payment_status' => 'nullable|in:pending,paid,deposit_paid',
         ]);
+        Log::info("Validazione riuscita. Dati ricevuti: " . json_encode($validated));
 
         $updates = [];
 
         // Aggiornamento stato della prenotazione
         if ($request->filled('status') && $booking->status !== $request->status) {
             $updates['status'] = $request->status;
+            Log::info("Stato della prenotazione aggiornato da {$originalStatus} a {$updates['status']}");
+        } else {
+            Log::info("Nessun cambiamento nello stato della prenotazione.");
         }
 
         // Aggiornamento stato del pagamento
         if ($request->filled('payment_status') && $booking->payment_status !== $request->payment_status) {
             $updates['payment_status'] = $request->payment_status;
+            Log::info("Stato del pagamento aggiornato da {$booking->payment_status} a {$updates['payment_status']}");
+        } else {
+            Log::info("Nessun cambiamento nello stato del pagamento.");
         }
-
 
         // **Cancella il job solo se lo stato passa da "confirmed" a "rejected"**
         if (
@@ -289,7 +299,9 @@ class BookingController extends Controller
         // Se ci sono modifiche, salva
         if (!empty($updates)) {
             $booking->update($updates);
+            Log::info("Prenotazione aggiornata con i seguenti dati: " . json_encode($updates));
         } else {
+            Log::info("Nessuna modifica effettuata.");
             return redirect()->back()->with('error', 'Nessuna modifica effettuata.');
         }
 
@@ -301,19 +313,13 @@ class BookingController extends Controller
             $serviceDate = Carbon::parse($booking->service_date . ' ' . $defaultTime);
             $delay = $serviceDate->addDays((int) $delayDays);
 
-            Log::info([
-                'service_date' => $booking->service_date,
-                'default_time' => $defaultTime,
-                'delay_days' => $delayDays,
-                'calculated_delay' => $delay,
-                'booking_locale' => $booking->locale,
-            ]);
+            Log::info("Configurazione invio recensione: data servizio - {$booking->service_date}, tempo predefinito - {$defaultTime}, giorni di ritardo - {$delayDays}, data ritardo calcolata - {$delay->toDateTimeString()}");
 
             // Controlla se esistono già jobs per la prenotazione
             $findJob = getJobs($booking);
 
             if ($findJob) {
-                Log::info("Job trovato per la prenotazione {$booking->code}. ID Job: {$findJob->id}. Annullo creazione del Job");
+                Log::info("Job già esistente per la prenotazione {$booking->code}. ID Job: {$findJob->id}. Annullo creazione del Job.");
                 return redirect()->back()->with('message', 'Job già presente');
             } else {
                 $appLocale = App::getLocale();
@@ -321,15 +327,17 @@ class BookingController extends Controller
                 SendReviewRequestJob::dispatch($booking)->delay($delay);
                 App::setLocale($appLocale);
                 Log::info("Job per la richiesta di recensione creato per la prenotazione: {$booking->code}, con invio previsto per: {$delay->toDateTimeString()}");
+                return redirect()->back()->with('message', 'Job creato con successo');
             }
         }
 
         $notification = getSetting('email_notification');
+        Log::info("Impostazione notifiche via email: " . ($notification ? 'Abilitata' : 'Disabilitata'));
 
         if ($notification) {
-
             // Invia email di notifica solo se lo stato è cambiato
             if (isset($updates['status'])) {
+                Log::info("Invio email di notifica per lo stato della prenotazione.");
                 sendEmail(
                     $booking->email,
                     new BookingStatusNotification($booking),
@@ -338,6 +346,8 @@ class BookingController extends Controller
                 );
             }
         }
+
+        Log::info("Prenotazione aggiornata con successo. Codice: {$booking->code}");
 
         return redirect()->back()->with('success', 'Prenotazione aggiornata con successo.');
     }

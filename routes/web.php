@@ -75,7 +75,7 @@ Route::get('dashboard/bookingfromreact/getBookingData', [BookingController::clas
 // gestione stato prenotazione
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
 
-    Route::post('/bookings/{booking}/update-status', [BookingController::class, 'update'])->name('bookings.update');
+    Route::put('/bookings/{booking}/update-status', [BookingController::class, 'update'])->name('bookings.update');
     Route::get('/booking/status/to-do', [BookingController::class, 'bookingToDo'])->name('booking.todo');
 
     // Route::get('/booking/confirm/{booking}', [PublicController::class, 'confirmBooking'])->name('booking.confirm');

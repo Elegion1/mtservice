@@ -53,39 +53,40 @@
                 <a href="mailto:{{ $booking->email }}" class="text-small">{{ $booking->email }}</a>
             </div>
 
+            @php
+                $statuses = [
+                    'confirmed' => [
+                        'title' => 'Accetta prenotazione',
+                        'icon' => 'bi-check-circle-fill',
+                        'class' => 'text-success',
+                    ],
+                    'rejected' => [
+                        'title' => 'Rifiuta prenotazione',
+                        'icon' => 'bi-x-circle-fill',
+                        'class' => 'text-danger',
+                    ],
+                    'pending' => [
+                        'title' => 'Sposta in lavorazione',
+                        'icon' => 'bi-exclamation-circle-fill',
+                        'class' => 'text-warning',
+                    ],
+                ];
+            @endphp
+
             <span class="d-flex justify-content-center align-items-center">
-                @if ($booking->status != 'confirmed')
-                    <form action="{{ route('bookings.update', $booking) }}" method="POST"
-                        style="display:inline-block;">
-                        @csrf
-                        <input type="hidden" name="status" value="confirmed">
-                        <button title="Accetta prenotazione" type="submit" class="btn btn-sm">
-                            <i class="bi bi-check-circle-fill text-success fs-1"></i>
-                        </button>
-                    </form>
-                @endif
-
-                @if ($booking->status != 'rejected')
-                    <form action="{{ route('bookings.update', $booking) }}" method="POST"
-                        style="display:inline-block;">
-                        @csrf
-                        <input type="hidden" name="status" value="rejected">
-                        <button title="Rifiuta prenotazione" type="submit" class="btn btn-sm">
-                            <i class="bi bi-x-circle-fill text-danger fs-1"></i>
-                        </button>
-                    </form>
-                @endif
-
-                @if ($booking->status != 'pending')
-                    <form action="{{ route('bookings.update', $booking) }}" method="POST"
-                        style="display:inline-block;">
-                        @csrf
-                        <input type="hidden" name="status" value="pending">
-                        <button title="Sposta in lavorazione" type="submit" class="btn btn-sm">
-                            <i class="bi bi-exclamation-circle-fill text-warning fs-1"></i>
-                        </button>
-                    </form>
-                @endif
+                @foreach ($statuses as $status => $info)
+                    @if ($booking->status !== $status)
+                        <form action="{{ route('bookings.update', $booking->id) }}" method="POST"
+                            style="display:inline-block;">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="status" value="{{ $status }}">
+                            <button title="{{ $info['title'] }}" type="submit" class="btn btn-sm">
+                                <i class="bi {{ $info['icon'] }} {{ $info['class'] }} fs-1"></i>
+                            </button>
+                        </form>
+                    @endif
+                @endforeach
             </span>
 
         </div>

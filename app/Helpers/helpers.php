@@ -68,19 +68,9 @@ function getSetting($name)
 
 function getJobs($booking)
 {
-    // Ottimizzare la query per cercare solo job relativi a una prenotazione
     return DB::table('jobs')
-        ->get()
-        ->first(function ($job) use ($booking) {
-            $payload = json_decode($job->payload, true);
-
-            if (isset($payload['data']['command'])) {
-                $commandData = unserialize($payload['data']['command']);
-                return isset($commandData->booking) && $commandData->booking->code === $booking->code;
-            }
-
-            return false;
-        });
+        ->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(payload, '$.data.command.booking.code')) = ?", [$booking->code])
+        ->first();
 }
 
 function getAllowedBookingTypes()
