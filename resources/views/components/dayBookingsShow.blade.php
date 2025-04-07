@@ -100,7 +100,7 @@
 
             const booking = JSON.parse(button.getAttribute('data-booking'));
             const bookingData = booking.bookingData;
-            const info = JSON.parse(booking.info);
+            const info = booking.info;
 
             showBookingDetailsModal(bookingData, booking, info);
         });
