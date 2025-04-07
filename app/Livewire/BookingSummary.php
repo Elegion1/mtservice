@@ -143,7 +143,7 @@ class BookingSummary extends Component
         // Salva i dati del volo e del guidatore nella colonna info
         $infoData = [
             'flight' => [],
-            'driver' => [],
+
         ];
 
         // Aggiungi i dati del volo
@@ -153,6 +153,8 @@ class BookingSummary extends Component
 
         // Aggiungi i dati del guidatore se è un noleggio
         if ($this->bookingData['type'] === 'noleggio') {
+            $infoData['driver'] = [];
+
             foreach ($driverData as $key => $label) {
                 $infoData['driver'][$key] = $this->$key ?? null;
             }
@@ -429,6 +431,9 @@ class BookingSummary extends Component
             $this->bookingData['original_price'] = $this->originalPrice;
             $this->bookingData['price'] = $this->discountedPrice;
 
+            $this->info = is_string($this->info) ? json_decode($this->info, true) : $this->info;
+            // dd($this->bookingData, $this->info);
+
             // Salvataggio della prenotazione
             $booking = Booking::create([
                 'bookingData' => $this->bookingData,
@@ -496,10 +501,25 @@ class BookingSummary extends Component
         }
 
         $language = app()->getLocale();
-        $pdfClient = generatePDF($booking, $language);
+
+        $pdfClient = null;
+        $pdfAdmin = null;
+
+        try {
+            $pdfClient = generatePDF($booking, $language);
+        } catch (\Throwable $e) {
+            logger()->error('Errore nella generazione del PDF per il cliente: ' . $e->getMessage());
+        }
+
+        try {
+            $pdfAdmin = generatePDF($booking, 'it');
+        } catch (\Throwable $e) {
+            logger()->error('Errore nella generazione del PDF per l\'admin: ' . $e->getMessage());
+        }
+
 
         // Invia email all'amministrazione
-        sendEmail($this->adminMail, new BookingAdmin($booking, generatePDF($booking, 'it')), 'Failed to send admin email', 'it');
+        sendEmail($this->adminMail, new BookingAdmin($booking, $pdfAdmin), 'Failed to send admin email', 'it');
 
         // Invia email al cliente
         sendEmail($this->email, new BookingConfirmation($booking, $pdfClient), 'Failed to send booking confirmation email', $language);

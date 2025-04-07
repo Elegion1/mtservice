@@ -95,9 +95,9 @@
     </div>
 
     @if (isset($booking->info))
-        @php $data = json_decode($booking->info, true); @endphp
+        
         <div class="row">
-            @foreach ($data as $section => $fields)
+            @foreach ($booking->info as $section => $fields)
                 <div class="col-12 col-md-6">
                     <h3 class="mt-4 text-uppercase">{{ __('ui.info') }} {{ __('ui.' . $section) }}</h3>
                     <ul class="list-group mb-4">

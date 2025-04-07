@@ -259,7 +259,7 @@
     </div>
 
     <div class="clearfix"></div>
-
+    <br>
     <div class="azienda">
         <span>{{ $ownerdata->companyName }}</span><br>
         <span>di {{ $ownerdata->name }} {{ $ownerdata->surname }}</span><br>
