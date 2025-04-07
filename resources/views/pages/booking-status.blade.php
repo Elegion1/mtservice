@@ -26,7 +26,7 @@
                 </div>
             </form>
         @else
-            <div class="container">
+            <div class="container-fluid">
                 <x-booking-show :booking="$booking" :bookingData="$booking->bookingData" :admin="false" />
             </div>
         @endif

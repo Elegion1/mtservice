@@ -75,7 +75,7 @@ return [
     'approx' => 'circa',
     'price' => 'prezzo',
     'collectionDate' => 'Data di ritiro',
-    'returnDate' => 'data di consegna',
+    'returnDate' => 'Data di consegna',
     'personalData' => 'DATI PERSONALI',
     'name' => 'Nome',
     'surname' => 'Cognome',
@@ -297,7 +297,6 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
     'more' => 'altro',
     'addReturn' => 'aggiungi ritorno',
 
-
     'flightNumber' => 'Numero volo',
     'flightNumberPlaceholder' => 'Inserisci il numero del volo',
 
@@ -357,6 +356,24 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
     'driverInfo' => 'Informazioni Guidatore',
     'licenseInfo' => 'Informazioni Patente',
 
+    'pickupLocation' => 'Luogo di ritiro',
+    'deliveryLocation' => 'Luogo di consegna',
+
+    'airport' => 'aeroporto',
+    'customAddress' => 'indirizzo personalizzato',
+    'insertAddress' => 'inserisci indirizzo',
+    'garage' => 'rimessa',
+    'handOffCost' => 'Prezzo di consegna',
+    'rentPrice' => 'Prezzo noleggio',
+    'address' => 'indirizzo',
+
+    'flight' => 'volo',
+    'driver' => 'guidatore',
+
+    'info' => 'info',
+
+    'airport_trapani' => 'Aeroporto Trapani',
+    'airport_palermo' => 'Aeroporto Palermo',
 ];
 
 

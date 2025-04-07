@@ -384,6 +384,21 @@ a:hover {
 }
 
 /* ========== Form e Input ========== */
+.formattedCustomAddress:focus {
+    background-color: var(--color-b) !important;
+}
+.formattedCustomAddress:hover {
+    background-color: var(--color-b) !important;
+}
+
+.formattedCustomAddress {
+    cursor: pointer;
+    touch-action: manipulation;
+    border: none;
+    border-radius: 0px 0px ;
+    width: 100%;
+}
+
 .form_input {
     border: none;
     background-color: var(--color-c);

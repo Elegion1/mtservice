@@ -19,6 +19,29 @@ class CarRent extends Component
     public $carID;
     public $rentPrice;
 
+    public $handOffOptions = [
+        'airport' => ['trapani' => ['price' => 25], 'palermo' => ['price' => 50]],
+        'custom_address' => ['variable_price' => true], // Segnala che il prezzo è variabile
+        'garage' => ['price' => 0],
+    ];
+
+    public $pickupLocation;    // Luogo di ritiro
+    public $deliveryLocation;  // Luogo di consegna
+    public $pickupCustomAddress;
+    public $deliveryCustomAddress;
+    public $deliveryCost = 0;  // Costo della consegna
+    public $pickupCost = 0;    // Costo del ritiro
+    public $pickuphandOffCost;
+    public $deliveryhandOffCost;
+    public $pickuphandOffDistance;
+    public $deliveryhandOffDistance;
+    public $handOffCost;
+    public $pickupcorrectedCustomAddress = [];
+    public $deliverycorrectedCustomAddress = [];
+
+    public $totalPrice = 0;
+
+
     public $startDateMin;
     public $endDateMin;
     public $startTimeMin;
@@ -92,6 +115,15 @@ class CarRent extends Component
             $this->validateOnly($field);
             $this->calculatePriceRent();
         }
+        if ($field == 'pickupLocation' || $field == 'deliveryLocation' || $field == 'pickupCustomAddress' || $field == 'deliveryCustomAddress') {
+            if ($this->pickupLocation == 'custom_address' || $this->deliveryLocation == 'custom_address') {
+                if (mb_strlen($this->pickupCustomAddress) > 10 || mb_strlen($this->deliveryCustomAddress) > 10) {
+                    $this->applyDeliveryPickupCosts();
+                }
+            } else {
+                $this->applyDeliveryPickupCosts();
+            }
+        }
     }
 
     public function calculatePriceRent()
@@ -141,11 +173,11 @@ class CarRent extends Component
 
                     // if ($currentDate->toDateString() == $endDate->toDateString()) {
                     //     $diff = $currentDate->diffInHours($endDate);
-                        // if ($diff < 24) {
-                        //     $totalPrice += ($carPrice->price * $this->quantity) * ($diff / 24);
-                        //     Log::info('Applying proportional price for last day: ' . $diff . ' hours');
-                        //     $found = true;
-                        // }
+                    // if ($diff < 24) {
+                    //     $totalPrice += ($carPrice->price * $this->quantity) * ($diff / 24);
+                    //     Log::info('Applying proportional price for last day: ' . $diff . ' hours');
+                    //     $found = true;
+                    // }
                     // }
 
                     $found = true;
@@ -167,6 +199,107 @@ class CarRent extends Component
         $this->rentPrice = $totalPrice;
     }
 
+    public function applyDeliveryPickupCosts()
+    {
+        $this->totalPrice = 0;
+        $this->handOffCost = 0;
+
+        // Calcola i costi di consegna e ritiro usando una chiave dinamica
+        foreach (['pickup', 'delivery'] as $key) {
+            $locationKey = $key . 'Location';
+            $addressKey = $key . 'CustomAddress';
+            $this->{$key . 'Cost'} = $this->calculateHandOffCost($this->{$locationKey}, $this->{$addressKey}, $key);
+        }
+
+        // Somma i costi di consegna e ritiro al prezzo totale
+        $this->handOffCost = $this->deliveryCost + $this->pickupCost;
+        $this->totalPrice = $this->rentPrice + $this->handOffCost;
+    }
+
+    /**
+     * Calcola il costo in base alla location selezionata.
+     */
+    private function calculateHandOffCost($location, $address, $key)
+    {
+        if (!$location) {
+            return 0;
+        }
+
+        [$type, $city] = explode('_', $location) + [1 => null];
+
+        if ($location == 'custom_address' && !empty($address)) {
+            return $this->calculateVariablePrice($address, $key);
+        }
+
+        if (!isset($this->handOffOptions[$type])) {
+            return 0;
+        }
+
+        if ($city && isset($this->handOffOptions[$type][$city]['price'])) {
+            return $this->handOffOptions[$type][$city]['price'];
+        }
+
+        if (isset($this->handOffOptions[$type]['price'])) {
+            return $this->handOffOptions[$type]['price'];
+        }
+
+        return 0;
+    }
+
+    public function calculateVariablePrice($location, $key)
+    {
+        $origin = getSetting('garage_address');
+
+        $distance = $this->getDistanceFromAPI($origin, $location, $key);
+        if ($distance === null) {
+            return 0; // Evita di sommare null e prevenire errori
+        }
+
+        Log::info('Distanza: ' . $distance);
+
+        $this->{$key . 'handOffDistance'} = $distance;
+
+        $pricePerDistance = $distance * 0.5;
+        return ceil($pricePerDistance);
+    }
+
+    public function selectAddress($key, $address)
+    {
+        // Assegna l'indirizzo selezionato alla variabile dinamica
+        $this->{$key . 'CustomAddress'} = $address;
+
+        // Puoi anche svuotare la lista delle previsioni
+        $this->{$key . 'correctedCustomAddress'} = [];
+    }
+
+    public function getDistanceFromAPI($origin, $destination, $key)
+    {
+        $this->{$key . 'correctedCustomAddress'} = [];
+        $apiKey = env('GOOGLE_MAPS_API_KEY'); // Leggi la chiave API da .env
+        $origin = urlencode($origin);
+        $destination = urlencode($destination);
+
+        $url = "https://maps.googleapis.com/maps/api/distancematrix/json?destinations={$destination}&origins={$origin}&key={$apiKey}";
+
+        $response = file_get_contents($url);
+        Log::info('Risposta: ' . $response);
+        $data = json_decode($response, true);
+
+        if ($data['status'] === 'OK') {
+            // Verifica che ci siano effettivamente gli indirizzi di destinazione
+            if (isset($data['destination_addresses'][0]) && isset($data['rows'][0]['elements'][0]['distance']['value'])) {
+                $this->{$key . 'correctedCustomAddress'} = $data['destination_addresses'];
+                return $data['rows'][0]['elements'][0]['distance']['value'] / 1000; // Converti in KM
+            } else {
+                Log::error('Destinazione non trovata o formato risposta non corretto');
+                return null; // In caso di errore
+            }
+        } else {
+            Log::error('Errore nella risposta di Google Maps API: ' . $data['status']);
+            return null; // In caso di errore
+        }
+    }
+
     public function convertDate($date)
     {
         return Carbon::parse($date);
@@ -176,13 +309,31 @@ class CarRent extends Component
     {
         $dateTimeStart = combineDateAndTime($this->dateStart, $this->timeStart);
         $dateTimeEnd = combineDateAndTime($this->dateEnd, $this->timeEnd);
+
+        $specialLocations = [
+            'custom_address' => fn($type) => $type === 'pickup' ? $this->pickupCustomAddress : $this->deliveryCustomAddress,
+            'garage' => fn() => getSetting('garage_address'),
+            'airport_trapani' => fn() => __('ui.airport_trapani'),
+            'airport_palermo' => fn() => __('ui.airport_palermo'),
+        ];
+
+        foreach (['pickup', 'delivery'] as $type) {
+            $property = $type . 'Location';
+            $value = $this->$property;
+
+            if (isset($specialLocations[$value])) {
+                $this->$property = $specialLocations[$value]($type);
+            }
+        }
         return [
             'type' => 'noleggio',
             'date_start' => $dateTimeStart,
             'date_end' => $dateTimeEnd,
+            'pickup' => $this->pickupLocation,
+            'delivery' => $this->deliveryLocation,
             'quantity' => $this->quantity,
             'car_ID' => $this->carID,
-            'price' => $this->rentPrice,
+            'price' => $this->totalPrice,
         ];
     }
 

@@ -195,14 +195,13 @@
             Object.entries(info).forEach(([key, value]) => {
                 // Aggiungi un'intestazione per ogni gruppo di dati (come 'Flight' o 'Driver')
                 modalInnerHTML += `
-            <p class="text-uppercase text-primary border rounded p-1 m-0" style="cursor: pointer;" onclick="toggleDetails('${key}')">
+                <p class="text-uppercase text-primary border rounded p-1 m-0" style="cursor: pointer;" onclick="toggleDetails('${key}')">
                 Info ${key === 'flight' ? 'Volo' : key === 'driver' ? 'Guidatore' : key} <i id="icon-${key}" class="bi bi-chevron-down"></i>
-            </p>`;
+                </p>`;
 
                 // Aggiungi una sezione che contiene i dettagli da nascondere inizialmente
-                modalInnerHTML += `
-            <div id="details-${key}" class="border rounded p-1 mb-1" style="display: none;">
-        `;
+                modalInnerHTML +=
+                    `<div id="details-${key}" class="border rounded p-1 mb-1" style="display: none;">`;
 
                 // Se la proprietà è un oggetto, itera sui suoi campi
                 if (typeof value === 'object' && value !== null) {
@@ -246,7 +245,9 @@
             modalInnerHTML += `
         <p>Auto: <span class="text-primary">${bookingData.car_name}</span></p>
         <p>Ritiro: <span class="text-primary">${dateStart}</span></p>
-        <p>Consegna: <span class="text-primary">${dateEnd}</span></p>`;
+        <p>Luogo ritiro: <span class="text-primary">${bookingData.pickup}</span></p>
+        <p>Consegna: <span class="text-primary">${dateEnd}</span></p>
+        <p>Luogo consegna: <span class="text-primary">${bookingData.delivery}</span></p>`;
         }
 
         let paymentStatus;

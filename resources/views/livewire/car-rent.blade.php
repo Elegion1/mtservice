@@ -18,15 +18,15 @@
                 <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
                     <div class="w-custom me-3">
                         <span>{{ __('ui.rentStartDate') }}</span>
-                        <input wire:model.live="dateStart" type="date" placeholder="gg/mm/aaaa" min="{{ $startDateMin }}"
-                            class="form-control form_input input_size" id="dateStart">
+                        <input wire:model.live="dateStart" type="date" placeholder="gg/mm/aaaa"
+                            min="{{ $startDateMin }}" class="form-control form_input input_size" id="dateStart">
                         <x-error-message field='dateStart' />
                     </div>
 
                     <div class="w-custom">
                         <span>{{ __('ui.time') }}</span>
-                        <input wire:model.live="timeStart" type="time" placeholder="hh:mm" min="{{ $startTimeMin }}" step="900"
-                            class="form-control form_input input_size" id="timeStart">
+                        <input wire:model.live="timeStart" type="time" placeholder="hh:mm" min="{{ $startTimeMin }}"
+                            step="900" class="form-control form_input input_size" id="timeStart">
                         <x-error-message field='timeStart' />
                     </div>
                 </div>
@@ -35,15 +35,15 @@
                 <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
                     <div class="w-custom me-3">
                         <span>{{ __('ui.rentEndDate') }}</span>
-                        <input wire:model.live="dateEnd" type="date" placeholder="gg/mm/aaaa" min="{{ $endDateMin }}"
-                            class="form-control form_input input_size" id="dateEnd">
+                        <input wire:model.live="dateEnd" type="date" placeholder="gg/mm/aaaa"
+                            min="{{ $endDateMin }}" class="form-control form_input input_size" id="dateEnd">
                         <x-error-message field='dateEnd' />
                     </div>
 
                     <div class="w-custom">
                         <span>{{ __('ui.time') }}</span>
-                        <input wire:model.live="timeEnd" type="time" placeholder="hh:mm" min="{{ $endTimeMin }}" step="900"
-                            class="form-control form_input input_size" id="timeEnd">
+                        <input wire:model.live="timeEnd" type="time" placeholder="hh:mm" min="{{ $endTimeMin }}"
+                            step="900" class="form-control form_input input_size" id="timeEnd">
                         <x-error-message field='timeEnd' />
                     </div>
                 </div>
@@ -120,6 +120,121 @@
 
                 <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
                     <button wire:click="goToStep(1)" type="button" onclick="scrollToTop()"
+                        class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
+
+                    <button wire:click="goToStep(3)" type="button" onclick="scrollToTop()"
+                        class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.next') }}</button>
+                </div>
+            @endif
+
+            @if ($currentStep == 3)
+                @php
+                    $locations = ['pickup', 'delivery'];
+                @endphp
+
+                @foreach ($locations as $key)
+                    <div class="col-12 p-0 m-0">
+
+                        <label for="{{ $key }}Location">{{ __('ui.' . $key . 'Location') }}</label>
+
+                        <select wire:model.live="{{ $key }}Location" id="{{ $key }}Location"
+                            class="form-select form_input input_size"
+                            aria-label="{{ __('ui.select') . ' ' . strtolower(__('ui.' . $key . 'Location')) }}">
+                            <option value="">
+                                {{ __('ui.select') . ' ' . strtolower(__('ui.' . $key . 'Location')) }}</option>
+                            @foreach ($handOffOptions as $optionKey => $option)
+                                @if ($optionKey == 'airport')
+                                    @foreach ($option as $city => $details)
+                                        <option value="{{ $optionKey }}_{{ $city }}">
+                                            {{ ucfirst(__('ui.airport')) }} - {{ ucfirst(__($city)) }}
+                                        </option>
+                                    @endforeach
+                                @elseif ($optionKey == 'custom_address')
+                                    <option value="{{ $optionKey }}">{{ ucfirst(__('ui.customAddress')) }}</option>
+                                @else
+                                    <option value="{{ $optionKey }}">{{ ucfirst(__('ui.' . $optionKey)) }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+
+                        <x-error-message field="{{ $key }}Location" />
+
+                    </div>
+
+                    @if ($this->{$key . 'Location'} == 'custom_address')
+                        <div class="col-12 p-0 m-0">
+                            <label for="{{ $key }}CustomAddress"
+                                class="text-capitalize">{{ __('ui.customAddress') }}</label>
+                            <input type="text" wire:model.live="{{ $key }}CustomAddress"
+                                class="form-control form_input input_size" id="{{ $key }}CustomAddress"
+                                placeholder="{{ ucfirst(__('ui.insertAddress')) }}">
+
+                            <!-- Mostra i suggerimenti corretti -->
+                            @foreach ($this->{$key . 'correctedCustomAddress'} as $item)
+                                <input type="text"
+                                    wire:click="selectAddress('{{ $key }}', '{{ $item }}')"
+                                    class="shadow p-1 formattedCustomAddress" id="{{ $key }}formattedCustomAddress"
+                                    value="{{ $item }}" placeholder="{{ __('ui.insertAddress') }}" readonly>
+                            @endforeach
+
+                            <x-error-message field="{{ $key }}CustomAddress" />
+                        </div>
+                    @endif
+                @endforeach
+
+
+                {{-- @php
+                    $variables = [
+                        'pickupLocation' => $pickupLocation,
+                        'pickupCustomAddress' => $pickupCustomAddress,
+                        'deliveryLocation' => $deliveryLocation,
+                        'deliveryCustomAddress' => $deliveryCustomAddress,
+                        'pickupCost' => $pickupCost,
+                        'deliveryCost' => $deliveryCost,
+                        'handOffCost' => $handOffCost,
+                        'pickuphandOffDistance' => $pickuphandOffDistance,
+                        'delivaryhandOffDistance' => $deliveryhandOffDistance,
+                        'rentPrice' => $rentPrice,
+                        'totalPrice' => $totalPrice,
+                    ];
+                @endphp
+
+                @foreach ($variables as $key => $variable)
+                    <p>{{ $key }}: {{ $variable }}</p>
+                @endforeach --}}
+
+                <!-- Prezzo Consegna -->
+                <div class="col-12 mb-3 p-0">
+                    <span>{{ __('ui.rentPrice') }}</span>
+                    <div class="d-flex justify-content-start align-items-center bg-c rounded px-2">
+                        <img src="{{ url('/media/svg/currency-euro.svg') }}" alt="">
+                        <input wire:model.live="rentPrice" type="text" class="form-control form_input input_size"
+                            id="rentPrice" readonly>
+                    </div>
+                </div>
+
+                <!-- Prezzo Consegna -->
+                <div class="col-12 mb-3 p-0">
+                    <span>{{ __('ui.handOffCost') }}</span>
+                    <div class="d-flex justify-content-start align-items-center bg-c rounded px-2">
+                        <img src="{{ url('/media/svg/currency-euro.svg') }}" alt="">
+                        <input wire:model.live="handOffCost" type="text"
+                            class="form-control form_input input_size" id="handOffCost" readonly>
+                    </div>
+                </div>
+
+                <!-- Prezzo Totale -->
+                <div class="col-12 mb-3 p-0">
+                    <span>{{ __('ui.totalPrice') }}</span>
+                    <div class="d-flex justify-content-start align-items-center bg-c rounded px-2">
+                        <img src="{{ url('/media/svg/currency-euro.svg') }}" alt="">
+                        <input wire:model.live="totalPrice" type="text" class="form-control form_input input_size"
+                            id="totalPrice" readonly>
+                    </div>
+                </div>
+
+                <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
+                    <button wire:click="goToStep(2)" type="button" onclick="scrollToTop()"
                         class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
                     <!-- Pulsante Submit -->
                     <button type="submit"

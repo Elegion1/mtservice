@@ -356,4 +356,23 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
 
     'driverInfo' => 'Driver Info',
     'licenseInfo' => 'License Info',
+
+    'pickupLocation' => 'Pickup location',
+    'deliveryLocation' => 'Delivery location',
+
+    'airport' => 'airport',
+    'customAddress' => 'custom address',
+    'insertAddress' => 'insert address',
+    'garage' => 'garage',
+
+    'handOffCost' => 'Hand-off cost',
+    'rentPrice' => 'Rent price',
+
+    'address' => 'address',
+    'flight' => 'flight',
+    'driver' => 'driver',
+    'info' => 'info',
+
+    'airport_trapani' => 'Trapani Airport',
+    'airport_palermo' => 'Palermo Airport',
 ];

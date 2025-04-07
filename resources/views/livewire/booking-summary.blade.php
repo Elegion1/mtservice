@@ -74,7 +74,9 @@
                         </span>
                         {{ __('ui.time') }}: <span class="text_col">
                             {{ \Carbon\Carbon::parse($bookingData['date_start'])->translatedFormat('H:i') ?? 'N/A' }}
-                        </span>
+                        </span> 
+                        <br>
+                        <span class="text-capitalize">{{ __('ui.address') }}: {{ $bookingData['pickup'] }}</span>
                     </p>
                     <p class="text-capitalize">
                         {{ __('ui.dropoff') }}: <span class="text_col">
@@ -83,6 +85,8 @@
                         {{ __('ui.time') }}: <span class="text_col">
                             {{ \Carbon\Carbon::parse($bookingData['date_end'])->translatedFormat('H:i') ?? 'N/A' }}
                         </span>
+                        <br>
+                        <span class="text-capitalize">{{ __('ui.address') }}: {{ $bookingData['delivery'] }}</span>
                     </p>
                     @if ($bookingData['quantity'] > 1)
                         <p>{{ __('ui.quantity') }}: <span
@@ -262,11 +266,9 @@
                 <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
                     {{-- Pulsante Back --}}
                     <button
-                        @if ($bookingData['type'] == 'noleggio') 
-                            wire:click="goToStep(1.8)" 
+                        @if ($bookingData['type'] == 'noleggio') wire:click="goToStep(1.8)" 
                         @else 
-                            wire:click="goToStep(1.5)" 
-                        @endif
+                            wire:click="goToStep(1.5)" @endif
                         type="button" onclick="scrollToTop()"
                         class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
                     <!-- Pulsante Submit -->

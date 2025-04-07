@@ -56,6 +56,30 @@ class TestController extends Controller
                 'email' => 'devupa@mailinator.com',
                 'phone' => '+1 (914) 824-3353',
                 'body' => 'Inventore non deseru',
+                'info' => json_decode('{
+                "flight":{
+                    "flightNumber":"fr12345",
+                    "departureAirport":"palermo",
+                    "departureTime":"12:34",
+                    "arrivalAirport":"erice",
+                    "arrivalTime":"12:34"
+                    },
+                "driver":{
+                    "driverName":"Giovanni Sugamiele", 
+                    "driverBirthDate":"2007-03-26",
+                    "driverBirthPlace":"frfdsfds",
+                    "driverAddress":"Via regina Margherita, 87",
+                    "driverCity":"Paceco",
+                    "driverPostalCode":"91027",
+                    "driverCountry":"Italia",
+                    "driverLicenseNumber":"ewf3rdfs",
+                    "driverLicenseType":"b",
+                    "driverLicenseIssueDate":"2025-03-31",
+                    "driverLicenseExpirationDate":"2025-06-09",
+                    "driverLicenseCountry":"italia"
+                    ,"driverLicenseProvince":"erice"
+                    }
+                }', true),
                 'bookingData' => json_decode('{
                     "type": "noleggio",
                     "price": 1400,
@@ -99,6 +123,7 @@ class TestController extends Controller
                     "original_price": 1546,
                     "time_departure": "18:04"
                 }', true),
+
                 'created_at' => '2024-10-14 18:05:06',
                 'updated_at' => '2024-10-17 14:58:52',
                 'status' => 'confirmed',

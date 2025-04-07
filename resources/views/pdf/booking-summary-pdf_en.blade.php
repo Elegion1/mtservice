@@ -55,6 +55,10 @@
         /* Rimuovi il margine destro dall'ultimo div */
     }
 
+    .text-small {
+        font-size: 13px;
+    }
+
     .intestazione {
         padding: 10px;
         background-color: rgb(193, 191, 191);
@@ -102,7 +106,7 @@
 
     .azienda {
         /* margin-top: 100px; */
-        padding-top: 10px;
+        /* padding-top: 10px; */
         /* border-top: 2px solid black; */
     }
 
@@ -161,6 +165,7 @@
                     Verify the status of your booking here
                 </a>
             </p>
+            <p>A 30% deposit is required after confirmation of the booking by our staff</p>
         </div>
 
         <div class="riepilogo">
@@ -206,8 +211,14 @@
                 <p>Collection date: <span
                         class="text_col">{{ \Carbon\Carbon::parse($booking['bookingData']['date_start'])->translatedFormat('d/m/Y H:i') ?? 'N/A' }}</span>
                 </p>
+                <p>Pickup location:
+                    <span class="text_col">{{ $booking['bookingData']['pickup'] ?? 'N/A' }}</span>
+                </p>
                 <p>Return date: <span
                         class="text_col">{{ \Carbon\Carbon::parse($booking['bookingData']['date_end'])->translatedFormat('d/m/Y H:i') ?? 'N/A' }}</span>
+                </p>
+                <p>Return location:
+                    <span class="text_col">{{ $booking['bookingData']['delivery'] ?? 'N/A' }}</span>
                 </p>
             @endif
 
@@ -221,23 +232,37 @@
                 : <span class="text_col">€ {{ $booking['bookingData']['price'] ?? 'N/A' }}</span>
             </p>
 
-            <p>A 30% deposit is required after confirmation of the booking by our staff</p>
         </div>
+        <div class="clearfix"></div>
+
+
+        @if (isset($booking['info']))
+
+            @foreach ($booking['info'] as $key => $item)
+                <div class="{{ $loop->index % 2 == 0 ? 'cliente' : 'riepilogo' }}">
+                    <p>
+                        <strong>{{ ucfirst(__('ui.' . $key)) }}:</strong>
+                    </p>
+                    @if (is_array($item))
+                        <!-- Se $item è un array -->
+                        @foreach ($item as $subkey => $subitem)
+                            <p class="text-small">{{ ucfirst(__('ui.' . $subkey)) }}:
+                                <span>
+                                    {{ htmlspecialchars($subitem) }}
+                                </span>
+                            </p>
+                        @endforeach
+                    @else
+                        {{ htmlspecialchars($item) }} <!-- Se $item è una stringa -->
+                    @endif
+                </div>
+            @endforeach
+
+        @endif
     </div>
 
     <div class="clearfix"></div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+
     <div class="azienda">
         <span>{{ $ownerdata->companyName }}</span><br>
         <span>di {{ $ownerdata->name }} {{ $ownerdata->surname }}</span><br>
