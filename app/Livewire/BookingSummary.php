@@ -95,12 +95,14 @@ class BookingSummary extends Component
 
     public function submitMessage()
     {
-        // Definizione delle regole di validazione
-        $validationRules = [
-            'body' => 'required|string',
-        ];
+        Log::info('submitMessage() avviata', [
+            'booking_type' => $this->bookingData['type'] ?? 'non specificato'
+        ]);
 
-        // Campi opzionali relativi al volo
+        // 1. Regole di validazione base
+        $validationRules = ['body' => 'required|string'];
+
+        // 2. Campi opzionali del volo e del guidatore
         $flightFields = [
             'flightNumber',
             'departureAirport',
@@ -109,7 +111,7 @@ class BookingSummary extends Component
             'arrivalTime',
         ];
 
-        $driverData = [
+        $driverFields = [
             'driverName',
             'driverBirthDate',
             'driverBirthPlace',
@@ -125,48 +127,59 @@ class BookingSummary extends Component
             'driverLicenseProvince',
         ];
 
-        // Se il tipo di prenotazione è "noleggio", rendi obbligatori i campi del guidatore
-        if ($this->bookingData['type'] === 'noleggio') {
-            foreach (array_keys($driverData) as $field) {
-                $validationRules[$field] = 'required|string';
-            }
-
-            // Per i campi data, usa una validazione specifica
-            $validationRules['driverBirthDate'] = 'required|date';
-            $validationRules['driverLicenseIssueDate'] = 'required|date';
-            $validationRules['driverLicenseExpirationDate'] = 'required|date';
-        }
-
-        // Convalida i dati
-        $this->validate($validationRules);
-
-        // Salva i dati del volo e del guidatore nella colonna info
-        $infoData = [
-            'flight' => [],
+        $dateFields = [
+            'driverBirthDate',
+            'driverLicenseIssueDate',
+            'driverLicenseExpirationDate',
         ];
 
-        // Aggiungi i dati del volo
-        foreach ($flightFields as $key) {
-            $infoData['flight'][$key] = $this->$key ?? null;
-        }
-
-        // Aggiungi i dati del guidatore se è un noleggio
+        // 3. Validazione aggiuntiva se è noleggio
         if ($this->bookingData['type'] === 'noleggio') {
-            $infoData['driver'] = [];
-
-            foreach ($driverData as $key) {
-                $infoData['driver'][$key] = $this->$key ?? null;
+            foreach ($driverFields as $field) {
+                $validationRules[$field] = in_array($field, $dateFields) ? 'required|date' : 'required|string';
             }
+
+            Log::info('Validazione estesa per il noleggio attivata', [
+                'validation_rules' => $validationRules
+            ]);
         }
 
-        // Salva il messaggio originale
+        // 4. Validazione
+        $this->validate($validationRules);
+        Log::info('Validazione completata con successo');
+
+        // 5. Costruzione dati "info"
+        $infoData = [
+            'flight' => $this->extractFields($flightFields),
+        ];
+        Log::info('Dati volo raccolti', $infoData['flight']);
+
+        if ($this->bookingData['type'] === 'noleggio') {
+            $infoData['driver'] = $this->extractFields($driverFields);
+            Log::info('Dati guidatore raccolti', $infoData['driver']);
+        }
+
+        // 6. Salvataggio dati
+        $this->info = json_encode($infoData);
         $this->body = $this->body;
 
-        // Salva i dati aggiuntivi come JSON
-        $this->info = json_encode($infoData);
+        Log::info('Dati salvati su info e body', [
+            'info' => $this->info,
+            'body' => $this->body,
+        ]);
 
-        // Passa allo step successivo
+        // 7. Step successivo
+        Log::info('Passaggio allo step successivo');
         goToStep(2, $this->currentStep);
+    }
+
+    private function extractFields(array $fields): array
+    {
+        $data = [];
+        foreach ($fields as $field) {
+            $data[$field] = $this->$field ?? null;
+        }
+        return $data;
     }
 
     public function goToStep($step)
