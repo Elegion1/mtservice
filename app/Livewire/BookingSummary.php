@@ -102,27 +102,27 @@ class BookingSummary extends Component
 
         // Campi opzionali relativi al volo
         $flightFields = [
-            'flightNumber' => 'Volo',
-            'departureAirport' => 'Aeroporto di partenza',
-            'departureTime' => 'Orario di partenza',
-            'arrivalAirport' => 'Aeroporto di arrivo',
-            'arrivalTime' => 'Orario di arrivo',
+            'flightNumber',
+            'departureAirport',
+            'departureTime',
+            'arrivalAirport',
+            'arrivalTime',
         ];
 
         $driverData = [
-            'driverName' => 'Nome Guidatore',
-            'driverBirthDate' => 'Data di nascita',
-            'driverBirthPlace' => 'Luogo di nascita',
-            'driverAddress' => 'Indirizzo',
-            'driverCity' => 'Città',
-            'driverPostalCode' => 'CAP',
-            'driverCountry' => 'Paese',
-            'driverLicenseNumber' => 'Numero di patente',
-            'driverLicenseType' => 'Tipo di patente',
-            'driverLicenseIssueDate' => 'Data di rilascio',
-            'driverLicenseExpirationDate' => 'Data di scadenza',
-            'driverLicenseCountry' => 'Paese di rilascio',
-            'driverLicenseProvince' => 'Provincia di rilascio',
+            'driverName',
+            'driverBirthDate',
+            'driverBirthPlace',
+            'driverAddress',
+            'driverCity',
+            'driverPostalCode',
+            'driverCountry',
+            'driverLicenseNumber',
+            'driverLicenseType',
+            'driverLicenseIssueDate',
+            'driverLicenseExpirationDate',
+            'driverLicenseCountry',
+            'driverLicenseProvince',
         ];
 
         // Se il tipo di prenotazione è "noleggio", rendi obbligatori i campi del guidatore
@@ -143,11 +143,10 @@ class BookingSummary extends Component
         // Salva i dati del volo e del guidatore nella colonna info
         $infoData = [
             'flight' => [],
-
         ];
 
         // Aggiungi i dati del volo
-        foreach ($flightFields as $key => $label) {
+        foreach ($flightFields as $key) {
             $infoData['flight'][$key] = $this->$key ?? null;
         }
 
@@ -155,7 +154,7 @@ class BookingSummary extends Component
         if ($this->bookingData['type'] === 'noleggio') {
             $infoData['driver'] = [];
 
-            foreach ($driverData as $key => $label) {
+            foreach ($driverData as $key) {
                 $infoData['driver'][$key] = $this->$key ?? null;
             }
         }

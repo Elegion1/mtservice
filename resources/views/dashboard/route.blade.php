@@ -2,9 +2,11 @@
 
     <h1>Gestione Tratte</h1>
 
-    <button id="routeCreateBtn" class="btn btn-success">Crea tratta</button>
-    <button id="destinationCreateBtn" class="btn btn-success">Crea destinazione</button>
-    <a href="{{ route('dashboard.destination') }}" class="btn btn-success">Mostra Destinazioni</a>
+    <div class="d-flex flex-wrap gap-2 mb-3">
+        <button id="routeCreateBtn" class="btn btn-success">Crea tratta</button>
+        <button id="destinationCreateBtn" class="btn btn-success">Crea destinazione</button>
+        <a href="{{ route('dashboard.destination') }}" class="btn btn-secondary">Mostra Destinazioni</a>
+    </div>
 
     <form class="d-none" id="destinationFormCreate" action="{{ route('destinations.store') }}" method="POST">
         @csrf

@@ -1,9 +1,10 @@
 <x-dashboard-layout>
 
     <h1>Gestione Destinazioni</h1>
-
-    <button id="destinationCreateBtn" class="btn btn-success">Crea destinazione</button>
-
+    <div class="d-flex flex-wrap gap-2 mb-3">
+        <button id="destinationCreateBtn" class="btn btn-success">Crea destinazione</button>
+        <a href="{{ route('dashboard.route') }}" class="btn btn-secondary">Mostra tratte</a>
+    </div>
     <form class="d-none" id="destinationFormCreate" action="{{ route('destinations.store') }}" method="POST">
         @csrf
         <div class="row">
