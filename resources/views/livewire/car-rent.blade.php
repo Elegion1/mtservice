@@ -203,7 +203,7 @@
                     <p>{{ $key }}: {{ $variable }}</p>
                 @endforeach --}}
 
-                <!-- Prezzo Consegna -->
+                <!-- Prezzo Noleggio -->
                 <div class="col-12 mb-3 p-0">
                     <span>{{ __('ui.rentPrice') }}</span>
                     <div class="d-flex justify-content-start align-items-center bg-c rounded px-2">

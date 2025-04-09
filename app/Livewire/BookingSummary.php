@@ -16,6 +16,7 @@ use App\Mail\BookingConfirmation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Validation\ValidationException;
 
 
 class BookingSummary extends Component
@@ -144,11 +145,39 @@ class BookingSummary extends Component
             ]);
         }
 
-        // 4. Validazione
-        $this->validate($validationRules);
+        // 4. Validazione iniziale
+        $validatedData = $this->validate($validationRules);
         Log::info('Validazione completata con successo');
 
-        // 5. Costruzione dati "info"
+        // 5. Validazioni custom post-validazione
+        if ($this->bookingData['type'] === 'noleggio') {
+            $startDate = Carbon::parse($this->bookingData['date_start']);
+            $endDate = Carbon::parse($this->bookingData['date_end']);
+            $birthDate = Carbon::parse($this->driverBirthDate);
+            $licenseIssue = Carbon::parse($this->driverLicenseIssueDate);
+            $licenseExpiry = Carbon::parse($this->driverLicenseExpirationDate);
+
+            $errors = [];
+
+            if ($birthDate->diffInYears($startDate) < 18) {
+                $errors['driverBirthDate'] = __('ui.driverAgeLimit');
+            }
+
+            if ($licenseIssue->gt($startDate)) {
+                $errors['driverLicenseIssueDate'] = __('ui.driverLicenseIssueLimit');
+            }
+
+            if ($licenseExpiry->lt($endDate)) {
+                $errors['driverLicenseExpirationDate'] = __('ui.driverLicenseExpireLimit');
+            }
+
+            if (!empty($errors)) {
+                Log::warning('Validazioni custom fallite', $errors);
+                throw ValidationException::withMessages($errors);
+            }
+        }
+
+        // 6. Costruzione dati info
         $infoData = [
             'flight' => $this->extractFields($flightFields),
         ];
@@ -159,7 +188,7 @@ class BookingSummary extends Component
             Log::info('Dati guidatore raccolti', $infoData['driver']);
         }
 
-        // 6. Salvataggio dati
+        // 7. Salvataggio dati
         $this->info = json_encode($infoData);
         $this->body = $this->body;
 
@@ -168,7 +197,7 @@ class BookingSummary extends Component
             'body' => $this->body,
         ]);
 
-        // 7. Step successivo
+        // 8. Step successivo
         Log::info('Passaggio allo step successivo');
         goToStep(2, $this->currentStep);
     }

@@ -374,6 +374,14 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
 
     'airport_trapani' => 'Aeroporto Trapani',
     'airport_palermo' => 'Aeroporto Palermo',
+
+    'driverAgeLimit' => 'L\'età del guidatore deve essere di almeno 18 anni',
+    'driverLicenseIssueLimit' => 'La patente deve essere rilasciata prima della data di inizio del noleggio',
+    'driverLicenseExpireLimit' => 'La patente deve essere valida dopo la data di fine del noleggio',
+    
+    'pickupLocation_required' => 'Seleziona un luogo di ritiro',
+    'deliveryLocation_required' => 'Seleziona un luogo di consegna',
+
 ];
 
 

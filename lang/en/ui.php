@@ -375,4 +375,11 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
 
     'airport_trapani' => 'Trapani Airport',
     'airport_palermo' => 'Palermo Airport',
+
+    'driverAgeLimit' => 'Driver age must be at least 18 years old',
+    'driverLicenseIssueLimit' => 'The license issue date must be before the rental start date',
+    'driverLicenseExpireLimit' => 'The license expiration date must be after the rental end date',
+
+    'pickupLocation_required' => 'Select a pickup location',
+    'deliveryLocation_required' => 'Select a delivery location',
 ];

@@ -35,7 +35,7 @@ class CarRent extends Component
     public $deliveryhandOffCost;
     public $pickuphandOffDistance;
     public $deliveryhandOffDistance;
-    public $handOffCost;
+    public $handOffCost = 0;
     public $pickupcorrectedCustomAddress = [];
     public $deliverycorrectedCustomAddress = [];
 
@@ -204,11 +204,22 @@ class CarRent extends Component
         $this->totalPrice = 0;
         $this->handOffCost = 0;
 
-        // Calcola i costi di consegna e ritiro usando una chiave dinamica
-        foreach (['pickup', 'delivery'] as $key) {
-            $locationKey = $key . 'Location';
-            $addressKey = $key . 'CustomAddress';
-            $this->{$key . 'Cost'} = $this->calculateHandOffCost($this->{$locationKey}, $this->{$addressKey}, $key);
+        if ($this->pickupLocation && $this->deliveryLocation) {
+            // Calcola i costi di consegna e ritiro usando una chiave dinamica
+            foreach (['pickup', 'delivery'] as $key) {
+                $locationKey = $key . 'Location';
+                $addressKey = $key . 'CustomAddress';
+                $this->{$key . 'Cost'} = $this->calculateHandOffCost($this->{$locationKey}, $this->{$addressKey}, $key);
+            }
+        } else {
+
+            if (!$this->pickupLocation) {
+                $this->addError('pickupLocation', __('ui.pickupLocation_required'));
+            }
+
+            if (!$this->deliveryLocation) {
+                $this->addError('deliveryLocation', __('ui.deliveryLocation_required'));
+            }
         }
 
         // Somma i costi di consegna e ritiro al prezzo totale
@@ -325,6 +336,12 @@ class CarRent extends Component
                 $this->$property = $specialLocations[$value]($type);
             }
         }
+
+        if ($this->totalPrice == 0) {
+            Log::info('Total price is 0, calculating delivery and pickup costs');
+            $this->applyDeliveryPickupCosts();
+        }
+
         return [
             'type' => 'noleggio',
             'date_start' => $dateTimeStart,
@@ -439,6 +456,10 @@ class CarRent extends Component
             $car->isAvailable = $isCarAvailable;
             return $car;
         });
+
+        if ($this->currentStep == 3) {
+            $this->applyDeliveryPickupCosts();
+        }
 
         return view('livewire.car-rent', ['cars' => $availableCars]);
     }
