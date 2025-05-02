@@ -12,7 +12,7 @@
                     <select wire:model.live="departure" id="departureSelect" class="form-select form_input input_size"
                         aria-label="seleziona luogo di partenza">
                         <option value="">{{ __('ui.selectDeparture') }}</option>
-                        @foreach ($routes->unique('departure_id') as $route)
+                        @foreach ($routes->sortBy(fn($route) => $route->departure->name)->unique('departure_id') as $route)
                             <option value="{{ $route->departure->id }}">{{ $route->departure->name }}</option>
                         @endforeach
                     </select>
@@ -28,10 +28,8 @@
                     <select wire:model.live="return" wire:change="calculatePriceTransfer" id="returnSelect"
                         class="form-select form_input input_size" aria-label="seleziona luogo di ritorno">
                         <option value="">{{ __('ui.selectDestination') }}</option>
-                        @foreach ($routes as $route)
-                            @if ($route->departure_id == $departure)
-                                <option value="{{ $route->arrival->id }}">{{ $route->arrival->name }}</option>
-                            @endif
+                        @foreach ($routes->where('departure_id', $departure)->sortBy(fn($route) => $route->arrival->name) as $route)
+                            <option value="{{ $route->arrival->id }}">{{ $route->arrival->name }}</option>
                         @endforeach
                     </select>
 
@@ -44,8 +42,8 @@
 
                         <span class="text-capitalize">{{ __('ui.outward') }}</span>
 
-                        <input wire:model.live="dateDeparture" type="date" placeholder="gg/mm/aaaa" min="{{ date('Y-m-d') }}"
-                            class="form-control form_input input_size" id="dateDeparture">
+                        <input wire:model.live="dateDeparture" type="date" placeholder="gg/mm/aaaa"
+                            min="{{ date('Y-m-d') }}" class="form-control form_input input_size" id="dateDeparture">
 
                         <x-error-message field='dateDeparture' />
                     </div>
@@ -54,8 +52,8 @@
 
                         <span>{{ __('ui.time') }}</span>
 
-                        <input wire:model.live="timeDeparture" type="time" placeholder="hh:mm" min="{{ date('H:i') }}"
-                            class="form-control form_input input_size" id="timeDeparture">
+                        <input wire:model.live="timeDeparture" type="time" placeholder="hh:mm"
+                            min="{{ date('H:i') }}" class="form-control form_input input_size" id="timeDeparture">
 
                         <x-error-message field='timeDeparture' />
                     </div>
@@ -72,8 +70,8 @@
                     <div class="w-custom me-3">
                         <span class="text-capitalize">{{ __('ui.return') }}</span>
 
-                        <input wire:model.live="dateReturn" type="date" placeholder="gg/mm/aaaa" min="{{ date('Y-m-d') }}"
-                            class="form-control form_input input_size" id="dateReturn">
+                        <input wire:model.live="dateReturn" type="date" placeholder="gg/mm/aaaa"
+                            min="{{ date('Y-m-d') }}" class="form-control form_input input_size" id="dateReturn">
 
                         <x-error-message field='dateReturn' />
                     </div>
@@ -81,8 +79,8 @@
                     <div class="w-custom">
                         <span>{{ __('ui.time') }}</span>
 
-                        <input wire:model.live="timeReturn" type="time" placeholder="hh:mm" min="{{ $minReturnTime }}"
-                            class="form-control form_input input_size" id="timeReturn">
+                        <input wire:model.live="timeReturn" type="time" placeholder="hh:mm"
+                            min="{{ $minReturnTime }}" class="form-control form_input input_size" id="timeReturn">
 
                         <x-error-message field='timeReturn' />
 

@@ -24,7 +24,7 @@ class BookingAdmin extends Mailable
         $this->booking = $booking;
 
         if (!empty($this->booking->bookingData['sito_favignana'])) {
-            $this->subject = 'Nuova prenotazione sito Favignana';
+            $this->subject = 'Sito Favignana, nuova prenotazione disponibile';
         } else {
             $this->subject = 'Nuova prenotazione disponibile';
         }

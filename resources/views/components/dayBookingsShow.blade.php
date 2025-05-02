@@ -44,18 +44,20 @@
                 <div class="col-9 p-0">
                     <button
                         class="btn open-details-modal ps-1 h-100 
-                    @if ($booking->bookingData['type'] == 'noleggio') bg-warning
-                    @elseif ($booking->bookingData['type'] == 'escursione')
-                            bg-success
-                    @elseif ($booking->bookingData['type'] == 'transfer')
-
-                        @if (!empty($booking->bookingData['sito_favignana']))
-                            bg-info 
-                        @else
-                            bg-danger @endif 
-
-                    @endif
-                            "
+                        @if ($booking->bookingData['type'] == 'noleggio') bg-warning
+                        @elseif ($booking->bookingData['type'] == 'escursione')
+                            @if (!empty($booking->bookingData['sito_favignana']))
+                                bg-info 
+                            @else
+                                bg-success
+                            @endif
+                        @elseif ($booking->bookingData['type'] == 'transfer')
+                            @if (!empty($booking->bookingData['sito_favignana']))
+                                bg-info 
+                            @else
+                                bg-danger 
+                            @endif 
+                        @endif"
                         data-bs-toggle="modal" data-bs-target="#bookingDetailsModal"
                         data-booking="{{ json_encode($booking) }}">
                         <p class="text-black text-decoration-underline text-start text-small mb-0 text-wrap">

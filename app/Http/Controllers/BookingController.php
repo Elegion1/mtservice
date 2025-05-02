@@ -9,6 +9,7 @@ use App\Models\Booking;
 use Illuminate\Http\Request;
 use App\Jobs\SendReviewRequestJob;
 use App\Mail\BookingAdmin;
+use App\Mail\BookingConfirmation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
@@ -164,13 +165,16 @@ class BookingController extends Controller
         $booking = Booking::create($data);
 
         $adminMail = OwnerData::value('email');
-
+        
+        //invia mail di notifica all'admin
         sendEmail(
             $adminMail,
             new BookingAdmin($booking, generatePDF($booking, 'it')),
             'Errore nell\'invio dell\'email di notifica',
             'it'
         );
+
+        Log::info('Email di notifica inviata a ' . $adminMail);
 
         return response()->json(['success' => true, 'data' => $bookingData, 'booking' => $booking], 201);
     }
@@ -189,34 +193,81 @@ class BookingController extends Controller
                 throw new \Exception('Dati obbligatori mancanti');
             }
 
-            // Adatta i dati
-            $adaptedData = [
-                'name' => $data['name'],
-                'surname' => $data['surname'],
-                'email' => $data['email'],
-                'phone' => $data['phone'],
-                'dial_code' => null,
-                'body' => $data['message'] ?? '',
-                'bookingData' => [
-                    'type' => 'transfer',
-                    'price' => $data['price'],
-                    'original_price' => $data['price'],
-                    'date_dep' => $data['dateStart'] . 'T' . $data['timeStart'],
-                    'date_ret' => isset($data['dateReturn']) && isset($data['timeReturn']) ? $data['dateReturn'] . 'T' . $data['timeReturn'] : null,
-                    'sola_andata' => isset($data['dateReturn']) && isset($data['timeReturn']) ? false : true,
-                    'duration' => $data['duration'] ?? 1,
-                    'passengers' => $data['passengers'],
-                    'departure_id' => null,
-                    'departure_name' => explode(' - ', $data['route'])[0],
-                    'arrival_name' => explode(' - ', $data['route'])[1],
-                    'sito_favignana' => true,
-                ],
-                'code' => $data['code'],
-                'service_date' => $data['dateStart'],
-                'status' => 'confirmed',
-                'payment_status' => $data['paymentStatus'] == 'COMPLETED' ? 'paid' : 'pending',
-                'locale' => $data['locale'] ?? 'it',
-            ];
+            if ($data['type'] == 'transfer') {
+                // Adatta i dati
+                $adaptedData = [
+                    'name' => $data['name'],
+                    'surname' => $data['surname'],
+                    'email' => $data['email'],
+                    'phone' => $data['phone'],
+                    'dial_code' => null,
+                    'body' => $data['message'] ?? '',
+                    'info' => [
+                        'flight' => [
+                            'flightNumber' => $data['flightNumber'] ?? null,
+                            'departureAirport' => $data['departureAirport'] ?? null,
+                            'departureTime' => $data['departureTime'] ?? null,
+                            'arrivalAirport' => $data['arrivalAirport'] ?? null,
+                            'arrivalTime' => $data['arrivalTime'] ?? null,
+                        ],
+                    ],
+                    'bookingData' => [
+                        'type' => $data['type'],
+                        'price' => $data['price'],
+                        'original_price' => $data['price'],
+                        'date_dep' => $data['dateStart'] . 'T' . $data['timeStart'],
+                        'date_ret' => isset($data['dateReturn']) && isset($data['timeReturn']) ? $data['dateReturn'] . 'T' . $data['timeReturn'] : null,
+                        'sola_andata' => isset($data['dateReturn']) && isset($data['timeReturn']) ? false : true,
+                        'duration' => $data['duration'] ?? 1,
+                        'passengers' => $data['passengers'],
+                        'departure_id' => null,
+                        'departure_name' => explode(' - ', $data['route'])[0],
+                        'arrival_name' => explode(' - ', $data['route'])[1],
+                        'sito_favignana' => true,
+                        'transferType' => $data['transferType'] ?? null,
+                    ],
+                    'code' => $data['code'],
+                    'service_date' => $data['dateStart'],
+                    'status' => 'confirmed',
+                    'payment_status' => $data['paymentStatus'] == 'COMPLETED' ? 'paid' : 'pending',
+                    'locale' => $data['locale'] ?? 'it',
+                ];
+            }
+
+            if ($data['type'] == 'escursione') {
+                $adaptedData = [
+                    'name' => $data['name'],
+                    'surname' => $data['surname'],
+                    'email' => $data['email'],
+                    'phone' => $data['phone'],
+                    'dial_code' => null,
+                    'body' => $data['message'] ?? '',
+                    'info' => [
+                        'flight' => [
+                            'flightNumber' => $data['flightNumber'] ?? null,
+                            'departureAirport' => $data['departureAirport'] ?? null,
+                            'departureTime' => $data['departureTime'] ?? null,
+                            'arrivalAirport' => $data['arrivalAirport'] ?? null,
+                            'arrivalTime' => $data['arrivalTime'] ?? null,
+                        ],
+                    ],
+                    'bookingData' => [
+                        'type' => $data['type'],
+                        'price' => $data['price'],
+                        'original_price' => $data['price'],
+                        'date_dep' => $data['dateStart'] . 'T' . $data['timeStart'],
+                        'passengers' => $data['passengers'],
+                        'sito_favignana' => true,
+                        'departure_name' => $data['excursion'],
+                        'departure_location' => $data['departureLocation'] ?? null,               
+                    ],
+                    'code' => $data['code'],
+                    'service_date' => $data['dateStart'],
+                    'status' => 'confirmed',
+                    'payment_status' => $data['paymentStatus'] == 'COMPLETED' ? 'paid' : 'pending',
+                    'locale' => $data['locale'] ?? 'it',
+                ];
+            }
 
             return $adaptedData;
         } catch (\Exception $e) {
