@@ -12,12 +12,11 @@
             <strong>
                 {{ \Carbon\Carbon::parse($date)->translatedFormat('l') }}
             </strong>
-
         @endif
     </div>
     @foreach ($dayBookings as $booking)
         <div class="booking-item border-bottom border-1 container-fluid" data-type="{{ $booking->bookingData['type'] }}"
-            data-favignana="{{ isset($booking->bookingData['sito_favignana']) ? 'true' : 'false' }}">
+            data-origin="{{ isset($booking->bookingData['sito_favignana']) ? 'favignana' : 'tranchida' }}">
             <div class="row">
                 <div class="col-3 p-0">
                     <div class="row gap-1">
@@ -34,6 +33,7 @@
                                 <i class="bi bi-check-circle-fill text-success" title="Pagato"></i>
                             @endif
                         </span>
+                        <span class="text-uppercase text-small text-white text-center originShow"></span>
 
                         <span class="col-12 text-primary">
                             {{ $booking->code }}
@@ -43,8 +43,8 @@
 
                 <div class="col-9 p-0">
                     <button
-                        class="btn open-details-modal ps-1 h-100 
-                        @if ($booking->bookingData['type'] == 'noleggio') bg-warning
+                        class="btn open-details-modal ps-1 h-100 booking-card 
+                        {{-- @if ($booking->bookingData['type'] == 'noleggio') bg-warning
                         @elseif ($booking->bookingData['type'] == 'escursione')
                             @if (!empty($booking->bookingData['sito_favignana']))
                                 bg-info 
@@ -57,12 +57,13 @@
                             @else
                                 bg-danger 
                             @endif 
-                        @endif"
+                        @endif --}}
+                        "
                         data-bs-toggle="modal" data-bs-target="#bookingDetailsModal"
                         data-booking="{{ json_encode($booking) }}">
                         <p class="text-black text-decoration-underline text-start text-small mb-0 text-wrap">
 
-                            {{ $booking->name }} {{ $booking->surname }} >>
+                            {{ strtoupper($booking->name) }} {{ strtoupper($booking->surname) }} >>
                             {{ ucfirst($booking->bookingData['type']) }}
                             @if ($booking->bookingData['type'] == 'noleggio')
                                 <strong>{{ $booking->bookingData['car_name'] }}</strong>
@@ -97,6 +98,29 @@
 </div>
 
 <script>
+    function originPrint() {
+        const bookingItems = document.querySelectorAll('.booking-item');
+
+        bookingItems.forEach(item => {
+            const origin = item.getAttribute('data-origin');
+            const originEl = item.querySelector('.originShow');
+            
+            if (originEl) {
+                if (origin === 'favignana') {
+                    originEl.innerHTML = 'FAVIGNANA';
+                    originEl.classList.add('bg-favignana');
+                    originEl.classList.remove('bg-tranchida');
+                } else {
+                    originEl.innerHTML = 'TRANCHIDA';
+                    originEl.classList.add('bg-tranchida');
+                    originEl.classList.remove('bg-favignana');
+                }
+            }
+        });
+    }
+
+    originPrint();
+
     document.querySelectorAll('.open-details-modal').forEach(button => {
         button.addEventListener('click', () => {
 

@@ -95,12 +95,12 @@
             }
 
             function loadEmailPreview(route) {
-                console.log('Caricamento email per il percorso:', route); // Log del percorso chiamato
+                // console.log('Caricamento email per il percorso:', route); // Log del percorso chiamato
 
                 fetch(route)
                     .then(response => response.text())
                     .then(html => {
-                        console.log('Contenuto HTML caricato:', html); // Log del contenuto HTML ricevuto
+                        // console.log('Contenuto HTML caricato:', html); // Log del contenuto HTML ricevuto
                         emailPreview.innerHTML = html;
                     })
                     .catch(error => {

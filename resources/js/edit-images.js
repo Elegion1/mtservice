@@ -44,7 +44,7 @@ if (currentImagesDiv) {
                 },
             })
                 .then((response) => {
-                    console.log(response); // Aggiungi questo per vedere la risposta del server
+                    // console.log(response); // Aggiungi questo per vedere la risposta del server
                     return response.json();
                 })
                 .then((data) => {

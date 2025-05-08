@@ -78,7 +78,11 @@
                 <p>{{ $label }}:
                     <span class="text_col">
                         @if (($field['type'] ?? '') === 'date')
-                            {{ \Carbon\Carbon::parse($value)->translatedFormat('d/m/Y H:i') }}
+                            @if ($value && $value !== 'N/A')
+                                {{ \Carbon\Carbon::parse($value)->translatedFormat('d/m/Y H:i') }}
+                            @else
+                                N/A
+                            @endif
                         @else
                             {{ $value }}
                         @endif
@@ -95,7 +99,7 @@
     </div>
 
     @if (isset($booking->info))
-        
+
         <div class="row">
             @foreach ($booking->info as $section => $fields)
                 <div class="col-12 col-md-6">
@@ -110,6 +114,6 @@
                 </div>
             @endforeach
         </div>
-        
+
     @endif
 </div>

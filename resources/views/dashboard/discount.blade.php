@@ -246,7 +246,7 @@
                 let appliesToExcursion = $(this).data('excursion');
                 let periods = $(this).data('periods');
 
-                console.log(applicableTo, appliesToTransfer, appliesToRental, appliesToExcursion);
+                // console.log(applicableTo, appliesToTransfer, appliesToRental, appliesToExcursion);
 
                 $('#editDiscountId').val(discountId);
                 $('#edit_name_it').val(name_it);

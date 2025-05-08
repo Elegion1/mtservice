@@ -1,6 +1,6 @@
 <x-dashboard-layout>
 
-    <h2 class="text-nowrap">Prenotazioni confermate</h2>
+    <p class="text-nowrap m-0 text-uppercase">Prenotazioni confermate</p>
     <div class="row">
         <div class="col-4 d-grid">
             <a id="pendingBookingsBtn"
@@ -21,17 +21,21 @@
 
     <div class="row d-flex justify-content-between align-items-center mt-1">
         <div class="col-4 d-grid">
-            <button id="prevBtn" class="btn bg-secondary-subtle btn-sm text-small mb-1">
+            <button id="prevBtn" class="btn bg-secondary-subtle btn-sm text-small border mb-1">
                 <i class="bi bi-chevron-left"></i>
             </button>
-            <button id="nextBtn" class="btn bg-secondary-subtle btn-sm text-small">
+            <button id="nextBtn" class="btn bg-secondary-subtle btn-sm border text-small">
                 <i class="bi bi-chevron-right"></i>
             </button>
         </div>
-        <div class="col-8 d-grid">
-            <button id="groupBySelectorMonth" class="btn btn-sm text-small mb-1">Agenda
-                Mese</button>
-            <button id="groupBySelectorDay" class="btn btn-sm text-small">Agenda Giorno</button>
+        <div class="col-8 row m-0 p-0">
+            <div id="filterPrint" class="col-12 mb-1 text-uppercase text-small mb-2 mt-1"></div>
+            <div class="col-6 d-grid pe-0">
+                <button id="groupBySelectorMonth" class="btn btn-sm text-small border">Mese</button>
+            </div>
+            <div class="col-6 d-grid ps-0">
+                <button id="groupBySelectorDay" class="btn btn-sm text-small">Giorno</button>
+            </div>
         </div>
 
     </div>
@@ -60,9 +64,7 @@
         @endforeach
     </div>
 
-    <p class="text-center mt-3 fw-bold">
-        {{ \Carbon\Carbon::now()->translatedFormat('l j F Y H:i') }}
-    </p>
+    <p id="clockDisplay" class="text-center mt-3 fw-bold"></p>
 
     <!-- Modal per i dettagli -->
     <div class="modal fade" id="bookingDetailsModal" tabindex="-1" aria-labelledby="bookingDetailsModalLabel"
@@ -83,65 +85,124 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             //filtra le prenotazioni in base al tipo
-            const buttons = document.querySelectorAll('.btn-filter');
 
             const buttonsData = [{
                     label: "Tutti",
+                    origin: "all",
                     type: "all",
                     bgClass: "bg-secondary col-12",
                     textColor: "text-white"
                 },
                 {
-                    label: "Noleggio",
-                    type: "noleggio",
-                    bgClass: "bg-warning",
+                    label: "Sito Tranchida",
+                    origin: "tranchida",
+                    type: "all",
+                    bgClass: "bg-tranchida",
                     textColor: "text-black"
                 },
                 {
-                    label: "Escursioni",
-                    type: "escursione",
-                    bgClass: "bg-success",
+                    label: "Sito Favignana",
+                    origin: "favignana",
+                    type: "all",
+                    bgClass: "bg-favignana",
                     textColor: "text-black"
                 },
                 {
                     label: "Transfer",
+                    origin: null,
                     type: "transfer",
                     bgClass: "bg-danger",
                     textColor: "text-black"
                 },
                 {
-                    label: "Sito Favignana",
-                    type: "sito_favignana",
-                    bgClass: "bg-info",
+                    label: "Escursioni",
+                    origin: null,
+                    type: "escursione",
+                    bgClass: "bg-success",
                     textColor: "text-black"
-                }
+                },
+                {
+                    label: "Noleggio",
+                    origin: null,
+                    type: "noleggio",
+                    bgClass: "bg-warning",
+                    textColor: "text-black"
+                },
             ];
+
+            const bookingCards = document.querySelectorAll('.booking-card');
+            bookingCards.forEach((card) => {
+                const booking = JSON.parse(card.getAttribute('data-booking'));
+                const bookingType = booking.bookingData?.type;
+
+                // Cerca il pulsante corrispondente al tipo, escludendo quelli con type === 'all'
+                const match = buttonsData.find(btn => btn.type === bookingType && bookingType !== 'all');
+
+                if (match) {
+                    card.classList.add(...match.bgClass.split(' '));
+                }
+            });
+
+            let selectedOrigin = "all";
+            let selectedType = "all";
+
 
             generateButtons("buttons-container");
 
+            printFilter();
+
+            const buttons = document.querySelectorAll('.btn-filter');
+
             buttons.forEach(button => {
                 button.addEventListener('click', function() {
-                    const selectedType = this.getAttribute('data-type');
+                    const newOrigin = this.getAttribute('data-origin');
+                    const newType = this.getAttribute('data-type');
 
-                    document.querySelectorAll('.booking-item').forEach(item => {
+                    // console.log(`Selected Origin: ${newOrigin}, Type: ${newType}`);
+
+                    if (newOrigin !== "null") selectedOrigin = newOrigin;
+                    if (newType !== "null") selectedType = newType;
+
+                    // console.log(`Selected Origin: ${selectedOrigin}`);
+
+                    const items = document.querySelectorAll('.booking-item');
+                    items.forEach(item => {
+                        const itemOrigin = item.getAttribute('data-origin');
                         const itemType = item.getAttribute('data-type');
-                        const isFavignana = item.getAttribute('data-favignana') === 'true';
 
-                        if (
-                            selectedType === 'all' ||
-                            (selectedType === 'transfer' && itemType === 'transfer' && !
-                                isFavignana) ||
-                            (selectedType === 'sito_favignana' && isFavignana) ||
-                            (selectedType !== 'transfer' && selectedType !==
-                                'sito_favignana' && itemType === selectedType)
-                        ) {
-                            item.style.display = 'block';
-                        } else {
-                            item.style.display = 'none';
-                        }
+                        const matchesOrigin = selectedOrigin === 'all' || itemOrigin ===
+                            selectedOrigin;
+                        const matchesType = selectedType === 'all' || itemType ===
+                            selectedType;
+
+                        item.style.display = matchesOrigin && matchesType ? 'block' :
+                            'none';
                     });
+
+                    document.querySelectorAll('.day-bookings').forEach(container => {
+                        const visibleBookings = container.querySelectorAll(
+                            '.booking-item[style*="display: block"]');
+                        container.style.display = (visibleBookings.length > 0) ? 'block' :
+                            'none';
+                    });
+
+                    printFilter();
+
                 });
             });
+
+            function printFilter() {
+                if (selectedOrigin === 'all') {
+                    selectedOrigin = 'tutti';
+                }
+
+                if (selectedType === 'all') {
+                    selectedType = 'tutti';
+                }
+
+                const filterPrint = document.getElementById('filterPrint');
+                filterPrint.innerHTML = `${selectedOrigin} - ${selectedType}`;
+            }
 
             function generateButtons(containerId) {
                 const container = document.getElementById(containerId);
@@ -152,6 +213,7 @@
                 buttonsData.forEach(({
                     label,
                     type,
+                    origin,
                     bgClass,
                     textColor
                 }) => {
@@ -159,9 +221,11 @@
                     button.className =
                         `col-6 btn btn-sm btn-filter ${bgClass} p-1 border rounded ${textColor}`;
                     button.dataset.type = type;
+                    button.dataset.origin = origin;
                     button.textContent = label;
 
                     container.appendChild(button);
+                    // console.log(`Creato pulsante: ${label} con tipo: ${type}`);
                 });
             }
 
@@ -263,8 +327,38 @@
                     }
                 });
             };
+
             // Inizializza la visualizzazione mostrando il primo gruppo
             updateView();
         });
+
+        function updateClock() {
+            const now = new Date();
+
+            const giorniSettimana = [
+                'domenica', 'lunedì', 'martedì', 'mercoledì',
+                'giovedì', 'venerdì', 'sabato'
+            ];
+            const giorno = giorniSettimana[now.getDay()];
+            const data = now.getDate();
+            const mese = now.toLocaleString('it-IT', {
+                month: 'long'
+            });
+            const anno = now.getFullYear();
+            const ore = now.getHours().toString().padStart(2, '0');
+            const minuti = now.getMinutes().toString().padStart(2, '0');
+
+            const clockDisplay = document.getElementById('clockDisplay');
+            if (clockDisplay) {
+                clockDisplay.textContent = `${giorno} ${data} ${mese} ${anno} ${ore}:${minuti}`;
+            }
+        }
+
+        // Aggiorna subito all'avvio
+        updateClock();
+
+        // Poi ogni minuto
+        setInterval(updateClock, 30000);
     </script>
+
 </x-dashboard-layout>

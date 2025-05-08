@@ -169,7 +169,7 @@
                 const reviewRows = document.querySelectorAll('.review-row');
                 const reviewCards = document.querySelectorAll('.review-card');
 
-                console.log(reviewCards, selectedStatus);
+                // console.log(reviewCards, selectedStatus);
                 reviewRows.forEach(function(row) {
                     const rowStatus = row.getAttribute('data-status');
                     row.style.display = (selectedStatus === "" || rowStatus === selectedStatus) ?
