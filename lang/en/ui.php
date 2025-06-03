@@ -382,4 +382,8 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
 
     'pickupLocation_required' => 'Select a pickup location',
     'deliveryLocation_required' => 'Select a delivery location',
+
+    'kasko' => 'Kasko Insurance',
+    'enableKasko' => 'Use Kasko insurance for this rental',
+    'kaskoPrice' => 'Kasko price',
 ];

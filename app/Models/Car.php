@@ -13,6 +13,8 @@ class Car extends Model
         'description',
         'price',
         'show',
+        'kasko',
+        'kasko_price',
     ];
 
 

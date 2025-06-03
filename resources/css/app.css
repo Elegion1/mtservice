@@ -378,6 +378,7 @@ a:hover {
 
 .img_carRent {
     width: 100%;
+    max-width: 145px;
     height: 100px;
     object-fit: cover;
     /* max-height: 100px; */

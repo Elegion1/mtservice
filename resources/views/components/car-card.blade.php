@@ -11,6 +11,10 @@
     <p class="m-0"><small>{{ $car->description }}</small></p>
 
     <div class="p-0 text-center my-auto text-small">
+        @if ($car->kasko && $car->isAvailable)
+            <p class="m-0"><strong class="text-uppercase text-a">{{ __('ui.kasko') }} <br>
+                    {{ $car->kasko_price }} €/giorno</strong></p>
+        @endif
         @if (!$car->isAvailable)
             <h6 class="text-danger"><strong class="text-uppercase">{{ __('ui.notAvailable') }}</strong></h6>
         @endif

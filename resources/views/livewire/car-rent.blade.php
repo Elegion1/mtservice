@@ -3,6 +3,28 @@
     <form wire:submit.prevent="submitBookingRent">
 
         <div class="row">
+            @php
+                $priceSummaryItems = [
+                    [
+                        'label' => __('ui.rentPrice'),
+                        'icon' => '/media/svg/currency-euro.svg',
+                        'value' => $carRentPrice ?? 0,
+                    ],
+                ];
+                if ($kaskoEnabled && isset($selectedCar) && $selectedCar->kasko) {
+                    $priceSummaryItems[] = [
+                        'label' => __('ui.kaskoPrice'),
+                        'icon' => '/media/svg/currency-euro.svg',
+                        'value' => $kaskoPrice ?? 0,
+                    ];
+                }
+                $priceSummaryItems[] = [
+                    'label' => __('ui.handOffCost'),
+                    'icon' => '/media/svg/currency-euro.svg',
+                    'value' => $handOffCost ?? 0,
+                ];
+                // $currentStep = 2;
+            @endphp
 
             @if ($currentStep == 1)
                 <div class="d-flex justify-content-between align-items-center p-0">
@@ -108,22 +130,26 @@
                     </div>
                 @endif
 
-                <!-- Prezzo Totale -->
-                <div class="col-12 mb-3 p-0">
-                    <span>{{ __('ui.totalPrice') }}</span>
-                    <div class="d-flex justify-content-start align-items-center bg-c rounded px-2">
-                        <img src="{{ url('/media/svg/currency-euro.svg') }}" alt="">
-                        <input wire:model.live="rentPrice" type="text" class="form-control form_input input_size"
-                            id="rentPrice" readonly>
+
+                @if (isset($selectedCar) && $selectedCar->kasko)
+                    <div class="form-check mb-3">
+                        <input class="form-check-input" type="checkbox" id="kaskoEnabled"
+                            wire:model.live="kaskoEnabled">
+                        <label class="form-check-label" for="kaskoEnabled">
+                            {{ __('ui.enableKasko') }}
+                        </label>
                     </div>
-                </div>
+                @endif
+
+
+                <x-price-summary :totalPrice="$rentPrice" :items="$priceSummaryItems" />
 
                 <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
                     <button wire:click="goToStep(1)" type="button" onclick="scrollToTop()"
                         class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
 
                     <button wire:click="goToStep(3)" type="button" onclick="scrollToTop()"
-                        class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.next') }}</button>
+                        class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
                 </div>
             @endif
 
@@ -173,8 +199,9 @@
                             @foreach ($this->{$key . 'correctedCustomAddress'} as $item)
                                 <input type="text"
                                     wire:click="selectAddress('{{ $key }}', '{{ $item }}')"
-                                    class="shadow p-1 formattedCustomAddress" id="{{ $key }}formattedCustomAddress"
-                                    value="{{ $item }}" placeholder="{{ __('ui.insertAddress') }}" readonly>
+                                    class="shadow p-1 formattedCustomAddress"
+                                    id="{{ $key }}formattedCustomAddress" value="{{ $item }}"
+                                    placeholder="{{ __('ui.insertAddress') }}" readonly>
                             @endforeach
 
                             <x-error-message field="{{ $key }}CustomAddress" />
@@ -203,35 +230,7 @@
                     <p>{{ $key }}: {{ $variable }}</p>
                 @endforeach --}}
 
-                <!-- Prezzo Noleggio -->
-                <div class="col-12 mb-3 p-0">
-                    <span>{{ __('ui.rentPrice') }}</span>
-                    <div class="d-flex justify-content-start align-items-center bg-c rounded px-2">
-                        <img src="{{ url('/media/svg/currency-euro.svg') }}" alt="">
-                        <input wire:model.live="rentPrice" type="text" class="form-control form_input input_size"
-                            id="rentPrice" readonly>
-                    </div>
-                </div>
-
-                <!-- Prezzo Consegna -->
-                <div class="col-12 mb-3 p-0">
-                    <span>{{ __('ui.handOffCost') }}</span>
-                    <div class="d-flex justify-content-start align-items-center bg-c rounded px-2">
-                        <img src="{{ url('/media/svg/currency-euro.svg') }}" alt="">
-                        <input wire:model.live="handOffCost" type="text"
-                            class="form-control form_input input_size" id="handOffCost" readonly>
-                    </div>
-                </div>
-
-                <!-- Prezzo Totale -->
-                <div class="col-12 mb-3 p-0">
-                    <span>{{ __('ui.totalPrice') }}</span>
-                    <div class="d-flex justify-content-start align-items-center bg-c rounded px-2">
-                        <img src="{{ url('/media/svg/currency-euro.svg') }}" alt="">
-                        <input wire:model.live="totalPrice" type="text" class="form-control form_input input_size"
-                            id="totalPrice" readonly>
-                    </div>
-                </div>
+                <x-price-summary :totalPrice="$rentPrice" :items="$priceSummaryItems" />
 
                 <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
                     <button wire:click="goToStep(2)" type="button" onclick="scrollToTop()"

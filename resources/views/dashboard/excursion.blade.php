@@ -39,6 +39,7 @@
                     <th>Nome</th>
                     <th>Prezzo</th>
                     <th>Incremento Prezzo</th>
+                    <th>PAX Incremento</th>
                     <th>Durata</th>
                     <th>Data di aggiunta</th>
                     <th>Data di modifica</th>
@@ -54,6 +55,7 @@
                         <td>{{ $excursion->name_it }}</td>
                         <td>{{ $excursion->price }} €</td>
                         <td>{{ $excursion->price_increment }} €</td>
+                        <td>{{ $excursion->increment_passengers }}</td>
                         <td>{{ $excursion->duration }} h</td>
                         <td>{{ $excursion->created_at }}</td>
                         <td>{{ $excursion->updated_at }}</td>

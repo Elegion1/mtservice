@@ -17,6 +17,7 @@ class Route extends Model
         'duration',
         'distance',
         'show',
+        'increment_passengers',
     ];
 
     public function reverseRoute()

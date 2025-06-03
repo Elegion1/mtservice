@@ -216,26 +216,35 @@ function generatePDF($booking, $language)
     return $dompdf->output();
 }
 
-function calculateBasePrice($basePrice, $incrementPrice, $passengers)
+function calculateBasePrice($basePrice, $incrementPrice, $passengers, $minPassengers)
 {
-    if ($passengers <= 4) return $basePrice;
+    $vehicleCapacity = getSetting('vehicle_capacity') ?: 8;
+    
+    if ($passengers <= $minPassengers) return $basePrice;
 
-    $extraPassengers = max(0, $passengers - 4);
+    $extraPassengers = max(0, $passengers - $minPassengers);
 
-    if ($passengers <= 8) {
+    if ($passengers <= $vehicleCapacity) {
         return $basePrice + ($incrementPrice * $extraPassengers);
     }
 
-    // Dopo 8 passeggeri, si aggiunge un secondo veicolo e si ricalcola il prezzo
-    $firstVehiclePrice = $basePrice + ($incrementPrice * 4); // Fino a 8 passeggeri
-    $remainingPassengers = $passengers - 8; // Calcoliamo i passeggeri del secondo veicolo
+    // Calcolo dei veicoli necessari
+    $firstVehicleExtra = max(0, $vehicleCapacity - $minPassengers);
+    $firstVehiclePrice = $basePrice + ($incrementPrice * $firstVehicleExtra);
 
-    $secondVehiclePrice = $basePrice; // Secondo veicolo parte dal prezzo base
-    if ($remainingPassengers > 4) {
-        $secondVehiclePrice += $incrementPrice * ($remainingPassengers - 4);
+    $remainingPassengers = $passengers - $vehicleCapacity;
+    $vehiclesNeeded = ceil($remainingPassengers / $vehicleCapacity);
+
+    $totalPrice = $firstVehiclePrice;
+
+    for ($i = 0; $i < $vehiclesNeeded; $i++) {
+        $passengersThisVehicle = min($vehicleCapacity, $remainingPassengers);
+        $extraThisVehicle = max(0, $passengersThisVehicle - $minPassengers);
+        $totalPrice += $basePrice + ($incrementPrice * $extraThisVehicle);
+        $remainingPassengers -= $passengersThisVehicle;
     }
 
-    return $firstVehiclePrice + $secondVehiclePrice;
+    return $totalPrice;
 }
 
 function passengerNumber($change, &$passengerProperty, $priceCallback)

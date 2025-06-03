@@ -44,18 +44,23 @@
                 <label for="distance" class="form-label">Distanza (km)</label>
                 <input type="number" class="form-control form_input_focused" id="distance" name="distance" required>
             </div>
-            <div class="mb-3 col-lg-4 col-12">
+            <div class="mb-3 col-lg-3 col-12">
                 <label for="duration" class="form-label">Tempo di Percorrenza (Minuti)</label>
                 <input type="number" class="form-control form_input_focused" id="duration" name="duration" required>
             </div>
-            <div class="mb-3 col-lg-4 col-12">
+            <div class="mb-3 col-lg-3 col-12">
                 <label for="price" class="form-label">Prezzo (€)</label>
                 <input type="number" class="form-control form_input_focused" id="price" name="price" required>
             </div>
-            <div class="mb-3 col-lg-4 col-12">
+            <div class="mb-3 col-lg-3 col-12">
                 <label for="price_increment" class="form-label">Incremento di prezzo per passeggero</label>
                 <input type="number" class="form-control form_input_focused" id="price_increment"
                     name="price_increment">
+            </div>
+            <div class="mb-3 col-lg-3 col-12">
+                <label for="increment_passengers" class="form-label">PAX Incremento</label>
+                <input type="number" class="form-control form_input_focused" id="increment_passengers"
+                    name="increment_passengers">
             </div>
         </div>
         <button type="submit" class="btn btn-primary">Aggiungi tratta</button>
@@ -75,8 +80,8 @@
                             </p>
                             <p class="card-text">Distanza: {{ $group['route']->distance }} km</p>
                             <p class="card-text">Prezzo: {{ $group['route']->price }} €</p>
-                            <p class="card-text">Incremento per passeggero: {{ $group['route']->price_increment }} €
-                            </p>
+                            <p class="card-text">Incremento per passeggero: {{ $group['route']->price_increment }} €</p>
+                            <p class="card-text">PAX Incremento: {{ $group['route']->increment_passengers }}</p>
                             <p class="card-text">Tempo di percorrenza: {{ $group['route']->duration }} min</p>
                             <p class="card-text">Mostra: {{ $group['route']->show ? 'Si' : 'No' }}</p>
                             <div class="d-flex justify-content-end">
@@ -97,6 +102,7 @@
                     <th>Distanza</th>
                     <th>Prezzo</th>
                     <th>Incremento di prezzo</th>
+                    <th>PAX Incremento</th>
                     <th>Tempo di Percorrenza</th>
                     <th>Mostra</th>
                     <th>Azioni</th>
@@ -110,6 +116,7 @@
                         <td>{{ $group['route']->distance }} km</td>
                         <td>{{ $group['route']->price }} €</td>
                         <td>{{ $group['route']->price_increment }} €</td>
+                        <td>{{ $group['route']->increment_passengers }}</td>
                         <td>{{ $group['route']->duration }} Min</td>
                         <td>{{ $group['route']->show ? 'Si' : 'No' }}</td>
                         <td>
@@ -133,7 +140,8 @@
         </div>
         <div class="mb-3">
             <label for="edit_distance" class="form-label">Distanza (km)</label>
-            <input type="number" class="form-control form_input_focused" id="edit_distance" name="distance" required>
+            <input type="number" class="form-control form_input_focused" id="edit_distance" name="distance"
+                required>
         </div>
         <div class="mb-3">
             <label for="edit_duration" class="form-label">Tempo di Percorrenza (Minuti)</label>
@@ -149,6 +157,11 @@
                 passeggero</label>
             <input type="text" class="form-control form_input_focused" id="edit_price_increment"
                 name="price_increment" required>
+        </div>
+        <div class="mb-3">
+            <label for="edit_increment_passengers" class="form-label">PAX Incremento</label>
+            <input type="text" class="form-control form_input_focused" id="edit_increment_passengers"
+                name="increment_passengers" required>
         </div>
     </x-modal>
 

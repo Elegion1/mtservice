@@ -38,6 +38,8 @@ class CarController extends Controller
             'description' => 'nullable|string',
             'price' => 'required|numeric|min:0',
             'images.*' => 'nullable|file|mimes:jpg,jpeg,png',
+            'kasko' => 'nullable|boolean',
+            'kasko_price' => 'nullable|numeric|min:0',
         ]);
 
         // Crea la macchina

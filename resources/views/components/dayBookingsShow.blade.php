@@ -72,6 +72,10 @@
                                 @elseif ($booking->end_date)
                                     >> Consegna
                                 @endif
+                                @if ($booking->bookingData['kasko_enabled'] && $booking->bookingData['kasko_enabled'] == true)
+                                    >> KASKO
+                                @endif
+                            
                             @elseif ($booking->bookingData['type'] == 'escursione')
                                 >> <strong>{{ $booking->bookingData['departure_name'] }}</strong> >>
                             @endif
@@ -273,7 +277,8 @@
         <p>Ritiro: <span class="text-primary">${dateStart}</span></p>
         <p>Luogo ritiro: <span class="text-primary">${bookingData.pickup}</span></p>
         <p>Consegna: <span class="text-primary">${dateEnd}</span></p>
-        <p>Luogo consegna: <span class="text-primary">${bookingData.delivery}</span></p>`;
+        <p>Luogo consegna: <span class="text-primary">${bookingData.delivery}</span></p>
+        <p>KASKO: <span class="text-primary">${bookingData.kasko_enabled ? 'SI' : 'NO'}</span></p>`;
         }
 
         let paymentStatus;

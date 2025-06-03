@@ -50,6 +50,7 @@ class RouteController extends Controller
             'duration' => 'required|numeric',
             'price_increment' => 'nullable|numeric',
             'show' => 'nullable|boolean',
+            'increment_passengers' => 'nullable|numeric',
         ]);
 
         // Verifica che departure_id e arrival_id siano diversi
@@ -81,6 +82,7 @@ class RouteController extends Controller
                 'duration' => $validated['duration'],
                 'distance' => $validated['distance'],
                 'show' => $validated['show'],
+                'increment_passengers' => $validated['increment_passengers'] ?? 4,
             ]);
         }
 
@@ -114,6 +116,7 @@ class RouteController extends Controller
             'duration' => 'required|numeric',
             'distance' => 'required|numeric',
             'show' => 'required|boolean',
+            'increment_passengers' => 'required|numeric',
         ]);
 
         // Aggiorna la rotta originale

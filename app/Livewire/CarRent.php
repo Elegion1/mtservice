@@ -18,6 +18,8 @@ class CarRent extends Component
     public $quantity = 1;
     public $carID;
     public $rentPrice;
+    public $selectedCar; // Auto selezionata
+
 
     public $handOffOptions = [
         'airport' => ['trapani' => ['price' => 25], 'palermo' => ['price' => 50]],
@@ -39,6 +41,10 @@ class CarRent extends Component
     public $pickupcorrectedCustomAddress = [];
     public $deliverycorrectedCustomAddress = [];
 
+    public $kaskoEnabled = false; // Abilita o disabilita la kasko
+
+    public $carRentPrice = 0; // Prezzo del noleggio dell'auto
+    public $kaskoPrice = 0; // Prezzo della kasko
     public $totalPrice = 0;
 
 
@@ -59,6 +65,7 @@ class CarRent extends Component
             'timeEnd' => 'required',
             'quantity' => 'required|integer|min:1',
             'carID' => 'required|exists:cars,id',
+            'kaskoEnabled' => 'boolean',
         ];
     }
 
@@ -124,10 +131,14 @@ class CarRent extends Component
                 $this->applyDeliveryPickupCosts();
             }
         }
+
     }
 
     public function calculatePriceRent()
     {
+        $this->kaskoPrice = 0; // Reset kasko price
+        $this->carRentPrice = 0; // Reset car rent price    
+
         $this->validate();
 
         $startDate = $this->convertDate(combineDateAndTime($this->dateStart, $this->timeStart));
@@ -143,7 +154,9 @@ class CarRent extends Component
         $rentDays = ceil($hours / 24);
 
         $car = Car::find($this->carID);
-        if (!$car) {
+        $this->selectedCar = $car;
+
+        if (!$this->selectedCar) {
             $this->rentPrice = 0;
             Log::info('Car not found: ' . $this->carID);
             return;
@@ -153,7 +166,6 @@ class CarRent extends Component
 
         // Recupera tutti i prezzi e periodi associati all'auto
         $carPrices = CarPrice::where('car_id', $this->carID)->get();
-        $totalPrice = 0;
         $currentDate = clone $startDate;
         $remainingDays = $rentDays;
 
@@ -169,12 +181,12 @@ class CarRent extends Component
 
                 if ($currentDate >= $periodStart && $currentDate <= $periodEnd) {
                     Log::info('Applying price for period: ' . $currentDate . ' - ' . $carPrice->price);
-                    $totalPrice += $carPrice->price * $this->quantity;
+                    $this->carRentPrice += $carPrice->price * $this->quantity;
 
                     // if ($currentDate->toDateString() == $endDate->toDateString()) {
                     //     $diff = $currentDate->diffInHours($endDate);
                     // if ($diff < 24) {
-                    //     $totalPrice += ($carPrice->price * $this->quantity) * ($diff / 24);
+                    //     $carRentPrice += ($carPrice->price * $this->quantity) * ($diff / 24);
                     //     Log::info('Applying proportional price for last day: ' . $diff . ' hours');
                     //     $found = true;
                     // }
@@ -187,16 +199,26 @@ class CarRent extends Component
 
             if (!$found && $car->price) {
                 Log::info('Applying base price for: ' . $currentDate . ' - ' . $car->price);
-                $totalPrice += $car->price * $this->quantity;
+                $this->carRentPrice += $car->price * $this->quantity;
             }
 
             $currentDate->addDay();
             $remainingDays--;
         }
 
-        Log::info('Total price: ' . $totalPrice);
+        Log::info('Total price: ' . $this->carRentPrice);
 
-        $this->rentPrice = $totalPrice;
+        // calcolo kasko
+        $kaskoBasePrice = 0;
+        if ($this->selectedCar && $this->selectedCar->kasko) {
+            $kaskoBasePrice = $this->selectedCar->kasko_price * $rentDays;
+        }
+
+        // Se la kasko è abilitata, aggiungi al totale
+        $this->kaskoPrice = $this->kaskoEnabled ? $kaskoBasePrice : 0;
+
+        // Calcola il totale
+        $this->rentPrice = $this->carRentPrice + $this->kaskoPrice;
     }
 
     public function applyDeliveryPickupCosts()
@@ -351,6 +373,7 @@ class CarRent extends Component
             'quantity' => $this->quantity,
             'car_ID' => $this->carID,
             'price' => $this->totalPrice,
+            'kasko_enabled' => $this->kaskoEnabled,
         ];
     }
 

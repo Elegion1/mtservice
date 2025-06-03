@@ -17,6 +17,9 @@
             (object) ['name' => 'show_transfer'],
             (object) ['name' => 'show_escursioni'],
             (object) ['name' => 'show_noleggio'],
+            (object) ['name' => 'vehicle_capacity'],
+            (object) ['name' => 'garage_address'],
+
         ];
 
         $filteredSettings = collect($defaultSettings)->filter(function ($setting) use ($settings) {

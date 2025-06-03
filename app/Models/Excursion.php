@@ -20,6 +20,7 @@ class Excursion extends Model
         'description_en',
         'duration',
         'show',
+        'increment_passengers',
     ];
 
     public function images()

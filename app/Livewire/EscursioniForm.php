@@ -68,7 +68,7 @@ class EscursioniForm extends Component
             return;
         }
 
-        $this->excursionPrice = calculateBasePrice($excursion->price, $excursion->price_increment, $this->excursionPassengers);
+        $this->excursionPrice = calculateBasePrice($excursion->price, $excursion->price_increment, $this->excursionPassengers, $excursion->increment_passengers);
     }
 
     public function getBookingDataExcursion()

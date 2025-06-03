@@ -79,8 +79,12 @@ class TransferForm extends Component
 
     private function validateReturnTime($fail)
     {
-        if (!$this->departure || !$this->return || !$this->timeDeparture || !$this->timeReturn) {
-            return;  // Interrompi se mancano dati
+        if (
+            !$this->departure || !$this->return ||
+            !$this->dateDeparture || !$this->timeDeparture ||
+            !$this->dateReturn || !$this->timeReturn
+        ) {
+            return;  // Dati insufficienti
         }
 
         $route = $this->getRouteData($this->departure, $this->return);
@@ -93,16 +97,16 @@ class TransferForm extends Component
         $minWaitTimeMinutes = getSetting('transfer_return_minimum_wait_time_minutes', 60);
         $minMinutesWait = $durationMinutes + $minWaitTimeMinutes;
 
-        $departureTimestamp = strtotime($this->timeDeparture);
-        $returnTimestamp = strtotime($this->timeReturn);
+        // Combina data e ora
+        $departureDateTime = strtotime("{$this->dateDeparture} {$this->timeDeparture}");
+        $returnDateTime = strtotime("{$this->dateReturn} {$this->timeReturn}");
 
-        if (!$departureTimestamp || !$returnTimestamp) {
-            return;  // Evita errori se il formato dell'ora è errato
+        if (!$departureDateTime || !$returnDateTime) {
+            return; // Evita errori di parsing
         }
 
-        $diffMinutes = ($returnTimestamp - $departureTimestamp) / 60;
-
-        $this->minReturnTime = date('H:i', strtotime($this->timeDeparture . " + {$minMinutesWait} minutes"));
+        $diffMinutes = ($returnDateTime - $departureDateTime) / 60;
+        $this->minReturnTime = date('Y-m-d H:i', strtotime("{$this->dateDeparture} {$this->timeDeparture} +{$minMinutesWait} minutes"));
 
         if ($diffMinutes < $minMinutesWait) {
             $fail(__('ui.invalid_return_time', [
@@ -139,6 +143,7 @@ class TransferForm extends Component
         $this->validateOnly($field);
 
         if (in_array($field, ['departure', 'return', 'transferPassengers', 'solaAndata', 'andataRitorno', 'timeDeparture'])) {
+            $this->validateOnly($field);
             $this->calculatePriceTransfer();
 
             $this->departureName = $this->departure ? $this->getDestName($this->departure) : null;
@@ -213,7 +218,7 @@ class TransferForm extends Component
         }
 
         // Calcola il prezzo con la funzione helper
-        $price = calculateBasePrice($route->price, $route->price_increment, $this->transferPassengers);
+        $price = calculateBasePrice($route->price, $route->price_increment, $this->transferPassengers, $route->increment_passengers);
 
         // Se andata e ritorno, raddoppia il prezzo
         $this->transferPrice = $this->andataRitorno ? $price * 2 : $price;

@@ -52,8 +52,6 @@ class ExcursionController extends Controller
 
     public function update(Request $request, Excursion $excursion)
     {
-
-
         $excursion->update($request->all());
 
         if ($request->hasFile('images')) {

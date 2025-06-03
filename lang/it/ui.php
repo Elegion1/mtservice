@@ -230,7 +230,7 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
     'dateReturn_after' => 'La data di ritorno deve essere dopo la data di partenza.',
     'dateReturn_required' => 'La data di ritorno è obbligatoria',
     'timeReturn_required' => 'Seleziona un orario di ritorno.',
-    'invalid_return_time' => 'Il ritorno deve essere selezionato almeno :time dopo la partenza.',
+    'invalid_return_time' => 'Il ritorno deve essere almeno :time dopo la partenza.',
 
     'minimum_hours_error' => 'Il tempo minimo di noleggio è di :hours ore',
     'minimum_days_error' => 'Il tempo minimo di noleggio è di :days giorni',
@@ -378,9 +378,13 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
     'driverAgeLimit' => 'L\'età del guidatore deve essere di almeno 18 anni',
     'driverLicenseIssueLimit' => 'La patente deve essere rilasciata prima della data di inizio del noleggio',
     'driverLicenseExpireLimit' => 'La patente deve essere valida dopo la data di fine del noleggio',
-    
+
     'pickupLocation_required' => 'Seleziona un luogo di ritiro',
     'deliveryLocation_required' => 'Seleziona un luogo di consegna',
+
+    'kasko' => 'Polizza Kasko',
+    'enableKasko' => 'Utilizza polizza Kasko per il veicolo',
+    'kaskoPrice' => 'Prezzo Kasko',
 
 ];
 

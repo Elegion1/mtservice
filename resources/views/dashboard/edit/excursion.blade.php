@@ -41,6 +41,13 @@
                     name="price_increment" value="{{ $excursion->price_increment }}">
             </div>
 
+            <!-- PAX Incremento -->
+            <div class="mb-3">
+                <label for="increment_passengers" class="form-label">PAX Incremento</label>
+                <input type="number" step="1" class="form-control form_input_focused" id="increment_passengers"
+                    name="increment_passengers" value="{{ $excursion->increment_passengers }}">
+            </div>
+
             <!-- Durata -->
             <div class="mb-3">
                 <label for="duration" class="form-label">Durata *</label>
