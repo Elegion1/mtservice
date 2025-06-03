@@ -230,7 +230,7 @@
                     <p>{{ $key }}: {{ $variable }}</p>
                 @endforeach --}}
 
-                <x-price-summary :totalPrice="$rentPrice" :items="$priceSummaryItems" />
+                <x-price-summary :totalPrice="$totalPrice" :items="$priceSummaryItems" />
 
                 <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
                     <button wire:click="goToStep(2)" type="button" onclick="scrollToTop()"
