@@ -72,7 +72,7 @@
                                 @elseif ($booking->end_date)
                                     >> Consegna
                                 @endif
-                                @if ($booking->bookingData['kasko_enabled'] && $booking->bookingData['kasko_enabled'] == true)
+                                @if (isset($booking->bookingData['kasko_enabled']) && $booking->bookingData['kasko_enabled'] == true)
                                     >> KASKO
                                 @endif
                             
