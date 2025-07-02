@@ -66,6 +66,10 @@ Route::prefix('{locale}')
         // recensioni
         Route::get('/reviews/create/{booking_code}', [ReviewController::class, 'createReview'])->name('reviews.create');
         Route::post('/reviews/save', [ReviewController::class, 'saveReview'])->name('customer.reviews.store');
+        
+        Route::get('/not-found', function () {
+            return view('errors.not-found');
+        })->name('not-found');
     });
 
 Route::get('dashboard/bookingfromreact/getBookingCode', [BookingController::class, 'getBookingCode']);
@@ -78,6 +82,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::put('/bookings/{booking}/update-status', [BookingController::class, 'update'])->name('bookings.update');
     Route::get('/booking/status/to-do', [BookingController::class, 'bookingToDo'])->name('booking.todo');
 
+
     // Route::get('/booking/confirm/{booking}', [PublicController::class, 'confirmBooking'])->name('booking.confirm');
     // Route::get('/booking/reject/{booking}', [PublicController::class, 'rejectBooking'])->name('booking.reject');
 
@@ -86,7 +91,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
 
     // vista dashboard
     Route::get('/', [PublicController::class, 'dashboard'])->name('dashboard');
-    
+
     //impostazioni
     Route::get('/settings/', [SettingController::class, 'index'])->name('dashboard.settings'); // Visualizza tutte le impostazioni
     Route::get('/settings/create', [SettingController::class, 'create'])->name('settings.create'); // Mostra il form per creare una nuova impostazione

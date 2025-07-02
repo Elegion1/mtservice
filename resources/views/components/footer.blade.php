@@ -1,6 +1,12 @@
 <footer class="pb-1 border_footer p-0 m-0 bg-linear-gradient px-md-5 px-1 pt-1">
     <div class="p-1">
-        {{ Breadcrumbs::render() }}
+
+        @if (Breadcrumbs::exists())
+            {{ Breadcrumbs::render() }}
+        @else
+            {{ Breadcrumbs::render('fallback') }}
+        @endif
+
     </div>
     <div class="d-flex pt-3">
 

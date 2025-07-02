@@ -18,7 +18,9 @@ class ExcursionController extends Controller
 
     public function show($locale, $name, $id)
     {
-        $excursion = Excursion::findOrFail($id);
+        $excursion = Excursion::where('id', $id)
+            ->where('show', true)
+            ->firstOrFail();
 
         return view('pages.excursions.show', compact('excursion'));
     }

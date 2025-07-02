@@ -9,9 +9,11 @@
             <h3 class="text-center mt-5">{{ __('ui.carsDisplay') }}</h3>
             <div class="d-flex justify-content-center align-items-center mt-3 flex-wrap">
                 @foreach ($cars as $car)
-                    <div class="card me-lg-5 p-1 mt-3 bg-b shadow-sm" style="width: 13rem;">
-                        <img src="{{ Storage::url($car->images[0]->path) }}" class="img_carRent"
-                            alt="{{ $car->name }}">
+                    <div class="card me-lg-5 p-1 mt-3 bg-b shadow-sm " style="width: 13rem;">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <img src="{{ Storage::url($car->images[0]->path) }}" class="img_carRent"
+                                alt="{{ $car->name }}">
+                        </div>
                         <div class="card-body text-center">
                             <h5 class="card-title">{{ $car->name }}</h5>
                             <p class="card-text">{{ $car->description }}</p>

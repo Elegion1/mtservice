@@ -386,6 +386,10 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
     'enableKasko' => 'Utilizza polizza Kasko per il veicolo',
     'kaskoPrice' => 'Prezzo Kasko',
 
+    'notFound' => 'Pagina non trovata',
+    'notFoundMsg' => 'La risorsa che stai cercando non esiste',
+    'goHome' => 'Torna alla home',
+
 ];
 
 

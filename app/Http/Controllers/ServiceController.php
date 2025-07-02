@@ -11,11 +11,14 @@ class ServiceController extends Controller
 {
     public function show($locale, $title, $id)
     {
-        $service = Service::findOrFail($id);
+
+        $service = Service::where('id', $id)
+            ->where('show', true)
+            ->firstOrFail();
 
         return view('pages.services.show', compact('service'));
     }
-    
+
     public function index()
     {
         $services = Service::with('images')->get(); // Carica anche le immagini associate
@@ -27,7 +30,8 @@ class ServiceController extends Controller
         return view('dashboard.create.service');
     }
 
-    public function edit(Service $service) {
+    public function edit(Service $service)
+    {
         return view('dashboard.edit.service', compact('service'));
     }
 
@@ -70,5 +74,4 @@ class ServiceController extends Controller
         $service->delete();
         return redirect()->route('dashboard.service')->with('success', 'Servizio eliminato con successo.');
     }
-
 }

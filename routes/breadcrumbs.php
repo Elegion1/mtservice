@@ -2,6 +2,7 @@
 
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
+use PHPUnit\TextUI\Configuration\Php;
 
 // Home
 Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
@@ -183,3 +184,12 @@ Breadcrumbs::for('dashboard.discount', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
     $trail->push(__('breadcrumbs.dashboard_discounts'), route('dashboard.discount'));
 });
+
+// Fallback Breadcrumb for undefined routes
+Breadcrumbs::for('fallback', function (BreadcrumbTrail $trail) {
+    $trail->push(__('breadcrumbs.home'), route('home'));
+    $trail->push(__('breadcrumbs.page_not_found'), '#');
+});
+
+// Register fallback for all routes not explicitly defined above
+// Usage: In your view, use Breadcrumbs::exists($routeName) ? Breadcrumbs::render($routeName, ...) : Breadcrumbs::render('fallback')
