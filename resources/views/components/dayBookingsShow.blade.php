@@ -314,6 +314,7 @@
         <form action="/dashboard/bookings/${id}/update-status" method="POST"
                         style="display:inline-block;">
                         @csrf
+                        @method('PUT')
                         <input type="hidden" name="status" value="pending">
                         <button title="Sposta in lavorazione" type="submit" class="btn btn-warning">
                             In attesa
@@ -322,6 +323,7 @@
         <form id="rejectForm_${id}" action="/dashboard/bookings/${id}/update-status"
                 method="POST" style="display:inline-block;">
                 @csrf
+                @method('PUT')
                 <input type="hidden" name="status" value="rejected">
                 <button type="button" class="btn btn-danger" onclick="confermaRifiuto(${id})">
                     Rifiuta
@@ -331,6 +333,7 @@
         <form action="/dashboard/bookings/${id}/update-status"
                 method="POST" style="display:inline-block;">
                 @csrf
+                @method('PUT')
                 <input type="hidden" name="payment_status" value="${newPaymentStatus}">
                 <button type="submit" class="btn btn-warning">
                     ${buttonLabel}

@@ -37,6 +37,7 @@ if (!function_exists('sendEmail')) {
     {
         $currentLanguage = App::getLocale();
         Log::info('[MailHelper] Current language: ' . $currentLanguage);
+        
         // Cambia la lingua solo se necessario
         if ($language !== $currentLanguage) {
             App::setLocale($language);
@@ -44,12 +45,32 @@ if (!function_exists('sendEmail')) {
         }
 
         Log::info('[MailHelper] Sending email to: ' . $recipient . ' Language: ' . $language);
+        
         try {
+            // Timeout di 10 secondi per evitare che blocchi il sito
+            $timeout = 10;
+            
+            // Configura timeout temporaneo
+            $originalTimeout = config('mail.mailers.smtp.timeout');
+            config(['mail.mailers.smtp.timeout' => $timeout]);
+            
             // Invia l'email al destinatario
             Mail::to($recipient)->send($mailable);
             Log::info('[MailHelper] Email sent to: ' . $recipient . ' Language: ' . $language);
+            
+            // Ripristina timeout originale
+            config(['mail.mailers.smtp.timeout' => $originalTimeout]);
+            
         } catch (\Exception $e) {
             Log::error('[MailHelper] ' . $errorMessage . ': ' . $e->getMessage());
+            
+            // Se è un timeout o connessione fallita, suggerisci di controllare la configurazione
+            if (str_contains($e->getMessage(), 'timed out') || str_contains($e->getMessage(), 'Connection could not be established')) {
+                Log::error('[MailHelper] SMTP connection issue detected. Consider checking MAIL_ENCRYPTION setting.');
+            }
+            
+            // Non rilanciare l'eccezione per evitare di bloccare il sito
+            
         } finally {
             // Ripristina la lingua originale solo se è stata cambiata
             if ($language !== $currentLanguage) {

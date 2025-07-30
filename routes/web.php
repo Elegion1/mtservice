@@ -81,6 +81,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
 
     Route::put('/bookings/{booking}/update-status', [BookingController::class, 'update'])->name('bookings.update');
     Route::get('/booking/status/to-do', [BookingController::class, 'bookingToDo'])->name('booking.todo');
+    Route::get('/booking/status/rejected', [BookingController::class, 'bookingRejected'])->name('booking.rejected');
 
 
     // Route::get('/booking/confirm/{booking}', [PublicController::class, 'confirmBooking'])->name('booking.confirm');

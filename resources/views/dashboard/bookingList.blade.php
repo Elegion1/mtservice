@@ -2,7 +2,7 @@
 
     <p class="text-nowrap m-0 text-uppercase">Prenotazioni confermate</p>
     <div class="row">
-        <div class="col-4 d-grid">
+        <div class="col-4 d-grid gap-1">
             <a id="pendingBookingsBtn"
                 class="btn btn-sm btn-secondary text-small d-flex justify-content-around align-items-center"
                 href="{{ route('booking.todo') }}">In attesa
@@ -10,6 +10,17 @@
                     <span style="width: 20px; height:20px;"
                         class="d-flex justify-content-center align-items-center p-1 rounded-circle text-white bg-warning text-small">
                         {{ $pendingBookings->count() }}
+                    </span>
+                @endif
+            </a>
+
+            <a id="rejectedBookingsBtn"
+                class="btn btn-sm btn-danger text-small d-flex justify-content-around align-items-center"
+                href="{{ route('booking.rejected') }}">Rifiutate
+                @if (isset($rejectedBookings) && $rejectedBookings->count() > 0)
+                    <span style="width: 20px; height:20px;"
+                        class="d-flex justify-content-center align-items-center p-1 rounded-circle text-white bg-dark text-small">
+                        {{ $rejectedBookings->count() }}
                     </span>
                 @endif
             </a>

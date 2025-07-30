@@ -39,6 +39,7 @@ class BookingController extends Controller
         if (isEmpty($allowedTypes)) {
             $bookings = Booking::where('status', 'confirmed')->get();
             $pendingBookings = Booking::where('status', 'pending')->get();
+            $rejectedBookings = Booking::where('status', 'rejected')->get();
         } else {
             $bookings = Booking::whereIn('bookingData->type', $allowedTypes)
                 ->where('status', 'confirmed')
@@ -46,6 +47,10 @@ class BookingController extends Controller
 
             $pendingBookings = Booking::whereIn('bookingData->type', $allowedTypes)
                 ->where('status', 'pending')
+                ->get();
+
+            $rejectedBookings = Booking::whereIn('bookingData->type', $allowedTypes)
+                ->where('status', 'rejected')
                 ->get();
         }
 
@@ -113,6 +118,7 @@ class BookingController extends Controller
             'groupedByDay' => $groupedByDay,
             'groupedByMonth' => $groupedByMonth,
             'pendingBookings' => $pendingBookings,
+            'rejectedBookings' => $rejectedBookings,
         ]);
     }
 
@@ -129,6 +135,21 @@ class BookingController extends Controller
         }
 
         return view('dashboard.bookingsToDo', compact('bookings'));
+    }
+
+    public function bookingRejected()
+    {
+        $allowedTypes = getAllowedBookingTypes();
+
+        if (isEmpty($allowedTypes)) {
+            $bookings = Booking::where('status', 'rejected')->get();
+        } else {
+            $bookings = Booking::whereIn('bookingData->type', $allowedTypes)
+                ->where('status', 'rejected')
+                ->get();
+        }
+
+        return view('dashboard.bookingsRejected', compact('bookings'));
     }
 
     /**

@@ -53,6 +53,7 @@
                             <form action="{{ route('bookings.update', $booking) }}" method="POST"
                                 style="display:inline-block;">
                                 @csrf
+                                @method('PUT')
                                 <input type="hidden" name="status" value="confirmed">
                                 <button title="Accetta prenotazione" type="submit" class="btn btn-sm">
                                     <i class="bi bi-check-circle-fill text-success"></i>
@@ -64,6 +65,7 @@
                             <form action="{{ route('bookings.update', $booking) }}" method="POST"
                                 style="display:inline-block;">
                                 @csrf
+                                @method('PUT')
                                 <input type="hidden" name="status" value="rejected">
                                 <button title="Rifiuta prenotazione" type="submit" class="btn btn-sm">
                                     <i class="bi bi-x-circle-fill text-danger"></i>
@@ -75,6 +77,7 @@
                             <form action="{{ route('bookings.update', $booking) }}" method="POST"
                                 style="display:inline-block;">
                                 @csrf
+                                @method('PUT')
                                 <input type="hidden" name="status" value="pending">
                                 <button title="Sposta in lavorazione" type="submit" class="btn btn-sm">
                                     <i class="bi bi-exclamation-circle-fill text-warning"></i>
