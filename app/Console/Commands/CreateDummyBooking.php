@@ -82,91 +82,28 @@ class CreateDummyBooking extends Command
         foreach ($carIds as $carId) {
             $this->line("Processing Car ID: {$carId}...");
 
-            // 1. Trova prenotazioni esistenti per questa auto nel periodo richiesto
-            $existingBookings = Booking::where('bookingData->car_id', (int)$carId)
-                ->where(function ($query) use ($startDateTime, $endDateTime) {
-                    $query->where('bookingData->date_start', '<=', $endDateTime->format('Y-m-d'))
-                          ->where('bookingData->date_end', '>=', $startDateTime->format('Y-m-d'));
-                })
-                ->orderBy('bookingData->date_start')
-                ->get();
-
-            // 2. Calcola gli slot liberi
-            $freeSlots = [];
-            $currentDate = $startDateTime->copy();
-
-            foreach ($existingBookings as $booking) {
-                $bookingStart = Carbon::createFromFormat('Y-m-d', $booking->bookingData['date_start'])->startOfDay();
-                $bookingEnd = Carbon::createFromFormat('Y-m-d', $booking->bookingData['date_end'])->endOfDay();
-
-                if ($currentDate->lt($bookingStart)) {
-                    $freeSlots[] = ['start' => $currentDate->copy(), 'end' => $bookingStart->copy()->subDay()->endOfDay()];
-                }
-                $currentDate = $bookingEnd->copy()->addDay()->startOfDay();
-            }
-
-            if ($currentDate->lessThanOrEqualTo($endDateTime)) {
-                $freeSlots[] = ['start' => $currentDate->copy(), 'end' => $endDateTime->copy()];
-            }
-            
-            if (empty($freeSlots)) {
-                $this->warn("L'auto con ID {$carId} è completamente prenotata nel periodo specificato. Nessun blocco creato.");
+            $car = Car::find($carId);
+            if (!$car) {
+                $this->warn("L'auto con ID {$carId} non trovata. Salto...");
                 $skippedCars[] = $carId;
                 continue;
             }
 
-            // 3. Crea prenotazioni fittizie per ogni slot libero
+            // Recupera tutte le prenotazioni per l'auto una sola volta per ottimizzare
+            $allBookingsForCar = Booking::where('bookingData->car_id', (int)$carId)->get();
+
+            // Trova i periodi liberi consecutivi
+            $freeSlots = $this->findFreeSlots($startDateTime, $endDateTime, $allBookingsForCar);
+            $bookingsCreatedForThisCar = 0;
+
             foreach ($freeSlots as $slot) {
-                $slotStart = $slot['start'];
-                $slotEnd = $slot['end'];
+                $this->createDummyBookingForSlot($car, $slot['start'], $slot['end'], $createdBookings);
+                $bookingsCreatedForThisCar++;
+            }
 
-                if ($slotEnd->lt($slotStart)) continue; // Salta slot non validi
-
-                $code = 'D' . strtoupper(substr(uniqid(), -5));
-
-                $bookingData = [
-                    'type' => 'noleggio',
-                    'car_id' => (int)$carId,
-                    'date_start' => $slotStart->format('Y-m-d'),
-                    'time_start' => '00:00',
-                    'date_end' => $slotEnd->format('Y-m-d'),
-                    'time_end' => '23:59',
-                    'pickup_location' => 'Sede principale',
-                    'return_location' => 'Sede principale',
-                    'is_dummy' => true,
-                    'dummy_reason' => 'Prenotazione esterna',
-                    'created_by_command' => true
-                ];
-
-                $booking = Booking::create([
-                    'name' => 'Sistema',
-                    'surname' => 'Prenotazione Esterna',
-                    'email' => 'sistema@dummy.local',
-                    'dial_code' => '+39',
-                    'phone' => '0000000000',
-                    'body' => 'Prenotazione esterna',
-                    'status' => 'confirmed',
-                    'payment_status' => 'paid',
-                    'code' => $code,
-                    'locale' => 'it',
-                    'service_date' => $slotStart->format('Y-m-d'),
-                    'bookingData' => $bookingData,
-                    'info' => [
-                        'is_dummy_booking' => true,
-                        'created_via_command' => true,
-                        'reason' => 'Prenotazione esterna',
-                        'created_at_timestamp' => now()->timestamp
-                    ]
-                ]);
-
-                $createdBookings[] = [
-                    'id' => $booking->id,
-                    'code' => $booking->code,
-                    'car_id' => $carId,
-                    'start_date' => $slotStart->format('d/m/Y'),
-                    'end_date' => $slotEnd->format('d/m/Y'),
-                    'status' => $booking->status
-                ];
+            if ($bookingsCreatedForThisCar === 0) {
+                $this->warn("L'auto con ID {$carId} è completamente prenotata nel periodo richiesto.");
+                $skippedCars[] = $carId;
             }
         }
 
@@ -181,9 +118,105 @@ class CreateDummyBooking extends Command
         }
 
         if (!empty($skippedCars)) {
-            $this->warn("\nAttenzione: Le seguenti auto non sono state bloccate perché completamente prenotate nel periodo richiesto: " . implode(', ', $skippedCars));
+            $this->warn("\nAttenzione: Le seguenti auto sono state saltate: " . implode(', ', $skippedCars));
         }
 
         return 0;
+    }
+
+    private function findFreeSlots(Carbon $startDateTime, Carbon $endDateTime, $allBookingsForCar)
+    {
+        $freeSlots = [];
+        $currentDate = $startDateTime->copy()->startOfDay();
+        $endDate = $endDateTime->copy()->startOfDay();
+
+        // Ordina le prenotazioni per data di inizio
+        $sortedBookings = $allBookingsForCar->sortBy(function ($booking) {
+            return Carbon::parse($booking->bookingData['date_start'])->startOfDay();
+        });
+
+        foreach ($sortedBookings as $booking) {
+            $bookingStart = Carbon::parse($booking->bookingData['date_start'])->startOfDay();
+            $bookingEnd = Carbon::parse($booking->bookingData['date_end'])->startOfDay();
+
+            // Se c'è uno spazio libero prima di questa prenotazione
+            if ($currentDate->lt($bookingStart)) {
+                $freeSlots[] = [
+                    'start' => $currentDate->copy(),
+                    'end' => $bookingStart->copy()->subDay()
+                ];
+            }
+
+            // Avanza la data corrente alla fine di questa prenotazione
+            if ($bookingEnd->gte($currentDate)) {
+                $currentDate = $bookingEnd->copy()->addDay();
+            }
+        }
+
+        // Se c'è ancora spazio libero dopo l'ultima prenotazione
+        if ($currentDate->lte($endDate)) {
+            $freeSlots[] = [
+                'start' => $currentDate->copy(),
+                'end' => $endDate->copy()
+            ];
+        }
+
+        return $freeSlots;
+    }
+
+    private function createDummyBookingForSlot(Car $car, Carbon $slotStart, Carbon $slotEnd, array &$createdBookings)
+    {
+        $code = 'D' . strtoupper(substr(uniqid(), -5));
+        $days = $slotStart->diffInDays($slotEnd) + 1;
+        $price = $car->price * $days;
+
+        $bookingData = [
+            'type' => 'noleggio',
+            'price' => $price,
+            'car_ID' => (string)$car->id,
+            'car_id' => (int)$car->id,
+            'pickup' => 'Sede principale',
+            'car_name' => $car->name,
+            'date_end' => $slotEnd->format('Y-m-d\\T23:59'),
+            'delivery' => 'Sede principale',
+            'quantity' => 1,
+            'date_start' => $slotStart->format('Y-m-d\\T00:00'),
+            'kasko_enabled' => false,
+            'original_price' => $price,
+            'car_description' => $car->description,
+            'is_dummy' => true,
+        ];
+
+        $info = [
+            'driver' => ['driverName' => 'Prenotazione Fittizia'],
+            'flight' => ['flightNumber' => null],
+            'is_dummy_booking' => true,
+            'created_via_command' => true,
+        ];
+
+        $booking = Booking::create([
+            'name' => 'Sistema',
+            'surname' => 'Prenotazione Fittizia',
+            'email' => 'sistema@dummy.local',
+            'phone' => '0000000000',
+            'dial_code' => '+39',
+            'body' => 'Prenotazione creata da sistema per bloccare il veicolo.',
+            'info' => $info,
+            'bookingData' => $bookingData,
+            'status' => 'confirmed',
+            'code' => $code,
+            'locale' => 'it',
+            'service_date' => $slotStart->format('Y-m-d'),
+            'payment_status' => 'paid',
+        ]);
+
+        $createdBookings[] = [
+            'id' => $booking->id,
+            'code' => $booking->code,
+            'car_id' => $car->id,
+            'start_date' => $slotStart->format('d/m/Y'),
+            'end_date' => $slotEnd->format('d/m/Y'),
+            'status' => $booking->status
+        ];
     }
 }
