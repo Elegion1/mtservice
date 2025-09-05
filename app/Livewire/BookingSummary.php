@@ -236,7 +236,7 @@ class BookingSummary extends Component
 
     public function updated($field)
     {
-        if (in_array($field, ['name', 'surname', 'email', 'phone'])) {
+        if (in_array($field, ['name', 'surname', 'email', 'phone', 'body'])) {
             $this->validateOnly($field);
             $this->calculatePrice();
         }
