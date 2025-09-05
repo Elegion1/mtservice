@@ -68,7 +68,7 @@ Route::prefix('{locale}')
         Route::post('/reviews/save', [ReviewController::class, 'saveReview'])->name('customer.reviews.store');
         
         Route::get('/not-found', function () {
-            return view('errors.not-found');
+            return view('errors.404');
         })->name('not-found');
     });
 
@@ -154,6 +154,15 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
 
     // Gestione prenotazioni
     Route::get('/bookings', [BookingController::class, 'index'])->name('dashboard.booking');
+    
+    // Visit tracking
+    Route::prefix('visits')->name('visits.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\VisitController::class, 'index'])->name('index');
+        Route::get('/dashboard', [\App\Http\Controllers\VisitController::class, 'dashboard'])->name('dashboard');
+        Route::get('/stats', [\App\Http\Controllers\VisitController::class, 'stats'])->name('stats');
+        Route::delete('/clear', [\App\Http\Controllers\VisitController::class, 'clearAll'])->name('clear');
+        Route::delete('/{visit}', [\App\Http\Controllers\VisitController::class, 'destroy'])->name('destroy');
+    });
     Route::get('/bookings/list', [BookingController::class, 'list'])->name('dashboard.bookingList');
     Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
     // Route::get('/bookings/pdf/{id}', [BookingController::class, 'showPdf'])->name('booking.pdf');
