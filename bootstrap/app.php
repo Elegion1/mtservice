@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Middleware\SetLocaleMiddleware;
+use App\Http\Middleware\TrackVisits;
 use Illuminate\Foundation\Application;
+use App\Http\Middleware\SetLocaleMiddleware;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
@@ -12,7 +13,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->web(append: [SetLocaleMiddleware::class]);
+        $middleware->web(append: [
+            SetLocaleMiddleware::class,
+            TrackVisits::class,
+        ]);
         $middleware->alias([
             'locale' => SetLocaleMiddleware::class,
         ]);
