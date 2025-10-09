@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Route;
 use App\Models\Destination;
+use App\Models\Route;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
 class RouteController extends Controller
@@ -27,13 +28,14 @@ class RouteController extends Controller
         $groupedRoutes = [];
         foreach ($routes as $route) {
             $reverseRoute = $route->reverseRoute();
-            if ($reverseRoute && !isset($groupedRoutes[$reverseRoute->id])) {
+            if ($reverseRoute && ! isset($groupedRoutes[$reverseRoute->id])) {
                 $groupedRoutes[$route->id] = [
                     'route' => $route,
-                    'reverseRoute' => $reverseRoute
+                    'reverseRoute' => $reverseRoute,
                 ];
             }
         }
+
         return view('dashboard.route', compact('destinations', 'groupedRoutes'));
     }
 
@@ -73,7 +75,7 @@ class RouteController extends Controller
         // Creazione della nuova rotta
         Route::create($validated);
 
-        if (!Route::where('departure_id', $validated['arrival_id'])->where('arrival_id', $validated['departure_id'])->exists()) {
+        if (! Route::where('departure_id', $validated['arrival_id'])->where('arrival_id', $validated['departure_id'])->exists()) {
             Route::create([
                 'departure_id' => $validated['arrival_id'],
                 'arrival_id' => $validated['departure_id'],
@@ -92,9 +94,20 @@ class RouteController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Route $route)
+    public function show($locale, $departure, $arrival)
     {
-        //
+        $services = Service::all();
+
+        $departureDestination = Destination::where('slug', $departure)->firstOrFail();
+        $arrivalDestination = Destination::where('slug', $arrival)->firstOrFail();
+
+        $route = Route::where('departure_id', $departureDestination->id)
+            ->where('arrival_id', $arrivalDestination->id)
+            ->firstOrFail();
+
+        $view = $locale === 'en' ? 'pages.transfer.show_en' : 'pages.transfer.show_it';
+
+        return view($view, compact('route', 'departureDestination', 'arrivalDestination', 'services'));
     }
 
     /**

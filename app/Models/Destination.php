@@ -12,6 +12,7 @@ class Destination extends Model
     protected $fillable = [
         'name',
         'show',
+        'slug',
     ];
 
     public function routes()

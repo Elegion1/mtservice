@@ -56,9 +56,11 @@
                             <h1 class="text-b text-shadow text-responsive">
                                 {!! strtoupper($displayedContent->{'title_' . app()->getLocale()}) !!}
                             </h1>
-                            <h2 class="text-shadow text-c btn_font_size">
-                                {{ $displayedContent->{'subtitle_' . app()->getLocale()} }}
-                            </h2>
+                            @if ($displayedContent->{'subtitle_' . app()->getLocale()})
+                                <h2 class="text-shadow text-c btn_font_size">
+                                    {{ $displayedContent->{'subtitle_' . app()->getLocale()} }}
+                                </h2>
+                            @endif
                         </div>
                     @endif
                     <x-display-error />

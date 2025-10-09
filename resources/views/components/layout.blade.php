@@ -32,41 +32,100 @@
     <link rel="icon" type="image/x-icon" sizes="32x32" href="https://tranchidatransfer.it/favicon.ico">
 
     <!-- Title: ensure it's within <head> -->
-    <title>
-        @php
-            $title = '';
-            $type = '';
-            $currentRouteName = Route::currentRouteName();
-        @endphp
-        @foreach ($pages as $page)
-            @if ($currentRouteName == $page->link)
-                @php
-                    $title = ucfirst(__('ui.' . $page->name));
-                    break;
-                @endphp
-            @endif
-        @endforeach
-        @if (empty($title))
-            @php
-                $pathInfo = request()->getPathInfo();
-                $segments = explode('/', $pathInfo);
-                if (isset($segments[2])) {
-                    $title = urldecode($segments[2]);
-                    if (isset($segments[3])) {
-                        $type = urldecode($segments[3]);
-                    }
-                }
-            @endphp
-        @endif
-        @if ($title)
-            {{ ucfirst($title) }} |
-        @endif
-        @if ($type)
-            {{ ucfirst($type) }} |
-        @endif
-        Taxi Transfer & Car Rent Trapani | Taxi transfer Aeroporto Palermo e Aeroporto Trapani | Noleggio Auto |
-        Escursioni
-    </title>
+    @php
+        use Illuminate\Support\Str;
+
+        $currentRoute = Route::currentRouteName();
+        $seoTitle = null;
+        $seoDescription = null;
+
+        // Mappa SEO per le rotte principali
+        $seoMap = [
+            'home' => [
+                'title' => 'Trapani Transfer | Transfer, Taxi, Noleggio Auto ed Escursioni a Trapani',
+                'description' =>
+                    'Servizi di transfer, taxi, noleggio auto ed escursioni in Sicilia occidentale. Prenota online Trapani Transfer per Aeroporto Palermo e Trapani.',
+            ],
+            'noleggio' => [
+                'title' => 'Noleggio Auto a Trapani | Consegna in Aeroporto e in Città',
+                'description' =>
+                    'Noleggia un’auto a Trapani con consegna in aeroporto o hotel. Prezzi competitivi e prenotazione semplice online.',
+            ],
+            'transfer' => [
+                'title' => 'Transfer e Taxi Trapani | Aeroporto Palermo & Aeroporto Trapani',
+                'description' =>
+                    'Servizio di taxi e transfer privati da/per Trapani, Palermo e gli aeroporti. Puntualità e comfort assicurati.',
+            ],
+            'escursioni' => [
+                'title' => 'Escursioni Trapani | Tour alle Egadi, Erice e San Vito Lo Capo',
+                'description' =>
+                    'Scopri le migliori escursioni da Trapani: Favignana, Levanzo, Erice e San Vito Lo Capo. Esperienze autentiche e guide locali.',
+            ],
+            'prezziDestinazioni' => [
+                'title' => 'Prezzi e Destinazioni | Transfer, Taxi ed Escursioni da Trapani',
+                'description' =>
+                    'Consulta la lista completa di prezzi e destinazioni per i nostri servizi transfer, taxi ed escursioni da Trapani.',
+            ],
+            'diconoDiNoi' => [
+                'title' => 'Recensioni | Cosa dicono di noi i clienti Trapani Transfer',
+                'description' =>
+                    'Leggi le recensioni dei clienti che hanno scelto Trapani Transfer per i loro spostamenti in Sicilia occidentale.',
+            ],
+            'contattaci' => [
+                'title' => 'Contatti | Prenota il tuo Transfer o Noleggio a Trapani',
+                'description' =>
+                    'Contatta Trapani Transfer per informazioni, preventivi o prenotazioni di transfer, taxi ed escursioni.',
+            ],
+            'partners' => [
+                'title' => 'Partners | Collaborazioni con Trapani Transfer',
+                'description' =>
+                    'Scopri i nostri partner e collaboratori nel settore turismo e trasporti in Sicilia occidentale.',
+            ],
+            'faq' => [
+                'title' => 'FAQ | Domande Frequenti su Trapani Transfer',
+                'description' =>
+                    'Consulta le risposte alle domande più frequenti su prenotazioni, pagamenti e servizi offerti da Trapani Transfer.',
+            ],
+            'privacy' => [
+                'title' => 'Privacy e Termini | Trapani Transfer',
+                'description' =>
+                    'Consulta la nostra informativa sulla privacy, i termini e le condizioni del servizio Trapani Transfer.',
+            ],
+        ];
+
+        // Se la route è definita nella mappa, usa quei valori
+        if (isset($seoMap[$currentRoute])) {
+            $seoTitle = $seoMap[$currentRoute]['title'];
+            $seoDescription = $seoMap[$currentRoute]['description'];
+        }
+
+        // Altrimenti, prova a dedurlo da segmenti dinamici (es. servizi, escursioni singole)
+        else {
+            $pathInfo = request()->getPathInfo();
+            $segments = array_values(array_filter(explode('/', $pathInfo)));
+
+            if (isset($segments[1])) {
+                $title = urldecode($segments[1]);
+                $seoTitle = Str::title(str_replace('-', ' ', $title)) . ' | Trapani Transfer';
+            } else {
+                $seoTitle = 'Trapani Transfer | Servizi di Transfer, Taxi, Noleggio Auto ed Escursioni';
+            }
+
+            $seoDescription =
+                'Scopri di più su ' .
+                Str::title(str_replace('-', ' ', $title ?? 'Trapani Transfer')) .
+                ' a Trapani e prenota online i tuoi servizi di trasporto o escursione.';
+        }
+    @endphp
+
+    <title>{{ $seoTitle }}</title>
+    <meta name="description" content="{{ $seoDescription }}">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="{{ $seoTitle }}">
+    <meta property="og:description" content="{{ $seoDescription }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:site_name" content="Trapani Transfer">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @include('cookie-consent::index')
@@ -76,7 +135,7 @@
     <x-whatsapp />
     <x-nav />
     <x-masthead />
-    <div id="mainContent" data-currentRoute="{{ $currentRouteName }}" class="overflow-hidden mt-5">
+    <div id="mainContent" data-currentRoute="{{ $currentRoute }}" class="overflow-hidden mt-5">
         {{ $slot }}
     </div>
 

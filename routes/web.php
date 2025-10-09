@@ -1,38 +1,36 @@
 <?php
 
-use Livewire\Livewire;
-
-use Illuminate\Support\Facades\App;
-
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CarController;
-
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\TestController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\RouteController;
-use App\Http\Controllers\PublicController;
-use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\CarPriceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContentController;
-use App\Http\Controllers\PartnerController;
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\SettingController;
-use App\Http\Controllers\CarPriceController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\ExcursionController;
 use App\Http\Controllers\OwnerDataController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\PublicController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\RouteController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\TimePeriodController;
-use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Route;
+use Livewire\Livewire;
 
 Route::get('/', function () {
     $locale = App::getLocale(); // Recupera il locale predefinito
+
     return redirect()->to($locale); // Reindirizza alla homepage con il locale
 });
 
-//navigazione
+// navigazione
 Route::prefix('{locale}')
     ->where(['locale' => '[a-zA-Z]{2}'])
     ->middleware('locale')
@@ -55,6 +53,7 @@ Route::prefix('{locale}')
         Route::get('/services', [PublicController::class, 'servizi'])->name('services.index');
         Route::get('/services/{title}/{id}', [ServiceController::class, 'show'])->name('service.show');
         Route::get('/excursions/trapani/{name}/{id}', [ExcursionController::class, 'show'])->name('excursion.show');
+        Route::get('/transfer/{departure}/{arrival}', [RouteController::class, 'show'])->name('transfer.show');
 
         // Contattaci
         Route::post('/info-request', [ContactController::class, 'invia'])->name('inviaForm');
@@ -66,7 +65,7 @@ Route::prefix('{locale}')
         // recensioni
         Route::get('/reviews/create/{booking_code}', [ReviewController::class, 'createReview'])->name('reviews.create');
         Route::post('/reviews/save', [ReviewController::class, 'saveReview'])->name('customer.reviews.store');
-        
+
         Route::get('/not-found', function () {
             return view('errors.404');
         })->name('not-found');
@@ -75,7 +74,6 @@ Route::prefix('{locale}')
 Route::get('dashboard/bookingfromreact/getBookingCode', [BookingController::class, 'getBookingCode']);
 Route::get('dashboard/bookingfromreact/getBookingData', [BookingController::class, 'getBookingData']);
 
-
 // gestione stato prenotazione
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
 
@@ -83,17 +81,15 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::get('/booking/status/to-do', [BookingController::class, 'bookingToDo'])->name('booking.todo');
     Route::get('/booking/status/rejected', [BookingController::class, 'bookingRejected'])->name('booking.rejected');
 
-
     // Route::get('/booking/confirm/{booking}', [PublicController::class, 'confirmBooking'])->name('booking.confirm');
     // Route::get('/booking/reject/{booking}', [PublicController::class, 'rejectBooking'])->name('booking.reject');
-
 
     // DASHBOARD
 
     // vista dashboard
     Route::get('/', [PublicController::class, 'dashboard'])->name('dashboard');
 
-    //impostazioni
+    // impostazioni
     Route::get('/settings/', [SettingController::class, 'index'])->name('dashboard.settings'); // Visualizza tutte le impostazioni
     Route::get('/settings/create', [SettingController::class, 'create'])->name('settings.create'); // Mostra il form per creare una nuova impostazione
     Route::post('/settings/', [SettingController::class, 'store'])->name('settings.store'); // Salva una nuova impostazione
@@ -154,7 +150,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
 
     // Gestione prenotazioni
     Route::get('/bookings', [BookingController::class, 'index'])->name('dashboard.booking');
-    
+
     // Visit tracking
     Route::prefix('visits')->name('visits.')->group(function () {
         Route::get('/', [\App\Http\Controllers\VisitController::class, 'index'])->name('index');
