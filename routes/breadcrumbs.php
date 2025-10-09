@@ -2,7 +2,6 @@
 
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
-use PHPUnit\TextUI\Configuration\Php;
 
 // Home
 Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
@@ -19,6 +18,30 @@ Breadcrumbs::for('noleggio', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('transfer', function (BreadcrumbTrail $trail) {
     $trail->parent('home');
     $trail->push(__('breadcrumbs.transfer'), route('transfer'));
+});
+
+// Transfer Specific (es. Transfer da Trapani a Palermo)
+use App\Models\Destination;
+
+Breadcrumbs::for('transfer.show', function (BreadcrumbTrail $trail, $locale, $departureSlug, $arrivalSlug) {
+    $trail->parent('transfer');
+
+    // Recupera le destinazioni vere dal database
+    $departure = Destination::where('slug', $departureSlug)->first();
+    $arrival = Destination::where('slug', $arrivalSlug)->first();
+
+    // Evita errori in caso di slug non trovato
+    $departureName = $departure ? $departure->name : ucfirst(str_replace('-', ' ', $departureSlug));
+    $arrivalName = $arrival ? $arrival->name : ucfirst(str_replace('-', ' ', $arrivalSlug));
+
+    // Crea il titolo localizzato
+    $label = __('breadcrumbs.transfer_da').' '.$departureName.' '.__('breadcrumbs.a').' '.$arrivalName;
+
+    $trail->push($label, route('transfer.show', [
+        'locale' => $locale,
+        'departure' => $departureSlug,
+        'arrival' => $arrivalSlug,
+    ]));
 });
 
 // Escursioni (Excursions)

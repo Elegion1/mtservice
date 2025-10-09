@@ -8,21 +8,21 @@
                     $arrivalSlug = $tratta->arrival->slug;
                 @endphp
 
-                <div class="container text-uppercase mb-3 p-3 border rounded shadow-sm">
+                <div class="container text-uppercase py-1 px-0 d-flex justify-content-center align-items-center flex-column">
                     <a href="{{ route('transfer.show', ['locale' => $locale, 'departure' => $departureSlug, 'arrival' => $arrivalSlug]) }}"
                         class="text-decoration-none text-dark d-block">
-                        <p class="small mb-1">
+                        <p class="small">
                             {{ __('ui.from') }}
                             <span class="text_col">{{ $tratta->departure->name }}</span>
                             {{ __('ui.to') }}
                             <span class="text_col">{{ $tratta->arrival->name }}</span>
                         </p>
+                    </a>
                         <p class="small">
                             {{ __('ui.priceStartingFrom') }}
                             <strong class="small text-d">{{ $tratta->price }} €</strong>
                             {{ __('ui.perPerson') }}
                         </p>
-                    </a>
                 </div>
             @endforeach
         </div>

@@ -31,4 +31,7 @@ return [
     'dashboard_customers' => 'Manage Customers',
     'dashboard_discounts' => 'Manage Discounts',
     'create_review' => 'Create review for booking :booking_code',
+    'transfer' => 'Taxi Transfer',
+    'transfer_da' => 'Transfer from',
+    'a' => 'to',
 ];

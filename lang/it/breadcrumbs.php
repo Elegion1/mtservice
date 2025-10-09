@@ -31,4 +31,6 @@ return [
     'dashboard_customers' => 'Gestione Clienti',
     'dashboard_discounts' => 'Gestione Sconti',
     'create_review' => 'Crea recensione per la prenotazione :booking_code',
+    'transfer_da' => 'Transfer da',
+    'a' => 'a',
 ];
