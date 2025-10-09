@@ -35,15 +35,24 @@
                                 aria-labelledby="heading{{ Str::slug($departure) }}" data-bs-parent="#tratteAccordion">
                                 <div class="accordion-body">
                                     @foreach ($tratte as $tratta)
+                                        @php
+                                            $locale = App::getLocale();
+                                            $departureSlug = $tratta->departure->slug;
+                                            $arrivalSlug = $tratta->arrival->slug;
+                                        @endphp
+                                        
                                         <div
                                             class="d-flex justify-content-between align-items-center border-bottom py-2">
-                                            <p class="m-0">
-                                                {{ __('ui.to') }} <span
-                                                    class="fw-bold">{{ $tratta->arrival->name }}</span> <br>
-                                                {{ __('ui.from') }}
-                                                <span class="text-d">€ {{ $tratta->price }}</span>
-                                                {{ __('ui.perPerson') }}
-                                            </p>
+                                            <a href="{{ route('transfer.show', ['locale' => $locale, 'departure' => $departureSlug, 'arrival' => $arrivalSlug]) }}"
+                                                class="text-decoration-none text-dark d-block">
+                                                <p class="m-0">
+                                                    {{ __('ui.to') }} <span
+                                                        class="fw-bold">{{ $tratta->arrival->name }}</span> <br>
+                                                    {{ __('ui.from') }}
+                                                    <span class="text-d">€ {{ $tratta->price }}</span>
+                                                    {{ __('ui.perPerson') }}
+                                                </p>
+                                            </a>
                                             <button class="btn btn-sm bg-a text-white"
                                                 data-tratta-id="{{ $tratta->id }}"
                                                 data-departure="{{ $tratta->departure->id }}"

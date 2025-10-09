@@ -33,6 +33,7 @@ return [
     'totalPrice' => 'Total',
     'submit' => 'BOOK',
     'book' => 'Book',
+    'bookNow' => 'Book now',
     'select' => 'Select',
 
     //excursion

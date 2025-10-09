@@ -13,6 +13,7 @@ class Destination extends Model
         'name',
         'show',
         'slug',
+        
     ];
 
     public function routes()

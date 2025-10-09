@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Car;
-
-use App\Models\Page;
-use App\Models\Image;
-use App\Models\Route;
-use App\Models\Review;
 use App\Models\Booking;
+use App\Models\Car;
 use App\Models\Contact;
-
-use App\Models\Partner;
-use App\Models\Service;
-
 use App\Models\Excursion;
+use App\Models\Image;
+use App\Models\Page;
+use App\Models\Partner;
+use App\Models\Review;
+use App\Models\Route;
+use App\Models\Service;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 use function PHPUnit\Framework\isEmpty;
@@ -35,8 +32,23 @@ class PublicController extends Controller
 
     public function home()
     {
-        $tratte = Route::where('show', 1)->take(5)->get();
+        // prendi gli id "representative" (MIN(id)) per ogni coppia unordered
+        $ids = DB::table('routes')
+            ->selectRaw('MIN(id) as id')
+            ->where('show', 1)
+            ->where('featured', 1)
+            ->groupBy(DB::raw('LEAST(departure_id, arrival_id), GREATEST(departure_id, arrival_id)'))
+            ->orderBy('id')    // oppure orderByRaw('MIN(price)') se vuoi ordinare per prezzo
+            ->limit(5)
+            ->pluck('id');
+
+        // poi carica i modelli Eloquent (con relations)
+        $tratte = Route::with(['departure', 'arrival'])
+            ->whereIn('id', $ids)
+            ->get();
+
         $data = $this->getPageData('home', ['tratte' => $tratte]); // Ottieni i dati della pagina
+
         return view('welcome', $data);
     }
 
@@ -44,12 +56,14 @@ class PublicController extends Controller
     {
         $cars = Car::where('show', 1)->get();
         $data = $this->getPageData('noleggio', ['cars' => $cars]);
+
         return view('pages.noleggio-auto', $data);
     }
 
     public function transfer()
     {
         $data = $this->getPageData('transfer');
+
         return view('pages.transfer', $data);
     }
 
@@ -57,6 +71,7 @@ class PublicController extends Controller
     {
         $excursionsP = Excursion::where('show', 1)->orderBy('name_it', 'asc')->paginate(4);
         $data = $this->getPageData('escursioni', ['excursionsP' => $excursionsP]);
+
         return view('pages.escursioni', $data);
     }
 
@@ -64,6 +79,7 @@ class PublicController extends Controller
     {
         $tratte = Route::where('show', 1)->get();
         $data = $this->getPageData('prezziDestinazioni', ['tratte' => $tratte]);
+
         return view('pages.prezzi-destinazioni', $data);
     }
 
@@ -71,12 +87,14 @@ class PublicController extends Controller
     {
         $reviewsP = Review::where('status', 'confirmed')->paginate(6);
         $data = $this->getPageData('diconoDiNoi', ['reviewsP' => $reviewsP]);
+
         return view('pages.dicono-di-noi', $data);
     }
 
     public function contattaci()
     {
         $data = $this->getPageData('contattaci');
+
         return view('pages.contattaci', $data);
     }
 
@@ -84,12 +102,14 @@ class PublicController extends Controller
     {
         $partners = Partner::orderBy('name', 'asc')->paginate(9);
         $data = $this->getPageData('partners', ['partners' => $partners]);
+
         return view('pages.partners', $data);
     }
 
     public function faq()
     {
         $data = $this->getPageData('faq');
+
         return view('pages.faq', $data);
     }
 
@@ -101,6 +121,7 @@ class PublicController extends Controller
 
             return view('pages.privacy-terms_en');
         }
+
         // Imposta la vista italiana come predefinita
         return view('pages.privacy-terms_it');
     }
@@ -108,6 +129,7 @@ class PublicController extends Controller
     public function servizi()
     {
         $services = Service::all();
+
         return view('pages.services', compact('services'));
     }
 
@@ -125,6 +147,7 @@ class PublicController extends Controller
 
         $contacts = Contact::all();
         $reviews = Review::all();
+
         return view('dashboard.index', compact('bookings', 'contacts', 'reviews'));
     }
 
@@ -132,20 +155,20 @@ class PublicController extends Controller
     {        // Recupera i dati della prenotazione dalla sessione
         $booking = session('booking');
 
-        if (!$booking) {
+        if (! $booking) {
             session(['verified' => false]);
         }
 
         return view('pages.booking-status', ['booking' => $booking]);
     }
-    
+
     // Check the email and show the booking status if verified
     public function bookingStatusCheck(Request $request)
     {
         // Valida i dati in ingresso
         $validated = $request->validate([
             'email' => 'required|email',
-            'code' => 'required|string|size:6'
+            'code' => 'required|string|size:6',
         ]);
 
         $code = strtoupper($validated['code']);
@@ -159,10 +182,12 @@ class PublicController extends Controller
         if ($booking) {
             // Email verificata correttamente
             session(['verified' => true]); // Imposta la variabile di sessione
+
             return view('pages.booking-status', ['booking' => $booking, 'verified' => true]);
         } else {
             // Email o ID non corretti
             session(['verified' => false]); // Imposta la variabile di sessione per email non valida
+
             return redirect()->route('booking.status', ['booking' => $validated['code']])->withErrors([
                 'email' => __('ui.email_not_verified'),
                 'code' => __('ui.code_not_verified'),
@@ -218,7 +243,6 @@ class PublicController extends Controller
     //         Log::info("Job per la richiesta di recensione creato per la prenotazione: {$booking->code}, con invio previsto per: {$delay->toDateTimeString()}");
     //     }
 
-
     //     return redirect()->back()->with('message', 'Prenotazione confermata con successo.');
     // }
 
@@ -257,7 +281,7 @@ class PublicController extends Controller
     //     return redirect()->back()->with('message', 'Prenotazione rifiutata con successo.');
     // }
 
-    //funzione per eliminare le immagini
+    // funzione per eliminare le immagini
     public function deleteImage($id)
     {
         $image = Image::find($id);
@@ -265,6 +289,7 @@ class PublicController extends Controller
         if ($image) {
             Storage::disk('public')->delete($image->path);
             $image->delete();
+
             return response()->json(['success' => true]);
         }
 

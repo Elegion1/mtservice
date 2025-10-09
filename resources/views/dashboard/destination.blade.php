@@ -25,7 +25,9 @@
             <tr>
                 <th>#</th>
                 <th>Nome</th>
+                <th>Slug</th>
                 <th>Mostra</th>
+
                 <th>Azione</th>
             </tr>
         </thead>
@@ -34,7 +36,9 @@
                 <tr>
                     <td>{{ $destination->id }}</td>
                     <td>{{ $destination->name }}</td>
+                    <td>{{ $destination->slug }}</td>
                     <td>{{ $destination->show ? 'Si' : 'No' }}</td>
+
                     <td>
                         <x-edit-button :id="'Destination'" :data="$destination" />
                         <x-delete-button :route="'destinations'" :model="$destination" />

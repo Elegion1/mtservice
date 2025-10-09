@@ -105,6 +105,7 @@
                     <th>PAX Incremento</th>
                     <th>Tempo di Percorrenza</th>
                     <th>Mostra</th>
+                    <th>In primo piano</th>
                     <th>Azioni</th>
                 </tr>
             </thead>
@@ -119,6 +120,7 @@
                         <td>{{ $group['route']->increment_passengers }}</td>
                         <td>{{ $group['route']->duration }} Min</td>
                         <td>{{ $group['route']->show ? 'Si' : 'No' }}</td>
+                        <td>{{ $group['route']->featured ? 'Si' : 'No' }}</td>
                         <td>
                             <x-edit-button :id="'Route'" :data="$group['route']" />
                             <x-delete-button :route="'routes'" :model="$group['route']" />
@@ -137,6 +139,11 @@
             <input type="hidden" name="show" value="0">
             <label for="edit_show">Mostra</label>
             <input type="checkbox" class="form-check-input" id="edit_show" name="show" value="1">
+        </div>
+        <div class="mb-3">
+            <input type="hidden" name="featured" value="0">
+            <label for="edit_featured">In primo piano</label>
+            <input type="checkbox" class="form-check-input" id="edit_featured" name="featured" value="1">
         </div>
         <div class="mb-3">
             <label for="edit_distance" class="form-label">Distanza (km)</label>

@@ -3,6 +3,8 @@
         @php
             use Carbon\Carbon;
             use App\Models\Setting;
+
+            $locale = App::getLocale();
             $now = Carbon::now();
             $currentRoute = Route::currentRouteName();
             $defaultContent = null;
@@ -46,6 +48,18 @@
             if (!$displayedContent) {
                 $displayedContent = $defaultContent;
             }
+
+            if ($locale == 'it'){
+                $bookingModuleTitle = "Prenotazione Transfer, Escursioni e Noleggi Auto";
+                $bookingModuleDesc = "Compila il modulo per prenotare il tuo transfer privato, un'escursione o il noleggio auto a
+                            Trapani.
+                            I nostri servizi sono disponibili in tutta la Sicilia con prezzi trasparenti e conferma
+                            immediata.";
+            } else {
+                $bookingModuleTitle="Book Transfers, Excursions and Car Rentals";
+                $bookingModuleDesc="Fill out the form to book your private transfer, an excursion, or a car rental in Trapani.  
+        Our services are available throughout Sicily with transparent prices and instant confirmation.";
+            }
         @endphp
 
         <div class="container-fluid position-absolute mt-5 pos_masthead">
@@ -67,7 +81,14 @@
                     <x-display-message />
                 </div>
                 <div id="headerBooking" class="col-12 col-lg-6 p-0 d-flex justify-content-center align-items-start">
-                    <livewire:prenotazione />
+                    <div class="booking-module">
+                        <h2 class="visually-hidden">{{ $bookingModuleTitle }}</h2>
+                        <h3 class="visually-hidden">{{ __('ui.bookNow') }}</h3>
+                        <p class="visually-hidden">
+                           {{$bookingModuleDesc}}
+                        </p>
+                        <livewire:prenotazione />
+                    </div>
                 </div>
             </div>
         </div>
@@ -76,10 +97,10 @@
         <div class="gradient-overlay"></div>
 
         @if ($displayedImage)
-            <img class="img_car" src="{{ Storage::url($displayedImage) }}" alt="HEADER-IMG">
-        @else
-            <img class="img_car" src="{{ $defaultImagePath }}" alt="HEADER-IMG-Default">
-        @endif
+    <img class="img_car" src="{{ Storage::url($displayedImage) }}" alt="{{ $displayedContent ? $displayedContent->{'title_' . app()->getLocale()} : 'Transfer and excursions in Sicily' }}">
+@else
+    <img class="img_car" src="{{ $defaultImagePath }}" alt="{{ $bookingModuleTitle }}">
+@endif
     </div>
 
 </header>

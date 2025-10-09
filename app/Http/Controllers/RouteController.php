@@ -53,6 +53,7 @@ class RouteController extends Controller
             'price_increment' => 'nullable|numeric',
             'show' => 'nullable|boolean',
             'increment_passengers' => 'nullable|numeric',
+            'featured' => 'nullable|boolean',
         ]);
 
         // Verifica che departure_id e arrival_id siano diversi
@@ -70,6 +71,7 @@ class RouteController extends Controller
         }
 
         $validated['show'] = $validated['show'] ?? 0;
+        $validated['featured'] = $validated['featured'] ?? 0;
         $validated['price_increment'] = $validated['price_increment'] ?? 0;
 
         // Creazione della nuova rotta
@@ -85,6 +87,7 @@ class RouteController extends Controller
                 'distance' => $validated['distance'],
                 'show' => $validated['show'],
                 'increment_passengers' => $validated['increment_passengers'] ?? 4,
+                'featured' => $validated['featured'],
             ]);
         }
 
@@ -130,6 +133,7 @@ class RouteController extends Controller
             'distance' => 'required|numeric',
             'show' => 'required|boolean',
             'increment_passengers' => 'required|numeric',
+            'featured' => 'nullable|boolean',
         ]);
 
         // Aggiorna la rotta originale

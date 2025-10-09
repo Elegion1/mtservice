@@ -1,5 +1,4 @@
 <div>
-
     <form wire:submit.prevent="submitBookingTransfer" id="transferForm">
 
         <div class="row">

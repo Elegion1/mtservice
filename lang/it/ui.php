@@ -33,6 +33,7 @@ return [
     'totalPrice' => 'Totale',
     'submit' => 'PRENOTA',
     'book' => 'Prenota',
+    'bookNow' => 'Prenota ora',
     'select' => 'Seleziona',
 
     //escursione

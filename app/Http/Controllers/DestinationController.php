@@ -20,23 +20,28 @@ class DestinationController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'show' => 'nullable|boolean',
+
         ]);
 
-        $destination = new Destination;
-        $destination->name = $validated['name'];
+        // Genera slug univoco
         $slug = Str::slug($validated['name']);
-        $counter = 1;
         $originalSlug = $slug;
+        $counter = 1;
 
-        while (Destination::where('slug', $slug)->where('id', '!=', $destination->id)->exists()) {
+        while (Destination::where('slug', $slug)->exists()) {
             $slug = $originalSlug.'-'.$counter++;
         }
 
-        $destination->slug = $slug;
-        $destination->show = $validated['show'] ?? true;    // opzionale: default true
-        $destination->save();
+        // Crea direttamente la destinazione
+        Destination::create([
+            'name' => $validated['name'],
+            'slug' => $slug,
+            'show' => $validated['show'] ?? true,
 
-        return redirect()->route('dashboard.route')->with('success', 'Destinazione creata con successo!');
+        ]);
+
+        return redirect()->route('dashboard.route')
+            ->with('success', 'Destinazione creata con successo!');
     }
 
     public function update(Request $request, Destination $destination)
@@ -44,21 +49,26 @@ class DestinationController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'show' => 'required|boolean',
+
         ]);
 
-        // Aggiorna il nome e lo slug
-        $destination->name = $validated['name'];
+        // Genera slug univoco
         $slug = Str::slug($validated['name']);
-        $counter = 1;
         $originalSlug = $slug;
+        $counter = 1;
 
-        while (Destination::where('slug', $slug)->where('id', '!=', $destination->id)->exists()) {
+        while (Destination::where('slug', $slug)
+            ->where('id', '!=', $destination->id)
+            ->exists()) {
             $slug = $originalSlug.'-'.$counter++;
         }
 
-        $destination->slug = $slug;
-        $destination->show = $validated['show'];
-        $destination->save();
+        $destination->update([
+            'name' => $validated['name'],
+            'slug' => $slug,
+            'show' => $validated['show'],
+
+        ]);
 
         return redirect()->route('dashboard.destination')
             ->with('success', 'Destinazione aggiornata con successo!');
