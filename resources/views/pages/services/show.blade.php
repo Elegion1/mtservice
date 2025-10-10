@@ -23,7 +23,7 @@
                     @if ($service->images->isNotEmpty())
                         @foreach ($service->images as $image)
                             <img width="500px" src="{{ Storage::url($image->path) }}" class="img-show rounded m-1"
-                                alt="img_{{ $service->title_en }}">
+                                alt="img_{{ $service->{'slug_' . app()->getLocale()} }}">
                         @endforeach
                     @else
                         <img class="img-show rounded" src="https://picsum.photos/500/400" alt="placeholder">

@@ -24,7 +24,9 @@ class Service extends Model
         'condition_it',
         'condition_en',
         'flag',
-        'show'
+        'show',
+        'slug_it',
+        'slug_en',
     ];
 
     public function images()

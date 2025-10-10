@@ -14,16 +14,16 @@
                     $imagePath = $service->images->isNotEmpty()
                         ? Storage::url($service->images->first()->path)
                         : "https://picsum.photos/1920/108{$service->id}";
+                    $slug = $service->{'slug_' . $locale};
                 @endphp
                 <div class="col-md-4 col-12">
                     <div class="service_custom">
-                        <a class="text-reset text-decoration-none"
-                            href="{{ route('service.show', ['title' => $title, 'id' => $service->id]) }}">
+                        <a class="text-reset text-decoration-none" href="{{ route('service.show', ['title' => $slug]) }}">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-12 my-3 d-flex justify-content-center align-items-center">
                                         <img src="{{ $imagePath }}" class="service-img_custom"
-                                            alt="img_{{ $service->title_en }}">
+                                            alt="img_{{ $service->{'slug_' . app()->getLocale()} }}">
                                     </div>
                                     <div
                                         class="col-12 d-flex justify-content-center align-items-center flex-column text-center">
