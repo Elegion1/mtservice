@@ -4,7 +4,7 @@
         <div>
             <a class="text-b text-decoration-none d-flex justify-content-center align-items-center m-1"
                 href="{{ route('home') }}">
-                <img class="logo-img" src="{{ Storage::url($ownerdata->images->first()->path) }}"
+                <img loading="lazy" class="logo-img" src="{{ Storage::url($ownerdata->images->first()->path) }}"
                     alt="LOGO-TRANCHIDA-TRANSFER&RENT">
                 <p class="m-1 text-center text-nowrap">{!! $ownerdata->siteName !!}</p>
             </a>

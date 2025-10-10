@@ -11,7 +11,7 @@
                 @foreach ($cars as $car)
                     <div class="card me-lg-5 p-1 mt-3 bg-b shadow-sm " style="width: 13rem;">
                         <div class="d-flex justify-content-center align-items-center">
-                            <img src="{{ Storage::url($car->images[0]->path) }}" class="img_carRent"
+                            <img loading="lazy" src="{{ Storage::url($car->images[0]->path) }}" class="img_carRent"
                                 alt="{{ $car->name }}">
                         </div>
                         <div class="card-body text-center">

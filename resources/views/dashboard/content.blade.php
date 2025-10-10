@@ -45,14 +45,14 @@
                     <td>{{ $content->end_date }}</td>
                     <td>
                         {{-- @foreach ($content->images as $image)
-                            <img src="{{ asset('storage/' . $image->path) }}" alt="Immagine" width="100">
+                            <img loading="lazy" src="{{ asset('storage/' . $image->path) }}" alt="Immagine" width="100">
                         @endforeach --}}
                         @if ($content->images->count() > 0)
                             <small>
                                 {{ $content->images->count() }} immagini caricate
                             </small>
                             @foreach ($content->images as $image)
-                                <img height="50px" src="{{ Storage::url($image->path) }}" alt="">
+                                <img loading="lazy" height="50px" src="{{ Storage::url($image->path) }}" alt="">
                             @endforeach
                         @else
                             <small>Nessuna immagine</small>

@@ -97,9 +97,9 @@
         <div class="gradient-overlay"></div>
 
         @if ($displayedImage)
-    <img class="img_car" src="{{ Storage::url($displayedImage) }}" alt="{{ $displayedContent ? $displayedContent->{'title_' . app()->getLocale()} : 'Transfer and excursions in Sicily' }}">
+    <img fetchpriority="high" loading="lazy" class="img_car" src="{{ Storage::url($displayedImage) }}" alt="{{ $displayedContent ? $displayedContent->{'title_' . app()->getLocale()} : 'Transfer and excursions in Sicily' }}">
 @else
-    <img class="img_car" src="{{ $defaultImagePath }}" alt="{{ $bookingModuleTitle }}">
+    <img fetchpriority="high" loading="lazy" class="img_car" src="{{ $defaultImagePath }}" alt="{{ $bookingModuleTitle }}">
 @endif
     </div>
 

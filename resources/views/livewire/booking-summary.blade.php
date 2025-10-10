@@ -207,7 +207,7 @@
                 <div class="col-12 p-0">
                     <label for="phone" class="form-label d-flex align-items-center">
                         {{ __('ui.phone') }} <x-required-field />
-                        <img width="30px" class="ms-2 border" src="{{ $dialFlag['png'] }}"
+                        <img loading="lazy" width="30px" class="ms-2 border" src="{{ $dialFlag['png'] }}"
                             alt="{{ $dialFlag['alt'] }}">
                     </label>
                     <div class="d-flex justify-content-between">

@@ -16,11 +16,11 @@
                             <div class="col-12 my-3 d-flex justify-content-center align-items-center">
                                 @if ($service->images->isNotEmpty())
                                     @foreach ($service->images as $image)
-                                        <img src="{{ Storage::url($image->path) }}" class="service-img"
+                                        <img loading="lazy" src="{{ Storage::url($image->path) }}" class="service-img"
                                             alt="img_{{ $service->title_en }}">
                                     @endforeach
                                 @else
-                                    <img class="service-img " src="https://picsum.photos/1920/108{{ $service->id }}"
+                                    <img loading="lazy" class="service-img " src="https://picsum.photos/1920/108{{ $service->id }}"
                                         alt="placeholder">
                                 @endif
                             </div>

@@ -22,7 +22,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="col-12 my-3 d-flex justify-content-center align-items-center">
-                                        <img src="{{ $imagePath }}" class="service-img_custom"
+                                        <img loading="lazy" src="{{ $imagePath }}" class="service-img_custom"
                                             alt="img_{{ $service->{'slug_' . app()->getLocale()} }}">
                                     </div>
                                     <div

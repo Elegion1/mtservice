@@ -40,11 +40,11 @@
                 <div class="col-12 my-3 d-flex justify-content-center align-items-center position-relative">
                     @if ($excursion->images->isNotEmpty())
                         @foreach ($excursion->images as $image)
-                            <img src="{{ Storage::url($image->path) }}"
+                            <img loading="lazy" src="{{ Storage::url($image->path) }}"
                                 class="excursion-img" alt="img_{{ $excursion->name_en }}">
                         @endforeach
                     @else
-                        <img class="excursion-img" src="https://picsum.photos/20{{ $excursion->id }}/{{ $excursion->id + 100 }}"
+                        <img loading="lazy" class="excursion-img" src="https://picsum.photos/20{{ $excursion->id }}/{{ $excursion->id + 100 }}"
                             alt="placeholder">
                     @endif
                     <div class="price-tag text-nowrap">
@@ -75,11 +75,11 @@
                 <div class="col-12 my-3 d-flex justify-content-center align-items-center position-relative">
                     @if ($excursion->images->isNotEmpty())
                         @foreach ($excursion->images as $image)
-                            <img src="{{ Storage::url($image->path) }}"
+                            <img loading="lazy" src="{{ Storage::url($image->path) }}"
                                 class="excursion-img" alt="img_{{ $excursion->name_en }}">
                         @endforeach
                     @else
-                        <img class="excursion-img" src="https://picsum.photos/20{{ $excursion->id }}/{{ $excursion->id + 100 }}"
+                        <img loading="lazy" class="excursion-img" src="https://picsum.photos/20{{ $excursion->id }}/{{ $excursion->id + 100 }}"
                             alt="placeholder">
                     @endif
                     <div class="price-tag text-nowrap">

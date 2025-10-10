@@ -164,7 +164,7 @@
                 <div class="col-12 mb-3 p-0">
                     <label>{{ __('ui.totalPrice') }}</label>
                     <div class="d-flex justify-content-start align-items-center bg-c rounded px-2">
-                        <img src="{{ url('/media/svg/currency-euro.svg') }}" alt="">
+                        <img loading="lazy" src="{{ url('/media/svg/currency-euro.svg') }}" alt="">
                         <input wire:model.live="transferPrice" readonly type="text"
                             class="form-control form_input input_size" id="transferPrice">
                     </div>

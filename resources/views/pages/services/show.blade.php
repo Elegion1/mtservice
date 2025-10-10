@@ -22,11 +22,11 @@
                 <div class="container-fluid my-2 my-md-0 justify-content-center align-items-center d-flex">
                     @if ($service->images->isNotEmpty())
                         @foreach ($service->images as $image)
-                            <img width="500px" src="{{ Storage::url($image->path) }}" class="img-show rounded m-1"
+                            <img loading="lazy" width="500px" src="{{ Storage::url($image->path) }}" class="img-show rounded m-1"
                                 alt="img_{{ $service->{'slug_' . app()->getLocale()} }}">
                         @endforeach
                     @else
-                        <img class="img-show rounded" src="https://picsum.photos/500/400" alt="placeholder">
+                        <img loading="lazy" class="img-show rounded" src="https://picsum.photos/500/400" alt="placeholder">
                     @endif
                 </div>
             </div>

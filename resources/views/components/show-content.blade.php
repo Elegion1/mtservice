@@ -9,7 +9,7 @@
             @if ($content->show && (!$content->start_date || $content->start_date <= $now) && (!$content->end_date || $content->end_date >= $now))
                 @if ($content->images->count())
                     <div class="col-12">
-                        <img class="rounded" width="100%" src="{{ Storage::url($content->images[0]->path) }}"
+                        <img loading="lazy" class="rounded" width="100%" src="{{ Storage::url($content->images[0]->path) }}"
                             alt="img_{{ $content->title_en }}">
                     </div>
                 @endif

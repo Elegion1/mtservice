@@ -128,7 +128,7 @@
                         @if ($ownerData->images->count() > 0)
                             @foreach ($ownerData->images as $image)
                                 <div id="image-{{ $image->id }}" class="d-inline-block me-3">
-                                    <img src="{{ Storage::url($image->path) }}" alt="Logo"
+                                    <img loading="lazy" src="{{ Storage::url($image->path) }}" alt="Logo"
                                         class="img-thumbnail mb-2" style="width: 200px;">
                                     <button type="button" class="btn btn-danger btn-sm"
                                         onclick="deleteImage({{ $image->id }})">Elimina</button>

@@ -110,7 +110,7 @@
                         </div>
                         <div class="col-6 d-flex justify-content-center align-items-center">
                             @foreach ($car->images as $image)
-                                <img src="{{ Storage::url($image->path) }}" alt="{{ $car->name }}"
+                                <img loading="lazy" src="{{ Storage::url($image->path) }}" alt="{{ $car->name }}"
                                     width="200px">
                             @endforeach
                         </div>
@@ -144,7 +144,7 @@
                         <td>{{ $car->description }}</td>
                         <td>
                             @foreach ($car->images as $image)
-                                <img src="{{ Storage::url($image->path) }}" alt="{{ $car->name }}"
+                                <img loading="lazy" src="{{ Storage::url($image->path) }}" alt="{{ $car->name }}"
                                     width="50px">
                             @endforeach
                         </td>

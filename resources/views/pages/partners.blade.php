@@ -8,10 +8,10 @@
                         href="{{ $partner->link }}">
                         <div class="d-flex flex-column justify-content-center align-items-center">
                             @if ($partner->images->count() > 0)
-                                <img class="shadow rounded" src="{{ Storage::url($partner->images->first()->path) }}"
+                                <img loading="lazy" class="shadow rounded" src="{{ Storage::url($partner->images->first()->path) }}"
                                     alt="{{ $partner->name }}img">
                             @else
-                                <img class="shadow rounded"
+                                <img loading="lazy" class="shadow rounded"
                                     src="https://picsum.photos/{{ $partner->id }}00/{{ $partner->id + 150 }}"
                                     alt="">
                             @endif
