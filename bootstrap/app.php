@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CacheControl;
 use App\Http\Middleware\TrackVisits;
 use Illuminate\Foundation\Application;
 use App\Http\Middleware\SetLocaleMiddleware;
@@ -16,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             SetLocaleMiddleware::class,
             TrackVisits::class,
+            CacheControl::class
         ]);
         $middleware->alias([
             'locale' => SetLocaleMiddleware::class,
