@@ -74,7 +74,7 @@
                         </span>
                         {{ __('ui.time') }}: <span class="text_col">
                             {{ \Carbon\Carbon::parse($bookingData['date_start'])->translatedFormat('H:i') ?? 'N/A' }}
-                        </span> 
+                        </span>
                         <br>
                         <span class="text-capitalize">{{ __('ui.address') }}: {{ $bookingData['pickup'] }}</span>
                     </p>
@@ -270,7 +270,9 @@
                         @else 
                             wire:click="goToStep(1.5)" @endif
                         type="button" onclick="scrollToTop()"
-                        class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
+                        class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">
+                        {{ __('ui.back') }}
+                    </button>
                     <!-- Pulsante Submit -->
                     <button type="submit"
                         class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.submit') }}</button>

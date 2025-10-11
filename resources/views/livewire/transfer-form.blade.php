@@ -92,7 +92,8 @@
                     <small>{{ strtoupper(__('ui.addReturn')) }}</small>
                 </button>
 
-                <button wire:click="submitTransferSelection" type="button"
+                <button  wire:click="submitTransferSelection"
+                    type="button"
                     class="btn col-12 input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
             @endif
 
@@ -174,7 +175,7 @@
                     <button wire:click="goToStep(1)" type="button" onclick="scrollToTop()"
                         class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
                     <!-- Pulsante Submit -->
-                    <button type="submit"
+                    <button  type="submit"
                         class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
                 </div>
             @endif

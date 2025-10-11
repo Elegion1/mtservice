@@ -7,10 +7,6 @@
 @import "./loader.css";
 
 /* ========== Layout Generale ========== */
-body {
-    font-display: swap;
-}
-
 .altezza {
     height: 2000px;
 }
@@ -237,6 +233,12 @@ a:hover {
 }
 
 /* ========== Button Styles ========== */
+button:disabled {
+    background-color: #888 !important; /* grigio spento */
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
 .btn:hover {
     transition: 0.3s;
     transform: scale(0.98);

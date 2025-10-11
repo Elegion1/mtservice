@@ -87,7 +87,7 @@
                         <p class="visually-hidden">
                            {{$bookingModuleDesc}}
                         </p>
-                        <livewire:prenotazione />
+                        <livewire:prenotazione lazy />
                     </div>
                 </div>
             </div>

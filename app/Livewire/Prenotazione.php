@@ -8,6 +8,7 @@ use Livewire\Attributes\Url;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
+
 class Prenotazione extends Component
 {
     #[Url]

@@ -19,15 +19,15 @@
             <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
                 <div class="w-custom me-3">
                     <span>{{ __('ui.date') }}</span>
-                    <input wire:model.live="excursionDate" type="date" placeholder="gg/mm/aaaa" min="{{ date('Y-m-d') }}"
-                        class="form-control form_input input_size" id="dateExcursion">
+                    <input wire:model.live="excursionDate" type="date" placeholder="gg/mm/aaaa"
+                        min="{{ date('Y-m-d') }}" class="form-control form_input input_size" id="dateExcursion">
                     <x-error-message field='excursionDate' />
                 </div>
 
                 <div class="w-custom">
                     <span>{{ __('ui.time') }}</span>
-                    <input wire:model.live="excursionTime" type="time" placeholder="hh:mm" class="form-control form_input input_size"
-                        id="timeExcursion">
+                    <input wire:model.live="excursionTime" type="time" placeholder="hh:mm"
+                        class="form-control form_input input_size" id="timeExcursion">
                     <x-error-message field='excursionTime' />
                 </div>
             </div>
@@ -65,7 +65,7 @@
                 </div>
             </div>
 
-            <button type="submit"
+            <button  type="submit"
                 class="btn col-12 input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
         </div>
     </form>

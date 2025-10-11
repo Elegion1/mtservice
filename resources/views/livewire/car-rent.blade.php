@@ -148,7 +148,8 @@
                     <button wire:click="goToStep(1)" type="button" onclick="scrollToTop()"
                         class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
 
-                    <button wire:click="goToStep(3)" type="button" onclick="scrollToTop()"
+                    <button @if (!isset($selectedCar)) disabled @endif wire:click="goToStep(3)" type="button"
+                        onclick="scrollToTop()"
                         class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
                 </div>
             @endif
