@@ -16,7 +16,8 @@
 
                 <div class="col-6 col-md-12">
                     <form method="GET" action="" id="locale-form" class="m-1 text-center">
-                        <select id="locale-select" class="form-select-sm locale-select" onchange="changeLocale()">
+                        <select id="locale-select" class="form-select-sm locale-select" onchange="changeLocale()"
+                            aria-label="Seleziona lingua">
                             @foreach (config('app.available_locales') as $locale)
                                 <option class="text-center" value="{{ updateLocaleInUrl($locale) }}"
                                     {{ app()->getLocale() == $locale ? 'selected' : '' }}>
@@ -46,7 +47,7 @@
             aria-label="Toggle navigation">
             <i id="toggler-icon" class="bi"></i>
         </button>
-        
+
         <div class="container-fluid d-block d-lg-none">
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav d-flex align-items-center justify-content-center mb-2 mb-lg-0">

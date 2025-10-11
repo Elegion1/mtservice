@@ -47,26 +47,26 @@
             <ul class="nav flex-column text-small">
                 @if ($ownerdata->phone2 && $ownerdata->phone2Name)
                     <li class="nav-item mb-2">
-                        <a class="text-decoration-none text-reset p-0" href="tel:{{ $ownerdata->phone2 }}"><span><i
+                        <a class="text-decoration-none text-reset p-0" href="tel:{{ $ownerdata->phone2 }}" aria-label="Chiama il numero {{ $ownerdata->phone2 }}"><span><i
                                     class="bi bi-telephone-fill"></i></span>
                             {{ $ownerdata->phone2Name }}</a>
                     </li>
                 @endif
                 @if ($ownerdata->phone3 && $ownerdata->phone3Name)
                     <li class="nav-item mb-2">
-                        <a class="text-decoration-none text-reset p-0" href="tel:{{ $ownerdata->phone3 }}"><span><i
+                        <a class="text-decoration-none text-reset p-0" href="tel:{{ $ownerdata->phone3 }}" aria-label="Chiama il numero {{ $ownerdata->phone3 }}"><span><i
                                     class="bi bi-telephone-fill"></i></span>
                             {{ $ownerdata->phone3Name }}</a>
                     </li>
                 @endif
                 @if ($ownerdata->facebook)
                     <li class="nav-item mb-2"><a href="{{ $ownerdata->facebook }}"
-                            class="text-decoration-none text-reset p-0 text-primary"><i class="bi bi-facebook"></i></a>
+                            class="text-decoration-none text-reset p-0 text-primary" aria-label="Visita la nostra pagina Facebook"><i class="bi bi-facebook"></i></a>
                     </li>
                 @endif
                 @if ($ownerdata->whatsapp)
                     <li class="nav-item mb-2"><a href="{{ $ownerdata->whatsapp }}"
-                            class="text-decoration-none text-reset p-0 text-success"><i class="bi bi-whatsapp"></i></a>
+                            class="text-decoration-none text-reset p-0 text-success" aria-label="Chatta su WhatsApp"><i class="bi bi-whatsapp"></i></a>
                     </li>
                 @endif
             </ul>
