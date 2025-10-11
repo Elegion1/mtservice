@@ -8,9 +8,9 @@
         @foreach ($page->contents as $content)
             @if ($content->show && (!$content->start_date || $content->start_date <= $now) && (!$content->end_date || $content->end_date >= $now))
                 @if ($content->images->count())
-                    <div class="col-12">
-                        <img loading="lazy" class="rounded" width="100%" src="{{ Storage::url($content->images[0]->path) }}"
-                            alt="img_{{ $content->title_en }}">
+                    <div class="col-12"/>
+                        <x-responsive-image loading="lazy"  width="100%" image="{{ $content->images[0]->path }}"
+                            alt="img_{{ $content->title_en }}" class="rounded"/>
                     </div>
                 @endif
                 <div class="col-12">

@@ -282,3 +282,4 @@ function goToStep($step, &$currentStep)
 {
     $currentStep = $step;
 }
+

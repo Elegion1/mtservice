@@ -40,12 +40,12 @@
                 <div class="col-12 my-3 d-flex justify-content-center align-items-center position-relative">
                     @if ($excursion->images->isNotEmpty())
                         @foreach ($excursion->images as $image)
-                            <img loading="lazy" src="{{ Storage::url($image->path) }}"
-                                class="excursion-img" alt="img_{{ $excursion->name_en }}">
+                            <x-responsive-image loading="lazy" image="{{ $image->path }}"
+                                 alt="img_{{ $excursion->name_en }}" class="excursion-img"/>
                         @endforeach
                     @else
-                        <img loading="lazy" class="excursion-img" src="https://picsum.photos/20{{ $excursion->id }}/{{ $excursion->id + 100 }}"
-                            alt="placeholder">
+                        <x-responsive-image loading="lazy"  image="https://picsum.photos/20{{ $excursion->id }}/{{ $excursion->id + 100 }}"
+                            alt="placeholder" class="excursion-img"/>
                     @endif
                     <div class="price-tag text-nowrap">
                     {{ __('ui.priceStartingFrom') }} <span class="text-b">€{{ $excursion->price }}</span>
@@ -75,12 +75,12 @@
                 <div class="col-12 my-3 d-flex justify-content-center align-items-center position-relative">
                     @if ($excursion->images->isNotEmpty())
                         @foreach ($excursion->images as $image)
-                            <img loading="lazy" src="{{ Storage::url($image->path) }}"
-                                class="excursion-img" alt="img_{{ $excursion->name_en }}">
+                            <x-responsive-image loading="lazy" image="{{ $image->path }}"
+                                 alt="img_{{ $excursion->name_en }}" class="excursion-img"/>
                         @endforeach
                     @else
-                        <img loading="lazy" class="excursion-img" src="https://picsum.photos/20{{ $excursion->id }}/{{ $excursion->id + 100 }}"
-                            alt="placeholder">
+                        <x-responsive-image loading="lazy"  image="https://picsum.photos/20{{ $excursion->id }}/{{ $excursion->id + 100 }}"
+                            alt="placeholder" class="excursion-img"/>
                     @endif
                     <div class="price-tag text-nowrap">
                     {{ __('ui.priceStartingFrom') }} <span class="text-b">€{{ $excursion->price }}</span>

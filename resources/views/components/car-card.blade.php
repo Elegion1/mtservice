@@ -4,8 +4,8 @@
     <input wire:model.live="carID" value="{{ $car->id }}" class="form-check-input_custom" type="radio"
         name="flexRadioDefault" id="car{{ $car->id }}" {{ !$car->isAvailable ? 'disabled' : '' }}>
 
-    <img loading="lazy" class="img_carRent" src="{{ Storage::url($car->images[0]->path) }}"
-        alt="{{ $car->name }}-{{ $car->description }}">
+    <x-responsive-image loading="lazy"  image="{{ $car->images[0]->path }}"
+        alt="{{ $car->name }}-{{ $car->description }}" class="img_carRent"/>
 
     <p class="h6 m-0 text-nowrap">{{ $car->name }}</p>
     <p class="m-0"><small>{{ $car->description }}</small></p>

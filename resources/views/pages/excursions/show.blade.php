@@ -6,11 +6,11 @@
                     class="container-fluid my-2 my-md-0 justify-content-center align-items-center d-flex d-block d-md-none">
                     @if ($excursion->images->isNotEmpty())
                         @foreach ($excursion->images as $image)
-                            <img loading="lazy" src="{{ Storage::url($image->path) }}" class="img-show m-1"
-                                alt="img_{{ $excursion->name_en }}">
+                            <x-responsive-image loading="lazy" image="{{ $image->path }}" 
+                                alt="img_{{ $excursion->name_en }}" class="img-show m-1"/>
                         @endforeach
                     @else
-                        <img loading="lazy" class="img-show m-1" src="https://picsum.photos/600/400" alt="placeholder">
+                        <x-responsive-image loading="lazy" image="https://picsum.photos/600/400" alt="placeholder" class="img-show m-1"/>
                     @endif
                 </div>
                 <div class="container-fluid justify-content-center d-flex flex-column">
@@ -47,11 +47,11 @@
                     <div class="d-flex justify-content-center align-items-center">
                         @if ($excursion->images->isNotEmpty())
                             @foreach ($excursion->images as $image)
-                                <img loading="lazy" src="{{ Storage::url($image->path) }}" class="img-show m-1"
-                                    alt="img_{{ $excursion->name_en }}">
+                                <x-responsive-image loading="lazy" image="{{ $image->path }}" class="img-show m-1"
+                                    alt="img_{{ $excursion->name_en }}" class="img-show m-1"/>
                             @endforeach
                         @else
-                            <img loading="lazy" class="img-show m-1" src="https://picsum.photos/600/400" alt="placeholder">
+                            <x-responsive-image loading="lazy"  image="https://picsum.photos/600/400" alt="placeholder" class="img-show m-1"/>
                         @endif
                     </div>
                 </div>

@@ -11,8 +11,8 @@
     <div class="d-flex pt-3">
 
         <div id="footerOwnerData" class="mb-3 text-small">
-            <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
-                <img loading="lazy" class="logo-footer" src="{{ Storage::url($ownerdata->images->first()->path) }}" alt="">
+            <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none"/>
+                <x-responsive-image loading="lazy"  image="{{ $ownerdata->images->first()->path }}" alt="logo-footer" class="logo-footer"/>
             </a>
             <small>{{ $ownerdata->companyName }}</small><br>
             <small>di {{ $ownerdata->name }} {{ $ownerdata->surname }}</small><br>

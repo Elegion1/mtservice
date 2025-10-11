@@ -49,15 +49,15 @@
                 $displayedContent = $defaultContent;
             }
 
-            if ($locale == 'it'){
-                $bookingModuleTitle = "Prenotazione Transfer, Escursioni e Noleggi Auto";
+            if ($locale == 'it') {
+                $bookingModuleTitle = 'Prenotazione Transfer, Escursioni e Noleggi Auto';
                 $bookingModuleDesc = "Compila il modulo per prenotare il tuo transfer privato, un'escursione o il noleggio auto a
                             Trapani.
                             I nostri servizi sono disponibili in tutta la Sicilia con prezzi trasparenti e conferma
                             immediata.";
             } else {
-                $bookingModuleTitle="Book Transfers, Excursions and Car Rentals";
-                $bookingModuleDesc="Fill out the form to book your private transfer, an excursion, or a car rental in Trapani.  
+                $bookingModuleTitle = 'Book Transfers, Excursions and Car Rentals';
+                $bookingModuleDesc = "Fill out the form to book your private transfer, an excursion, or a car rental in Trapani.  
         Our services are available throughout Sicily with transparent prices and instant confirmation.";
             }
         @endphp
@@ -85,7 +85,7 @@
                         <h2 class="visually-hidden">{{ $bookingModuleTitle }}</h2>
                         <h3 class="visually-hidden">{{ __('ui.bookNow') }}</h3>
                         <p class="visually-hidden">
-                           {{$bookingModuleDesc}}
+                            {{ $bookingModuleDesc }}
                         </p>
                         <livewire:prenotazione lazy />
                     </div>
@@ -97,10 +97,12 @@
         <div class="gradient-overlay"></div>
 
         @if ($displayedImage)
-    <img fetchpriority="high" loading="lazy" class="img_car" src="{{ Storage::url($displayedImage) }}" alt="{{ $displayedContent ? $displayedContent->{'title_' . app()->getLocale()} : 'Transfer and excursions in Sicily' }}">
-@else
-    <img fetchpriority="high" loading="lazy" class="img_car" src="{{ $defaultImagePath }}" alt="{{ $bookingModuleTitle }}">
-@endif
+            <x-responsive-image fetchpriority="high" loading="lazy" image="{{ Storage::url($displayedImage) }}"
+                alt="{{ $displayedContent ? $displayedContent->{'title_' . app()->getLocale()} : 'Transfer and excursions in Sicily' }}" class="img_car"/>
+        @else
+            <x-responsive-image fetchpriority="high" loading="lazy" image="{{ $defaultImagePath }}"
+                alt="{{ $bookingModuleTitle }}" class="img_car"/>
+        @endif
     </div>
 
 </header>

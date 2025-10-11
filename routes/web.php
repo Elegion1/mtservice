@@ -30,6 +30,12 @@ Route::get('/', function () {
     return redirect()->to($locale); // Reindirizza alla homepage con il locale
 });
 
+Route::get('/assets/{file}', function ($file) {
+    return response()->file(public_path("assets/$file"), [
+        'Cache-Control' => 'max-age=31536000, public',
+    ]);
+});
+
 // navigazione
 Route::prefix('{locale}')
     ->where(['locale' => '[a-zA-Z]{2}'])

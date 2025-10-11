@@ -21,9 +21,9 @@
                         <a class="text-reset text-decoration-none" href="{{ route('service.show', ['title' => $slug]) }}">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-12 my-3 d-flex justify-content-center align-items-center">
-                                        <img loading="lazy" src="{{ $imagePath }}" class="service-img_custom"
-                                            alt="img_{{ $service->{'slug_' . app()->getLocale()} }}">
+                                    <div class="col-12 my-3 d-flex justify-content-center align-items-center"/>
+                                        <x-responsive-image loading="lazy" image="{{ $imagePath }}" 
+                                            alt="img_{{ $service->{'slug_' . app()->getLocale()} }}" class="service-img_custom"/>
                                     </div>
                                     <div
                                         class="col-12 d-flex justify-content-center align-items-center flex-column text-center">
