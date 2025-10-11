@@ -23,11 +23,12 @@
                         <div class="row g-0">
                             <div class="col-12 col-md-4">
                                 @if ($excursion->images->isNotEmpty())
-                                    <x-responsive-image loading="lazy" image="{{ $excursion->images->first()->path }}" 
-                                        alt="{{ $excursion->{'name_' . app()}->getLocale()}}" class="img-fluid"/>
+                                    <x-responsive-image loading="lazy" image="{{ $excursion->images->first()->path }}"
+                                        alt="{{ $excursion->{'name_' . app()->getLocale()} }}" class="img-fluid" />
                                 @else
-                                    <x-responsive-image loading="lazy" image="https://picsum.photos/1920/73{{ $excursion->id }}" 
-                                        alt="immagine non disponibile" class="img-fluid"/>
+                                    <x-responsive-image loading="lazy"
+                                        image="https://picsum.photos/1920/73{{ $excursion->id }}"
+                                        alt="immagine non disponibile" class="img-fluid" />
                                 @endif
                             </div>
 
