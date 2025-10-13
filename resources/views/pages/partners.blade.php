@@ -2,18 +2,18 @@
     <div id="partners" class="container rounded mt-5 mt-md-3">
         <div class="container">
             <x-show-content :pagine="$pagine" />
-            <div class="row justify-content-center align-items-start">
+            <div class="row justify-content-center align-items-center">
                 @foreach ($partners as $partner)
                     <a id="partnerCard" class="col-12 col-md-6 col-lg-4 text-decoration-none text-black" target="_blank"
                         href="{{ $partner->link }}">
                         <div class="d-flex flex-column justify-content-center align-items-center">
                             @if ($partner->images->count() > 0)
-                                <x-responsive-image loading="lazy"  image="{{ $partner->images->first()->path }}"
-                                    alt="{{ $partner->name }}img" class="shadow rounded"/>
+                                <x-responsive-image loading="lazy" image="{{ $partner->images->first()->path }}"
+                                    alt="{{ $partner->name }}img" class="shadow rounded img-partner" />
                             @else
-                                <x-responsive-image loading="lazy" 
-                                    image="https://picsum.photos/{{ $partner->id }}00/{{ $partner->id + 150 }}" class="shadow rounded"
-                                    alt="">
+                                <x-responsive-image loading="lazy"
+                                    image="https://picsum.photos/{{ $partner->id }}00/{{ $partner->id + 150 }}"
+                                    class="shadow rounded" alt="" />
                             @endif
                             <p class="text-center text-wrap mt-3">{{ $partner->name }}</p>
                         </div>

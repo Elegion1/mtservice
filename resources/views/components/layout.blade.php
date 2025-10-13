@@ -188,18 +188,18 @@
             return;
         }
 
-        // Recupera il valore di data-currentRoute
-        const currentRoute = mainContent.getAttribute('data-currentRoute');
-        const displayInfo = document.getElementById('display-info');
-        // Logica di scrolling
-        if (currentRoute === 'home' || displayInfo) {
-            scrollToTop();
-        } else {
-            mainContent.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+        // // Recupera il valore di data-currentRoute
+        // const currentRoute = mainContent.getAttribute('data-currentRoute');
+        // const displayInfo = document.getElementById('display-info');
+        // // Logica di scrolling
+        // if (currentRoute === 'home' || displayInfo) {
+        //     scrollToTop();
+        // } else {
+        //     mainContent.scrollIntoView({
+        //         behavior: 'smooth',
+        //         block: 'start'
+        //     });
+        // }
     });
 </script>
 

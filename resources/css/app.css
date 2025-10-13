@@ -389,6 +389,12 @@ button:disabled {
     /* max-height: 100px; */
 }
 
+.img-partner{
+    
+    height: 200px;
+    
+}
+
 /* ========== Form e Input ========== */
 .formattedCustomAddress:focus {
     background-color: var(--color-b) !important;
