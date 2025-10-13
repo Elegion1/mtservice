@@ -13,26 +13,38 @@ class ResponsiveImage extends Component
 
     public array $sizes;
 
-    public function __construct(string $image, string $alt = '', array $sizes = [400, 800, 1600])
+    public ?string $size; // nuovo parametro opzionale
+
+    public function __construct(string $image, string $alt = '', array $sizes = [400, 800, 1600], ?string $size = null)
     {
         $this->image = $image;
         $this->alt = $alt ?: pathinfo($image, PATHINFO_FILENAME);
         $this->sizes = $sizes;
+        $this->size = $size;
     }
 
     public function src(): string
     {
         $filename = pathinfo($this->image, PATHINFO_FILENAME);
         $base = 'storage/images/resized';
-        $size = in_array(800, $this->sizes) ? 800 : $this->sizes[0];
+
+        // se è stata scelta una dimensione specifica
+        $size = null;
+        if ($this->size) {
+            $map = ['small' => 400, 'medium' => 800, 'large' => 1600];
+            $size = $map[$this->size] ?? $this->sizes[0];
+        } else {
+            $size = in_array(800, $this->sizes) ? 800 : $this->sizes[0];
+        }
+
         $ext = file_exists(public_path("$base/$size/$filename.webp")) ? 'webp' : 'jpg';
 
         // Se il file ridimensionato non esiste, usa l'originale
         if (! file_exists(public_path("$base/$size/$filename.$ext"))) {
-            return Storage::url($this->image); // DB già senza 'storage/'
+            return Storage::url($this->image);
         }
 
-        return asset("$base/$size/$filename.$ext"); // versione ridimensionata
+        return asset("$base/$size/$filename.$ext");
     }
 
     public function srcset(): ?string

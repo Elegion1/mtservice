@@ -371,7 +371,6 @@ button:disabled {
 }
 
 .img-fluid {
-    height: 100%;
     object-fit: cover;
     object-position: center;
 }
@@ -379,8 +378,6 @@ button:disabled {
 @media screen and (max-width: 768px) {
     .img-fluid {
         width: 100%;
-        object-fit: cover;
-        object-position: center;
     }
 }
 

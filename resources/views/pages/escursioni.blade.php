@@ -22,14 +22,17 @@
                     <div class="card border-1 mb-3 overflow-hidden bg-c" style="max-width: 540px;">
                         <div class="row g-0">
                             <div class="col-12 col-md-4">
-                                @if ($excursion->images->isNotEmpty())
-                                    <x-responsive-image loading="lazy" image="{{ $excursion->images->first()->path }}"
-                                        alt="{{ $excursion->{'name_' . app()->getLocale()} }}" class="img-fluid" />
-                                @else
-                                    <x-responsive-image loading="lazy"
-                                        image="https://picsum.photos/1920/73{{ $excursion->id }}"
-                                        alt="immagine non disponibile" class="img-fluid" />
-                                @endif
+                                <div class="img-wrapper" style="width: 100%; height: 100%; overflow: hidden;">
+                                    @if ($excursion->images->isNotEmpty())
+                                        <img loading="lazy" src="{{ Storage::url($excursion->images->first()->path) }}"
+                                            alt="{{ $excursion->{'name_' . app()->getLocale()} }}"
+                                            class="img-fluid w-100 h-100" />
+                                    @else
+                                        <x-responsive-image loading="lazy"
+                                            image="https://picsum.photos/1920/73{{ $excursion->id }}"
+                                            alt="immagine non disponibile" class="img-fluid w-100 h-100" />
+                                    @endif
+                                </div>
                             </div>
 
                             <div class="col-12 col-md-8 p-0">
