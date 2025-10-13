@@ -58,14 +58,14 @@
 
             <div class="col-12 mb-3 p-0">
                 <label>{{ __('ui.totalPrice') }}</label>
-                <div class="d-flex justify-content-start align-items-center bg-c rounded px-2"/>
-                    <x-responsive-image loading="lazy" image="{{ url('/media/svg/currency-euro.svg') }}" alt=""/>
+                <div class="d-flex justify-content-between align-items-center bg-c rounded px-2">
+                    <span class="fw-semibold">€</span>
                     <input wire:model.live="excursionPrice" readonly type="text"
                         class="form-control form_input input_size" id="excursionPrice">
                 </div>
             </div>
 
-            <button  type="submit"
+            <button type="submit"
                 class="btn col-12 input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
         </div>
     </form>

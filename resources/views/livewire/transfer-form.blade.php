@@ -92,8 +92,7 @@
                     <small>{{ strtoupper(__('ui.addReturn')) }}</small>
                 </button>
 
-                <button  wire:click="submitTransferSelection"
-                    type="button"
+                <button wire:click="submitTransferSelection" type="button"
                     class="btn col-12 input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
             @endif
 
@@ -165,7 +164,7 @@
                 <div class="col-12 mb-3 p-0">
                     <label>{{ __('ui.totalPrice') }}</label>
                     <div class="d-flex justify-content-start align-items-center bg-c rounded px-2">
-                        <img loading="lazy" src="{{ url('/media/svg/currency-euro.svg') }}" alt="">
+                        <span class="fw-semibold">€</span>
                         <input wire:model.live="transferPrice" readonly type="text"
                             class="form-control form_input input_size" id="transferPrice">
                     </div>
@@ -175,7 +174,7 @@
                     <button wire:click="goToStep(1)" type="button" onclick="scrollToTop()"
                         class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
                     <!-- Pulsante Submit -->
-                    <button  type="submit"
+                    <button type="submit"
                         class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
                 </div>
             @endif

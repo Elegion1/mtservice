@@ -2,19 +2,21 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
-use Livewire\Attributes\On;
-use Livewire\Attributes\Url;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
-
+use Livewire\Attributes\On;
+use Livewire\Attributes\Url;
+use Livewire\Component;
 
 class Prenotazione extends Component
 {
     #[Url]
     public $module = '';
+
     public $currentForm;
+
     public $bookingData = []; // Inizializza come array vuoto
+
     public $isHome = false; // Variabile per determinare se siamo nella home
 
     // public $bookingData = [
@@ -49,27 +51,25 @@ class Prenotazione extends Component
     //     'price' => 45,  // Prezzo in euro
     // ];
 
+    private array $formMap = [
+        'home' => ['form' => 'transfer', 'module' => 'transfer'],
+        'noleggio' => ['form' => 'rent', 'module' => 'carRent'],
+        'transfer' => ['form' => 'transfer', 'module' => 'transfer'],
+        'prezziDestinazioni' => ['form' => 'transfer', 'module' => 'transfer'],
+        'escursioni' => ['form' => 'escursioni', 'module' => 'excursions'],
+    ];
+
     public function mount()
     {
         $route = Route::currentRouteName();
+        $this->isHome = ! array_key_exists($route, $this->formMap) || $route === 'home';
 
-        // Imposta isHome a false solo per noleggio, transfer o escursioni
-        $this->isHome = !in_array($route, ['noleggio', 'transfer', 'escursioni']);
+        $formData = $this->formMap[$route] ?? $this->formMap['home'];
 
-        // Imposta il modulo corrente in base alla rotta
-        if ($route == 'noleggio') {
-            $this->showRent();
-        } elseif ($route == 'transfer') {
-            $this->showTransfer();
-        } elseif ($route == 'escursioni') {
-            $this->showEscursioni();
-        } elseif ($this->isHome) {
-            $this->showTransfer(); // Default
-            // $this->showBookingSummary($this->bookingData);
-        } elseif ($route == 'prezziDestinazioni') {
-            $this->showTransfer();
-        }
-        Log::info('[LivewirePrenotazione] User is choosing a service ' . $this->module . ' ' . json_encode(session()->all()));
+        $this->currentForm = $formData['form'];
+        $this->module = $formData['module'];
+
+        Log::info("[Prenotazione] Loaded route {$route} → form {$this->currentForm}");
     }
 
     public function showEscursioni()
@@ -102,7 +102,7 @@ class Prenotazione extends Component
     //     'bookingSubmitted' => 'showBookingSummary',
     //     'goBack' => 'goBack',
     // ];
-    
+
     #[On('bookingSubmitted')]
     public function showBookingSummary($bookingData)
     {
@@ -110,12 +110,12 @@ class Prenotazione extends Component
         $this->currentForm = 'bookingSummary'; // Passa al modulo di riepilogo prenotazione
         $this->module = 'bookingSummary';
 
-        Log::info('[LivewirePrenotazione] User entered Booking Summary: ' . json_encode($bookingData));
+        Log::info('[LivewirePrenotazione] User entered Booking Summary: '.json_encode($bookingData));
     }
 
     public function dispatchData($data)
     {
-        Log::info('Emitting populateForm event with data: ' . json_encode($data));
+        Log::info('Emitting populateForm event with data: '.json_encode($data));
         $this->dispatch('populateForm', $data);
     }
 

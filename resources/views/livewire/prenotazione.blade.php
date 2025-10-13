@@ -41,13 +41,13 @@
                 </p>
             @endif
             @if ($currentForm == 'escursioni')
-                <livewire:escursioni-form lazy />
+                <livewire:escursioni-form wire:init />
             @elseif ($currentForm == 'transfer')
-                <livewire:transfer-form lazy />
+                <livewire:transfer-form wire:init />
             @elseif ($currentForm == 'rent')
-                <livewire:car-rent lazy />
+                <livewire:car-rent wire:init />
             @elseif ($currentForm == 'bookingSummary')
-                <livewire:booking-summary :bookingData="$bookingData" lazy />
+                <livewire:booking-summary :bookingData="$bookingData" wire:init />
             @endif
         </div>
     </div>

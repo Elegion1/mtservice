@@ -7,20 +7,17 @@
                 $priceSummaryItems = [
                     [
                         'label' => __('ui.rentPrice'),
-                        'icon' => '/media/svg/currency-euro.svg',
                         'value' => $carRentPrice ?? 0,
                     ],
                 ];
                 if ($kaskoEnabled && isset($selectedCar) && $selectedCar->kasko) {
                     $priceSummaryItems[] = [
                         'label' => __('ui.kaskoPrice'),
-                        'icon' => '/media/svg/currency-euro.svg',
                         'value' => $kaskoPrice ?? 0,
                     ];
                 }
                 $priceSummaryItems[] = [
                     'label' => __('ui.handOffCost'),
-                    'icon' => '/media/svg/currency-euro.svg',
                     'value' => $handOffCost ?? 0,
                 ];
                 // $currentStep = 2;
