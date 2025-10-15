@@ -18,7 +18,7 @@ class CacheControl
         $response = $next($request);
 
         // Solo immagini, CSS, JS
-        if ($request->is('storage/images/*') || $request->is('assets/*')) {
+        if ($request->is('storage/*') || $request->is('livewire/*')) {
             $response->headers->set('Cache-Control', 'public, max-age=31536000');
         }
 
