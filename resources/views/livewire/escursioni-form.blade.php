@@ -37,7 +37,7 @@
 
                 <div class="d-flex align-items-center justify-content-center">
                     <!-- Bottone per decrementare i passeggeri -->
-                    <button wire:click="updatePassengers(-1)" type="button" id="removePassenger"
+                    <button aria-label="Rimuovi passeggeri" wire:click="updatePassengers(-1)" type="button" id="removePassenger"
                         class="btn passenger_button" @if ($excursionPassengers == 1) disabled @endif><i
                             class="bi bi-dash-lg"></i></button>
 
@@ -47,7 +47,7 @@
                         min="1" max="16" value="1" readonly>
 
                     <!-- Bottone per incrementare i passeggeri -->
-                    <button wire:click="updatePassengers(1)" type="button" id="addPassenger"
+                    <button aria-label="Aggiungi passeggeri" wire:click="updatePassengers(1)" type="button" id="addPassenger"
                         class="btn passenger_button " @if ($excursionPassengers == 16) disabled @endif><i
                             class="bi bi-plus-lg"></i></button>
 
@@ -65,7 +65,7 @@
                 </div>
             </div>
 
-            <button type="submit"
+            <button aria-label="Vai al prossimo step" type="submit"
                 class="btn col-12 input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
         </div>
     </form>

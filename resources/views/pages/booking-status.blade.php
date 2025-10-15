@@ -20,7 +20,7 @@
                                 value="{{ request()->query('code') }}" required>
                         </div>
                         <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-primary">{{ __('ui.verifyEmail') }}</button>
+                            <button aria-label="Verifica email" type="submit" class="btn btn-primary">{{ __('ui.verifyEmail') }}</button>
                         </div>
                     </div>
                 </div>

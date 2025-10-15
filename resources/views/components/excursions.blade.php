@@ -1,7 +1,7 @@
 <div id="excursionCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
         @foreach ($excursions as $index => $excursion)
-            <button type="button" data-bs-target="#excursionCarousel" data-bs-slide-to="{{ $index }}"
+            <button aria-label="excursion-{{ $excursion->{"name_" . app()->getLocale()} }}" type="button" data-bs-target="#excursionCarousel" data-bs-slide-to="{{ $index }}"
                 class="{{ $index === 0 ? 'active' : '' }} bg-a" aria-current="{{ $index === 0 ? 'true' : 'false' }}"
                 aria-label="Slide {{ $index + 1 }}"></button>
         @endforeach

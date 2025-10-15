@@ -25,7 +25,7 @@
                     @foreach ($tratteByDeparture as $departure => $tratte)
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="heading{{ Str::slug($departure) }}">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                <button aria-label="Visualizza tratte" class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapse{{ Str::slug($departure) }}" aria-expanded="false"
                                     aria-controls="collapse{{ Str::slug($departure) }}">
                                     {{ __('ui.from') }} {{ $departure }}
@@ -53,7 +53,7 @@
                                                     {{ __('ui.perPerson') }}
                                                 </p>
                                             </a>
-                                            <button class="btn btn-sm bg-a text-white"
+                                            <button aria-label="Seleziona tratta" class="btn btn-sm bg-a text-white"
                                                 data-tratta-id="{{ $tratta->id }}"
                                                 data-departure="{{ $tratta->departure->id }}"
                                                 data-arrival="{{ $tratta->arrival->id }}"

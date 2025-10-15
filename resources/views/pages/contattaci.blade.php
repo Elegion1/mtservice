@@ -53,7 +53,7 @@
             </div>
 
             <div class="container d-flex justify-content-center align-items-center">
-                <button type="submit" class="btn bg-a text-white">{{ __('ui.send') }}</button>
+                <button aria-label="Contattaci" type="submit" class="btn bg-a text-white">{{ __('ui.send') }}</button>
             </div>
         </form>
     </div>

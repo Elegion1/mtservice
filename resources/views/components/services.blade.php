@@ -3,7 +3,7 @@
         @foreach ($services as $index => $service)
             <button type="button" data-bs-target="#serviceCarousel" data-bs-slide-to="{{ $index }}"
                 class="{{ $index === 0 ? 'active' : '' }} bg-a" aria-current="{{ $index === 0 ? 'true' : 'false' }}"
-                aria-label="Slide {{ $index + 1 }}"></button>
+                aria-label="service-{{ $service->{'slug_' . app()->getLocale()} }}"></button>
         @endforeach
     </div>
     <div class="carousel-inner">
@@ -16,12 +16,13 @@
                             <div class="col-12 my-3 d-flex justify-content-center align-items-center">
                                 @if ($service->images->isNotEmpty())
                                     @foreach ($service->images as $image)
-                                        <x-responsive-image loading="lazy" image="{{ $image->path }}" 
-                                            alt="img_{{ $service->title_en }}" class="service-img"/>
+                                        <x-responsive-image loading="lazy" image="{{ $image->path }}"
+                                            alt="img_{{ $service->title_en }}" class="service-img" />
                                     @endforeach
                                 @else
-                                    <x-responsive-image loading="lazy"  image="https://picsum.photos/1920/108{{ $service->id }}"
-                                        alt="placeholder" class="service-img"/>
+                                    <x-responsive-image loading="lazy"
+                                        image="https://picsum.photos/1920/108{{ $service->id }}" alt="placeholder"
+                                        class="service-img" />
                                 @endif
                             </div>
                             <div

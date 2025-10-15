@@ -62,7 +62,7 @@
                 <div
                     class="col-12 p-0 m-0 d-flex justify-content-between align-items-center position-relative {{ $solaAndata ? 'd-none' : '' }}">
 
-                    <button type="button" title="{{ __('ui.oneWay') }}" wire:click="setSolaAndata"
+                    <button aria-label="Sola andata" type="button" title="{{ __('ui.oneWay') }}" wire:click="setSolaAndata"
                         class="position-absolute close_position bg-c border border-light rounded-circle text-black p-0 text-center">
                         <i class="bi bi-x-lg"></i></button>
 
@@ -87,12 +87,12 @@
 
                 </div>
 
-                <button wire:click="setAndataRitorno"
+                <button aria-label="Andata e ritorno" wire:click="setAndataRitorno"
                     class="btn py-2 input_size border border-3 mt-2 mb-3 {{ !$solaAndata ? 'd-none' : '' }}">
                     <small>{{ strtoupper(__('ui.addReturn')) }}</small>
                 </button>
 
-                <button wire:click="submitTransferSelection" type="button"
+                <button aria-label="Vai allo step successivo" wire:click="submitTransferSelection" type="button"
                     class="btn col-12 input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
             @endif
 
@@ -142,7 +142,7 @@
 
                     <div class="d-flex align-items-center justify-content-center">
                         <!-- Bottone per decrementare i passeggeri -->
-                        <button wire:click="updatePassengers(-1)" type="button" id="removePassenger"
+                        <button aria-label="Rimuovi passeggeri" wire:click="updatePassengers(-1)" type="button" id="removePassenger"
                             class="btn passenger_button" @if ($transferPassengers == 1) disabled @endif><i
                                 class="bi bi-dash-lg"></i></button>
 
@@ -152,7 +152,7 @@
                             min="1" max="16" value="1" readonly>
 
                         <!-- Bottone per incrementare i passeggeri -->
-                        <button wire:click="updatePassengers(1)" type="button" id="addPassenger"
+                        <button aria-label="Aggiungi passeggeri" wire:click="updatePassengers(1)" type="button" id="addPassenger"
                             class="btn passenger_button" @if ($transferPassengers == 16) disabled @endif><i
                                 class="bi bi-plus-lg"></i></button>
 
@@ -171,10 +171,10 @@
                 </div>
 
                 <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
-                    <button wire:click="goToStep(1)" type="button" onclick="scrollToTop()"
+                    <button aria-label="Torna indietro" wire:click="goToStep(1)" type="button" onclick="scrollToTop()"
                         class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
                     <!-- Pulsante Submit -->
-                    <button type="submit"
+                    <button aria-label="Vai allo step successivo" type="submit"
                         class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
                 </div>
             @endif

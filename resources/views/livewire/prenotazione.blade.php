@@ -12,7 +12,7 @@
         <div id="form-top" class="d-flex justify-content-start ">
             @foreach ($formLabels as $formType => $label)
                 @if ($formType !== 'bookingSummary')
-                    <button type="button"
+                    <button aria-label="{{ ucfirst($formType) }}" type="button"
                         class="btn btn_booking text-uppercase text-black {{ $currentForm == $formType ? 'bg-b' : 'bg-c' }}"
                         wire:click="show{{ ucfirst($formType) }}" id="{{ $formType }}-btn">
                         {{ __($label) }}
@@ -22,7 +22,7 @@
 
             {{-- Bottone "riepilogo prenotazione" visibile solo quando il form attivo è bookingSummary --}}
             @if ($currentForm == 'bookingSummary')
-                <button type="button" class="btn btn_booking btn_font_size text-uppercase text-black bg-b z-2">
+                <button aria-label="Riepilogo prenotazione" type="button" class="btn btn_booking btn_font_size text-uppercase text-black bg-b z-2">
                     {{ __('ui.bookingSummary') }}
                 </button>
             @endif

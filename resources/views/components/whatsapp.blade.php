@@ -1,6 +1,6 @@
 <div class="whatsapp">
     <div class="contact-menu">
-        <button class="contact-btn shadow">
+        <button aria-label="Parla con noi" class="contact-btn shadow">
             <i class="bi bi-chat-text"></i>
         </button>
         <div class="contact-options">
