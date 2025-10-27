@@ -97,11 +97,11 @@
         <div class="gradient-overlay"></div>
 
         @if ($displayedImage)
-            <x-responsive-image fetchpriority="high" loading="lazy" image="{{ Storage::url($displayedImage) }}"
+            <x-responsive-image fetchpriority="high" image="{{ Storage::url($displayedImage) }}"
                 alt="{{ $displayedContent ? $displayedContent->{'title_' . app()->getLocale()} : 'Transfer and excursions in Sicily' }}"
                 class="img_car" />
         @else
-            <x-responsive-image fetchpriority="high" loading="lazy" image="{{ $defaultImagePath }}"
+            <x-responsive-image fetchpriority="high" image="{{ $defaultImagePath }}"
                 alt="{{ $bookingModuleTitle }}" class="img_car" />
         @endif
     </div>
