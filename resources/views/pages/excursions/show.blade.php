@@ -6,15 +6,16 @@
                     class="container-fluid my-2 my-md-0 justify-content-center align-items-center d-flex d-block d-md-none">
                     @if ($excursion->images->isNotEmpty())
                         @foreach ($excursion->images as $image)
-                            <x-responsive-image loading="lazy" image="{{ $image->path }}" 
-                                alt="img_{{ $excursion->name_en }}" class="img-show m-1"/>
+                            <x-responsive-image loading="lazy" image="{{ $image->path }}"
+                                alt="img_{{ $excursion->name_en }}" class="img-show m-1" />
                         @endforeach
                     @else
-                        <x-responsive-image loading="lazy" image="https://picsum.photos/600/400" alt="placeholder" class="img-show m-1"/>
+                        <x-responsive-image loading="lazy" image="https://picsum.photos/600/400" alt="placeholder"
+                            class="img-show m-1" />
                     @endif
                 </div>
                 <div class="container-fluid justify-content-center d-flex flex-column">
-                    <h2 class="text-d text-wrap">{!! $excursion->{'name_' . app()->getLocale()} !!}</h2>
+                    <h2 class="text-d text-wrap">{{ __('ui.excursionAt') }} {!! $excursion->{'name_' . app()->getLocale()} !!}</h2>
                     <small>{{ __('ui.duration') }} {{ $excursion->duration }}
                         @if ($excursion->duration == 1)
                             {{ __('ui.hour') }}
@@ -48,10 +49,11 @@
                         @if ($excursion->images->isNotEmpty())
                             @foreach ($excursion->images as $image)
                                 <x-responsive-image loading="lazy" image="{{ $image->path }}" class="img-show m-1"
-                                    alt="img_{{ $excursion->name_en }}" class="img-show m-1"/>
+                                    alt="img_{{ $excursion->name_en }}" class="img-show m-1" />
                             @endforeach
                         @else
-                            <x-responsive-image loading="lazy"  image="https://picsum.photos/600/400" alt="placeholder" class="img-show m-1"/>
+                            <x-responsive-image loading="lazy" image="https://picsum.photos/600/400" alt="placeholder"
+                                class="img-show m-1" />
                         @endif
                     </div>
                 </div>

@@ -1,15 +1,15 @@
 <x-layout>
     <div class="container mb-5">
-        <h1 class="text-uppercase mb-3">
-            Transfer da
+        <h2 class="text-uppercase mb-3">
+            Transfer da 
             <span class="text-primary">
                 {{ $route->departure->name }}
             </span>
-            a
+            a 
             <span class="text-primary">
                 {{ $route->arrival->name }}
             </span>
-        </h1>
+        </h2>
 
         <p>
             Prenota il tuo transfer sicuro e veloce da <strong>{{ $route->departure->name }}</strong> a
@@ -17,7 +17,7 @@
             tutta la Sicilia, ideali per chi vuole viaggiare comodamente senza stress e senza perdere tempo.
         </p>
 
-        <h2 class="mt-4">Perché scegliere il nostro servizio di transfer</h2>
+        <h3 class="mt-4">Perché scegliere il nostro servizio di transfer</h3>
         <ul>
             <li>Veicoli moderni, puliti e confortevoli</li>
             <li>Autisti professionisti e locali</li>
@@ -25,7 +25,7 @@
             <li>Disponibilità 24/7 per aeroporti e stazioni</li>
         </ul>
 
-        <h2 class="mt-4">Prezzi e gestione passeggeri</h2>
+        <h3 class="mt-4">Prezzi e gestione passeggeri</h3>
         <p>
             Il prezzo standard per questo transfer parte da <strong>{{ $route->price }} €</strong> per persona.
             Il costo rimane invariato fino a <strong>{{ $route->increment_passengers }} passeggeri</strong>.
@@ -37,7 +37,7 @@
             tutti i passeggeri.
         </p>
 
-        <h3 class="mt-4">Servizi aggiuntivi disponibili</h3>
+        <h4 class="mt-4">Servizi aggiuntivi disponibili</h4>
         <x-services />
 
         <p>

@@ -8,9 +8,9 @@
 
             {{-- Sezione Recensioni --}}
             <div id="diconoDiNoi" class=" mt-5 mt-md-3 text-center">
-                <h1 class="text-center">
+                <h2 class="text-center">
                     {{ isset($reviewsP) ? __('ui.someReviews') : __('ui.noReviews') }}
-                </h1>
+                </h2>
 
                 @if (isset($reviewsP))
                     <div class="container">

@@ -16,7 +16,7 @@
         <div class="col-12 col-lg-6 ">
             <div id="escursioni"
                 class="container d-flex justify-content-center align-items-center flex-column rounded sticky-top z-1">
-                <h2 class="my-3">{{ __('ui.excursionPageTitle') }}</h2>
+                <h3 class="my-3">{{ __('ui.excursionPageTitle') }}</h3>
 
                 @foreach ($excursionsP as $excursion)
                     <div class="card border-1 mb-3 overflow-hidden bg-c" style="max-width: 540px;">
@@ -37,7 +37,7 @@
 
                             <div class="col-12 col-md-8 p-0">
                                 <div class="card-body d-flex justify-content-between flex-column h-100">
-                                    <h5 class="card-title text-d">{{ $excursion->{'name_' . app()->getLocale()} }}</h5>
+                                    <p class="card-title text-d">{{ $excursion->{'name_' . app()->getLocale()} }}</p>
                                     <small>{{ __('ui.duration') }} {{ $excursion->duration }}
                                         @if ($excursion->duration == 1)
                                             {{ __('ui.hour') }}

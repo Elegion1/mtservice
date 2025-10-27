@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="col-12 d-flex justify-content-center align-items-center flex-column text-center">
-                    <p class="h5 fs-6 text-d text-uppercase">{!! $excursion->{'name_' . app()->getLocale()} !!}</p>
+                    <h3 class="fs-6 text-d text-uppercase">{!! $excursion->{'name_' . app()->getLocale()} !!}</h3>
                     <p class="text-wrap text-secondary-subtle">
                         {!! $excursion->{'abstract_' . app()->getLocale()} !!}
                     </p>
@@ -87,7 +87,7 @@
                     </div>
                 </div>
                 <div class="col-12 d-flex justify-content-center align-items-center flex-column text-center">
-                    <p class="h5 fs-6 text-d text-uppercase">{!! $excursion->{'name_' . app()->getLocale()} !!}</p>
+                    <h3 class="fs-6 text-d text-uppercase">{!! $excursion->{'name_' . app()->getLocale()} !!}</h3>
                     <p class="text-wrap text-secondary-subtle">
                         {!! $excursion->{'abstract_' . app()->getLocale()} !!}
                     </p>

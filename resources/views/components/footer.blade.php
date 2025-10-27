@@ -11,8 +11,9 @@
     <div class="d-flex pt-3">
 
         <div id="footerOwnerData" class="mb-3 text-small">
-            <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none"/>
-                <x-responsive-image loading="lazy"  image="{{ $ownerdata->images->first()->path }}" alt="logo-footer" class="logo-footer"/>
+            <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none" >
+            <x-responsive-image loading="lazy" image="{{ $ownerdata->images->first()->path }}" alt="logo-footer"
+                class="logo-footer" />
             </a>
             <small>{{ $ownerdata->companyName }}</small><br>
             <small>di {{ $ownerdata->name }} {{ $ownerdata->surname }}</small><br>
@@ -28,7 +29,7 @@
         </div>
 
         <div id="footerNavigation" class="mb-3 text-center">
-            <h6>{{ __('ui.navigation') }}</h6>
+            <p>{{ __('ui.navigation') }}</p>
             <ul class="list-unstyled">
                 <x-footer-links />
                 <li>
@@ -43,30 +44,34 @@
         </div>
 
         <div id="footerContacts" class="mb-3 text-end">
-            <h6>{{ __('ui.contacts') }}</h6>
+            <p>{{ __('ui.contacts') }}</p>
             <ul class="nav flex-column text-small">
                 @if ($ownerdata->phone2 && $ownerdata->phone2Name)
                     <li class="nav-item mb-2">
-                        <a class="text-decoration-none text-reset p-0" href="tel:{{ $ownerdata->phone2 }}" aria-label="Chiama il numero {{ $ownerdata->phone2 }}"><span><i
+                        <a class="text-decoration-none text-reset p-0" href="tel:{{ $ownerdata->phone2 }}"
+                            aria-label="Chiama il numero {{ $ownerdata->phone2 }}"><span><i
                                     class="bi bi-telephone-fill"></i></span>
                             {{ $ownerdata->phone2Name }}</a>
                     </li>
                 @endif
                 @if ($ownerdata->phone3 && $ownerdata->phone3Name)
                     <li class="nav-item mb-2">
-                        <a class="text-decoration-none text-reset p-0" href="tel:{{ $ownerdata->phone3 }}" aria-label="Chiama il numero {{ $ownerdata->phone3 }}"><span><i
+                        <a class="text-decoration-none text-reset p-0" href="tel:{{ $ownerdata->phone3 }}"
+                            aria-label="Chiama il numero {{ $ownerdata->phone3 }}"><span><i
                                     class="bi bi-telephone-fill"></i></span>
                             {{ $ownerdata->phone3Name }}</a>
                     </li>
                 @endif
                 @if ($ownerdata->facebook)
                     <li class="nav-item mb-2"><a href="{{ $ownerdata->facebook }}"
-                            class="text-decoration-none text-reset p-0 text-primary" aria-label="Visita la nostra pagina Facebook"><i class="bi bi-facebook"></i></a>
+                            class="text-decoration-none text-reset p-0 text-primary"
+                            aria-label="Visita la nostra pagina Facebook"><i class="bi bi-facebook"></i></a>
                     </li>
                 @endif
                 @if ($ownerdata->whatsapp)
                     <li class="nav-item mb-2"><a href="{{ $ownerdata->whatsapp }}"
-                            class="text-decoration-none text-reset p-0 text-success" aria-label="Chatta su WhatsApp"><i class="bi bi-whatsapp"></i></a>
+                            class="text-decoration-none text-reset p-0 text-success" aria-label="Chatta su WhatsApp"><i
+                                class="bi bi-whatsapp"></i></a>
                     </li>
                 @endif
             </ul>

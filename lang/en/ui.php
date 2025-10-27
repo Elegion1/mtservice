@@ -391,4 +391,6 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
     'notFound' => 'Page not found',
     'notFoundMsg' => 'The resource you are looking for does not exist',
     'goHome' => 'Go to home',
+
+    'excursionAt' => 'Excursion at',
 ];

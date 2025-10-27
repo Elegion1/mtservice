@@ -166,7 +166,6 @@
     <div id="mainContent" data-currentRoute="{{ $currentRoute }}" class="overflow-hidden mt-5">
         {{ $slot }}
     </div>
-
     <x-footer />
 </body>
 

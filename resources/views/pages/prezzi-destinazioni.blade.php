@@ -24,13 +24,13 @@
                 <div class="accordion" id="tratteAccordion">
                     @foreach ($tratteByDeparture as $departure => $tratte)
                         <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading{{ Str::slug($departure) }}">
-                                <button aria-label="Visualizza tratte" class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapse{{ Str::slug($departure) }}" aria-expanded="false"
-                                    aria-controls="collapse{{ Str::slug($departure) }}">
+                            <p class="accordion-header" id="heading{{ Str::slug($departure) }}">
+                                <button aria-label="Visualizza tratte" class="accordion-button collapsed" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#collapse{{ Str::slug($departure) }}"
+                                    aria-expanded="false" aria-controls="collapse{{ Str::slug($departure) }}">
                                     {{ __('ui.from') }} {{ $departure }}
                                 </button>
-                            </h2>
+                            </p>
                             <div id="collapse{{ Str::slug($departure) }}" class="accordion-collapse collapse"
                                 aria-labelledby="heading{{ Str::slug($departure) }}" data-bs-parent="#tratteAccordion">
                                 <div class="accordion-body">
@@ -40,9 +40,9 @@
                                             $departureSlug = $tratta->departure->slug;
                                             $arrivalSlug = $tratta->arrival->slug;
                                         @endphp
-                                        
+
                                         <div
-                                            class="d-flex justify-content-between align-items-center border-bottom py-2">
+                                            class="d-flex justify-content-between align-items-center py-2">
                                             <a href="{{ route('transfer.show', ['locale' => $locale, 'departure' => $departureSlug, 'arrival' => $arrivalSlug]) }}"
                                                 class="text-decoration-none text-dark d-block">
                                                 <p class="m-0">

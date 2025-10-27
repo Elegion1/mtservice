@@ -1,6 +1,6 @@
 <x-layout>
     <div class="container-fluid p-3 mt-5 mt-md-3">
-        <h1 class="text-center">{{ __('ui.faqTitle') }}</h1>
+        <h2 class="text-center">{{ __('ui.faqTitle') }}</h2>
 
         {{-- <div class="faq-section">
             <h2>Generale</h2>

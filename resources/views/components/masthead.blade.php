@@ -71,9 +71,9 @@
                                 {!! strtoupper($displayedContent->{'title_' . app()->getLocale()}) !!}
                             </h1>
                             @if ($displayedContent->{'subtitle_' . app()->getLocale()})
-                                <h2 class="text-shadow text-c btn_font_size">
+                                <span class="text-shadow text-c btn_font_size">
                                     {{ $displayedContent->{'subtitle_' . app()->getLocale()} }}
-                                </h2>
+                                </span>
                             @endif
                         </div>
                     @endif
@@ -82,8 +82,8 @@
                 </div>
                 <div id="headerBooking" class="col-12 col-lg-6 p-0 d-flex justify-content-center align-items-start">
                     <div class="booking-module">
-                        <h2 class="visually-hidden">{{ $bookingModuleTitle }}</h2>
-                        <h3 class="visually-hidden">{{ __('ui.bookNow') }}</h3>
+                        <span class="visually-hidden">{{ $bookingModuleTitle }}</span>
+                        <span class="visually-hidden">{{ __('ui.bookNow') }}</span>
                         <p class="visually-hidden">
                             {{ $bookingModuleDesc }}
                         </p>
@@ -101,8 +101,8 @@
                 alt="{{ $displayedContent ? $displayedContent->{'title_' . app()->getLocale()} : 'Transfer and excursions in Sicily' }}"
                 class="img_car" />
         @else
-            <x-responsive-image fetchpriority="high" image="{{ $defaultImagePath }}"
-                alt="{{ $bookingModuleTitle }}" class="img_car" />
+            <x-responsive-image fetchpriority="high" image="{{ $defaultImagePath }}" alt="{{ $bookingModuleTitle }}"
+                class="img_car" />
         @endif
     </div>
 

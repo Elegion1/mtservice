@@ -27,7 +27,7 @@
                                     </div>
                                     <div
                                         class="col-12 d-flex justify-content-center align-items-center flex-column text-center">
-                                        <p class="h3 text-d">{{ $title }}</p>
+                                        <h3 class="h3 text-d">{{ $title }}</h3>
                                         <p class="h6">{{ $subtitle }}</p>
                                     </div>
                                 </div>

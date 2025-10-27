@@ -10,12 +10,12 @@
             <div class="d-flex justify-content-center align-items-center mt-3 flex-wrap">
                 @foreach ($cars as $car)
                     <div class="card me-lg-5 p-1 mt-3 bg-b shadow-sm " style="width: 13rem;">
-                        <div class="d-flex justify-content-center align-items-center"/>
+                        <div class="d-flex justify-content-center align-items-center">
                             <x-responsive-image loading="lazy" image="{{ $car->images[0]->path }}" 
                                 alt="{{ $car->name }}" class="img_carRent"/>
                         </div>
                         <div class="card-body text-center">
-                            <h5 class="card-title">{{ $car->name }}</h5>
+                            <p class="card-title fs-5">{{ $car->name }}</p>
                             <p class="card-text">{{ $car->description }}</p>
                             <p class="card-text text-wrap"><strong>{{ __('ui.priceStartingFrom') }}:</strong> <br>
                                 {{ $car->price }} € {{ __('ui.perDay') }}</p>

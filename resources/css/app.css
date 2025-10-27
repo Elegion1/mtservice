@@ -239,9 +239,13 @@ button:disabled {
     opacity: 0.7;
 }
 
-.btn:hover {
+.btn {
+    transform-origin: bottom;
     transition: 0.3s;
-    transform: scale(0.98);
+}
+
+.btn:hover {
+    transform: scaleY(0.95); /* riduce solo in altezza */
 }
 
 .btn_font_size {
@@ -389,10 +393,8 @@ button:disabled {
     /* max-height: 100px; */
 }
 
-.img-partner{
-    
+.img-partner {
     height: 200px;
-    
 }
 
 /* ========== Form e Input ========== */

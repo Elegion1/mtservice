@@ -1,15 +1,15 @@
 <x-layout>
     <div class="container mb-5">
-        <h1 class="text-uppercase mb-3">
-            Transfer from
+        <h2 class="text-uppercase mb-3">
+            Transfer from 
             <span class="text-primary">
                 {{ $route->departure->name }}
             </span>
-            to
+            to 
             <span class="text-primary">
                 {{ $route->arrival->name }}
             </span>
-        </h1>
+        </h2>
 
         <p>
             Book your safe and fast transfer from <strong>{{ $route->departure->name }}</strong> to
@@ -17,7 +17,7 @@
             throughout Sicily, perfect for travelers who want to move comfortably without stress or wasted time.
         </p>
 
-        <h2 class="mt-4">Why choose our transfer service</h2>
+        <h3 class="mt-4">Why choose our transfer service</h3>
         <ul>
             <li>Modern, clean and comfortable vehicles</li>
             <li>Professional local drivers</li>
@@ -25,7 +25,7 @@
             <li>24/7 availability for airports and stations</li>
         </ul>
 
-        <h2 class="mt-4">Pricing and passenger management</h2>
+        <h3 class="mt-4">Pricing and passenger management</h3>
         <p>
             The standard price for this transfer starts at <strong>{{ $route->price }} €</strong> per person.
             The cost remains the same up to <strong>{{ $route->increment_passengers }} passengers</strong>.
@@ -36,7 +36,7 @@
             If the number of passengers exceeds 8, we use a larger van to ensure comfort and safety for everyone.
         </p>
 
-        <h3 class="mt-4">Additional services available</h3>
+        <h4 class="mt-4">Additional services available</h4>
         <x-services />
 
         <p>

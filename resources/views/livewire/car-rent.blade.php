@@ -25,7 +25,7 @@
 
             @if ($currentStep == 1)
                 <div class="d-flex justify-content-between align-items-center p-0">
-                    <h6 class="p-0 mb-3 text-uppercase">{{ ucfirst(__('ui.selectDate')) }}</h6>
+                    <p class="p-0 mb-3 text-uppercase">{{ ucfirst(__('ui.selectDate')) }}</p>
                     @if ($minimumDays > 0)
                         <span class="mb-3 text-danger small">{{ __('ui.minimumRent') }}: {{ $minimumDays }}
                             {{ __('ui.days') }}

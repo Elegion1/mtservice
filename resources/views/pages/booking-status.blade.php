@@ -1,6 +1,6 @@
 <x-layout>
     <div class="container rounded p-3 mb-5">
-        <h1 class="text-center mb-3">{{ __('ui.bookingStatus') }}</h1>
+        <h2 class="text-center mb-3">{{ __('ui.bookingStatus') }}</h2>
 
         @if (!session('verified'))
             <form method="POST" action="{{ route('booking.status.check') }}">
