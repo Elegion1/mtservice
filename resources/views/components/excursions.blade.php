@@ -1,24 +1,18 @@
 <div id="excursionCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
+    {{-- <div class="carousel-indicators">
         @foreach ($excursions as $index => $excursion)
-            <button aria-label="excursion-{{ $excursion->{"name_" . app()->getLocale()} }}" type="button" data-bs-target="#excursionCarousel" data-bs-slide-to="{{ $index }}"
-                class="{{ $index === 0 ? 'active' : '' }} bg-a" aria-current="{{ $index === 0 ? 'true' : 'false' }}"
-                aria-label="Slide {{ $index + 1 }}"></button>
+            <button type="button" aria-label="excursion-name-{{ $excursion->{'name_' . app()->getLocale()} }}" 
+                data-bs-target="#excursionCarousel" data-bs-slide-to="{{ $index }}"
+                class="carouselBtn {{ $index === 0 ? 'active' : '' }}" aria-current="{{ $index === 0 ? 'true' : 'false' }}">
+            </button>
         @endforeach
-    </div>
+    </div> --}}
     <div class="carousel-inner" id="carouselDynamic">
 
     </div>
 
-    <button class="carousel-control-prev" type="button" data-bs-target="#excursionCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#excursionCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-    <div class="indicators_space"></div>
+    <x-carousel-navigation-arrows :carouselID="'excursionCarousel'" />
+    {{-- <div class="indicators_space"></div> --}}
 </div>
 
 <script>

@@ -97,6 +97,19 @@ img {
     object-fit: cover;
 }
 
+.carousel {
+    position: relative;
+}
+
+.carouselArrow {
+    position: absolute !important;
+    top: 40%;
+    color: black;
+    font-size: xx-large;
+    font-weight: 1200;
+}
+
+
 /* ========== Navbar & Header ========== */
 
 .navbar {
