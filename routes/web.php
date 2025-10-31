@@ -49,7 +49,7 @@ Route::prefix('{locale}')
         Route::get('/', [PublicController::class, 'home'])->name('home');
         Route::get('/rent/cars/trapani', [PublicController::class, 'noleggio'])->name('noleggio');
         Route::get('/transfer-taxi/trapani', [PublicController::class, 'transfer'])->name('transfer');
-        Route::get('/excursions/trapani', [PublicController::class, 'escursioni'])->name('escursioni');
+        Route::get('/excursions-trapani', [PublicController::class, 'escursioni'])->name('escursioni');
         Route::get('/prices-and-destinations', [PublicController::class, 'prezziDestinazioni'])->name('prezziDestinazioni');
         Route::get('/reviews', [PublicController::class, 'diconoDiNoi'])->name('diconoDiNoi');
         Route::get('/contact-us', [PublicController::class, 'contattaci'])->name('contattaci');
