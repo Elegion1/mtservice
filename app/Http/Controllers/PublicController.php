@@ -128,8 +128,8 @@ class PublicController extends Controller
 
     public function servizi()
     {
-        $services = Service::all();
-
+        $services = Service::where('show', true)->get();
+        
         return view('pages.services', compact('services'));
     }
 
