@@ -58,7 +58,7 @@ Route::prefix('{locale}')
         Route::get('/privacy-terms-and-conditions', [PublicController::class, 'privacy'])->name('privacy');
         Route::get('/services', [PublicController::class, 'servizi'])->name('services.index');
         Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('service.show');
-        Route::get('/excursions/trapani/{name}/{id}', [ExcursionController::class, 'show'])->name('excursion.show');
+        Route::get('/excursions-trapani/{slug}', [ExcursionController::class, 'show'])->name('excursion.show');
         Route::get('/transfer/{departure}/{arrival}', [RouteController::class, 'show'])->name('transfer.show');
 
         // Contattaci

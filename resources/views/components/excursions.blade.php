@@ -7,9 +7,7 @@
             </button>
         @endforeach
     </div> --}}
-    <div class="carousel-inner" id="carouselDynamic">
-
-    </div>
+    <div class="carousel-inner" id="carouselDynamic"></div>
 
     <x-carousel-navigation-arrows :carouselID="'excursionCarousel'" />
     {{-- <div class="indicators_space"></div> --}}
@@ -28,14 +26,14 @@
                         @foreach ($chunk as $excursion)
                            <div class="col-md-4">
     <a class="text-reset text-decoration-none"
-        href="{{ route('excursion.show', ['name' => $excursion->{'name_' . app()->getLocale()}, 'id' => $excursion->id]) }}">
+        href="{{ route('excursion.show', ['locale' => app()->getLocale(), 'slug' => $excursion->{'slug_' . app()->getLocale()}]) }}">
         <div class="container">
             <div class="row">
                 <div class="col-12 my-3 d-flex justify-content-center align-items-center position-relative">
                     @if ($excursion->images->isNotEmpty())
                         @foreach ($excursion->images as $image)
                             <x-responsive-image loading="lazy" image="{{ $image->path }}"
-                                 alt="img_{{ $excursion->name_en }}" class="excursion-img"/>
+                                 alt="img_{{ $excursion->{'slug_' . app()->getLocale()} }}" class="excursion-img"/>
                         @endforeach
                     @else
                         <x-responsive-image loading="lazy"  image="https://picsum.photos/20{{ $excursion->id }}/{{ $excursion->id + 100 }}"
@@ -63,14 +61,14 @@
                 carouselDynamic.innerHTML = `@foreach ($excursions as $index => $excursion)
                 <div class="carousel-item excursion {{ $index === 0 ? 'active' : '' }}">
                     <a class="text-reset text-decoration-none"
-        href="{{ route('excursion.show', ['name' => $excursion->{'name_' . app()->getLocale()}, 'id' => $excursion->id]) }}">
+        href="{{ route('excursion.show', ['locale' => app()->getLocale(), 'slug' => $excursion->{'slug_' . app()->getLocale()}]) }}">
         <div class="container">
             <div class="row">
                 <div class="col-12 my-3 d-flex justify-content-center align-items-center position-relative">
                     @if ($excursion->images->isNotEmpty())
                         @foreach ($excursion->images as $image)
                             <x-responsive-image loading="lazy" image="{{ $image->path }}"
-                                 alt="img_{{ $excursion->name_en }}" class="excursion-img"/>
+                                 alt="img_{{ $excursion->{'slug_' . app()->getLocale()} }}" class="excursion-img"/>
                         @endforeach
                     @else
                         <x-responsive-image loading="lazy"  image="https://picsum.photos/20{{ $excursion->id }}/{{ $excursion->id + 100 }}"

@@ -7,7 +7,7 @@
                     @if ($excursion->images->isNotEmpty())
                         @foreach ($excursion->images as $image)
                             <x-responsive-image loading="lazy" image="{{ $image->path }}"
-                                alt="img_{{ $excursion->name_en }}" class="img-show m-1" />
+                                alt="img_{{ $excursion->{'slug_' . app()->getLocale()} }}" class="img-show m-1" />
                         @endforeach
                     @else
                         <x-responsive-image loading="lazy" image="https://picsum.photos/600/400" alt="placeholder"
@@ -48,8 +48,8 @@
                     <div class="d-flex justify-content-center align-items-center">
                         @if ($excursion->images->isNotEmpty())
                             @foreach ($excursion->images as $image)
-                                <x-responsive-image loading="lazy" image="{{ $image->path }}" class="img-show m-1"
-                                    alt="img_{{ $excursion->name_en }}" class="img-show m-1" />
+                                <x-responsive-image loading="lazy" image="{{ $image->path }}"
+                                    alt="img_{{ $excursion->{'slug_' . app()->getLocale()} }}" class="img-show m-1" />
                             @endforeach
                         @else
                             <x-responsive-image loading="lazy" image="https://picsum.photos/600/400" alt="placeholder"

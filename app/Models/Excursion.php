@@ -21,6 +21,8 @@ class Excursion extends Model
         'duration',
         'show',
         'increment_passengers',
+        'slug_it',
+        'slug_en',
     ];
 
     public function images()
