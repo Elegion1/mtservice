@@ -11,9 +11,9 @@
     <div class="d-flex pt-3">
 
         <div id="footerOwnerData" class="mb-3 text-small">
-            <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none" >
-            <x-responsive-image loading="lazy" image="{{ $ownerdata->images->first()->path }}" alt="logo-footer"
-                class="logo-footer" />
+            <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+                <x-responsive-image loading="lazy" image="{{ $ownerdata->images->first()->path }}" alt="logo-footer"
+                    class="logo-footer" />
             </a>
             <small>{{ $ownerdata->companyName }}</small><br>
             <small>di {{ $ownerdata->name }} {{ $ownerdata->surname }}</small><br>
@@ -46,34 +46,52 @@
         <div id="footerContacts" class="mb-3 text-end">
             <p>{{ __('ui.contacts') }}</p>
             <ul class="nav flex-column text-small">
-                @if ($ownerdata->phone2 && $ownerdata->phone2Name)
-                    <li class="nav-item mb-2">
-                        <a class="text-decoration-none text-reset p-0" href="tel:{{ $ownerdata->phone2 }}"
-                            aria-label="Chiama il numero {{ $ownerdata->phone2 }}"><span><i
-                                    class="bi bi-telephone-fill"></i></span>
-                            {{ $ownerdata->phone2Name }}</a>
-                    </li>
-                @endif
-                @if ($ownerdata->phone3 && $ownerdata->phone3Name)
-                    <li class="nav-item mb-2">
-                        <a class="text-decoration-none text-reset p-0" href="tel:{{ $ownerdata->phone3 }}"
-                            aria-label="Chiama il numero {{ $ownerdata->phone3 }}"><span><i
-                                    class="bi bi-telephone-fill"></i></span>
-                            {{ $ownerdata->phone3Name }}</a>
-                    </li>
-                @endif
-                @if ($ownerdata->facebook)
-                    <li class="nav-item mb-2"><a href="{{ $ownerdata->facebook }}"
-                            class="text-decoration-none text-reset p-0 text-primary"
-                            aria-label="Visita la nostra pagina Facebook"><i class="bi bi-facebook"></i></a>
-                    </li>
-                @endif
-                @if ($ownerdata->whatsapp)
-                    <li class="nav-item mb-2"><a href="{{ $ownerdata->whatsapp }}"
-                            class="text-decoration-none text-reset p-0 text-success" aria-label="Chatta su WhatsApp"><i
-                                class="bi bi-whatsapp"></i></a>
-                    </li>
-                @endif
+                @php
+                    $phones = [
+                        ['number' => $ownerdata->phone2 ?? null, 'name' => $ownerdata->phone2Name ?? null],
+                        ['number' => $ownerdata->phone3 ?? null, 'name' => $ownerdata->phone3Name ?? null],
+                    ];
+
+                    $socials = [
+                        [
+                            'url' => $ownerdata->facebook ?? null,
+                            'icon' => 'facebook',
+                            'color' => 'text-primary',
+                            'label' => 'Visita la nostra pagina Facebook',
+                        ],
+                        [
+                            'url' => $ownerdata->whatsapp ?? null,
+                            'icon' => 'whatsapp',
+                            'color' => 'text-success',
+                            'label' => 'Chatta su WhatsApp',
+                        ],
+                    ];
+                @endphp
+
+                @foreach ($phones as $phone)
+                    @if ($phone['number'] && $phone['name'])
+                        <li class="nav-item mb-2">
+                            <a href="tel:{{ $phone['number'] }}"
+                                class="text-decoration-none text-reset p-0 phone-click"
+                                data-number="{{ $phone['number'] }}"
+                                aria-label="{{ __('ui.callAction') }} {{ $phone['number'] }}">
+                                <i class="bi bi-telephone-fill"></i> {{ $phone['name'] }}
+                            </a>
+                        </li>
+                    @endif
+                @endforeach
+
+                @foreach ($socials as $social)
+                    @if ($social['url'])
+                        <li class="nav-item mb-2">
+                            <a href="{{ $social['url'] }}"
+                                class="text-decoration-none text-reset p-0 {{ $social['color'] }}"
+                                aria-label="{{ $social['label'] }}">
+                                <i class="bi bi-{{ $social['icon'] }}"></i>
+                            </a>
+                        </li>
+                    @endif
+                @endforeach
             </ul>
         </div>
     </div>
@@ -82,7 +100,7 @@
         <div class="text-center text-small">
             <hr class="m-0">
             <small>
-                M.T. Service <i class="bi bi-c-circle"></i> 2024 All
+                M.T. Service <i class="bi bi-c-circle"></i> {{ now()->year }} All
                 rights reserved</small>
             <br>
             <small>Created and Optimized by
@@ -92,3 +110,4 @@
         </div>
     </div>
 </footer>
+

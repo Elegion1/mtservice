@@ -1,4 +1,3 @@
-{{-- filepath: resources/views/components/price-summary.blade.php --}}
 @props([
     'items' => [],
     'totalPrice' => 0,

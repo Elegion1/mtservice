@@ -392,6 +392,7 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
     'goHome' => 'Torna alla home',
 
     'excursionAt' => 'Escursione a',
+    'callAction'=> 'Chiama il',
 ];
 
 

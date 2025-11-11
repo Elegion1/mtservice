@@ -5,7 +5,8 @@
         </button>
         <div class="contact-options">
             @if ($ownerdata->phone2)
-                <a href="tel:{{ $ownerdata->phone2 }}" class="contact-option call2 shadow text-black" aria-label="Chiama il numero {{ $ownerdata->phone2 }}">
+                <a href="tel:{{ $ownerdata->phone2 }}" class="contact-option call2 shadow text-black phone-click"
+                    aria-label="Chiama il numero {{ $ownerdata->phone2 }}" data-number="{{ $ownerdata->phone2 }}">
                     <i class="bi bi-telephone"></i>
                 </a>
             @endif
@@ -18,7 +19,8 @@
                 <i class="bi bi-envelope"></i>
             </a> --}}
             @if ($ownerdata->whatsappLink)
-                <a href="{{ $ownerdata->whatsappLink }}" class="contact-option whatsappBtn shadow text-d" aria-label="Chatta su WhatsApp">
+                <a href="{{ $ownerdata->whatsappLink }}" class="contact-option whatsappBtn shadow text-d"
+                    aria-label="Chatta su WhatsApp">
                     <i class="bi bi-whatsapp"></i>
                 </a>
             @endif

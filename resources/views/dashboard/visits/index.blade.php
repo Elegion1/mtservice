@@ -7,6 +7,9 @@
                 <a href="{{ route('visits.dashboard') }}" class="btn btn-outline-primary me-2">
                     <i class="fas fa-tachometer-alt me-1"></i> Dashboard
                 </a>
+                <a href="{{ route('visits.phone_clicks') }}" class="btn btn-outline-primary me-2">
+                    <i class="fas fa-telephone me-1"></i> Phone Clicks
+                </a>
                 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                     data-bs-target="#clearVisitsModal">
                     <i class="fas fa-trash-alt me-1"></i> Clear All

@@ -1,4 +1,5 @@
 <?php
+
 return [
     'it' => 'italiano',
     'en' => 'english',
@@ -10,15 +11,15 @@ return [
     'title3' => 'Our Excursions',
     'serviceHighlightTitle' => 'Most requested services',
 
-    //navbar
+    // navbar
     'navTitle' => 'Book Online or Call',
     'selectLanguage' => 'Select language :lang',
     'selectDate' => 'Select date',
     'next' => 'next',
     'back' => 'back',
 
-    //Livewire
-    //transfer
+    // Livewire
+    // transfer
 
     'transferTitle' => 'Book Transfer',
     'selectDeparture' => 'Select Departure',
@@ -36,11 +37,11 @@ return [
     'bookNow' => 'Book now',
     'select' => 'Select',
 
-    //excursion
+    // excursion
     'excursionTitle' => 'Book Excursion',
     'excursionSelect' => 'Select Excursion',
 
-    //booking 
+    // booking
     'transfer' => 'transfer',
     'excursions' => 'excursions',
     'carRent' => 'car rental',
@@ -49,7 +50,7 @@ return [
     'escursione' => 'excursion',
     'noleggio' => 'car rental',
 
-    //car rental
+    // car rental
     'rentTitle' => 'Book Your Car',
     'rentStartDate' => 'Pick-Up Date',
     'rentEndDate' => 'Drop-Off Date',
@@ -64,7 +65,7 @@ return [
     'minimumRent' => 'Minimum rent',
     'days' => 'days',
 
-    //booking summary
+    // booking summary
     'bookingSummaryTitle' => 'Booking Summary',
     'bookingType' => 'Type',
     'from' => 'From',
@@ -100,11 +101,11 @@ return [
     'originalPrice' => 'Original price',
     'seatBoosterMsg' => 'We provide car seats and boosters for children aged 1 month to 10 years. Add your request during the booking process.',
 
-    //contact-link
+    // contact-link
     'contactLinkTitle' => 'For <strong class="text-d">info</strong> or <strong class="text-d">custom services</strong>',
     'contactLinkBtn' => 'Contact Us',
 
-    //route list
+    // route list
     'perPerson' => 'per person',
     'noRoutesAvailable' => 'No Routes Available',
     'allDestinations' => 'See all destinations',
@@ -115,20 +116,20 @@ return [
     'servicesSubtitle' => 'Punctuality and professionalism at your service',
     'servicesBody' => 'We offer various types of Taxi Transfer services throughout Sicily to meet all the needs and requirements of our clients. Here is a list of the various options our organization provides:',
 
-    //excursions
+    // excursions
     'hour' => 'hour',
     'hours' => 'hours',
     'excursionPageTitle' => 'Western Sicily Excursions',
     'details' => 'Details',
 
-    //footer
+    // footer
     'navigation' => 'Navigation',
     'contacts' => 'Contacts',
     'footerMessage' => 'Transfer Trapani and Marsala
 Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo, and Catania, available by bus, minibus, and car.
 24/7 Service - Taxi - Excursions in the province of Trapani and throughout Sicily - Airport transfers to San Vito Lo Capo',
 
-    //links
+    // links
     'Home' => 'home',
     'Transfer' => 'transfer',
     'Escursioni' => 'excursions',
@@ -175,7 +176,6 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
     'phone_required' => 'The phone number is required',
     'body_required' => 'This field is required',
     'privacy_policy_accepted' => 'Accept policies to proceed',
-
 
     'dateStart_required' => 'The pickup date is required',
     'timeStart_required' => 'The pickup time is required',
@@ -226,7 +226,6 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
 
     'contactMailMessage' => 'The message was sent successfully',
 
-
     'mailDepositMessage' => 'We remind you that a payment of 30% of the total price is required to finalize the booking.',
 
     'paymentAmountMessage' => 'Make a payment of :amount € at this link:  
@@ -238,7 +237,6 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
     'paypaid' => '<strong class="text-success">Paid</strong>',
     'paypending' => '<strong class="text-warning">Not yet received</strong>',
     'paydeposit_paid' => '<strong class="text-primary">Deposit paid</strong>',
-
 
     'other' => 'other',
 
@@ -393,4 +391,5 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
     'goHome' => 'Go to home',
 
     'excursionAt' => 'Excursion at',
+    'callAction' => 'Call us',
 ];

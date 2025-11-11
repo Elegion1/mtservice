@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class Visit extends Model
 {
@@ -16,6 +17,8 @@ class Visit extends Model
         'user_agent',
         'visited_at',
         'url',
+        'action',
+        'details',
     ];
 
     protected $casts = [
@@ -23,12 +26,32 @@ class Visit extends Model
     ];
 
     /**
+     * Scope per i click sui numeri di telefono
+     */
+    public function scopePhoneClicks(Builder $query): Builder
+    {
+        return $query->where('action', 'phone_click');
+    }
+
+    /**
+     * Restituisce i numeri più cliccati con il conteggio
+     */
+    public static function getPhoneClicks()
+    {
+        return self::phoneClicks()
+            ->select('details as number', DB::raw('count(*) as clicks'))
+            ->groupBy('details')
+            ->orderByDesc('clicks')
+            ->get();
+    }
+
+    /**
      * Scope a query to only include visits from a specific date range.
      */
     public function scopeDateRange(Builder $query, $startDate, $endDate = null): Builder
     {
         $endDate = $endDate ?: now();
-        
+
         return $query->whereBetween('visited_at', [
             Carbon::parse($startDate)->startOfDay(),
             Carbon::parse($endDate)->endOfDay(),
