@@ -2,15 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use alert;
 use Closure;
-use Illuminate\Support\Str;
-use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\URL;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class SetLocaleMiddleware
 {
@@ -21,6 +18,11 @@ class SetLocaleMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
+
+        if ($request->is('*brochure')) {
+            return $next($request);
+        }
+        
         // Ottieni il prefisso della lingua dall'URL
         $locale = $request->segment(1);
         // Log::info("Lingua estratta dal segmento dell'URL: {$locale}");
@@ -42,10 +44,10 @@ class SetLocaleMiddleware
             App::setLocale($locale);
             URL::defaults(['locale' => $locale]);
         } else {
-            
+
             // Reindirizza alla lingua di default se il prefisso non è valido
             // Log::info("Reindirizzamento alla lingua di fallback: " . config('app.fallback_locale'));
-            return redirect('/' . 'it');
+            return redirect('/'.'it');
         }
         // Log::info("Percorso dopo il controllo della lingua: " . $request->path());
 

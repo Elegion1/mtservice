@@ -31,6 +31,13 @@ Route::get('/', function () {
     return redirect()->to($locale); // Reindirizza alla homepage con il locale
 });
 
+Route::get('/brochure', function () {
+    return response()->file(public_path('Brochure.pdf'), [
+        'Content-Type' => 'application/pdf',
+        'Content-Disposition' => 'inline; filename="Brochure.pdf"'
+    ]);
+});
+
 Route::get('/assets/{file}', function ($file) {
     return response()->file(public_path("assets/$file"), [
         'Cache-Control' => 'max-age=31536000, public',
