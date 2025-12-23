@@ -31,7 +31,7 @@ class ViewServiceProvider extends ServiceProvider
     {
 
         if (Service::query()->exists()) {
-            $services = Service::where('show', 1)->orderBy('title_it', 'asc')->get();
+            $services = Service::where('show', 1)->orderBy('id', 'asc')->get();
             View::share('services', $services);
         }
 
