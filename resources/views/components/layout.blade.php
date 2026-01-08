@@ -32,6 +32,11 @@
         '@context' => 'https://schema.org',
         '@graph' => [
             [
+            '@type' => 'WebSite', 
+            'name' => 'Tranchida Transfer', 
+            'url' => url('/')
+            ],
+            [
             '@type' => 'TravelAgency',
             'name' => 'Tranchida Transfer Trapani',
             'url' => url('/'),
