@@ -105,7 +105,7 @@
             <br>
             <small>Created and Optimized by
                 <a class="text-reset link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
-                    href="https://www.linkedin.com/in/giovanni-sugamiele-webdev/">Giovanni Sugamiele</a>
+                    href="https://elegion.it">Giovanni Sugamiele</a>
             </small>
         </div>
     </div>

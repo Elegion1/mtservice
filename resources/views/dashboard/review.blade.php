@@ -66,9 +66,9 @@
                         <p class="card-text"><strong>Titolo:</strong> {{ $review->title }}</p>
                         <p class="card-text"><strong>Recensione:</strong> {{ $review->body }}</p>
                         <p class="card-text"><strong>Valutazione:</strong> {{ $review->rating }}</p>
-                        <p class="card-text"><strong>Stato:</strong><x-status :status="$review->status"></p>
+                        <p class="card-text"><strong>Stato:</strong><x-status :status="$review->status" /></p>
                         <p class="card-text"><strong>Prenotazione:</strong>
-                            {{ $review->booking ? true : 'Non ancora recensita' }}</p>
+                            {{ $review->booking ? 'Sì' : 'Non ancora recensita' }}</p>
                         <p class="card-text"><strong>Data di aggiunta:</strong> {{ $review->created_at }}</p>
                         <p class="card-text"><strong>Data di modifica:</strong> {{ $review->updated_at }}</p>
                         <div class="d-flex justify-content-end">
