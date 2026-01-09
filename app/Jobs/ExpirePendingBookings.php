@@ -55,12 +55,9 @@ class ExpirePendingBookings implements ShouldQueue
         Log::info('[ExpirePendingBookings] Found ' . $expiredBookings->count() . ' pending bookings to expire, sending notification to: ' . ($adminData->email ?? 'N/A'));
 
         if ($adminData) {
-            sendEmail(
-                $adminData->email, // Destinatario
-                new ExpiredBookingsNotification($expiredBookings), // Mailable
-                'Errore nell\'invio dell\'email di notifica scadenza prenotazioni', // Messaggio di errore
-                'it' // Locale per l'amministratore
-            );
+            // Metti l'email in queue anzichè inviarla sincronamente
+            Mail::queue(new ExpiredBookingsNotification($expiredBookings), to: $adminData->email);
+            Log::info('[ExpirePendingBookings] Admin notification queued.');
         } else {
             Log::warning('[ExpirePendingBookings] No administrator email found. Skipping admin notification.');
         }
@@ -76,18 +73,13 @@ class ExpirePendingBookings implements ShouldQueue
                     Log::info('[ExpirePendingBookings] Booking ID {$booking->id} marked as rejected. Notification disabled.');
                     continue;
                 } else {
-                    Log::info('[ExpirePendingBookings] Booking ID {$booking->id} marked as rejected. Sending notification.');
+                    Log::info('[ExpirePendingBookings] Booking ID {$booking->id} marked as rejected. Queuing notification.');
 
-                    // Usa la funzione sendEmail per inviare la mail
-                    sendEmail(
-                        $booking->email, // Destinatario
-                        new BookingStatusNotification($booking), // Mailable
-                        'Errore nell\'invio della notifica di prenotazione rifiutata', // Messaggio di errore
-                        $booking->locale // Locale della prenotazione
-                    );
+                    // Metti l'email in queue anzichè inviarla sincronamente
+                    Mail::queue(new BookingStatusNotification($booking), to: $booking->email);
                 }
 
-                Log::info('[ExpirePendingBookings] Booking ID {$booking->id} marked as rejected and notification sent.');
+                Log::info('[ExpirePendingBookings] Booking ID {$booking->id} marked as rejected and notification queued.');
             } catch (\Exception $e) {
                 Log::error('[ExpirePendingBookings] Failed to process booking ID {$booking->id}: ' . $e->getMessage());
             }

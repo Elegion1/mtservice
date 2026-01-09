@@ -241,4 +241,7 @@
         </div>
     </form>
 
+    <!-- Livewire 3 Polling per controllare i risultati della cache -->
+    <div wire:poll-500ms="checkDistanceCache"></div>
+
 </div>

@@ -19,6 +19,7 @@
             (object) ['name' => 'show_noleggio'],
             (object) ['name' => 'vehicle_capacity'],
             (object) ['name' => 'garage_address'],
+            (object) ['name' => 'hand_off_price_per_km'],
 
         ];
 
