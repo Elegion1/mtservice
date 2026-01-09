@@ -34,12 +34,12 @@
             [
             '@type' => 'WebSite', 
             'name' => 'Tranchida Transfer', 
-            'url' => url('/')
+            'url' => url('https://tranchidatransfer.it')
             ],
             [
             '@type' => 'TravelAgency',
-            'name' => 'Tranchida Transfer Trapani',
-            'url' => url('/'),
+            'name' => 'Tranchida Transfer',
+            'url' => url('https://tranchidatransfer.it'),
             'logo' => asset('media/logo.png'),
             'telephone' => $ownerdata->phone ,
             'address' => [
@@ -94,7 +94,7 @@
         // Mappa SEO per le rotte principali
         $seoMap = [
             'home' => [
-                'title' => 'Tranchida Transfer Trapani | Transfer, Taxi, Noleggio Auto ed Escursioni a Trapani',
+                'title' => 'Tranchida Transfer | Transfer, Taxi, Noleggio Auto ed Escursioni a Trapani',
                 'description' =>
                     'Servizi di transfer, taxi, noleggio auto ed escursioni in Sicilia occidentale. Prenota online Tranchida Transfer Trapani per Aeroporto Palermo e Trapani',
             ],
@@ -177,7 +177,7 @@
     <meta property="og:description" content="{{ $seoDescription }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:site_name" content="Tranchida Transfer Trapani">
+    <meta property="og:site_name" content="Tranchida Transfer">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @include('cookie-consent::index')
