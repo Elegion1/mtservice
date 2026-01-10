@@ -34,10 +34,10 @@ Artisan::command('logs:clear', function () {
 // Definizione del comando
 Artisan::command('expire:bookings', function () {
     echo "Checking expired bookings...\n";
-    dispatch(new ExpirePendingBookings())->handle();
+    dispatch(new ExpirePendingBookings());
     echo "Done!\n";
 })->describe('Mark pending bookings as rejected if older than 24 hours');
 
 // Pianifica l'esecuzione automatica
-Schedule::command('expire:bookings')->hourly();
+Schedule::command('expire:bookings')->hourly()->withoutOverlapping();
 Schedule::command('logs:clear')->weekly();

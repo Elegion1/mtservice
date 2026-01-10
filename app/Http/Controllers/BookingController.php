@@ -378,30 +378,30 @@ class BookingController extends Controller
         }
 
         // Se la prenotazione è confermata, programma l'invio della richiesta di recensione
-        if (isset($updates['status']) && $updates['status'] === 'confirmed') {
-            $defaultTime = getSetting('review_request_default_time');
-            $delayDays = getSetting('review_request_delay_days');
+        // if (isset($updates['status']) && $updates['status'] === 'confirmed') {
+        //     $defaultTime = getSetting('review_request_default_time');
+        //     $delayDays = getSetting('review_request_delay_days');
 
-            $serviceDate = Carbon::parse($booking->service_date . ' ' . $defaultTime);
-            $delay = $serviceDate->addDays((int) $delayDays);
+        //     $serviceDate = Carbon::parse($booking->service_date . ' ' . $defaultTime);
+        //     $delay = $serviceDate->addDays((int) $delayDays);
 
-            Log::info("Configurazione invio recensione: data servizio - {$booking->service_date}, tempo predefinito - {$defaultTime}, giorni di ritardo - {$delayDays}, data ritardo calcolata - {$delay->toDateTimeString()}");
+        //     Log::info("Configurazione invio recensione: data servizio - {$booking->service_date}, tempo predefinito - {$defaultTime}, giorni di ritardo - {$delayDays}, data ritardo calcolata - {$delay->toDateTimeString()}");
 
-            // Controlla se esistono già jobs per la prenotazione
-            $findJob = getJobs($booking);
+        //     // Controlla se esistono già jobs per la prenotazione
+        //     $findJob = getJobs($booking);
 
-            if ($findJob) {
-                Log::info("Job già esistente per la prenotazione {$booking->code}. ID Job: {$findJob->id}. Annullo creazione del Job.");
-                return redirect()->back()->with('message', 'Job già presente');
-            } else {
-                $appLocale = App::getLocale();
-                App::setLocale($booking->locale);
-                SendReviewRequestJob::dispatch($booking)->delay($delay);
-                App::setLocale($appLocale);
-                Log::info("Job per la richiesta di recensione creato per la prenotazione: {$booking->code}, con invio previsto per: {$delay->toDateTimeString()}");
-                return redirect()->back()->with('message', 'Job creato con successo');
-            }
-        }
+        //     if ($findJob) {
+        //         Log::info("Job già esistente per la prenotazione {$booking->code}. ID Job: {$findJob->id}. Annullo creazione del Job.");
+        //         return redirect()->back()->with('message', 'Job già presente');
+        //     } else {
+        //         $appLocale = App::getLocale();
+        //         App::setLocale($booking->locale);
+        //         SendReviewRequestJob::dispatch($booking)->delay($delay);
+        //         App::setLocale($appLocale);
+        //         Log::info("Job per la richiesta di recensione creato per la prenotazione: {$booking->code}, con invio previsto per: {$delay->toDateTimeString()}");
+        //         return redirect()->back()->with('message', 'Job creato con successo');
+        //     }
+        // }
 
         $notification = getSetting('email_notification');
         Log::info("Impostazione notifiche via email: " . ($notification ? 'Abilitata' : 'Disabilitata'));
