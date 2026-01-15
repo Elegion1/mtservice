@@ -1,29 +1,29 @@
 <?php
 
-use Livewire\Livewire;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CarController;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\TestController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\RouteController;
-use App\Http\Controllers\VisitController;
-use App\Http\Controllers\PublicController;
-use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\CarController;
+use App\Http\Controllers\CarPriceController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ContentController;
-use App\Http\Controllers\PartnerController;
-use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\SettingController;
-use App\Http\Controllers\CarPriceController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\ExcursionController;
 use App\Http\Controllers\OwnerDataController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PartnerController;
+use App\Http\Controllers\PublicController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\RouteController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\SettingController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\TimePeriodController;
-use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\VisitController;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Route;
+use Livewire\Livewire;
 
 Route::get('/', function () {
     $locale = App::getLocale(); // Recupera il locale predefinito
@@ -34,11 +34,15 @@ Route::get('/', function () {
 Route::get('/brochure', function () {
     return response()->file(public_path('Brochure.pdf'), [
         'Content-Type' => 'application/pdf',
-        'Content-Disposition' => 'inline; filename="Brochure.pdf"'
+        'Content-Disposition' => 'inline; filename="Brochure.pdf"',
     ]);
 });
 
 Route::get('/assets/{file}', function ($file) {
+    if (! preg_match('/^[a-zA-Z0-9._-]+\.(png|jpg|jpeg|webp|svg|css|js)$/', $file)) {
+        abort(404);
+    }
+
     return response()->file(public_path("assets/$file"), [
         'Cache-Control' => 'max-age=31536000, public',
     ]);
@@ -89,7 +93,6 @@ Route::get('dashboard/bookingfromreact/getBookingCode', [BookingController::clas
 Route::get('dashboard/bookingfromreact/getBookingData', [BookingController::class, 'getBookingData']);
 
 Route::post('dashboard/phone-click', [VisitController::class, 'saveClick'])->name('phone.click');
-
 
 // gestione stato prenotazione
 Route::middleware(['auth'])->prefix('dashboard')->group(function () {
