@@ -44,54 +44,89 @@
     <form action="{{ route('timeperiods.store') }}" method="POST" class="d-none mt-3" id="periodFormCreate"
         enctype="multipart/form-data">
         @csrf
-        <div class="row mb-2 ">
+        <div class="row mb-3">
             <div class="col-6">
                 <label for="start" class="form-label">Data di inizio</label>
                 <input type="datetime-local" class="form-control" id="start" name="start"
-                    placeholder="Inizio periodo">
+                    placeholder="Inizio periodo" required>
             </div>
             <div class="col-6">
                 <label for="end" class="form-label">Data di fine</label>
                 <input type="datetime-local" class="form-control" id="end" name="end"
-                    placeholder="Fine periodo">
+                    placeholder="Fine periodo" required>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Aggiungi periodo</button>
+
+        <!-- Prezzo base per tutte le auto -->
+        <div class="row mb-3">
+            <div class="col-12 col-md-6">
+                <label for="base_price" class="form-label">Prezzo base (per tutte le auto)</label>
+                <input type="number" class="form-control" id="base_price" name="base_price" 
+                    placeholder="0,00" step="0.01" required>
+            </div>
+        </div>
+
+        <!-- Selezione Auto -->
+        <div class="mb-3">
+            <label class="form-label">Seleziona le auto da associare</label>
+            <div style="border: 1px solid #ddd; border-radius: 4px; padding: 15px; max-height: 300px; overflow-y: auto;">
+                @forelse ($cars as $car)
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" name="cars[]" value="{{ $car->id }}" id="car_{{ $car->id }}">
+                        <label class="form-check-label" for="car_{{ $car->id }}">
+                            <strong>{{ $car->name }}</strong> - {{ $car->description }}
+                        </label>
+                    </div>
+                @empty
+                    <p class="text-muted">Nessuna auto disponibile</p>
+                @endforelse
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Aggiungi periodo e prezzi</button>
     </form>
 
-    <form action="{{ route('carprices.store') }}" method="POST" class="d-none mt-3" id="carPriceAssociateForm"
+    <form action="{{ route('carprices.sync') }}" method="POST" class="d-none mt-3" id="carPriceAssociateForm"
         enctype="multipart/form-data">
         @csrf
         <div class="row mb-3">
-            <div class="col-12 col-md-4">
-                <label for="car_id" class="form-label">Auto</label>
-                <select name="car_id" id="car_id" class="form-control">
-                    <option value="" selected>Seleziona auto</option>
-                    @foreach ($cars as $car)
-                        <option value="{{ $car->id }}"
-                            {{ isset($selectedCar) && $selectedCar->id == $car->id ? 'selected' : '' }}>
-                            {{ $car->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-12 col-md-5">
-                <label for="timeperiods" class="form-label">Periodi</label>
-                <select name="time_period_id" id="timeperiods" class="form-control">
+            <div class="col-12 col-md-8">
+                <label for="sync_time_period_id" class="form-label">Seleziona Periodo</label>
+                <select name="time_period_id" id="sync_time_period_id" class="form-control" required>
+                    <option value="" selected>Scegli un periodo</option>
                     @foreach ($timePeriods as $period)
                         <option value="{{ $period->id }}">
-                            Da: {{ \Carbon\Carbon::parse($period->start)->format('d/m/Y H:i') }} a:
-                            {{ \Carbon\Carbon::parse($period->end)->format('d/m/Y H:i') }}
+                            {{ $period->formatted_name }}
                         </option>
                     @endforeach
                 </select>
             </div>
-            <div class="col-12 col-md-3">
-                <label for="price" class="form-label">Prezzo</label>
-                <input type="number" class="form-control" id="price" name="price" placeholder="Prezzo">
+            <div class="col-12 col-md-4">
+                <label for="sync_price" class="form-label">Prezzo per questo periodo</label>
+                <input type="number" class="form-control" id="sync_price" name="price" 
+                    placeholder="0,00" step="0.01" required>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Associa Periodo</button>
+
+        <!-- Selezione Auto -->
+        <div class="mb-3">
+            <label class="form-label">Seleziona le auto per questo periodo</label>
+            <div style="border: 1px solid #ddd; border-radius: 4px; padding: 15px; max-height: 300px; overflow-y: auto;">
+                @forelse ($cars as $car)
+                    <div class="form-check mb-2">
+                        <input class="form-check-input car-checkbox" type="checkbox" name="cars[]" 
+                            value="{{ $car->id }}" id="sync_car_{{ $car->id }}">
+                        <label class="form-check-label" for="sync_car_{{ $car->id }}">
+                            <strong>{{ $car->name }}</strong> - {{ $car->description }}
+                        </label>
+                    </div>
+                @empty
+                    <p class="text-muted">Nessuna auto disponibile</p>
+                @endforelse
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Salva Associazioni</button>
     </form>
 
     <hr>
@@ -214,19 +249,13 @@
                 <div class="col-md-6 col-lg-4 mb-3">
                     <div class="card shadow-sm">
                         <div class="card-body">
-                            <p class="card-title">Periodo: <br>
-                                Da
-                                {{ \Carbon\Carbon::parse($group->first()->timePeriod->start)->translatedFormat('d F Y H:i') }}
-                                <br>
-                                a
-                                {{ \Carbon\Carbon::parse($group->first()->timePeriod->end)->translatedFormat('d F Y H:i') }}
+                            <p class="card-title">
+                                <strong>{{ $group->first()->timePeriod->formatted_name }}</strong>
                             </p>
 
                             @foreach ($group as $carPrice)
                                 <div class="d-flex justify-content-between align-items-center">
-
                                     <p class="mb-1">{{ $carPrice->car->name }}</p>
-
                                     <div class="d-flex justify-content-between align-items-center ">
                                         <span class="me-3">{{ $carPrice->price }} €</span>
                                         <x-edit-button :id="'CarPrice'" :data="$carPrice" :label="true" />
@@ -250,36 +279,25 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>Inizio</th>
-                    <th>Fine</th>
-                    <th>Auto</th>
-                    <th>Prezzo</th>
-                    <th>CarPrice</th>
                     <th>Periodo</th>
+                    <th>Auto e Prezzi</th>
+                    <th>Azioni</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($groupedCarPrices as $timePeriodId => $group)
                     <tr>
-                        <td>{{ $group->first()->id }}</td>
-                        <td>{{ $group->first()->timePeriod->start }}</td>
-                        <td>{{ $group->first()->timePeriod->end }}</td>
                         <td>
-                            @foreach ($group as $carPrice)
-                                {{ $carPrice->car->name }} <br>
-                            @endforeach
+                            <strong>{{ $group->first()->timePeriod->formatted_name }}</strong>
                         </td>
                         <td>
                             @foreach ($group as $carPrice)
-                                {{ $carPrice->price }} € <br>
-                            @endforeach
-                        </td>
-                        <td>
-                            @foreach ($group as $carPrice)
-                                <div class=" mb-1">
-                                    <x-edit-button :id="'CarPrice'" :data="$carPrice" />
-                                    <x-delete-button :route="'carprices'" :model="$carPrice" /> <br>
+                                <div class="mb-2">
+                                    <span>{{ $carPrice->car->name }}: <strong>{{ $carPrice->price }} €</strong></span>
+                                    <div>
+                                        <x-edit-button :id="'CarPrice'" :data="$carPrice" :label="true" />
+                                        <x-delete-button :route="'carprices'" :model="$carPrice" :label="true" />
+                                    </div>
                                 </div>
                             @endforeach
                         </td>
@@ -320,15 +338,25 @@
 
     <x-modal :id="'TimePeriod'" :title="'Modifica periodo'">
 
+        <div class="alert alert-info">
+            Nome periodo: <strong id="period_name_display"></strong>
+        </div>
+
         <div class="mb-3">
             <label for="edit_start" class="form-label">Data di inizio</label>
             <input type="datetime-local" class="form-control" id="edit_start" name="start"
-                placeholder="Inizio periodo">
+                placeholder="Inizio periodo" required>
         </div>
         <div class="mb-3">
-            <label for="edit_end" class="form-label">Data di inizio</label>
+            <label for="edit_end" class="form-label">Data di fine</label>
             <input type="datetime-local" class="form-control" id="edit_end" name="end"
-                placeholder="Fine periodo">
+                placeholder="Fine periodo" required>
+        </div>
+        <div class="mb-3">
+            <label for="edit_base_price" class="form-label">Prezzo (aggiorna per tutte le auto)</label>
+            <input type="number" class="form-control" id="edit_base_price" name="base_price"
+                placeholder="0,00" step="0.01" required>
+            <small class="text-muted">Modifica questo prezzo per aggiornare automaticamente il prezzo di TUTTE le auto associate a questo periodo</small>
         </div>
 
     </x-modal>
@@ -395,7 +423,75 @@
                     'Associa Periodo' :
                     'Nascondi';
             });
+
+            // Aggiorna il nome del periodo quando cambiano le date nel modale
+            const editStart = document.getElementById('edit_start');
+            const editEnd = document.getElementById('edit_end');
+            const periodNameDisplay = document.getElementById('period_name_display');
+
+            function updatePeriodName() {
+                if (editStart.value && editEnd.value) {
+                    const startDate = new Date(editStart.value);
+                    const endDate = new Date(editEnd.value);
+
+                    const options = { day: 'numeric', month: 'long' };
+                    const locale = document.documentElement.lang || 'it-IT';
+                    
+                    const startStr = startDate.toLocaleDateString(locale, options);
+                    const endStr = endDate.toLocaleDateString(locale, options);
+
+                    periodNameDisplay.textContent = startStr + ' - ' + endStr;
+                }
+            }
+
+            editStart.addEventListener('change', updatePeriodName);
+            editEnd.addEventListener('change', updatePeriodName);
+
+            // Popola i checkbox quando cambia il periodo selezionato
+            const syncTimePeriodSelect = document.getElementById('sync_time_period_id');
+            const syncPriceInput = document.getElementById('sync_price');
+            const carCheckboxes = document.querySelectorAll('.car-checkbox');
+
+            syncTimePeriodSelect.addEventListener('change', function() {
+                const timePeriodId = this.value;
+
+                // Reset tutti i checkbox
+                carCheckboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                syncPriceInput.value = '';
+
+                if (!timePeriodId) return;
+
+                // Carica i dati del periodo via AJAX
+                fetch(`/dashboard/carprices/period/${timePeriodId}`, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Popola il prezzo se tutte le auto hanno lo stesso prezzo
+                    if (data.cars.length > 0) {
+                        const firstPrice = data.cars[0].pivot.price;
+                        const allSamePrice = data.cars.every(car => car.pivot.price === firstPrice);
+                        if (allSamePrice) {
+                            syncPriceInput.value = firstPrice;
+                        }
+                    }
+
+                    // Seleziona i checkbox delle auto già associate
+                    data.cars.forEach(car => {
+                        const checkbox = document.getElementById(`sync_car_${car.id}`);
+                        if (checkbox) {
+                            checkbox.checked = true;
+                        }
+                    });
+                })
+                .catch(error => console.error('Errore:', error));
+            });
         });
+
     </script>
 
 </x-dashboard-layout>

@@ -34,15 +34,29 @@ class TimePeriodController extends Controller
         $validated = $request->validate([
             'start' => 'required|date',
             'end' => 'required|date|after_or_equal:start',
+            'base_price' => 'required|numeric|min:0',
+            'cars' => 'array',
+            'cars.*' => 'exists:cars,id',
         ]);
 
         // Crea il periodo
-        TimePeriod::create([
+        $period = TimePeriod::create([
             'start' => $validated['start'],
             'end' => $validated['end'],
         ]);
 
-        return redirect()->back()->with('success', 'Periodo creato con successo!');
+        // Se sono state selezionate auto, crea i CarPrice automaticamente
+        if (!empty($validated['cars'])) {
+            foreach ($validated['cars'] as $carId) {
+                CarPrice::create([
+                    'car_id' => $carId,
+                    'time_period_id' => $period->id,
+                    'price' => $validated['base_price'],
+                ]);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Periodo creato e auto associate con successo!');
     }
 
     /**
@@ -66,6 +80,7 @@ class TimePeriodController extends Controller
         $validated = $request->validate([
             'start' => 'required|date',
             'end' => 'required|date|after_or_equal:start',
+            'base_price' => 'nullable|numeric|min:0',
         ]);
 
         // Aggiorna il periodo esistente
@@ -73,6 +88,13 @@ class TimePeriodController extends Controller
             'start' => $validated['start'],
             'end' => $validated['end'],
         ]);
+
+        // Se è stato inserito un prezzo, aggiorna tutti i CarPrice associati a questo periodo
+        if (!empty($validated['base_price'])) {
+            $timePeriod->carPrices()->update([
+                'price' => $validated['base_price'],
+            ]);
+        }
 
         return redirect()->back()->with('success', 'Periodo aggiornato con successo!');
     }

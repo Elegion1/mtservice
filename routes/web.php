@@ -156,6 +156,8 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
 
     // Gestione prezzi auto per periodi
     Route::post('/carprices/', [CarPriceController::class, 'store'])->name('carprices.store');
+    Route::post('/carprices/sync', [CarPriceController::class, 'sync'])->name('carprices.sync');
+    Route::get('/carprices/period/{timePeriodId}', [CarPriceController::class, 'getPeriodCars'])->name('carprices.period');
     Route::put('/carprices/{carPrice}', [CarPriceController::class, 'update'])->name('carprices.update');
     Route::delete('/carprices/{carPrice}', [CarPriceController::class, 'destroy'])->name('carprices.destroy');
 

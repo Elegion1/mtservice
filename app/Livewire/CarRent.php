@@ -173,6 +173,50 @@ class CarRent extends Component
 
     }
 
+    /**
+     * Controlla se una data cade in un periodo, ignorando l'anno
+     * Usa solo mese e giorno per il confronto
+     */
+    private function isDateInPeriod($currentDate, $periodStart, $periodEnd)
+    {
+        $currentMonth = $currentDate->month;
+        $currentDay = $currentDate->day;
+
+        $startMonth = $periodStart->month;
+        $startDay = $periodStart->day;
+
+        $endMonth = $periodEnd->month;
+        $endDay = $periodEnd->day;
+
+        // Se il periodo non attraversa l'anno (es: 1 Gen - 30 Apr)
+        if ($startMonth < $endMonth || ($startMonth == $endMonth && $startDay <= $endDay)) {
+            // Controlla se il mese è nello stesso mese e il giorno è maggiore o uguale al giorno inizio
+            if ($currentMonth == $startMonth && $currentDay >= $startDay) {
+                return true;
+            }
+            // Controlla se il mese è tra inizio e fine
+            if ($currentMonth > $startMonth && $currentMonth < $endMonth) {
+                return true;
+            }
+            // Controlla se il mese è lo stesso di fine e il giorno è minore o uguale al giorno fine
+            if ($currentMonth == $endMonth && $currentDay <= $endDay) {
+                return true;
+            }
+        }
+        // Se il periodo attraversa l'anno (es: 1 Nov - 31 Mar)
+        else {
+            // Controlla se la data è dopo la data inizio oppure prima della data fine
+            if ($currentMonth > $startMonth || ($currentMonth == $startMonth && $currentDay >= $startDay)) {
+                return true;
+            }
+            if ($currentMonth < $endMonth || ($currentMonth == $endMonth && $currentDay <= $endDay)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public function calculatePriceRent()
     {
         $this->kaskoPrice = 0; // Reset kasko price
@@ -218,7 +262,8 @@ class CarRent extends Component
 
                 Log::info('Period: ' . $periodStart . ' - ' . $periodEnd);
 
-                if ($currentDate >= $periodStart && $currentDate <= $periodEnd) {
+                // Confronta ignorando l'anno (usa solo mese e giorno)
+                if ($this->isDateInPeriod($currentDate, $periodStart, $periodEnd)) {
                     Log::info('Applying price for period: ' . $currentDate . ' - ' . $carPrice->price);
                     $this->carRentPrice += $carPrice->price * $this->quantity;
 

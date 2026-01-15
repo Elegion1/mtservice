@@ -60,4 +60,65 @@ class CarPriceController extends Controller
 
         return redirect()->route('dashboard.car')->with('success', 'CarPrice eliminato con successo!');
     }
+
+    /**
+     * Ottiene le auto associate a un periodo (per AJAX)
+     */
+    public function getPeriodCars($timePeriodId)
+    {
+        $timePeriod = \App\Models\TimePeriod::findOrFail($timePeriodId);
+        $cars = $timePeriod->carPrices()->with('car')->get();
+
+        return response()->json([
+            'cars' => $cars->map(fn($cp) => [
+                'id' => $cp->car->id,
+                'name' => $cp->car->name,
+                'pivot' => [
+                    'price' => $cp->price
+                ]
+            ])
+        ]);
+    }
+
+    /**
+     * Sincronizza le auto di un periodo (aggiorna/aggiunge/elimina)
+     */
+    public function sync(Request $request)
+    {
+        $validated = $request->validate([
+            'time_period_id' => 'required|exists:time_periods,id',
+            'price' => 'required|numeric|min:0',
+            'cars' => 'array',
+            'cars.*' => 'exists:cars,id',
+        ]);
+
+        $timePeriod = \App\Models\TimePeriod::findOrFail($validated['time_period_id']);
+        $selectedCars = $validated['cars'] ?? [];
+
+        // Ottieni le auto attualmente associate
+        $currentCars = $timePeriod->carPrices()->pluck('car_id')->toArray();
+
+        // Elimina le auto non selezionate
+        $carsToDelete = array_diff($currentCars, $selectedCars);
+        if (!empty($carsToDelete)) {
+            CarPrice::where('time_period_id', $timePeriod->id)
+                ->whereIn('car_id', $carsToDelete)
+                ->delete();
+        }
+
+        // Aggiungi o aggiorna le auto selezionate
+        foreach ($selectedCars as $carId) {
+            CarPrice::updateOrCreate(
+                [
+                    'car_id' => $carId,
+                    'time_period_id' => $timePeriod->id,
+                ],
+                [
+                    'price' => $validated['price'],
+                ]
+            );
+        }
+
+        return redirect()->back()->with('success', 'Associazioni aggiornate con successo!');
+    }
 }
