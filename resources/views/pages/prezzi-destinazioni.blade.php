@@ -1,4 +1,5 @@
 <x-layout>
+    <x-seo-data :seoTitle="$seoTitle" :seoDescription="$seoDescription" />
     <div class="row p-0" id="prenotazionediv">
         <div class="col-12 col-lg-6">
 

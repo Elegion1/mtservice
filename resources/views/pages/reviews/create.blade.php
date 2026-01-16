@@ -1,4 +1,5 @@
 <x-layout>
+    <x-seo-data :seoTitle="$seoTitle" :seoDescription="$seoDescription" />
     <div class="container my-5">
         <h1>{{ __('ui.createReview') }}</h1>
 
@@ -25,7 +26,7 @@
             <div class="mb-3">
                 <label for="title" class="form-label">{{ __('ui.reviewTitle') }}</label>
                 <input type="text" class="form-control" id="title" name="title"
-                    placeholder="{{__('ui.reviewTitlePlaceholder')}}" required>
+                    placeholder="{{ __('ui.reviewTitlePlaceholder') }}" required>
             </div>
 
             <!-- Corpo della Recensione -->

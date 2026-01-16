@@ -1,4 +1,5 @@
 <x-layout>
+    <x-seo-data :seoTitle="$seoTitle" :seoDescription="$seoDescription" />
     <div class="container-fluid">
         {{-- <h1> già incluso nel masthead --}}
 

@@ -16,7 +16,7 @@ class ExcursionController extends Controller
         return view('dashboard.excursion', compact('excursions'));
     }
 
-    public function show($locale,$slug)
+    public function show($locale, $slug)
     {
         $slugColumn = $locale === 'en' ? 'slug_en' : 'slug_it';
 
@@ -24,7 +24,7 @@ class ExcursionController extends Controller
             ->where('show', true)
             ->first();
 
-        // fallback: se non trova lo slug nella lingua attuale, prova l'altra lingua
+        // fallback
         if (! $excursion) {
             $fallbackColumn = $locale === 'en' ? 'slug_it' : 'slug_en';
             $excursion = Excursion::where($fallbackColumn, $slug)
@@ -32,7 +32,14 @@ class ExcursionController extends Controller
                 ->firstOrFail();
         }
 
-        return view('pages.excursions.show', compact('excursion'));
+        // selezione dinamica dei campi in base alla lingua
+        $nameColumn = $locale === 'en' ? 'name_en' : 'name_it';
+        $abstractColumn = $locale === 'en' ? 'abstract_en' : 'abstract_it';
+
+        $seoTitle = $excursion->$nameColumn.' '.($locale === 'en' ? 'Excursion' : 'Escursione').' | Tranchida Transfer';
+        $seoDescription = $excursion->$abstractColumn.' | Tranchida Transfer';
+
+        return view('pages.excursions.show', compact('excursion', 'seoTitle', 'seoDescription'));
     }
 
     public function create()

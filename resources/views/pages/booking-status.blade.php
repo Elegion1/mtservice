@@ -1,4 +1,5 @@
 <x-layout>
+    <x-seo-data :seoTitle="$seoTitle" :seoDescription="$seoDescription" />
     <div class="container rounded p-3 mb-5">
         <h2 class="text-center mb-3">{{ __('ui.bookingStatus') }}</h2>
 

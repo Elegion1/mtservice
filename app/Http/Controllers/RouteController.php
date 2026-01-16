@@ -110,7 +110,13 @@ class RouteController extends Controller
 
         $view = $locale === 'en' ? 'pages.transfer.show_en' : 'pages.transfer.show_it';
 
-        return view($view, compact('route', 'departureDestination', 'arrivalDestination', 'services'));
+        $nameColumn = $locale === 'en' ? 'name_en' : 'name_it';
+        $abstractColumn = $locale === 'en' ? 'abstract_en' : 'abstract_it';
+
+        $seoTitle = 'Transfer da '.$departureDestination->name.' a '.$arrivalDestination->name.' | Tranchida Transfer';
+        $seoDescription = 'Transfer da '.$departureDestination->name.' a '.$arrivalDestination->name.' | Tranchida Transfer';
+
+        return view($view, compact('route', 'departureDestination', 'arrivalDestination', 'services', 'seoTitle', 'seoDescription'));
     }
 
     /**

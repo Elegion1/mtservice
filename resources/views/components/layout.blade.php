@@ -84,13 +84,11 @@
     <link rel="icon" type="image/x-icon" sizes="32x32" href="https://tranchidatransfer.it/favicon.ico">
 
     <!-- Title: ensure it's within <head> -->
-    @php
+    {{-- @php
         use Illuminate\Support\Str;
 
         $currentRoute = Route::currentRouteName();
-        $seoTitle = null;
-        $seoDescription = null;
-
+        dd($seoTitle, $seoDescription, $currentRoute);
         // Mappa SEO per le rotte principali
         $seoMap = [
             'home' => [
@@ -145,42 +143,49 @@
             ],
         ];
 
-        // Se la route è definita nella mappa, usa quei valori
-        if (isset($seoMap[$currentRoute])) {
-            $seoTitle = $seoMap[$currentRoute]['title'];
-            $seoDescription = $seoMap[$currentRoute]['description'];
-        }
-
-        // Altrimenti, prova a dedurlo da segmenti dinamici (es. servizi, escursioni singole)
-        else {
-            $pathInfo = request()->getPathInfo();
-            $segments = array_values(array_filter(explode('/', $pathInfo)));
-
-            if (isset($segments[1])) {
-                $title = urldecode($segments[1]);
-                $seoTitle = Str::title(str_replace('-', ' ', $title)) . ' | Tranchida Transfer Trapani';
-            } else {
-                $seoTitle = 'Tranchida Transfer Trapani| Servizi di Transfer, Taxi, Noleggio Auto ed Escursioni';
+        if (!isset($seoTitle) || !isset($seoDescription)) {
+            // Se la route è definita nella mappa, usa quei valori
+            if (isset($seoMap[$currentRoute])) {
+                $seoTitle = $seoMap[$currentRoute]['title'];
+                $seoDescription = $seoMap[$currentRoute]['description'];
             }
 
-            $seoDescription =
-                'Scopri di più su ' .
-                Str::title(str_replace('-', ' ', $title ?? 'Tranchida Transfer Trapani')) .
-                ' a Trapani e prenota online i tuoi servizi di trasporto o escursione';
-        }
-    @endphp
+            // Altrimenti, prova a dedurlo da segmenti dinamici (es. servizi, escursioni singole)
+            else {
+                $pathInfo = request()->getPathInfo();
+                $segments = array_values(array_filter(explode('/', $pathInfo)));
 
-    <title>{{ $seoTitle }}</title>
-    <meta name="description" content="{{ $seoDescription }}">
+                if (isset($segments[1])) {
+                    $title = urldecode($segments[1]);
+                    $seoTitle = Str::title(str_replace('-', ' ', $title)) . ' | Tranchida Transfer Trapani';
+                } else {
+                    $seoTitle = 'Tranchida Transfer Trapani | Servizi di Transfer, Taxi, Noleggio Auto ed Escursioni';
+                }
+
+                $seoDescription =
+                    'Scopri di più su ' .
+                    Str::title(str_replace('-', ' ', $title ?? 'Tranchida Transfer Trapani')) .
+                    ' a Trapani e prenota online i tuoi servizi di trasporto o escursione';
+            }
+        }
+
+    @endphp --}}
+
+    {{-- <title>{{ $seoTitle ?? 'Tranchida Transfer | Servizi di Transfer, Taxi, Noleggio Auto ed Escursioni' }}</title>
+    <meta name="description"
+        content="{{ $seoDescription ?? 'Scopri i nostri servizi di transfer, taxi, noleggio auto ed escursioni a Trapani.' }}">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="{{ $seoTitle }}">
-    <meta property="og:description" content="{{ $seoDescription }}">
+    <meta property="og:title" content="{{ $seoTitle ?? 'Tranchida Transfer' }}">
+    <meta property="og:description" content="{{ $seoDescription ?? 'Scopri i nostri servizi' }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:site_name" content="Tranchida Transfer">
+    <meta property="og:site_name" content="Tranchida Transfer"> --}}
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @include('cookie-consent::index')
+    @php
+        $currentRoute = Route::currentRouteName();
+    @endphp
 </head>
 
 <body class="overflow-x-hidden bg-e">

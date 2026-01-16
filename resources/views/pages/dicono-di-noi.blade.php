@@ -1,4 +1,5 @@
 <x-layout>
+    <x-seo-data :seoTitle="$seoTitle" :seoDescription="$seoDescription" />
     <div>
         {{-- Contenuto principale --}}
         <div class="mx-3">

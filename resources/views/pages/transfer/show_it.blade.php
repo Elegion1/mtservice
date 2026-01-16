@@ -1,11 +1,12 @@
 <x-layout>
+    <x-seo-data :seoTitle="$seoTitle" :seoDescription="$seoDescription" />
     <div class="container mb-5">
         <h2 class="text-uppercase mb-3">
-            Transfer da 
+            Transfer da
             <span class="text-primary">
                 {{ $route->departure->name }}
             </span>
-            a 
+            a
             <span class="text-primary">
                 {{ $route->arrival->name }}
             </span>

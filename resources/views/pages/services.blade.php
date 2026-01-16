@@ -1,4 +1,5 @@
 <x-layout>
+    <x-seo-data :seoTitle="$seoTitle" :seoDescription="$seoDescription" />
     <div class="container mb-3">
         <div class="container p-3">
             <h2>{{ __('ui.servicesTitle') }}</h2>

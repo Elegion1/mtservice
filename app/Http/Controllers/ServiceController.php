@@ -11,15 +11,28 @@ class ServiceController extends Controller
 {
     public function show($locale, $slug)
     {
-        // Determina la colonna dello slug in base alla lingua
         $slugColumn = $locale === 'en' ? 'slug_en' : 'slug_it';
 
-        // Trova il servizio visibile con lo slug corrispondente
         $service = Service::where($slugColumn, $slug)
             ->where('show', true)
-            ->firstOrFail();
+            ->first();
 
-        return view('pages.services.show', compact('service'));
+        // fallback
+        if (! $service) {
+            $fallbackColumn = $locale === 'en' ? 'slug_it' : 'slug_en';
+            $service = Service::where($fallbackColumn, $slug)
+                ->where('show', true)
+                ->firstOrFail();
+        }
+
+        // selezione dinamica dei campi in base alla lingua
+        $nameColumn = $locale === 'en' ? 'title_en' : 'title_it';
+        $abstractColumn = $locale === 'en' ? 'subtitle_en' : 'subtitle_it';
+
+        $seoTitle = $service->$nameColumn.' | Tranchida Transfer';
+        $seoDescription = $service->$abstractColumn.' | Tranchida Transfer';
+
+        return view('pages.services.show', compact('service', 'seoTitle', 'seoDescription'));
     }
 
     public function index()
