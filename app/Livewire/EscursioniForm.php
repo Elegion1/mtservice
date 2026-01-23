@@ -3,12 +3,14 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\Attributes\Locked;
 use App\Models\Excursion;
 
 class EscursioniForm extends Component
 {
     public $excursionSelect;
     public $excursionPassengers = 1;
+    #[Locked]
     public $excursionPrice;
     public $excursionDate;
     public $excursionTime;

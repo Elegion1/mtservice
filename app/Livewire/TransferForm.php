@@ -6,6 +6,7 @@ use App\Models\Route;
 use Livewire\Component;
 use App\Models\Destination;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Locked;
 use Illuminate\Support\Facades\Log;
 
 class TransferForm extends Component
@@ -23,8 +24,11 @@ class TransferForm extends Component
 
     public $minReturnTime;
 
+    #[Locked]
     public $departureName;
+    #[Locked]
     public $arrivalName;
+    #[Locked]
     public $route;
 
     public $currentStep = 1; // Step iniziale

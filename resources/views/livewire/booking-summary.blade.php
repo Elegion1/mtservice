@@ -275,6 +275,8 @@
                     </button>
                     <!-- Pulsante Submit -->
                     <button type="submit"
+                        wire:loading.attr="disabled"
+                        wire:target="confirmBooking"
                         class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.submit') }}</button>
                 </div>
                 <div class="loader-wrapper" wire:loading wire:target="confirmBooking">

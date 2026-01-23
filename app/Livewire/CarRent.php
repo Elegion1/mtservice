@@ -9,6 +9,7 @@ use App\Jobs\CalculateDistanceJob;
 use Livewire\Component;
 use App\Models\CarPrice;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Locked;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 
@@ -21,9 +22,11 @@ class CarRent extends Component
     public $quantity = 1;
     public $carID;
     public $rentPrice;
+    #[Locked]
     public $selectedCar; // Auto selezionata
 
 
+    #[Locked]
     public $handOffOptions = [
         'airport' => ['trapani' => ['price' => 25], 'palermo' => ['price' => 50]],
         'custom_address' => ['variable_price' => true], // Segnala che il prezzo è variabile
@@ -338,6 +341,12 @@ class CarRent extends Component
      */
     private function calculateHandOffCost($location, $address, $key)
     {
+        // Valida il key - deve essere pickup o delivery
+        if (!in_array($key, ['pickup', 'delivery'])) {
+            Log::warning('Invalid key in calculateHandOffCost: ' . $key);
+            return 0;
+        }
+        
         if (!$location) {
             return 0;
         }
@@ -402,7 +411,18 @@ class CarRent extends Component
 
     private function getSuggestedAddresses($destination, $key)
     {
+        // Valida il key - deve essere pickup o delivery
+        if (!in_array($key, ['pickup', 'delivery'])) {
+            Log::warning('Invalid key in getSuggestedAddresses: ' . $key);
+            return;
+        }
+        
         $apiKey = env('GOOGLE_MAPS_API_KEY');
+        if (!$apiKey) {
+            Log::warning('GOOGLE_MAPS_API_KEY not configured');
+            return;
+        }
+        
         $destination = urlencode($destination);
         
         // Usa Google Places Autocomplete API per migliori risultati
@@ -429,6 +449,12 @@ class CarRent extends Component
 
     private function dispatchDistanceCalculation($origin, $destination, $key)
     {
+        // Valida il key - deve essere pickup o delivery
+        if (!in_array($key, ['pickup', 'delivery'])) {
+            Log::warning('Invalid key in dispatchDistanceCalculation: ' . $key);
+            return;
+        }
+        
         // Genera una chiave deterministica per la cache (così possiamo ritrovarla dopo)
         $cacheKey = 'distance_' . md5($origin . '|' . $destination . '|' . $key);
 
@@ -450,6 +476,12 @@ class CarRent extends Component
 
     public function selectAddress($key, $address)
     {
+        // Valida il key per evitare property injection
+        if (!in_array($key, ['pickup', 'delivery'])) {
+            Log::warning('Invalid key in selectAddress: ' . $key);
+            return;
+        }
+        
         // Assegna l'indirizzo selezionato alla variabile dinamica
         $this->{$key . 'CustomAddress'} = $address;
 

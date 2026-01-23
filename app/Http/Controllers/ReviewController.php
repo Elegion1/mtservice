@@ -20,7 +20,10 @@ class ReviewController extends Controller
             return redirect()->route('home', ['locale' => $locale])->with('error', 'Codice di prenotazione non valido.');
         }
 
-        return view('pages.reviews.create', compact('booking'));
+        $seoTitle = "Lascia una recensione per la tua prenotazione " . $booking->code;
+        $seoDescription = "Condividi la tua esperienza con noi lasciando una recensione per la tua prenotazione";
+
+        return view('pages.reviews.create', compact('booking', 'seoTitle', 'seoDescription'));
     }
 
     public function create()

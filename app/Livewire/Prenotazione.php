@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 
 class Prenotazione extends Component
@@ -13,10 +14,13 @@ class Prenotazione extends Component
     #[Url]
     public $module = '';
 
+    #[Locked]
     public $currentForm;
 
+    #[Locked]
     public $bookingData = []; // Inizializza come array vuoto
 
+    #[Locked]
     public $isHome = false; // Variabile per determinare se siamo nella home
 
     // public $bookingData = [

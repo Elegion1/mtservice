@@ -6,6 +6,7 @@ use Carbon\Carbon;
 
 use App\Models\Booking;
 use Livewire\Component;
+use Livewire\Attributes\Locked;
 use App\Models\Customer;
 use App\Models\Discount;
 use App\Models\OwnerData;
@@ -21,16 +22,20 @@ use Illuminate\Validation\ValidationException;
 
 class BookingSummary extends Component
 {
+    #[Locked]
     public $bookingData;
     public $name;
     public $surname;
     public $email;
     public $phone;
     public $body;
+    #[Locked]
     public $info;
     public $accept_policy = false;
 
+    #[Locked]
     public $adminMail;
+    #[Locked]
     public $serviceDate;
 
     public $currentStep = 1; // Step iniziale
@@ -473,26 +478,68 @@ class BookingSummary extends Component
             $this->bookingData['price'] = $this->discountedPrice;
 
             $this->info = is_string($this->info) ? json_decode($this->info, true) : $this->info;
-            // dd($this->bookingData, $this->info);
-
-            // Salvataggio della prenotazione
-            $booking = Booking::create([
-                'bookingData' => $this->bookingData,
-                'name' => $this->name,
-                'surname' => $this->surname,
+            
+            // Crea un hash idempotent dei dati per prevenire duplicati
+            $idempotencyKey = hash('sha256', json_encode([
                 'email' => $this->email,
                 'phone' => $this->phone,
-                'dial_code' => $this->dialCode,
-                'body' => $this->body,
-                'info' => $this->info,
-                'code' => generateUniqueCode(),
-                'locale' => app()->getLocale(),
+                'name' => $this->name,
+                'bookingData' => $this->bookingData,
                 'service_date' => $this->generateServiceDate($this->bookingData),
-            ]);
+            ]));
+            
+            // Usa una transazione per garantire atomicità
+            $booking = DB::transaction(function () use ($idempotencyKey) {
+                // 1. Verifica se una booking identica è stata creata negli ultimi 10 secondi
+                $existingBooking = Booking::where('email', $this->email)
+                    ->where('phone', $this->phone)
+                    ->where('name', $this->name)
+                    ->where('created_at', '>=', now()->subSeconds(10))
+                    ->first();
+                
+                if ($existingBooking) {
+                    Log::warning('[BookingSummary] Duplicate booking detected within 10 seconds', [
+                        'email' => $this->email,
+                        'existing_code' => $existingBooking->code,
+                        'idempotency_key' => $idempotencyKey,
+                    ]);
+                    // Ritorna la booking esistente invece di crearne una nuova
+                    return $existingBooking;
+                }
+                
+                // 2. Se non esiste, crea una nuova booking
+                $bookingCode = generateUniqueCode();
+                
+                // Verifica che il codice non esista già (protezione aggiuntiva)
+                while (Booking::where('code', $bookingCode)->exists()) {
+                    Log::warning('[BookingSummary] Duplicate code detected, generating new one');
+                    $bookingCode = generateUniqueCode();
+                }
+                
+                // Salvataggio della prenotazione
+                return Booking::create([
+                    'bookingData' => $this->bookingData,
+                    'name' => $this->name,
+                    'surname' => $this->surname,
+                    'email' => $this->email,
+                    'phone' => $this->phone,
+                    'dial_code' => $this->dialCode,
+                    'body' => $this->body,
+                    'info' => $this->info,
+                    'code' => $bookingCode,
+                    'locale' => app()->getLocale(),
+                    'service_date' => $this->generateServiceDate($this->bookingData),
+                ]);
+            });
 
-            // Invio email
-            $this->sendBookingEmails($booking);
-            Log::info('[BookingSummary] User created a booking: type: ' . $booking->bookingData['type'] . ' name: ' . $booking->name . ' ' . $booking->surname);
+            // Invio email (solo per booking nuove, non duplicati)
+            if (!$booking->wasRecentlyCreated || $booking->created_at->diffInSeconds(now()) < 2) {
+                // Booking appena creata
+                $this->sendBookingEmails($booking);
+                Log::info('[BookingSummary] User created a booking: type: ' . $booking->bookingData['type'] . ' name: ' . $booking->name . ' ' . $booking->surname);
+            } else {
+                Log::info('[BookingSummary] Duplicate booking detected, using existing booking code: ' . $booking->code);
+            }
 
             // Messaggio di conferma e redirect
             session()->flash('message', __('ui.confirmation_message'));
