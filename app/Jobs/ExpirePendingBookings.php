@@ -70,18 +70,18 @@ class ExpirePendingBookings implements ShouldQueue
                 $booking->update(['status' => 'rejected']);
 
                 if (!$notification) {
-                    Log::info('[ExpirePendingBookings] Booking ID {$booking->id} marked as rejected. Notification disabled.');
+                    Log::info("[ExpirePendingBookings] Booking ID {$booking->id} marked as rejected. Notification disabled.");
                     continue;
                 } else {
-                    Log::info('[ExpirePendingBookings] Booking ID {$booking->id} marked as rejected. Queuing notification.');
+                    Log::info("[ExpirePendingBookings] Booking ID {$booking->id} marked as rejected. Queuing notification.");
 
                     // Metti l'email in queue anzichè inviarla sincronamente
                     Mail::queue(new BookingStatusNotification($booking), to: $booking->email);
                 }
 
-                Log::info('[ExpirePendingBookings] Booking ID {$booking->id} marked as rejected and notification queued.');
+                Log::info("[ExpirePendingBookings] Booking ID {$booking->id} marked as rejected and notification queued.");
             } catch (\Exception $e) {
-                Log::error('[ExpirePendingBookings] Failed to process booking ID {$booking->id}: ' . $e->getMessage());
+                Log::error("[ExpirePendingBookings] Failed to process booking ID {$booking->id}: " . $e->getMessage());
             }
         }
     }
