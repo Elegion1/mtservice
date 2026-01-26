@@ -399,10 +399,9 @@ button:disabled {
 }
 
 .img_carRent {
-    width: 100%;
-    max-width: 145px;
+    max-width: 250px;
     height: 100px;
-    object-fit: cover;
+    object-fit: contain;
     /* max-height: 100px; */
 }
 
@@ -460,6 +459,9 @@ button:disabled {
     appearance: none;
     background-color: none;
     border: none;
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .form-check-input_custom:checked {

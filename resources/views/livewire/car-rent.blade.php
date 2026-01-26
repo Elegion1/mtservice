@@ -78,7 +78,7 @@
                     <div class="row d-flex justify-content-evenly">
                         @foreach ($cars as $car)
                             @if ($car->show)
-                                <div class="col-5 col-sm-4 {{ $loop->iteration > 3 ? 'mb-0' : 'mb-3' }}">
+                                <div class="{{ $loop->iteration > 3 ? 'mb-0' : 'mb-2' }}">
                                     <x-car-card :car="$car" :selected="$carID == $car->id" />
                                 </div>
                             @endif
