@@ -652,7 +652,7 @@ class CarRent extends Component
     {
         $this->minDates();
 
-        $cars = Car::visible()->get();
+        $cars = Car::visible()->with('images')->get();
 
         // Filtra prenotazioni solo se date sono state selezionate, per ridurre il carico
         if (!$this->dateStart || !$this->dateEnd) {

@@ -31,27 +31,27 @@ class ViewServiceProvider extends ServiceProvider
     {
 
         if (Service::query()->exists()) {
-            $services = Service::visible()->orderBy('id', 'asc')->get();
+            $services = Service::visible()->with('images')->orderBy('id', 'asc')->get();
             View::share('services', $services);
         }
 
         if (Excursion::query()->exists()) {
-            $excursions = Excursion::visible()->orderBy('name_it', 'asc')->get();
+            $excursions = Excursion::visible()->with('images')->orderBy('name_it', 'asc')->get();
             View::share('excursions', $excursions);
         }
 
         if (OwnerData::query()->exists()) {
-            $ownerdata = OwnerData::first();
+            $ownerdata = OwnerData::with('images')->first();
             View::share('ownerdata', $ownerdata);
         }
 
         if (Page::query()->exists()) {
-            $pages = Page::visible()->orderBy('order')->get();
+            $pages = Page::visible()->with('images')->orderBy('order')->get();
             View::share('pages', $pages);
         }
 
         if (Content::query()->exists()) {
-            $contents = Content::visible()->get();
+            $contents = Content::visible()->with('images')->get();
             View::share('contents', $contents);
         }
     }

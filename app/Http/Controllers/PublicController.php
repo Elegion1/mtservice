@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\Car;
 use App\Models\Contact;
 use App\Models\Excursion;
+use App\Models\Image;
 use App\Models\Page;
 use App\Models\Partner;
 use App\Models\Review;
@@ -99,7 +100,7 @@ class PublicController extends Controller
 
     public function noleggio()
     {
-        $cars = Car::visible()->get();
+        $cars = Car::visible()->with('images')->get();
         return $this->viewWithSeo('pages.noleggio-auto', 'noleggio', ['cars' => $cars]);
     }
 
@@ -110,13 +111,13 @@ class PublicController extends Controller
 
     public function escursioni()
     {
-        $excursionsP = Excursion::visible()->orderBy('name_it', 'asc')->paginate(4);
+        $excursionsP = Excursion::visible()->with('images')->orderBy('name_it', 'asc')->paginate(4);
         return $this->viewWithSeo('pages.escursioni', 'escursioni', ['excursionsP' => $excursionsP]);
     }
 
     public function prezziDestinazioni()
     {
-        $tratte = Route::visible()->get();
+        $tratte = Route::visible()->with(['departure', 'arrival'])->get();
         return $this->viewWithSeo('pages.prezzi-destinazioni', 'prezziDestinazioni', ['tratte' => $tratte]);
     }
 
@@ -169,7 +170,7 @@ class PublicController extends Controller
     {
         $allowedTypes = getAllowedBookingTypes();
 
-        if (isEmpty($allowedTypes)) {
+        if (empty($allowedTypes)) {
             $bookings = Booking::where('status', 'pending')->get();
         } else {
             $bookings = Booking::whereIn('bookingData->type', $allowedTypes)

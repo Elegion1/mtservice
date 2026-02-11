@@ -126,7 +126,7 @@ class BookingController extends Controller
     {
         $allowedTypes = getAllowedBookingTypes();
 
-        if (isEmpty($allowedTypes)) {
+        if (empty($allowedTypes)) {
             return Booking::where('status', $status)->get();
         }
 
