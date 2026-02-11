@@ -62,8 +62,8 @@
             }
         @endphp
 
-        <div class="container-fluid position-absolute mt-5 pos_masthead">
-            <div class="row">
+        <div class="container-fluid pos_masthead">
+            <div class="row align-items-center">
                 <div id="headerContainer" class="col-12 col-lg-6">
                     @if ($displayedContent)
                         <div id="headerText" class="text-wrap my-5 mx-3 mx-md-0 mt-md-0">
@@ -80,7 +80,7 @@
                     <x-display-error />
                     <x-display-message />
                 </div>
-                <div id="headerBooking" class="col-12 col-lg-6 p-0 d-flex justify-content-center align-items-start">
+                <div id="headerBooking" class="col-12 col-lg-6 d-none d-lg-flex justify-content-center align-items-center">
                     <div class="booking-module">
                         <span class="visually-hidden">{{ $bookingModuleTitle }}</span>
                         <span class="visually-hidden">{{ __('ui.bookNow') }}</span>
@@ -88,6 +88,31 @@
                             {{ $bookingModuleDesc }}
                         </p>
                         <livewire:prenotazione />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-lg-none fixed-bottom p-3 bg-white shadow-lg" style="z-index: 1050;">
+            <button type="button" class="btn btn-primary w-100 py-3 fw-bold text-uppercase" data-bs-toggle="modal"
+                data-bs-target="#bookingModal">{{ __('ui.bookNow') }}
+            </button>
+        </div>
+        <div class="modal fade" id="bookingModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen-sm-down">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="booking-module">
+                            <span class="visually-hidden">{{ $bookingModuleTitle }}</span>
+                            <span class="visually-hidden">{{ __('ui.bookNow') }}</span>
+                            <p class="visually-hidden">
+                                {{ $bookingModuleDesc }}
+                            </p>
+                            <livewire:prenotazione />
+                        </div>
                     </div>
                 </div>
             </div>

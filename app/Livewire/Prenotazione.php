@@ -4,9 +4,9 @@ namespace App\Livewire;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
-use Livewire\Attributes\Locked;
 use Livewire\Component;
 
 class Prenotazione extends Component
@@ -111,10 +111,10 @@ class Prenotazione extends Component
     public function showBookingSummary($bookingData)
     {
         $this->bookingData = $bookingData;
-        $this->currentForm = 'bookingSummary'; // Passa al modulo di riepilogo prenotazione
+        $this->currentForm = 'bookingSummary';
         $this->module = 'bookingSummary';
 
-        Log::info('[LivewirePrenotazione] User entered Booking Summary: '.json_encode($bookingData));
+        Log::info('[LivewirePrenotazione] User entered Booking Summary...');
     }
 
     public function dispatchData($data)

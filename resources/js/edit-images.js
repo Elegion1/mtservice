@@ -9,7 +9,7 @@ window.showCurrentImages = function (images) {
             "current-image",
             "d-inline-block",
             "position-relative",
-            "me-2"
+            "me-2",
         );
 
         // Usa innerHTML per inserire il contenuto HTML

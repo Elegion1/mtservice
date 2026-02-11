@@ -192,7 +192,7 @@
     <x-whatsapp :lazy-loading />
     <x-nav lazy />
     <x-masthead />
-    <div id="mainContent" data-currentRoute="{{ $currentRoute }}" class="overflow-hidden mt-5">
+    <div id="mainContent" data-currentRoute="{{ $currentRoute }}" class="overflow-hidden">
         {{ $slot }}
     </div>
     <x-footer />
@@ -221,18 +221,18 @@
             return;
         }
 
-        // // Recupera il valore di data-currentRoute
-        // const currentRoute = mainContent.getAttribute('data-currentRoute');
-        // const displayInfo = document.getElementById('display-info');
-        // // Logica di scrolling
-        // if (currentRoute === 'home' || displayInfo) {
-        //     scrollToTop();
-        // } else {
-        //     mainContent.scrollIntoView({
-        //         behavior: 'smooth',
-        //         block: 'start'
-        //     });
-        // }
+        // Recupera il valore di data-currentRoute
+        const currentRoute = mainContent.getAttribute('data-currentRoute');
+        const displayInfo = document.getElementById('display-info');
+        // Logica di scrolling
+        if (currentRoute === 'home' || displayInfo) {
+            scrollToTop();
+        } else {
+            mainContent.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
     });
 </script>
 

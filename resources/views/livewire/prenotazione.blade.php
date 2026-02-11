@@ -1,68 +1,64 @@
 <div>
     @php
-        $formLabels = [
-            'transfer' => 'ui.transfer',
-            'escursioni' => 'ui.excursions',
-            'rent' => 'ui.carRent',
-            'bookingSummary' => 'ui.bookingSummary',
+        $forms = [
+            'transfer' => ['component' => 'transfer-form', 'label' => 'ui.transfer'],
+            'escursioni' => ['component' => 'escursioni-form', 'label' => 'ui.excursions'],
+            'rent' => ['component' => 'car-rent', 'label' => 'ui.carRent'],
+            'bookingSummary' => ['component' => 'booking-summary', 'label' => 'ui.bookingSummary'],
         ];
+        $isActiveSummary = $currentForm === 'bookingSummary';
     @endphp
 
     @if ($isHome)
-        <div id="form-top" class="d-flex justify-content-start ">
-            @foreach ($formLabels as $formType => $label)
-                @if ($formType !== 'bookingSummary')
-                    <button aria-label="{{ ucfirst($formType) }}" type="button"
-                        class="btn btn_booking text-uppercase text-black {{ $currentForm == $formType ? 'bg-b' : 'bg-c' }}"
-                        wire:click="show{{ ucfirst($formType) }}" id="{{ $formType }}-btn">
-                        {{ __($label) }}
+        <div id="form-top" class="d-flex justify-content-start">
+            @foreach ($forms as $type => $info)
+                @if ($type !== 'bookingSummary' || $isActiveSummary)
+                    <button type="button" wire:click="show{{ ucfirst($type) }}" onclick="scrollToTop()"
+                        {{-- Richiamo immediato al click --}}
+                        class="btn btn_booking text-uppercase text-black {{ $currentForm === $type ? 'bg-b' : 'bg-c' }} {{ $isActiveSummary ? 'z-2' : '' }}">
+                        {{ __($info['label']) }}
                     </button>
                 @endif
             @endforeach
-
-            {{-- Bottone "riepilogo prenotazione" visibile solo quando il form attivo è bookingSummary --}}
-            @if ($currentForm == 'bookingSummary')
-                <button aria-label="Riepilogo prenotazione" type="button" class="btn btn_booking btn_font_size text-uppercase text-black bg-b z-2">
-                    {{ __('ui.bookingSummary') }}
-                </button>
-            @endif
         </div>
     @endif
 
-    <div class="p-3 bg-b shadow form_width @if ($isHome) rounded-bottom rounded-end @else rounded @endif"
-        wire:model.live="module">
+    <div class="p-3 bg-b shadow form_width {{ $isHome ? 'rounded-bottom' : 'rounded' }}">
         <div class="container-fluid input_width z-2">
             @if (!$isHome)
                 <p class="text-uppercase text-center bg-c text-dark rounded p-1">
-                    @if ($currentForm !== 'bookingSummary')
-                        {{ __('ui.book') }}
-                    @endif
-                    {{ __($formLabels[$currentForm]) }}
+                    {{ !$isActiveSummary ? __('ui.book') . ' ' : '' }}{{ __($forms[$currentForm]['label']) }}
                 </p>
             @endif
-            @if ($currentForm == 'escursioni')
-                <livewire:escursioni-form wire:init />
-            @elseif ($currentForm == 'transfer')
-                <livewire:transfer-form wire:init />
-            @elseif ($currentForm == 'rent')
-                <livewire:car-rent wire:init />
-            @elseif ($currentForm == 'bookingSummary')
-                <livewire:booking-summary :bookingData="$bookingData" wire:init />
-            @endif
+
+            <livewire:dynamic-component :is="$forms[$currentForm]['component']" :bookingData="$isActiveSummary ? $bookingData : null" :key="'form-' . $currentForm" wire:init />
         </div>
     </div>
-
-    <script>
-        function scrollToTop() {
-            setTimeout(() => {
-                const formTop = document.getElementById('form-top');
-                if (formTop) {
-                    formTop.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            }, 100);
-        }
-    </script>
 </div>
+
+{{-- Script fuori dal div principale per essere sicuri che sia caricato una volta sola --}}
+<script>
+    /**
+     * Rende la funzione disponibile globalmente.
+     * Utile per altri componenti o chiamate dirette.
+     */
+    function scrollToTop() {
+        // Usiamo un piccolo delay per assicurarci che Livewire 
+        // abbia finito di renderizzare il nuovo componente
+        setTimeout(() => {
+            const element = document.getElementById('form-top') || document.getElementById('mainContent');
+            if (element) {
+                element.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            } else {
+                // Fallback all'inizio della pagina se gli ID non esistono
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+        }, 50);
+    };
+</script>

@@ -1,6 +1,6 @@
 <x-layout>
     <x-seo-data :seoTitle="$seoTitle" :seoDescription="$seoDescription" />
-    <div id="partners" class="container rounded mt-5 mt-md-3">
+    <div id="partners" class="container rounded mt-md-3">
         <div class="container">
             <x-show-content :pagine="$pagine" />
             <div class="row justify-content-center align-items-center">

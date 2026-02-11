@@ -71,9 +71,25 @@ img {
     color: white;
 }
 
+#form-top {
+    display: flex;
+    width: 100%; /* Il contenitore occupa tutta la larghezza */
+}
+
 .btn_booking {
+    flex: 1 1 auto; /* Forza i tasti a crescere e occupare tutto lo spazio */
     border-radius: 3px 3px 0px 0px !important;
-    font-size: 0.7rem !important;
+
+    /* Gestione Testo */
+    font-size: clamp(0.6rem, 2vw, 1rem) !important; /* Testo fluido! */
+    white-space: nowrap; /* Impedisce al testo di andare a capo */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Se il testo è troppo lungo, mette i tre puntini */
+
+    padding: 10px 5px !important; /* Padding ridotto per dare spazio al testo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .header_text_position {
@@ -108,7 +124,6 @@ img {
     font-size: xx-large;
     font-weight: 1200;
 }
-
 
 /* ========== Navbar & Header ========== */
 
@@ -555,13 +570,22 @@ button:disabled {
     color: var(--color-a);
 }
 
+/* --- DISPOSITIVO MOBILE (Default) --- */
 .whatsapp {
     position: fixed;
-    bottom: 5%;
+    bottom: 15%; /* Come richiesto per mobile */
     right: 5%;
-    z-index: 100;
+    z-index: 1050; /* Un valore alto per stare sopra a tutto, anche al tasto sticky */
     width: 60px;
     height: 60px;
+}
+
+/* --- SCHERMO GRANDE (Desktop) --- */
+@media screen and (min-width: 992px) {
+    .whatsapp {
+        bottom: 5%; /* IMPORTANTE: annulla il bottom impostato per mobile */
+        right: 5%;
+    }
 }
 
 .contact-menu {
@@ -583,7 +607,9 @@ button:disabled {
     align-items: center;
     cursor: pointer;
 
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
 }
 
 .contact-btn:hover {
