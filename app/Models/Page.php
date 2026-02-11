@@ -16,6 +16,14 @@ class Page extends Model
         'show'
     ];
 
+    /**
+     * Scope query to only return visible pages
+     */
+    public function scopeVisible($query)
+    {
+        return $query->where('show', 1);
+    }
+
     public function contents()
     {
         return $this->hasMany(Content::class);

@@ -103,9 +103,6 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
 
     Route::get('/phone-clicks', [VisitController::class, 'phoneClicks'])->name('visits.phone_clicks');
 
-    // Route::get('/booking/confirm/{booking}', [PublicController::class, 'confirmBooking'])->name('booking.confirm');
-    // Route::get('/booking/reject/{booking}', [PublicController::class, 'rejectBooking'])->name('booking.reject');
-
     // DASHBOARD
 
     // vista dashboard
@@ -185,14 +182,11 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     });
     Route::get('/bookings/list', [BookingController::class, 'list'])->name('dashboard.bookingList');
     Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
-    // Route::get('/bookings/pdf/{id}', [BookingController::class, 'showPdf'])->name('booking.pdf');
 
     // Gestione messaggi
     Route::get('/contacts', [ContactController::class, 'index'])->name('dashboard.contact');
     Route::delete('/contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
     Route::put('/contacts/{contact}', [ContactController::class, 'update'])->name('contacts.update');
-    // Route::put('/contacts/mark-all-read', [ContactController::class, 'markAllRead'])->name('contacts.markAllRead');
-    // Route::put('/contacts/mark-all-unread', [ContactController::class, 'markAllUnread'])->name('contacts.markAllUnread');
 
     // Gestione servizi
     Route::get('/services', [ServiceController::class, 'index'])->name('dashboard.service');

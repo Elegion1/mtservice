@@ -6,20 +6,19 @@ use App\Models\Booking;
 use App\Models\Car;
 use App\Models\Contact;
 use App\Models\Excursion;
-use App\Models\Image;
 use App\Models\Page;
 use App\Models\Partner;
 use App\Models\Review;
 use App\Models\Route;
 use App\Models\Service;
+use App\Traits\HasSeoMeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
-use function PHPUnit\Framework\isEmpty;
-
 class PublicController extends Controller
 {
+    use HasSeoMeta;
     public function seoMap()
     {
         return [
@@ -83,10 +82,9 @@ class PublicController extends Controller
 
     public function home()
     {
-        $ids = DB::table('routes')
-            ->selectRaw('MIN(id) as id')
-            ->where('show', 1)
+        $ids = Route::visible()
             ->where('featured', 1)
+            ->selectRaw('MIN(id) as id')
             ->groupBy(DB::raw('LEAST(departure_id, arrival_id), GREATEST(departure_id, arrival_id)'))
             ->orderBy('id')
             ->limit(5)
@@ -96,101 +94,52 @@ class PublicController extends Controller
             ->whereIn('id', $ids)
             ->get();
 
-        $data = $this->getPageData('home', ['tratte' => $tratte]);
-
-        // Metadati SEO
-        $seo = $this->seoMap();
-        $data['seoTitle'] = $seo['home']['title'] ?? null;
-        $data['seoDescription'] = $seo['home']['description'] ?? null;
-
-        return view('welcome', $data);
+        return $this->viewWithSeo('welcome', 'home', ['tratte' => $tratte]);
     }
 
     public function noleggio()
     {
-        $cars = Car::where('show', 1)->get();
-
-        $data = $this->getPageData('noleggio', ['cars' => $cars]);
-
-        $seo = $this->seoMap();
-        $data['seoTitle'] = $seo['noleggio']['title'] ?? null;
-        $data['seoDescription'] = $seo['noleggio']['description'] ?? null;
-
-        return view('pages.noleggio-auto', $data);
+        $cars = Car::visible()->get();
+        return $this->viewWithSeo('pages.noleggio-auto', 'noleggio', ['cars' => $cars]);
     }
 
     public function transfer()
     {
-        $data = $this->getPageData('transfer');
-        $seo = $this->seoMap();
-        $data['seoTitle'] = $seo['transfer']['title'] ?? null;
-        $data['seoDescription'] = $seo['transfer']['description'] ?? null;
-
-        return view('pages.transfer', $data);
+        return $this->viewWithSeo('pages.transfer', 'transfer');
     }
 
     public function escursioni()
     {
-        $excursionsP = Excursion::where('show', 1)->orderBy('name_it', 'asc')->paginate(4);
-        $data = $this->getPageData('escursioni', ['excursionsP' => $excursionsP]);
-        $seo = $this->seoMap();
-        $data['seoTitle'] = $seo['escursioni']['title'] ?? null;
-        $data['seoDescription'] = $seo['escursioni']['description'] ?? null;
-
-        return view('pages.escursioni', $data);
+        $excursionsP = Excursion::visible()->orderBy('name_it', 'asc')->paginate(4);
+        return $this->viewWithSeo('pages.escursioni', 'escursioni', ['excursionsP' => $excursionsP]);
     }
 
     public function prezziDestinazioni()
     {
-        $tratte = Route::where('show', 1)->get();
-        $data = $this->getPageData('prezziDestinazioni', ['tratte' => $tratte]);
-        $seo = $this->seoMap();
-        $data['seoTitle'] = $seo['prezziDestinazioni']['title'] ?? null;
-        $data['seoDescription'] = $seo['prezziDestinazioni']['description'] ?? null;
-
-        return view('pages.prezzi-destinazioni', $data);
+        $tratte = Route::visible()->get();
+        return $this->viewWithSeo('pages.prezzi-destinazioni', 'prezziDestinazioni', ['tratte' => $tratte]);
     }
 
     public function diconoDiNoi()
     {
         $reviewsP = Review::where('status', 'confirmed')->paginate(6);
-        $data = $this->getPageData('diconoDiNoi', ['reviewsP' => $reviewsP]);
-        $seo = $this->seoMap();
-        $data['seoTitle'] = $seo['diconoDiNoi']['title'] ?? null;
-        $data['seoDescription'] = $seo['diconoDiNoi']['description'] ?? null;
-
-        return view('pages.dicono-di-noi', $data);
+        return $this->viewWithSeo('pages.dicono-di-noi', 'diconoDiNoi', ['reviewsP' => $reviewsP]);
     }
 
     public function contattaci()
     {
-        $data = $this->getPageData('contattaci');
-        $seo = $this->seoMap();
-        $data['seoTitle'] = $seo['contattaci']['title'] ?? null;
-        $data['seoDescription'] = $seo['contattaci']['description'] ?? null;
-
-        return view('pages.contattaci', $data);
+        return $this->viewWithSeo('pages.contattaci', 'contattaci');
     }
 
     public function partners()
     {
         $partners = Partner::orderBy('name', 'asc')->paginate(9);
-        $data = $this->getPageData('partners', ['partners' => $partners]);
-        $seo = $this->seoMap();
-        $data['seoTitle'] = $seo['partners']['title'] ?? null;
-        $data['seoDescription'] = $seo['partners']['description'] ?? null;
-
-        return view('pages.partners', $data);
+        return $this->viewWithSeo('pages.partners', 'partners', ['partners' => $partners]);
     }
 
     public function faq()
     {
-        $data = $this->getPageData('faq');
-        $seo = $this->seoMap();
-        $data['seoTitle'] = $seo['faq']['title'] ?? null;
-        $data['seoDescription'] = $seo['faq']['description'] ?? null;
-
-        return view('pages.faq', $data);
+        return $this->viewWithSeo('pages.faq', 'faq');
     }
 
     public function privacy()
@@ -213,12 +162,7 @@ class PublicController extends Controller
     public function servizi()
     {
         $services = Service::where('show', true)->get();
-        $data = $this->getPageData('servizi', ['services' => $services]);
-        $seo = $this->seoMap();
-        $data['seoTitle'] = $seo['servizi']['title'] ?? null;
-        $data['seoDescription'] = $seo['servizi']['description'] ?? null;
-        
-        return view('pages.services', $data);
+        return $this->viewWithSeo('pages.services', 'servizi', ['services' => $services]);
     }
 
     public function dashboard()
@@ -282,92 +226,6 @@ class PublicController extends Controller
             ]);
         }
     }
-
-    // public function confirmBooking(Booking $booking)
-    // {
-    //     if ($booking->status === 'confirmed') {
-    //         return redirect()->back()->withErrors(['message' => 'Prenotazione già confermata.']);
-    //     }
-
-    //     $booking->status = 'confirmed'; // or whatever status you want to set
-    //     $booking->save();
-
-    //     $delayDays = getSetting('review_request_delay_days');
-
-    //     $defaultTime = getSetting('review_request_default_time');
-    //     // Unisci la data del servizio con l'orario di default
-    //     $serviceDate = Carbon::parse($booking->service_date . ' ' . $defaultTime);
-
-    //     // Aggiungi i giorni di ritardo
-    //     $delay = $serviceDate->addDays((int) $delayDays);  // (int) per essere sicuro che sia un numero intero
-
-    //     Log::info([
-    //         'service_date' => $booking->service_date,
-    //         'default_time' => $defaultTime,
-    //         'delay_days' => $delayDays,
-    //         'calculated_delay' => $delay,
-    //     ]);
-
-    //     // Invia la mail nella lingua del cliente
-    //     sendEmail(
-    //         $booking->email, // Destinatario
-    //         new BookingStatusNotification($booking), // Mailable
-    //         'Errore nell\'invio dell\'email di stato prenotazione', // Messaggio di errore
-    //         $booking->locale // Locale della prenotazione
-    //     );
-
-    //     // Controlla se esistono già jobs per la prenotazione
-    //     $findJob = getJobs($booking);
-
-    //     if ($findJob) {
-    //         Log::info("Job trovato per la prenotazione {$booking->code}. ID Job: {$findJob->id}. Annullo creazione del Job");
-    //         return redirect()->back()->withErrors(['message' => 'Job già presente']);
-    //     } else {
-    //         // Dispatcha il job per inviare la richiesta di recensione
-    //         $appLocale = App::getLocale();
-    //         App::setLocale($booking->locale);
-    //         SendReviewRequestJob::dispatch($booking)->delay($delay);
-    //         App::setLocale($appLocale);
-    //         Log::info("Job per la richiesta di recensione creato per la prenotazione: {$booking->code}, con invio previsto per: {$delay->toDateTimeString()}");
-    //     }
-
-    //     return redirect()->back()->with('message', 'Prenotazione confermata con successo.');
-    // }
-
-    // public function rejectBooking(Booking $booking)
-    // {
-    //     if ($booking->status === 'rejected') {
-    //         return redirect()->back()->withErrors(['message' => 'Prenotazione già rifiutata.']);
-    //     }
-
-    //     if ($booking->status === 'confirmed') {
-    //         // **Cancella il job programmato per la richiesta di recensione**
-    //         Log::info("Tentativo di cancellazione del job per la prenotazione: {$booking->code}");
-
-    //         $jobToDelete = getJobs($booking);
-
-    //         if ($jobToDelete) {
-    //             Log::info("Job trovato per la prenotazione {$booking->code}. ID Job: {$jobToDelete->id}. Eliminazione in corso...");
-    //             DB::table('jobs')->where('id', $jobToDelete->id)->delete();
-    //             Log::info("Job {$jobToDelete->id} eliminato con successo.");
-    //         } else {
-    //             Log::warning("Nessun job trovato per la prenotazione {$booking->code}. Nessuna eliminazione eseguita.");
-    //         }
-    //     }
-
-    //     $booking->status = 'rejected'; // or whatever status you want to set
-    //     $booking->save();
-
-    //     // Invia la mail nella lingua del cliente
-    //     sendEmail(
-    //         $booking->email, // Destinatario
-    //         new BookingStatusNotification($booking), // Mailable
-    //         'Errore nell\'invio dell\'email di stato prenotazione', // Messaggio di errore
-    //         $booking->locale // Locale della prenotazione
-    //     );
-
-    //     return redirect()->back()->with('message', 'Prenotazione rifiutata con successo.');
-    // }
 
     // funzione per eliminare le immagini
     public function deleteImage($id)

@@ -29,6 +29,14 @@ class Service extends Model
         'slug_en',
     ];
 
+    /**
+     * Scope query to only return visible services
+     */
+    public function scopeVisible($query)
+    {
+        return $query->where('show', 1);
+    }
+
     public function images()
     {
         return $this->hasMany(Image::class);

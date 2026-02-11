@@ -22,7 +22,7 @@ class RouteController extends Controller
      */
     public function create()
     {
-        $destinations = Destination::where('show', 1)->get();
+        $destinations = Destination::visible()->get();
         $routes = Route::with(['departure', 'arrival'])->get();
 
         $groupedRoutes = [];

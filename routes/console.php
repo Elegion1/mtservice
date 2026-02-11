@@ -1,17 +1,9 @@
 <?php
 
-use App\Models\Post;
-use Spatie\Crawler\Crawler;
 use Illuminate\Support\Facades\DB;
 use App\Jobs\ExpirePendingBookings;
-use Illuminate\Foundation\Inspiring;
-use App\Http\Controllers\LogController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
-
-// Artisan::command('inspire', function () {
-//     $this->comment(Inspiring::quote());
-// })->purpose('Display an inspiring quote')->hourly();
 
 Artisan::command('logs:clear', function () {
     // Svuota il contenuto dei file di log nella cartella storage/logs

@@ -88,7 +88,6 @@ class DiscountController extends Controller
      */
     public function update(Request $request, Discount $discount)
     {
-        // dd($request, $discount);
         // Valida i dati della richiesta
         $validated = $request->validate([
             'name_it' => 'required|string|max:255',

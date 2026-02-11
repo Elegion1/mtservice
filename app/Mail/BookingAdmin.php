@@ -2,32 +2,17 @@
 
 namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Mail\Mailables\Attachment;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
-class BookingAdmin extends Mailable
+class BookingAdmin extends BaseBookingMailable
 {
-    use Queueable, SerializesModels;
-    public $booking;
-    public $pdf;
     /**
      * Create a new message instance.
      */
     public function __construct($booking, $pdf)
     {
-        $this->pdf = $pdf;
-        $this->booking = $booking;
-
-        if (!empty($this->booking->bookingData['sito_favignana'])) {
-            $this->subject = 'Sito Favignana, nuova prenotazione disponibile';
-        } else {
-            $this->subject = 'Nuova prenotazione disponibile';
-        }
+        parent::__construct($booking, $pdf);
     }
 
     /**
@@ -35,8 +20,14 @@ class BookingAdmin extends Mailable
      */
     public function envelope(): Envelope
     {
+        $subject = 'Nuova prenotazione disponibile';
+        
+        if (!empty($this->booking->bookingData['sito_favignana'])) {
+            $subject = 'Sito Favignana, nuova prenotazione disponibile';
+        }
+
         return new Envelope(
-            subject: $this->subject,
+            subject: $subject,
         );
     }
 
@@ -53,14 +44,9 @@ class BookingAdmin extends Mailable
 
     /**
      * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
     public function attachments(): array
     {
-        $filename = 'booking_' . now()->format('YmdHis') . '.pdf';
-        return [
-            Attachment::fromData(fn() => $this->pdf, $filename)->withMime('application/pdf')
-        ];
+        return $this->attachmentFromPdf();
     }
 }

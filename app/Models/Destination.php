@@ -16,6 +16,14 @@ class Destination extends Model
         
     ];
 
+    /**
+     * Scope query to only return visible destinations
+     */
+    public function scopeVisible($query)
+    {
+        return $query->where('show', 1);
+    }
+
     public function routes()
     {
         return $this->hasMany(Route::class, 'departure_id');

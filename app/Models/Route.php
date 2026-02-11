@@ -21,6 +21,14 @@ class Route extends Model
         'featured',
     ];
 
+    /**
+     * Scope query to only return visible routes
+     */
+    public function scopeVisible($query)
+    {
+        return $query->where('show', 1);
+    }
+
     public function reverseRoute()
     {
         return self::where('departure_id', $this->arrival_id)

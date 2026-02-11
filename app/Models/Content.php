@@ -24,6 +24,14 @@ class Content extends Model
         'end_date'
     ];
 
+    /**
+     * Scope query to only return visible content
+     */
+    public function scopeVisible($query)
+    {
+        return $query->where('show', 1);
+    }
+
     public function images()
     {
         return $this->hasMany(Image::class);

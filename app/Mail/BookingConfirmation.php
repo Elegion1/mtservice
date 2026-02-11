@@ -2,29 +2,17 @@
 
 namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Mail\Mailable;
-use Illuminate\Support\Facades\App;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Mail\Mailables\Attachment;
 
-class BookingConfirmation extends Mailable
+class BookingConfirmation extends BaseBookingMailable
 {
-    use Queueable, SerializesModels;
-    public $booking;
-    public $pdf;
-
     /**
      * Create a new message instance.
-     *
-     * @param string $pdf
      */
     public function __construct($booking, $pdf)
     {
-        $this->pdf = $pdf;
-        $this->booking = $booking;
+        parent::__construct($booking, $pdf);
     }
 
     /**
@@ -50,14 +38,9 @@ class BookingConfirmation extends Mailable
 
     /**
      * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
      */
     public function attachments(): array
     {
-        $filename = 'booking_' . $this->booking->code . now()->format('YmdHis') . '.pdf';
-        return [
-            Attachment::fromData(fn() => $this->pdf, $filename)->withMime('application/pdf')
-        ];
+        return $this->attachmentFromPdf();
     }
 }

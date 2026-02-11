@@ -101,7 +101,7 @@ class EscursioniForm extends Component
 
     public function render()
     {
-        $excursions = Excursion::where('show', 1)->get();
+        $excursions = Excursion::visible()->get();
         return view('livewire.escursioni-form', compact('excursions'));
     }
 }

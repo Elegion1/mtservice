@@ -15,8 +15,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 use App\Mail\BookingStatusNotification;
 use App\Models\OwnerData;
-
-use function PHPUnit\Framework\isEmpty;
+use App\Services\BookingDataAdapter;
 
 class BookingController extends Controller
 {
@@ -33,26 +32,9 @@ class BookingController extends Controller
     {
         App::setLocale('it');
 
-        $allowedTypes = getAllowedBookingTypes();
-
-        // Creazione della query per le prenotazioni confermate
-        if (isEmpty($allowedTypes)) {
-            $bookings = Booking::where('status', 'confirmed')->get();
-            $pendingBookings = Booking::where('status', 'pending')->get();
-            $rejectedBookings = Booking::where('status', 'rejected')->get();
-        } else {
-            $bookings = Booking::whereIn('bookingData->type', $allowedTypes)
-                ->where('status', 'confirmed')
-                ->get();
-
-            $pendingBookings = Booking::whereIn('bookingData->type', $allowedTypes)
-                ->where('status', 'pending')
-                ->get();
-
-            $rejectedBookings = Booking::whereIn('bookingData->type', $allowedTypes)
-                ->where('status', 'rejected')
-                ->get();
-        }
+        $bookings = $this->getBookingsByStatus('confirmed');
+        $pendingBookings = $this->getBookingsByStatus('pending');
+        $rejectedBookings = $this->getBookingsByStatus('rejected');
 
         // Collezione per le prenotazioni elaborate
         $processedBookings = collect();
@@ -124,32 +106,33 @@ class BookingController extends Controller
 
     public function bookingToDo()
     {
-        $allowedTypes = getAllowedBookingTypes();
-
-        if (isEmpty($allowedTypes)) {
-            $bookings = Booking::where('status', 'pending')->get();
-        } else {
-            $bookings = Booking::whereIn('bookingData->type', $allowedTypes)
-                ->where('status', 'pending')
-                ->get();
-        }
-
+        $bookings = $this->getBookingsByStatus('pending');
         return view('dashboard.bookingsToDo', compact('bookings'));
     }
 
     public function bookingRejected()
     {
+        $bookings = $this->getBookingsByStatus('rejected');
+        return view('dashboard.bookingsRejected', compact('bookings'));
+    }
+
+    /**
+     * Get bookings filtered by status and user permissions
+     * 
+     * @param string $status Booking status filter
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    private function getBookingsByStatus($status)
+    {
         $allowedTypes = getAllowedBookingTypes();
 
         if (isEmpty($allowedTypes)) {
-            $bookings = Booking::where('status', 'rejected')->get();
-        } else {
-            $bookings = Booking::whereIn('bookingData->type', $allowedTypes)
-                ->where('status', 'rejected')
-                ->get();
+            return Booking::where('status', $status)->get();
         }
 
-        return view('dashboard.bookingsRejected', compact('bookings'));
+        return Booking::whereIn('bookingData->type', $allowedTypes)
+            ->where('status', $status)
+            ->get();
     }
 
     /**
@@ -163,8 +146,6 @@ class BookingController extends Controller
     public function getBookingCode()
     {
         $code = generateUniqueCode();
-        Log::info('Codice generato per la prenotazione: ' . $code . response()->json(['code' => $code]));
-
         return response()->json(['code' => $code]);
     }
 
@@ -179,10 +160,7 @@ class BookingController extends Controller
         // Converti la stringa JSON in un array associativo
         $bookingData = json_decode($decodedData, true);
 
-        Log::info('Richiesta di prenotazione ricevuta.', $bookingData);
-
-        $data = $this->adaptBookingData($bookingData);
-        Log::info('Dati adattati per la prenotazione.', $data);
+        $data = BookingDataAdapter::adapt($bookingData);
         $booking = Booking::create($data);
 
         $adminMail = OwnerData::value('email');
@@ -205,99 +183,6 @@ class BookingController extends Controller
      */
     public function store(Request $request) {}
 
-    private function adaptBookingData($data)
-    {
-        try {
-            // Controlla se i dati obbligatori sono presenti
-            if (!isset($data['name']) || !isset($data['surname']) || !isset($data['price'])) {
-                Log::error('Dati obbligatori mancanti: name, surname o price');
-                throw new \Exception('Dati obbligatori mancanti');
-            }
-
-            if ($data['type'] == 'transfer') {
-                // Adatta i dati
-                $adaptedData = [
-                    'name' => $data['name'],
-                    'surname' => $data['surname'],
-                    'email' => $data['email'],
-                    'phone' => $data['phone'],
-                    'dial_code' => null,
-                    'body' => $data['message'] ?? '',
-                    'info' => [
-                        'flight' => [
-                            'flightNumber' => $data['flightNumber'] ?? null,
-                            'departureAirport' => $data['departureAirport'] ?? null,
-                            'departureTime' => $data['departureTime'] ?? null,
-                            'arrivalAirport' => $data['arrivalAirport'] ?? null,
-                            'arrivalTime' => $data['arrivalTime'] ?? null,
-                        ],
-                    ],
-                    'bookingData' => [
-                        'type' => $data['type'],
-                        'price' => $data['price'],
-                        'original_price' => $data['price'],
-                        'date_dep' => $data['dateStart'] . 'T' . $data['timeStart'],
-                        'date_ret' => isset($data['dateReturn']) && isset($data['timeReturn']) ? $data['dateReturn'] . 'T' . $data['timeReturn'] : null,
-                        'sola_andata' => isset($data['dateReturn']) && isset($data['timeReturn']) ? false : true,
-                        'duration' => $data['duration'] ?? 1,
-                        'passengers' => $data['passengers'],
-                        'departure_id' => null,
-                        'departure_name' => explode(' - ', $data['route'])[0],
-                        'arrival_name' => explode(' - ', $data['route'])[1],
-                        'sito_favignana' => true,
-                        'transferType' => $data['transferType'] ?? null,
-                    ],
-                    'code' => $data['code'],
-                    'service_date' => $data['dateStart'],
-                    'status' => 'confirmed',
-                    'payment_status' => $data['paymentStatus'] == 'COMPLETED' ? 'paid' : 'pending',
-                    'locale' => $data['locale'] ?? 'it',
-                ];
-            }
-
-            if ($data['type'] == 'escursione') {
-                $adaptedData = [
-                    'name' => $data['name'],
-                    'surname' => $data['surname'],
-                    'email' => $data['email'],
-                    'phone' => $data['phone'],
-                    'dial_code' => null,
-                    'body' => $data['message'] ?? '',
-                    'info' => [
-                        'flight' => [
-                            'flightNumber' => $data['flightNumber'] ?? null,
-                            'departureAirport' => $data['departureAirport'] ?? null,
-                            'departureTime' => $data['departureTime'] ?? null,
-                            'arrivalAirport' => $data['arrivalAirport'] ?? null,
-                            'arrivalTime' => $data['arrivalTime'] ?? null,
-                        ],
-                    ],
-                    'bookingData' => [
-                        'type' => $data['type'],
-                        'price' => $data['price'],
-                        'original_price' => $data['price'],
-                        'date_dep' => $data['dateStart'] . 'T' . $data['timeStart'],
-                        'passengers' => $data['passengers'],
-                        'sito_favignana' => true,
-                        'departure_name' => $data['excursion'],
-                        'departure_location' => $data['departureLocation'] ?? null,               
-                    ],
-                    'code' => $data['code'],
-                    'service_date' => $data['dateStart'],
-                    'status' => 'confirmed',
-                    'payment_status' => $data['paymentStatus'] == 'COMPLETED' ? 'paid' : 'pending',
-                    'locale' => $data['locale'] ?? 'it',
-                ];
-            }
-
-            return $adaptedData;
-        } catch (\Exception $e) {
-            // Logga eventuali errori
-            Log::error('Errore durante l\'adattamento dei dati: ' . $e->getMessage());
-            return null;  // O gestisci come preferisci
-        }
-    }
-
     /**
      * Display the specified resource.
      */
@@ -317,36 +202,25 @@ class BookingController extends Controller
 
     public function update(Request $request, Booking $booking)
     {
-        // Log per tracciare l'inizio della richiesta
-        Log::info("Inizio aggiornamento della prenotazione: {$booking->code}");
-
         // Memorizza lo stato originale prima dell'aggiornamento
         $originalStatus = $booking->status;
-        Log::info("Stato originale della prenotazione: {$originalStatus}");
 
         // Validazione unica per entrambi i campi
         $validated = $request->validate([
             'status' => 'nullable|in:confirmed,pending,rejected',
             'payment_status' => 'nullable|in:pending,paid,deposit_paid',
         ]);
-        Log::info("Validazione riuscita. Dati ricevuti: " . json_encode($validated));
 
         $updates = [];
 
         // Aggiornamento stato della prenotazione
         if ($request->filled('status') && $booking->status !== $request->status) {
             $updates['status'] = $request->status;
-            Log::info("Stato della prenotazione aggiornato da {$originalStatus} a {$updates['status']}");
-        } else {
-            Log::info("Nessun cambiamento nello stato della prenotazione.");
         }
 
         // Aggiornamento stato del pagamento
         if ($request->filled('payment_status') && $booking->payment_status !== $request->payment_status) {
             $updates['payment_status'] = $request->payment_status;
-            Log::info("Stato del pagamento aggiornato da {$booking->payment_status} a {$updates['payment_status']}");
-        } else {
-            Log::info("Nessun cambiamento nello stato del pagamento.");
         }
 
         // **Cancella il job solo se lo stato passa da "confirmed" a "rejected"**
@@ -355,25 +229,20 @@ class BookingController extends Controller
             $originalStatus === 'confirmed' &&
             ($updates['status'] === 'rejected' || $updates['status'] === 'pending')
         ) {
-            Log::info("Tentativo di cancellazione del job per la prenotazione: {$booking->code}");
-
             $jobToDelete = getJobs($booking);
 
             if ($jobToDelete) {
-                Log::info("Job trovato per la prenotazione {$booking->code}. ID Job: {$jobToDelete->id}. Eliminazione in corso...");
                 DB::table('jobs')->where('id', $jobToDelete->id)->delete();
-                Log::info("Job {$jobToDelete->id} eliminato con successo.");
+                Log::info("Job eliminato per prenotazione: {$booking->code}");
             } else {
-                Log::warning("Nessun job trovato per la prenotazione {$booking->code}. Nessuna eliminazione eseguita.");
+                Log::warning("Nessun job trovato per prenotazione: {$booking->code}");
             }
         }
 
         // Se ci sono modifiche, salva
         if (!empty($updates)) {
             $booking->update($updates);
-            Log::info("Prenotazione aggiornata con i seguenti dati: " . json_encode($updates));
         } else {
-            Log::info("Nessuna modifica effettuata.");
             return redirect()->back()->with('error', 'Nessuna modifica effettuata.');
         }
 
@@ -404,22 +273,16 @@ class BookingController extends Controller
         // }
 
         $notification = getSetting('email_notification');
-        Log::info("Impostazione notifiche via email: " . ($notification ? 'Abilitata' : 'Disabilitata'));
 
-        if ($notification) {
-            // Invia email di notifica solo se lo stato è cambiato
-            if (isset($updates['status'])) {
-                Log::info("Invio email di notifica per lo stato della prenotazione.");
-                sendEmail(
-                    $booking->email,
-                    new BookingStatusNotification($booking),
-                    'Errore nell\'invio dell\'email di notifica',
-                    $booking->locale
-                );
-            }
+        if ($notification && isset($updates['status'])) {
+            sendEmail(
+                $booking->email,
+                new BookingStatusNotification($booking),
+                'Errore nell\'invio dell\'email di notifica',
+                $booking->locale
+            );
+            Log::info("Email inviata per prenotazione: {$booking->code}");
         }
-
-        Log::info("Prenotazione aggiornata con successo. Codice: {$booking->code}");
 
         return redirect()->back()->with('success', 'Prenotazione aggiornata con successo.');
     }

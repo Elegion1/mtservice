@@ -264,7 +264,7 @@ class TransferForm extends Component
 
     public function render()
     {
-        $routes = Route::with(['departure', 'arrival'])->where('show', 1)->get();
+        $routes = Route::with(['departure', 'arrival'])->visible()->get();
         return view('livewire.transfer-form', compact('routes'));
     }
 }

@@ -31,12 +31,12 @@ class ViewServiceProvider extends ServiceProvider
     {
 
         if (Service::query()->exists()) {
-            $services = Service::where('show', 1)->orderBy('id', 'asc')->get();
+            $services = Service::visible()->orderBy('id', 'asc')->get();
             View::share('services', $services);
         }
 
         if (Excursion::query()->exists()) {
-            $excursions = Excursion::where('show', 1)->orderBy('name_it', 'asc')->get();
+            $excursions = Excursion::visible()->orderBy('name_it', 'asc')->get();
             View::share('excursions', $excursions);
         }
 
@@ -46,12 +46,12 @@ class ViewServiceProvider extends ServiceProvider
         }
 
         if (Page::query()->exists()) {
-            $pages = Page::where('show', 1)->orderBy('order')->get();
+            $pages = Page::visible()->orderBy('order')->get();
             View::share('pages', $pages);
         }
 
         if (Content::query()->exists()) {
-            $contents = Content::where('show', 1)->get();
+            $contents = Content::visible()->get();
             View::share('contents', $contents);
         }
     }

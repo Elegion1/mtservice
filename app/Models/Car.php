@@ -17,6 +17,13 @@ class Car extends Model
         'kasko_price',
     ];
 
+    /**
+     * Scope query to only return visible cars
+     */
+    public function scopeVisible($query)
+    {
+        return $query->where('show', 1);
+    }
 
     public function images()
     {

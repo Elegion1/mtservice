@@ -18,7 +18,6 @@ class ContactController extends Controller
     {
         $ownerData = OwnerData::first();
         $adminMail = $ownerData->email;
-        // $adminMail = 'gionnymiele@gmail.com';
 
         // Valida i dati del form
         $validatedData = $request->validate([

@@ -36,16 +36,12 @@ if (!function_exists('sendEmail')) {
     function sendEmail($recipient, $mailable, $errorMessage, $language)
     {
         $currentLanguage = App::getLocale();
-        Log::info('[MailHelper] Current language: ' . $currentLanguage);
         
         // Cambia la lingua solo se necessario
         if ($language !== $currentLanguage) {
             App::setLocale($language);
-            Log::info('[MailHelper] Language changed to: ' . App::getLocale());
         }
 
-        Log::info('[MailHelper] Sending email to: ' . $recipient . ' Language: ' . $language);
-        
         try {
             // Timeout di 10 secondi per evitare che blocchi il sito
             $timeout = 10;
@@ -56,7 +52,6 @@ if (!function_exists('sendEmail')) {
             
             // Invia l'email al destinatario
             Mail::to($recipient)->send($mailable);
-            Log::info('[MailHelper] Email sent to: ' . $recipient . ' Language: ' . $language);
             
             // Ripristina timeout originale
             config(['mail.mailers.smtp.timeout' => $originalTimeout]);
@@ -130,13 +125,6 @@ function sendWPMessage($booking, $templateName, $languageCode = 'it')
         return response()->json(['error' => 'Access token WhatsApp non configurato'], 500);
     }
 
-    // Log della richiesta in uscita
-    Log::info('Invio messaggio WhatsApp', [
-        'to' => $phoneNumber,
-        'template' => $templateName,
-        'language' => $languageCode
-    ]);
-
     try {
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
@@ -156,44 +144,36 @@ function sendWPMessage($booking, $templateName, $languageCode = 'it')
                         'parameters' => [
                             [
                                 'type' => 'text',
-                                'parameter_name' => 'name',  // Aggiungi il nome del parametro nel template
-                                'text' => $booking->name  // Nome del cliente
+                                'parameter_name' => 'name',
+                                'text' => $booking->name
                             ],
                             [
                                 'type' => 'text',
-                                'parameter_name' => 'bookingcode',  // Aggiungi il nome del parametro nel template
-                                'text' => $booking->code  // Codice prenotazione
+                                'parameter_name' => 'bookingcode',
+                                'text' => $booking->code
                             ],
                             [
                                 'type' => 'text',
-                                'parameter_name' => 'price',  // Aggiungi il nome del parametro nel template
-                                'text' => (string)$booking->bookingData['price']  // Prezzo della prenotazione
+                                'parameter_name' => 'price',
+                                'text' => (string)$booking->bookingData['price']
                             ],
                             [
                                 'type' => 'text',
-                                'parameter_name' => 'link',  // Aggiungi il nome del parametro nel template
-                                'text' => 'https://revolut.me/atranchida'  // Link di pagamento
+                                'parameter_name' => 'link',
+                                'text' => 'https://revolut.me/atranchida'
                             ],
                             [
                                 'type' => 'text',
-                                'parameter_name' => 'bookingstatus',  // Aggiungi il nome del parametro nel template
-                                'text' => 'https://tranchidatransfer.it/' . $booking->locale . '/booking/status?code=' . $booking->code . '&email=' . $booking->email  // Link stato prenotazione
+                                'parameter_name' => 'bookingstatus',
+                                'text' => 'https://tranchidatransfer.it/' . $booking->locale . '/booking/status?code=' . $booking->code . '&email=' . $booking->email
                             ]
                         ]
                     ]
                 ]
             ],
         ]);
-        Log::info('Richiesta: ' . $response);
-
-        // Log della risposta
-        Log::info('Risposta WhatsApp API', [
-            'status' => $response->status(),
-            'body' => $response->json()
-        ]);
         return $response;
     } catch (\Exception $e) {
-        // Log dell'errore
         Log::error('Errore nell\'invio del messaggio WhatsApp', [
             'error' => $e->getMessage()
         ]);
