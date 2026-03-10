@@ -8,10 +8,11 @@
 
                     <span class="text-capitalize">{{ __('ui.departure') }}</span>
 
-                    <select wire:model.live="departure" id="departureSelect" class="form-select form_input input_size"
-                        aria-label="seleziona luogo di partenza">
-                        <option value="">{{ __('ui.selectDeparture') }}</option>
-                        @foreach ($routes->sortBy(fn($route) => $route->departure->name)->unique('departure_id') as $route)
+                    <select wire:model.live="departure" id="departureSelect" class="form-select form_input input_size">
+                        <option value="">
+                            {{ $this->departureLocations->isEmpty() ? __('ui.loadingService') : __('ui.selectDeparture') }}
+                        </option>
+                        @foreach ($this->departureLocations as $route)
                             <option value="{{ $route->departure->id }}">{{ $route->departure->name }}</option>
                         @endforeach
                     </select>
@@ -24,10 +25,17 @@
 
                     <span class="text-capitalize">{{ __('ui.destination') }}</span>
 
-                    <select wire:model.live="return" wire:change="calculatePriceTransfer" id="returnSelect"
-                        class="form-select form_input input_size" aria-label="seleziona luogo di ritorno">
-                        <option value="">{{ __('ui.selectDestination') }}</option>
-                        @foreach ($routes->where('departure_id', $departure)->sortBy(fn($route) => $route->arrival->name) as $route)
+                    <select wire:model.live="return" id="returnSelect" class="form-select form_input input_size">
+                        <option value="">
+                            @if (empty($departure))
+                                {{ __('ui.selectDepartureFirst') }}
+                            @elseif($this->availableDestinations->isEmpty())
+                                {{ __('ui.noRoutesAvailable') }}
+                            @else
+                                {{ __('ui.selectDestination') }}
+                            @endif
+                        </option>
+                        @foreach ($this->availableDestinations as $route)
                             <option value="{{ $route->arrival->id }}">{{ $route->arrival->name }}</option>
                         @endforeach
                     </select>
@@ -62,7 +70,8 @@
                 <div
                     class="col-12 p-0 m-0 d-flex justify-content-between align-items-center position-relative {{ $solaAndata ? 'd-none' : '' }}">
 
-                    <button aria-label="Sola andata" type="button" title="{{ __('ui.oneWay') }}" wire:click="setSolaAndata"
+                    <button aria-label="Sola andata" type="button" title="{{ __('ui.oneWay') }}"
+                        wire:click="setSolaAndata"
                         class="position-absolute close_position bg-c border border-light rounded-circle text-black p-0 text-center">
                         <i class="bi bi-x-lg"></i></button>
 
@@ -142,9 +151,9 @@
 
                     <div class="d-flex align-items-center justify-content-center">
                         <!-- Bottone per decrementare i passeggeri -->
-                        <button aria-label="Rimuovi passeggeri" wire:click="updatePassengers(-1)" type="button" id="removePassenger"
-                            class="btn passenger_button" @if ($transferPassengers == 1) disabled @endif><i
-                                class="bi bi-dash-lg"></i></button>
+                        <button aria-label="Rimuovi passeggeri" wire:click="updatePassengers(-1)" type="button"
+                            id="removePassenger" class="btn passenger_button"
+                            @if ($transferPassengers == 1) disabled @endif><i class="bi bi-dash-lg"></i></button>
 
                         <!-- Input per il numero di passeggeri -->
                         <input wire:model.live="transferPassengers" type="number"
@@ -152,9 +161,9 @@
                             min="1" max="16" value="1" readonly>
 
                         <!-- Bottone per incrementare i passeggeri -->
-                        <button aria-label="Aggiungi passeggeri" wire:click="updatePassengers(1)" type="button" id="addPassenger"
-                            class="btn passenger_button" @if ($transferPassengers == 16) disabled @endif><i
-                                class="bi bi-plus-lg"></i></button>
+                        <button aria-label="Aggiungi passeggeri" wire:click="updatePassengers(1)" type="button"
+                            id="addPassenger" class="btn passenger_button"
+                            @if ($transferPassengers == 16) disabled @endif><i class="bi bi-plus-lg"></i></button>
 
                     </div>
 
@@ -171,7 +180,8 @@
                 </div>
 
                 <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
-                    <button aria-label="Torna indietro" wire:click="goToStep(1)" type="button" onclick="scrollToTop()"
+                    <button aria-label="Torna indietro" wire:click="goToStep(1)" type="button"
+                        onclick=""
                         class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
                     <!-- Pulsante Submit -->
                     <button aria-label="Vai allo step successivo" type="submit"

@@ -15,9 +15,7 @@
 }
 
 .scroller-height {
-    height: calc(
-        100vh - 360px
-    ); /* Sostituisci 200px con l'altezza effettiva degli elementi superiori */
+    height: calc(100vh - 360px);
     overflow: auto;
 }
 
@@ -81,15 +79,16 @@ img {
     border-radius: 3px 3px 0px 0px !important;
 
     /* Gestione Testo */
-    font-size: clamp(0.6rem, 2vw, 1rem) !important; /* Testo fluido! */
-    white-space: nowrap; /* Impedisce al testo di andare a capo */
+    font-size: clamp(0.6rem, 1vw, 1rem) !important; /* Testo fluido! */
     overflow: hidden;
     text-overflow: ellipsis; /* Se il testo è troppo lungo, mette i tre puntini */
-
-    padding: 10px 5px !important; /* Padding ridotto per dare spazio al testo */
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.btn_booking:hover {
+    transform: translateY(1px) !important;
 }
 
 .header_text_position {
@@ -236,6 +235,12 @@ a:hover {
     font-size: 0.8rem;
 }
 
+.modal-backdrop {
+    z-index: 1040 !important;
+}
+#bookingModal {
+    z-index: 1050 !important;
+}
 /* ========== Messaggi e Alert ========== */
 .my-alert-danger {
     background-color: rgba(246, 7, 7, 0.886);

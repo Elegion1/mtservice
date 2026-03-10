@@ -101,7 +101,8 @@ class CarRent extends Component
 
     public function goToStep($step)
     {
-        goToStep($step, $this->currentStep);
+        $this->currentStep = $step;
+        $this->dispatch('stepChanged', step: $step);
     }
 
     public function submitDateSelection()
@@ -487,6 +488,10 @@ class CarRent extends Component
 
         // Svuota la lista delle previsioni
         $this->{$key . 'correctedCustomAddress'} = [];
+
+        // Dopo aver scelto un indirizzo personalizzato, ricalcoliamo subito i costi.
+        // Se necessario questo avvierà anche il job per la distanza.
+        $this->applyDeliveryPickupCosts();
     }
 
     public function getDistanceFromAPI($origin, $destination, $key)

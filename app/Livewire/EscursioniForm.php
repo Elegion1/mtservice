@@ -12,6 +12,7 @@ class EscursioniForm extends Component
     public $excursionPassengers = 1;
     #[Locked]
     public $excursionPrice;
+    public $currentStep = 1; // Step iniziale
     public $excursionDate;
     public $excursionTime;
 
@@ -85,6 +86,12 @@ class EscursioniForm extends Component
             'date_dep' => $dateTimeDeparture,
             'price' => $this->excursionPrice,
         ];
+    }
+
+    public function goToStep($step)
+    {
+        $this->currentStep = $step;
+        $this->dispatch('stepChanged', step: $step);
     }
 
     public function submitBookingExcursion()

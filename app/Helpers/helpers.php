@@ -258,8 +258,3 @@ function passengerNumber($change, &$passengerProperty, $priceCallback)
     }
 }
 
-function goToStep($step, &$currentStep)
-{
-    $currentStep = $step;
-}
-

@@ -10,35 +10,31 @@
             </a>
         </div>
 
-        <div>
+        <div class="row">
 
-            <div class="row">
-
-                <div class="col-6 col-md-12">
-                    <form method="GET" action="" id="locale-form" class="m-1 text-center">
-                        <select id="locale-select" class="form-select-sm locale-select" onchange="changeLocale()"
-                            aria-label="Seleziona lingua">
-                            @foreach (config('app.available_locales') as $locale)
-                                <option class="text-center" value="{{ updateLocaleInUrl($locale) }}"
-                                    {{ app()->getLocale() == $locale ? 'selected' : '' }}>
-                                    {{ strtoupper(__('ui.' . $locale)) }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </form>
-                </div>
-
-                <div class="col-12">
-                    <div class="container d-none d-lg-block">
-                        <ul class="navbar-nav d-block d-flex align-items-center justify-content-start mb-2 mb-lg-0">
-                            <x-links :linksToShow="['transfer', 'escursioni', 'noleggio']">
-                                text-uppercase text-white text-nowrap
-                            </x-links>
-                        </ul>
-                    </div>
-                </div>
+            <div class="col-6 col-md-12">
+                <form method="GET" action="" id="locale-form" class="m-1 text-center">
+                    <select id="locale-select" class="form-select-sm locale-select" onchange="changeLocale()"
+                        aria-label="Seleziona lingua">
+                        @foreach (config('app.available_locales') as $locale)
+                            <option class="text-center" value="{{ updateLocaleInUrl($locale) }}"
+                                {{ app()->getLocale() == $locale ? 'selected' : '' }}>
+                                {{ strtoupper(__('ui.' . $locale)) }}
+                            </option>
+                        @endforeach
+                    </select>
+                </form>
             </div>
 
+            <div class="col-12">
+                <div class="container d-none d-lg-block">
+                    <ul class="navbar-nav d-block d-flex align-items-center justify-content-start mb-2 mb-lg-0">
+                        <x-links :linksToShow="['transfer', 'escursioni', 'noleggio']">
+                            text-uppercase text-white text-nowrap
+                        </x-links>
+                    </ul>
+                </div>
+            </div>
         </div>
 
         {{-- dropdown menu --}}

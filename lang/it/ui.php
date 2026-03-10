@@ -1,4 +1,5 @@
 <?php
+
 return [
     'it' => 'italiano',
     'en' => 'english',
@@ -40,7 +41,7 @@ return [
     'excursionTitle' => 'Escursione',
     'excursionSelect' => 'Seleziona Escursione',
 
-    //prenotazione 
+    //prenotazione
     'transfer' => 'transfer',
     'excursions' => 'escursioni',
     'carRent' => 'noleggio auto',
@@ -392,12 +393,14 @@ Servizio H24 - Taxi - Escursioni nella provincia di Trapani e in tutta la Sicili
     'goHome' => 'Torna alla home',
 
     'excursionAt' => 'Escursione a',
-    'callAction'=> 'Chiama il',
+    'callAction' => 'Chiama il',
 
     'inProgressBooking' => 'In corso',
     'continueBooking' => 'Continua prenotazione',
+    'loadingService' => 'caricamento :service in corso...',
+    'selectDepartureFirst' => 'Seleziona prima la partenza',
+    'resumeBooking' => 'Riprendi prenotazione',
 ];
-
 
 // name_it
 // {{ $excursion->{'name_' . app()->getLocale()} }}

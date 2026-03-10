@@ -6,6 +6,7 @@ use App\Models\Excursion;
 use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 
 class ExcursionController extends Controller
 {
@@ -173,6 +174,8 @@ class ExcursionController extends Controller
                 ]);
             }
         }
+
+        Cache::forget('excursions');
 
         return redirect()->route('dashboard.excursion')->with('success', 'Escursione aggiornata con successo!');
     }

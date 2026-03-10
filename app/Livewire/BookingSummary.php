@@ -204,7 +204,7 @@ class BookingSummary extends Component
 
         // 8. Step successivo
         Log::info('Passaggio allo step successivo');
-        goToStep(2, $this->currentStep);
+        $this->goToStep(2);
     }
 
     private function extractFields(array $fields): array
@@ -218,7 +218,8 @@ class BookingSummary extends Component
 
     public function goToStep($step)
     {
-        goToStep($step, $this->currentStep);
+        $this->currentStep = $step;
+        $this->dispatch('stepChanged', step: $step);
     }
 
 
@@ -547,6 +548,9 @@ class BookingSummary extends Component
             $this->createCustomer($this->name, $this->surname, $this->email, $this->dialCode, $this->phone);
 
             return redirect()->route('home');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            // Let Livewire handle validation errors so they show next to the form fields.
+            throw $e;
         } catch (\Exception $e) {
             Log::error('[BookingSummary] Booking confirmation error: ' . $e->getMessage());
             session()->flash('error', __('ui.booking_error_message'));

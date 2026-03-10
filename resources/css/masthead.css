@@ -81,8 +81,15 @@
     padding: 10px;
 }
 
-/* --- MEDIA QUERIES CORRETTE --- */
+/* Forza il modal-dialog fullscreen su mobile fino a 992px */
 @media screen and (max-width: 992px) {
+    #bookingModal .modal-dialog {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        max-width: none;
+    }
+
     .masthead {
         min-height: 60vh; /* Su mobile l'immagine può essere più bassa se il form è nel modale */
     }

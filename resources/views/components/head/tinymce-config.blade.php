@@ -1,13 +1,20 @@
 <div>
-    <script src="{{ asset('js/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
-    {{-- <script>
-        tinymce.init({
-            selector: 'textarea', // Replace this CSS selector to match the placeholder element for TinyMCE
-            menubar: false,
-            plugins: 'code lists',
-            toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code | table',
-            license_key: 'gpl',
-            height: 300
-        });
-    </script> --}}
+    <script>
+        window.loadTinyMCE = (function() {
+            var promise;
+            return function() {
+                if (promise) return promise;
+                promise = new Promise(function(resolve, reject) {
+                    if (window.tinymce) { resolve(window.tinymce); return; }
+                    var s = document.createElement('script');
+                    s.src = "{{ asset('js/tinymce/tinymce.min.js') }}";
+                    s.referrerPolicy = 'origin';
+                    s.onload = function() { resolve(window.tinymce); };
+                    s.onerror = function(e) { reject(e); };
+                    document.head.appendChild(s);
+                });
+                return promise;
+            };
+        })();
+    </script>
 </div>

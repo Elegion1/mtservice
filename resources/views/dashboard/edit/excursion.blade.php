@@ -77,20 +77,24 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            tinymce.init({
-                selector: '#edit-description',
-                plugins: 'autolink lists link image charmap preview anchor pagebreak',
-                menubar: false,
-                tinycomments_mode: 'embedded',
-                tinycomments_author: 'Author name',
-                height: 300,
-                license_key: 'gpl',
-                setup: function(editor) {
-                    editor.on('init', function() {
-                        switchLanguage('it'); // Default to Italian on init
+            if (window.loadTinyMCE) {
+                window.loadTinyMCE().then(function() {
+                    tinymce.init({
+                        selector: '#edit-description',
+                        plugins: 'autolink lists link image charmap preview anchor pagebreak',
+                        menubar: false,
+                        tinycomments_mode: 'embedded',
+                        tinycomments_author: 'Author name',
+                        height: 300,
+                        license_key: 'gpl',
+                        setup: function(editor) {
+                            editor.on('init', function() {
+                                switchLanguage('it'); // Default to Italian on init
+                            });
+                        }
                     });
-                }
-            });
+                }).catch(function() { console.warn('TinyMCE failed to load'); });
+            }
 
             const btnIt = document.getElementById('btn-it');
             const btnEn = document.getElementById('btn-en');
@@ -109,7 +113,7 @@
                     nameField.name = "name_it";
                     abstractField.name = "abstract_it";
                     descriptionField.name = "description_it";
-                    if (tinymce.get('edit-description')) {
+                    if (window.tinymce && tinymce.get('edit-description')) {
                         tinymce.get('edit-description').setContent(`{!! addslashes($excursion->description_it) !!}`);
                     }
                 } else if (lang === 'en') {
@@ -120,7 +124,7 @@
                     nameField.name = "name_en";
                     abstractField.name = "abstract_en";
                     descriptionField.name = "description_en";
-                    if (tinymce.get('edit-description')) {
+                    if (window.tinymce && tinymce.get('edit-description')) {
                         tinymce.get('edit-description').setContent(`{!! addslashes($excursion->description_en) !!}`);
                     }
                 }

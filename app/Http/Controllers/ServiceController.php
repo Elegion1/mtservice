@@ -6,6 +6,7 @@ use App\Models\Image;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 
 class ServiceController extends Controller
 {
@@ -185,6 +186,8 @@ class ServiceController extends Controller
             }
         }
 
+        Cache::forget('services');
+
         return redirect()->route('dashboard.service')
             ->with('success', 'Servizio aggiornato con successo.');
     }
@@ -192,6 +195,7 @@ class ServiceController extends Controller
     public function destroy(Service $service)
     {
         $service->delete();
+        Cache::forget('services');
 
         return redirect()->route('dashboard.service')->with('success', 'Servizio eliminato con successo.');
     }

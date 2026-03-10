@@ -142,11 +142,11 @@
                 <x-price-summary :totalPrice="$rentPrice" :items="$priceSummaryItems" />
 
                 <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
-                    <button aria-label="Torna indietro" wire:click="goToStep(1)" type="button" onclick="scrollToTop()"
+                    <button aria-label="Torna indietro" wire:click="goToStep(1)" type="button" onclick=""
                         class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
 
                     <button aria-label="Vai al prossimo step" @if (!isset($selectedCar)) disabled @endif wire:click="goToStep(3)" type="button"
-                        onclick="scrollToTop()"
+                        onclick=""
                         class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
                 </div>
             @endif
@@ -231,7 +231,7 @@
                 <x-price-summary :totalPrice="$totalPrice" :items="$priceSummaryItems" />
 
                 <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
-                    <button aria-label="Torna indietro" wire:click="goToStep(2)" type="button" onclick="scrollToTop()"
+                    <button aria-label="Torna indietro" wire:click="goToStep(2)" type="button" onclick=""
                         class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
                     <!-- Pulsante Submit -->
                     <button aria-label="Vai al prossimo step" type="submit"

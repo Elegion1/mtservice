@@ -80,40 +80,28 @@
                     <x-display-error />
                     <x-display-message />
                 </div>
-                <div id="headerBooking" class="col-12 col-lg-6 d-none d-lg-flex justify-content-center align-items-center">
-                    <div class="booking-module">
-                        <span class="visually-hidden">{{ $bookingModuleTitle }}</span>
-                        <span class="visually-hidden">{{ __('ui.bookNow') }}</span>
-                        <p class="visually-hidden">
-                            {{ $bookingModuleDesc }}
-                        </p>
-                        <livewire:prenotazione />
-                    </div>
+                <div id="headerBooking"
+                    class="col-12 col-lg-6 d-none d-lg-flex justify-content-center align-items-start">
+                    <button id="resumeBookingBtn"
+                        class="btn btn-primary btn-lg shadow d-none animate__animated animate__fadeIn"
+                        onclick="bookingModuleAppend(true)">
+                        {{ __('ui.resumeBooking') }}
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="d-lg-none fixed-bottom p-3 bg-white shadow-lg" style="z-index: 1050;">
-            <button type="button" class="btn btn-primary w-100 py-3 fw-bold text-uppercase" data-bs-toggle="modal"
+        <div class="d-lg-none fixed-bottom p-2" id="bookNowBtnContainer" style="z-index: 1050;">
+            <button type="button" id="bookNowBtn" class="btn bg-a w-100 py-3 fw-bold text-uppercase shadow-lg text-light" data-bs-toggle="modal"
                 data-bs-target="#bookingModal">{{ __('ui.bookNow') }}
             </button>
         </div>
         <div class="modal fade" id="bookingModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen-sm-down">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
                 <div class="modal-content">
                     <div class="modal-header">
-                        
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                    <div class="modal-body">
-                        <div class="booking-module">
-                            <span class="visually-hidden">{{ $bookingModuleTitle }}</span>
-                            <span class="visually-hidden">{{ __('ui.bookNow') }}</span>
-                            <p class="visually-hidden">
-                                {{ $bookingModuleDesc }}
-                            </p>
-                            <livewire:prenotazione />
-                        </div>
-                    </div>
+                    <div class="modal-body d-flex justify-content-center align-items-center"></div>
                 </div>
             </div>
         </div>
@@ -131,34 +119,158 @@
         @endif
     </div>
 
+    <div class="booking-module-storage visually-hidden">
+        <div class="booking-module">
+            <span class="visually-hidden">{{ $bookingModuleTitle }}</span>
+            <span class="visually-hidden">{{ __('ui.bookNow') }}</span>
+            <p class="visually-hidden">
+                {{ $bookingModuleDesc }}
+            </p>
+            <livewire:prenotazione />
+        </div>
+    </div>
+
 </header>
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    // Variabile per tenere traccia dello step globale
+    let currentBookingStep = 1;
+
+    const applyClasses = () => {
         const headerContainer = document.querySelector('#headerContainer');
         const headerText = document.querySelector('#headerText');
+        if (!headerContainer || !headerText) return;
+
+        if (window.innerWidth >= 992) {
+            headerContainer.classList.add('position-relative');
+            headerText.classList.add('position-absolute', 'header_text_position');
+            headerText.classList.remove('text-center');
+        } else {
+            headerContainer.classList.remove('position-relative');
+            headerText.classList.remove('position-absolute', 'header_text_position');
+            headerText.classList.add('text-center');
+        }
+    };
+
+    function toggleResumeButton() {
+        const resumeBtn = document.querySelector('#resumeBookingBtn');
+        const modalElement = document.getElementById('bookingModal');
+        if (!resumeBtn || !modalElement) return;
+
+        const isModalOpen = modalElement.classList.contains('show');
+
+        // Mostra il tasto solo su desktop, se lo step > 1 e il modal è CHIUSO
+        if (window.innerWidth >= 992 && currentBookingStep > 1 && !isModalOpen) {
+            resumeBtn.classList.remove('d-none');
+        } else {
+            resumeBtn.classList.add('d-none');
+        }
+    }
+
+    function bookingModuleAppend(shouldOpenModal = false) {
+        const bookingModule = document.querySelector('.booking-module');
         const headerBooking = document.querySelector('#headerBooking');
+        const bookingModalBody = document.querySelector('#bookingModal .modal-body');
 
-        // Funzione per applicare le classi in base alla dimensione dello schermo
-        const applyClasses = () => {
-            if (window.innerWidth >= 992) {
-                headerContainer.classList.add('position-relative');
-                headerText.classList.add('position-absolute', 'header_text_position');
-                headerText.classList.remove('text-center');
+        if (!bookingModule) return;
 
-            } else {
-                headerContainer.classList.remove('position-relative');
-                headerText.classList.remove('position-absolute', 'header_text_position');
-                headerText.classList.add('text-center');
-
+        if (window.innerWidth < 992 || shouldOpenModal || currentBookingStep > 1) {
+            if (bookingModalBody && !bookingModalBody.contains(bookingModule)) {
+                bookingModalBody.appendChild(bookingModule);
             }
-        };
+        } else {
+            if (headerBooking && !headerBooking.contains(bookingModule)) {
+                headerBooking.appendChild(bookingModule);
+            }
+        }
 
-        // Applica le classi al caricamento della pagina
+        if (shouldOpenModal) {
+            const modalElement = document.getElementById('bookingModal');
+            if (modalElement) {
+                const bootstrapLib = window.bootstrap || bootstrap;
+                if (bootstrapLib) {
+                    const modalInstance = bootstrapLib.Modal.getOrCreateInstance(modalElement);
+                    setTimeout(() => {
+                        modalInstance.show();
+                    }, 50);
+                }
+            }
+        }
+
+        // Controlla se mostrare il tasto resume dopo lo spostamento
+        toggleResumeButton();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
         applyClasses();
+        bookingModuleAppend();
 
-        // Riassegna le classi quando la finestra viene ridimensionata
-        window.addEventListener('resize', applyClasses);
+        // Ascolta quando il modal viene chiuso per mostrare il tasto resume
+        const modalElement = document.getElementById('bookingModal');
+        const bookNowBtn = document.getElementById('bookNowBtn');
+        if (modalElement) {
+            // Inizializza inert quando la pagina carica (il modal è nascosto)
+            modalElement.setAttribute('inert', '');
+            
+            modalElement.addEventListener('hidden.bs.modal', () => {
+                console.log('[bookingModal] hidden');
+
+                // Aggiungi inert quando il modal è chiuso
+                modalElement.setAttribute('inert', '');
+                // Mostra il tasto "Prenota Ora" quando il modale è chiuso
+                if (bookNowBtn) {
+                    bookNowBtn.classList.remove('d-none');
+                }
+                toggleResumeButton();
+            });
+            modalElement.addEventListener('shown.bs.modal', () => {
+                console.log('[bookingModal] shown');
+
+                // Rimuovi inert quando il modal è aperto
+                modalElement.removeAttribute('inert');
+                // Nascondi il tasto "Prenota Ora" quando il modale si apre
+                if (bookNowBtn) {
+                    bookNowBtn.classList.add('d-none');
+                }
+                toggleResumeButton();
+            });
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        const modalElement = document.getElementById('bookingModal');
+        const isModalOpen = modalElement && modalElement.classList.contains('show');
+
+        applyClasses();
+        if (!isModalOpen) {
+            bookingModuleAppend();
+        }
+        toggleResumeButton();
+    });
+
+    window.addEventListener('prenotazione-state', e => {
+        // Gestione compatibilità Livewire 3 (array vs oggetto)
+        const detail = Array.isArray(e.detail) ? e.detail[0] : e.detail;
+
+        currentBookingStep = detail.currentStep;
+        const currentForm = detail.currentForm;
+
+        // Se siamo oltre lo step 1 OPPURE se il form visualizzato è il riepilogo (bookingSummary)
+        if (currentBookingStep > 1 || currentForm === 'bookingSummary') {
+
+            // Forza lo spostamento nel modal e l'apertura
+            bookingModuleAppend(true);
+
+            // Scroll in alto per mostrare l'inizio del riepilogo/form
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+
+        } else {
+            // Se si torna all'inizio (Step 1 e non summary), riporta il modulo nell'header (su Desktop)
+            bookingModuleAppend(false);
+        }
     });
 </script>

@@ -116,9 +116,9 @@
             </p>
 
             <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
-                <button wire:click="goBack" type="button" onclick="scrollToTop()"
+                <button wire:click="goBack" type="button" onclick=""
                     class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
-                <button type="button" wire:click="goToStep(1.5)" onclick="scrollToTop()"
+                <button type="button" wire:click="goToStep(1.5)" onclick=""
                     class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
             </div>
         @endif
@@ -134,7 +134,7 @@
                 <x-error-message field='body' />
             </div>
             <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
-                <button type="button" wire:click="goToStep(1)" onclick="scrollToTop()"
+                <button type="button" wire:click="goToStep(1)" onclick=""
                     class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
                 <button
                     @if ($bookingData['type'] == 'noleggio') wire:click="goToStep(1.7)"
@@ -151,7 +151,7 @@
                 <x-driver-info />
             </div>
             <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
-                <button type="button" wire:click="goToStep(1.5)" onclick="scrollToTop()"
+                <button type="button" wire:click="goToStep(1.5)" onclick=""
                     class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
                 <button wire:click="goToStep(1.8)" type="button"
                     class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
@@ -163,7 +163,7 @@
                 <x-license-info :bookingData="$bookingData" />
             </div>
             <div class="col-12 p-0 m-0 d-flex justify-content-between align-items-center">
-                <button type="button" wire:click="goToStep(1.7)" onclick="scrollToTop()"
+                <button type="button" wire:click="goToStep(1.7)" onclick=""
                     class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">{{ __('ui.back') }}</button>
                 <button wire:click="submitMessage()" type="button"
                     class="btn w-custom input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
@@ -269,7 +269,7 @@
                         @if ($bookingData['type'] == 'noleggio') wire:click="goToStep(1.8)" 
                         @else 
                             wire:click="goToStep(1.5)" @endif
-                        type="button" onclick="scrollToTop()"
+                        type="button" onclick=""
                         class="btn w-custom input_size bg-dark rounded px-2 text-light me-3 text-uppercase">
                         {{ __('ui.back') }}
                     </button>

@@ -65,30 +65,36 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            tinymce.init({
-                selector: '#create-body',
-                plugins: 'autolink lists link image charmap preview anchor pagebreak',
-                menubar: false,
-                tinycomments_mode: 'embedded',
-                tinycomments_author: 'Author name',
-                height: 300,
-                license_key: 'gpl',
-                setup: function(editor) {
-                    editor.on('init', function() {
-                        switchLanguage('it'); // Default to Italian on init
+            if (window.loadTinyMCE) {
+                window.loadTinyMCE().then(function() {
+                    tinymce.init({
+                        selector: '#create-body',
+                        plugins: 'autolink lists link image charmap preview anchor pagebreak',
+                        menubar: false,
+                        tinycomments_mode: 'embedded',
+                        tinycomments_author: 'Author name',
+                        height: 300,
+                        license_key: 'gpl',
+                        setup: function(editor) {
+                            editor.on('init', function() {
+                                switchLanguage('it'); // Default to Italian on init
+                            });
+                        }
                     });
-                }
-            });
 
-            tinymce.init({
-                selector: '#create-condition',
-                plugins: 'autolink lists link image charmap preview anchor pagebreak',
-                menubar: 'false',
-                tinycomments_mode: 'embedded',
-                tinycomments_author: 'Author name',
-                height: 300,
-                license_key: 'gpl',
-            });
+                    tinymce.init({
+                        selector: '#create-condition',
+                        plugins: 'autolink lists link image charmap preview anchor pagebreak',
+                        menubar: 'false',
+                        tinycomments_mode: 'embedded',
+                        tinycomments_author: 'Author name',
+                        height: 300,
+                        license_key: 'gpl',
+                    });
+                }).catch(function() {
+                    console.warn('TinyMCE failed to load');
+                });
+            }
 
 
             const btnIt = document.getElementById('btn-it');

@@ -23,6 +23,8 @@ class Prenotazione extends Component
     #[Locked]
     public $isHome = false; // Variabile per determinare se siamo nella home
 
+    public $currentStep = 1; // Step iniziale
+
     // public $bookingData = [
     //     "type" => "escursione",
     //     "price" => "150",
@@ -73,6 +75,9 @@ class Prenotazione extends Component
         $this->currentForm = $formData['form'];
         $this->module = $formData['module'];
 
+        // Dispatch initial state so surrounding JS/Blade can pick it up
+        $this->dispatch('prenotazione-state', currentForm: $this->currentForm, currentStep: $this->currentStep);
+
         Log::info("[Prenotazione] Loaded route {$route} → form {$this->currentForm}");
     }
 
@@ -80,18 +85,27 @@ class Prenotazione extends Component
     {
         $this->currentForm = 'escursioni';
         $this->module = 'excursions';
+        $this->currentStep = 1; // Reset step quando cambia form
+
+        $this->dispatch('prenotazione-state', currentForm: $this->currentForm, currentStep: $this->currentStep);
     }
 
     public function showTransfer()
     {
         $this->currentForm = 'transfer';
         $this->module = 'transfer';
+        $this->currentStep = 1; // Reset step quando cambia form
+
+        $this->dispatch('prenotazione-state', currentForm: $this->currentForm, currentStep: $this->currentStep);
     }
 
     public function showRent()
     {
         $this->currentForm = 'rent';
         $this->module = 'carRent';
+        $this->currentStep = 1; // Reset step quando cambia form
+
+        $this->dispatch('prenotazione-state', currentForm: $this->currentForm, currentStep: $this->currentStep);
     }
 
     public function render()
@@ -114,13 +128,23 @@ class Prenotazione extends Component
         $this->currentForm = 'bookingSummary';
         $this->module = 'bookingSummary';
 
+        $this->dispatch('prenotazione-state', currentForm: $this->currentForm, currentStep: $this->currentStep);
+
         Log::info('[LivewirePrenotazione] User entered Booking Summary...');
     }
 
     public function dispatchData($data)
     {
         Log::info('Emitting populateForm event with data: '.json_encode($data));
-        $this->dispatch('populateForm', $data);
+        $this->dispatch('populateForm', data: $data);
+    }
+
+    #[On('stepChanged')]
+    public function updateCurrentStep($step)
+    {
+        $this->currentStep = $step;
+
+        $this->dispatch('prenotazione-state', currentForm: $this->currentForm, currentStep: $this->currentStep);
     }
 
     #[On('goBack')]

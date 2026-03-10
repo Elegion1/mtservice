@@ -73,20 +73,24 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
 
-            tinymce.init({
-                selector: '#edit-body',
-                plugins: 'autolink lists link image charmap preview anchor pagebreak',
-                menubar: false,
-                tinycomments_mode: 'embedded',
-                tinycomments_author: 'Author name',
-                height: 300,
-                license_key: 'gpl',
-                setup: function(editor) {
-                    editor.on('init', function() {
-                        switchLanguage('it'); // Default to Italian on init
+            if (window.loadTinyMCE) {
+                window.loadTinyMCE().then(function() {
+                    tinymce.init({
+                        selector: '#edit-body',
+                        plugins: 'autolink lists link image charmap preview anchor pagebreak',
+                        menubar: false,
+                        tinycomments_mode: 'embedded',
+                        tinycomments_author: 'Author name',
+                        height: 300,
+                        license_key: 'gpl',
+                        setup: function(editor) {
+                            editor.on('init', function() {
+                                switchLanguage('it'); // Default to Italian on init
+                            });
+                        }
                     });
-                }
-            });
+                }).catch(function() { console.warn('TinyMCE failed to load'); });
+            }
 
             const btnIt = document.getElementById('btn-it');
             const btnEn = document.getElementById('btn-en');
@@ -105,7 +109,7 @@
                     titleField.name = "title_it";
                     subtitleField.name = "subtitle_it";
                     bodyField.name = "body_it";
-                    if (tinymce.get('edit-body')) {
+                    if (window.tinymce && tinymce.get('edit-body')) {
                         tinymce.get('edit-body').setContent(`{!! addslashes($content->body_it) !!}`);
                     }
                 } else if (lang === 'en') {
@@ -116,7 +120,7 @@
                     titleField.name = "title_en";
                     subtitleField.name = "subtitle_en";
                     bodyField.name = "body_en";
-                    if (tinymce.get('edit-body')) {
+                    if (window.tinymce && tinymce.get('edit-body')) {
                         tinymce.get('edit-body').setContent(`{!! addslashes($content->body_en) !!}`);
                     }
                 }

@@ -2,32 +2,51 @@
 
 namespace App\Livewire;
 
-use App\Models\Route;
-use Livewire\Component;
 use App\Models\Destination;
-use Livewire\Attributes\On;
-use Livewire\Attributes\Locked;
+use App\Models\Route;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Testing\Fluent\Concerns\Has;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Locked;
+use Livewire\Attributes\On;
+use Livewire\Component;
+use App\Traits\HasSteps;
 
 class TransferForm extends Component
 {
+
+    use HasSteps;
+
     public $departure;
+
     public $return;
+
     public $transferPassengers = 1;
+
     public $transferPrice;
+
     public $solaAndata = true;
+
     public $andataRitorno = false;
+
     public $dateDeparture;
+
     public $timeDeparture;
+
     public $dateReturn;
+
     public $timeReturn;
 
     public $minReturnTime;
 
+    public $readyToLoad = false;
+
     #[Locked]
     public $departureName;
+
     #[Locked]
     public $arrivalName;
+
     #[Locked]
     public $route;
 
@@ -36,7 +55,7 @@ class TransferForm extends Component
     #[On('populateForm')]
     public function populateFields($data)
     {
-        Log::info('populateFields called with data: ' . json_encode($data));
+        Log::info('populateFields called with data: '.json_encode($data));
         // $this->departure = $data['departure'];
         // $this->return = $data['return'];
         // $this->transferPassengers = $data['passengers'];
@@ -63,7 +82,7 @@ class TransferForm extends Component
 
     private function getReturnRules()
     {
-        if (!$this->andataRitorno) {
+        if (! $this->andataRitorno) {
             return [
                 'dateReturn' => 'nullable|date|after:dateDeparture',
                 'timeReturn' => 'nullable',
@@ -84,16 +103,17 @@ class TransferForm extends Component
     private function validateReturnTime($fail)
     {
         if (
-            !$this->departure || !$this->return ||
-            !$this->dateDeparture || !$this->timeDeparture ||
-            !$this->dateReturn || !$this->timeReturn
+            ! $this->departure || ! $this->return ||
+            ! $this->dateDeparture || ! $this->timeDeparture ||
+            ! $this->dateReturn || ! $this->timeReturn
         ) {
             return;  // Dati insufficienti
         }
 
         $route = $this->getRouteData($this->departure, $this->return);
-        if (!$route) {
+        if (! $route) {
             $fail(__('ui.invalid_route'));
+
             return;
         }
 
@@ -105,7 +125,7 @@ class TransferForm extends Component
         $departureDateTime = strtotime("{$this->dateDeparture} {$this->timeDeparture}");
         $returnDateTime = strtotime("{$this->dateReturn} {$this->timeReturn}");
 
-        if (!$departureDateTime || !$returnDateTime) {
+        if (! $departureDateTime || ! $returnDateTime) {
             return; // Evita errori di parsing
         }
 
@@ -156,6 +176,33 @@ class TransferForm extends Component
         }
     }
 
+    #[Computed]
+    public function routes()
+    {
+        // Carichiamo le rotte una volta sola e le teniamo in cache per la richiesta
+        return Route::with(['departure', 'arrival'])->visible()->get();
+    }
+
+    #[Computed]
+    public function departureLocations()
+    {
+        return $this->routes()
+            ->sortBy('departure.name')
+            ->unique('departure_id');
+    }
+
+    #[Computed]
+    public function availableDestinations()
+    {
+        if (empty($this->departure)) {
+            return collect();
+        }
+
+        return $this->routes()
+            ->where('departure_id', $this->departure)
+            ->sortBy('arrival.name');
+    }
+
     public function getRouteData($departure, $arrival)
     {
         return Route::where('departure_id', $departure)->where('arrival_id', $arrival)->first();
@@ -165,17 +212,13 @@ class TransferForm extends Component
     {
         $destination = Destination::find($id);
 
-        if (!$destination) {
+        if (! $destination) {
             return __('ui.unknown_destination'); // Messaggio di fallback
         }
 
         return $destination->name;
     }
 
-    public function goToStep($step)
-    {
-        goToStep($step, $this->currentStep);
-    }
 
     public function submitTransferSelection()
     {
@@ -209,15 +252,17 @@ class TransferForm extends Component
     public function calculatePriceTransfer()
     {
         // Se partenza o destinazione non sono impostate, prezzo a 0
-        if (!$this->departure || !$this->return) {
+        if (! $this->departure || ! $this->return) {
             $this->transferPrice = 0;
+
             return;
         }
 
         // Recupera i dati della tratta
         $route = $this->getRouteData($this->departure, $this->return);
-        if (!$route) {
+        if (! $route) {
             $this->transferPrice = 0;
+
             return;
         }
 
@@ -262,9 +307,15 @@ class TransferForm extends Component
         $this->dispatch('bookingSubmitted', $bookingData);
     }
 
+    public function mount()
+    {
+        $this->readyToLoad = true;
+    }
+
     public function render()
     {
         $routes = Route::with(['departure', 'arrival'])->visible()->get();
+
         return view('livewire.transfer-form', compact('routes'));
     }
 }

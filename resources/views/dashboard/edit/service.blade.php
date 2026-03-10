@@ -89,35 +89,39 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            tinymce.init({
-                selector: '#edit-body',
-                plugins: 'autolink lists link charmap preview anchor pagebreak',
-                menubar: false,
-                tinycomments_mode: 'embedded',
-                tinycomments_author: 'Author name',
-                height: 300,
-                license_key: 'gpl',
-                setup: function(editor) {
-                    editor.on('init', function() {
-                        switchLanguage('it'); // Default to Italian on init
+            if (window.loadTinyMCE) {
+                window.loadTinyMCE().then(function() {
+                    tinymce.init({
+                        selector: '#edit-body',
+                        plugins: 'autolink lists link charmap preview anchor pagebreak',
+                        menubar: false,
+                        tinycomments_mode: 'embedded',
+                        tinycomments_author: 'Author name',
+                        height: 300,
+                        license_key: 'gpl',
+                        setup: function(editor) {
+                            editor.on('init', function() {
+                                switchLanguage('it'); // Default to Italian on init
+                            });
+                        }
                     });
-                }
-            });
 
-            tinymce.init({
-                selector: '#edit-condition',
-                plugins: 'autolink lists link charmap preview anchor pagebreak',
-                menubar: false,
-                tinycomments_mode: 'embedded',
-                tinycomments_author: 'Author name',
-                height: 300,
-                license_key: 'gpl',
-                setup: function(editor) {
-                    editor.on('init', function() {
-                        switchLanguage('it'); // Default to Italian on init
+                    tinymce.init({
+                        selector: '#edit-condition',
+                        plugins: 'autolink lists link charmap preview anchor pagebreak',
+                        menubar: false,
+                        tinycomments_mode: 'embedded',
+                        tinycomments_author: 'Author name',
+                        height: 300,
+                        license_key: 'gpl',
+                        setup: function(editor) {
+                            editor.on('init', function() {
+                                switchLanguage('it'); // Default to Italian on init
+                            });
+                        }
                     });
-                }
-            });
+                }).catch(function() { console.warn('TinyMCE failed to load'); });
+            }
 
             const btnIt = document.getElementById('btn-it');
             const btnEn = document.getElementById('btn-en');
@@ -144,10 +148,10 @@
                     abstractField.name = "abstract_it";
                     bodyField.name = "body_it";
                     conditionField.name = "condition_it";
-                    if (tinymce.get('edit-body')) {
+                    if (window.tinymce && tinymce.get('edit-body')) {
                         tinymce.get('edit-body').setContent(`{!! addslashes($service->body_it) !!}`);
                     }
-                    if (tinymce.get('edit-condition')) {
+                    if (window.tinymce && tinymce.get('edit-condition')) {
                         tinymce.get('edit-condition').setContent(`{!! addslashes($service->condition_it) !!}`);
                     }
                 } else if (lang === 'en') {
@@ -163,10 +167,10 @@
                     abstractField.name = "abstract_en";
                     bodyField.name = "body_en";
                     conditionField.name = "condition_en";
-                    if (tinymce.get('edit-body')) {
+                    if (window.tinymce && tinymce.get('edit-body')) {
                         tinymce.get('edit-body').setContent(`{!! addslashes($service->body_en) !!}`);
                     }
-                    if (tinymce.get('edit-condition')) {
+                    if (window.tinymce && tinymce.get('edit-condition')) {
                         tinymce.get('edit-condition').setContent(`{!! addslashes($service->condition_en) !!}`);
                     }
                 }

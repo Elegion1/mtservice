@@ -395,4 +395,7 @@ Transfer service to and from the Sicilian Airports and Ports of Trapani, Palermo
 
     'inProgressBooking' => 'In progress',
     'continueBooking' => 'Continue booking',
+    'loadingService' => ':service loading in progress...',
+    'selectDepartureFirst' => 'Select departure first',
+    'resumeBooking' => 'Resume booking',
 ];
