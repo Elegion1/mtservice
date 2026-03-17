@@ -71,6 +71,7 @@
                 <li><a class="dropdown-item" href="{{ route('dashboard.page') }}">Pagine</a></li>
                 <li><a class="dropdown-item" href="{{ route('dashboard.ownerData') }}">Dati azienda</a></li>
                 <li><a class="dropdown-item" href="{{ route('dashboard.users') }}">Utenti</a></li>
+                <li><a class="dropdown-item" href="{{ route('dashboard.seoMeta') }}">SEO Meta</a></li>
                 <li><a class="dropdown-item" href="{{ route('dashboard.settings') }}">Impostazioni</a></li>
                 <li><a class="dropdown-item" href="{{ route('visits.dashboard') }}">Statistiche Visite</a></li>
                 <li><a class="dropdown-item" href="{{ route('dashboard.logs') }}">Logs</a></li>

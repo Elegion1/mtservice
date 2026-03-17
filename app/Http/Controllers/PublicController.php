@@ -22,9 +22,9 @@ class PublicController extends Controller
     use HasSeoMeta;
     public function seoMap()
     {
-        return [
+        $defaultSeoMap = [
             'home' => [
-                'title' => 'Tranchida Transfer | Transfer, Taxi, Noleggio Auto ed Escursioni a Trapani',
+                'title' => 'Taxi Trapani H24 | Transfer Aeroporto Palermo e Trapani',
                 'description' => 'Servizi di transfer, taxi, noleggio auto ed escursioni in Sicilia occidentale. Prenota online Tranchida Transfer Trapani per Aeroporto Palermo e Trapani',
             ],
             'noleggio' => [
@@ -69,6 +69,41 @@ class PublicController extends Controller
             ],
         ];
 
+        return cache()->remember('seo_map_data', 60 * 24, function () use ($defaultSeoMap) {
+            $seoRows = \App\Models\SeoMeta::all(['page_key', 'title', 'description']);
+            if ($seoRows->isEmpty()) {
+                logger()->warning('SeoMeta table is empty. Using default SEO map.');
+                return $defaultSeoMap;
+            }
+
+            $seoMap = [];
+            foreach ($seoRows as $row) {
+                $pageKey = $row->page_key;
+                if (! $pageKey) {
+                    continue;
+                }
+
+                $seoMap[$pageKey] = [
+                    'title' => $row->title ?: ($defaultSeoMap[$pageKey]['title'] ?? null),
+                    'description' => $row->description ?: ($defaultSeoMap[$pageKey]['description'] ?? null),
+                ];
+            }
+
+            // Keep all default keys with fallback values and preserve any custom rows
+            $final = $defaultSeoMap;
+            foreach ($seoMap as $key => $value) {
+                $final[$key] = array_merge($defaultSeoMap[$key] ?? ['title' => null, 'description' => null], $value);
+            }
+
+            // Keep any extra custom keys that aren't in defaults.
+            foreach ($seoMap as $key => $value) {
+                if (! array_key_exists($key, $defaultSeoMap)) {
+                    $final[$key] = $value;
+                }
+            }
+
+            return $final;
+        });
     }
 
     public function getPageData($link, $extraData = [])

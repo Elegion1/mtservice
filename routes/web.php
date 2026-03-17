@@ -15,6 +15,7 @@ use App\Http\Controllers\PartnerController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\SeoMetaController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TestController;
@@ -114,6 +115,12 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     Route::post('/settings/', [SettingController::class, 'store'])->name('settings.store'); // Salva una nuova impostazione
     Route::put('/settings/{setting}', [SettingController::class, 'update'])->name('settings.update'); // Aggiorna un'impostazione esistente
     Route::delete('/settings/{setting}', [SettingController::class, 'destroy'])->name('settings.destroy'); // Elimina un'impostazione
+
+    // SEO Meta
+    Route::get('/seo-meta', [SeoMetaController::class, 'index'])->name('dashboard.seoMeta');
+    Route::post('/seo-meta', [SeoMetaController::class, 'store'])->name('seoMeta.store');
+    Route::put('/seo-meta/{seoMeta}', [SeoMetaController::class, 'update'])->name('seoMeta.update');
+    Route::delete('/seo-meta/{seoMeta}', [SeoMetaController::class, 'destroy'])->name('seoMeta.destroy');
 
     // testing
     Route::get('/testing', [TestController::class, 'test'])->name('dashboard.testing');
