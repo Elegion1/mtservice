@@ -77,8 +77,6 @@ class Prenotazione extends Component
 
         // Dispatch initial state so surrounding JS/Blade can pick it up
         $this->dispatch('prenotazione-state', currentForm: $this->currentForm, currentStep: $this->currentStep);
-
-        Log::info("[Prenotazione] Loaded route {$route} → form {$this->currentForm}");
     }
 
     public function showEscursioni()
