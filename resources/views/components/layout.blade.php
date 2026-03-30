@@ -192,7 +192,7 @@
     <x-whatsapp :lazy-loading />
     <x-nav lazy />
     <x-masthead />
-    <div id="mainContent" data-currentRoute="{{ $currentRoute }}" class="overflow-hidden">
+    <div id="mainContent" data-currentRoute="{{ $currentRoute }}" class="overflow-hidden mb-5">
         {{ $slot }}
     </div>
     <x-footer />

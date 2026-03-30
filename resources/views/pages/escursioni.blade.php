@@ -8,10 +8,7 @@
                 <x-contact-link />
             </div>
 
-            <div class="container mt-5">
-                <h2 class="text-center">{{ __('ui.title2') }}</h2>
-                <x-services />
-            </div>
+
         </div>
 
         <div class="col-12 col-lg-6 ">
@@ -89,7 +86,10 @@
         </div>
 
     </div>
-
+    <div class="container mt-5 mx-auto">
+        <h2 class="text-center">{{ __('ui.title2') }}</h2>
+        <x-services />
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             window.selezionaEscursione = function(button) {

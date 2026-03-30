@@ -180,19 +180,11 @@ class PublicController extends Controller
 
     public function privacy()
     {
-        $data = [];
-        $lang = session('locale', config('app.locale'));
-        $seo = $this->seoMap();
-        $data['seoTitle'] = $seo['privacy']['title'] ?? null;
-        $data['seoDescription'] = $seo['privacy']['description'] ?? null;
-        // Restituisce la vista corretta in base alla lingua
-        if ($lang === 'en') {
+        $view = session('locale', config('app.locale')) === 'en'
+            ? 'pages.privacy-terms_en'
+            : 'pages.privacy-terms_it';
 
-            return view('pages.privacy-terms_en', compact('data'));
-        }
-
-        // Imposta la vista italiana come predefinita
-        return view('pages.privacy-terms_it', compact('data'));
+        return $this->viewWithSeo($view, 'privacy');
     }
 
     public function servizi()
