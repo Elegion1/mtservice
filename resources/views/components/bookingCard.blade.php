@@ -8,6 +8,9 @@
                 {{ $booking->name }}, {{ $booking->surname }}
             </p>
         </button>
+        @if ($booking->isHiddenFromCalendar())
+            <span class="badge bg-secondary mb-2">Nascosta calendario</span>
+        @endif
         <p class="mb-0">
             Pagamento: @if ($booking->payment_status == 'pending')
                 In attesa

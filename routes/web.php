@@ -188,6 +188,8 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
         Route::delete('/{visit}', [\App\Http\Controllers\VisitController::class, 'destroy'])->name('destroy');
     });
     Route::get('/bookings/list', [BookingController::class, 'list'])->name('dashboard.bookingList');
+    Route::put('/bookings/{booking}/hide-from-calendar', [BookingController::class, 'hideFromCalendar'])
+        ->name('bookings.hideFromCalendar');
     Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
 
     // Gestione messaggi

@@ -32,9 +32,17 @@ class BookingController extends Controller
     {
         App::setLocale('it');
 
-        $bookings = $this->getBookingsByStatus('confirmed');
-        $pendingBookings = $this->getBookingsByStatus('pending');
-        $rejectedBookings = $this->getBookingsByStatus('rejected');
+        $calendarStartDate = Carbon::now()->startOfYear();
+
+        $bookings = $this->getBookingsByStatus('confirmed', true);
+        $pendingBookings = $this->filterBookingsForCurrentAndFutureYears(
+            $this->getBookingsByStatus('pending', true),
+            $calendarStartDate
+        );
+        $rejectedBookings = $this->filterBookingsForCurrentAndFutureYears(
+            $this->getBookingsByStatus('rejected', true),
+            $calendarStartDate
+        );
 
         // Collezione per le prenotazioni elaborate
         $processedBookings = collect();
@@ -78,9 +86,10 @@ class BookingController extends Controller
         }
 
         // Ordina per 'start_date', se null usa 'end_date'
-        $bookings = $processedBookings->sortBy(function ($booking) {
-            return \Carbon\Carbon::parse($booking->start_date ?? $booking->end_date);
-        });
+        $bookings = $processedBookings
+            ->sortBy(function ($booking) {
+                return \Carbon\Carbon::parse($booking->start_date ?? $booking->end_date);
+            });
 
         // Raggruppa per giorno
         $groupedByDay = $bookings->groupBy(function ($booking) {
@@ -104,15 +113,74 @@ class BookingController extends Controller
         ]);
     }
 
+    private function filterBookingsForCurrentAndFutureYears($bookings, Carbon $calendarStartDate)
+    {
+        return $bookings->filter(function ($booking) use ($calendarStartDate) {
+            $dates = $this->extractBookingCalendarDates($booking);
+
+            foreach ($dates as $date) {
+                if (empty($date)) {
+                    continue;
+                }
+
+                try {
+                    if (Carbon::parse($date)->greaterThanOrEqualTo($calendarStartDate)) {
+                        return true;
+                    }
+                } catch (\Throwable $e) {
+                    // Ignora date non valide e continua la verifica con le altre date disponibili.
+                    continue;
+                }
+            }
+
+            return false;
+        })->values();
+    }
+
+    private function extractBookingCalendarDates(Booking $booking): array
+    {
+        $bookingData = $booking->bookingData ?? [];
+        $type = $bookingData['type'] ?? null;
+
+        if ($type === 'transfer') {
+            return [
+                $bookingData['date_dep'] ?? null,
+                $bookingData['date_ret'] ?? null,
+            ];
+        }
+
+        if ($type === 'noleggio') {
+            return [
+                $bookingData['date_start'] ?? null,
+                $bookingData['date_end'] ?? null,
+            ];
+        }
+
+        if ($type === 'escursione') {
+            return [
+                $bookingData['date_dep'] ?? null,
+            ];
+        }
+
+        return [
+            $bookingData['date_dep'] ?? null,
+            $bookingData['date_start'] ?? null,
+            $bookingData['date_end'] ?? null,
+        ];
+    }
+
     public function bookingToDo()
     {
-        $bookings = $this->getBookingsByStatus('pending');
+        $bookings = $this->getBookingsByStatus('pending', true)
+            ->sortByDesc('created_at')
+            ->values();
+
         return view('dashboard.bookingsToDo', compact('bookings'));
     }
 
     public function bookingRejected()
     {
-        $bookings = $this->getBookingsByStatus('rejected');
+        $bookings = $this->getBookingsByStatus('rejected', true);
         return view('dashboard.bookingsRejected', compact('bookings'));
     }
 
@@ -120,19 +188,83 @@ class BookingController extends Controller
      * Get bookings filtered by status and user permissions
      * 
      * @param string $status Booking status filter
+     * @param bool $excludeHiddenFromCalendar Exclude bookings hidden from calendar
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    private function getBookingsByStatus($status)
+    private function getBookingsByStatus($status, bool $excludeHiddenFromCalendar = false)
     {
         $allowedTypes = getAllowedBookingTypes();
 
-        if (empty($allowedTypes)) {
-            return Booking::where('status', $status)->get();
+        $query = Booking::query()->where('status', $status);
+
+        if ($excludeHiddenFromCalendar) {
+            $query->where('hidden_in_calendar', false);
         }
 
-        return Booking::whereIn('bookingData->type', $allowedTypes)
-            ->where('status', $status)
-            ->get();
+        if (!empty($allowedTypes)) {
+            $query->whereIn('bookingData->type', $allowedTypes);
+        }
+
+        $bookings = $query->get();
+
+        // In calendario, le prenotazioni rifiutate scompaiono dopo 7 giorni dalla data di fine servizio.
+        if ($excludeHiddenFromCalendar && $status === 'rejected') {
+            $bookings = $bookings->filter(function ($booking) {
+                $visibilityDeadline = $this->getRejectedCalendarVisibilityDeadline($booking);
+
+                // Se non c'e una data valida, non nascondiamo automaticamente la prenotazione.
+                if (!$visibilityDeadline) {
+                    return true;
+                }
+
+                return Carbon::now()->lessThanOrEqualTo($visibilityDeadline);
+            })->values();
+        }
+
+        return $bookings;
+    }
+
+    private function getRejectedCalendarVisibilityDeadline(Booking $booking): ?Carbon
+    {
+        $bookingData = $booking->bookingData ?? [];
+        $type = $bookingData['type'] ?? null;
+
+        $referenceDate = null;
+
+        if ($type === 'transfer') {
+            // Transfer A/R: usa il ritorno, altrimenti usa l'andata.
+            $referenceDate = !empty($bookingData['date_ret']) ? $bookingData['date_ret'] : ($bookingData['date_dep'] ?? null);
+        } elseif ($type === 'escursione') {
+            // Escursioni: usa la data di partenza.
+            $referenceDate = $bookingData['date_dep'] ?? null;
+        } elseif ($type === 'noleggio') {
+            // Noleggio: usa la data di consegna.
+            $referenceDate = $bookingData['date_end'] ?? null;
+        } else {
+            // Fallback per altri tipi: usa la data principale disponibile.
+            $referenceDate = $bookingData['date_dep'] ?? $bookingData['date_start'] ?? null;
+        }
+
+        if (empty($referenceDate)) {
+            return null;
+        }
+
+        try {
+            return Carbon::parse($referenceDate)->addWeek()->endOfDay();
+        } catch (\Throwable $e) {
+            return null;
+        }
+    }
+
+    public function hideFromCalendar(Booking $booking)
+    {
+        if ($booking->hidden_in_calendar) {
+            return redirect()->back()->with('success', 'Prenotazione gia nascosta nel calendario.');
+        }
+
+        $booking->update(['hidden_in_calendar' => true]);
+
+        return redirect()->back()->with('success', 'Prenotazione nascosta dal calendario con successo.');
     }
 
     /**

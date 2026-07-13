@@ -219,6 +219,46 @@
         <p>Tel: <a href="tel:${dial_code}${phone}">${phone}</a> Mail: <a href="mailto:${email}">${email}</a></p>
         <p>Note: <br/> <span class="text-primary">${formattedBody}</span></p>`;
 
+        const getRejectedHideDate = () => {
+            let referenceDate = null;
+
+            if (bookingType === 'transfer') {
+                referenceDate = bookingData.date_ret || bookingData.date_dep || null;
+            } else if (bookingType === 'escursione') {
+                referenceDate = bookingData.date_dep || null;
+            } else if (bookingType === 'noleggio') {
+                referenceDate = bookingData.date_end || null;
+            } else {
+                referenceDate = bookingData.date_dep || bookingData.date_start || null;
+            }
+
+            if (!referenceDate) {
+                return null;
+            }
+
+            const hideDate = new Date(referenceDate);
+
+            if (Number.isNaN(hideDate.getTime())) {
+                return null;
+            }
+
+            hideDate.setDate(hideDate.getDate() + 7);
+            hideDate.setHours(23, 59, 59, 999);
+
+            return hideDate;
+        };
+
+        if (status === 'rejected') {
+            const hideDate = getRejectedHideDate();
+
+            if (hideDate) {
+                modalInnerHTML += `
+                <p>
+                    <span class="badge bg-dark">Visibile nel calendario fino al ${hideDate.toLocaleDateString('it-IT')}</span>
+                </p>`;
+            }
+        }
+
         // Verifica che info sia un oggetto
         if (typeof info === 'object' && info !== null) {
             // Itera sulle chiavi di info (come 'flight' e 'driver')
@@ -309,7 +349,7 @@
         }
 
         modalInnerHTML += `
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between align-items-start gap-2">
         <div class="border-end border-3 pe-2 border-black">
         <form action="/dashboard/bookings/${id}/update-status" method="POST"
                         style="display:inline-block;">
@@ -330,15 +370,26 @@
                 </button>
         </form>
         </div>
-        <form action="/dashboard/bookings/${id}/update-status"
-                method="POST" style="display:inline-block;">
+        <div class="d-flex gap-2 align-items-center">
+            <form action="/dashboard/bookings/${id}/update-status"
+                    method="POST" style="display:inline-block;">
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="payment_status" value="${newPaymentStatus}">
+                    <button type="submit" class="btn btn-warning">
+                        ${buttonLabel}
+                    </button>
+            </form>
+            ${id !== 'N/A' ? `
+            <form action="{{ url('/dashboard/bookings') }}/${id}/hide-from-calendar" method="POST"
+                onsubmit="return confirm('Nascondere questa prenotazione dal calendario?');" style="display:inline-block;">
                 @csrf
-                @method('PUT')
-                <input type="hidden" name="payment_status" value="${newPaymentStatus}">
-                <button type="submit" class="btn btn-warning">
-                    ${buttonLabel}
+                <input type="hidden" name="_method" value="PUT">
+                <button type="submit" class="btn btn-danger btn-sm" title="Elimina prenotazione">
+                    <i class="bi bi-trash3-fill"></i>
                 </button>
-        </form>
+            </form>` : ''}
+        </div>
     </div>`;
 
 

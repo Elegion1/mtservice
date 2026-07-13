@@ -46,6 +46,9 @@
                     <td>{{ $booking->created_at }}</td>
                     <td>
                         <x-status :status="$booking->status" />
+                        @if ($booking->isHiddenFromCalendar())
+                            <span class="badge bg-secondary ms-1">Nascosta calendario</span>
+                        @endif
                     </td>
                     <td class="action-column" style="display: none;">
 
