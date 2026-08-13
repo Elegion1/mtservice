@@ -65,7 +65,6 @@ Route::prefix('{locale}')
         Route::get('/excursions-trapani', [PublicController::class, 'escursioni'])->name('escursioni');
         Route::get('/prices-and-destinations', [PublicController::class, 'prezziDestinazioni'])->name('prezziDestinazioni');
         Route::get('/reviews', [PublicController::class, 'diconoDiNoi'])->name('diconoDiNoi');
-        Route::get('/contact-us', [PublicController::class, 'contattaci'])->name('contattaci');
         Route::get('/partners', [PublicController::class, 'partners'])->name('partners');
         Route::get('/FAQ', [PublicController::class, 'faq'])->name('faq');
         Route::get('/privacy-terms-and-conditions', [PublicController::class, 'privacy'])->name('privacy');
@@ -73,8 +72,9 @@ Route::prefix('{locale}')
         Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('service.show');
         Route::get('/excursions-trapani/{slug}', [ExcursionController::class, 'show'])->name('excursion.show');
         Route::get('/transfer/{departure}/{arrival}', [RouteController::class, 'show'])->name('transfer.show');
-
+        
         // Contattaci
+        Route::get('/contact-us', [PublicController::class, 'contattaci'])->name('contattaci');
         Route::post('/info-request', [ContactController::class, 'invia'])->name('inviaForm');
 
         // visualizza stato prenotazione

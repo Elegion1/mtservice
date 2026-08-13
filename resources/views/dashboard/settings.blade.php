@@ -20,7 +20,7 @@
             (object) ['name' => 'vehicle_capacity'],
             (object) ['name' => 'garage_address'],
             (object) ['name' => 'hand_off_price_per_km'],
-
+            (object) ['name' => 'min_recaptcha_score'],
         ];
 
         $filteredSettings = collect($defaultSettings)->filter(function ($setting) use ($settings) {
