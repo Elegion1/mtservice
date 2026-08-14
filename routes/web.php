@@ -56,7 +56,7 @@ Route::prefix('{locale}')
     ->group(function () {
 
         Livewire::setUpdateRoute(function ($handle) {
-            return Route::post('/livewire/update', $handle);
+            return Route::post('/livewire/update', $handle)->name('localized.livewire.update');
         });
 
         Route::get('/', [PublicController::class, 'home'])->name('home');
@@ -72,7 +72,7 @@ Route::prefix('{locale}')
         Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('service.show');
         Route::get('/excursions-trapani/{slug}', [ExcursionController::class, 'show'])->name('excursion.show');
         Route::get('/transfer/{departure}/{arrival}', [RouteController::class, 'show'])->name('transfer.show');
-        
+
         // Contattaci
         Route::get('/contact-us', [PublicController::class, 'contattaci'])->name('contattaci');
         Route::post('/info-request', [ContactController::class, 'invia'])->name('inviaForm');
@@ -187,7 +187,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
         Route::delete('/clear', [\App\Http\Controllers\VisitController::class, 'clearAll'])->name('clear');
         Route::delete('/{visit}', [\App\Http\Controllers\VisitController::class, 'destroy'])->name('destroy');
     });
-    
+
     Route::get('/bookings/list', [BookingController::class, 'list'])->name('dashboard.bookingList');
     Route::put('/bookings/{booking}/hide-from-calendar', [BookingController::class, 'hideFromCalendar'])
         ->name('bookings.hideFromCalendar');
