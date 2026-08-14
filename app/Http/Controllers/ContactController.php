@@ -14,7 +14,16 @@ class ContactController extends Controller
 {
     public function invia(Request $request)
     {
-        // 1. VERIFICA GOOGLE RECAPTCHA
+        // 0. HONEYPOT: Se un bot ha compilato il campo invisibile, abortiamo silenziosamente
+        if ($request->filled('website_hp')) {
+            Log::info('Spam bloccato via Honeypot dall\'IP: '.$request->ip());
+
+            return redirect()
+                ->route('contattaci', ['locale' => app()->getLocale()])
+                ->with('message', __('ui.contactMailMessage'));
+        }
+
+        // 1. VERIFICA GOOGLE RECAPTCHA v3
         $recaptchaToken = $request->input('g-recaptcha-response');
 
         if (! $recaptchaToken) {
@@ -34,24 +43,24 @@ class ContactController extends Controller
 
         $recaptchaData = $recaptchaResponse->json();
 
-        // Verifichiamo che la risposta sia positiva e che lo score sia >= 0.3 (o 0.5)
-        if (! ($recaptchaData['success'] ?? false) || ($recaptchaData['score'] ?? 0) < getSetting('min_recaptcha_score', 0.5)) {
+        // Force del cast a FLOAT per evitare confronti stringa errati
+        $minScore = (float) getSetting('min_recaptcha_score', 0.8);
+        $scoreArrivato = (float) ($recaptchaData['score'] ?? 0);
+
+        if (! ($recaptchaData['success'] ?? false) || $scoreArrivato < $minScore) {
             Log::warning('Spam rilevato via reCAPTCHA v3', [
                 'ip' => $request->ip(),
-                'score' => $recaptchaData['score'] ?? 'N/A',
+                'score_ricevuto' => $scoreArrivato,
+                'score_minimo' => $minScore,
             ]);
 
             return redirect()
                 ->route('contattaci', ['locale' => app()->getLocale()])
                 ->withErrors(['recaptcha' => 'Attività sospetta rilevata. Riprova.'])
-                ->withInput(); // Mantiene i dati già inseriti nei campi
+                ->withInput();
         }
 
-        // 2. PROCEDI CON IL NORMALE FLUSSO
-        $ownerData = OwnerData::first();
-        $adminMail = $ownerData->email;
-
-        // Valida i dati del form
+        // 2. VALIDAZIONE
         $validatedData = $request->validate([
             'nome' => 'required|string|max:255',
             'cognome' => 'required|string|max:255',
@@ -61,12 +70,27 @@ class ContactController extends Controller
             'messaggio' => 'required|string',
         ]);
 
-        // Crea un nuovo contatto
+        // 3. LOCK CONTRO DOPPIO SUBMIT CASUALE (15 secondi)
+        $lockKey = 'contact_submit_'.md5($request->ip().$validatedData['email'].$validatedData['messaggio']);
+
+        if (Cache::has($lockKey)) {
+            Log::warning('Rilevato invio duplicato bloccato per l\'IP: '.$request->ip());
+
+            return redirect()
+                ->route('contattaci', ['locale' => app()->getLocale()])
+                ->with('message', __('ui.contactMailMessage'));
+        }
+
+        Cache::put($lockKey, true, 15);
+
+        // 4. SALVATAGGIO E INVIO
+        $ownerData = OwnerData::first();
+        $adminMail = $ownerData->email ?? config('mail.from.address');
+
         $contatto = new Contact;
         $contatto->fill($validatedData);
         $contatto->save();
 
-        // Invia le email...
         sendEmail(
             $contatto->email,
             new ContactMail($contatto),
@@ -83,7 +107,6 @@ class ContactController extends Controller
 
         Log::info('User sent a contact form '.$validatedData['nome'].' '.$validatedData['cognome']);
 
-        // REDIRECT DI SUCCESSO SULLA STESSA ROTTA
         return redirect()
             ->route('contattaci', ['locale' => app()->getLocale()])
             ->with('message', __('ui.contactMailMessage'));
