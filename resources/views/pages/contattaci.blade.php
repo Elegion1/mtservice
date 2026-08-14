@@ -93,31 +93,41 @@
         </div>
     </div>
 
-    <!-- SCRIPT GOOGLE RECAPTCHA v3 CORRETTO -->
+    <!-- SCRIPT GOOGLE RECAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site_key') }}"></script>
     <script>
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            var form = this;
+        document.addEventListener('DOMContentLoaded', function() {
+            var form = document.getElementById('contact-form');
             var submitBtn = document.getElementById('submit-btn');
+            var isSubmitting = false; // Flag per bloccare invii multipli
 
-            // Disabilita subito il bottone per evitare doppi click dell'utente
-            submitBtn.disabled = true;
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
 
-            grecaptcha.ready(function() {
-                grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', {
-                        action: 'contact_form'
-                    })
-                    .then(function(token) {
-                        document.getElementById('g-recaptcha-response').value = token;
-                        // Bypassa l'event listener JS ed effettua il submit nativo
-                        HTMLFormElement.prototype.submit.call(form);
-                    })
-                    .catch(function(error) {
-                        // In caso di errore reCAPTCHA riabilita il bottone
-                        submitBtn.disabled = false;
-                    });
+                // Se stiamo già inviando, blocca qualsiasi ulteriore esecuzione
+                if (isSubmitting) {
+                    return false;
+                }
+
+                isSubmitting = true;
+                submitBtn.disabled = true;
+
+                grecaptcha.ready(function() {
+                    grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', {
+                            action: 'contact_form'
+                        })
+                        .then(function(token) {
+                            document.getElementById('g-recaptcha-response').value = token;
+                            // Invia il form via submit nativo
+                            form.submit();
+                        })
+                        .catch(function(error) {
+                            console.error('reCAPTCHA Error:', error);
+                            // In caso di errore, riabilita il form per riprovare
+                            isSubmitting = false;
+                            submitBtn.disabled = false;
+                        });
+                });
             });
         });
     </script>

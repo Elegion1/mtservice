@@ -9,6 +9,7 @@ use App\Models\OwnerData;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 
 class ContactController extends Controller
 {
@@ -87,9 +88,7 @@ class ContactController extends Controller
         $ownerData = OwnerData::first();
         $adminMail = $ownerData->email ?? config('mail.from.address');
 
-        $contatto = new Contact;
-        $contatto->fill($validatedData);
-        $contatto->save();
+        $contatto = Contact::create($validatedData);
 
         sendEmail(
             $contatto->email,
