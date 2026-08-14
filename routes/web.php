@@ -187,6 +187,7 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
         Route::delete('/clear', [\App\Http\Controllers\VisitController::class, 'clearAll'])->name('clear');
         Route::delete('/{visit}', [\App\Http\Controllers\VisitController::class, 'destroy'])->name('destroy');
     });
+    
     Route::get('/bookings/list', [BookingController::class, 'list'])->name('dashboard.bookingList');
     Route::put('/bookings/{booking}/hide-from-calendar', [BookingController::class, 'hideFromCalendar'])
         ->name('bookings.hideFromCalendar');
@@ -195,7 +196,6 @@ Route::middleware(['auth'])->prefix('dashboard')->group(function () {
     // Gestione messaggi
     Route::get('/contacts', [ContactController::class, 'index'])->name('dashboard.contact');
     Route::delete('/contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
-    Route::put('/contacts/{contact}', [ContactController::class, 'update'])->name('contacts.update');
 
     // Gestione servizi
     Route::get('/services', [ServiceController::class, 'index'])->name('dashboard.service');

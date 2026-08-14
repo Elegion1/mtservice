@@ -99,13 +99,17 @@
         document.addEventListener('DOMContentLoaded', function() {
             var form = document.getElementById('contact-form');
             var submitBtn = document.getElementById('submit-btn');
-            var isSubmitting = false; // Flag per bloccare invii multipli
+            var isSubmitting = false;
 
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
 
-                // Se stiamo già inviando, blocca qualsiasi ulteriore esecuzione
+                var now = new Date().toISOString();
+                console.log('[' + now + '] [FRONTEND] Submit intercettato JS');
+
                 if (isSubmitting) {
+                    console.warn('[' + now +
+                        '] [FRONTEND] ATTENZIONE: Inviato bloccato da flag isSubmitting!');
                     return false;
                 }
 
@@ -113,17 +117,20 @@
                 submitBtn.disabled = true;
 
                 grecaptcha.ready(function() {
+                    console.log('[' + new Date().toISOString() +
+                        '] [FRONTEND] Executing reCAPTCHA...');
                     grecaptcha.execute('{{ config('services.recaptcha.site_key') }}', {
                             action: 'contact_form'
                         })
                         .then(function(token) {
+                            console.log('[' + new Date().toISOString() +
+                                '] [FRONTEND] Token ottenuto. Invocazione form.submit()');
                             document.getElementById('g-recaptcha-response').value = token;
-                            // Invia il form via submit nativo
                             form.submit();
                         })
                         .catch(function(error) {
-                            console.error('reCAPTCHA Error:', error);
-                            // In caso di errore, riabilita il form per riprovare
+                            console.error('[' + new Date().toISOString() +
+                                '] [FRONTEND] Errore reCAPTCHA:', error);
                             isSubmitting = false;
                             submitBtn.disabled = false;
                         });

@@ -7,14 +7,22 @@ use App\Mail\ContactMail;
 use App\Models\Contact;
 use App\Models\OwnerData;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Cache;
 
 class ContactController extends Controller
 {
     public function invia(Request $request)
     {
+
+        $reqId = spl_object_hash($request).' - '.microtime(true);
+        Log::info("[CONTROLLER START] [ReqID: {$reqId}] Inizio elaborazione form.", [
+            'ip' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'data' => $request->only(['email', 'servizio']),
+        ]);
+
         // 0. HONEYPOT: Se un bot ha compilato il campo invisibile, abortiamo silenziosamente
         if ($request->filled('website_hp')) {
             Log::info('Spam bloccato via Honeypot dall\'IP: '.$request->ip());
@@ -71,6 +79,8 @@ class ContactController extends Controller
             'messaggio' => 'required|string',
         ]);
 
+        Log::info("[CONTROLLER VALIDATED] [ReqID: {$reqId}] Validazione completata.");
+
         // 3. LOCK CONTRO DOPPIO SUBMIT CASUALE (15 secondi)
         $lockKey = 'contact_submit_'.md5($request->ip().$validatedData['email'].$validatedData['messaggio']);
 
@@ -89,6 +99,7 @@ class ContactController extends Controller
         $adminMail = $ownerData->email ?? config('mail.from.address');
 
         $contatto = Contact::create($validatedData);
+        Log::info("[CONTROLLER DB SAVED] [ReqID: {$reqId}] Contatto salvato con ID: {$contatto->id}");
 
         sendEmail(
             $contatto->email,
@@ -105,6 +116,7 @@ class ContactController extends Controller
         );
 
         Log::info('User sent a contact form '.$validatedData['nome'].' '.$validatedData['cognome']);
+        Log::info("[CONTROLLER MAIL SENT] [ReqID: {$reqId}] Chiamata invio mail eseguita.");
 
         return redirect()
             ->route('contattaci', ['locale' => app()->getLocale()])
@@ -158,13 +170,7 @@ class ContactController extends Controller
      */
     public function update(Request $request, Contact $contact)
     {
-        $contact->read = ! $contact->read;
-        $contact->save();
-
-        return response()->json([
-            'success' => true,
-            'read' => $contact->read,
-        ]);
+        //
     }
 
     // public function markAllRead()
