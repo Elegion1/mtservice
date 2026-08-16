@@ -7,7 +7,8 @@
 
                     <div class="">
                         <p class="fs-5">{{ __('ui.notFoundMsg') }}</p>
-                        <a href="{{ route('home') }}" class="btn bg-a text-white">{{ __('ui.goHome') }}</a>
+                        <a href="{{ route('home', ['locale' => app()->getLocale()]) }}"
+                            class="btn bg-a text-white">{{ __('ui.goHome') }}</a>
                     </div>
                 </div>
             </div>
