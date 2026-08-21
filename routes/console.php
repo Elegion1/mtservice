@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\DB;
 use App\Jobs\ExpirePendingBookings;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schedule;
@@ -26,10 +25,13 @@ Artisan::command('logs:clear', function () {
 // Definizione del comando
 Artisan::command('expire:bookings', function () {
     echo "Checking expired bookings...\n";
-    dispatch(new ExpirePendingBookings());
+    dispatch(new ExpirePendingBookings);
     echo "Done!\n";
 })->describe('Mark pending bookings as rejected if older than 24 hours');
 
 // Pianifica l'esecuzione automatica
 Schedule::command('expire:bookings')->hourly()->withoutOverlapping();
 Schedule::command('logs:clear')->weekly();
+
+// Pianificazione giornaliera alle 23:55
+Schedule::command('app:check-log-errors')->dailyAt('23:55');
