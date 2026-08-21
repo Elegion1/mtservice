@@ -22,14 +22,11 @@ use App\Http\Controllers\TestController;
 use App\Http\Controllers\TimePeriodController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VisitController;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Livewire\Livewire;
 
 Route::get('/', function () {
-    $locale = App::getLocale(); // Recupera il locale predefinito
-
-    return redirect()->to($locale); // Reindirizza alla homepage con il locale
+    return redirect('/'.config('app.locale', 'it'));
 });
 
 Route::get('/brochure', function () {
