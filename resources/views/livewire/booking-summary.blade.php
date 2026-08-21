@@ -239,9 +239,9 @@
                             wire:model="accept_policy">
                         <label for="accept_policy" class="form-check-label small">
                             {{ __('ui.acceptPolicy') }}
-                            <a href="{{ route('privacy') }}#privacy"
+                            <a href="{{ route('privacy', ['locale' => app()->getLocale()]) }}#privacy"
                                 target="_blank">{{ __('ui.privacyPolicy') }}</a> {{ __('ui.and') }}
-                            <a href="{{ route('privacy') }}#terms"
+                            <a href="{{ route('privacy', ['locale' => app()->getLocale()]) }}#terms"
                                 target="_blank">{{ __('ui.termsConditions') }}</a>.
                             <x-required-field />
                         </label>

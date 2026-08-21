@@ -66,14 +66,14 @@
             <div class="form-check mb-3">
                 <input type="checkbox" class="form-check-input" id="privacy_policy" required>
                 <label for="privacy_policy" class="form-check-label">{{ __('ui.acceptPrivacy') }} <a
-                        href="{{ route('privacy') }}#privacy" target="_blank">{{ __('ui.privacyPolicy') }}</a></label>
+                        href="{{ route('privacy', ['locale' => app()->getLocale()]) }}#privacy" target="_blank">{{ __('ui.privacyPolicy') }}</a></label>
             </div>
 
             <!-- Terms and Conditions Checkbox -->
             <div class="form-check mb-3">
                 <input type="checkbox" class="form-check-input" id="terms_conditions" required>
                 <label for="terms_conditions" class="form-check-label">{{ __('ui.acceptTerms') }} <a
-                        href="{{ route('privacy') }}#terms" target="_blank">{{ __('ui.termsConditions') }}</a></label>
+                        href="{{ route('privacy', ['locale' => app()->getLocale()]) }}#terms" target="_blank">{{ __('ui.termsConditions') }}</a></label>
             </div>
 
             <div class="container d-flex justify-content-center align-items-center">

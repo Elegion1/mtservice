@@ -22,9 +22,9 @@
             <small>P.IVA: {{ $ownerdata->pIva }}</small><br>
             <small>C.F.: {{ $ownerdata->codFisc }}</small><br>
             <br>
-            <a class="text-decoration-none text-reset" href="{{ route('privacy') }}#privacy"
+            <a class="text-decoration-none text-reset" href="{{ route('privacy', ['locale' => app()->getLocale()]) }}#privacy"
                 target="_blank">{{ __('ui.privacyPolicy') }}</a> <br>
-            <a class="text-decoration-none text-reset" href="{{ route('privacy') }}#terms"
+            <a class="text-decoration-none text-reset" href="{{ route('privacy', ['locale' => app()->getLocale()]) }}#terms"
                 target="_blank">{{ __('ui.termsConditions') }}</a>
         </div>
 
