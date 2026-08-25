@@ -25,13 +25,11 @@ class CheckLogErrors extends Command
 
         $today = date('Y-m-d');
 
-        // Legge prima l'argomento da CLI, poi la variabile .env, infine una mail di fallback se .env è vuoto
-        // Cerca prima l'argomento da CLI, poi la variabile .env, infine l'indirizzo 'from' di Laravel
+        // Utilizza config() al posto di env() per evitare problemi con la cache delle configurazioni
         $recipient = $this->argument('email')
-            ?? env('LOG_ALERT_EMAIL')
+            ?? config('logging.alert_email')
             ?? config('mail.from.address');
 
-        // Se non è configurata alcuna email, blocca l'esecuzione e avvisa nei log/console
         if (! $recipient) {
             $this->error('Nessun indirizzo email configurato per l\'invio del report.');
 
@@ -41,24 +39,33 @@ class CheckLogErrors extends Command
         $errors = [];
         $file = fopen($logPath, 'r');
 
-        while (($line = fgets($file)) !== false) {
-            if (Str::startsWith($line, "[$today]") && Str::contains($line, '.ERROR:')) {
-                $errors[] = trim($line);
+        if ($file) {
+            while (($line = fgets($file)) !== false) {
+                if (Str::startsWith($line, "[$today]") && Str::contains($line, '.ERROR:')) {
+                    $errors[] = trim($line);
+                }
             }
+            fclose($file);
         }
-        fclose($file);
 
         $count = count($errors);
-        $body = "Trovati {$count} errori nei log in data {$today}:\n\n".implode("\n\n", $errors);
 
         if ($count > 0) {
-            Mail::raw($body, function ($message) use ($recipient, $count, $today) {
-                $message->to($recipient)
-                    ->subject("[Alert MTService] {$count} Errori nei log ($today)");
-            });
-        }
+            $body = "Trovati {$count} errori nei log in data {$today}:\n\n".implode("\n\n", $errors);
 
-        $this->info("Report di {$count} errori inviato a {$recipient}.");
+            try {
+                Mail::raw($body, function ($message) use ($recipient, $count, $today) {
+                    $message->to($recipient)
+                        ->subject("[Alert MTService] {$count} Errori nei log ($today)");
+                });
+                $this->info("Report di {$count} errori inviato a {$recipient}.");
+            } catch (\Throwable $e) {
+                $this->error("Errore durante l'invio dell'email: " . $e->getMessage());
+                return 1;
+            }
+        } else {
+            $this->info("Nessun errore trovato nei log per la data di oggi ({$today}).");
+        }
 
         return 0;
     }

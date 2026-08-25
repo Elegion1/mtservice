@@ -126,6 +126,8 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+        
+        'alert_email' => env('LOG_ALERT_EMAIL'),
 
     ],
 
