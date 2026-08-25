@@ -60,7 +60,8 @@ class CheckLogErrors extends Command
                 });
                 $this->info("Report di {$count} errori inviato a {$recipient}.");
             } catch (\Throwable $e) {
-                $this->error("Errore durante l'invio dell'email: " . $e->getMessage());
+                $this->error("Errore durante l'invio dell'email: ".$e->getMessage());
+
                 return 1;
             }
         } else {
