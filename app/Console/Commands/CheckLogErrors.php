@@ -51,10 +51,12 @@ class CheckLogErrors extends Command
         $count = count($errors);
         $body = "Trovati {$count} errori nei log in data {$today}:\n\n".implode("\n\n", $errors);
 
-        Mail::raw($body, function ($message) use ($recipient, $count, $today) {
-            $message->to($recipient)
-                ->subject("[Alert MTService] {$count} Errori nei log ($today)");
-        });
+        if ($count > 0) {
+            Mail::raw($body, function ($message) use ($recipient, $count, $today) {
+                $message->to($recipient)
+                    ->subject("[Alert MTService] {$count} Errori nei log ($today)");
+            });
+        }
 
         $this->info("Report di {$count} errori inviato a {$recipient}.");
 
