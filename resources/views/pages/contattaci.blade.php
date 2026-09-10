@@ -1,5 +1,4 @@
-<x-layout>
-    <x-seo-data :seoTitle="$seoTitle" :seoDescription="$seoDescription" />
+<x-layout :seo-title="$seoTitle" :seo-description="$seoDescription">
     <div class="container rounded p-3 mt-md-3">
         <x-show-content :pagine="$pagine" />
         <h2>{{ ucfirst(__('ui.contactUs')) }} </h2>

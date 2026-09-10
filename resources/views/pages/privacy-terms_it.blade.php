@@ -1,5 +1,4 @@
-<x-layout>
-    <x-seo-data :seoTitle="$seoTitle" :seoDescription="$seoDescription" />
+<x-layout :seo-title="$seoTitle" :seo-description="$seoDescription">
     <div class="container bg-white rounded p-3 mb-5">
         <h2 id="privacy">Informativa sulla Privacy</h2>
         <p>Desideriamo informarLa che la legge n.675/1996 in materia di protezione dei dati personali, prevede la tutela

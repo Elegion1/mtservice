@@ -1,5 +1,4 @@
-<x-layout>
-    <x-seo-data :seoTitle="$seoTitle" :seoDescription="$seoDescription" />
+<x-layout :seo-title="$seoTitle" :seo-description="$seoDescription">
     <div class="row">
         <div class="col-12 col-lg-6">
 

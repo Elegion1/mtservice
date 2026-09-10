@@ -35,6 +35,10 @@ return [
     'submit' => 'BOOK',
     'book' => 'Book',
     'bookNow' => 'Book now',
+    'getQuote' => 'Get a quote',
+    'bookingTitle' => 'Request your transfer',
+    'bookingTrustCopy' => 'See the price and availability before confirming. No payment required now.',
+    'close' => 'Close',
     'select' => 'Select',
 
     // excursion

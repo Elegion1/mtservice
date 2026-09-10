@@ -1,3 +1,25 @@
+@props([
+    'seoTitle' => null,
+    'seoDescription' => null,
+])
+
+@php
+    $canonicalUrl = request()->url();
+    $localeAlternates = [];
+    $pathSegments = request()->segments();
+
+    foreach (config('app.available_locales', ['it', 'en']) as $locale) {
+        $alternateSegments = $pathSegments;
+        if (isset($alternateSegments[0]) && in_array($alternateSegments[0], config('app.available_locales', ['it', 'en']))) {
+            $alternateSegments[0] = $locale;
+        } else {
+            array_unshift($alternateSegments, $locale);
+        }
+
+        $localeAlternates[$locale] = url(implode('/', $alternateSegments));
+    }
+@endphp
+
 <!DOCTYPE html>
 <html lang="{{ App::getLocale() }}">
 
@@ -25,6 +47,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{{ $seoTitle ?? 'Tranchida Transfer | Transfer, Taxi, Noleggio Auto ed Escursioni a Trapani' }}</title>
+    <meta name="description" content="{{ $seoDescription ?? 'Transfer privati, taxi H24, escursioni e noleggio auto a Trapani e nella Sicilia occidentale.' }}">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ $canonicalUrl }}">
+    @foreach ($localeAlternates as $locale => $alternateUrl)
+        <link rel="alternate" hreflang="{{ $locale }}" href="{{ $alternateUrl }}">
+    @endforeach
+    <link rel="alternate" hreflang="x-default" href="{{ $localeAlternates[config('app.locale', 'it')] ?? $canonicalUrl }}">
+    <meta property="og:title" content="{{ $seoTitle ?? 'Tranchida Transfer' }}">
+    <meta property="og:description" content="{{ $seoDescription ?? 'Transfer privati, taxi H24, escursioni e noleggio auto a Trapani.' }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ $canonicalUrl }}">
+    <meta property="og:site_name" content="Tranchida Transfer">
 
     {{-- JSON-LD --}}
     <script type="application/ld+json">
@@ -49,24 +84,24 @@
                 'addressCountry' => 'IT'
             ]
             ],
-            [
-            '@type' => 'Service',
-            'serviceType' => 'Transfer Aeroporto Palermo - Trapani',
-            'provider' => ['@type' => 'TravelAgency', 'name' => 'Trapani Transfer'],
-            'areaServed' => ['@type' => 'Place', 'name' => 'Sicilia Occidentale']
-            ]
+            array_filter([
+                '@type' => 'Service',
+                'name' => isset($route)
+                    ? 'Transfer '.$route->departure->name.' - '.$route->arrival->name
+                    : 'Transfer, taxi and tours in Western Sicily',
+                'serviceType' => 'Private transfer',
+                'provider' => ['@type' => 'TravelAgency', 'name' => 'Tranchida Transfer'],
+                'areaServed' => ['@type' => 'Place', 'name' => 'Western Sicily'],
+                'offers' => isset($route) ? [
+                    '@type' => 'Offer',
+                    'priceCurrency' => 'EUR',
+                    'price' => (string) $route->price,
+                    'availability' => 'https://schema.org/InStock',
+                ] : null,
+            ])
         ]
         ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
     </script>
-
-    <!-- Single meta description -->
-    @if (App::getLocale() == 'en')
-        <meta name="description"
-            content="Car rental, Excursions, and Taxi Transfers 24/7 for the province of Trapani. Taxi transfers to and from all airports and ports in Sicily.">
-    @elseif (App::getLocale() == 'it')
-        <meta name="description"
-            content="Noleggio auto, escursioni e trasferimenti taxi 24/7 per la provincia di Trapani. Trasferimenti taxi da e per tutti gli aeroporti e porti della Sicilia.">
-    @endif
 
     <!-- Google Tag -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-M5SQ98ZHWM"></script>

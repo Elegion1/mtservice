@@ -6,7 +6,7 @@
                 {{-- <h4 class="text-uppercase text-a"><strong>{{ __('ui.transferTitle') }}</strong></h4> --}}
                 <div class="col-12 p-0 m-0">
 
-                    <span class="text-capitalize">{{ __('ui.departure') }}</span>
+                    <label for="departureSelect" class="text-capitalize">{{ __('ui.departure') }}</label>
 
                     <select wire:model.live="departure" id="departureSelect" class="form-select form_input input_size">
                         <option value="">
@@ -23,7 +23,7 @@
 
                 <div class="col-12 p-0 m-0">
 
-                    <span class="text-capitalize">{{ __('ui.destination') }}</span>
+                    <label for="returnSelect" class="text-capitalize">{{ __('ui.destination') }}</label>
 
                     <select wire:model.live="return" id="returnSelect" class="form-select form_input input_size">
                         <option value="">
@@ -47,7 +47,7 @@
 
                     <div class="w-custom me-3 ">
 
-                        <span class="text-capitalize">{{ __('ui.outward') }}</span>
+                        <label for="dateDeparture" class="text-capitalize">{{ __('ui.outward') }}</label>
 
                         <input wire:model.live="dateDeparture" type="date" placeholder="gg/mm/aaaa"
                             min="{{ date('Y-m-d') }}" class="form-control form_input input_size" id="dateDeparture">
@@ -57,7 +57,7 @@
 
                     <div class="w-custom">
 
-                        <span>{{ __('ui.time') }}</span>
+                        <label for="timeDeparture">{{ __('ui.time') }}</label>
 
                         <input wire:model.live="timeDeparture" type="time" placeholder="hh:mm"
                             min="{{ date('H:i') }}" class="form-control form_input input_size" id="timeDeparture">
@@ -102,7 +102,7 @@
                 </button>
 
                 <button aria-label="Vai allo step successivo" wire:click="submitTransferSelection" type="button"
-                    class="btn col-12 input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.next') }}</button>
+                    class="btn col-12 input_size bg-dark rounded px-2 text-light text-uppercase">{{ __('ui.getQuote') }}</button>
             @endif
 
             @if ($currentStep == 2)
@@ -147,7 +147,7 @@
                 @endif
 
                 <div class="col-12 p-0 m-0">
-                    <span>{{ __('ui.passengers') }}</span>
+                    <label for="transferPassengers">{{ __('ui.passengers') }}</label>
 
                     <div class="d-flex align-items-center justify-content-center">
                         <!-- Bottone per decrementare i passeggeri -->
@@ -171,7 +171,7 @@
                 </div>
 
                 <div class="col-12 mb-3 p-0">
-                    <label>{{ __('ui.totalPrice') }}</label>
+                    <label for="transferPrice">{{ __('ui.totalPrice') }}</label>
                     <div class="d-flex justify-content-start align-items-center bg-c rounded px-2">
                         <span class="fw-semibold">€</span>
                         <input wire:model.live="transferPrice" readonly type="text"

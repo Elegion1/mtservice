@@ -64,7 +64,10 @@
     border-bottom: none !important;
     padding: 1rem;
     display: flex;
-    justify-content: flex-end; /* Sposta la X a destra */
+    justify-content: space-between;
+    align-items: flex-start;
+    color: #fff;
+    gap: 1rem;
 }
 
 /* Personalizza il tasto X per renderlo visibile su sfondi scuri */
@@ -81,6 +84,10 @@
     padding: 10px;
 }
 
+#bookingModal .booking-modal-header p {
+    opacity: 0.9;
+}
+
 /* Forza il modal-dialog fullscreen su mobile fino a 992px */
 @media screen and (max-width: 992px) {
     #bookingModal .modal-dialog {
@@ -88,6 +95,12 @@
         height: 100vh;
         margin: 0;
         max-width: none;
+    }
+
+    #bookingModal .modal-body {
+        overflow-y: auto;
+        align-items: flex-start !important;
+        padding: 0.75rem 1rem 2rem;
     }
 
     .masthead {

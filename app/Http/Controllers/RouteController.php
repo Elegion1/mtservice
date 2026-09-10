@@ -113,8 +113,13 @@ class RouteController extends Controller
         $nameColumn = $locale === 'en' ? 'name_en' : 'name_it';
         $abstractColumn = $locale === 'en' ? 'abstract_en' : 'abstract_it';
 
-        $seoTitle = 'Transfer da '.$departureDestination->name.' a '.$arrivalDestination->name.' | Tranchida Transfer';
-        $seoDescription = 'Transfer da '.$departureDestination->name.' a '.$arrivalDestination->name.' | Tranchida Transfer';
+        if ($locale === 'en') {
+            $seoTitle = 'Private Transfer from '.$departureDestination->name.' to '.$arrivalDestination->name.' | Tranchida Transfer';
+            $seoDescription = 'Book a private transfer from '.$departureDestination->name.' to '.$arrivalDestination->name.'. 24/7 local driver service, transparent rates and quick confirmation.';
+        } else {
+            $seoTitle = 'Transfer da '.$departureDestination->name.' a '.$arrivalDestination->name.' | Tranchida Transfer';
+            $seoDescription = 'Prenota un transfer privato da '.$departureDestination->name.' a '.$arrivalDestination->name.'. Servizio H24, autista locale, tariffe trasparenti e conferma rapida.';
+        }
 
         return view($view, compact('route', 'departureDestination', 'arrivalDestination', 'services', 'seoTitle', 'seoDescription'));
     }

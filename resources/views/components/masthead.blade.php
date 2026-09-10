@@ -92,14 +92,18 @@
         </div>
         <div class="d-lg-none fixed-bottom p-2" id="bookNowBtnContainer" style="z-index: 1050;">
             <button type="button" id="bookNowBtn" class="btn bg-a w-100 py-3 fw-bold text-uppercase shadow-lg text-light" data-bs-toggle="modal"
-                data-bs-target="#bookingModal">{{ __('ui.bookNow') }}
+                data-bs-target="#bookingModal" aria-controls="bookingModal">{{ __('ui.getQuote') }}
             </button>
         </div>
         <div class="modal fade" id="bookingModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-fullscreen-sm-down">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <div class="modal-header booking-modal-header">
+                        <div>
+                            <h2 class="modal-title h5 mb-1">{{ __('ui.bookingTitle') }}</h2>
+                            <p class="small mb-0">{{ __('ui.bookingTrustCopy') }}</p>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('ui.close') }}"></button>
                     </div>
                     <div class="modal-body d-flex justify-content-center align-items-center"></div>
                 </div>
@@ -209,6 +213,11 @@
         // Ascolta quando il modal viene chiuso per mostrare il tasto resume
         const modalElement = document.getElementById('bookingModal');
         const bookNowBtn = document.getElementById('bookNowBtn');
+        const track = (name, parameters = {}) => {
+            if (typeof window.gtag === 'function') {
+                window.gtag('event', name, parameters);
+            }
+        };
         if (modalElement) {
             // Inizializza inert quando la pagina carica (il modal è nascosto)
             modalElement.setAttribute('inert', '');
@@ -226,6 +235,7 @@
             });
             modalElement.addEventListener('shown.bs.modal', () => {
                 console.log('[bookingModal] shown');
+                track('booking_form_open', { method: 'mobile_modal' });
 
                 // Rimuovi inert quando il modal è aperto
                 modalElement.removeAttribute('inert');
@@ -235,6 +245,17 @@
                 }
                 toggleResumeButton();
             });
+        }
+        if (bookNowBtn) {
+            bookNowBtn.addEventListener('click', () => track('booking_cta_click', {
+                placement: 'mobile_sticky',
+            }));
+        }
+        const resumeBtn = document.getElementById('resumeBookingBtn');
+        if (resumeBtn) {
+            resumeBtn.addEventListener('click', () => track('booking_cta_click', {
+                placement: 'desktop_resume',
+            }));
         }
     });
 
@@ -255,6 +276,12 @@
 
         currentBookingStep = detail.currentStep;
         const currentForm = detail.currentForm;
+        if (typeof window.gtag === 'function') {
+            window.gtag('event', 'booking_step_view', {
+                step: currentBookingStep,
+                form: currentForm || 'transfer',
+            });
+        }
 
         // Se siamo oltre lo step 1 OPPURE se il form visualizzato è il riepilogo (bookingSummary)
         if (currentBookingStep > 1 || currentForm === 'bookingSummary') {
@@ -272,5 +299,22 @@
             // Se si torna all'inizio (Step 1 e non summary), riporta il modulo nell'header (su Desktop)
             bookingModuleAppend(false);
         }
+    });
+
+    window.addEventListener('bookingSubmitted', () => {
+        if (typeof window.gtag === 'function') {
+            window.gtag('event', 'booking_submit', {
+                method: 'website_form',
+            });
+        }
+    });
+
+    document.addEventListener('click', event => {
+        const link = event.target.closest('a[href^="tel:"], a[href*="whatsapp"]');
+        if (!link || typeof window.gtag !== 'function') return;
+
+        window.gtag('event', link.href.startsWith('tel:') ? 'phone_click' : 'whatsapp_click', {
+            link_url: link.href,
+        });
     });
 </script>

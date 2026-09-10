@@ -1,5 +1,4 @@
-<x-layout>
-    <x-seo-data :seoTitle="$seoTitle" :seoDescription="$seoDescription" />
+<x-layout :seo-title="$seoTitle" :seo-description="$seoDescription">
     <div id="partners" class="container rounded mt-md-3">
         <div class="container">
             <x-show-content :pagine="$pagine" />

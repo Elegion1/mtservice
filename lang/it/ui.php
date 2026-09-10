@@ -35,6 +35,10 @@ return [
     'submit' => 'PRENOTA',
     'book' => 'Prenota',
     'bookNow' => 'Prenota ora',
+    'getQuote' => 'Calcola il preventivo',
+    'bookingTitle' => 'Richiedi il tuo transfer',
+    'bookingTrustCopy' => 'Prezzo e disponibilità prima della conferma. Nessun pagamento richiesto ora.',
+    'close' => 'Chiudi',
     'select' => 'Seleziona',
 
     //escursione

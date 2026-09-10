@@ -15,7 +15,7 @@ trait HasSeoMeta
     public function viewWithSeo($view, $link, $extraData = [])
     {
         $data = $this->getPageData($link, $extraData);
-        $seo = $this->seoMap();
+        $seo = $this->seoMap(app()->getLocale());
         
         $data['seoTitle'] = $seo[$link]['title'] ?? null;
         $data['seoDescription'] = $seo[$link]['description'] ?? null;

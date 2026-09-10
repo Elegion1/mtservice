@@ -1,5 +1,4 @@
-<x-layout>
-    <x-seo-data :seoTitle="$seoTitle" :seoDescription="$seoDescription" />
+<x-layout :seo-title="$seoTitle" :seo-description="$seoDescription">
     <div class="container bg-white rounded p-3 mb-5">
         <h2 id="privacy">Privacy Policy</h2>
         <p>We would like to inform you that Law No. 675/1996 on the protection of personal data provides for the

@@ -20,40 +20,74 @@ use Illuminate\Support\Facades\Storage;
 class PublicController extends Controller
 {
     use HasSeoMeta;
-    public function seoMap()
+    public function seoMap($locale = null)
     {
+        $locale = $locale ?? app()->getLocale();
+
         $defaultSeoMap = [
             'home' => [
-                'title' => 'Taxi Trapani H24 | Transfer Aeroporto Palermo e Trapani',
-                'description' => 'Servizi di transfer, taxi, noleggio auto ed escursioni in Sicilia occidentale. Prenota online Tranchida Transfer Trapani per Aeroporto Palermo e Trapani',
+                'title' => $locale === 'en'
+                    ? 'Trapani Airport Transfers | Private Taxi to Western Sicily'
+                    : 'Transfer Trapani e Aeroporti | Taxi H24, Birgi e Palermo',
+                'description' => $locale === 'en'
+                    ? 'Book private transfers from Trapani Birgi and Palermo airports to Trapani, Marsala, San Vito Lo Capo and Western Sicily.'
+                    : 'Prenota transfer privati da e per Trapani, Aeroporto Birgi e Palermo. Taxi H24, Marsala, San Vito Lo Capo ed escursioni.',
             ],
             'noleggio' => [
-                'title' => 'Noleggio Auto a Trapani | Consegna in Aeroporto e in Città',
-                'description' => 'Noleggia un’auto a Trapani con consegna in aeroporto o hotel. Prezzi competitivi e prenotazione semplice online',
+                'title' => $locale === 'en'
+                    ? 'Car Rental in Trapani | Airport and City Delivery'
+                    : 'Noleggio Auto a Trapani | Consegna in Aeroporto e in Città',
+                'description' => $locale === 'en'
+                    ? 'Rent a car in Trapani with airport or hotel delivery. Clear rates and an easy booking process.'
+                    : 'Noleggia un’auto a Trapani con consegna in aeroporto o hotel. Prezzi chiari e prenotazione semplice.',
             ],
             'transfer' => [
-                'title' => 'Transfer e Taxi Trapani | Aeroporto Palermo & Aeroporto Trapani',
-                'description' => 'Servizio di taxi e transfer privati da/per Trapani, Palermo e gli aeroporti. Puntualità e comfort assicurati',
+                'title' => $locale === 'en'
+                    ? 'Trapani Transfers and Taxis | Palermo and Birgi Airports'
+                    : 'Transfer e Taxi Trapani | Aeroporto Palermo e Birgi',
+                'description' => $locale === 'en'
+                    ? 'Private taxi transfers to and from Trapani, Palermo Airport and Trapani Birgi. Comfortable vehicles and local drivers.'
+                    : 'Transfer privati da e per Trapani, Aeroporto Palermo e Trapani Birgi. Veicoli confortevoli e autisti locali.',
             ],
             'servizi' => [
-                'title' => 'I nostri servizi | Transfer, Noleggio Auto ed Escursioni a Trapani',
-                'description' => 'Servizio di taxi e transfer privati da/per Trapani, Palermo e gli aeroporti. Puntualità e comfort assicurati',
+                'title' => $locale === 'en'
+                    ? 'Services in Trapani | Transfers, Car Rental and Tours'
+                    : 'Servizi a Trapani | Transfer, Noleggio Auto ed Escursioni',
+                'description' => $locale === 'en'
+                    ? 'Discover private transfers, airport taxis, car rental and tours in Trapani and Western Sicily.'
+                    : 'Scopri transfer privati, taxi aeroportuali, noleggio auto ed escursioni a Trapani e nella Sicilia occidentale.',
             ],
             'escursioni' => [
-                'title' => 'Escursioni Trapani | Tour alle Egadi, Erice e San Vito Lo Capo',
-                'description' => 'Scopri le migliori escursioni da Trapani: Favignana, Levanzo, Erice e San Vito Lo Capo. Esperienze autentiche e guide locali',
+                'title' => $locale === 'en'
+                    ? 'Tours from Trapani | Erice, San Vito Lo Capo and Western Sicily'
+                    : 'Escursioni da Trapani | Erice, San Vito Lo Capo e Sicilia Occidentale',
+                'description' => $locale === 'en'
+                    ? 'Book tours from Trapani to Erice, San Vito Lo Capo, Segesta, Marsala and the most beautiful destinations in Western Sicily.'
+                    : 'Prenota escursioni da Trapani a Erice, San Vito Lo Capo, Segesta, Marsala e nelle località più belle della Sicilia occidentale.',
             ],
             'prezziDestinazioni' => [
-                'title' => 'Prezzi e Destinazioni | Transfer, Taxi ed Escursioni da Trapani',
-                'description' => 'Consulta la lista completa di prezzi e destinazioni per i nostri servizi transfer, taxi ed escursioni da Trapani',
+                'title' => $locale === 'en'
+                    ? 'Transfer Prices and Destinations from Trapani'
+                    : 'Prezzi Transfer e Destinazioni da Trapani',
+                'description' => $locale === 'en'
+                    ? 'Check prices and destinations for private transfers, taxis and tours from Trapani and its airports.'
+                    : 'Consulta prezzi e destinazioni per transfer privati, taxi ed escursioni da Trapani e dai suoi aeroporti.',
             ],
             'diconoDiNoi' => [
-                'title' => 'Recensioni | Cosa dicono di noi i clienti Tranchida Transfer Trapani',
-                'description' => 'Leggi le recensioni dei clienti che hanno scelto Tranchida Transfer Trapani per i loro spostamenti in Sicilia occidentale',
+                'title' => $locale === 'en'
+                    ? 'Reviews | Tranchida Transfer in Trapani'
+                    : 'Recensioni | Tranchida Transfer Trapani',
+                'description' => $locale === 'en'
+                    ? 'Read reviews from customers who chose Tranchida Transfer for airport rides and private transfers in Western Sicily.'
+                    : 'Leggi le recensioni dei clienti che hanno scelto Tranchida Transfer per transfer e spostamenti nella Sicilia occidentale.',
             ],
             'contattaci' => [
-                'title' => 'Contatti | Prenota il tuo Transfer o Noleggio a Trapani',
-                'description' => 'Contatta Tranchida Transfer Trapani per informazioni, preventivi o prenotazioni di transfer, taxi ed escursioni',
+                'title' => $locale === 'en'
+                    ? 'Contact Us | Book Your Trapani Transfer'
+                    : 'Contatti | Prenota il tuo Transfer a Trapani',
+                'description' => $locale === 'en'
+                    ? 'Contact Tranchida Transfer for quotes and bookings for airport transfers, taxis, tours and car rental in Trapani.'
+                    : 'Contatta Tranchida Transfer per preventivi e prenotazioni di transfer, taxi, escursioni e noleggio auto a Trapani.',
             ],
             'partners' => [
                 'title' => 'Partners | Collaborazioni con Tranchida Transfer Trapani',
@@ -69,9 +103,9 @@ class PublicController extends Controller
             ],
         ];
 
-        return cache()->remember('seo_map_data', 60 * 24, function () use ($defaultSeoMap) {
+        return cache()->remember('seo_map_data_'.$locale, 60 * 24, function () use ($defaultSeoMap, $locale) {
             $seoRows = \App\Models\SeoMeta::all(['page_key', 'title', 'description']);
-            if ($seoRows->isEmpty()) {
+            if ($seoRows->isEmpty() || $locale === 'en') {
                 logger()->warning('SeoMeta table is empty. Using default SEO map.');
                 return $defaultSeoMap;
             }
@@ -219,7 +253,11 @@ class PublicController extends Controller
             session(['verified' => false]);
         }
 
-        return view('pages.booking-status', ['booking' => $booking]);
+        return view('pages.booking-status', [
+            'booking' => $booking,
+            'seoTitle' => __('ui.bookingStatus').' | Tranchida Transfer',
+            'seoDescription' => 'Verifica online lo stato della tua prenotazione transfer.',
+        ]);
     }
 
     // Check the email and show the booking status if verified
@@ -243,7 +281,12 @@ class PublicController extends Controller
             // Email verificata correttamente
             session(['verified' => true]); // Imposta la variabile di sessione
 
-            return view('pages.booking-status', ['booking' => $booking, 'verified' => true]);
+            return view('pages.booking-status', [
+                'booking' => $booking,
+                'verified' => true,
+                'seoTitle' => __('ui.bookingStatus').' | Tranchida Transfer',
+                'seoDescription' => 'Verifica online lo stato della tua prenotazione transfer.',
+            ]);
         } else {
             // Email o ID non corretti
             session(['verified' => false]); // Imposta la variabile di sessione per email non valida
