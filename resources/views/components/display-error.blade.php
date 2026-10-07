@@ -1,7 +1,7 @@
-@if (errors()->any())
+@if (isset($errors) && $errors->any())
     <div id="display-info" class="container">
         <div class="row justify-content-center">
-            <div class="col-12 d-flex  justify-content-center">
+            <div class="col-12 d-flex justify-content-center">
 
                 <div
                     class="alert my-alert-danger d-flex align-items-center justify-content-center flex-column mt-5 align-middle">
