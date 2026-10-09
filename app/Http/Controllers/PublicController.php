@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Storage;
 class PublicController extends Controller
 {
     use HasSeoMeta;
+
     public function seoMap($locale = null)
     {
         $locale = $locale ?? app()->getLocale();
@@ -107,6 +108,7 @@ class PublicController extends Controller
             $seoRows = \App\Models\SeoMeta::all(['page_key', 'title', 'description']);
             if ($seoRows->isEmpty() || $locale === 'en') {
                 logger()->warning('SeoMeta table is empty. Using default SEO map.');
+
                 return $defaultSeoMap;
             }
 
@@ -170,6 +172,7 @@ class PublicController extends Controller
     public function noleggio()
     {
         $cars = Car::visible()->with('images')->get();
+
         return $this->viewWithSeo('pages.noleggio-auto', 'noleggio', ['cars' => $cars]);
     }
 
@@ -181,18 +184,21 @@ class PublicController extends Controller
     public function escursioni()
     {
         $excursionsP = Excursion::visible()->with('images')->orderBy('name_it', 'asc')->paginate(4);
+
         return $this->viewWithSeo('pages.escursioni', 'escursioni', ['excursionsP' => $excursionsP]);
     }
 
     public function prezziDestinazioni()
     {
         $tratte = Route::visible()->with(['departure', 'arrival'])->get();
+
         return $this->viewWithSeo('pages.prezzi-destinazioni', 'prezziDestinazioni', ['tratte' => $tratte]);
     }
 
     public function diconoDiNoi()
     {
         $reviewsP = Review::where('status', 'confirmed')->paginate(6);
+
         return $this->viewWithSeo('pages.dicono-di-noi', 'diconoDiNoi', ['reviewsP' => $reviewsP]);
     }
 
@@ -204,6 +210,7 @@ class PublicController extends Controller
     public function partners()
     {
         $partners = Partner::orderBy('name', 'asc')->paginate(9);
+
         return $this->viewWithSeo('pages.partners', 'partners', ['partners' => $partners]);
     }
 
@@ -223,7 +230,10 @@ class PublicController extends Controller
 
     public function servizi()
     {
-        $services = Service::where('show', true)->get();
+        $services = cache()->remember('services_list', 3600, function () {
+            return Service::where('show', true)->get();
+        });
+
         return $this->viewWithSeo('pages.services', 'servizi', ['services' => $services]);
     }
 

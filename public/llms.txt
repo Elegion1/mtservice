@@ -1,0 +1,32 @@
+# Trapani Booking
+
+A specialized booking platform for car rentals, transfers, and excursions in Trapani and Favignana.
+
+## Core Services
+
+- Car Rentals: Booking and management of rental cars in Trapani.
+- Transfers & Taxi: Specialized transfer services with defined routes and destinations.
+- Excursions: Booking for various excursions and tours in the Trapani/Favignana area.
+
+## Site Structure
+
+- Home: Main landing page (localized).
+- Car Rentals: /rent/cars/trapani
+- Transfers: /transfer-taxi/trapani
+- Excursions: /excursions-trapani
+- Prices & Destinations: /prices-and-destinations
+- Reviews: /reviews
+- Partners: /partners
+- FAQ: /FAQ
+- Contact Us: /contact-us
+
+## Technical Details
+
+- Framework: Laravel
+- Frontend: Livewire
+- Localizations: Italian (it), English (en)
+- Key Features: Dynamic pricing per time period, booking status tracking, SEO meta management, and a comprehensive admin dashboard.
+
+## Documentation & Resources
+
+- Brochure: /brochure (PDF)
